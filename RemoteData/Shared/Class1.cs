@@ -5,7 +5,7 @@ using System.Text;
 
 namespace RemoteData.Shared
 {
-    public class Class1
+    class Class1
     {
     }
 }
