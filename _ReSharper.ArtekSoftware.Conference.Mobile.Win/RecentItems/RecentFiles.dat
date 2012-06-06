@@ -1,12 +1,13 @@
 ﻿<RecentFiles>
   <RecentFiles>
-    <File id="1439B0EC-5C15-4B18-B4EB-8A2787ABDFDE/f:Conference.cs" caret="0" fromTop="0" />
-    <File id="85810EC4-3E4F-4A31-8379-8BF73CDD7C01/f:Tests.cs" caret="324" fromTop="16" />
-    <File id="1439B0EC-5C15-4B18-B4EB-8A2787ABDFDE/f:RemoteData.cs" caret="95" fromTop="1" />
+    <File id="85810EC4-3E4F-4A31-8379-8BF73CDD7C01/f:ConferenceTests.cs" caret="232" fromTop="11" />
+    <File id="85810EC4-3E4F-4A31-8379-8BF73CDD7C01/f:SpeakerTests.cs" caret="163" fromTop="7" />
+    <File id="85810EC4-3E4F-4A31-8379-8BF73CDD7C01/f:SessionTests.cs" caret="1117" fromTop="28" />
+    <File id="1439B0EC-5C15-4B18-B4EB-8A2787ABDFDE/f:RemoteData.cs" caret="815" fromTop="25" />
   </RecentFiles>
   <RecentEdits>
-    <File id="1439B0EC-5C15-4B18-B4EB-8A2787ABDFDE/f:Conference.cs" caret="88" fromTop="12" />
-    <File id="85810EC4-3E4F-4A31-8379-8BF73CDD7C01/f:Tests.cs" caret="220" fromTop="12" />
-    <File id="1439B0EC-5C15-4B18-B4EB-8A2787ABDFDE/f:RemoteData.cs" caret="427" fromTop="12" />
+    <File id="85810EC4-3E4F-4A31-8379-8BF73CDD7C01/f:ConferenceTests.cs" caret="694" fromTop="13" />
+    <File id="85810EC4-3E4F-4A31-8379-8BF73CDD7C01/f:SpeakerTests.cs" caret="627" fromTop="9" />
+    <File id="85810EC4-3E4F-4A31-8379-8BF73CDD7C01/f:SessionTests.cs" caret="918" fromTop="30" />
   </RecentEdits>
 </RecentFiles>

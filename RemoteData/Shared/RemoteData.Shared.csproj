@@ -48,9 +48,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Conference.cs" />
+    <Compile Include="Conference.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RemoteData.cs" />
+    <Compile Include="RemoteData.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Session.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Speaker.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
