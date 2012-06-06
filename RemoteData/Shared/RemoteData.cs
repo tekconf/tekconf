@@ -38,6 +38,11 @@ namespace RemoteData.Shared
       client.DownloadStringAsync(new Uri(url));
     }
 
+    public void SaveConference(Conference conference, Action<bool> callback)
+    {
+      callback(true);
+    }
+
     public void GetSpeakers(string conferenceSlug, Action<IList<Speaker>> callback)
     {
       string url = _baseUrl + "conferences/" + conferenceSlug + "/speakers";

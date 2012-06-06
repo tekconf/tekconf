@@ -1,5 +1,5 @@
-2012/06/05-23:35:54.909 1ccc Recovering log #35
-2012/06/05-23:35:54.909 1ccc Level-0 table #37: started
-2012/06/05-23:35:54.938 1ccc Level-0 table #37: 5743 bytes OK
-2012/06/05-23:35:54.972 1ccc Delete type=0 #35
-2012/06/05-23:35:54.972 1ccc Delete type=3 #33
+2012/06/06-13:00:19.950 1024 Recovering log #54
+2012/06/06-13:00:19.950 1024 Level-0 table #57: started
+2012/06/06-13:00:19.975 1024 Level-0 table #57: 11171 bytes OK
+2012/06/06-13:00:20.021 1024 Delete type=0 #54
+2012/06/06-13:00:20.021 1024 Delete type=3 #52
