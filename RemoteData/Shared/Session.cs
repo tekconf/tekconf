@@ -9,7 +9,7 @@ namespace RemoteData.Shared
     public string ConferenceSlug { get; set; }
     public string Title { get; set; }
     public DateTime Start { get; set; }
-    public string End { get; set; }
+    public DateTime End { get; set; }
     public string Room { get; set; }
     public string Difficulty { get; set; }
     public string Description { get; set; }

@@ -1,7 +1,7 @@
 ﻿@model RemoteData.Shared.Conference
 @{
-  ViewBag.Title = "Conference";
-  Layout = "../Shared/_Layout.cshtml";
+    ViewBag.Title = "Conference";
+    Layout = "../Shared/_Layout.cshtml";
 }
 <br />
 <br />
@@ -22,12 +22,16 @@
 <a href="@Model.MeetupUrl">@Model.MeetupUrl</a><br />
 
 <table class="table table-striped">
-  @foreach (var session in Model.Sessions)
-  {
-    <tr>
-      <td>
-        @Html.ActionLink(@session.Slug, "Details", "Session", new { conferenceSlug = session.ConferenceSlug, slug = session.Slug }, null)
-      </td>
-    </tr>
-  }
+    @if (Model.Sessions != null)
+    {
+        foreach (var session in Model.Sessions)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(@session.Slug, "Details", "Session", new {conferenceSlug = session.ConferenceSlug, slug = session.Slug}, null)
+                </td>
+            </tr>
+        }
+    }
 </table>
+@Html.ActionLink("Add Session", "Create", "Session")

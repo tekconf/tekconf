@@ -8,63 +8,59 @@ namespace ArtekSoftware.Conference.UI.Web.Controllers
 {
     public class SessionController : AsyncController
     {
-        //
-        // GET: /Session/
-
-        public ActionResult Index()
+        public void IndexAsync(string conferenceSlug)
         {
-            return View();
-        }
+            var remoteData = new RemoteData.Shared.RemoteData();
+            AsyncManager.OutstandingOperations.Increment();
+            remoteData.GetSessions(conferenceSlug, sessions =>
+            {
+                AsyncManager.Parameters["sessions"] = sessions;
+                AsyncManager.OutstandingOperations.Decrement();
+            });
 
-        //
-        // GET: /Session/Details/5
+        }
+        public ActionResult IndexCompleted(IList<RemoteData.Shared.Conference> conferences)
+        {
+            return View(conferences);
+        }
 
         public void DetailsAsync(string conferenceSlug, string slug)
         {
-          var remoteData = new RemoteData.Shared.RemoteData();
-          RemoteData.Shared.Session session = null;
-          AsyncManager.OutstandingOperations.Increment();
-          remoteData.GetSession(conferenceSlug, slug, c =>
-          {
-            session = c;
-            AsyncManager.Parameters["session"] = session;
-            AsyncManager.OutstandingOperations.Decrement();
-          });
+            var remoteData = new RemoteData.Shared.RemoteData();
+            AsyncManager.OutstandingOperations.Increment();
+            remoteData.GetSession(conferenceSlug, slug, session =>
+            {
+                AsyncManager.Parameters["session"] = session;
+                AsyncManager.OutstandingOperations.Decrement();
+            });
         }
 
         public ActionResult DetailsCompleted(RemoteData.Shared.Session session)
         {
-          return View(session);
+            return View(session);
         }
-
-        //
-        // GET: /Session/Create
 
         public ActionResult Create()
         {
             return View();
         }
 
-        //
-        // POST: /Session/Create
-
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public void CreateAsync(RemoteData.Shared.Session session)
         {
-            try
+            var remoteData = new RemoteData.Shared.RemoteData();
+            AsyncManager.OutstandingOperations.Increment();
+            remoteData.AddSession(session, b =>
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+                //AsyncManager.Parameters["conference"] = conference;
+                AsyncManager.OutstandingOperations.Decrement();
+            });
         }
 
-        //
-        // GET: /Session/Edit/5
+        public ActionResult CreateCompleted()
+        {
+            return RedirectToAction("Index");
+        }
 
         public ActionResult Edit(int id)
         {

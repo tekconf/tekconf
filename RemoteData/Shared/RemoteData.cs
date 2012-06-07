@@ -5,101 +5,128 @@ using ServiceStack.Text;
 
 namespace RemoteData.Shared
 {
-  public class RemoteData
-  {
-    private const string _baseUrl = "http://conferences.herokuapp.com/";
-
-    public void GetConferences(Action<IList<Conference>> callback)
+    public class RemoteData
     {
-      string url = _baseUrl + "conferences";
-      var client = new WebClient();
+        private const string _baseUrl = "http://localhost:10248/api/";
 
-      client.DownloadStringCompleted += (sender, args) =>
-                                            {
-                                              var conferences = JsonSerializer.DeserializeFromString<List<Conference>>(args.Result);
-                                              callback(conferences);
-                                            };
+        public void GetConferences(Action<IList<Conference>> callback)
+        {
+            string url = _baseUrl + "conferences";
+            var client = new WebClient();
+            client.Headers[HttpRequestHeader.ContentType] = "application/json";
+            client.Headers[HttpRequestHeader.Accept] = "application/json";
+            client.DownloadStringCompleted += (sender, args) =>
+                                                  {
+                                                      var conferences = JsonSerializer.DeserializeFromString<List<Conference>>(args.Result);
+                                                      callback(conferences);
+                                                  };
 
-      client.DownloadStringAsync(new Uri(url));
+            client.DownloadStringAsync(new Uri(url));
 
+        }
+
+        public void GetConference(string slug, Action<Conference> callback)
+        {
+            string url = _baseUrl + "conferences/" + slug;
+            var client = new WebClient();
+            client.Headers[HttpRequestHeader.ContentType] = "application/json";
+            client.Headers[HttpRequestHeader.Accept] = "application/json";
+            client.DownloadStringCompleted += (sender, args) =>
+            {
+                var conference = JsonSerializer.DeserializeFromString<Conference>(args.Result);
+                callback(conference);
+            };
+
+            client.DownloadStringAsync(new Uri(url));
+        }
+
+        public void AddConference(Conference conference, Action<bool> callback)
+        {
+            string url = _baseUrl + "conferences";
+            var client = new WebClient();
+            var conferenceJson = JsonSerializer.SerializeToString(conference);
+            client.Headers[HttpRequestHeader.ContentType] = "application/json";
+            client.Headers[HttpRequestHeader.Accept] = "application/json";
+            client.UploadStringCompleted += (sender, args) =>
+                                              {
+                                                  var x = args.Result;
+                                                  callback(true);
+                                              };
+            client.UploadStringAsync(new Uri(url), "POST", conferenceJson);
+
+        }
+
+        public void GetSpeakers(string conferenceSlug, Action<IList<Speaker>> callback)
+        {
+            string url = _baseUrl + "conferences/" + conferenceSlug + "/speakers";
+            var client = new WebClient();
+
+            client.DownloadStringCompleted += (sender, args) =>
+            {
+                var speakers = JsonSerializer.DeserializeFromString<List<Speaker>>(args.Result);
+                callback(speakers);
+            };
+
+            client.DownloadStringAsync(new Uri(url));
+
+        }
+
+        public void GetSpeaker(string conferenceSlug, string slug, Action<Speaker> callback)
+        {
+            string url = _baseUrl + "conferences/" + conferenceSlug + "/speakers/" + slug;
+            var client = new WebClient();
+
+            client.DownloadStringCompleted += (sender, args) =>
+            {
+                var speaker = JsonSerializer.DeserializeFromString<Speaker>(args.Result);
+                callback(speaker);
+            };
+
+            client.DownloadStringAsync(new Uri(url));
+        }
+
+        public void GetSessions(string conferenceSlug, Action<IList<Session>> callback)
+        {
+            string url = _baseUrl + "conferences/" + conferenceSlug + "/sessions";
+            var client = new WebClient();
+
+            client.DownloadStringCompleted += (sender, args) =>
+            {
+                var sessions = JsonSerializer.DeserializeFromString<List<Session>>(args.Result);
+                callback(sessions);
+            };
+
+            client.DownloadStringAsync(new Uri(url));
+
+        }
+
+        public void GetSession(string conferenceSlug, string slug, Action<Session> callback)
+        {
+            string url = _baseUrl + "conferences/" + conferenceSlug + "/sessions/" + slug;
+            var client = new WebClient();
+
+            client.DownloadStringCompleted += (sender, args) =>
+            {
+                var session = JsonSerializer.DeserializeFromString<Session>(args.Result);
+                callback(session);
+            };
+
+            client.DownloadStringAsync(new Uri(url));
+        }
+
+        public void AddSession(Session session, Action<bool> callback)
+        {
+            string url = _baseUrl + "conferences/" + session.ConferenceSlug + "/sessions";
+            var client = new WebClient();
+            var sessionJson = JsonSerializer.SerializeToString(session);
+            client.Headers[HttpRequestHeader.ContentType] = "application/json";
+            client.Headers[HttpRequestHeader.Accept] = "application/json";
+            client.UploadStringCompleted += (sender, args) =>
+            {
+                var x = args.Result;
+                callback(true);
+            };
+            client.UploadStringAsync(new Uri(url), "POST", sessionJson);
+        }
     }
-
-    public void GetConference(string slug, Action<Conference> callback)
-    {
-      string url = _baseUrl + "conferences/" + slug;
-      var client = new WebClient();
-
-      client.DownloadStringCompleted += (sender, args) =>
-      {
-        var conference = JsonSerializer.DeserializeFromString<Conference>(args.Result);
-        callback(conference);
-      };
-
-      client.DownloadStringAsync(new Uri(url));
-    }
-
-    public void SaveConference(Conference conference, Action<bool> callback)
-    {
-      callback(true);
-    }
-
-    public void GetSpeakers(string conferenceSlug, Action<IList<Speaker>> callback)
-    {
-      string url = _baseUrl + "conferences/" + conferenceSlug + "/speakers";
-      var client = new WebClient();
-
-      client.DownloadStringCompleted += (sender, args) =>
-      {
-        var speakers = JsonSerializer.DeserializeFromString<List<Speaker>>(args.Result);
-        callback(speakers);
-      };
-
-      client.DownloadStringAsync(new Uri(url));
-
-    }
-
-    public void GetSpeaker(string conferenceSlug, string slug, Action<Speaker> callback)
-    {
-      string url = _baseUrl + "conferences/" + conferenceSlug + "/speakers/" + slug;
-      var client = new WebClient();
-
-      client.DownloadStringCompleted += (sender, args) =>
-      {
-        var speaker = JsonSerializer.DeserializeFromString<Speaker>(args.Result);
-        callback(speaker);
-      };
-
-      client.DownloadStringAsync(new Uri(url));
-    }
-
-    public void GetSessions(string conferenceSlug, Action<IList<Session>> callback)
-    {
-      string url = _baseUrl + "conferences/" + conferenceSlug + "/sessions";
-      var client = new WebClient();
-
-      client.DownloadStringCompleted += (sender, args) =>
-      {
-        var sessions = JsonSerializer.DeserializeFromString<List<Session>>(args.Result);
-        callback(sessions);
-      };
-
-      client.DownloadStringAsync(new Uri(url));
-
-    }
-
-    public void GetSession(string conferenceSlug, string slug, Action<Session> callback)
-    {
-      string url = _baseUrl + "conferences/" + conferenceSlug + "/sessions/" + slug;
-      var client = new WebClient();
-
-      client.DownloadStringCompleted += (sender, args) =>
-      {
-        var session = JsonSerializer.DeserializeFromString<Session>(args.Result);
-        callback(session);
-      };
-
-      client.DownloadStringAsync(new Uri(url));
-    }
-
-  }
 }

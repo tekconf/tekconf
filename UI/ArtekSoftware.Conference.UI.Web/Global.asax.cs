@@ -9,9 +9,6 @@ using System.Web.Routing;
 
 namespace ArtekSoftware.Conference.UI.Web
 {
-  // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
-  // visit http://go.microsoft.com/?LinkId=9394801
-
   public class MvcApplication : System.Web.HttpApplication
   {
     public static void RegisterGlobalFilters(GlobalFilterCollection filters)
@@ -22,6 +19,8 @@ namespace ArtekSoftware.Conference.UI.Web
     public static void RegisterRoutes(RouteCollection routes)
     {
       routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+      routes.IgnoreRoute("api/{*pathInfo}");
+      routes.IgnoreRoute("{*favicon}", new { favicon = @"(.*/)?favicon.ico(/.*)?" }); //Prevent exceptions for favicon
 
       routes.MapHttpRoute(
           name: "DefaultApi",
@@ -44,6 +43,17 @@ namespace ArtekSoftware.Conference.UI.Web
       RegisterRoutes(RouteTable.Routes);
 
       BundleTable.Bundles.RegisterTemplateBundles();
+    }
+
+    protected void Application_BeginRequest(object src, EventArgs e)
+    {
+        if (Request.IsLocal)
+            ServiceStack.MiniProfiler.Profiler.Start();
+    }
+
+    protected void Application_EndRequest(object src, EventArgs e)
+    {
+        ServiceStack.MiniProfiler.Profiler.Stop();
     }
   }
 }

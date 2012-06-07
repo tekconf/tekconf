@@ -9,8 +9,7 @@ namespace ArtekSoftware.Conference.UI.Web.Controllers
 {
   public class ConferenceController : AsyncController
   {
-    //
-    // GET: /Conference/
+
     public void IndexAsync()
     {
       var remoteData = new RemoteData.Shared.RemoteData();
@@ -66,7 +65,7 @@ namespace ArtekSoftware.Conference.UI.Web.Controllers
     {
       var remoteData = new RemoteData.Shared.RemoteData();
       AsyncManager.OutstandingOperations.Increment();
-      remoteData.SaveConference(conference, b =>
+      remoteData.AddConference(conference, b =>
       {
         //AsyncManager.Parameters["conference"] = conference;
         AsyncManager.OutstandingOperations.Decrement();
