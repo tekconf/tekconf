@@ -1,0 +1,65 @@
+﻿@model RemoteData.Shared.Session
+@{
+  ViewBag.Title = "Conference";
+  Layout = "../Shared/_Layout.cshtml";
+}
+<br />
+<br />
+<br />
+<br />
+<h2>@Model.Slug</h2>
+
+@Model.ConferenceSlug<br />
+@Model.Title<br />
+@Model.Start<br />
+@Model.End<br />
+@Model.Room<br />
+@Model.Difficulty<br />
+@Model.Description<br />
+@Model.TwitterHashTag<br />
+@Model.SessionType<br />
+
+<table class="table table-striped">
+@foreach (var link in Model.Links)
+{
+    <tr>
+      <td>
+        <a href="@link">@link</a>
+      </td>
+    </tr>
+}    
+</table>
+
+<table class="table table-striped">
+@foreach (var tag in Model.Tags)
+{
+    <tr>
+      <td>
+        @tag
+      </td>
+    </tr>
+}    
+</table>
+
+
+<table class="table table-striped">
+@foreach (var subject in Model.Subjects)
+{
+    <tr>
+      <td>
+        @subject
+      </td>
+    </tr>
+}    
+</table>
+
+<table class="table table-striped">
+@foreach (var speaker in Model.Speakers)
+{
+    <tr>
+      <td>
+        @speaker
+      </td>
+    </tr>
+}    
+</table>
