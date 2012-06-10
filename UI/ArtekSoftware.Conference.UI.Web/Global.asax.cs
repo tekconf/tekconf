@@ -22,11 +22,11 @@ namespace ArtekSoftware.Conference.UI.Web
       routes.IgnoreRoute("api/{*pathInfo}");
       routes.IgnoreRoute("{*favicon}", new { favicon = @"(.*/)?favicon.ico(/.*)?" }); //Prevent exceptions for favicon
 
-      routes.MapHttpRoute(
-          name: "DefaultApi",
-          routeTemplate: "api/{controller}/{id}",
-          defaults: new { id = RouteParameter.Optional }
-      );
+      //routes.MapHttpRoute(
+      //    name: "DefaultApi",
+      //    routeTemplate: "api/{controller}/{id}",
+      //    defaults: new { id = RouteParameter.Optional }
+      //);
 
       routes.MapRoute(
           name: "Default",
