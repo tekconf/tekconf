@@ -19,47 +19,55 @@
 @Model.TwitterHashTag<br />
 @Model.SessionType<br />
 
-<table class="table table-striped">
-@foreach (var link in Model.Links)
+@if (Model.Links != null)
 {
-    <tr>
-      <td>
-        <a href="@link">@link</a>
-      </td>
-    </tr>
-}    
-</table>
-
-<table class="table table-striped">
-@foreach (var tag in Model.Tags)
+  <table class="table table-striped">
+    @foreach (var link in Model.Links)
+    {
+      <tr>
+        <td>
+          <a href="@link">@link</a>
+        </td>
+      </tr>
+    }
+  </table>
+}
+@if (Model.Tags != null)
 {
-    <tr>
-      <td>
-        @tag
-      </td>
-    </tr>
-}    
-</table>
-
-
-<table class="table table-striped">
-@foreach (var subject in Model.Subjects)
+  <table class="table table-striped">
+    @foreach (var tag in Model.Tags)
+    {
+      <tr>
+        <td>
+          @tag
+        </td>
+      </tr>
+    }
+  </table>
+}
+@if (Model.Subjects != null)
 {
-    <tr>
-      <td>
-        @subject
-      </td>
-    </tr>
-}    
-</table>
-
-<table class="table table-striped">
-@foreach (var speaker in Model.Speakers)
+  <table class="table table-striped">
+    @foreach (var subject in Model.Subjects)
+    {
+      <tr>
+        <td>
+          @subject
+        </td>
+      </tr>
+    }
+  </table>
+}
+@if (Model.Speakers != null)
 {
-    <tr>
-      <td>
-        @speaker
-      </td>
-    </tr>
-}    
-</table>
+  <table class="table table-striped">
+    @foreach (var speaker in Model.Speakers)
+    {
+      <tr>
+        <td>
+          @speaker
+        </td>
+      </tr>
+    }
+  </table>
+}
