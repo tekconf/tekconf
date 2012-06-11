@@ -19,9 +19,9 @@ namespace ArtekSoftware.Conference.UI.Web.Controllers
             });
 
         }
-        public ActionResult IndexCompleted(IList<RemoteData.Shared.Conference> conferences)
+        public ActionResult IndexCompleted(List<RemoteData.Shared.Session> sessions)
         {
-            return View(conferences);
+            return View(sessions);
         }
 
         public void DetailsAsync(string conferenceSlug, string slug)

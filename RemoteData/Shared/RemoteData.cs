@@ -5,22 +5,24 @@ using ServiceStack.Text;
 
 namespace RemoteData.Shared
 {
-    public class RemoteData
+  public class RemoteData
+  {
+    private const string _baseUrl = "http://localhost:10248/api/";
+    //private const string _baseUrl = "http://conference.azurewebsites.net/api/";
+    
+    public void GetConferences(Action<IList<Conference>> callback)
     {
-        //private const string _baseUrl = "http://localhost:10248/api/";
-        private const string _baseUrl = "http://conference.azurewebsites.net/api/";
-      
-        public void GetConferences(Action<IList<Conference>> callback)
-        {
-            string url = _baseUrl + "conferences";
-            var client = new WebClient();
-            client.Headers[HttpRequestHeader.ContentType] = "application/json";
-            client.Headers[HttpRequestHeader.Accept] = "application/json";
-            client.DownloadStringCompleted += (sender, args) =>
-                                                  {
-                                                      var conferences = JsonSerializer.DeserializeFromString<List<Conference>>(args.Result);
-                                                      callback(conferences);
-                                                  };
+      string url = _baseUrl + "conferences";
+
+      var client = new WebClient();
+      client.Headers[HttpRequestHeader.ContentType] = "application/json";
+      client.Headers[HttpRequestHeader.Accept] = "application/json";
+
+      client.DownloadStringCompleted += (sender, args) =>
+                                            {
+                                              var conferences = JsonSerializer.DeserializeFromString<List<Conference>>(args.Result);
+                                              callback(conferences);
+                                            };
 
             client.DownloadStringAsync(new Uri(url));
 
@@ -41,26 +43,31 @@ namespace RemoteData.Shared
             client.DownloadStringAsync(new Uri(url));
         }
 
-        public void AddConference(Conference conference, Action<bool> callback)
-        {
-            string url = _baseUrl + "conferences";
-            var client = new WebClient();
-            var conferenceJson = JsonSerializer.SerializeToString(conference);
-            client.Headers[HttpRequestHeader.ContentType] = "application/json";
-            client.Headers[HttpRequestHeader.Accept] = "application/json";
-            client.UploadStringCompleted += (sender, args) =>
-                                              {
-                                                  var x = args.Result;
-                                                  callback(true);
-                                              };
-            client.UploadStringAsync(new Uri(url), "POST", conferenceJson);
+    public void AddConference(Conference conference, Action<bool> callback)
+    {
+      string url = _baseUrl + "conferences";
+      var conferenceJson = JsonSerializer.SerializeToString(conference);
+
+      var client = new WebClient();
+      client.Headers[HttpRequestHeader.ContentType] = "application/json";
+      client.Headers[HttpRequestHeader.Accept] = "application/json";
+
+      client.UploadStringCompleted += (sender, args) =>
+                                        {
+                                          var x = args.Result;
+                                          callback(true);
+                                        };
+      client.UploadStringAsync(new Uri(url), "POST", conferenceJson);
 
         }
 
-        public void GetSpeakers(string conferenceSlug, Action<IList<Speaker>> callback)
-        {
-            string url = _baseUrl + "conferences/" + conferenceSlug + "/speakers";
-            var client = new WebClient();
+    public void GetSpeakers(string conferenceSlug, Action<IList<Speaker>> callback)
+    {
+      string url = _baseUrl + "conferences/" + conferenceSlug + "/speakers";
+
+      var client = new WebClient();
+      client.Headers[HttpRequestHeader.ContentType] = "application/json";
+      client.Headers[HttpRequestHeader.Accept] = "application/json";
 
             client.DownloadStringCompleted += (sender, args) =>
             {
@@ -72,10 +79,13 @@ namespace RemoteData.Shared
 
         }
 
-        public void GetSpeaker(string conferenceSlug, string slug, Action<Speaker> callback)
-        {
-            string url = _baseUrl + "conferences/" + conferenceSlug + "/speakers/" + slug;
-            var client = new WebClient();
+    public void GetSpeaker(string conferenceSlug, string slug, Action<Speaker> callback)
+    {
+      string url = _baseUrl + "conferences/" + conferenceSlug + "/speakers/" + slug;
+
+      var client = new WebClient();
+      client.Headers[HttpRequestHeader.ContentType] = "application/json";
+      client.Headers[HttpRequestHeader.Accept] = "application/json";
 
             client.DownloadStringCompleted += (sender, args) =>
             {
@@ -86,10 +96,13 @@ namespace RemoteData.Shared
             client.DownloadStringAsync(new Uri(url));
         }
 
-        public void GetSessions(string conferenceSlug, Action<IList<Session>> callback)
-        {
-            string url = _baseUrl + "conferences/" + conferenceSlug + "/sessions";
-            var client = new WebClient();
+    public void GetSessions(string conferenceSlug, Action<IList<Session>> callback)
+    {
+      string url = _baseUrl + "conferences/" + conferenceSlug + "/sessions";
+
+      var client = new WebClient();
+      client.Headers[HttpRequestHeader.ContentType] = "application/json";
+      client.Headers[HttpRequestHeader.Accept] = "application/json";
 
             client.DownloadStringCompleted += (sender, args) =>
             {
@@ -101,10 +114,14 @@ namespace RemoteData.Shared
 
         }
 
-        public void GetSession(string conferenceSlug, string slug, Action<Session> callback)
-        {
-            string url = _baseUrl + "conferences/" + conferenceSlug + "/sessions/" + slug;
-            var client = new WebClient();
+
+    public void GetSession(string conferenceSlug, string slug, Action<Session> callback)
+    {
+      string url = _baseUrl + "conferences/" + conferenceSlug + "/sessions/" + slug;
+
+      var client = new WebClient();
+      client.Headers[HttpRequestHeader.ContentType] = "application/json";
+      client.Headers[HttpRequestHeader.Accept] = "application/json";
 
             client.DownloadStringCompleted += (sender, args) =>
             {
@@ -115,19 +132,21 @@ namespace RemoteData.Shared
             client.DownloadStringAsync(new Uri(url));
         }
 
-        public void AddSession(Session session, Action<bool> callback)
-        {
-            string url = _baseUrl + "conferences/" + session.ConferenceSlug + "/sessions";
-            var client = new WebClient();
-            var sessionJson = JsonSerializer.SerializeToString(session);
-            client.Headers[HttpRequestHeader.ContentType] = "application/json";
-            client.Headers[HttpRequestHeader.Accept] = "application/json";
-            client.UploadStringCompleted += (sender, args) =>
-            {
-                var x = args.Result;
-                callback(true);
-            };
-            client.UploadStringAsync(new Uri(url), "POST", sessionJson);
-        }
+    public void AddSession(Session session, Action<bool> callback)
+    {
+      string url = _baseUrl + "conferences/" + session.ConferenceSlug + "/sessions";
+
+      var client = new WebClient();
+      client.Headers[HttpRequestHeader.ContentType] = "application/json";
+      client.Headers[HttpRequestHeader.Accept] = "application/json";
+
+      var sessionJson = JsonSerializer.SerializeToString(session);
+      client.UploadStringCompleted += (sender, args) =>
+      {
+        var x = args.Result;
+        callback(true);
+      };
+      client.UploadStringAsync(new Uri(url), "POST", sessionJson);
     }
+  }
 }

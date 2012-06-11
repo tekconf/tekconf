@@ -1,8 +1,17 @@
-﻿@model dynamic
+﻿@model List<RemoteData.Shared.Session>
 
 @{
-  ViewBag.Title = "title";
-  Layout = "_Layout";
+  ViewBag.Title = "Conference";
+  Layout = "../Shared/_Layout.cshtml";
 }
 
-<h2>title</h2>
+<table class="table table-striped">
+@foreach (var session in Model)
+{
+  <tr>
+      <td>
+        @Html.ActionLink(session.Slug, "Details", new { conferenceSlug = session.ConferenceSlug, slug = session.Slug })
+      </td>
+    </tr>
+}
+</table>
