@@ -7,8 +7,9 @@ namespace RemoteData.Shared
 {
     public class RemoteData
     {
-        private const string _baseUrl = "http://localhost:10248/api/";
-
+        //private const string _baseUrl = "http://localhost:10248/api/";
+        private const string _baseUrl = "http://conference.azurewebsites.net/api/";
+      
         public void GetConferences(Action<IList<Conference>> callback)
         {
             string url = _baseUrl + "conferences";
