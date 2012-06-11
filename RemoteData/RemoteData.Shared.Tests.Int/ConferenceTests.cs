@@ -12,10 +12,12 @@ namespace RemoteData.Shared.Tests.Int
   [TestFixture]
   public class ConferenceTests
   {
+    private const string _baseUrl = "http://localhost:10248/api/";
+    //private const string _baseUrl = "http://conference.azurewebsites.net/api/";
     [Test]
     public void GetConferences()
     {
-      RemoteData remoteData = new RemoteData();
+      RemoteData remoteData = new RemoteData(_baseUrl);
       IList<Conference> conferences = null;
       remoteData.GetConferences(c =>
                                      {
@@ -42,7 +44,7 @@ namespace RemoteData.Shared.Tests.Int
     [Test]
     public void GetConference()
     {
-      RemoteData remoteData = new RemoteData();
+      RemoteData remoteData = new RemoteData(_baseUrl);
       Conference conference = null;
       string slug = "CodeMash-2013";
       remoteData.GetConference(slug, c =>

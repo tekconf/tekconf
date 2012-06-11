@@ -9,12 +9,14 @@ namespace RemoteData.Shared.Tests.Int
   [TestFixture]
   public class SessionTests
   {
+    private const string _baseUrl = "http://localhost:10248/api/";
+    //private const string _baseUrl = "http://conference.azurewebsites.net/api/";
     [Test]
     public void GetSessions()
     {
       var slug = "Android-Pro-Tips";
       var conferenceSlug = "CodeMash-2013";
-      RemoteData remoteData = new RemoteData();
+      RemoteData remoteData = new RemoteData(_baseUrl);
       IList<Session> sessions = null;
       remoteData.GetSessions(conferenceSlug, s =>
                                                {
@@ -41,7 +43,7 @@ namespace RemoteData.Shared.Tests.Int
     [Test]
     public void GetSession()
     {
-      RemoteData remoteData = new RemoteData();
+      RemoteData remoteData = new RemoteData(_baseUrl);
       Session session = null;
       string conferenceSlug = "CodeMash-2013";
       string slug = "Android-Pro-Tips";

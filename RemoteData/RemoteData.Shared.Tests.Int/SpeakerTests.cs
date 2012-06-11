@@ -9,12 +9,15 @@ namespace RemoteData.Shared.Tests.Int
   [TestFixture]
   public class SpeakerTests
   {
+    private const string _baseUrl = "http://localhost:10248/api/";
+    //private const string _baseUrl = "http://conference.azurewebsites.net/api/";
+    
     [Test]
     public void GetSpeakers()
     {
       var slug = "Speaker-Slug2";
       var conferenceSlug = "CodeMash-2013";
-      RemoteData remoteData = new RemoteData();
+      RemoteData remoteData = new RemoteData(_baseUrl);
       IList<Speaker> speakers = null;
       remoteData.GetSpeakers(conferenceSlug, s =>
                                                {
@@ -41,7 +44,7 @@ namespace RemoteData.Shared.Tests.Int
     [Test]
     public void GetSpeaker()
     {
-      RemoteData remoteData = new RemoteData();
+      RemoteData remoteData = new RemoteData(_baseUrl);
       Speaker speaker = null;
       string conferenceSlug = "CodeMash-2013";
       string slug = "Speaker-Slug2";

@@ -1,18 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
+using System.Configuration;
 using System.Web.Mvc;
-
 
 namespace ArtekSoftware.Conference.UI.Web.Controllers
 {
   public class ConferenceController : AsyncController
   {
+    public string BaseUrl()
+    {
+      return ConfigurationManager.AppSettings["baseUrl"];
+    }
 
     public void IndexAsync()
     {
-      var remoteData = new RemoteData.Shared.RemoteData();
+      var remoteData = new RemoteData.Shared.RemoteData(BaseUrl());
       IList<RemoteData.Shared.Conference> conferences = null;
       AsyncManager.OutstandingOperations.Increment();
       remoteData.GetConferences(c =>
@@ -33,7 +34,7 @@ namespace ArtekSoftware.Conference.UI.Web.Controllers
 
     public void DetailsAsync(string slug)
     {
-      var remoteData = new RemoteData.Shared.RemoteData();
+      var remoteData = new RemoteData.Shared.RemoteData(BaseUrl());
       RemoteData.Shared.Conference conference = null;
       AsyncManager.OutstandingOperations.Increment();
       remoteData.GetConference(slug, c =>
@@ -63,7 +64,7 @@ namespace ArtekSoftware.Conference.UI.Web.Controllers
     [HttpPost]
     public void CreateAsync(RemoteData.Shared.Conference conference)
     {
-      var remoteData = new RemoteData.Shared.RemoteData();
+      var remoteData = new RemoteData.Shared.RemoteData(BaseUrl());
       AsyncManager.OutstandingOperations.Increment();
       remoteData.AddConference(conference, b =>
       {

@@ -341,6 +341,10 @@
     <Content Include="Views\Session\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
+    <None Include="Properties\PublishProfiles\conference - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\conference - Web Deploy.pubxml" />
+=======
     <Content Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -349,6 +353,7 @@
     <Content Include="Views\Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
+>>>>>>> 190e92eb83efbb4b7054563b38d29cc24fedf310
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
