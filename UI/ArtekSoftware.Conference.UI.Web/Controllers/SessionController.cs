@@ -25,6 +25,7 @@ namespace ArtekSoftware.Conference.UI.Web.Controllers
       });
 
     }
+    
     public ActionResult IndexCompleted(List<RemoteData.Shared.Session> sessions)
     {
       return View(sessions);
@@ -73,9 +74,6 @@ namespace ArtekSoftware.Conference.UI.Web.Controllers
       return View();
     }
 
-    //
-    // POST: /Session/Edit/5
-
     [HttpPost]
     public ActionResult Edit(int id, FormCollection collection)
     {
@@ -91,16 +89,10 @@ namespace ArtekSoftware.Conference.UI.Web.Controllers
       }
     }
 
-    //
-    // GET: /Session/Delete/5
-
     public ActionResult Delete(int id)
     {
       return View();
     }
-
-    //
-    // POST: /Session/Delete/5
 
     [HttpPost]
     public ActionResult Delete(int id, FormCollection collection)

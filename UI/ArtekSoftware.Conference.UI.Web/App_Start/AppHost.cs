@@ -52,6 +52,9 @@ namespace ArtekSoftware.Conference.UI.Web.App_Start
                 .Add<Conference>("/conferences/{slug}")
                 .Add<Session>("/conferences/{conferenceSlug}/sessions")
                 .Add<Session>("/conferences/{conferenceSlug}/sessions/{slug}")
+                .Add<Speaker>("/conferences/{conferenceSlug}/sessions/{sessionSlug}/speakers")
+                .Add<Speaker>("/conferences/{conferenceSlug}/speakers")
+
                 ;
       //http://localhost:10248/api/conferences/ThatConference-2012/sessions/xna-afraid-to-ask
 			//Change the default ServiceStack configuration
