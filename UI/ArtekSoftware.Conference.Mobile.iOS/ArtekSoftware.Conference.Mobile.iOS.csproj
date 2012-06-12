@@ -102,4 +102,10 @@
     <InterfaceDefinition Include="DetailViewController_iPad.xib" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\..\RemoteData\iOS\RemoteData.iOS.csproj">
+      <Project>{CF44A2C3-42DF-4970-9618-E6AE3AF31603}</Project>
+      <Name>RemoteData.iOS</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>

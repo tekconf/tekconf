@@ -63,4 +63,10 @@
       <UserProperties ProjectLinkReference="1439b0ec-5c15-4b18-b4eb-8a2787abdfde" ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" />
     </VisualStudio>
   </ProjectExtensions>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\ServiceStack.Text\src\ServiceStack.Text.MonoTouch\ServiceStack.Text.MonoTouch\ServiceStack.Text.MonoTouch.csproj">
+      <Project>{1137B5AC-2259-413C-A473-93721D2A7551}</Project>
+      <Name>ServiceStack.Text.MonoTouch</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>

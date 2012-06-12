@@ -3,11 +3,17 @@ using System.Drawing;
 
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using System.Linq;
+using System.Threading;
+using System.Collections.Generic;
 
 namespace ArtekSoftware.Conference.Mobile.iOS
 {
 	public partial class RootViewController : UITableViewController
 	{
+		private RemoteData.Shared.RemoteData _client;
+		private string _baseUrl = "http://conference.azurewebsites.net/api/";
+
 		static bool UserInterfaceIdiomIsPhone {
 			get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone; }
 		}
@@ -26,10 +32,31 @@ namespace ArtekSoftware.Conference.Mobile.iOS
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-			
+
+			_client = new RemoteData.Shared.RemoteData(_baseUrl);
+
+			var loading = new UIAlertView(" Downloading Conferences", "Please wait...", null, null, null);
+
+			loading.Show();
+
+			var indicator = new UIActivityIndicatorView( UIActivityIndicatorViewStyle.WhiteLarge); 
+			indicator.Center = new System.Drawing.PointF( loading.Bounds.Width / 2, loading.Bounds.Size.Height - 40); 
+			indicator.StartAnimating(); 
+			loading.AddSubview( indicator);
+
+			_client.GetConferences(conferences => 
+			                         { 
+										InvokeOnMainThread(() => 
+				                   		{ 
+											TableView.Source = new ConferenceTableViewSource(conferences); 
+											TableView.ReloadData(); 
+											loading.DismissWithClickedButtonIndex( 0, true); 
+										});
+									});
+
 			// Perform any additional setup after loading the view, typically from a nib.
 			
-			this.TableView.Source = new DataSource (this);
+			//this.TableView.Source = new DataSource (this);
 			
 			if (!UserInterfaceIdiomIsPhone)
 				this.TableView.SelectRow (
@@ -68,7 +95,45 @@ namespace ArtekSoftware.Conference.Mobile.iOS
 			
 			ReleaseDesignerOutlets ();
 		}
-		
+
+public class ConferenceTableViewSource : UITableViewSource 
+		{ 
+			private readonly IList<RemoteData.Shared.Conference> _conferences; 
+			private const string ConferenceCell = "ConferenceCell"; 
+			public ConferenceTableViewSource(IList<RemoteData.Shared.Conference> conferences) 
+			{ 
+				_conferences = conferences; 
+			} 
+			public override int RowsInSection(UITableView tableView, int section) 
+			{ 
+				return _conferences.Count; 
+			} 
+			public override float GetHeightForRow(UITableView tableView, NSIndexPath indexPath) 
+			{ 
+				return 60; 
+			} 
+			public override UITableViewCell GetCell( UITableView tableView, NSIndexPath indexPath) 
+			{ 
+				var cell = tableView.DequeueReusableCell(ConferenceCell) ?? new UITableViewCell(UITableViewCellStyle.Subtitle, ConferenceCell); 
+				var conference = _conferences[indexPath.Row]; 
+				cell.TextLabel.Text = conference.Name; 
+				cell.DetailTextLabel.Text = conference.Start.ToLocalTime().ToString(); 
+				return cell; 
+			} 
+
+			public override void RowSelected( UITableView tableView, NSIndexPath indexPath) 
+			{ 
+				var selectedConference = _conferences[ indexPath.Row]; 
+				new UIAlertView("View Conference", selectedConference.Name, null, "Ok", null).Show(); 
+			} 
+		} 
+	 
+
+
+
+
+
+
 		class DataSource : UITableViewSource
 		{
 			RootViewController controller;
@@ -100,12 +165,12 @@ namespace ArtekSoftware.Conference.Mobile.iOS
 						cell.Accessory = UITableViewCellAccessory.DisclosureIndicator;
 					}
 				}
-				
+
 				// Configure the cell.
-				cell.TextLabel.Text = NSBundle.MainBundle.LocalizedString (
-					"Detail",
-					"Detail"
-				);
+				//cell.TextLabel.Text = NSBundle.MainBundle.LocalizedString (
+				//	"Detail",
+				//	"Detail"
+				//);
 				return cell;
 			}
 
