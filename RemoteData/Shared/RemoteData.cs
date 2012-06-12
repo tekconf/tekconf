@@ -14,13 +14,13 @@ namespace RemoteData.Shared
     }
     //private const string _baseUrl = "http://localhost:10248/api/";
     ////private const string _baseUrl = "http://conference.azurewebsites.net/api/";
-    
+
     public void GetConferences(Action<IList<Conference>> callback)
     {
       string url = _baseUrl + "conferences";
 
       var client = new WebClient();
-      client.Headers[HttpRequestHeader.ContentType] = "application/json";
+      //client.Headers[HttpRequestHeader.ContentType] = "application/json";
       client.Headers[HttpRequestHeader.Accept] = "application/json";
 
       client.DownloadStringCompleted += (sender, args) =>
@@ -36,11 +36,9 @@ namespace RemoteData.Shared
     public void GetConference(string slug, Action<Conference> callback)
     {
       string url = _baseUrl + "conferences/" + slug;
-
       var client = new WebClient();
       client.Headers[HttpRequestHeader.ContentType] = "application/json";
       client.Headers[HttpRequestHeader.Accept] = "application/json";
-
       client.DownloadStringCompleted += (sender, args) =>
       {
         var conference = JsonSerializer.DeserializeFromString<Conference>(args.Result);
