@@ -7,7 +7,16 @@
            xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Navigation"
            d:DesignWidth="640" d:DesignHeight="480"
            Title="Sessions Page">
-    <Grid x:Name="LayoutRoot">
-    <ListBox Height="456" HorizontalAlignment="Left" Margin="12,12,0,0" Name="listBox1" VerticalAlignment="Top" Width="228" />
+
+  <Grid x:Name="LayoutRoot">
+    <ListBox Height="456" HorizontalAlignment="Left" Margin="12,12,0,0" Name="SessionsList" DisplayMemberPath="Name" VerticalAlignment="Top" Width="228">
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <StackPanel Orientation="Horizontal">
+            <TextBlock Text="{Binding Name}" Margin="5" />
+          </StackPanel>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
   </Grid>
 </navigation:Page>
