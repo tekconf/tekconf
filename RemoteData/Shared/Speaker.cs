@@ -5,5 +5,8 @@ namespace RemoteData.Shared
     public string Slug { get; set; }
     public string FirstName { get; set; }
     public string LastName { get; set; }
+    public string ConferenceSlug { get; set; }
+    public string SessionSlug { get; set; }
+
   }
 }
