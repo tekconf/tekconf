@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -11,11 +11,11 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Windows.Navigation;
 
-namespace ArtekSoftware.Conference.Mobile.SL
+namespace ArtekSoftware.Conference.Mobile.SL.Views
 {
-  public partial class Home : Page
+  public partial class Speakers : Page
   {
-    public Home()
+    public Speakers()
     {
       InitializeComponent();
     }

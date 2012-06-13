@@ -7,33 +7,34 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" mc:Ignorable="d"
     d:DesignWidth="640" d:DesignHeight="300">
 
-    <Border Style="{StaticResource ContentBorderStyle}">
+  <Border Style="{StaticResource ContentBorderStyle}">
 
-        <Grid x:Name="LayoutRoot" Style="{StaticResource LayoutRootGridStyle}">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+    <Grid x:Name="LayoutRoot" Style="{StaticResource LayoutRootGridStyle}">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="*"/>
+      </Grid.RowDefinitions>
 
-            <Border x:Name="BrandingBorder" Style="{StaticResource NavBrandingBorderStyle}">
-                <StackPanel x:Name="BrandingStackPanel" Style="{StaticResource BrandingStackPanelStyle}" >
-                    <ContentControl Style="{StaticResource LogoIcon}" />
-                    <TextBlock x:Name="ApplicationNameTextBlock" Style="{StaticResource ApplicationNameStyle}" Text="Application Name" />
-                </StackPanel>
-            </Border>
+      <Border x:Name="BrandingBorder" Style="{StaticResource NavBrandingBorderStyle}">
+        <StackPanel x:Name="BrandingStackPanel" Style="{StaticResource BrandingStackPanelStyle}" >
+          <ContentControl Style="{StaticResource LogoIcon}" />
+          <TextBlock x:Name="ApplicationNameTextBlock" Style="{StaticResource ApplicationNameStyle}" Text="Application Name" />
+        </StackPanel>
+      </Border>
 
-            <Border x:Name="LinksBorder" Style="{StaticResource NavLinksBorderStyle}">
-                <StackPanel x:Name="LinksStackPanel" Style="{StaticResource LinksStackPanelStyle}">
-                    <HyperlinkButton Style="{StaticResource LinkStyle}" NavigateUri="Home" TargetName="ContentFrame" Content="home" />
-                    <HyperlinkButton Style="{StaticResource LinkStyle}" NavigateUri="About" TargetName="ContentFrame" Content="about" />
-                </StackPanel>
-            </Border>
+      <Border x:Name="LinksBorder" Style="{StaticResource NavLinksBorderStyle}">
+        <StackPanel x:Name="LinksStackPanel" Style="{StaticResource LinksStackPanelStyle}">
+          <HyperlinkButton Style="{StaticResource LinkStyle}" NavigateUri="Sessions" TargetName="ContentFrame" Content="sessions" />
+          <HyperlinkButton Style="{StaticResource LinkStyle}" NavigateUri="Speakers" TargetName="ContentFrame" Content="speakers" />
+          <HyperlinkButton Style="{StaticResource LinkStyle}" NavigateUri="Schedule" TargetName="ContentFrame" Content="my schedule" />
+        </StackPanel>
+      </Border>
 
-            <Border x:Name="ContentBorder" Style="{StaticResource NavContentBorderStyle}">
-                <navigation:Frame x:Name="ContentFrame" Style="{StaticResource NavContentFrameStyle}" Navigated="ContentFrame_Navigated" NavigationFailed="ContentFrame_NavigationFailed" />
-            </Border>
+      <Border x:Name="ContentBorder" Style="{StaticResource NavContentBorderStyle}">
+        <navigation:Frame x:Name="ContentFrame" Style="{StaticResource NavContentFrameStyle}" Navigated="ContentFrame_Navigated" NavigationFailed="ContentFrame_NavigationFailed" />
+      </Border>
 
-        </Grid>
-    </Border>
+    </Grid>
+  </Border>
 </UserControl>

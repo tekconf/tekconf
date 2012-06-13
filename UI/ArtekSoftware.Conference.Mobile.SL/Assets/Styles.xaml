@@ -266,7 +266,7 @@
         <Setter Property="UriMapper">
             <Setter.Value>
                 <uriMapper:UriMapper>
-                    <uriMapper:UriMapping MappedUri="/Views/Home.xaml" Uri="" />
+                    <uriMapper:UriMapping MappedUri="/Views/Sessions.xaml" Uri="" />
                     <uriMapper:UriMapping MappedUri="/Views/{pageName}.xaml" Uri="/{pageName}" />
                     <uriMapper:UriMapping MappedUri="/Views/{pageName}.xaml" Uri="{}{pageName}" />
                 </uriMapper:UriMapper>
