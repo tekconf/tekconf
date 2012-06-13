@@ -11,7 +11,6 @@ namespace ArtekSoftware.Conference.Mobile.SL.Views
       InitializeComponent();
     }
 
-    // Executes when the user navigates to this page.
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
       base.OnNavigatedTo(e);
@@ -19,12 +18,18 @@ namespace ArtekSoftware.Conference.Mobile.SL.Views
       var client = new RemoteData.Shared.RemoteData(baseUrl);
       client.GetConferences(conferences =>
       {
-        //Deployment.Current.Dispatcher.BeginInvoke(() =>
-        //{
-          SessionsList.ItemsSource = conferences;
+        Deployment.Current.Dispatcher.BeginInvoke(() =>
+        {
+          DataContext = conferences;
           //Loading.Visibility = Visibility.Collapsed;
-        //});
+        });
       });
+    }
+
+    private void ConferenceSelected(object sender, SelectionChangedEventArgs e)
+    {
+      var conference = (RemoteData.Shared.Conference)e.AddedItems[0];
+      MessageBox.Show(conference.Name, "Full Conference", MessageBoxButton.OK);
     }
 
   }
