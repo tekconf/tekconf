@@ -37,7 +37,7 @@ namespace RemoteData.Shared
     {
       string url = _baseUrl + "conferences/" + slug;
       var client = new WebClient();
-      client.Headers[HttpRequestHeader.ContentType] = "application/json";
+      //client.Headers[HttpRequestHeader.ContentType] = "application/json";
       client.Headers[HttpRequestHeader.Accept] = "application/json";
       client.DownloadStringCompleted += (sender, args) =>
       {
@@ -54,7 +54,7 @@ namespace RemoteData.Shared
       var conferenceJson = JsonSerializer.SerializeToString(conference);
 
       var client = new WebClient();
-      client.Headers[HttpRequestHeader.ContentType] = "application/json";
+      //client.Headers[HttpRequestHeader.ContentType] = "application/json";
       client.Headers[HttpRequestHeader.Accept] = "application/json";
 
       client.UploadStringCompleted += (sender, args) =>
@@ -71,7 +71,7 @@ namespace RemoteData.Shared
       string url = _baseUrl + "conferences/" + conferenceSlug + "/speakers";
 
       var client = new WebClient();
-      client.Headers[HttpRequestHeader.ContentType] = "application/json";
+      //client.Headers[HttpRequestHeader.ContentType] = "application/json";
       client.Headers[HttpRequestHeader.Accept] = "application/json";
 
       client.DownloadStringCompleted += (sender, args) =>
@@ -89,7 +89,7 @@ namespace RemoteData.Shared
       string url = _baseUrl + "conferences/" + conferenceSlug + "/speakers/" + slug;
 
       var client = new WebClient();
-      client.Headers[HttpRequestHeader.ContentType] = "application/json";
+      //client.Headers[HttpRequestHeader.ContentType] = "application/json";
       client.Headers[HttpRequestHeader.Accept] = "application/json";
 
       client.DownloadStringCompleted += (sender, args) =>
@@ -106,7 +106,7 @@ namespace RemoteData.Shared
       string url = _baseUrl + "conferences/" + conferenceSlug + "/sessions";
 
       var client = new WebClient();
-      client.Headers[HttpRequestHeader.ContentType] = "application/json";
+      //client.Headers[HttpRequestHeader.ContentType] = "application/json";
       client.Headers[HttpRequestHeader.Accept] = "application/json";
 
       client.DownloadStringCompleted += (sender, args) =>
@@ -125,7 +125,7 @@ namespace RemoteData.Shared
       string url = _baseUrl + "conferences/" + conferenceSlug + "/sessions/" + slug;
 
       var client = new WebClient();
-      client.Headers[HttpRequestHeader.ContentType] = "application/json";
+      //client.Headers[HttpRequestHeader.ContentType] = "application/json";
       client.Headers[HttpRequestHeader.Accept] = "application/json";
 
       client.DownloadStringCompleted += (sender, args) =>
@@ -142,7 +142,7 @@ namespace RemoteData.Shared
       string url = _baseUrl + "conferences/" + session.ConferenceSlug + "/sessions";
 
       var client = new WebClient();
-      client.Headers[HttpRequestHeader.ContentType] = "application/json";
+      //client.Headers[HttpRequestHeader.ContentType] = "application/json";
       client.Headers[HttpRequestHeader.Accept] = "application/json";
 
       var sessionJson = JsonSerializer.SerializeToString(session);

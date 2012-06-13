@@ -5,15 +5,17 @@
            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
            mc:Ignorable="d"
            xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Navigation"
-           d:DesignWidth="640" d:DesignHeight="480"
+           d:DesignWidth="640" 
+           d:DesignHeight="480"
            Title="Sessions Page">
 
   <Grid x:Name="LayoutRoot">
-    <ListBox Height="456" HorizontalAlignment="Left" Margin="12,12,0,0" Name="SessionsList" DisplayMemberPath="Name" VerticalAlignment="Top" Width="228">
+    <ListBox x:Name="Items" Margin="0,0,-12,0" ItemsSource="{Binding}" SelectionChanged="ConferenceSelected">
       <ListBox.ItemTemplate>
         <DataTemplate>
-          <StackPanel Orientation="Horizontal">
-            <TextBlock Text="{Binding Name}" Margin="5" />
+          <StackPanel Margin="0,15,0,15">
+            <TextBlock Text="{Binding Name}" TextTrimming="WordEllipsis" Style="{ StaticResource PhoneTextNormalStyle}" />
+            <TextBlock Text="{Binding Start}" Style="{StaticResource PhoneTextSmallStyle}" />
           </StackPanel>
         </DataTemplate>
       </ListBox.ItemTemplate>

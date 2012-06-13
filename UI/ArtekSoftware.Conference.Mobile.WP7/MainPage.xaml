@@ -23,21 +23,26 @@
       <TextBlock x:Name="ApplicationTitle" Text="Conferences" Style="{ StaticResource PhoneTextNormalStyle}" />
       <TextBlock x:Name="PageTitle" Text="@Conferences" Margin="9,-7,0,0" Style="{ StaticResource PhoneTextTitle1Style}" />
     </StackPanel>
+
     <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
       <StackPanel x:Name="Loading">
         <ProgressBar IsIndeterminate="True" />
-        <TextBlock TextAlignment="Center" Text="Downloading conferences, please wait..." />
+        <TextBlock TextAlignment="Center" Text="Downloading sessions, please wait..." />
       </StackPanel>
+
       <ListBox x:Name="Items" Margin="0,0,-12,0" ItemsSource="{Binding}" SelectionChanged="ConferenceSelected">
         <ListBox.ItemTemplate>
           <DataTemplate>
             <StackPanel Margin="0,15,0,15">
-              <TextBlock Text="{Binding Name}" TextTrimming="WordEllipsis" Style="{ StaticResource PhoneTextNormalStyle}" />
+              <TextBlock Text="{Binding Title}" TextTrimming="WordEllipsis" Style="{ StaticResource PhoneTextNormalStyle}" />
               <TextBlock Text="{Binding Start}" Style="{StaticResource PhoneTextSmallStyle}" />
             </StackPanel>
           </DataTemplate>
         </ListBox.ItemTemplate>
       </ListBox>
-      </Grid>
+
     </Grid>
+  </Grid>
+
+
 </phone:PhoneApplicationPage>
