@@ -14,8 +14,8 @@
       <ListBox.ItemTemplate>
         <DataTemplate>
           <StackPanel Margin="0,15,0,15">
-            <TextBlock Text="{Binding Name}" TextTrimming="WordEllipsis" Style="{ StaticResource PhoneTextNormalStyle}" />
-            <TextBlock Text="{Binding Start}" Style="{StaticResource PhoneTextSmallStyle}" />
+            <TextBlock Text="{Binding Title}" TextTrimming="WordEllipsis" />
+            <TextBlock Text="{Binding Start}" />
           </StackPanel>
         </DataTemplate>
       </ListBox.ItemTemplate>

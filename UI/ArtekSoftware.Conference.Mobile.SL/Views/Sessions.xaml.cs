@@ -16,11 +16,11 @@ namespace ArtekSoftware.Conference.Mobile.SL.Views
       base.OnNavigatedTo(e);
       string baseUrl = "http://conference.azurewebsites.net/api/";
       var client = new RemoteData.Shared.RemoteData(baseUrl);
-      client.GetConferences(conferences =>
+      client.GetSessions("ThatConference-2012", sessions =>
       {
         Deployment.Current.Dispatcher.BeginInvoke(() =>
         {
-          DataContext = conferences;
+          DataContext = sessions;
           //Loading.Visibility = Visibility.Collapsed;
         });
       });

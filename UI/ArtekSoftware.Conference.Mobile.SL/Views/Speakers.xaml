@@ -10,7 +10,7 @@
     <Grid x:Name="LayoutRoot">
     <!--<StackPanel x:Name="Loading">
       <ProgressBar IsIndeterminate="True" />
-      <TextBlock TextAlignment="Center" Text="Downloading conferences, please wait..." />
+      <TextBlock TextAlignment="Center" Text="Downloading sessions, please wait..." />
     </StackPanel>-->
   </Grid>
 </navigation:Page>

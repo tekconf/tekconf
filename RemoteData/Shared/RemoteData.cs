@@ -25,7 +25,8 @@ namespace RemoteData.Shared
 
       client.DownloadStringCompleted += (sender, args) =>
                                             {
-                                              var conferences = JsonSerializer.DeserializeFromString<List<Conference>>(args.Result);
+                                              var conferences = new List<Conference>() { new Conference() { Name = "ThatConference-2012", Start = DateTime.Now } };
+                                             // var conferences = JsonSerializer.DeserializeFromString<List<Conference>>(args.Result);
                                               callback(conferences);
                                             };
 
@@ -127,8 +128,13 @@ namespace RemoteData.Shared
       client.Headers[HttpRequestHeader.Accept] = "application/json";
 
       client.DownloadStringCompleted += (sender, args) =>
-      {
-        var sessions = JsonSerializer.DeserializeFromString<List<Session>>(args.Result);
+        {
+          var sessions = new List<Session>()
+            {
+              new Session() {Title = "My Session", Start = DateTime.Now},
+              new Session() {Title = "AJ's Session", Start = DateTime.Now}
+            };
+        //var sessions = JsonSerializer.DeserializeFromString<List<Session>>(args.Result);
         callback(sessions);
       };
 
