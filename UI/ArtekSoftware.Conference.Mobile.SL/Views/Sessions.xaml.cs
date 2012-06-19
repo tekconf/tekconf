@@ -28,8 +28,8 @@ namespace ArtekSoftware.Conference.Mobile.SL.Views
 
     private void ConferenceSelected(object sender, SelectionChangedEventArgs e)
     {
-      var conference = (RemoteData.Shared.Conference)e.AddedItems[0];
-      MessageBox.Show(conference.Name, "Full Conference", MessageBoxButton.OK);
+      var session = (RemoteData.Shared.Session)e.AddedItems[0];
+      MessageBox.Show(session.Title, "Full Session", MessageBoxButton.OK);
     }
 
   }
