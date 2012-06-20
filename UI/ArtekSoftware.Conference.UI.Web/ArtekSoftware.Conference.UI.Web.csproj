@@ -44,6 +44,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\..\packages\AutoMapper.2.1.267\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Glimpse.Core">
       <HintPath>..\..\packages\Glimpse.0.87\lib\net40\Glimpse.Core.dll</HintPath>
     </Reference>
@@ -173,12 +176,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\AppHost.cs" />
-    <Compile Include="App_Start\Conference.cs" />
-    <Compile Include="App_Start\Session.cs" />
-    <Compile Include="App_Start\SessionService.cs" />
-    <Compile Include="App_Start\Speaker.cs" />
-    <Compile Include="App_Start\SpeakerService.cs" />
-    <Compile Include="App_Start\ConferenceService.cs" />
+    <Compile Include="Services\Conference.cs" />
+    <Compile Include="Services\Session.cs" />
+    <Compile Include="Services\SessionService.cs" />
+    <Compile Include="Services\Speaker.cs" />
+    <Compile Include="Services\SpeakerService.cs" />
+    <Compile Include="Services\ConferenceService.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ConferenceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -380,7 +383,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>10248</DevelopmentServerPort>
+          <DevelopmentServerPort>6327</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

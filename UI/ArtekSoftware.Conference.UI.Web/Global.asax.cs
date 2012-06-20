@@ -6,6 +6,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using AutoMapper;
 
 namespace ArtekSoftware.Conference.UI.Web
 {
@@ -37,12 +38,24 @@ namespace ArtekSoftware.Conference.UI.Web
 
     protected void Application_Start()
     {
+      BootstrapAutomapper();
+
+
       AreaRegistration.RegisterAllAreas();
 
       RegisterGlobalFilters(GlobalFilters.Filters);
       RegisterRoutes(RouteTable.Routes);
 
       BundleTable.Bundles.RegisterTemplateBundles();
+    }
+
+    private void BootstrapAutomapper()
+    {
+      Mapper.CreateMap<Conference, ConferencesDto>()
+        .ForMember(dest => dest.url, opt => opt.ResolveUsing<ConferencesUrlResolver>())
+        .ForMember(dest => dest.start, opt => opt.ResolveUsing<ConferencesDateResolver>())
+        ;
+
     }
 
     protected void Application_BeginRequest(object src, EventArgs e)
@@ -54,6 +67,22 @@ namespace ArtekSoftware.Conference.UI.Web
     protected void Application_EndRequest(object src, EventArgs e)
     {
         ServiceStack.MiniProfiler.Profiler.Stop();
+    }
+  }
+
+  public class ConferencesUrlResolver : ValueResolver<Conference, string>
+  {
+    protected override string ResolveCore(Conference source)
+    {
+      return "http://localhost:6327/api/conferences/" + source.slug;
+    }
+  }
+
+  public class ConferencesDateResolver : ValueResolver<Conference, DateTime>
+  {
+    protected override DateTime ResolveCore(Conference source)
+    {
+      return (DateTime)source.start;
     }
   }
 }

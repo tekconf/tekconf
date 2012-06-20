@@ -48,7 +48,7 @@ namespace ArtekSoftware.Conference.UI.Web.App_Start
 
 			//Configure User Defined REST Paths
 			Routes
-				.Add<Conference>("/conferences")
+				.Add<ConferencesRequest>("/conferences")
                 .Add<Conference>("/conferences/{slug}")
                 .Add<Session>("/conferences/{conferenceSlug}/sessions")
                 .Add<Session>("/conferences/{conferenceSlug}/sessions/{slug}")
