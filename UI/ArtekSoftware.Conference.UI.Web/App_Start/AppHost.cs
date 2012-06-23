@@ -1,17 +1,9 @@
-using System;
-using System.Linq;
-using System.Configuration;
-using System.Collections.Generic;
 using System.Web.Mvc;
-using ServiceStack.Configuration;
 using ServiceStack.CacheAccess;
 using ServiceStack.CacheAccess.Providers;
 using ServiceStack.Mvc;
-using ServiceStack.OrmLite;
-using ServiceStack.OrmLite.SqlServer;
 using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Auth;
-using ServiceStack.ServiceInterface.ServiceModel;
 using ServiceStack.WebHost.Endpoints;
 
 [assembly: WebActivator.PreApplicationStartMethod(typeof(ArtekSoftware.Conference.UI.Web.App_Start.AppHost), "Start")]
@@ -39,7 +31,7 @@ namespace ArtekSoftware.Conference.UI.Web.App_Start
 		: AppHostBase
 	{		
 		public AppHost() //Tell ServiceStack the name and where to find your web services
-			: base("StarterTemplate ASP.NET Host", typeof(ConferenceService).Assembly) { }
+			: base("StarterTemplate ASP.NET Host", typeof(OldConferenceService).Assembly) { }
 
 		public override void Configure(Funq.Container container)
 		{
@@ -49,10 +41,11 @@ namespace ArtekSoftware.Conference.UI.Web.App_Start
 			//Configure User Defined REST Paths
 			Routes
 				.Add<ConferencesRequest>("/conferences")
-                .Add<Conference>("/conferences/{slug}")
-                .Add<Session>("/conferences/{conferenceSlug}/sessions")
-                .Add<Session>("/conferences/{conferenceSlug}/sessions/{slug}")
-                .Add<Speaker>("/conferences/{conferenceSlug}/sessions/{sessionSlug}/speakers")
+                .Add<ConferencesRequest>("/conferences/{conferenceSlug}")
+                .Add<SessionsRequest>("/conferences/{conferenceSlug}/sessions")
+                .Add<SessionsRequest>("/conferences/{conferenceSlug}/sessions/{sessionSlug}")
+                .Add<SessionSpeakersRequest>("/conferences/{conferenceSlug}/sessions/{sessionSlug}/speakers")
+                .Add<SessionSpeakersRequest>("/conferences/{conferenceSlug}/sessions/{sessionSlug}/speakers/{speakerSlug}")
                 .Add<Speaker>("/conferences/{conferenceSlug}/speakers")
 
                 ;

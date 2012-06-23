@@ -1,8 +1,8 @@
-ArtekSoftware.Conference.Mobile
-===============================
-
 GET http://conferences.arteksoftware.com
-    - Returns list of conferences with urls to details
+
+  Returns list of conferences with urls to details
+            
+           <pre><code>
             [
                 {
                     "name" : "That-Conference",
@@ -12,10 +12,13 @@ GET http://conferences.arteksoftware.com
                     "url" : "http://conferences.arteksoftware.com/That-Conference/2012"
                 },
             ]
+            </code></pre>
 
 
 
 GET http://conferences.arteksoftware.com/That-Conference/2012
+    
+    
     - Returns general info with link to sessions
         {
             _id: "498f66af7f9442e4b4be7ca6d3ec52e5",
@@ -36,25 +39,42 @@ GET http://conferences.arteksoftware.com/That-Conference/2012
 GET http://conferences.arteksoftware.com/That-Conference/2012/sessions
     - Returns sessions with speakers
 
-GET http://conferences.arteksoftware.com/That-Conference/2012/sessions/Android-Dev
+GET http://conferences.arteksoftware.com/That-Conference/2012/sessions/MonoTouch
     - Returns single session with speakers, prerequisites, links, resources
 
-GET http://conferences.arteksoftware.com/That-Conference/2012/sessions/Android-Dev/speakers
+GET http://conferences.arteksoftware.com/That-Conference/2012/sessions/MonoTouch/speakers
     - Returns speakers
 
-GET http://conferences.arteksoftware.com/That-Conference/2012/sessions/Android-Dev/prerequisites
+GET http://conferences.arteksoftware.com/That-Conference/2012/sessions/MonoTouch/prerequisites
     - Returns prerequisites
 
-GET http://conferences.arteksoftware.com/That-Conference/2012/sessions/Android-Dev/links
+GET http://conferences.arteksoftware.com/That-Conference/2012/sessions/MonoTouch/links
     - Returns links
 
-GET http://conferences.arteksoftware.com/That-Conference/2012/sessions/Android-Dev/resources
+GET http://conferences.arteksoftware.com/That-Conference/2012/sessions/MonoTouch/resources
     - Returns resources
 
 GET http://conferences.arteksoftware.com/That-Conference/2012/speakers
     - Returns speakers with sessions
 
-GET http://conferences.arteksoftware.com/That-Conference/2012/speakers/jay-harris
+GET http://conferences.arteksoftware.com/That-Conference/2012/speakers/rob-gibbens
     - Returns speakers info
 
 GET http://conferences.arteksoftware.com/That-Conference/2012
+
+- Authenticate
+- Get schedule
+- Add session to schedule
+- Add conference
+- Add session
+- Add new speaker
+- Add existing speaker
+- Remove session from schedule
+- Submit session
+- Approve session
+- Vote on session
+- Reject session
+- Remove session
+- Edit/update session
+- Edit/update conference
+- Edit/update speaker

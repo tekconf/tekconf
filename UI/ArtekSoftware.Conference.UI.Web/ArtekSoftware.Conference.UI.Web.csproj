@@ -176,12 +176,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\AppHost.cs" />
-    <Compile Include="Services\Conference.cs" />
-    <Compile Include="Services\Session.cs" />
-    <Compile Include="Services\SessionService.cs" />
-    <Compile Include="Services\Speaker.cs" />
-    <Compile Include="Services\SpeakerService.cs" />
-    <Compile Include="Services\ConferenceService.cs" />
+    <Compile Include="Services\Dtos\SessionDto.cs" />
+    <Compile Include="Services\Dtos\SpeakerDto.cs" />
+    <Compile Include="Services\Dtos\SpeakersDto.cs" />
+    <Compile Include="Services\Entities\Conference.cs" />
+    <Compile Include="Services\Dtos\ConferenceDto.cs" />
+    <Compile Include="Services\Dtos\ConferencesDto.cs" />
+    <Compile Include="Services\Requests\ConferencesRequest.cs" />
+    <Compile Include="Services\ConferencesService.cs" />
+    <Compile Include="Services\Entities\Session.cs" />
+    <Compile Include="Services\Dtos\SessionsDto.cs" />
+    <Compile Include="Services\Old\SessionService.cs" />
+    <Compile Include="Services\Requests\SessionSpeakersRequest.cs" />
+    <Compile Include="Services\Requests\SessionsRequest.cs" />
+    <Compile Include="Services\SessionSpeakersService.cs" />
+    <Compile Include="Services\SessionsService.cs" />
+    <Compile Include="Services\Entities\Speaker.cs" />
+    <Compile Include="Services\Old\SpeakerService.cs" />
+    <Compile Include="Services\Old\OldConferenceService.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ConferenceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -383,7 +395,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>6327</DevelopmentServerPort>
+          <DevelopmentServerPort>11769</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

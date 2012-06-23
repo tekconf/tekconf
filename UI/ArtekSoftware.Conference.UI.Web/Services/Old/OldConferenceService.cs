@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using AutoMapper;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
@@ -11,34 +10,7 @@ using ServiceStack.ServiceInterface;
 
 namespace ArtekSoftware.Conference.UI.Web
 {
-  public class ConfService : RestServiceBase<ConferencesRequest>
-  {
-    public override object OnGet(ConferencesRequest request)
-    {
-      var _server = MongoServer.Create("mongodb://admin:goldie12@flame.mongohq.com:27100/app4727263?safe=true");
-      var _database = _server.GetDatabase("app4727263");
-
-      if (request.slug == default(string))
-      {
-        var conferences = _database.GetCollection<Conference>("conferences").AsQueryable().ToList();
-        var dtos = Mapper.Map<List<Conference>, List<ConferencesDto>>(conferences);
-        //var dtos = new List<ConferencesDto>() { new ConferencesDto() { }, new ConferencesDto() { } };
-        return dtos.ToList();
-      }
-      else
-      {
-        var conference = _database.GetCollection<Conference>("conferences").AsQueryable().SingleOrDefault(c => c.slug == request.slug);
-        if (conference == null)
-        {
-          throw new HttpError(HttpStatusCode.NotFound, "Conference not found.");
-        }
-        return conference;
-      }
-    }
-  }
-
-
-  public class ConferenceService : RestServiceBase<Conference>
+  public class OldConferenceService : RestServiceBase<Conference>
   {
     public override object OnGet(Conference request)
     {

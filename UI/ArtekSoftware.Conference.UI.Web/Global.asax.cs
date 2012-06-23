@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -40,7 +36,6 @@ namespace ArtekSoftware.Conference.UI.Web
     {
       BootstrapAutomapper();
 
-
       AreaRegistration.RegisterAllAreas();
 
       RegisterGlobalFilters(GlobalFilters.Filters);
@@ -54,8 +49,26 @@ namespace ArtekSoftware.Conference.UI.Web
       Mapper.CreateMap<Conference, ConferencesDto>()
         .ForMember(dest => dest.url, opt => opt.ResolveUsing<ConferencesUrlResolver>())
         .ForMember(dest => dest.start, opt => opt.ResolveUsing<ConferencesDateResolver>())
+        .ForMember(dest => dest.end, opt => opt.ResolveUsing<ConferencesDateResolver>())
         ;
 
+      Mapper.CreateMap<Conference, ConferenceDto>()
+        .ForMember(dest => dest.url, opt => opt.ResolveUsing<ConferencesUrlResolver>())
+        .ForMember(dest => dest.start, opt => opt.ResolveUsing<ConferencesDateResolver>())
+        .ForMember(dest => dest.end, opt => opt.ResolveUsing<ConferencesDateResolver>())
+        ;
+
+      Mapper.CreateMap<Session, SessionsDto>()
+        .ForMember(dest => dest.Url, opt => opt.ResolveUsing<SessionsUrlResolver>())
+        .ForMember(dest => dest.Start, opt => opt.ResolveUsing<SessionsDateResolver>())
+        .ForMember(dest => dest.End, opt => opt.ResolveUsing<SessionsDateResolver>())
+        ;
+
+      Mapper.CreateMap<Session, SessionDto>()
+        .ForMember(dest => dest.url, opt => opt.ResolveUsing<SessionsUrlResolver>())
+        .ForMember(dest => dest.start, opt => opt.ResolveUsing<SessionsDateResolver>())
+        .ForMember(dest => dest.end, opt => opt.ResolveUsing<SessionsDateResolver>())
+        ;
     }
 
     protected void Application_BeginRequest(object src, EventArgs e)
@@ -82,7 +95,26 @@ namespace ArtekSoftware.Conference.UI.Web
   {
     protected override DateTime ResolveCore(Conference source)
     {
-      return (DateTime)source.start;
+      return DateTime.Now; //TODO: DOn't do this
+     // return (DateTime)source.start;
+    }
+  }
+
+  public class SessionsUrlResolver : ValueResolver<Session, string>
+  {
+    protected override string ResolveCore(Session source)
+    {
+      //TODO : Make relative
+      return "http://localhost:6327/api/conferences/sessions/" + source.slug;
+    }
+  }
+
+  public class SessionsDateResolver : ValueResolver<Session, DateTime>
+  {
+    protected override DateTime ResolveCore(Session source)
+    {
+      return DateTime.Now; //TODO: DOn't do this
+      // return (DateTime)source.start;
     }
   }
 }
