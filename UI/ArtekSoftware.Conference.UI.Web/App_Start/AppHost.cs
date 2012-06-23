@@ -47,9 +47,7 @@ namespace ArtekSoftware.Conference.UI.Web.App_Start
                 .Add<SessionSpeakersRequest>("/conferences/{conferenceSlug}/sessions/{sessionSlug}/speakers")
                 .Add<SessionSpeakersRequest>("/conferences/{conferenceSlug}/sessions/{sessionSlug}/speakers/{speakerSlug}")
                 .Add<Speaker>("/conferences/{conferenceSlug}/speakers")
-
                 ;
-      //http://localhost:10248/api/conferences/ThatConference-2012/sessions/xna-afraid-to-ask
 			//Change the default ServiceStack configuration
 			//SetConfig(new EndpointHostConfig {
 			//    DebugMode = true, //Show StackTraces in responses in development

@@ -69,6 +69,12 @@ namespace ArtekSoftware.Conference.UI.Web
         .ForMember(dest => dest.start, opt => opt.ResolveUsing<SessionsDateResolver>())
         .ForMember(dest => dest.end, opt => opt.ResolveUsing<SessionsDateResolver>())
         ;
+
+      Mapper.CreateMap<Speaker, SpeakersDto>()
+        ;
+
+      Mapper.CreateMap<Speaker, SpeakerDto>()
+        ;
     }
 
     protected void Application_BeginRequest(object src, EventArgs e)
@@ -87,6 +93,7 @@ namespace ArtekSoftware.Conference.UI.Web
   {
     protected override string ResolveCore(Conference source)
     {
+      //TODO : Make relative
       return "http://localhost:6327/api/conferences/" + source.slug;
     }
   }

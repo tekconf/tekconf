@@ -9,13 +9,10 @@ using ServiceStack.ServiceInterface;
 
 namespace ArtekSoftware.Conference.UI.Web
 {
-  public class SessionSpeakersService : RestServiceBase<SessionSpeakersRequest>
+  public class SessionSpeakersService : MongoRestServiceBase<SessionSpeakersRequest>
   {
     public override object OnGet(SessionSpeakersRequest request)
     {
-      var server = MongoServer.Create("mongodb://admin:goldie12@flame.mongohq.com:27100/app4727263?safe=true");
-      var database = server.GetDatabase("app4727263");
-
       if (request.conferenceSlug == default(string))
       {
         throw new HttpError() { StatusCode = HttpStatusCode.BadRequest };
@@ -26,7 +23,7 @@ namespace ArtekSoftware.Conference.UI.Web
         throw new HttpError() { StatusCode = HttpStatusCode.BadRequest };
       }
 
-      var conference = database.GetCollection<Conference>("conferences")
+      var conference = this.Database.GetCollection<Conference>("conferences")
         .AsQueryable()
         .SingleOrDefault(c => c.slug == request.conferenceSlug);
 

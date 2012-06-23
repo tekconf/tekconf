@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace ArtekSoftware.Conference.UI.Web
@@ -7,8 +8,8 @@ namespace ArtekSoftware.Conference.UI.Web
     public string slug { get; set; }
     public string conferenceSlug { get; set; }
     public string title { get; set; }
-    public object start { get; set; }
-    public object end { get; set; }
+    public DateTime start { get; set; }
+    public DateTime end { get; set; }
     public string room { get; set; }
     public string difficulty { get; set; }
     public string description { get; set; }

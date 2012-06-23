@@ -1,21 +1,17 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using AutoMapper;
-using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using ServiceStack.Common.Web;
-using ServiceStack.ServiceInterface;
 
 namespace ArtekSoftware.Conference.UI.Web
 {
-  public class SessionsService : RestServiceBase<SessionsRequest>
+  public class SessionsService : MongoRestServiceBase<SessionsRequest>
   {
     public override object OnGet(SessionsRequest request)
     {
-      var server = MongoServer.Create("mongodb://admin:goldie12@flame.mongohq.com:27100/app4727263?safe=true");
-      var database = server.GetDatabase("app4727263");
-
       if (request.conferenceSlug == default(string))
       {
         throw new HttpError() { StatusCode = HttpStatusCode.BadRequest };
@@ -23,7 +19,7 @@ namespace ArtekSoftware.Conference.UI.Web
 
       if (request.sessionSlug == default(string))
       {
-        var conference = database.GetCollection<Conference>("conferences").AsQueryable().SingleOrDefault(c => c.slug == request.conferenceSlug);
+        var conference = this.Database.GetCollection<Conference>("conferences").AsQueryable().SingleOrDefault(c => c.slug == request.conferenceSlug);
         if (conference == null)
         {
           throw new HttpError() { StatusCode = HttpStatusCode.NotFound };
@@ -34,7 +30,7 @@ namespace ArtekSoftware.Conference.UI.Web
       }
       else
       {
-        var conference = database.GetCollection<Conference>("conferences").AsQueryable()
+        var conference = this.Database.GetCollection<Conference>("conferences").AsQueryable()
           //.Where(s => s.slug == request.sessionSlug)
               .SingleOrDefault(c => c.slug == request.conferenceSlug);
 
@@ -44,8 +40,18 @@ namespace ArtekSoftware.Conference.UI.Web
         }
 
         var session = conference.sessions.FirstOrDefault(s => s.slug == request.sessionSlug);
+        SessionDto dto = null;
 
-        var dto = Mapper.Map<Session, SessionDto>(session);
+        try
+        {
+          dto = Mapper.Map<Session, SessionDto>(session);
+        }
+        catch (Exception ee)
+        {
+          var x = ee.Message;
+          throw;
+        }
+
 
         return dto;
       }

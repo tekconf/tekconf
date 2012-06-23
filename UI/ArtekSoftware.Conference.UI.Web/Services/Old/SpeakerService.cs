@@ -8,13 +8,12 @@ using ServiceStack.ServiceInterface;
 
 namespace ArtekSoftware.Conference.UI.Web
 {
-    public class SpeakerService : RestServiceBase<Speaker>
+  public class SpeakerService : MongoRestServiceBase<Speaker>
     {
       public override object OnGet(Speaker request)
       {
-        var _server = MongoServer.Create("mongodb://admin:goldie12@flame.mongohq.com:27100/app4727263?safe=true");
-        var _database = _server.GetDatabase("app4727263");
-        var conference = _database.GetCollection<Conference>("conferences")
+ 
+        var conference = this.Database.GetCollection<Conference>("conferences")
                                 .AsQueryable()
                                 .SingleOrDefault(c => c.slug == request.conferenceSlug);
 
@@ -47,18 +46,14 @@ namespace ArtekSoftware.Conference.UI.Web
       // create
       public override object OnPost(Speaker request)
       {
-        var _server = MongoServer.Create("mongodb://admin:goldie12@flame.mongohq.com:27100/app4727263?safe=true");
-        var _database = _server.GetDatabase("app4727263");
-
         var conference =
-            _database.GetCollection<Conference>("conferences")
+            this.Database.GetCollection<Conference>("conferences")
                 .AsQueryable()
                 .SingleOrDefault(c => c.slug == request.conferenceSlug);
 
         if (conference != null)
         {
           var session = conference.sessions.SingleOrDefault(s => s.slug == request.sessionSlug);
-
 
           if (session != null)
           {
@@ -75,7 +70,7 @@ namespace ArtekSoftware.Conference.UI.Web
               }
               session.speakers.Add(request);
               
-              _database.GetCollection<Conference>("conferences").Save(conference);
+              this.Database.GetCollection<Conference>("conferences").Save(conference);
               var result = new HttpResult() {StatusCode = HttpStatusCode.Created};
               return result;
             }

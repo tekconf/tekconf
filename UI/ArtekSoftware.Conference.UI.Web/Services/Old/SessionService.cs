@@ -5,17 +5,16 @@ using System.Net;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using ServiceStack.Common.Web;
-using ServiceStack.ServiceInterface;
 
 namespace ArtekSoftware.Conference.UI.Web
 {
-  public class SessionService : RestServiceBase<Session>
+  public class SessionService : MongoRestServiceBase<Session>
   {
     public override object OnGet(Session request)
     {
-      var _server = MongoServer.Create("mongodb://admin:goldie12@flame.mongohq.com:27100/app4727263?safe=true");
-      var _database = _server.GetDatabase("app4727263");
-      var conference = _database.GetCollection<Conference>("conferences").AsQueryable().SingleOrDefault(c => c.slug == request.conferenceSlug);
+      var conference = this.Database.GetCollection<Conference>("conferences")
+                        .AsQueryable()
+                        .SingleOrDefault(c => c.slug == request.conferenceSlug);
 
       if (conference == null)
       {
@@ -41,11 +40,8 @@ namespace ArtekSoftware.Conference.UI.Web
     // create
     public override object OnPost(Session session)
     {
-      var _server = MongoServer.Create("mongodb://admin:goldie12@flame.mongohq.com:27100/app4727263?safe=true");
-      var _database = _server.GetDatabase("app4727263");
-
       var conference =
-          _database.GetCollection<Conference>("conferences")
+          this.Database.GetCollection<Conference>("conferences")
               .AsQueryable()
               .SingleOrDefault(c => c.slug == session.conferenceSlug);
 
@@ -63,7 +59,7 @@ namespace ArtekSoftware.Conference.UI.Web
             conference.sessions = new List<Session>();
           }
           conference.sessions.Add(session);
-          _database.GetCollection<Conference>("conferences").Save(conference);
+          this.Database.GetCollection<Conference>("conferences").Save(conference);
           var result = new HttpResult() { StatusCode = HttpStatusCode.Created };
           return result;
         }
@@ -78,10 +74,7 @@ namespace ArtekSoftware.Conference.UI.Web
     //update
     public override object OnPut(Session session)
     {
-      //var _server = MongoServer.Create("mongodb://admin:goldie12@flame.mongohq.com:27100/app4727263?safe=true");
-      //var _database = _server.GetDatabase("app4727263");
-
-      //var result = _database.GetCollection<Conference>("conferences").Save(session);
+      //var result = this.Database.GetCollection<Conference>("conferences").Save(session);
       //if (result.UpdatedExisting)
       //{
       //    return new HttpResult() { StatusCode = HttpStatusCode.OK };

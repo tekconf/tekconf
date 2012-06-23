@@ -182,6 +182,7 @@
     <Compile Include="Services\Entities\Conference.cs" />
     <Compile Include="Services\Dtos\ConferenceDto.cs" />
     <Compile Include="Services\Dtos\ConferencesDto.cs" />
+    <Compile Include="Services\Old\MongoRestServiceBase.cs" />
     <Compile Include="Services\Requests\ConferencesRequest.cs" />
     <Compile Include="Services\ConferencesService.cs" />
     <Compile Include="Services\Entities\Session.cs" />
