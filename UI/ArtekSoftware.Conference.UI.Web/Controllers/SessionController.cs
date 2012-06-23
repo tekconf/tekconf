@@ -4,6 +4,8 @@ using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ArtekSoftware.Conference.RemoteData;
+using ArtekSoftware.Conference.RemoteData.Dtos;
 
 namespace ArtekSoftware.Conference.UI.Web.Controllers
 {
@@ -16,7 +18,7 @@ namespace ArtekSoftware.Conference.UI.Web.Controllers
 
     public void IndexAsync(string conferenceSlug)
     {
-      var remoteData = new RemoteData.Shared.RemoteData(BaseUrl());
+      var remoteData = new RemoteDataRepository(BaseUrl());
       AsyncManager.OutstandingOperations.Increment();
       remoteData.GetSessions(conferenceSlug, sessions =>
       {
@@ -26,14 +28,14 @@ namespace ArtekSoftware.Conference.UI.Web.Controllers
 
     }
     
-    public ActionResult IndexCompleted(List<RemoteData.Shared.Session> sessions)
+    public ActionResult IndexCompleted(List<SessionsDto> sessions)
     {
       return View(sessions);
     }
 
     public void DetailsAsync(string conferenceSlug, string slug)
     {
-      var remoteData = new RemoteData.Shared.RemoteData(BaseUrl());
+      var remoteData = new RemoteDataRepository(BaseUrl());
       AsyncManager.OutstandingOperations.Increment();
       remoteData.GetSession(conferenceSlug, slug, session =>
       {
@@ -42,7 +44,7 @@ namespace ArtekSoftware.Conference.UI.Web.Controllers
       });
     }
 
-    public ActionResult DetailsCompleted(RemoteData.Shared.Session session)
+    public ActionResult DetailsCompleted(SessionDto session)
     {
       return View(session);
     }
@@ -53,15 +55,15 @@ namespace ArtekSoftware.Conference.UI.Web.Controllers
     }
 
     [HttpPost]
-    public void CreateAsync(RemoteData.Shared.Session session)
+    public void CreateAsync(SessionDto session)
     {
-      var remoteData = new RemoteData.Shared.RemoteData(BaseUrl());
+      var remoteData = new RemoteDataRepository(BaseUrl());
       AsyncManager.OutstandingOperations.Increment();
-      remoteData.AddSession(session, b =>
-      {
+      //remoteData.AddSession(session, b =>
+      //{
         //AsyncManager.Parameters["conference"] = conference;
         AsyncManager.OutstandingOperations.Decrement();
-      });
+      //});
     }
 
     public ActionResult CreateCompleted()

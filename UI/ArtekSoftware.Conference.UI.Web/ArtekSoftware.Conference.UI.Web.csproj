@@ -176,17 +176,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\AppHost.cs" />
-    <Compile Include="Services\Dtos\SessionDto.cs" />
-    <Compile Include="Services\Dtos\SpeakerDto.cs" />
-    <Compile Include="Services\Dtos\SpeakersDto.cs" />
-    <Compile Include="Services\Entities\Conference.cs" />
-    <Compile Include="Services\Dtos\ConferenceDto.cs" />
-    <Compile Include="Services\Dtos\ConferencesDto.cs" />
+    <Compile Include="Services\Entities\ConferenceEntity.cs" />
     <Compile Include="Services\Old\MongoRestServiceBase.cs" />
     <Compile Include="Services\Requests\ConferencesRequest.cs" />
     <Compile Include="Services\ConferencesService.cs" />
-    <Compile Include="Services\Entities\Session.cs" />
-    <Compile Include="Services\Dtos\SessionsDto.cs" />
+    <Compile Include="Services\Entities\SessionEntities.cs" />
     <Compile Include="Services\Old\SessionService.cs" />
     <Compile Include="Services\Requests\SessionLinksRequest.cs" />
     <Compile Include="Services\Requests\SessionPrerequisitesRequest.cs" />
@@ -199,7 +193,7 @@
     <Compile Include="Services\SessionResourcesService.cs" />
     <Compile Include="Services\SessionSpeakersService.cs" />
     <Compile Include="Services\SessionsService.cs" />
-    <Compile Include="Services\Entities\Speaker.cs" />
+    <Compile Include="Services\Entities\SpeakerEntity.cs" />
     <Compile Include="Services\Old\SpeakerService.cs" />
     <Compile Include="Services\Old\OldConferenceService.cs" />
     <Compile Include="Controllers\AccountController.cs" />

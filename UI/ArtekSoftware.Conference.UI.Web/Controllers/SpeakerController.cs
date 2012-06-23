@@ -4,6 +4,8 @@ using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ArtekSoftware.Conference.RemoteData;
+using ArtekSoftware.Conference.RemoteData.Dtos;
 
 namespace ArtekSoftware.Conference.UI.Web.Controllers
 {
@@ -16,7 +18,7 @@ namespace ArtekSoftware.Conference.UI.Web.Controllers
 
     public void IndexAsync(string conferenceSlug, string sessionSlug)
     {
-      var remoteData = new RemoteData.Shared.RemoteData(BaseUrl());
+      var remoteData = new RemoteDataRepository(BaseUrl());
       AsyncManager.OutstandingOperations.Increment();
       remoteData.GetSpeakers(conferenceSlug, sessionSlug, sessions =>
       {
@@ -25,21 +27,21 @@ namespace ArtekSoftware.Conference.UI.Web.Controllers
       });
     }
 
-    public ActionResult IndexCompleted(List<RemoteData.Shared.Speaker> speakers)
+    public ActionResult IndexCompleted(List<SpeakersDto> speakers)
     {
       return View(speakers);
     }
 
     [HttpPost]
-    public void CreateAsync(RemoteData.Shared.Speaker speaker)
+    public void CreateAsync(SpeakerDto speaker)
     {
-      var remoteData = new RemoteData.Shared.RemoteData(BaseUrl());
+      var remoteData = new RemoteDataRepository(BaseUrl());
       AsyncManager.OutstandingOperations.Increment();
-      remoteData.AddSpeaker(speaker, b =>
-      {
+      //remoteData.AddSpeaker(speaker, b =>
+      //{
         //AsyncManager.Parameters["conference"] = conference;
         AsyncManager.OutstandingOperations.Decrement();
-      });
+      //});
     }
 
     public ActionResult Create()

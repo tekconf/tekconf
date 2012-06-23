@@ -1,4 +1,5 @@
-﻿using KellermanSoftware.CompareNetObjects;
+﻿using ArtekSoftware.Conference.RemoteData.Dtos;
+using KellermanSoftware.CompareNetObjects;
 using Should.Core;
 namespace ArtekSoftware.Conference.UI.Web.Tests.Int
 {

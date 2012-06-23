@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using ArtekSoftware.Conference.RemoteData.Dtos;
 using AutoMapper;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
@@ -15,16 +16,16 @@ namespace ArtekSoftware.Conference.UI.Web
     {
       if (request.conferenceSlug == default(string))
       {
-        var conferences = this.Database.GetCollection<Conference>("conferences")
+        var conferences = this.Database.GetCollection<ConferenceEntity>("conferences")
                             .AsQueryable()
                             .ToList();
 
-        var dtos = Mapper.Map<List<Conference>, List<ConferencesDto>>(conferences);
+        var dtos = Mapper.Map<List<ConferenceEntity>, List<ConferencesDto>>(conferences);
         return dtos.ToList();
       }
       else
       {
-        var conference = this.Database.GetCollection<Conference>("conferences")
+        var conference = this.Database.GetCollection<ConferenceEntity>("conferences")
                           .AsQueryable()
                           .SingleOrDefault(c => c.slug == request.conferenceSlug);
 
@@ -33,7 +34,7 @@ namespace ArtekSoftware.Conference.UI.Web
           throw new HttpError(HttpStatusCode.NotFound, "Conference not found.");
         }
 
-        var dto = Mapper.Map<Conference, ConferenceDto>(conference);
+        var dto = Mapper.Map<ConferenceEntity, ConferenceDto>(conference);
 
         return dto;
       }

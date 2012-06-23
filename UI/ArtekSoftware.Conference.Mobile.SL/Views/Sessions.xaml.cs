@@ -1,6 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using ArtekSoftware.Conference.RemoteData;
+using ArtekSoftware.Conference.RemoteData.Dtos;
 
 namespace ArtekSoftware.Conference.Mobile.SL.Views
 {
@@ -15,7 +17,7 @@ namespace ArtekSoftware.Conference.Mobile.SL.Views
     {
       base.OnNavigatedTo(e);
       string baseUrl = "http://conference.azurewebsites.net/api/";
-      var client = new RemoteData.Shared.RemoteData(baseUrl);
+      var client = new RemoteDataRepository(baseUrl);
       client.GetSessions("ThatConference-2012", sessions =>
       {
         Deployment.Current.Dispatcher.BeginInvoke(() =>
@@ -28,8 +30,8 @@ namespace ArtekSoftware.Conference.Mobile.SL.Views
 
     private void ConferenceSelected(object sender, SelectionChangedEventArgs e)
     {
-      var session = (RemoteData.Shared.Session)e.AddedItems[0];
-      MessageBox.Show(session.Title, "Full Session", MessageBoxButton.OK);
+      var session = (SessionDto)e.AddedItems[0];
+      MessageBox.Show(session.title, "Full Session", MessageBoxButton.OK);
     }
 
   }

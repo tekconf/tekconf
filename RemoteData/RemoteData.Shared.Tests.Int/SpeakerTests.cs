@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using ArtekSoftware.Conference.RemoteData;
+using ArtekSoftware.Conference.RemoteData.Dtos;
 using NUnit.Framework;
 using Should;
 
@@ -17,8 +19,8 @@ namespace RemoteData.Shared.Tests.Int
     {
       var slug = "Speaker-Slug2";
       var conferenceSlug = "CodeMash-2013";
-      RemoteData remoteData = new RemoteData(_baseUrl);
-      IList<Speaker> speakers = null;
+      RemoteDataRepository remoteData = new RemoteDataRepository(_baseUrl);
+      IList<SpeakersDto> speakers = null;
       remoteData.GetSpeakers(conferenceSlug, s =>
                                                {
                                                  speakers = s;
@@ -32,7 +34,7 @@ namespace RemoteData.Shared.Tests.Int
         if (speakers != null)
         {
           speakers.Count.ShouldEqual(2);
-          speakers.FirstOrDefault().Slug.ShouldEqual(slug);
+          speakers.FirstOrDefault().slug.ShouldEqual(slug);
           gotData = true;
         }
       }
@@ -44,8 +46,8 @@ namespace RemoteData.Shared.Tests.Int
     [Test]
     public void GetSpeaker()
     {
-      RemoteData remoteData = new RemoteData(_baseUrl);
-      Speaker speaker = null;
+      RemoteDataRepository remoteData = new RemoteDataRepository(_baseUrl);
+      SpeakerDto speaker = null;
       string conferenceSlug = "CodeMash-2013";
       string slug = "Speaker-Slug2";
       remoteData.GetSpeaker(conferenceSlug, slug, s =>
@@ -60,7 +62,7 @@ namespace RemoteData.Shared.Tests.Int
       {
         if (speaker != null)
         {
-          speaker.Slug.ShouldEqual(slug);
+          speaker.slug.ShouldEqual(slug);
           gotData = true;
         }
       }

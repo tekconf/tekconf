@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Configuration;
 using System.Web.Mvc;
+using ArtekSoftware.Conference.RemoteData;
+using ArtekSoftware.Conference.RemoteData.Dtos;
 
 namespace ArtekSoftware.Conference.UI.Web.Controllers
 {
@@ -13,8 +15,8 @@ namespace ArtekSoftware.Conference.UI.Web.Controllers
 
     public void IndexAsync()
     {
-      var remoteData = new RemoteData.Shared.RemoteData(BaseUrl());
-      IList<RemoteData.Shared.Conference> conferences = null;
+      var remoteData = new RemoteDataRepository(BaseUrl());
+      IList<ConferencesDto> conferences = null;
       AsyncManager.OutstandingOperations.Increment();
       remoteData.GetConferences(c =>
       {
@@ -24,7 +26,7 @@ namespace ArtekSoftware.Conference.UI.Web.Controllers
       });
 
     }
-    public ActionResult IndexCompleted(IList<RemoteData.Shared.Conference> conferences)
+    public ActionResult IndexCompleted(IList<ConferencesDto> conferences)
     {
       return View(conferences);
     }
@@ -34,8 +36,8 @@ namespace ArtekSoftware.Conference.UI.Web.Controllers
 
     public void DetailsAsync(string slug)
     {
-      var remoteData = new RemoteData.Shared.RemoteData(BaseUrl());
-      RemoteData.Shared.Conference conference = null;
+      var remoteData = new RemoteDataRepository(BaseUrl());
+      ConferenceDto conference = null;
       AsyncManager.OutstandingOperations.Increment();
       remoteData.GetConference(slug, c =>
       {
@@ -45,7 +47,7 @@ namespace ArtekSoftware.Conference.UI.Web.Controllers
       });
     }
 
-    public ActionResult DetailsCompleted(RemoteData.Shared.Conference conference)
+    public ActionResult DetailsCompleted(ConferenceDto conference)
     {
       return View(conference);
     }
@@ -62,15 +64,15 @@ namespace ArtekSoftware.Conference.UI.Web.Controllers
     // POST: /Conference/Create
 
     [HttpPost]
-    public void CreateAsync(RemoteData.Shared.Conference conference)
+    public void CreateAsync(ConferenceDto conference)
     {
-      var remoteData = new RemoteData.Shared.RemoteData(BaseUrl());
+      var remoteData = new RemoteDataRepository(BaseUrl());
       AsyncManager.OutstandingOperations.Increment();
-      remoteData.AddConference(conference, b =>
-      {
+      //remoteData.AddConference(conference, b =>
+      //{
         //AsyncManager.Parameters["conference"] = conference;
         AsyncManager.OutstandingOperations.Decrement();
-      });
+      //});
     }
 
     public ActionResult CreateCompleted()

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace ArtekSoftware.Conference.UI.Web
+namespace ArtekSoftware.Conference.RemoteData.Dtos
 {
   public class SessionsDto
   {
@@ -23,6 +23,6 @@ namespace ArtekSoftware.Conference.UI.Web
     public List<string> Links { get; set; }
     public List<string> Tags { get; set; }
     public List<string> Subjects { get; set; }
-    public List<Speaker> Speakers { get; set; }
+    public List<SpeakersDto> Speakers { get; set; }
   }
 }

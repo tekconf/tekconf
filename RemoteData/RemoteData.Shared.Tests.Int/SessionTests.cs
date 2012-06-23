@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using ArtekSoftware.Conference.RemoteData;
+using ArtekSoftware.Conference.RemoteData.Dtos;
 using NUnit.Framework;
 using Should;
 
@@ -16,8 +18,8 @@ namespace RemoteData.Shared.Tests.Int
     {
       var slug = "Android-Pro-Tips";
       var conferenceSlug = "CodeMash-2013";
-      RemoteData remoteData = new RemoteData(_baseUrl);
-      IList<Session> sessions = null;
+      RemoteDataRepository remoteData = new RemoteDataRepository(_baseUrl);
+      IList<SessionsDto> sessions = null;
       remoteData.GetSessions(conferenceSlug, s =>
                                                {
                                                  sessions = s;
@@ -43,8 +45,8 @@ namespace RemoteData.Shared.Tests.Int
     [Test]
     public void GetSession()
     {
-      RemoteData remoteData = new RemoteData(_baseUrl);
-      Session session = null;
+      RemoteDataRepository remoteData = new RemoteDataRepository(_baseUrl);
+      SessionDto session = null;
       string conferenceSlug = "CodeMash-2013";
       string slug = "Android-Pro-Tips";
       remoteData.GetSession(conferenceSlug, slug, s =>
@@ -59,7 +61,7 @@ namespace RemoteData.Shared.Tests.Int
       {
         if (session != null)
         {
-          session.Slug.ShouldEqual(slug);
+          session.slug.ShouldEqual(slug);
           gotData = true;
         }
       }

@@ -8,11 +8,11 @@ using ServiceStack.Common.Web;
 
 namespace ArtekSoftware.Conference.UI.Web
 {
-  public class SessionService : MongoRestServiceBase<Session>
+  public class SessionService : MongoRestServiceBase<SessionEntities>
   {
-    public override object OnGet(Session request)
+    public override object OnGet(SessionEntities request)
     {
-      var conference = this.Database.GetCollection<Conference>("conferences")
+      var conference = this.Database.GetCollection<ConferenceEntity>("conferences")
                         .AsQueryable()
                         .SingleOrDefault(c => c.slug == request.conferenceSlug);
 
@@ -38,16 +38,16 @@ namespace ArtekSoftware.Conference.UI.Web
     }
 
     // create
-    public override object OnPost(Session session)
+    public override object OnPost(SessionEntities sessionEntities)
     {
       var conference =
-          this.Database.GetCollection<Conference>("conferences")
+          this.Database.GetCollection<ConferenceEntity>("conferences")
               .AsQueryable()
-              .SingleOrDefault(c => c.slug == session.conferenceSlug);
+              .SingleOrDefault(c => c.slug == sessionEntities.conferenceSlug);
 
       if (conference != null)
       {
-        if (conference.sessions != null && conference.sessions.Any(x => x.slug == session.slug))
+        if (conference.sessions != null && conference.sessions.Any(x => x.slug == sessionEntities.slug))
         {
           // session already exists
           throw new HttpError(HttpStatusCode.Conflict, "Session Already Exists");
@@ -56,10 +56,10 @@ namespace ArtekSoftware.Conference.UI.Web
         {
           if (conference.sessions == null)
           {
-            conference.sessions = new List<Session>();
+            conference.sessions = new List<SessionEntities>();
           }
-          conference.sessions.Add(session);
-          this.Database.GetCollection<Conference>("conferences").Save(conference);
+          conference.sessions.Add(sessionEntities);
+          this.Database.GetCollection<ConferenceEntity>("conferences").Save(conference);
           var result = new HttpResult() { StatusCode = HttpStatusCode.Created };
           return result;
         }
@@ -72,9 +72,9 @@ namespace ArtekSoftware.Conference.UI.Web
     }
 
     //update
-    public override object OnPut(Session session)
+    public override object OnPut(SessionEntities sessionEntities)
     {
-      //var result = this.Database.GetCollection<Conference>("conferences").Save(session);
+      //var result = this.Database.GetCollection<ConferenceEntity>("conferences").Save(SessionEntities);
       //if (result.UpdatedExisting)
       //{
       //    return new HttpResult() { StatusCode = HttpStatusCode.OK };
@@ -87,7 +87,7 @@ namespace ArtekSoftware.Conference.UI.Web
 
     }
 
-    public override object OnDelete(Session session)
+    public override object OnDelete(SessionEntities sessionEntities)
     {
       throw new NotImplementedException();
 

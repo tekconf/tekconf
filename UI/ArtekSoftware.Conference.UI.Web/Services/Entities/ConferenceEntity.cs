@@ -5,7 +5,7 @@ using MongoDB.Bson.Serialization.IdGenerators;
 
 namespace ArtekSoftware.Conference.UI.Web
 {
-  public class Conference
+  public class ConferenceEntity
   {
     [BsonId(IdGenerator = typeof(CombGuidGenerator))]
     public Guid _id { get; set; }
@@ -21,7 +21,7 @@ namespace ArtekSoftware.Conference.UI.Web
     public object end { get; set; }
     public string twitterHashTag { get; set; }
     public string twitterName { get; set; }
-    public List<Session> sessions { get; set; }
+    public List<SessionEntities> sessions { get; set; }
 
   }
 }

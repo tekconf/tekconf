@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using ArtekSoftware.Conference.RemoteData;
+using ArtekSoftware.Conference.RemoteData.Dtos;
 using NUnit.Framework;
 using Should;
 using Should.Core;
@@ -17,8 +19,8 @@ namespace RemoteData.Shared.Tests.Int
     [Test]
     public void GetConferences()
     {
-      RemoteData remoteData = new RemoteData(_baseUrl);
-      IList<Conference> conferences = null;
+      RemoteDataRepository remoteData = new RemoteDataRepository(_baseUrl);
+      IList<ConferencesDto> conferences = null;
       remoteData.GetConferences(c =>
                                      {
                                        conferences = c;
@@ -32,7 +34,7 @@ namespace RemoteData.Shared.Tests.Int
         if (conferences != null)
         {
           conferences.Count.ShouldEqual(1);
-          conferences.FirstOrDefault().Slug.ShouldEqual("CodeMash-2013");
+          conferences.FirstOrDefault().slug.ShouldEqual("CodeMash-2013");
           gotData = true;
         }
       }
@@ -44,8 +46,8 @@ namespace RemoteData.Shared.Tests.Int
     [Test]
     public void GetConference()
     {
-      RemoteData remoteData = new RemoteData(_baseUrl);
-      Conference conference = null;
+      RemoteDataRepository remoteData = new RemoteDataRepository(_baseUrl);
+      ConferenceDto conference = null;
       string slug = "CodeMash-2013";
       remoteData.GetConference(slug, c =>
       {
@@ -59,7 +61,7 @@ namespace RemoteData.Shared.Tests.Int
       {
         if (conference != null)
         {
-          conference.Slug.ShouldEqual(slug);
+          conference.slug.ShouldEqual(slug);
           gotData = true;
         }
       }

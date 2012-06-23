@@ -4,7 +4,7 @@ using MongoDB.Bson.Serialization.IdGenerators;
 
 namespace ArtekSoftware.Conference.UI.Web
 {
-  public class Speaker
+  public class SpeakerEntity
   {
     [BsonId(IdGenerator = typeof(CombGuidGenerator))]
     public Guid _id { get; set; }

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace ArtekSoftware.Conference.UI.Web
+namespace ArtekSoftware.Conference.RemoteData.Dtos
 {
   public class SessionDto
   {

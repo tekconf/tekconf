@@ -8,12 +8,12 @@ using ServiceStack.ServiceInterface;
 
 namespace ArtekSoftware.Conference.UI.Web
 {
-  public class SpeakerService : MongoRestServiceBase<Speaker>
+  public class SpeakerService : MongoRestServiceBase<SpeakerEntity>
     {
-      public override object OnGet(Speaker request)
+      public override object OnGet(SpeakerEntity request)
       {
  
-        var conference = this.Database.GetCollection<Conference>("conferences")
+        var conference = this.Database.GetCollection<ConferenceEntity>("conferences")
                                 .AsQueryable()
                                 .SingleOrDefault(c => c.slug == request.conferenceSlug);
 
@@ -21,7 +21,7 @@ namespace ArtekSoftware.Conference.UI.Web
         {
           throw new HttpError(HttpStatusCode.NotFound, "Conference not found.");
         }
-        var speakers = new List<Speaker>();
+        var speakers = new List<SpeakerEntity>();
 
         if (request.sessionSlug == default(string))
         {
@@ -44,10 +44,10 @@ namespace ArtekSoftware.Conference.UI.Web
       }
 
       // create
-      public override object OnPost(Speaker request)
+      public override object OnPost(SpeakerEntity request)
       {
         var conference =
-            this.Database.GetCollection<Conference>("conferences")
+            this.Database.GetCollection<ConferenceEntity>("conferences")
                 .AsQueryable()
                 .SingleOrDefault(c => c.slug == request.conferenceSlug);
 
@@ -66,11 +66,11 @@ namespace ArtekSoftware.Conference.UI.Web
             {
               if (session.speakers == null)
               {
-                session.speakers = new List<Speaker>();
+                session.speakers = new List<SpeakerEntity>();
               }
               session.speakers.Add(request);
               
-              this.Database.GetCollection<Conference>("conferences").Save(conference);
+              this.Database.GetCollection<ConferenceEntity>("conferences").Save(conference);
               var result = new HttpResult() {StatusCode = HttpStatusCode.Created};
               return result;
             }

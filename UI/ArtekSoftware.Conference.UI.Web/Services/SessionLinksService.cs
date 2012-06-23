@@ -14,7 +14,7 @@ namespace ArtekSoftware.Conference.UI.Web
         throw new HttpError() { StatusCode = HttpStatusCode.BadRequest };
       }
 
-      var conference = this.Database.GetCollection<Conference>("conferences")
+      var conference = this.Database.GetCollection<ConferenceEntity>("conferences")
                   .AsQueryable()
                   .SingleOrDefault(c => c.slug == request.conferenceSlug);
       if (conference == null)
