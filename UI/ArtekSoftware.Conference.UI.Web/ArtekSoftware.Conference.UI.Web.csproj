@@ -188,8 +188,15 @@
     <Compile Include="Services\Entities\Session.cs" />
     <Compile Include="Services\Dtos\SessionsDto.cs" />
     <Compile Include="Services\Old\SessionService.cs" />
+    <Compile Include="Services\Requests\SessionLinksRequest.cs" />
+    <Compile Include="Services\Requests\SessionPrerequisitesRequest.cs" />
+    <Compile Include="Services\Requests\SessionResourcesRequest.cs" />
     <Compile Include="Services\Requests\SessionSpeakersRequest.cs" />
     <Compile Include="Services\Requests\SessionsRequest.cs" />
+    <Compile Include="Services\Requests\SpeakersRequest.cs" />
+    <Compile Include="Services\SessionLinksService.cs" />
+    <Compile Include="Services\SessionPrerequisitesService.cs" />
+    <Compile Include="Services\SessionResourcesService.cs" />
     <Compile Include="Services\SessionSpeakersService.cs" />
     <Compile Include="Services\SessionsService.cs" />
     <Compile Include="Services\Entities\Speaker.cs" />
@@ -205,6 +212,7 @@
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\SpeakersService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Readme\glimpse.mvc3.readme.txt" />

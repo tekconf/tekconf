@@ -15,7 +15,7 @@ namespace ArtekSoftware.Conference.UI.Web.Tests.Int
     //private string rootUrl = "http://conference.azurewebsites.net";
     private string rootUrl = "http://localhost:6327";
 
-    [Test(Description = "http://url/api/conferences")]
+    [Test(Description = "http://localhost:6327/api/conferences")]
     public void given_a_GET_request_for_all_conferences_it_returns_subset_of_conference_info()
     {
       //GetConferences().FirstOrDefault().IsTheSameAs(thatConference).ShouldBeTrue();
@@ -28,13 +28,13 @@ namespace ArtekSoftware.Conference.UI.Web.Tests.Int
       }
     }
 
-    [Test(Description = "http://url/api/conferences")]
+    [Test(Description = "http://localhost:6327/api/conferences")]
     public void given_a_GET_request_for_all_conferences_it_returns_list_of_conferences_with_urls_to_details()
     {
       GetConferences().Count.ShouldBeInRange(1, int.MaxValue);
     }
 
-    [Test(Description = "http://url/api/conferences/ThatConference-2012")]
+    [Test(Description = "http://localhost:6327/api/conferences/ThatConference-2012")]
     public void given_a_GET_request_for_a_single_conference_it_returns_general_info_with_a_link_to_sessions()
     {
       var conference = GetConference(thatConference.slug);
@@ -46,7 +46,7 @@ namespace ArtekSoftware.Conference.UI.Web.Tests.Int
       }
     }
 
-    [Test(Description = "http://url/api/conferences/ThatConference-2012/sessions")]
+    [Test(Description = "http://localhost:6327/api/conferences/ThatConference-2012/sessions")]
     public void given_a_GET_request_for_a_single_conference_sessions_it_returns_sessions_with_speakers()
     {
       var sessions = GetConferenceSessions(thatConference.slug);
@@ -58,34 +58,34 @@ namespace ArtekSoftware.Conference.UI.Web.Tests.Int
       }
     }
 
-    [Test(Description = "http://url/api/conferences/ThatConference-2012/sessions/MonoTouch")]
+    [Test(Description = "http://localhost:6327/api/conferences/ThatConference-2012/sessions/activejdbc")]
     public void given_a_GET_request_for_a_single_session_it_returns_a_session_with_child_collections()
     {
-      var session = GetConferenceSession(thatConference.slug, monotouch.slug);
+      var session = GetConferenceSession(thatConference.slug, activejdbc.slug);
       var compareObjects = new CompareObjects();
-      var areSame = compareObjects.Compare(session, monotouch);
+      var areSame = compareObjects.Compare(session, activejdbc);
       if (!areSame)
       {
         Assert.Fail(compareObjects.DifferencesString);
       }
     }
 
-    [Test(Description = "http://url/api/conferences/ThatConference-2012/sessions/MonoTouch/speakers")]
+    [Test(Description = "http://localhost:6327/api/conferences/ThatConference-2012/sessions/activejdbc/speakers")]
     public void given_a_GET_request_for_session_speakers_it_returns_speakers()
     {
-      var speakers = GetConferenceSessionSpeakers(thatConference.slug, monotouch.slug);
+      var speakers = GetConferenceSessionSpeakers(thatConference.slug, activejdbc.slug);
       var compareObjects = new CompareObjects();
-      var areSame = compareObjects.Compare(speakers, monotouch.speakers);
+      var areSame = compareObjects.Compare(speakers, activejdbc.speakers);
       if (!areSame)
       {
         Assert.Fail(compareObjects.DifferencesString);
       }
     }
 
-    [Test(Description = "http://url/api/conferences/ThatConference-2012/sessions/MonoTouch/speakers/Rob-Gibbens")]
+    [Test(Description = "http://localhost:6327/api/conferences/ThatConference-2012/sessions/activejdbc/speakers/igor-polevoy")]
     public void given_a_GET_request_for_a_single_session_speaker_it_returns_the_speaker()
     {
-      var speaker = GetConferenceSessionSpeaker(thatConference.slug, monotouch.slug, robGibbens.slug);
+      var speaker = GetConferenceSessionSpeaker(thatConference.slug, activejdbc.slug, robGibbens.slug);
       var compareObjects = new CompareObjects();
       var areSame = compareObjects.Compare(speaker, robGibbens);
       if (!areSame)
@@ -94,31 +94,31 @@ namespace ArtekSoftware.Conference.UI.Web.Tests.Int
       }
     }
 
-    [Test(Description = "http://url/api/conferences/ThatConference-2012/sessions/MonoTouch/prerequisites")]
+    [Test(Description = "http://localhost:6327/api/conferences/ThatConference-2012/sessions/activejdbc/prerequisites")]
     public void given_a_GET_request_for_a_prerequisites_it_returns_prerequisites()
     {
       Assert.Fail();
     }
 
-    [Test(Description = "http://url/api/conferences/ThatConference-2012/sessions/MonoTouch/links")]
+    [Test(Description = "http://localhost:6327/api/conferences/ThatConference-2012/sessions/activejdbc/links")]
     public void given_a_GET_request_for_links_it_returns_links()
     {
       Assert.Fail();
     }
 
-    [Test(Description = "http://url/api/conferences/ThatConference-2012/sessions/MonoTouch/resources")]
+    [Test(Description = "http://localhost:6327/api/conferences/ThatConference-2012/sessions/activejdbc/resources")]
     public void given_a_GET_request_for_resources_it_returns_resources()
     {
       Assert.Fail();
     }
 
-    [Test(Description = "http://url/api/conferences/ThatConference-2012/speakers")]
+    [Test(Description = "http://localhost:6327/api/conferences/ThatConference-2012/speakers")]
     public void given_a_GET_request_for_conference_speakers_it_returns_all_speakers()
     {
       Assert.Fail();
     }
 
-    [Test(Description = "http://url/api/conferences/ThatConference-2012/speakers/Rob-Gibbens")]
+    [Test(Description = "http://localhost:6327/api/conferences/ThatConference-2012/speakers/igor-polevoy")]
     public void given_a_GET_request_for_a_single_conference_speaker_it_returns_the_speaker()
     {
       Assert.Fail();
@@ -206,11 +206,11 @@ namespace ArtekSoftware.Conference.UI.Web.Tests.Int
 
     List<SessionsDto> thatConferenceSessions = new List<SessionsDto>();
 
-    SessionDto monotouch = new SessionDto()
+    SessionDto activejdbc = new SessionDto()
       {
         conferenceSlug = "ThatConference-2012",
-        description = "MonoTouch",
-        slug = "monotouch",
+        description = "activejdbc",
+        slug = "activejdbc",
         start = DateTime.Parse("11/08/2012"),
         end = DateTime.Parse("11/08/2012"),
         difficulty = "100",
@@ -225,8 +225,8 @@ namespace ArtekSoftware.Conference.UI.Web.Tests.Int
         tags = new List<string>(),
         tagsUrl = "",
         title = "Cross Platform Apps with Mono",
-        twitterHashTag = "#tc-monotouch",
-        url = "http://localhost:6327/api/conferences/ThatConference-2012/sessions/monotouch"
+        twitterHashTag = "#tc-activejdbc",
+        url = "http://localhost:6327/api/conferences/ThatConference-2012/sessions/activejdbc"
 
       };
 

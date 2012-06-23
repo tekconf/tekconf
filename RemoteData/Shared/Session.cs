@@ -19,5 +19,7 @@ namespace RemoteData.Shared
     public List<string> Tags { get; set; }
     public List<string> Subjects { get; set; }
     public List<Speaker> Speakers { get; set; }
+    public List<string> Resources { get; set; }
+    public List<string> Prerequisites { get; set; } 
   }
 }

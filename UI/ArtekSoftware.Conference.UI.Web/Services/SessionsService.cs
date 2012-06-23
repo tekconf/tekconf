@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -40,18 +39,8 @@ namespace ArtekSoftware.Conference.UI.Web
         }
 
         var session = conference.sessions.FirstOrDefault(s => s.slug == request.sessionSlug);
-        SessionDto dto = null;
 
-        try
-        {
-          dto = Mapper.Map<Session, SessionDto>(session);
-        }
-        catch (Exception ee)
-        {
-          var x = ee.Message;
-          throw;
-        }
-
+        var dto = Mapper.Map<Session, SessionDto>(session);
 
         return dto;
       }

@@ -46,7 +46,13 @@ namespace ArtekSoftware.Conference.UI.Web.App_Start
                 .Add<SessionsRequest>("/conferences/{conferenceSlug}/sessions/{sessionSlug}")
                 .Add<SessionSpeakersRequest>("/conferences/{conferenceSlug}/sessions/{sessionSlug}/speakers")
                 .Add<SessionSpeakersRequest>("/conferences/{conferenceSlug}/sessions/{sessionSlug}/speakers/{speakerSlug}")
-                .Add<Speaker>("/conferences/{conferenceSlug}/speakers")
+                .Add<SpeakersRequest>("/conferences/{conferenceSlug}/speakers")
+                .Add<SpeakersRequest>("/conferences/{conferenceSlug}/speakers/{speakerSlug}")
+                .Add<SessionPrerequisitesRequest>("/conferences/{conferenceSlug}/sessions/{sessionSlug}/prerequisites")
+                .Add<SessionLinksRequest>("/conferences/{conferenceSlug}/sessions/{sessionSlug}/links")
+                .Add<SessionResourcesRequest>("/conferences/{conferenceSlug}/sessions/{sessionSlug}/resources")
+
+
                 ;
 			//Change the default ServiceStack configuration
 			//SetConfig(new EndpointHostConfig {
