@@ -58,35 +58,47 @@ namespace ArtekSoftware.Conference.UI.Web
       ;
     }
 
-    public class SpeakersUrlResolver : ValueResolver<SpeakerEntity, string>
+    public abstract class UrlResolver<TSource, TDestination> : ValueResolver<TSource, TDestination>
+    {
+      public string RootUrl
+      {
+        get
+        {
+          var url = HttpContext.Current.Request.Url;
+          var rootUrl= url.GetLeftPart(UriPartial.Authority);
+          return rootUrl;
+        }
+      }
+    }
+    public class SpeakersUrlResolver : UrlResolver<SpeakerEntity, string>
     {
       protected override string ResolveCore(SpeakerEntity source)
       {
         //TODO : Make relative
         //TODO : Needs conference slug
         //TODO : Needs session slug
-        return "http://localhost:6327/api/conferences/sessions/speakers/" + source.slug;
+        return RootUrl + "/api/conferences/sessions/speakers/" + source.slug;
       }
     }
 
 
-    public class SessionsSpeakersUrlResolver : ValueResolver<SessionEntity, string>
+    public class SessionsSpeakersUrlResolver : UrlResolver<SessionEntity, string>
     {
       protected override string ResolveCore(SessionEntity source)
       {
         //TODO : Make relative
         //TODO : Needs conference slug
-        return "http://localhost:6327/api/conferences/sessions/" + source.slug + "/speakers";
+        return RootUrl + "/api/conferences/sessions/" + source.slug + "/speakers";
       }
     }
 
-    public class SessionsUrlResolver : ValueResolver<SessionEntity, string>
+    public class SessionsUrlResolver : UrlResolver<SessionEntity, string>
     {
       protected override string ResolveCore(SessionEntity source)
       {
         //TODO : Make relative
         //TODO : Needs conference slug
-        return "http://localhost:6327/api/conferences/sessions/" + source.slug;
+        return RootUrl + "/api/conferences/sessions/" + source.slug;
       }
     }
 
@@ -99,16 +111,16 @@ namespace ArtekSoftware.Conference.UI.Web
       }
     }
 
-    public class ConferencesSessionsResolver : ValueResolver<ConferenceEntity, string>
+    public class ConferencesSessionsResolver : UrlResolver<ConferenceEntity, string>
     {
       protected override string ResolveCore(ConferenceEntity source)
       {
         //TODO : Make relative
-        return "http://localhost:6327/api/conferences/" + source.slug + "/sessions";
+        return RootUrl + "/api/conferences/" + source.slug + "/sessions";
       }
     }
 
-    public class ConferencesSpeakersResolver : ValueResolver<ConferenceEntity, string>
+    public class ConferencesSpeakersResolver : UrlResolver<ConferenceEntity, string>
     {
       protected override string ResolveCore(ConferenceEntity source)
       {
@@ -117,12 +129,12 @@ namespace ArtekSoftware.Conference.UI.Web
       }
     }
 
-    public class ConferencesUrlResolver : ValueResolver<ConferenceEntity, string>
+    public class ConferencesUrlResolver : UrlResolver<ConferenceEntity, string>
     {
       protected override string ResolveCore(ConferenceEntity source)
       {
         //TODO : Make relative
-        return "http://localhost:6327/api/conferences/" + source.slug;
+        return RootUrl + "/api/conferences/" + source.slug;
       }
     }
 
@@ -137,7 +149,7 @@ namespace ArtekSoftware.Conference.UI.Web
 
 
 
-    public class ScheduleSessionsResolver : ValueResolver<ScheduleEntity, List<string>>
+    public class ScheduleSessionsResolver : UrlResolver<ScheduleEntity, List<string>>
     {
       protected override List<string> ResolveCore(ScheduleEntity source)
       {
@@ -145,7 +157,7 @@ namespace ArtekSoftware.Conference.UI.Web
         var sessionUrls = new List<string>();
         foreach (var session in source.SessionUrls)
         {
-          sessionUrls.Add("http://localhost:6327" + session);
+          sessionUrls.Add(RootUrl + "/" + session);
         }
         return sessionUrls;
       }
