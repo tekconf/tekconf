@@ -21,7 +21,7 @@ namespace ArtekSoftware.Conference.UI.Web
     public object end { get; set; }
     public string twitterHashTag { get; set; }
     public string twitterName { get; set; }
-    public List<SessionEntities> sessions { get; set; }
+    public List<SessionEntity> sessions { get; set; }
 
   }
 }

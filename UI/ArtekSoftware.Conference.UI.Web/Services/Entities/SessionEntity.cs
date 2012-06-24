@@ -5,12 +5,11 @@ using MongoDB.Bson.Serialization.IdGenerators;
 
 namespace ArtekSoftware.Conference.UI.Web
 {
-  public class SessionEntities
+  public class SessionEntity
   {
     [BsonId(IdGenerator = typeof(CombGuidGenerator))]
     public Guid _id { get; set; }
     public string slug { get; set; }
-    public string conferenceSlug { get; set; }
     public string title { get; set; }
     public object start { get; set; }
     public object end { get; set; }
@@ -22,8 +21,8 @@ namespace ArtekSoftware.Conference.UI.Web
     public List<string> links { get; set; }
     public List<string> tags { get; set; }
     public List<string> subjects { get; set; }
-    public List<SpeakerEntity> speakers { get; set; }
     public List<string> resources { get; set; }
-    public List<string> prerequisites { get; set; } 
+    public List<string> prerequisites { get; set; }
+    public List<SpeakerEntity> speakers { get; set; }
   }
 }

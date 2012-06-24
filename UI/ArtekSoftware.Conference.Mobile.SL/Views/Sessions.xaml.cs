@@ -18,7 +18,7 @@ namespace ArtekSoftware.Conference.Mobile.SL.Views
       base.OnNavigatedTo(e);
       string baseUrl = "http://conference.azurewebsites.net/api/";
       var client = new RemoteDataRepository(baseUrl);
-      client.GetSessions("ThatConference-2012", sessions =>
+      client.GetSessions("CodeMash-2012", sessions =>
       {
         Deployment.Current.Dispatcher.BeginInvoke(() =>
         {

@@ -10,5 +10,7 @@ namespace ArtekSoftware.Conference.RemoteData.Dtos
     public string location { get; set; }
     public string url { get; set; }
     public string slug { get; set; }
+    public string sessionsUrl { get; set; }
+    public string speakersUrl { get; set; }
   }
 }

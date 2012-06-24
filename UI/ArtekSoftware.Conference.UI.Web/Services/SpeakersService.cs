@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using ArtekSoftware.Conference.RemoteData.Dtos;
+using ArtekSoftware.Conference.UI.Web.Services.Requests;
 using AutoMapper;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;

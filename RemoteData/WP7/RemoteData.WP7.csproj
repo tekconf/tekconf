@@ -60,6 +60,9 @@
     <Compile Include="..\Shared\RemoteDataRepository.cs">
       <Link>RemoteDataRepository.cs</Link>
     </Compile>
+    <Compile Include="..\Shared\ScheduleDto.cs">
+      <Link>ScheduleDto.cs</Link>
+    </Compile>
     <Compile Include="..\Shared\SessionDto.cs">
       <Link>SessionDto.cs</Link>
     </Compile>

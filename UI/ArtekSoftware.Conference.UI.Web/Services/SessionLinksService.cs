@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using System.Net;
+using ArtekSoftware.Conference.UI.Web.Services.Requests;
 using MongoDB.Driver.Linq;
 using ServiceStack.Common.Web;
 

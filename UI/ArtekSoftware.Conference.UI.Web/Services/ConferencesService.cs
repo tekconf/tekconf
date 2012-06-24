@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using ArtekSoftware.Conference.RemoteData.Dtos;
+using ArtekSoftware.Conference.UI.Web.Services.Requests;
 using AutoMapper;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
@@ -16,9 +18,20 @@ namespace ArtekSoftware.Conference.UI.Web
     {
       if (request.conferenceSlug == default(string))
       {
-        var conferences = this.Database.GetCollection<ConferenceEntity>("conferences")
-                            .AsQueryable()
-                            .ToList();
+        List<ConferenceEntity> conferences = null;
+
+        try
+        {
+          conferences = this.Database.GetCollection<ConferenceEntity>("conferences")
+            .AsQueryable()
+            .ToList();
+        }
+        catch (Exception ex)
+        {
+          var fd = ex.Message;
+          throw;
+        }
+
 
         var dtos = Mapper.Map<List<ConferenceEntity>, List<ConferencesDto>>(conferences);
         return dtos.ToList();

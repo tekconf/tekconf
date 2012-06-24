@@ -176,26 +176,29 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\AppHost.cs" />
+    <Compile Include="Bootstrapper.cs" />
     <Compile Include="Services\Entities\ConferenceEntity.cs" />
-    <Compile Include="Services\Old\MongoRestServiceBase.cs" />
+    <Compile Include="Services\Entities\ScheduleEntity.cs" />
+    <Compile Include="Services\MongoRestServiceBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Services\Requests\ConferencesRequest.cs" />
     <Compile Include="Services\ConferencesService.cs" />
-    <Compile Include="Services\Entities\SessionEntities.cs" />
-    <Compile Include="Services\Old\SessionService.cs" />
+    <Compile Include="Services\Entities\SessionEntity.cs" />
+    <Compile Include="Services\Requests\ScheduleRequest.cs" />
     <Compile Include="Services\Requests\SessionLinksRequest.cs" />
     <Compile Include="Services\Requests\SessionPrerequisitesRequest.cs" />
     <Compile Include="Services\Requests\SessionResourcesRequest.cs" />
     <Compile Include="Services\Requests\SessionSpeakersRequest.cs" />
     <Compile Include="Services\Requests\SessionsRequest.cs" />
     <Compile Include="Services\Requests\SpeakersRequest.cs" />
+    <Compile Include="Services\ScheduleService.cs" />
     <Compile Include="Services\SessionLinksService.cs" />
     <Compile Include="Services\SessionPrerequisitesService.cs" />
     <Compile Include="Services\SessionResourcesService.cs" />
     <Compile Include="Services\SessionSpeakersService.cs" />
     <Compile Include="Services\SessionsService.cs" />
     <Compile Include="Services\Entities\SpeakerEntity.cs" />
-    <Compile Include="Services\Old\SpeakerService.cs" />
-    <Compile Include="Services\Old\OldConferenceService.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ConferenceController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -331,6 +334,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Services\Old\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

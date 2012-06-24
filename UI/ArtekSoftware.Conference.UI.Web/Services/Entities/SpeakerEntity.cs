@@ -11,7 +11,12 @@ namespace ArtekSoftware.Conference.UI.Web
     public string slug { get; set; }
     public string firstName { get; set; }
     public string lastName { get; set; }
-    public string conferenceSlug { get; set; } //TODO
-    public string sessionSlug { get; set; } //TODO
+    public string description { get; set; }
+    public string blogUrl { get; set; }
+    public string twitterName { get; set; }
+    public string facebookUrl { get; set; }
+    public string linkedInUrl { get; set; }
+    public string emailAddress { get; set; }
+    public string phoneNumber { get; set; }
   }
 }

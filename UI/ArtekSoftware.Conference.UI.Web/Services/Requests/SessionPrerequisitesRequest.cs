@@ -1,4 +1,4 @@
-namespace ArtekSoftware.Conference.UI.Web
+namespace ArtekSoftware.Conference.UI.Web.Services.Requests
 {
   public class SessionPrerequisitesRequest
   {

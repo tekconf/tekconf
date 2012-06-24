@@ -23,17 +23,17 @@ GET http://conferences.arteksoftware.com/That-Conference/2012
         {
             _id: "498f66af7f9442e4b4be7ca6d3ec52e5",
             description: "Spend 3 days, with 1000 of your fellow campers in 150 sessions geeking out on everything Mobile, Web and Cloud at a giant waterpark.",
-            facebookUrl: "https://www.facebook.com/ThatConference",
-            slug: "ThatConference-2012",
-            homepageUrl: "http://thatconference.com",
-            lanyrdUrl: "lanyrd.com/2012/thatconference/",
+            facebookUrl: "https://www.facebook.com/CodeMash",
+            slug: "CodeMash-2012",
+            homepageUrl: "http://codemash.com",
+            lanyrdUrl: "lanyrd.com/2012/codemash/",
             location: "Kalahari Resort, Wisconsin Dells, WI",
             name: "That Conference",
             start: "/Date(1344830400000-0400)/",
             end: "/Date(1345003200000-0400)/",
-            twitterHashTag: "#thatConference",
-            twitterName: "@thatConference",
-            sessions : "http://conferences.arteksoftware.com/That-Conference/2012/session"
+            twitterHashTag: "#codemash",
+            twitterName: "@codemash",
+            sessions : "http://conferences.arteksoftware.com/CodeMash-2012/session"
         }
 
 GET http://conferences.arteksoftware.com/That-Conference/2012/sessions

@@ -52,6 +52,7 @@
     <Compile Include="RemoteDataRepository.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ScheduleDto.cs" />
     <Compile Include="SessionDto.cs" />
     <Compile Include="SessionsDto.cs" />
     <Compile Include="SpeakerDto.cs" />

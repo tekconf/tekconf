@@ -18,7 +18,7 @@ namespace ArtekSoftware.Conference.Mobile.WP7
       string baseUrl = "http://conference.azurewebsites.net/api/";
       var client = new RemoteData.Shared.RemoteData(baseUrl);
 
-      client.GetSessions("ThatConference-2012", sessions =>
+      client.GetSessions("CodeMash-2012", sessions =>
                            {
                              Deployment.Current.Dispatcher.BeginInvoke(() =>
                              {

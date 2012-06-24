@@ -1,4 +1,5 @@
 using System.Web.Mvc;
+using ArtekSoftware.Conference.UI.Web.Services.Requests;
 using ServiceStack.CacheAccess;
 using ServiceStack.CacheAccess.Providers;
 using ServiceStack.Mvc;
@@ -31,7 +32,7 @@ namespace ArtekSoftware.Conference.UI.Web.App_Start
 		: AppHostBase
 	{		
 		public AppHost() //Tell ServiceStack the name and where to find your web services
-			: base("StarterTemplate ASP.NET Host", typeof(OldConferenceService).Assembly) { }
+			: base("StarterTemplate ASP.NET Host", typeof(ConferencesService).Assembly) { }
 
 		public override void Configure(Funq.Container container)
 		{
@@ -51,6 +52,7 @@ namespace ArtekSoftware.Conference.UI.Web.App_Start
                 .Add<SessionPrerequisitesRequest>("/conferences/{conferenceSlug}/sessions/{sessionSlug}/prerequisites")
                 .Add<SessionLinksRequest>("/conferences/{conferenceSlug}/sessions/{sessionSlug}/links")
                 .Add<SessionResourcesRequest>("/conferences/{conferenceSlug}/sessions/{sessionSlug}/resources")
+                .Add<ScheduleRequest>("/conferences/{conferenceSlug}/schedule/{userSlug}")
 
 
                 ;

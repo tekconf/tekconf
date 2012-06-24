@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using ArtekSoftware.Conference.RemoteData.Dtos;
+using ArtekSoftware.Conference.UI.Web.Services.Requests;
 using AutoMapper;
 using MongoDB.Driver.Linq;
 using ServiceStack.Common.Web;
@@ -25,7 +26,7 @@ namespace ArtekSoftware.Conference.UI.Web
           throw new HttpError() { StatusCode = HttpStatusCode.NotFound };
         }
 
-        var sessions = Mapper.Map<List<SessionEntities>, List<SessionsDto>>(conference.sessions);
+        var sessions = Mapper.Map<List<SessionEntity>, List<SessionsDto>>(conference.sessions);
         return sessions.ToList();
       }
       else
@@ -41,7 +42,7 @@ namespace ArtekSoftware.Conference.UI.Web
 
         var session = conference.sessions.FirstOrDefault(s => s.slug == request.sessionSlug);
 
-        var dto = Mapper.Map<SessionEntities, SessionDto>(session);
+        var dto = Mapper.Map<SessionEntity, SessionDto>(session);
 
         return dto;
       }
