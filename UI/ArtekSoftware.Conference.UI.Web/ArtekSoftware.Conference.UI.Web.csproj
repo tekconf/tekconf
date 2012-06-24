@@ -50,8 +50,9 @@
     <Reference Include="Glimpse.Core">
       <HintPath>..\..\packages\Glimpse.0.87\lib\net40\Glimpse.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Glimpse.Mvc3">
-      <HintPath>..\..\packages\Glimpse.Mvc3.0.83\lib\net40\Glimpse.Mvc3.dll</HintPath>
+    <Reference Include="Glimpse.Mvc3, Version=0.87.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Glimpse.Mvc3.0.87\lib\net40\Glimpse.Mvc3.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -64,8 +65,8 @@
     <Reference Include="MongoDB.Driver">
       <HintPath>..\..\packages\mongocsharpdriver.1.4.2\lib\net35\MongoDB.Driver.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\packages\Newtonsoft.Json.4.5.6\lib\net40\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.4.5.7\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack">
       <HintPath>..\..\packages\ServiceStack.3.8.3\lib\net35\ServiceStack.dll</HintPath>
@@ -90,8 +91,9 @@
     <Reference Include="ServiceStack.RazorEngine">
       <HintPath>..\..\packages\ServiceStack.3.8.3\lib\net35\ServiceStack.RazorEngine.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Redis">
-      <HintPath>..\..\packages\ServiceStack.Redis.3.8.3\lib\net35\ServiceStack.Redis.dll</HintPath>
+    <Reference Include="ServiceStack.Redis, Version=3.8.4.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\ServiceStack.Redis.3.8.4\lib\net35\ServiceStack.Redis.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.ServiceInterface">
       <HintPath>..\..\packages\ServiceStack.3.8.3\lib\net35\ServiceStack.ServiceInterface.dll</HintPath>
