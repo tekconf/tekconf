@@ -24,9 +24,8 @@ namespace ArtekSoftware.Conference.RemoteData
 
       client.DownloadStringCompleted += (sender, args) =>
                                             {
-                                                //TODO : HACK
-                                              var conferences = new List<ConferencesDto>() { new ConferencesDto() { name = "CodeMash-2012", start = DateTime.Now } };
-                                             // var conferences = JsonSerializer.DeserializeFromString<List<Conference>>(args.Result);
+                                              //var conferences = new List<ConferencesDto>() { new ConferencesDto() { name = "CodeMash-2012", start = DateTime.Now } };
+                                              var conferences = JsonSerializer.DeserializeFromString<List<ConferencesDto>>(args.Result);
                                               callback(conferences);
                                             };
 

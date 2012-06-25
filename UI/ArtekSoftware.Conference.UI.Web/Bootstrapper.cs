@@ -74,7 +74,6 @@ namespace ArtekSoftware.Conference.UI.Web
     {
       protected override string ResolveCore(SpeakerEntity source)
       {
-        //TODO : Make relative
         //TODO : Needs conference slug
         //TODO : Needs session slug
         return RootUrl + "/api/conferences/sessions/speakers/" + source.slug;
@@ -86,7 +85,6 @@ namespace ArtekSoftware.Conference.UI.Web
     {
       protected override string ResolveCore(SessionEntity source)
       {
-        //TODO : Make relative
         //TODO : Needs conference slug
         return RootUrl + "/api/conferences/sessions/" + source.slug + "/speakers";
       }
@@ -96,7 +94,6 @@ namespace ArtekSoftware.Conference.UI.Web
     {
       protected override string ResolveCore(SessionEntity source)
       {
-        //TODO : Make relative
         //TODO : Needs conference slug
         return RootUrl + "/api/conferences/sessions/" + source.slug;
       }
@@ -106,7 +103,7 @@ namespace ArtekSoftware.Conference.UI.Web
     {
       protected override DateTime ResolveCore(SessionEntity source)
       {
-        return DateTime.Now; //TODO: DOn't do this
+        return DateTime.Now; //TODO: Don't do this
         // return (DateTime)source.start;
       }
     }
@@ -115,7 +112,6 @@ namespace ArtekSoftware.Conference.UI.Web
     {
       protected override string ResolveCore(ConferenceEntity source)
       {
-        //TODO : Make relative
         return RootUrl + "/api/conferences/" + source.slug + "/sessions";
       }
     }
@@ -124,8 +120,7 @@ namespace ArtekSoftware.Conference.UI.Web
     {
       protected override string ResolveCore(ConferenceEntity source)
       {
-        //TODO : Make relative
-        return "http://localhost:6327/api/conferences/" + source.slug + "/speakers";
+        return RootUrl + "/api/conferences/" + source.slug + "/speakers";
       }
     }
 
@@ -133,7 +128,6 @@ namespace ArtekSoftware.Conference.UI.Web
     {
       protected override string ResolveCore(ConferenceEntity source)
       {
-        //TODO : Make relative
         return RootUrl + "/api/conferences/" + source.slug;
       }
     }
@@ -142,7 +136,7 @@ namespace ArtekSoftware.Conference.UI.Web
     {
       protected override DateTime ResolveCore(ConferenceEntity source)
       {
-        return DateTime.Now; //TODO: DOn't do this
+        return DateTime.Now; //TODO: Don't do this
         // return (DateTime)source.start;
       }
     }
@@ -153,7 +147,6 @@ namespace ArtekSoftware.Conference.UI.Web
     {
       protected override List<string> ResolveCore(ScheduleEntity source)
       {
-        //TODO : Make relative
         var sessionUrls = new List<string>();
         foreach (var session in source.SessionUrls)
         {
