@@ -56,12 +56,28 @@
   <ItemGroup>
     <Compile Include="ConferencesExtensions.cs" />
     <Compile Include="CompareObjects.cs" />
-    <Compile Include="ConferencesTest.cs" />
+    <Compile Include="Conference\ConferenceTests.GET.cs" />
+    <Compile Include="Conference\ConferenceTests.POST.cs" />
+    <Compile Include="Conference\ConferenceTests.PUT.cs" />
+    <Compile Include="Conference\ConferenceTests.DELETE.cs" />
+    <Compile Include="Conference\ConferenceTests.BASE.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RestTestBase.cs" />
-    <Compile Include="ScheduleTests.cs" />
-    <Compile Include="SessionTests.cs" />
-    <Compile Include="SpeakerTests.cs" />
+    <Compile Include="Schedule\ScheduleTests.BASE.cs" />
+    <Compile Include="Schedule\ScheduleTests.DELETE.cs" />
+    <Compile Include="Schedule\ScheduleTests.GET.cs" />
+    <Compile Include="Schedule\ScheduleTests.POST.cs" />
+    <Compile Include="Schedule\ScheduleTests.PUT.cs" />
+    <Compile Include="Session\SessionTests.BASE.cs" />
+    <Compile Include="Session\SessionTests.DELETE.cs" />
+    <Compile Include="Session\SessionTests.PUT.cs" />
+    <Compile Include="Session\SessionTests.GET.cs" />
+    <Compile Include="Session\SessionTests.POST.cs" />
+    <Compile Include="Speaker\SpeakerTests.BASE.cs" />
+    <Compile Include="Speaker\SpeakerTests.DELETE.cs" />
+    <Compile Include="Speaker\SpeakerTests.PUT.cs" />
+    <Compile Include="Speaker\SpeakerTests.GET.cs" />
+    <Compile Include="Speaker\SpeakerTests.POST.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
