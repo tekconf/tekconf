@@ -17,8 +17,8 @@ namespace ArtekSoftware.Conference.UI.Web
     public string location { get; set; }
     public string meetupUrl { get; set; }
     public string name { get; set; }
-    public object start { get; set; }
-    public object end { get; set; }
+    public DateTime start { get; set; }
+    public DateTime end { get; set; }
     public string twitterHashTag { get; set; }
     public string twitterName { get; set; }
     public List<SessionEntity> sessions { get; set; }
