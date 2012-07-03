@@ -35,8 +35,24 @@ namespace ArtekSoftware.Conference.UI.Web
         return new HttpError() { StatusCode = HttpStatusCode.NotFound };
       }
       var sessions = conference.sessions;
+      var speakersList = new List<SpeakerEntity>();
 
-      var speakers = conference.sessions.SelectMany(s => s.speakers).ToList();
+      //TODO : Linq this
+      foreach(var session in conference.sessions)
+      {
+        if (session.speakers != null)
+        {
+          foreach (var speakerEntity in session.speakers)
+          {
+            if (!speakersList.Any(s => s.slug == speakerEntity.slug))
+            {
+              speakersList.Add(speakerEntity);
+            }
+          }
+        }
+      }
+      var speakers = speakersList.ToList();
+     // var speakers = conference.sessions.SelectMany(s => s.speakers).ToList();
 
       if (request.speakerSlug == default(string))
       {

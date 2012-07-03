@@ -17,10 +17,10 @@ namespace ArtekSoftware.Conference.UI.Web.Tests.Int
     [Test(Description = "http://localhost:6327/api/conferences")]
     public void given_a_GET_request_for_all_conferences_it_returns_subset_of_conference_info()
     {
-      //GetConferences().FirstOrDefault().IsTheSameAs(codemash).ShouldBeTrue();
+      //GetConferences().FirstOrDefault().IsTheSameAs(codemashs).ShouldBeTrue();
       var conference = GetConferences(new ConferencesRequest()).FirstOrDefault();
       var compareObjects = new CompareObjects();
-      var areSame = compareObjects.Compare(conference, codemash);
+      var areSame = compareObjects.Compare(conference, codemashs);
       if (!areSame)
       {
         Assert.Fail(compareObjects.DifferencesString);

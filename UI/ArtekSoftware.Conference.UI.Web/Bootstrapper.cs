@@ -20,13 +20,11 @@ namespace ArtekSoftware.Conference.UI.Web
 
       Mapper.CreateMap<ConferenceEntity, ConferenceDto>()
         .ForMember(dest => dest.url, opt => opt.ResolveUsing<ConferencesUrlResolver>())
-        .ForMember(dest => dest.start, opt => opt.ResolveUsing<ConferencesDateResolver>())
-        .ForMember(dest => dest.end, opt => opt.ResolveUsing<ConferencesDateResolver>())
+        //.ForMember(dest => dest.start, opt => opt.ResolveUsing<ConferencesDateResolver>())
+        //.ForMember(dest => dest.end, opt => opt.ResolveUsing<ConferencesDateResolver>())
         .ForMember(dest => dest.sessionsUrl, opt => opt.ResolveUsing<ConferencesSessionsResolver>())
         .ForMember(dest => dest.speakersUrl, opt => opt.ResolveUsing<ConferencesSpeakersResolver>())
         ;
-
-
 
 
       Mapper.CreateMap<SessionEntity, SessionsDto>()
@@ -40,19 +38,14 @@ namespace ArtekSoftware.Conference.UI.Web
         //.ForMember(dest => dest.start, opt => opt.ResolveUsing<SessionsDateResolver>())
         //.ForMember(dest => dest.end, opt => opt.ResolveUsing<SessionsDateResolver>())
         .ForMember(dest => dest.speakersUrl, opt => opt.ResolveUsing<SessionsSpeakersUrlResolver>())
-
         ;
-
-
 
       Mapper.CreateMap<SpeakerEntity, SpeakersDto>()
         .ForMember(dest => dest.url, opt => opt.ResolveUsing<SpeakersUrlResolver>())
-
         ;
 
       Mapper.CreateMap<SpeakerEntity, SpeakerDto>()
         ;
-
 
       Mapper.CreateMap<ScheduleEntity, ScheduleDto>()
         .ForMember(dest => dest.sessions, opt => opt.ResolveUsing<ScheduleSessionsResolver>())
