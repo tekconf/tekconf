@@ -18,6 +18,10 @@ namespace ArtekSoftware.Conference.UI.Web
         throw new HttpError() { StatusCode = HttpStatusCode.BadRequest };
       }
 
+      Mapper.CreateMap<SessionEntity, SessionsDto>()
+        .ForMember(dest => dest.Url, opt => opt.ResolveUsing<Bootstrapper.SessionsUrlResolver>().ConstructedBy(() => new Bootstrapper.SessionsUrlResolver(request.conferenceSlug)))
+        ;
+
       if (request.sessionSlug == default(string))
       {
         var conference = this.Database.GetCollection<ConferenceEntity>("conferences").AsQueryable().SingleOrDefault(c => c.slug == request.conferenceSlug);
@@ -41,6 +45,11 @@ namespace ArtekSoftware.Conference.UI.Web
         }
 
         var session = conference.sessions.FirstOrDefault(s => s.slug == request.sessionSlug);
+
+        Mapper.CreateMap<SessionEntity, SessionDto>()
+          .ForMember(dest => dest.url, opt => opt.ResolveUsing<Bootstrapper.SessionsUrlResolver>().ConstructedBy(() => new Bootstrapper.SessionsUrlResolver(request.conferenceSlug)))
+          .ForMember(dest => dest.speakersUrl, opt => opt.ResolveUsing<Bootstrapper.SessionsSpeakersUrlResolver>().ConstructedBy(() => new Bootstrapper.SessionsSpeakersUrlResolver(request.conferenceSlug)))
+          ;
 
         var dto = Mapper.Map<SessionEntity, SessionDto>(session);
 

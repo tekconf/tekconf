@@ -1,6 +1,7 @@
 using System.Web.Mvc;
 using ArtekSoftware.Conference.UI.Web.Services.Requests;
 using ServiceStack.CacheAccess;
+using ServiceStack.CacheAccess.Azure;
 using ServiceStack.CacheAccess.Providers;
 using ServiceStack.Mvc;
 using ServiceStack.ServiceInterface;
@@ -70,7 +71,9 @@ namespace ArtekSoftware.Conference.UI.Web.App_Start
 			//Register In-Memory Cache provider. 
 			//For Distributed Cache Providers Use: PooledRedisClientManager, BasicRedisClientManager or see: https://github.com/ServiceStack/ServiceStack/wiki/Caching
 			container.Register<ICacheClient>(new MemoryCacheClient());
-			container.Register<ISessionFactory>(c => 
+      //container.Register<ICacheClient>(new AzureCacheClient());
+
+      container.Register<ISessionFactory>(c => 
 				new SessionFactory(c.Resolve<ICacheClient>()));
 
 			//Set MVC to use the same Funq IOC as ServiceStack

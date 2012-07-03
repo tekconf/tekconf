@@ -8,28 +8,15 @@ namespace ArtekSoftware.Conference.UI.Web.Tests.Int
   public partial class ScheduleTests : RestTestBase
   {
     [Test(Description = "http://localhost:6327/api/conferences/CodeMash-2012/schedule/rob-gibbens")]
-    public void given_a_POST_request_to_a_schedule_it_returns_the_schedule_with_sessions()
+    public void given_a_POST_request_for_a_resource_that_already_exists_it_should_update_the_resource()
     {
-      //GetConferences().FirstOrDefault().IsTheSameAs(codemashs).ShouldBeTrue();
-      var schedule = GetSchedule(new ScheduleRequest() { conferenceSlug = "CodeMash-2012", userSlug = "rob-gibbens" });
-      var compareObjects = new CompareObjects();
-      var areSame = compareObjects.Compare(schedule, robsSchedule);
-      if (!areSame)
-      {
-        Assert.Fail(compareObjects.DifferencesString);
-      }
+      Assert.Fail("Not Implemented");
     }
 
     [Test(Description = "http://localhost:6327/api/conferences/CodeMash-2012/schedule/rob-gibbens")]
-    public void given_a_POST_request_to_a_schedule_it_returns_response_code_CREATED()
+    public void given_a_POST_request_for_a_resource_that_does_not_already_exist_it_should_create_the_resource()
     {
-      Assert.Fail("Incomplete");
-    }
-
-    [Test(Description = "http://localhost:6327/api/conferences/CodeMash-2012/schedule/rob-gibbens")]
-    public void given_a_POST_request_to_an_existing_schedule_it_returns_an_error()
-    {
-      Assert.Fail("Incomplete");
+      Assert.Fail("Not Implemented");
     }
   }
 }

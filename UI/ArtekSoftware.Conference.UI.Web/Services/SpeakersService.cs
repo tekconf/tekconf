@@ -12,9 +12,9 @@ using ServiceStack.ServiceInterface;
 
 namespace ArtekSoftware.Conference.UI.Web
 {
-  public class SpeakersService : MongoRestServiceBase<SpeakersRequest>
-  {
-    public override object OnGet(SpeakersRequest request)
+    public class SpeakersService : MongoRestServiceBase<SpeakersRequest>
+    {
+        public override object OnGet(SpeakersRequest request)
     {
       if (request.conferenceSlug == default(string))
       {
@@ -34,6 +34,7 @@ namespace ArtekSoftware.Conference.UI.Web
       {
         return new HttpError() { StatusCode = HttpStatusCode.NotFound };
       }
+
       var sessions = conference.sessions;
       var speakersList = new List<SpeakerEntity>();
 
@@ -56,6 +57,7 @@ namespace ArtekSoftware.Conference.UI.Web
 
       if (request.speakerSlug == default(string))
       {
+
         List<SpeakersDto> speakersDtos = Mapper.Map<List<SpeakerEntity>, List<SpeakersDto>>(speakers);
 
         return speakersDtos.ToList();
@@ -64,6 +66,7 @@ namespace ArtekSoftware.Conference.UI.Web
       {
         var speaker = speakers.FirstOrDefault(s => s.slug == request.speakerSlug);
 
+
         var dto = Mapper.Map<SpeakerEntity, SpeakerDto>(speaker);
 
         return dto;
@@ -71,5 +74,5 @@ namespace ArtekSoftware.Conference.UI.Web
 
 
     }
-  }
+    }
 }
