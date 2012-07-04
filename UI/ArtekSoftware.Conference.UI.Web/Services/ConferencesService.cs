@@ -20,21 +20,17 @@ namespace ArtekSoftware.Conference.UI.Web
       {
         List<ConferenceEntity> conferences = null;
 
-        try
-        {
-          conferences = this.Database.GetCollection<ConferenceEntity>("conferences")
-            .AsQueryable()
-            .ToList();
-        }
-        catch (Exception ex)
-        {
-          var fd = ex.Message;
-          throw;
-        }
+        conferences = this.Database.GetCollection<ConferenceEntity>("conferences")
+          .AsQueryable()
+          .ToList();
 
-
-        var dtos = Mapper.Map<List<ConferenceEntity>, List<ConferencesDto>>(conferences);
-        return dtos.ToList();
+        var conferencesDtos = Mapper.Map<List<ConferenceEntity>, List<ConferencesDto>>(conferences);
+        var resolver = new ConferencesUrlResolver();
+        foreach (var conferencesDto in conferencesDtos)
+        {
+          conferencesDto.url = resolver.ResolveCore(conferencesDto);
+        }
+        return conferencesDtos.ToList();
       }
       else
       {
@@ -48,6 +44,8 @@ namespace ArtekSoftware.Conference.UI.Web
         }
 
         var dto = Mapper.Map<ConferenceEntity, ConferenceDto>(conference);
+        var resolver = new ConferenceUrlResolver();
+        dto.url = resolver.ResolveCore(dto);
 
         return dto;
       }

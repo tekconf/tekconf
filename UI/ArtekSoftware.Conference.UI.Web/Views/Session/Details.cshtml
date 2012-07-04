@@ -7,22 +7,22 @@
 <br />
 <br />
 <br />
-<h2>@Model.Slug</h2>
+<h2>@Model.slug</h2>
 
-@Model.ConferenceSlug<br />
-@Model.Title<br />
-@Model.Start<br />
-@Model.End<br />
-@Model.Room<br />
-@Model.Difficulty<br />
-@Model.Description<br />
-@Model.TwitterHashTag<br />
-@Model.SessionType<br />
+@Model.Conferenceslug<br />
+@Model.title<br />
+@Model.start<br />
+@Model.end<br />
+@Model.room<br />
+@Model.difficulty<br />
+@Model.description<br />
+@Model.twitterHashTag<br />
+@Model.sessionType<br />
 
-@if (Model.Links != null)
+@if (Model.links != null)
 {
   <table class="table table-striped">
-    @foreach (var link in Model.Links)
+    @foreach (var link in Model.links)
     {
       <tr>
         <td>
@@ -32,10 +32,10 @@
     }
   </table>
 }
-@if (Model.Tags != null)
+@if (Model.tags != null)
 {
   <table class="table table-striped">
-    @foreach (var tag in Model.Tags)
+    @foreach (var tag in Model.tags)
     {
       <tr>
         <td>
@@ -45,10 +45,10 @@
     }
   </table>
 }
-@if (Model.Subjects != null)
+@if (Model.subjects != null)
 {
   <table class="table table-striped">
-    @foreach (var subject in Model.Subjects)
+    @foreach (var subject in Model.subjects)
     {
       <tr>
         <td>
@@ -58,10 +58,10 @@
     }
   </table>
 }
-@if (Model.Speakers != null)
+@if (Model.speakers != null)
 {
   <table class="table table-striped">
-    @foreach (var speaker in Model.Speakers)
+    @foreach (var speaker in Model.speakers)
     {
       <tr>
         <td>

@@ -22,9 +22,10 @@ namespace ArtekSoftware.Conference.UI.Web
         .Where(s => s.ConferenceSlug == request.conferenceSlug)
         .SingleOrDefault(s => s.UserSlug == request.userSlug);
 
-      var dto = Mapper.Map<ScheduleEntity, ScheduleDto>(schedule);
-
-      return dto;
+      var scheduleDto = Mapper.Map<ScheduleEntity, ScheduleDto>(schedule);
+      var resolver = new ScheduleUrlResolver(request.conferenceSlug, request.userSlug);
+      scheduleDto.url = resolver.ResolveUrl();
+      return scheduleDto;
     }
   }
 }

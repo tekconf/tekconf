@@ -12,5 +12,6 @@ namespace ArtekSoftware.Conference.RemoteData.Dtos
     public string linkedInUrl { get; set; }
     public string emailAddress { get; set; }
     public string phoneNumber { get; set; }
+    public string url { get; set; }
   }
 }

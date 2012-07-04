@@ -1,17 +1,17 @@
 ﻿@model List<RemoteData.Shared.Speaker>
 
 @{
-  ViewBag.Title = "Speakers";
+  ViewBag.Title = "speakers";
   Layout = "../Shared/_Layout.cshtml";
 }
 
-<h2>Speakers</h2>
+<h2>speakers</h2>
 <table class="table table-striped">
 @foreach (var speaker in Model)
 {
   <tr>
       <td>
-        @Html.ActionLink(speaker.Slug, "Details", new { conferenceSlug = speaker.Slug, slug = speaker.Slug })
+        @Html.ActionLink(speaker.slug, "Details", new { conferenceSlug = speaker.slug, slug = speaker.slug })
       </td>
     </tr>
 }

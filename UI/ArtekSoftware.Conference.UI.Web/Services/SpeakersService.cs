@@ -12,9 +12,9 @@ using ServiceStack.ServiceInterface;
 
 namespace ArtekSoftware.Conference.UI.Web
 {
-    public class SpeakersService : MongoRestServiceBase<SpeakersRequest>
-    {
-        public override object OnGet(SpeakersRequest request)
+  public class SpeakersService : MongoRestServiceBase<SpeakersRequest>
+  {
+    public override object OnGet(SpeakersRequest request)
     {
       if (request.conferenceSlug == default(string))
       {
@@ -39,7 +39,7 @@ namespace ArtekSoftware.Conference.UI.Web
       var speakersList = new List<SpeakerEntity>();
 
       //TODO : Linq this
-      foreach(var session in conference.sessions)
+      foreach (var session in conference.sessions)
       {
         if (session.speakers != null)
         {
@@ -53,26 +53,28 @@ namespace ArtekSoftware.Conference.UI.Web
         }
       }
       var speakers = speakersList.ToList();
-     // var speakers = conference.sessions.SelectMany(s => s.speakers).ToList();
 
       if (request.speakerSlug == default(string))
       {
-
         List<SpeakersDto> speakersDtos = Mapper.Map<List<SpeakerEntity>, List<SpeakersDto>>(speakers);
-
+        foreach (var speakersDto in speakersDtos)
+        {
+          var resolver = new ConferencesSpeakersResolver(request.conferenceSlug, speakersDto.slug);
+          speakersDto.url = resolver.ResolveCore();
+        }
         return speakersDtos.ToList();
       }
       else
       {
         var speaker = speakers.FirstOrDefault(s => s.slug == request.speakerSlug);
 
-
-        var dto = Mapper.Map<SpeakerEntity, SpeakerDto>(speaker);
-
-        return dto;
+        var speakerDto = Mapper.Map<SpeakerEntity, SpeakerDto>(speaker);
+        var resolver = new ConferencesSpeakerResolver(request.conferenceSlug, speakerDto.slug);
+        speakerDto.url = resolver.ResolveCore();
+        return speakerDto;
       }
 
 
     }
-    }
+  }
 }

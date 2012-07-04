@@ -130,8 +130,8 @@ namespace ArtekSoftware.Conference.RemoteData
         {
           var sessions = new List<SessionsDto>()
             {
-              new SessionsDto() {Title = "My Session", Start = DateTime.Now},
-              new SessionsDto() {Title = "AJ's Session", Start = DateTime.Now}
+              new SessionsDto() {title = "My Session", start = DateTime.Now},
+              new SessionsDto() {title = "AJ's Session", start = DateTime.Now}
             };
         //var sessions = JsonSerializer.DeserializeFromString<List<Session>>(args.Result);
         callback(sessions);
@@ -161,7 +161,7 @@ namespace ArtekSoftware.Conference.RemoteData
 
     //public void AddSession(Session session, Action<bool> callback)
     //{
-    //  string url = _baseUrl + "conferences/" + session.ConferenceSlug + "/sessions";
+    //  string url = _baseUrl + "conferences/" + session.conferenceSlug + "/sessions";
 
     //  var client = new WebClient();
     //  //client.Headers[HttpRequestHeader.ContentType] = "application/json";
@@ -178,7 +178,7 @@ namespace ArtekSoftware.Conference.RemoteData
 
     //public void AddSpeaker(Speaker speaker, Action<bool> callback)
     //{
-    //  string url = _baseUrl + "conferences/" + speaker.ConferenceSlug + "/sessions/" + speaker.SessionSlug + "/speakers";
+    //  string url = _baseUrl + "conferences/" + speaker.conferenceSlug + "/sessions/" + speaker.SessionSlug + "/speakers";
 
     //  var client = new WebClient();
     //  client.Headers[HttpRequestHeader.ContentType] = "application/json";

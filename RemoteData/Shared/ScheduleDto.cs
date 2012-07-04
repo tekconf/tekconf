@@ -6,6 +6,7 @@ namespace ArtekSoftware.Conference.RemoteData.Dtos
   {
     public string userSlug { get; set; }
     public string conferenceSlug { get; set; }
+    public string url { get; set; }
     public List<string> sessions { get; set; }
   }
 }

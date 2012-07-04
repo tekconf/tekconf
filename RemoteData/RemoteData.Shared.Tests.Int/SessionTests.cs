@@ -33,7 +33,7 @@ namespace RemoteData.Shared.Tests.Int
         if (sessions != null)
         {
           sessions.Count.ShouldEqual(1);
-          sessions.FirstOrDefault().Slug.ShouldEqual(slug);
+          sessions.FirstOrDefault().slug.ShouldEqual(slug);
           gotData = true;
         }
       }

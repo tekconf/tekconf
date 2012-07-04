@@ -43,16 +43,22 @@ namespace ArtekSoftware.Conference.UI.Web
 
       if (request.speakerSlug == default(string))
       {
-        var speakers = Mapper.Map<List<SpeakerEntity>, List<SpeakersDto>>(session.speakers);
-        return speakers.ToList();
+        var speakersDtos = Mapper.Map<List<SpeakerEntity>, List<SpeakersDto>>(session.speakers);
+        var resolver = new SpeakersUrlResolver(request.conferenceSlug, request.sessionSlug);
+        foreach (var speakersDto in speakersDtos)
+        {
+          speakersDto.url = resolver.ResolveUrl(speakersDto.slug);
+        }
+        return speakersDtos.ToList();
       }
       else
       {
         var speaker = session.speakers.FirstOrDefault(s => s.slug == request.speakerSlug);
 
-        var dto = Mapper.Map<SpeakerEntity, SpeakerDto>(speaker);
-
-        return dto;
+        var speakerDto = Mapper.Map<SpeakerEntity, SpeakerDto>(speaker);
+        var resolver = new SpeakerUrlResolver(request.conferenceSlug, request.sessionSlug, speakerDto.url);
+        speakerDto.url = resolver.ResolveUrl();
+        return speakerDto;
       }
 
 

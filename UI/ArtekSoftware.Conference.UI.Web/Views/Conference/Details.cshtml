@@ -7,14 +7,14 @@
 <br />
 <br />
 <br />
-<h2>@Model.Slug</h2>
-<h4>@Model.Description</h4>
+<h2>@Model.slug</h2>
+<h4>@Model.description</h4>
 
 @Model.Location<br />
 @Model.Name<br />
-@Model.Start<br />
-@Model.End<br />
-@Model.TwitterHashTag<br />
+@Model.start<br />
+@Model.end<br />
+@Model.twitterHashTag<br />
 @Model.TwitterName<br />
 <a href="@Model.FacebookUrl">@Model.FacebookUrl</a><br />
 <a href="@Model.HomepageUrl">@Model.HomepageUrl</a><br />
@@ -28,7 +28,7 @@
         {
             <tr>
                 <td>
-                    @Html.ActionLink(@session.Slug, "Details", "Session", new {conferenceSlug = session.ConferenceSlug, slug = session.Slug}, null)
+                    @Html.ActionLink(@session.slug, "Details", "Session", new {conferenceSlug = session.Conferenceslug, slug = session.slug}, null)
                 </td>
             </tr>
         }
