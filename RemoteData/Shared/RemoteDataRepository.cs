@@ -19,7 +19,7 @@ namespace ArtekSoftware.Conference.RemoteData
       string url = _baseUrl + "conferences";
 
       var client = new WebClient();
-	client.Encoding = System.Text.Encoding.UTF8;
+      client.Encoding = System.Text.Encoding.UTF8;
       client.Headers[HttpRequestHeader.Accept] = "application/json";
 
       client.DownloadStringCompleted += (sender, args) =>
@@ -36,7 +36,7 @@ namespace ArtekSoftware.Conference.RemoteData
     {
       string url = _baseUrl + "conferences/" + slug;
       var client = new WebClient();
-	client.Encoding = System.Text.Encoding.UTF8;
+      client.Encoding = System.Text.Encoding.UTF8;
       client.Headers[HttpRequestHeader.Accept] = "application/json";
       client.DownloadStringCompleted += (sender, args) =>
       {
@@ -122,19 +122,19 @@ namespace ArtekSoftware.Conference.RemoteData
       string url = _baseUrl + "conferences/" + conferenceSlug + "/sessions";
 
       var client = new WebClient();
-	client.Encoding = System.Text.Encoding.UTF8;
+      client.Encoding = System.Text.Encoding.UTF8;
       client.Headers[HttpRequestHeader.Accept] = "application/json";
 
       client.DownloadStringCompleted += (sender, args) =>
         {
           //var sessions = new List<SessionsDto>()
-            //{
-              //new SessionsDto() {title = "My Session", start = DateTime.Now},
-              //new SessionsDto() {title = "AJ's Session", start = DateTime.Now}
-            //};
-        var sessions = JsonSerializer.DeserializeFromString<List<SessionsDto>>(args.Result);
-        callback(sessions);
-      };
+          //{
+          //new SessionsDto() {title = "My Session", start = DateTime.Now},
+          //new SessionsDto() {title = "AJ's Session", start = DateTime.Now}
+          //};
+          var sessions = JsonSerializer.DeserializeFromString<List<SessionsDto>>(args.Result);
+          callback(sessions);
+        };
 
       client.DownloadStringAsync(new Uri(url));
 

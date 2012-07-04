@@ -20,8 +20,8 @@
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
     <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-      <TextBlock x:Name="ApplicationTitle" Text="Conferences" Style="{ StaticResource PhoneTextNormalStyle}" />
-      <TextBlock x:Name="PageTitle" Text="@Conferences" Margin="9,-7,0,0" Style="{ StaticResource PhoneTextTitle1Style}" />
+      <TextBlock x:Name="ApplicationTitle" Text="CodeMash" Style="{ StaticResource PhoneTextNormalStyle}" />
+      <TextBlock x:Name="PageTitle" Text="Sessions" Margin="9,-7,0,0" Style="{ StaticResource PhoneTextTitle1Style}" />
     </StackPanel>
 
     <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
@@ -30,12 +30,12 @@
         <TextBlock TextAlignment="Center" Text="Downloading sessions, please wait..." />
       </StackPanel>
 
-      <ListBox x:Name="Items" Margin="0,0,-12,0" ItemsSource="{Binding}" SelectionChanged="ConferenceSelected">
+      <ListBox x:Name="Items" Margin="0,0,-12,0" ItemsSource="{Binding}" SelectionChanged="SessionSelected">
         <ListBox.ItemTemplate>
           <DataTemplate>
             <StackPanel Margin="0,15,0,15">
-              <TextBlock Text="{Binding Title}" TextTrimming="WordEllipsis" Style="{ StaticResource PhoneTextNormalStyle}" />
-              <TextBlock Text="{Binding Start}" Style="{StaticResource PhoneTextSmallStyle}" />
+              <TextBlock Text="{Binding title}" TextTrimming="WordEllipsis" Style="{ StaticResource PhoneTextNormalStyle}" />
+              <TextBlock Text="{Binding start}" Style="{StaticResource PhoneTextSmallStyle}" />
             </StackPanel>
           </DataTemplate>
         </ListBox.ItemTemplate>

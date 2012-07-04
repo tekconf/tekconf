@@ -16,7 +16,8 @@ namespace ArtekSoftware.Conference.Mobile.SL.Views
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
       base.OnNavigatedTo(e);
-      string baseUrl = "http://conference.azurewebsites.net/api/";
+      //string baseUrl = "http://conference.azurewebsites.net/api/";
+      string baseUrl = "http://localhost/ArtekSoftware.Conference.UI.Web/api/";
       var client = new RemoteDataRepository(baseUrl);
       client.GetSessions("CodeMash-2012", sessions =>
       {

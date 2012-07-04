@@ -1,5 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using ArtekSoftware.Conference.RemoteData;
+using ArtekSoftware.Conference.RemoteData.Dtos;
 using Microsoft.Phone.Controls;
 
 namespace ArtekSoftware.Conference.Mobile.WP7
@@ -16,7 +18,7 @@ namespace ArtekSoftware.Conference.Mobile.WP7
     {
       base.OnNavigatedTo(e);
       string baseUrl = "http://conference.azurewebsites.net/api/";
-      var client = new RemoteData.Shared.RemoteData(baseUrl);
+      var client = new RemoteDataRepository(baseUrl);
 
       client.GetSessions("CodeMash-2012", sessions =>
                            {
@@ -37,10 +39,10 @@ namespace ArtekSoftware.Conference.Mobile.WP7
       });
     }
 
-    private void ConferenceSelected(object sender, SelectionChangedEventArgs e)
+    private void SessionSelected(object sender, SelectionChangedEventArgs e)
     {
-      var conference = (RemoteData.Shared.Conference) e.AddedItems[ 0]; 
-      MessageBox.Show( conference.Name, "Full Conference", MessageBoxButton.OK);
+      var conference = (ConferencesDto) e.AddedItems[ 0]; 
+      MessageBox.Show( conference.name, "Full Conference", MessageBoxButton.OK);
     }
 
   }
