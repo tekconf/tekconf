@@ -9,17 +9,6 @@ using ServiceStack.ServiceInterface.Auth;
 using ServiceStack.WebHost.Endpoints;
 
 [assembly: WebActivator.PreApplicationStartMethod(typeof(ArtekSoftware.Conference.UI.Web.App_Start.AppHost), "Start")]
-
-//IMPORTANT: Add the line below to MvcApplication.RegisterRoutes(RouteCollection) in the Global.asax:
-//routes.IgnoreRoute("api/{*pathInfo}"); 
-
-/**
- * Entire ServiceStack Starter Template configured with a 'Hello' Web Service and a 'Todo' Rest Service.
- *
- * Auto-Generated Metadata API page at: /metadata
- * See other complete web service examples at: https://github.com/ServiceStack/ServiceStack.Examples
- */
-
 namespace ArtekSoftware.Conference.UI.Web.App_Start
 {
 	//A customizeable typed UserSession that can be extended with your own properties
@@ -66,7 +55,7 @@ namespace ArtekSoftware.Conference.UI.Web.App_Start
 			//ConfigureAuth(container);
 
 			//Register all your dependencies
-			//container.Register(new TodoRepository());
+			//container.Register(new Repository());
 			
 			//Register In-Memory Cache provider. 
 			//For Distributed Cache Providers Use: PooledRedisClientManager, BasicRedisClientManager or see: https://github.com/ServiceStack/ServiceStack/wiki/Caching

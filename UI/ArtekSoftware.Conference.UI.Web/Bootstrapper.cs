@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using ArtekSoftware.Conference.RemoteData.Dtos;
 using AutoMapper;
@@ -11,51 +12,26 @@ namespace ArtekSoftware.Conference.UI.Web
     public void BootstrapAutomapper()
     {
       Mapper.CreateMap<ConferenceEntity, ConferencesDto>()
-        //.ForMember(dest => dest.url, opt => opt.ResolveUsing<ConferencesUrlResolver>())
-          .ForMember(dest => dest.url, opt => opt.Ignore())
-        ;
+          .ForMember(dest => dest.url, opt => opt.Ignore());
 
       Mapper.CreateMap<ConferenceEntity, ConferenceDto>()
-        //.ForMember(dest => dest.url, opt => opt.ResolveUsing<ConferencesUrlResolver>())
-        //.ForMember(dest => dest.sessionsUrl, opt => opt.ResolveUsing<ConferenceSessionsUrlResolver>())
-        //.ForMember(dest => dest.speakersUrl, opt => opt.ResolveUsing<ConferencesSpeakersResolver>())
           .ForMember(dest => dest.url, opt => opt.Ignore())
           .ForMember(dest => dest.sessionsUrl, opt => opt.Ignore())
-          .ForMember(dest => dest.speakersUrl, opt => opt.Ignore())
-        ;
+          .ForMember(dest => dest.speakersUrl, opt => opt.Ignore());
 
       Mapper.CreateMap<SessionEntity, SessionsDto>()
-        //.ForMember(dest => dest.url, opt => opt.ResolveUsing<SessionsUrlResolver>().ConstructedBy(() => new SessionsUrlResolver(string.Empty)))
-          .ForMember(dest => dest.url, opt => opt.Ignore())
-        ;
-      //          Mapper.CreateMap<SessionEntity, SessionsDto>()
-      //.ForMember(dest => dest.url, opt => opt.ResolveUsing<Bootstrapper.SessionsUrlResolver>().ConstructedBy(() => new SessionsUrlResolver(request.conferenceSlug)))
-      //;
+          .ForMember(dest => dest.url, opt => opt.Ignore());
+
       Mapper.CreateMap<SessionEntity, SessionDto>()
-        //.ForMember(dest => dest.url, opt => opt.ResolveUsing<SessionsUrlResolver>())
-        //.ForMember(dest => dest.speakersUrl, opt => opt.ResolveUsing<SessionSpeakersUrlResolver>())
           .ForMember(dest => dest.url, opt => opt.Ignore())
-          .ForMember(dest => dest.speakersUrl, opt => opt.Ignore())
-
-        ;
-
-      //Mapper.CreateMap<SessionEntity, SessionDto>()
-      //    .ForMember(dest => dest.url, opt => opt.ResolveUsing<Bootstrapper.SessionsUrlResolver>().ConstructedBy(() => new SessionsUrlResolver(request.conferenceSlug)))
-      //    .ForMember(dest => dest.speakersUrl, opt => opt.ResolveUsing<Bootstrapper.SessionSpeakersUrlResolver>().ConstructedBy(() => new SessionSpeakersUrlResolver(request.conferenceSlug)))
-      //    .ForMember(dest => dest.speakers, opt => opt.ResolveUsing<Bootstrapper.SessionSpeakersResolver>().ConstructedBy(() => new SessionSpeakersResolver(request.conferenceSlug, request.sessionSlug)))
-      //    ;
+          .ForMember(dest => dest.speakersUrl, opt => opt.Ignore());
 
       Mapper.CreateMap<SpeakerEntity, SpeakersDto>()
-          .ForMember(dest => dest.url, opt => opt.Ignore())
-        //.ForMember(dest => dest.url, opt => opt.ResolveUsing<SpeakersUrlResolver>().ConstructedBy(() => new SpeakersUrlResolver(string.Empty, string.Empty)))
-        ;
+          .ForMember(dest => dest.url, opt => opt.Ignore());
 
-      Mapper.CreateMap<SpeakerEntity, SpeakerDto>()
-        ;
+      Mapper.CreateMap<SpeakerEntity, SpeakerDto>();
 
-      Mapper.CreateMap<ScheduleEntity, ScheduleDto>()
-        //.ForMember(dest => dest.sessions, opt => opt.ResolveUsing<ScheduleSessionsResolver>())
-      ;
+      Mapper.CreateMap<ScheduleEntity, ScheduleDto>();
     }
 
   }
@@ -67,10 +43,12 @@ namespace ArtekSoftware.Conference.UI.Web
     {
       get
       {
-        //TODO - go until /api
         var url = HttpContext.Current.Request.Url;
-        var rootUrl = url.GetLeftPart(UriPartial.Authority) + "/ArtekSoftware.Conference.UI.Web";
-        return rootUrl;
+        var stringSeparators = new[] { "/api" };
+        var uriParts = url.OriginalString.Split(stringSeparators, StringSplitOptions.None);
+        var rootUrl = uriParts.First();
+
+        return rootUrl.Replace(":80", "");
       }
     }
   }

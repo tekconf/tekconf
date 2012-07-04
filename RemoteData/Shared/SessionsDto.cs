@@ -20,10 +20,12 @@ namespace ArtekSoftware.Conference.RemoteData.Dtos
     public string tagsUrl { get; set; }
     public string subjectsUrl { get; set; }
     public string speakersUrl { get; set; }
+    public string prerequisitesUrl { get; set; }
 
     public List<string> links { get; set; }
     public List<string> tags { get; set; }
     public List<string> subjects { get; set; }
+    public List<string> prerequisites { get; set; }
     public List<SpeakersDto> speakers { get; set; }
   }
 }

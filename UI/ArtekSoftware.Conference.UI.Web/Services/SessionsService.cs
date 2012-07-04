@@ -54,12 +54,14 @@ namespace ArtekSoftware.Conference.UI.Web
         var sessionLinksUrlResolver = new SessionLinksUrlResolver(request.conferenceSlug, sessionDto.slug);
         var sessionSubjectsUrlResolver = new SessionSubjectsUrlResolver(request.conferenceSlug, sessionDto.slug);
         var sessionTagsUrlResolver = new SessionTagsUrlResolver(request.conferenceSlug, sessionDto.slug);
+        var sessionPrerequisitesUrlResolver = new SessionPrerequisitesUrlResolver(request.conferenceSlug, sessionDto.slug);
         
         sessionDto.url = sessionUrlResolver.ResolveUrl();
         sessionDto.speakersUrl = sessionSpeakersUrlResolver.ResolveUrl();
         sessionDto.linksUrl = sessionLinksUrlResolver.ResolveUrl();
         sessionDto.subjectsUrl = sessionSubjectsUrlResolver.ResolveUrl();
         sessionDto.tagsUrl = sessionTagsUrlResolver.ResolveUrl();
+        sessionDto.prerequisitesUrl = sessionPrerequisitesUrlResolver.ResolveUrl();
 
         return sessionDto;
       }
@@ -88,12 +90,15 @@ namespace ArtekSoftware.Conference.UI.Web
         var sessionsLinksUrlResolver = new SessionsLinksUrlResolver(request.conferenceSlug);
         var sessionsSubjectsUrlResolver = new SessionsSubjectsUrlResolver(request.conferenceSlug);
         var sessionsTagsUrlResolver = new SessionsTagsUrlResolver(request.conferenceSlug);
+        var sessionsPrerequisitesUrlResolver = new SessionsPrerequisitesUrlResolver(request.conferenceSlug);
 
         sessionsDto.url = sessionsUrlResolver.ResolveUrl(sessionsDto.slug);
         sessionsDto.speakersUrl = sessionsSpeakersUrlResolver.ResolveUrl(sessionsDto.slug);
         sessionsDto.linksUrl = sessionsLinksUrlResolver.ResolveUrl(sessionsDto.slug);
         sessionsDto.subjectsUrl = sessionsSubjectsUrlResolver.ResolveUrl(sessionsDto.slug);
         sessionsDto.tagsUrl = sessionsTagsUrlResolver.ResolveUrl(sessionsDto.slug);
+        sessionsDto.prerequisitesUrl = sessionsPrerequisitesUrlResolver.ResolveUrl(sessionsDto.slug);
+
       }
       return sessionsDtos.ToList();
     }

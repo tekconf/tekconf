@@ -243,7 +243,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\SpeakersService.cs" />
     <Compile Include="UrlResolvers\SessionLinksUrlResolver.cs" />
+    <Compile Include="UrlResolvers\SessionPrerequisitesUrlResolver.cs" />
     <Compile Include="UrlResolvers\SessionsLinksUrlResolver.cs" />
+    <Compile Include="UrlResolvers\SessionsPrerequisitesUrlResolver.cs" />
     <Compile Include="UrlResolvers\SessionsSpeakersUrlResolver.cs" />
     <Compile Include="UrlResolvers\SessionsSubjectsUrlResolver.cs" />
     <Compile Include="UrlResolvers\SessionsTagsUrlResolver.cs" />
