@@ -43,25 +43,35 @@ namespace ArtekSoftware.Conference.UI.Web
 
       if (request.speakerSlug == default(string))
       {
-        var speakersDtos = Mapper.Map<List<SpeakerEntity>, List<SpeakersDto>>(session.speakers);
-        var resolver = new SpeakersUrlResolver(request.conferenceSlug, request.sessionSlug);
-        foreach (var speakersDto in speakersDtos)
-        {
-          speakersDto.url = resolver.ResolveUrl(speakersDto.slug);
-        }
-        return speakersDtos.ToList();
+        return GetAllSpeakers(request, session);
       }
       else
       {
-        var speaker = session.speakers.FirstOrDefault(s => s.slug == request.speakerSlug);
-
-        var speakerDto = Mapper.Map<SpeakerEntity, SpeakerDto>(speaker);
-        var resolver = new SpeakerUrlResolver(request.conferenceSlug, request.sessionSlug, speakerDto.url);
-        speakerDto.url = resolver.ResolveUrl();
-        return speakerDto;
+        return GetSingleSpeaker(request, session);
       }
 
 
+    }
+
+    private static object GetSingleSpeaker(SessionSpeakersRequest request, SessionEntity session)
+    {
+      var speaker = session.speakers.FirstOrDefault(s => s.slug == request.speakerSlug);
+
+      var speakerDto = Mapper.Map<SpeakerEntity, SpeakerDto>(speaker);
+      var resolver = new SpeakerUrlResolver(request.conferenceSlug, request.sessionSlug, speakerDto.url);
+      speakerDto.url = resolver.ResolveUrl();
+      return speakerDto;
+    }
+
+    private static object GetAllSpeakers(SessionSpeakersRequest request, SessionEntity session)
+    {
+      var speakersDtos = Mapper.Map<List<SpeakerEntity>, List<SpeakersDto>>(session.speakers);
+      var resolver = new SpeakersUrlResolver(request.conferenceSlug, request.sessionSlug);
+      foreach (var speakersDto in speakersDtos)
+      {
+        speakersDto.url = resolver.ResolveUrl(speakersDto.slug);
+      }
+      return speakersDtos.ToList();
     }
   }
 }

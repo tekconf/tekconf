@@ -22,6 +22,7 @@ namespace ArtekSoftware.Conference.RemoteData.Dtos
     public string speakersUrl { get; set; }
 
     public List<string> links { get; set; }
+    public List<string> prerequisites { get; set; }
     public List<string> tags { get; set; }
     public List<string> subjects { get; set; }
     public List<SpeakersDto> speakers { get; set; }

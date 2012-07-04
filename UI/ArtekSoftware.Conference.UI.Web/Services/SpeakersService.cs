@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using ArtekSoftware.Conference.RemoteData.Dtos;
 using ArtekSoftware.Conference.UI.Web.Services.Requests;
 using AutoMapper;
-using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using ServiceStack.Common.Web;
-using ServiceStack.ServiceInterface;
 
 namespace ArtekSoftware.Conference.UI.Web
 {
@@ -60,7 +57,7 @@ namespace ArtekSoftware.Conference.UI.Web
         foreach (var speakersDto in speakersDtos)
         {
           var resolver = new ConferencesSpeakersResolver(request.conferenceSlug, speakersDto.slug);
-          speakersDto.url = resolver.ResolveCore();
+          speakersDto.url = resolver.ResolveUrl();
         }
         return speakersDtos.ToList();
       }
@@ -70,7 +67,8 @@ namespace ArtekSoftware.Conference.UI.Web
 
         var speakerDto = Mapper.Map<SpeakerEntity, SpeakerDto>(speaker);
         var resolver = new ConferencesSpeakerResolver(request.conferenceSlug, speakerDto.slug);
-        speakerDto.url = resolver.ResolveCore();
+        speakerDto.url = resolver.ResolveUrl();
+        
         return speakerDto;
       }
 

@@ -18,4 +18,5 @@ namespace ArtekSoftware.Conference.UI.Web
       return RootUrl + "/api/conferences/" + _conferenceSlug + "/sessions/" + _sessionSlug + "/speakers/" + _speakerUrl;
     }
   }
+
 }

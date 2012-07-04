@@ -202,6 +202,13 @@
   <ItemGroup>
     <Compile Include="App_Start\AppHost.cs" />
     <Compile Include="Bootstrapper.cs" />
+    <Compile Include="UrlResolvers\ConferenceSpeakersUrlResolver.cs" />
+    <Compile Include="UrlResolvers\ScheduleUrlResolver.cs" />
+    <Compile Include="UrlResolvers\ConferenceSessionsUrlResolver.cs" />
+    <Compile Include="UrlResolvers\ConferencesSpeakerResolver.cs" />
+    <Compile Include="UrlResolvers\ConferencesSpeakersResolver.cs" />
+    <Compile Include="UrlResolvers\ConferencesUrlResolver.cs" />
+    <Compile Include="UrlResolvers\ConferenceUrlResolver.cs" />
     <Compile Include="Services\Entities\ConferenceEntity.cs" />
     <Compile Include="Services\Entities\ScheduleEntity.cs" />
     <Compile Include="Services\MongoRestServiceBase.cs">
@@ -235,7 +242,18 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\SpeakersService.cs" />
-    <Compile Include="SpeakersUrlResolver.cs" />
+    <Compile Include="UrlResolvers\SessionLinksUrlResolver.cs" />
+    <Compile Include="UrlResolvers\SessionsLinksUrlResolver.cs" />
+    <Compile Include="UrlResolvers\SessionsSpeakersUrlResolver.cs" />
+    <Compile Include="UrlResolvers\SessionsSubjectsUrlResolver.cs" />
+    <Compile Include="UrlResolvers\SessionsTagsUrlResolver.cs" />
+    <Compile Include="UrlResolvers\SessionSubjectsUrlResolver.cs" />
+    <Compile Include="UrlResolvers\SessionSpeakersUrlResolver.cs" />
+    <Compile Include="UrlResolvers\SessionsUrlResolver.cs" />
+    <Compile Include="UrlResolvers\SessionTagsUrlResolver.cs" />
+    <Compile Include="UrlResolvers\SessionUrlResolver.cs" />
+    <Compile Include="UrlResolvers\SpeakersUrlResolver.cs" />
+    <Compile Include="UrlResolvers\SpeakerUrlResolver.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Readme\glimpse.mvc3.readme.txt" />
