@@ -6,12 +6,14 @@ using MonoTouch.UIKit;
 using System.Linq;
 using System.Threading;
 using System.Collections.Generic;
+using ArtekSoftware.Conference.RemoteData;
+using ArtekSoftware.Conference.RemoteData.Dtos;
 
 namespace ArtekSoftware.Conference.Mobile.iOS
 {
 	public partial class RootViewController : UITableViewController
 	{
-		private RemoteData.Shared.RemoteData _client;
+		private RemoteDataRepository _client;
 		private string _baseUrl = "http://conference.azurewebsites.net/api/";
 
 		static bool UserInterfaceIdiomIsPhone {
@@ -33,9 +35,9 @@ namespace ArtekSoftware.Conference.Mobile.iOS
 		{
 			base.ViewDidLoad ();
 
-			_client = new RemoteData.Shared.RemoteData(_baseUrl);
+			_client = new RemoteDataRepository(_baseUrl);
 
-			var loading = new UIAlertView(" Downloading Conferences", "Please wait...", null, null, null);
+			var loading = new UIAlertView(" Downloading Sessions", "Please wait...", null, null, null);
 
 			loading.Show();
 
@@ -44,11 +46,11 @@ namespace ArtekSoftware.Conference.Mobile.iOS
 			indicator.StartAnimating(); 
 			loading.AddSubview( indicator);
 
-			_client.GetConferences(conferences => 
+			_client.GetSessions("CodeMash-2012", sessions => 
 			                         { 
 										InvokeOnMainThread(() => 
 				                   		{ 
-											TableView.Source = new ConferenceTableViewSource(conferences); 
+											TableView.Source = new SessionsTableViewSource(sessions); 
 											TableView.ReloadData(); 
 											loading.DismissWithClickedButtonIndex( 0, true); 
 										});
@@ -96,17 +98,17 @@ namespace ArtekSoftware.Conference.Mobile.iOS
 			ReleaseDesignerOutlets ();
 		}
 
-public class ConferenceTableViewSource : UITableViewSource 
+		public class SessionsTableViewSource : UITableViewSource 
 		{ 
-			private readonly IList<RemoteData.Shared.Conference> _conferences; 
-			private const string ConferenceCell = "ConferenceCell"; 
-			public ConferenceTableViewSource(IList<RemoteData.Shared.Conference> conferences) 
+			private readonly IList<SessionsDto> _sessions; 
+			private const string SessionCell = "SessionCell"; 
+			public SessionsTableViewSource(IList<SessionsDto> sessions) 
 			{ 
-				_conferences = conferences; 
+				_sessions = sessions; 
 			} 
 			public override int RowsInSection(UITableView tableView, int section) 
 			{ 
-				return _conferences.Count; 
+				return _sessions.Count; 
 			} 
 			public override float GetHeightForRow(UITableView tableView, NSIndexPath indexPath) 
 			{ 
@@ -114,25 +116,19 @@ public class ConferenceTableViewSource : UITableViewSource
 			} 
 			public override UITableViewCell GetCell( UITableView tableView, NSIndexPath indexPath) 
 			{ 
-				var cell = tableView.DequeueReusableCell(ConferenceCell) ?? new UITableViewCell(UITableViewCellStyle.Subtitle, ConferenceCell); 
-				var conference = _conferences[indexPath.Row]; 
-				cell.TextLabel.Text = conference.Name; 
-				cell.DetailTextLabel.Text = conference.Start.ToLocalTime().ToString(); 
+				var cell = tableView.DequeueReusableCell(SessionCell) ?? new UITableViewCell(UITableViewCellStyle.Subtitle, SessionCell); 
+				var session = _sessions[indexPath.Row]; 
+				cell.TextLabel.Text = session.title; 
+				cell.DetailTextLabel.Text = session.start.ToLocalTime().ToString(); 
 				return cell; 
 			} 
 
 			public override void RowSelected( UITableView tableView, NSIndexPath indexPath) 
 			{ 
-				var selectedConference = _conferences[ indexPath.Row]; 
-				new UIAlertView("View Conference", selectedConference.Name, null, "Ok", null).Show(); 
+				var selectedSession = _sessions[ indexPath.Row]; 
+				new UIAlertView("View Session", selectedSession.title, null, "Ok", null).Show(); 
 			} 
 		} 
-	 
-
-
-
-
-
 
 		class DataSource : UITableViewSource
 		{
