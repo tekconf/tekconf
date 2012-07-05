@@ -1,13 +1,14 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="RemoteData/Shared/Speaker.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="UI/ArtekSoftware.Conference.Mobile.iOS/RootViewController.cs">
     <Files>
-      <File FileName="RemoteData/Shared/RemoteData.cs" Line="32" Column="48" />
-      <File FileName="UI/ArtekSoftware.Conference.Mobile.iOS/DetailViewController.cs" Line="23" Column="4" />
+      <File FileName="UI/ArtekSoftware.Conference.Mobile.iOS/DetailViewController.cs" Line="61" Column="35" />
       <File FileName="UI/ArtekSoftware.Conference.Mobile.iOS/Main.cs" Line="1" Column="1" />
-      <File FileName="UI/ArtekSoftware.Conference.Mobile.iOS/RootViewController.cs" Line="124" Column="20" />
-      <File FileName="RemoteData/Shared/Session.cs" Line="1" Column="1" />
-      <File FileName="RemoteData/Shared/Speaker.cs" Line="1" Column="1" />
+      <File FileName="UI/ArtekSoftware.Conference.Mobile.iOS/RootViewController.cs" Line="41" Column="4" />
+      <File FileName="RemoteData/Shared/SpeakerDto.cs" Line="1" Column="1" />
+      <File FileName="RemoteData/Shared/SessionsDto.cs" Line="1" Column="1" />
+      <File FileName="RemoteData/Shared/SessionDto.cs" Line="1" Column="1" />
+      <File FileName="RemoteData/Shared/RemoteDataRepository.cs" Line="137" Column="9" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
