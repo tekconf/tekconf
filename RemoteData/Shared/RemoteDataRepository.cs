@@ -145,8 +145,7 @@ namespace ArtekSoftware.Conference.RemoteData
     {
       string url = _baseUrl + "conferences/" + conferenceSlug + "/sessions/" + slug;
 
-      var client = new WebClient();
-      client.Encoding = System.Text.Encoding.UTF8;
+      var client = new WebClient {Encoding = System.Text.Encoding.UTF8};
       client.Headers[HttpRequestHeader.Accept] = "application/json";
 
       client.DownloadStringCompleted += (sender, args) =>
