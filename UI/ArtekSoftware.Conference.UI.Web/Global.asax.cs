@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using ArtekSoftware.Conference.RemoteData.Dtos;
-using AutoMapper;
 
 namespace ArtekSoftware.Conference.UI.Web
 {
@@ -36,9 +32,6 @@ namespace ArtekSoftware.Conference.UI.Web
 
     protected void Application_Start()
     {
-      var bootstrapper = new Bootstrapper();
-      bootstrapper.BootstrapAutomapper();
-
       AreaRegistration.RegisterAllAreas();
 
       RegisterGlobalFilters(GlobalFilters.Filters);
@@ -47,19 +40,6 @@ namespace ArtekSoftware.Conference.UI.Web
       BundleTable.Bundles.RegisterTemplateBundles();
     }
 
- 
-
-    protected void Application_BeginRequest(object src, EventArgs e)
-    {
-        if (Request.IsLocal)
-            ServiceStack.MiniProfiler.Profiler.Start();
-    }
-
-    protected void Application_EndRequest(object src, EventArgs e)
-    {
-        ServiceStack.MiniProfiler.Profiler.Stop();
-    }
   }
-
   
 }
