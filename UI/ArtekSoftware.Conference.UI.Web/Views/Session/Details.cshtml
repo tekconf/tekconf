@@ -1,4 +1,4 @@
-﻿@model RemoteData.Shared.Session
+﻿@model ConferencesIO.RemoteData.Dtos.SessionDto
 @{
   ViewBag.Title = "Conference";
   Layout = "../Shared/_Layout.cshtml";
@@ -9,7 +9,7 @@
 <br />
 <h2>@Model.slug</h2>
 
-@Model.Conferenceslug<br />
+@Model.conferenceSlug<br />
 @Model.title<br />
 @Model.start<br />
 @Model.end<br />

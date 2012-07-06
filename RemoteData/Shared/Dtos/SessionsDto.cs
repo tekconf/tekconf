@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace ArtekSoftware.Conference.RemoteData.Dtos
+namespace ConferencesIO.RemoteData.Dtos
 {
-  public class SessionDto
+  public class SessionsDto
   {
     public string slug { get; set; }
     public string conferenceSlug { get; set; }
@@ -23,9 +23,9 @@ namespace ArtekSoftware.Conference.RemoteData.Dtos
     public string prerequisitesUrl { get; set; }
 
     public List<string> links { get; set; }
-    public List<string> prerequisites { get; set; }
     public List<string> tags { get; set; }
     public List<string> subjects { get; set; }
+    public List<string> prerequisites { get; set; }
     public List<SpeakersDto> speakers { get; set; }
   }
 }

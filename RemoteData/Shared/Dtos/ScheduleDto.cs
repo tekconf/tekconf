@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace ArtekSoftware.Conference.RemoteData.Dtos
+namespace ConferencesIO.RemoteData.Dtos
 {
   public class ScheduleDto
   {

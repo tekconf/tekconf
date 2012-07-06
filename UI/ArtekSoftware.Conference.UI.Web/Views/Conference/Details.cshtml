@@ -1,4 +1,4 @@
-﻿@model RemoteData.Shared.Conference
+﻿@model ConferencesIO.RemoteData.Dtos.ConferenceDto
 @{
     ViewBag.Title = "Conference";
     Layout = "../Shared/_Layout.cshtml";
@@ -8,30 +8,5 @@
 <br />
 <br />
 <h2>@Model.slug</h2>
-<h4>@Model.description</h4>
 
-@Model.Location<br />
-@Model.Name<br />
-@Model.start<br />
-@Model.end<br />
-@Model.twitterHashTag<br />
-@Model.TwitterName<br />
-<a href="@Model.FacebookUrl">@Model.FacebookUrl</a><br />
-<a href="@Model.HomepageUrl">@Model.HomepageUrl</a><br />
-<a href="@Model.LanyrdUrl">@Model.LanyrdUrl</a><br />
-<a href="@Model.MeetupUrl">@Model.MeetupUrl</a><br />
-
-<table class="table table-striped">
-    @if (Model.Sessions != null)
-    {
-        foreach (var session in Model.Sessions)
-        {
-            <tr>
-                <td>
-                    @Html.ActionLink(@session.slug, "Details", "Session", new {conferenceSlug = session.Conferenceslug, slug = session.slug}, null)
-                </td>
-            </tr>
-        }
-    }
-</table>
 @Html.ActionLink("Add Session", "Create", "Session")

@@ -1,4 +1,4 @@
-﻿@model List<RemoteData.Shared.Session>
+﻿@model List<ConferencesIO.RemoteData.Dtos.SessionsDto>
 
 @{
   ViewBag.Title = "Conference";
@@ -10,7 +10,7 @@
 {
   <tr>
       <td>
-        @Html.ActionLink(session.slug, "Details", new { conferenceSlug = session.Conferenceslug, slug = session.slug })
+        @Html.ActionLink(session.slug, "Details", new { conferenceSlug = session.conferenceSlug, slug = session.slug })
       </td>
     </tr>
 }

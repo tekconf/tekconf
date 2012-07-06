@@ -1,8 +1,8 @@
 using System;
 
-namespace ArtekSoftware.Conference.RemoteData.Dtos
+namespace ConferencesIO.RemoteData.Dtos
 {
-  public class ConferencesDto
+  public class ConferenceDto
   {
     public string name { get; set; }
     public DateTime start { get; set; }
@@ -10,5 +10,7 @@ namespace ArtekSoftware.Conference.RemoteData.Dtos
     public string location { get; set; }
     public string url { get; set; }
     public string slug { get; set; }
+    public string sessionsUrl { get; set; }
+    public string speakersUrl { get; set; }
   }
 }
