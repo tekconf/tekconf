@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 #OS junk files
 [Tt]humbs.db
@@ -51,3 +52,11 @@ _ReSharper*/
 *.cache
 *.testsettings
 DesignTimeResolveAssemblyReferencesInput.cache
+=======
+# Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
+bin
+obj
+
+# mstest test results
+TestResults
+>>>>>>> eb9c9d28e31c695a89c25e5d630a456814c486b3

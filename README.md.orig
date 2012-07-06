@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 GET http://conferences.arteksoftware.com
 
   Returns list of conferences with urls to details
@@ -78,3 +79,7 @@ GET http://conferences.arteksoftware.com/That-Conference/2012
 - Edit/update session
 - Edit/update conference
 - Edit/update speaker
+=======
+conferencesio
+=============
+>>>>>>> eb9c9d28e31c695a89c25e5d630a456814c486b3
