@@ -56,29 +56,58 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Shared\ConferenceDto.cs">
-      <Link>ConferenceDto.cs</Link>
-    </Compile>
-    <Compile Include="..\Shared\ConferencesDto.cs">
-      <Link>ConferencesDto.cs</Link>
-    </Compile>
     <Compile Include="..\Shared\RemoteDataRepository.cs">
       <Link>RemoteDataRepository.cs</Link>
     </Compile>
-    <Compile Include="..\Shared\ScheduleDto.cs">
-      <Link>ScheduleDto.cs</Link>
+    <Compile Include="..\Shared\Dtos\ConferenceDto.cs">
+      <Link>Dtos\ConferenceDto.cs</Link>
     </Compile>
-    <Compile Include="..\Shared\SessionDto.cs">
-      <Link>SessionDto.cs</Link>
+    <Compile Include="..\Shared\Dtos\ConferencesDto.cs">
+      <Link>Dtos\ConferencesDto.cs</Link>
     </Compile>
-    <Compile Include="..\Shared\SessionsDto.cs">
-      <Link>SessionsDto.cs</Link>
+    <Compile Include="..\Shared\Dtos\ScheduleDto.cs">
+      <Link>Dtos\ScheduleDto.cs</Link>
     </Compile>
-    <Compile Include="..\Shared\SpeakerDto.cs">
-      <Link>SpeakerDto.cs</Link>
+    <Compile Include="..\Shared\Dtos\SessionDto.cs">
+      <Link>Dtos\SessionDto.cs</Link>
     </Compile>
-    <Compile Include="..\Shared\SpeakersDto.cs">
-      <Link>SpeakersDto.cs</Link>
+    <Compile Include="..\Shared\Dtos\SessionsDto.cs">
+      <Link>Dtos\SessionsDto.cs</Link>
     </Compile>
+    <Compile Include="..\Shared\Dtos\SpeakerDto.cs">
+      <Link>Dtos\SpeakerDto.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\Dtos\SpeakersDto.cs">
+      <Link>Dtos\SpeakersDto.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\Requests\v1\ConferencesRequest.cs">
+      <Link>Requests\v1\ConferencesRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\Requests\v1\ScheduleRequest.cs">
+      <Link>Requests\v1\ScheduleRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\Requests\v1\SessionLinksRequest.cs">
+      <Link>Requests\v1\SessionLinksRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\Requests\v1\SessionPrerequisitesRequest.cs">
+      <Link>Requests\v1\SessionPrerequisitesRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\Requests\v1\SessionResourcesRequest.cs">
+      <Link>Requests\v1\SessionResourcesRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\Requests\v1\SessionSpeakersRequest.cs">
+      <Link>Requests\v1\SessionSpeakersRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\Requests\v1\SessionsRequest.cs">
+      <Link>Requests\v1\SessionsRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\Requests\v1\SpeakersRequest.cs">
+      <Link>Requests\v1\SpeakersRequest.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Dtos\" />
+    <Folder Include="Requests\" />
+    <Folder Include="Requests\v1\" />
   </ItemGroup>
 </Project>
