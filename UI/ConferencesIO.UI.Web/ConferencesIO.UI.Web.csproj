@@ -450,7 +450,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>11769</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/ArtekSoftware.Conference.UI.Web</IISUrl>
+          <IISUrl>http://localhost/ConferencesIO</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

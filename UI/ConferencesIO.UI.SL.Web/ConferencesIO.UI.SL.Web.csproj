@@ -79,6 +79,7 @@
     <Content Include="ArtekSoftware.Conference.Mobile.SLTestPage.aspx" />
     <Content Include="ArtekSoftware.Conference.Mobile.SLTestPage.html" />
     <Content Include="ClientBin\ArtekSoftware.Conference.Mobile.SL.xap" />
+    <Content Include="ClientBin\ConferencesIO.UI.SL.xap" />
     <Content Include="Global.asax" />
     <Content Include="Silverlight.js" />
     <Content Include="Web.config" />
