@@ -6,15 +6,16 @@ using MonoTouch.UIKit;
 using System.Linq;
 using System.Threading;
 using System.Collections.Generic;
-using ArtekSoftware.Conference.RemoteData;
-using ArtekSoftware.Conference.RemoteData.Dtos;
+using ConferencesIO.RemoteData.v1;
+using ConferencesIO.RemoteData.Dtos.v1;
+
 
 namespace ArtekSoftware.Conference.Mobile.iOS
 {
 	public partial class RootViewController : UITableViewController
 	{
 		private RemoteDataRepository _client;
-		private string _baseUrl = "http://conference.azurewebsites.net/api/";
+		private string _baseUrl = "http://conferencesioapi.azurewebsites.net/v1/";
 
 		static bool UserInterfaceIdiomIsPhone {
 			get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone; }
