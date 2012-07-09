@@ -1,4 +1,6 @@
 using ConferencesIO.UI.Api.Services.Requests;
+using ConferencesIO.UI.Api.Services.Requests.v1;
+using ConferencesIO.UI.Api.Services.v1;
 using ServiceStack.CacheAccess;
 using ServiceStack.CacheAccess.Providers;
 using ServiceStack.ServiceInterface;
@@ -27,20 +29,18 @@ namespace ConferencesIO.UI.Api
 
 			//Configure User Defined REST Paths
 			Routes
-				.Add<ConferencesRequest>("/conferences")
-                .Add<ConferencesRequest>("/conferences/{conferenceSlug}")
-                .Add<SessionsRequest>("/conferences/{conferenceSlug}/sessions")
-                .Add<SessionsRequest>("/conferences/{conferenceSlug}/sessions/{sessionSlug}")
-                .Add<SessionSpeakersRequest>("/conferences/{conferenceSlug}/sessions/{sessionSlug}/speakers")
-                .Add<SessionSpeakersRequest>("/conferences/{conferenceSlug}/sessions/{sessionSlug}/speakers/{speakerSlug}")
-                .Add<SpeakersRequest>("/conferences/{conferenceSlug}/speakers")
-                .Add<SpeakersRequest>("/conferences/{conferenceSlug}/speakers/{speakerSlug}")
-                .Add<SessionPrerequisitesRequest>("/conferences/{conferenceSlug}/sessions/{sessionSlug}/prerequisites")
-                .Add<SessionLinksRequest>("/conferences/{conferenceSlug}/sessions/{sessionSlug}/links")
-                .Add<SessionResourcesRequest>("/conferences/{conferenceSlug}/sessions/{sessionSlug}/resources")
-                .Add<ScheduleRequest>("/conferences/{conferenceSlug}/schedule/{userSlug}")
-
-
+				.Add<ConferencesRequest>("/v1/conferences")
+                .Add<ConferencesRequest>("/v1/conferences/{conferenceSlug}")
+                .Add<SessionsRequest>("/v1/conferences/{conferenceSlug}/sessions")
+                .Add<SessionsRequest>("/v1/conferences/{conferenceSlug}/sessions/{sessionSlug}")
+                .Add<SessionSpeakersRequest>("/v1/conferences/{conferenceSlug}/sessions/{sessionSlug}/speakers")
+                .Add<SessionSpeakersRequest>("/v1/conferences/{conferenceSlug}/sessions/{sessionSlug}/speakers/{speakerSlug}")
+                .Add<SpeakersRequest>("/v1/conferences/{conferenceSlug}/speakers")
+                .Add<SpeakersRequest>("/v1/conferences/{conferenceSlug}/speakers/{speakerSlug}")
+                .Add<SessionPrerequisitesRequest>("/v1/conferences/{conferenceSlug}/sessions/{sessionSlug}/prerequisites")
+                .Add<SessionLinksRequest>("/v1/conferences/{conferenceSlug}/sessions/{sessionSlug}/links")
+                .Add<SessionResourcesRequest>("/v1/conferences/{conferenceSlug}/sessions/{sessionSlug}/resources")
+                .Add<ScheduleRequest>("/v1/conferences/{conferenceSlug}/schedule/{userSlug}")
                 ;
 			//Change the default ServiceStack configuration
 			//SetConfig(new EndpointHostConfig {

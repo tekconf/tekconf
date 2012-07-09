@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using ConferencesIO.RemoteData.Dtos;
+﻿using ConferencesIO.RemoteData.Dtos;
 using AutoMapper;
+using ConferencesIO.RemoteData.Dtos.v1;
 
 namespace ConferencesIO.UI.Api
 {
@@ -34,35 +31,5 @@ namespace ConferencesIO.UI.Api
       Mapper.CreateMap<ScheduleEntity, ScheduleDto>();
     }
 
-  }
-
-
-  public class BaseUrlResolver
-  {
-    public string RootUrl
-    {
-      get
-      {
-        var url = HttpContext.Current.Request.Url;
-        var stringSeparators = new[] { "/api" };
-        var uriParts = url.OriginalString.Split(stringSeparators, StringSplitOptions.None);
-        var rootUrl = uriParts.First();
-
-        return rootUrl.Replace(":80", "");
-      }
-    }
-  }
-
-  public class ScheduleSessionsResolver : BaseUrlResolver
-  {
-    public List<string> ResolveCore(ScheduleEntity source)
-    {
-      var sessionUrls = new List<string>();
-      foreach (var session in source.SessionUrls)
-      {
-        sessionUrls.Add(RootUrl + "/" + session);
-      }
-      return sessionUrls;
-    }
   }
 }

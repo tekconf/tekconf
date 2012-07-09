@@ -60,29 +60,29 @@
     <Reference Include="System.Windows.Browser" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Shared\ConferenceDto.cs">
-      <Link>ConferenceDto.cs</Link>
+    <Compile Include="..\Shared\v1\ConferenceDto.cs">
+      <Link>v1\ConferenceDto.cs</Link>
     </Compile>
-    <Compile Include="..\Shared\ConferencesDto.cs">
-      <Link>ConferencesDto.cs</Link>
+    <Compile Include="..\Shared\v1\ConferencesDto.cs">
+      <Link>v1\ConferencesDto.cs</Link>
     </Compile>
-    <Compile Include="..\Shared\RemoteDataRepository.cs">
-      <Link>RemoteDataRepository.cs</Link>
+    <Compile Include="..\Shared\v1\RemoteDataRepository.cs">
+      <Link>v1\RemoteDataRepository.cs</Link>
     </Compile>
-    <Compile Include="..\Shared\ScheduleDto.cs">
-      <Link>ScheduleDto.cs</Link>
+    <Compile Include="..\Shared\v1\ScheduleDto.cs">
+      <Link>v1\ScheduleDto.cs</Link>
     </Compile>
-    <Compile Include="..\Shared\SessionDto.cs">
-      <Link>SessionDto.cs</Link>
+    <Compile Include="..\Shared\v1\SessionDto.cs">
+      <Link>v1\SessionDto.cs</Link>
     </Compile>
-    <Compile Include="..\Shared\SessionsDto.cs">
-      <Link>SessionsDto.cs</Link>
+    <Compile Include="..\Shared\v1\SessionsDto.cs">
+      <Link>v1\SessionsDto.cs</Link>
     </Compile>
-    <Compile Include="..\Shared\SpeakerDto.cs">
-      <Link>SpeakerDto.cs</Link>
+    <Compile Include="..\Shared\v1\SpeakerDto.cs">
+      <Link>v1\SpeakerDto.cs</Link>
     </Compile>
-    <Compile Include="..\Shared\SpeakersDto.cs">
-      <Link>SpeakersDto.cs</Link>
+    <Compile Include="..\Shared\v1\SpeakersDto.cs">
+      <Link>v1\SpeakersDto.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -92,7 +92,7 @@
       <FlavorProperties GUID="{A1591282-1198-4647-A2B1-27E5FF5F6F3B}">
         <SilverlightProjectProperties />
       </FlavorProperties>
-      <UserProperties ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" ProjectLinkReference="1439b0ec-5c15-4b18-b4eb-8a2787abdfde" />
+      <UserProperties ProjectLinkReference="1439b0ec-5c15-4b18-b4eb-8a2787abdfde" ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

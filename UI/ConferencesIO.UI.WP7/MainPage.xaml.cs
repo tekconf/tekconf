@@ -17,7 +17,7 @@ namespace ConferencesIO.UI.WP7
     protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
     {
       base.OnNavigatedTo(e);
-      string baseUrl = "http://conference.azurewebsites.net/api/";
+      string baseUrl = "http://conference.azurewebsites.net/";
       var client = new RemoteDataRepository(baseUrl);
 
       client.GetSessions("CodeMash-2012", sessions =>

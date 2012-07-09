@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Net;
 using ConferencesIO.RemoteData.Dtos;
-using ConferencesIO.UI.Api.Services.Requests;
+using ConferencesIO.RemoteData.Dtos.v1;
+using ConferencesIO.UI.Api.Services.Requests.v1;
 using NUnit.Framework;
 using ServiceStack.Text;
 
@@ -13,7 +14,7 @@ namespace ConferencesIO.UI.Api.Tests.Int
   {
     public List<ConferencesDto> GetConferences(ConferencesRequest request)
     {
-      string url = rootUrl + "/api/conferences";
+      string url = rootUrl + "/conferences";
 
       var client = new WebClient { Encoding = System.Text.Encoding.UTF8 };
       client.Headers[HttpRequestHeader.Accept] = "application/json";
@@ -24,7 +25,7 @@ namespace ConferencesIO.UI.Api.Tests.Int
 
     public ConferenceDto GetConference(ConferencesRequest request)
     {
-      string url = rootUrl + "/api/conferences/" + request.conferenceSlug;
+      string url = rootUrl + "/conferences/" + request.conferenceSlug;
 
       var client = new WebClient { Encoding = System.Text.Encoding.UTF8 };
       client.Headers[HttpRequestHeader.Accept] = "application/json";

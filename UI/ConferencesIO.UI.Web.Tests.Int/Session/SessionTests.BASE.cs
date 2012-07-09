@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using ConferencesIO.RemoteData.Dtos;
+using ConferencesIO.RemoteData.Dtos.v1;
 using NUnit.Framework;
 using ServiceStack.Text;
 
@@ -12,7 +13,7 @@ namespace ConferencesIO.UI.Api.Tests.Int
   {
     public List<SessionsDto> GetConferenceSessions(string conferenceSlug)
     {
-      string url = rootUrl + "/api/conferences/" + conferenceSlug + "/sessions";
+      string url = rootUrl + "/conferences/" + conferenceSlug + "/sessions";
 
       var client = new WebClient { Encoding = System.Text.Encoding.UTF8 };
 
@@ -24,7 +25,7 @@ namespace ConferencesIO.UI.Api.Tests.Int
 
     public SessionDto GetConferenceSession(string conferenceSlug, string sessionSlug)
     {
-      string url = rootUrl + "/api/conferences/" + conferenceSlug + "/sessions/" + sessionSlug;
+      string url = rootUrl + "/conferences/" + conferenceSlug + "/sessions/" + sessionSlug;
 
       var client = new WebClient { Encoding = System.Text.Encoding.UTF8 };
 
@@ -36,7 +37,7 @@ namespace ConferencesIO.UI.Api.Tests.Int
 
     public List<string> GetConferenceSessionPrerequisites(string conferenceSlug, string sessionSlug)
     {
-      string url = rootUrl + "/api/conferences/" + conferenceSlug + "/sessions/" + sessionSlug + "/prerequisites";
+      string url = rootUrl + "/conferences/" + conferenceSlug + "/sessions/" + sessionSlug + "/prerequisites";
 
       var client = new WebClient { Encoding = System.Text.Encoding.UTF8 };
 
@@ -48,7 +49,7 @@ namespace ConferencesIO.UI.Api.Tests.Int
 
     public List<string> GetConferenceSessionLinks(string conferenceSlug, string sessionSlug)
     {
-      string url = rootUrl + "/api/conferences/" + conferenceSlug + "/sessions/" + sessionSlug + "/links";
+      string url = rootUrl + "/conferences/" + conferenceSlug + "/sessions/" + sessionSlug + "/links";
 
       var client = new WebClient { Encoding = System.Text.Encoding.UTF8 };
 
@@ -60,7 +61,7 @@ namespace ConferencesIO.UI.Api.Tests.Int
 
     public List<string> GetConferenceSessionResources(string conferenceSlug, string sessionSlug)
     {
-      string url = rootUrl + "/api/conferences/" + conferenceSlug + "/sessions/" + sessionSlug + "/resources";
+      string url = rootUrl + "/conferences/" + conferenceSlug + "/sessions/" + sessionSlug + "/resources";
 
       var client = new WebClient { Encoding = System.Text.Encoding.UTF8 };
 
