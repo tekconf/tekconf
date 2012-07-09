@@ -1,3 +1,5 @@
+using System;
+
 namespace ConferencesIO.UI.Api.UrlResolvers.v1
 {
   public class ConferenceSessionsUrlResolver : BaseUrlResolver
@@ -11,7 +13,7 @@ namespace ConferencesIO.UI.Api.UrlResolvers.v1
 
     public string ResolveUrl()
     {
-      return RootUrl + "/v1/conferences/" + _conferenceSlug + "/sessions";
+      return CombineUrl("/v1/conferences/" + _conferenceSlug + "/sessions");
     }
   }
 }

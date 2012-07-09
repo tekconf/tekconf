@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace ConferencesIO.UI.Api.UrlResolvers.v1
@@ -9,7 +10,7 @@ namespace ConferencesIO.UI.Api.UrlResolvers.v1
       var sessionUrls = new List<string>();
       foreach (var session in source.SessionUrls)
       {
-        sessionUrls.Add(RootUrl + "/" + session);
+        sessionUrls.Add(CombineUrl("/" + session));
       }
       return sessionUrls;
     }

@@ -13,7 +13,7 @@ namespace ConferencesIO.UI.Api.UrlResolvers.v1
 
     public string ResolveUrl(string speakerSlug)
     {
-      return RootUrl + "/v1/conferences/" + _conferenceSlug + "/sessions/" + _sessionSlug + "/speakers/" + speakerSlug;
+      return CombineUrl("/v1/conferences/" + _conferenceSlug + "/sessions/" + _sessionSlug + "/speakers/" + speakerSlug);
     }
   }
 }

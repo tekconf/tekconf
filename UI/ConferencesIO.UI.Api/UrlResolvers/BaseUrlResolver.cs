@@ -5,6 +5,13 @@ namespace ConferencesIO.UI.Api
 {
   public class BaseUrlResolver
   {
+    public string CombineUrl(string partial)
+    {
+      var rootUri = new Uri(RootUrl);
+      var uri = new Uri(rootUri, partial);
+      return uri.ToString();
+    }
+
     public string RootUrl
     {
       get

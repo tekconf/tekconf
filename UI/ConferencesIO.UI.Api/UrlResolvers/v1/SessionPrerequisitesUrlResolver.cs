@@ -1,3 +1,5 @@
+using System;
+
 namespace ConferencesIO.UI.Api.UrlResolvers.v1
 {
   public class SessionPrerequisitesUrlResolver : BaseUrlResolver
@@ -13,7 +15,7 @@ namespace ConferencesIO.UI.Api.UrlResolvers.v1
 
     public string ResolveUrl()
     {
-      return RootUrl + "/v1/conferences/" + _conferenceSlug + "/sessions/" + _sessionSlug + "/prerequisites";
+      return CombineUrl("/v1/conferences/" + _conferenceSlug + "/sessions/" + _sessionSlug + "/prerequisites");
     }
   }
 }

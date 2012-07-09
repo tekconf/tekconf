@@ -11,7 +11,7 @@ namespace ConferencesIO.UI.Api.UrlResolvers.v1
 
     public string ResolveUrl(string sessionSlug)
     {
-      return RootUrl + "/v1/conferences/" + _conferenceSlug + "/sessions/" + sessionSlug + "/tags";
+      return CombineUrl("/v1/conferences/" + _conferenceSlug + "/sessions/" + sessionSlug + "/tags");
     }
   }
 }

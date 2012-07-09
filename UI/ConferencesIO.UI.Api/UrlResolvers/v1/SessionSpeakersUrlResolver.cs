@@ -1,3 +1,5 @@
+using System;
+
 namespace ConferencesIO.UI.Api.UrlResolvers.v1
 {
   public class SessionSpeakersUrlResolver : BaseUrlResolver
@@ -13,7 +15,9 @@ namespace ConferencesIO.UI.Api.UrlResolvers.v1
 
     public string ResolveUrl()
     {
-      return RootUrl + "/v1/conferences/" + _conferenceSlug + "/sessions/" + _sessionSlug + "/speakers";
+      var rootUri = new Uri(RootUrl);
+      var uri = new Uri(rootUri, "/v1/conferences/" + _conferenceSlug + "/sessions/" + _sessionSlug + "/speakers");
+      return uri.ToString();
     }
   }
 }
