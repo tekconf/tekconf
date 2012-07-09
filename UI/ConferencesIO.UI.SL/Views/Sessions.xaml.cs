@@ -3,6 +3,8 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using ConferencesIO.RemoteData;
 using ConferencesIO.RemoteData.Dtos;
+using ConferencesIO.RemoteData.Dtos.v1;
+using ConferencesIO.RemoteData.v1;
 
 namespace ConferencesIO.UI.SL.Views
 {
@@ -17,7 +19,7 @@ namespace ConferencesIO.UI.SL.Views
     {
       base.OnNavigatedTo(e);
       //string baseUrl = "http://conference.azurewebsites.net/";
-      string baseUrl = "http://localhost/ConferencesIO.UI.Web/";
+      string baseUrl = "http://localhost/ConferencesIO.UI.Api/v1";
       var client = new RemoteDataRepository(baseUrl);
       client.GetSessions("CodeMash-2012", sessions =>
       {

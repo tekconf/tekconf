@@ -3,6 +3,8 @@ using System.Diagnostics;
 using System.Linq;
 using ConferencesIO.RemoteData;
 using ConferencesIO.RemoteData.Dtos;
+using ConferencesIO.RemoteData.Dtos.v1;
+using ConferencesIO.RemoteData.v1;
 using NUnit.Framework;
 using Should;
 
@@ -11,8 +13,8 @@ namespace RemoteData.Shared.Tests.Int
   [TestFixture]
   public class SpeakerTests
   {
-    private const string _baseUrl = "http://localhost/ConferencesIO/";
-    //private const string _baseUrl = "http://conference.azurewebsites.net/";
+    private const string _baseUrl = "http://localhost/ConferencesIO/v1";
+    //private const string _baseUrl = "http://conference.azurewebsites.net/v1";
     
     [Test]
     public void GetSpeakers()

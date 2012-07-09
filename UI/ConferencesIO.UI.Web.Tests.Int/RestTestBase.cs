@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using ConferencesIO.RemoteData.Dtos;
+using ConferencesIO.RemoteData.Dtos.v1;
 using ServiceStack.Text;
 
 namespace ConferencesIO.UI.Api.Tests.Int
@@ -9,7 +10,7 @@ namespace ConferencesIO.UI.Api.Tests.Int
   public class RestTestBase
   {
     //public static string rootUrl = "http://conference.azurewebsites.net";
-    public static string rootUrl = "http://localhost/ConferencesIO.UI.Api";
+    public static string rootUrl = "http://localhost/ConferencesIO.UI.Api/v1";
 
     
     public SpeakerDto andrewGlover = new SpeakerDto()
@@ -40,21 +41,21 @@ namespace ConferencesIO.UI.Api.Tests.Int
       linksUrl = null,
       room = "Indigo Bay",
       sessionType = "Mobile",
-      speakers = new List<SpeakersDto>() { new SpeakersDto() { slug = "andrew-glover", firstName = "Andrew", lastName = "Glover", url = "http://localhost/ConferencesIO.UI.Api/conferences/sessions/speakers/andrew-glover" } },
-      speakersUrl = "http://localhost/ConferencesIO.UI.Api/conferences/sessions/ubiquitous-app-development-with-phonegap/speakers",
+      speakers = new List<SpeakersDto>() { new SpeakersDto() { slug = "andrew-glover", firstName = "Andrew", lastName = "Glover", url = "http://localhost/ConferencesIO.UI.Api/v1/conferences/sessions/speakers/andrew-glover" } },
+      speakersUrl = "http://localhost/ConferencesIO.UI.Api/v1/conferences/sessions/ubiquitous-app-development-with-phonegap/speakers",
       subjects = new List<string>() { "Mobile" },
       subjectsUrl = null,
       tags = new List<string>() { "Mobile" },
       tagsUrl = null,
       title = "Ubiquitous App development with PhoneGap",
       twitterHashTag = "#cm-ubiquitous",
-      url = "http://localhost/ConferencesIO.UI.Api/conferences/sessions/ubiquitous-app-development-with-phonegap"
+      url = "http://localhost/ConferencesIO.UI.Api/v1/conferences/sessions/ubiquitous-app-development-with-phonegap"
     };
 
     public ConferencesDto codemashs = new ConferencesDto()
     {
       name = "CodeMash",
-      url = "http://localhost/ConferencesIO.UI.Api/conferences/CodeMash-2012",
+      url = "http://localhost/ConferencesIO.UI.Api/v1/conferences/CodeMash-2012",
       location = "Sandusky, OH, USA",
       start = DateTime.Parse("2012/01/10 5:00:00 AM"),
       end = DateTime.Parse("2012/01/13 5:00:00 AM"),
@@ -65,28 +66,28 @@ namespace ConferencesIO.UI.Api.Tests.Int
     public ConferenceDto codemash = new ConferenceDto()
     {
       name = "CodeMash",
-      url = "http://localhost/ConferencesIO.UI.Api/conferences/CodeMash-2012",
+      url = "http://localhost/ConferencesIO.UI.Api/v1/conferences/CodeMash-2012",
       location = "Sandusky, OH, USA",
       start = DateTime.Parse("2012/01/10 5:00:00 AM"),
       end = DateTime.Parse("2012/01/13 5:00:00 AM"),
       slug = "CodeMash-2012",
-      sessionsUrl = "http://localhost/ConferencesIO.UI.Api/conferences/CodeMash-2012/sessions",
-      speakersUrl = "http://localhost/ConferencesIO.UI.Api/conferences/CodeMash-2012/speakers",
+      sessionsUrl = "http://localhost/ConferencesIO.UI.Api/v1/conferences/CodeMash-2012/sessions",
+      speakersUrl = "http://localhost/ConferencesIO.UI.Api/v1/conferences/CodeMash-2012/speakers",
     };
 
     public ScheduleDto robsSchedule = new ScheduleDto()
     {
       conferenceSlug = "CodeMash-2012",
       userSlug = "rob-gibbens",
-      url = "http://localhost/ConferencesIO.UI.Api/conferences/CodeMash-2012/schedule/rob-gibbens",
+      url = "http://localhost/ConferencesIO.UI.Api/v1/conferences/CodeMash-2012/schedule/rob-gibbens",
       sessions = new List<string>()
           {
-            "http://localhost/ConferencesIO.UI.Api/conferences/CodeMash-2012/sessions/ubiquitous-app-development-with-phonegap",
-            "http://localhost/ConferencesIO.UI.Api/conferences/CodeMash-2012/sessions/new---dealing-with-information-overload",
-            "http://localhost/ConferencesIO.UI.Api/conferences/CodeMash-2012/sessions/actor-model-programming-in-c",
-            "http://localhost/ConferencesIO.UI.Api/conferences/CodeMash-2012/sessions/an-introduction-to-signalr",
-            "http://localhost/ConferencesIO.UI.Api/conferences/CodeMash-2012/sessions/asp.net-mvc-vs.-ruby-on-rails",
-            "http://localhost/ConferencesIO.UI.Api/conferences/CodeMash-2012/sessions/beautiful-front-end-code-with-backbone.js-and-coffeescript"
+            "http://localhost/ConferencesIO.UI.Api/v1/conferences/CodeMash-2012/sessions/ubiquitous-app-development-with-phonegap",
+            "http://localhost/ConferencesIO.UI.Api/v1/conferences/CodeMash-2012/sessions/new---dealing-with-information-overload",
+            "http://localhost/ConferencesIO.UI.Api/v1/conferences/CodeMash-2012/sessions/actor-model-programming-in-c",
+            "http://localhost/ConferencesIO.UI.Api/v1/conferences/CodeMash-2012/sessions/an-introduction-to-signalr",
+            "http://localhost/ConferencesIO.UI.Api/v1/conferences/CodeMash-2012/sessions/asp.net-mvc-vs.-ruby-on-rails",
+            "http://localhost/ConferencesIO.UI.Api/v1/conferences/CodeMash-2012/sessions/beautiful-front-end-code-with-backbone.js-and-coffeescript"
   
           }
     };

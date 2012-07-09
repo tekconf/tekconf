@@ -46,7 +46,7 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties ProjectLinkReference="1439b0ec-5c15-4b18-b4eb-8a2787abdfde" ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" />
+      <UserProperties ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" ProjectLinkReference="1439b0ec-5c15-4b18-b4eb-8a2787abdfde" />
     </VisualStudio>
   </ProjectExtensions>
   <ItemGroup>
@@ -56,29 +56,29 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Shared\ConferenceDto.cs">
-      <Link>ConferenceDto.cs</Link>
+    <Compile Include="..\Shared\v1\ConferenceDto.cs">
+      <Link>v1\ConferenceDto.cs</Link>
     </Compile>
-    <Compile Include="..\Shared\ConferencesDto.cs">
-      <Link>ConferencesDto.cs</Link>
+    <Compile Include="..\Shared\v1\ConferencesDto.cs">
+      <Link>v1\ConferencesDto.cs</Link>
     </Compile>
-    <Compile Include="..\Shared\RemoteDataRepository.cs">
-      <Link>RemoteDataRepository.cs</Link>
+    <Compile Include="..\Shared\v1\RemoteDataRepository.cs">
+      <Link>v1\RemoteDataRepository.cs</Link>
     </Compile>
-    <Compile Include="..\Shared\ScheduleDto.cs">
-      <Link>ScheduleDto.cs</Link>
+    <Compile Include="..\Shared\v1\ScheduleDto.cs">
+      <Link>v1\ScheduleDto.cs</Link>
     </Compile>
-    <Compile Include="..\Shared\SessionDto.cs">
-      <Link>SessionDto.cs</Link>
+    <Compile Include="..\Shared\v1\SessionDto.cs">
+      <Link>v1\SessionDto.cs</Link>
     </Compile>
-    <Compile Include="..\Shared\SessionsDto.cs">
-      <Link>SessionsDto.cs</Link>
+    <Compile Include="..\Shared\v1\SessionsDto.cs">
+      <Link>v1\SessionsDto.cs</Link>
     </Compile>
-    <Compile Include="..\Shared\SpeakerDto.cs">
-      <Link>SpeakerDto.cs</Link>
+    <Compile Include="..\Shared\v1\SpeakerDto.cs">
+      <Link>v1\SpeakerDto.cs</Link>
     </Compile>
-    <Compile Include="..\Shared\SpeakersDto.cs">
-      <Link>SpeakersDto.cs</Link>
+    <Compile Include="..\Shared\v1\SpeakersDto.cs">
+      <Link>v1\SpeakersDto.cs</Link>
     </Compile>
   </ItemGroup>
 </Project>

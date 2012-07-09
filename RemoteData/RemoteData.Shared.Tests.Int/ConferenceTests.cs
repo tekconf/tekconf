@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using ConferencesIO.RemoteData;
 using ConferencesIO.RemoteData.Dtos;
+using ConferencesIO.RemoteData.Dtos.v1;
+using ConferencesIO.RemoteData.v1;
 using NUnit.Framework;
 using Should;
 using Should.Core;

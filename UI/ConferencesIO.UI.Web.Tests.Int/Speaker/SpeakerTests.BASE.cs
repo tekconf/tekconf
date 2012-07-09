@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using ConferencesIO.RemoteData.Dtos;
+using ConferencesIO.RemoteData.Dtos.v1;
 using NUnit.Framework;
 using ServiceStack.Text;
 

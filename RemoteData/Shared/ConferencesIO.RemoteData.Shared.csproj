@@ -49,17 +49,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConferenceDto.cs" />
-    <Compile Include="ConferencesDto.cs" />
+    <Compile Include="v1\ConferenceDto.cs" />
+    <Compile Include="v1\ConferencesDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RemoteDataRepository.cs">
+    <Compile Include="v1\RemoteDataRepository.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ScheduleDto.cs" />
-    <Compile Include="SessionDto.cs" />
-    <Compile Include="SessionsDto.cs" />
-    <Compile Include="SpeakerDto.cs" />
-    <Compile Include="SpeakersDto.cs" />
+    <Compile Include="v1\ScheduleDto.cs" />
+    <Compile Include="v1\SessionDto.cs" />
+    <Compile Include="v1\SessionsDto.cs" />
+    <Compile Include="v1\SpeakerDto.cs" />
+    <Compile Include="v1\SpeakersDto.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
