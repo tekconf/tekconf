@@ -26,7 +26,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConferencesIO.UI.SL.Web", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConferencesIO.UI.WP7", "UI\ConferencesIO.UI.WP7\ConferencesIO.UI.WP7.csproj", "{62DCD985-48EE-43C7-90E0-6566AD26A4E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConferencesIO.UI.Web.Tests.Int", "UI\ConferencesIO.UI.Web.Tests.Int\ConferencesIO.UI.Web.Tests.Int.csproj", "{03CDF1A3-8C14-424D-8648-6DD820D1E24E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConferencesIO.UI.Api.Tests.Int", "UI\ConferencesIO.UI.Web.Tests.Int\ConferencesIO.UI.Api.Tests.Int.csproj", "{03CDF1A3-8C14-424D-8648-6DD820D1E24E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConferencesIO.UI.Web", "UI\ConferencesIO.UI.Web\ConferencesIO.UI.Web.csproj", "{13910138-4246-49F1-816E-D4857EE6366C}"
 EndProject

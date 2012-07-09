@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace ConferencesIO.UI.Web.Tests.Int
+namespace ConferencesIO.UI.Api.Tests.Int
 {
    [TestFixture]
   public partial class SessionTests : RestTestBase

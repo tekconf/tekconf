@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.IdGenerators;
 
-namespace ConferencesIO.UI.Web
+namespace ConferencesIO.UI.Api
 {
   public class ScheduleEntity
   {

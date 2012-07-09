@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Net;
 using ConferencesIO.RemoteData.Dtos;
-using ConferencesIO.UI.Web.Services.Requests;
+using ConferencesIO.UI.Api.Services.Requests;
 using NUnit.Framework;
 using ServiceStack.Text;
 
-namespace ConferencesIO.UI.Web.Tests.Int
+namespace ConferencesIO.UI.Api.Tests.Int
 {
   [TestFixture]
   public partial class ScheduleTests : RestTestBase

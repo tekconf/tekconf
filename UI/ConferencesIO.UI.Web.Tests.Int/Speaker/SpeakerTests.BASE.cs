@@ -5,7 +5,7 @@ using ConferencesIO.RemoteData.Dtos;
 using NUnit.Framework;
 using ServiceStack.Text;
 
-namespace ConferencesIO.UI.Web.Tests.Int
+namespace ConferencesIO.UI.Api.Tests.Int
 {
   [TestFixture]
   public partial class SpeakerTests : RestTestBase

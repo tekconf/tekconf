@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using ConferencesIO.RemoteData.Dtos;
-using ConferencesIO.UI.Web.Services.Requests;
+using ConferencesIO.UI.Api.Services.Requests;
 using AutoMapper;
 using FluentMongo.Linq;
 using ServiceStack.Common.Web;
 
-namespace ConferencesIO.UI.Web
+namespace ConferencesIO.UI.Api
 {
   public class SessionsService : MongoRestServiceBase<SessionsRequest>
   {

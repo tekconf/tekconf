@@ -1,11 +1,11 @@
-using ConferencesIO.UI.Web.Services.Requests;
+using ConferencesIO.UI.Api.Services.Requests;
 using ServiceStack.CacheAccess;
 using ServiceStack.CacheAccess.Providers;
 using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Auth;
 using ServiceStack.WebHost.Endpoints;
 
-namespace ConferencesIO.UI.Web
+namespace ConferencesIO.UI.Api
 {
 	//A customizeable typed UserSession that can be extended with your own properties
 	//To access ServiceStack's Session, Cache, etc from MVC Controllers inherit from ControllerBase<CustomUserSession>

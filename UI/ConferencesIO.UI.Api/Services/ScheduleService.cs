@@ -2,11 +2,11 @@ using System.Linq;
 using System.Net;
 using AutoMapper;
 using ConferencesIO.RemoteData.Dtos;
-using ConferencesIO.UI.Web.Services.Requests;
+using ConferencesIO.UI.Api.Services.Requests;
 using FluentMongo.Linq;
 using ServiceStack.Common.Web;
 
-namespace ConferencesIO.UI.Web
+namespace ConferencesIO.UI.Api
 {
   public class ScheduleService : MongoRestServiceBase<ScheduleRequest>
   {

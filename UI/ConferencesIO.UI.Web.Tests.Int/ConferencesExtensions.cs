@@ -1,7 +1,7 @@
 ﻿using ConferencesIO.RemoteData.Dtos;
 using KellermanSoftware.CompareNetObjects;
 using Should.Core;
-namespace ConferencesIO.UI.Web.Tests.Int
+namespace ConferencesIO.UI.Api.Tests.Int
 {
   public static class ConferencesExtensions
   {

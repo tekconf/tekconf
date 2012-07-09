@@ -1,4 +1,4 @@
-namespace ConferencesIO.UI.Web
+namespace ConferencesIO.UI.Api
 {
   public class SessionTagsUrlResolver : BaseUrlResolver
   {

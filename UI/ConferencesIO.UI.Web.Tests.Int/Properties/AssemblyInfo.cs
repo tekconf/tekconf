@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ConferencesIO.UI.Web.Tests.Int")]
+[assembly: AssemblyTitle("http://localhost/ConferencesIO.UI.Api.Tests.Int")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ConferencesIO.UI.Web.Tests.Int")]
+[assembly: AssemblyProduct("http://localhost/ConferencesIO.UI.Api.Tests.Int")]
 [assembly: AssemblyCopyright("Copyright ©  2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

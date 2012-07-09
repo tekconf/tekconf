@@ -5,7 +5,7 @@ using System.Web;
 using ConferencesIO.RemoteData.Dtos;
 using AutoMapper;
 
-namespace ConferencesIO.UI.Web
+namespace ConferencesIO.UI.Api
 {
   public class Bootstrapper
   {

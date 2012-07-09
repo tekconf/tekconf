@@ -1,6 +1,6 @@
 ﻿using NUnit.Framework;
 
-namespace ConferencesIO.UI.Web.Tests.Int
+namespace ConferencesIO.UI.Api.Tests.Int
 {
   /// <summary>
   /// Create can be implemented using an HTTP PUT, if (and only if) the payload of the request contains the full content of the exactly specified URL.

@@ -1,5 +1,4 @@
 ﻿using System;
-using ConferencesIO.UI.Web;
 
 namespace ConferencesIO.UI.Api
 {

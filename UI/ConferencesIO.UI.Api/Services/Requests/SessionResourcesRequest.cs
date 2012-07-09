@@ -1,4 +1,4 @@
-namespace ConferencesIO.UI.Web.Services.Requests
+namespace ConferencesIO.UI.Api.Services.Requests
 {
   public class SessionResourcesRequest
   {

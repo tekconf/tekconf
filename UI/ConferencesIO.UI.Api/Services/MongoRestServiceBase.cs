@@ -1,7 +1,7 @@
 using MongoDB.Driver;
 using ServiceStack.ServiceInterface;
 
-namespace ConferencesIO.UI.Web
+namespace ConferencesIO.UI.Api
 {
   public class MongoRestServiceBase<T> : RestServiceBase<T>
   {
