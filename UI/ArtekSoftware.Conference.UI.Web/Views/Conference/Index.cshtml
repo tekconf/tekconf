@@ -1,0 +1,19 @@
+﻿@model List<RemoteData.Shared.Conference>
+@{
+  ViewBag.Title = "Conferences";
+  Layout = "../Shared/_Layout.cshtml";
+}
+<br/><br/><br/><br/>
+<h2>Conferences</h2>
+@Html.ActionLink("New Conference", "Create")
+
+<table class="table table-striped">
+  @foreach (var conference in Model)
+{
+    <tr>
+      <td>
+        @Html.ActionLink(conference.slug, "Details", new { slug = conference.slug })
+      </td>
+    </tr>
+}
+</table>

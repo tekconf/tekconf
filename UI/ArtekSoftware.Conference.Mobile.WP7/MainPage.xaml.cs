@@ -1,0 +1,49 @@
+﻿using System.Windows;
+using System.Windows.Controls;
+using ArtekSoftware.Conference.RemoteData;
+using ArtekSoftware.Conference.RemoteData.Dtos;
+using Microsoft.Phone.Controls;
+
+namespace ArtekSoftware.Conference.Mobile.WP7
+{
+  public partial class MainPage : PhoneApplicationPage
+  {
+    // Constructor
+    public MainPage()
+    {
+      InitializeComponent();
+    }
+
+    protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+    {
+      base.OnNavigatedTo(e);
+      string baseUrl = "http://conference.azurewebsites.net/api/";
+      var client = new RemoteDataRepository(baseUrl);
+
+      client.GetSessions("CodeMash-2012", sessions =>
+                           {
+                             Deployment.Current.Dispatcher.BeginInvoke(() =>
+                             {
+                               DataContext = sessions;
+                               Loading.Visibility = Visibility.Collapsed;
+                             });
+                           });
+
+      client.GetConferences(conferences =>
+      {
+        Deployment.Current.Dispatcher.BeginInvoke(() =>
+        {
+          DataContext = conferences;
+          Loading.Visibility = Visibility.Collapsed;
+        });
+      });
+    }
+
+    private void SessionSelected(object sender, SelectionChangedEventArgs e)
+    {
+      var conference = (ConferencesDto) e.AddedItems[ 0]; 
+      MessageBox.Show( conference.name, "Full Conference", MessageBoxButton.OK);
+    }
+
+  }
+}

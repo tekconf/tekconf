@@ -1,0 +1,75 @@
+﻿@model RemoteData.Shared.Session
+@{
+  ViewBag.Title = "Conference";
+  Layout = "../Shared/_Layout.cshtml";
+}
+<br />
+<br />
+<br />
+<br />
+<h2>@Model.slug</h2>
+
+@Model.Conferenceslug<br />
+@Model.title<br />
+@Model.start<br />
+@Model.end<br />
+@Model.room<br />
+@Model.difficulty<br />
+@Model.description<br />
+@Model.twitterHashTag<br />
+@Model.sessionType<br />
+
+@if (Model.links != null)
+{
+  <table class="table table-striped">
+    @foreach (var link in Model.links)
+    {
+      <tr>
+        <td>
+          <a href="@link">@link</a>
+        </td>
+      </tr>
+    }
+  </table>
+}
+@if (Model.tags != null)
+{
+  <table class="table table-striped">
+    @foreach (var tag in Model.tags)
+    {
+      <tr>
+        <td>
+          @tag
+        </td>
+      </tr>
+    }
+  </table>
+}
+@if (Model.subjects != null)
+{
+  <table class="table table-striped">
+    @foreach (var subject in Model.subjects)
+    {
+      <tr>
+        <td>
+          @subject
+        </td>
+      </tr>
+    }
+  </table>
+}
+@if (Model.speakers != null)
+{
+  <table class="table table-striped">
+    @foreach (var speaker in Model.speakers)
+    {
+      <tr>
+        <td>
+          @speaker
+        </td>
+      </tr>
+    }
+  </table>
+}
+
+@Html.ActionLink("Add Speaker", "Create", "Speaker")
