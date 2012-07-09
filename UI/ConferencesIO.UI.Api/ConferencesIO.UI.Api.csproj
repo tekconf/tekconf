@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E029F24D-8594-4954-892D-D640D6053406}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ConferencesIO.UI.Api</RootNamespace>
+    <AssemblyName>ConferencesIO.UI.Api</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <UseIISExpress>false</UseIISExpress>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\..\packages\AutoMapper.2.1.267\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentMongo">
+      <HintPath>..\..\packages\FluentMongo.1.3.1.1\lib\FluentMongo.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MongoDB.Bson, Version=1.5.0.4566, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\mongocsharpdriver.1.5\lib\net35\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=1.5.0.4566, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\mongocsharpdriver.1.5\lib\net35\MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack">
+      <HintPath>..\..\packages\ServiceStack.3.8.5\lib\net35\ServiceStack.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Common">
+      <HintPath>..\..\packages\ServiceStack.Common.3.8.5\lib\net35\ServiceStack.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Interfaces">
+      <HintPath>..\..\packages\ServiceStack.Common.3.8.5\lib\net35\ServiceStack.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.OrmLite">
+      <HintPath>..\..\packages\ServiceStack.OrmLite.SqlServer.3.8.5\lib\ServiceStack.OrmLite.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.OrmLite.SqlServer">
+      <HintPath>..\..\packages\ServiceStack.OrmLite.SqlServer.3.8.5\lib\ServiceStack.OrmLite.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.RazorEngine">
+      <HintPath>..\..\packages\ServiceStack.3.8.5\lib\net35\ServiceStack.RazorEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Redis">
+      <HintPath>..\..\packages\ServiceStack.Redis.3.8.5\lib\net35\ServiceStack.Redis.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.ServiceInterface">
+      <HintPath>..\..\packages\ServiceStack.3.8.5\lib\net35\ServiceStack.ServiceInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Text">
+      <HintPath>..\..\packages\ServiceStack.Text.3.8.5\lib\net35\ServiceStack.Text.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Global.asax" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AppHost.cs" />
+    <Compile Include="Bootstrapper.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\ConferencesService.cs" />
+    <Compile Include="Services\Entities\ConferenceEntity.cs" />
+    <Compile Include="Services\Entities\ScheduleEntity.cs" />
+    <Compile Include="Services\Entities\SessionEntity.cs" />
+    <Compile Include="Services\Entities\SpeakerEntity.cs" />
+    <Compile Include="Services\MongoRestServiceBase.cs" />
+    <Compile Include="Services\Requests\ConferencesRequest.cs" />
+    <Compile Include="Services\Requests\ScheduleRequest.cs" />
+    <Compile Include="Services\Requests\SessionLinksRequest.cs" />
+    <Compile Include="Services\Requests\SessionPrerequisitesRequest.cs" />
+    <Compile Include="Services\Requests\SessionResourcesRequest.cs" />
+    <Compile Include="Services\Requests\SessionSpeakersRequest.cs" />
+    <Compile Include="Services\Requests\SessionsRequest.cs" />
+    <Compile Include="Services\Requests\SpeakersRequest.cs" />
+    <Compile Include="Services\ScheduleService.cs" />
+    <Compile Include="Services\SessionLinksService.cs" />
+    <Compile Include="Services\SessionPrerequisitesService.cs" />
+    <Compile Include="Services\SessionResourcesService.cs" />
+    <Compile Include="Services\SessionSpeakersService.cs" />
+    <Compile Include="Services\SessionsService.cs" />
+    <Compile Include="Services\SpeakersService.cs" />
+    <Compile Include="UrlResolvers\ConferenceSessionsUrlResolver.cs" />
+    <Compile Include="UrlResolvers\ConferenceSpeakersUrlResolver.cs" />
+    <Compile Include="UrlResolvers\ConferencesSpeakerResolver.cs" />
+    <Compile Include="UrlResolvers\ConferencesSpeakersResolver.cs" />
+    <Compile Include="UrlResolvers\ConferencesUrlResolver.cs" />
+    <Compile Include="UrlResolvers\ConferenceUrlResolver.cs" />
+    <Compile Include="UrlResolvers\ScheduleUrlResolver.cs" />
+    <Compile Include="UrlResolvers\SessionLinksUrlResolver.cs" />
+    <Compile Include="UrlResolvers\SessionPrerequisitesUrlResolver.cs" />
+    <Compile Include="UrlResolvers\SessionsLinksUrlResolver.cs" />
+    <Compile Include="UrlResolvers\SessionSpeakersUrlResolver.cs" />
+    <Compile Include="UrlResolvers\SessionsPrerequisitesUrlResolver.cs" />
+    <Compile Include="UrlResolvers\SessionsSpeakersUrlResolver.cs" />
+    <Compile Include="UrlResolvers\SessionsSubjectsUrlResolver.cs" />
+    <Compile Include="UrlResolvers\SessionsTagsUrlResolver.cs" />
+    <Compile Include="UrlResolvers\SessionSubjectsUrlResolver.cs" />
+    <Compile Include="UrlResolvers\SessionsUrlResolver.cs" />
+    <Compile Include="UrlResolvers\SessionTagsUrlResolver.cs" />
+    <Compile Include="UrlResolvers\SessionUrlResolver.cs" />
+    <Compile Include="UrlResolvers\SpeakersUrlResolver.cs" />
+    <Compile Include="UrlResolvers\SpeakerUrlResolver.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Services\Old\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\RemoteData\Shared\ConferencesIO.RemoteData.Shared.csproj">
+      <Project>{1439B0EC-5C15-4B18-B4EB-8A2787ABDFDE}</Project>
+      <Name>ConferencesIO.RemoteData.Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>25825</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

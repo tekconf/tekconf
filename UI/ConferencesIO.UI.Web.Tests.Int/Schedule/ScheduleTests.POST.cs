@@ -1,6 +1,4 @@
-﻿using ConferencesIO.UI.Web.Services.Requests;
-using KellermanSoftware.CompareNetObjects;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace ConferencesIO.UI.Web.Tests.Int
 {
