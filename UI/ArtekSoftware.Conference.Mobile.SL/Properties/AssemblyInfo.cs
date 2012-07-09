@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ArtekSoftware.Conference.Mobile.SL")]
+[assembly: AssemblyTitle("ConferencesIO.UI.SL")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ArtekSoftware.Conference.Mobile.SL")]
+[assembly: AssemblyProduct("ConferencesIO.UI.SL")]
 [assembly: AssemblyCopyright("Copyright © Microsoft IT 2010")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

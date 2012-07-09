@@ -7,25 +7,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RemoteData", "RemoteData", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{870D06DF-71B0-4BC3-AD8C-BB60AD91F286}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteData.Shared", "RemoteData\Shared\RemoteData.Shared.csproj", "{1439B0EC-5C15-4B18-B4EB-8A2787ABDFDE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConferencesIO.RemoteData.Shared", "RemoteData\Shared\ConferencesIO.RemoteData.Shared.csproj", "{1439B0EC-5C15-4B18-B4EB-8A2787ABDFDE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteData.iOS", "RemoteData\iOS\RemoteData.iOS.csproj", "{CF44A2C3-42DF-4970-9618-E6AE3AF31603}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteData.Shared.Tests.Int", "RemoteData\RemoteData.Shared.Tests.Int\RemoteData.Shared.Tests.Int.csproj", "{85810EC4-3E4F-4A31-8379-8BF73CDD7C01}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConferencesIO.RemoteData.Shared.Tests.Int", "RemoteData\RemoteData.Shared.Tests.Int\ConferencesIO.RemoteData.Shared.Tests.Int.csproj", "{85810EC4-3E4F-4A31-8379-8BF73CDD7C01}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteData.WP7", "RemoteData\WP7\RemoteData.WP7.csproj", "{C59509A6-15E4-4CE3-BF12-C3458BDB2AA9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConferencesIO.RemoteData.WP7", "RemoteData\WP7\ConferencesIO.RemoteData.WP7.csproj", "{C59509A6-15E4-4CE3-BF12-C3458BDB2AA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtekSoftware.Conference.Mobile.WP7", "UI\ArtekSoftware.Conference.Mobile.WP7\ArtekSoftware.Conference.Mobile.WP7.csproj", "{62DCD985-48EE-43C7-90E0-6566AD26A4E6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConferencesIO.UI.WP7", "UI\ArtekSoftware.Conference.Mobile.WP7\ConferencesIO.UI.WP7.csproj", "{62DCD985-48EE-43C7-90E0-6566AD26A4E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtekSoftware.Conference.UI.Web", "UI\ArtekSoftware.Conference.UI.Web\ArtekSoftware.Conference.UI.Web.csproj", "{13910138-4246-49F1-816E-D4857EE6366C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConferencesIO.UI.Web", "UI\ArtekSoftware.Conference.UI.Web\ConferencesIO.UI.Web.csproj", "{13910138-4246-49F1-816E-D4857EE6366C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtekSoftware.Conference.Mobile.SL", "UI\ArtekSoftware.Conference.Mobile.SL\ArtekSoftware.Conference.Mobile.SL.csproj", "{4487AD16-081C-44CD-B501-A17E6500DB27}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConferencesIO.UI.SL", "UI\ArtekSoftware.Conference.Mobile.SL\ConferencesIO.UI.SL.csproj", "{4487AD16-081C-44CD-B501-A17E6500DB27}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtekSoftware.Conference.Mobile.SL.Web", "UI\ArtekSoftware.Conference.Mobile.SL.Web\ArtekSoftware.Conference.Mobile.SL.Web.csproj", "{5DA5C0C6-EB72-4621-8E28-B94E53537D36}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConferencesIO.UI.SL.Web", "UI\ArtekSoftware.Conference.Mobile.SL.Web\ConferencesIO.UI.SL.Web.csproj", "{5DA5C0C6-EB72-4621-8E28-B94E53537D36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteData.SL", "RemoteData\SL\RemoteData.SL.csproj", "{974D59DF-D954-439C-8870-306E9A2DA570}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConferencesIO.RemoteData.SL", "RemoteData\SL\ConferencesIO.RemoteData.SL.csproj", "{974D59DF-D954-439C-8870-306E9A2DA570}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtekSoftware.Conference.UI.Web.Tests.Int", "UI\ArtekSoftware.Conference.UI.Web.Tests.Int\ArtekSoftware.Conference.UI.Web.Tests.Int.csproj", "{03CDF1A3-8C14-424D-8648-6DD820D1E24E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConferencesIO.UI.Web.Tests.Int", "UI\ArtekSoftware.Conference.UI.Web.Tests.Int\ConferencesIO.UI.Web.Tests.Int.csproj", "{03CDF1A3-8C14-424D-8648-6DD820D1E24E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7B6C8CA5-0566-42B2-8DD8-3128F71FF0B9}"
 	ProjectSection(SolutionItems) = preProject

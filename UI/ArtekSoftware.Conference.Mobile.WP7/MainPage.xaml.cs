@@ -1,10 +1,10 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using ArtekSoftware.Conference.RemoteData;
-using ArtekSoftware.Conference.RemoteData.Dtos;
+using ConferencesIO.RemoteData;
+using ConferencesIO.RemoteData.Dtos;
 using Microsoft.Phone.Controls;
 
-namespace ArtekSoftware.Conference.Mobile.WP7
+namespace ConferencesIO.UI.WP7
 {
   public partial class MainPage : PhoneApplicationPage
   {

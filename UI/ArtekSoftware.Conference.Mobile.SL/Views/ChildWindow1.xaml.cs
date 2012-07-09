@@ -10,7 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
-namespace ArtekSoftware.Conference.Mobile.SL
+namespace ConferencesIO.UI.SL
 {
   public partial class ChildWindow1 : ChildWindow
   {

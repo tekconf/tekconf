@@ -9,8 +9,8 @@
     <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ArtekSoftware.Conference.Mobile.WP7</RootNamespace>
-    <AssemblyName>ArtekSoftware.Conference.Mobile.WP7</AssemblyName>
+    <RootNamespace>ConferencesIO.UI.WP7</RootNamespace>
+    <AssemblyName>ConferencesIO.UI.WP7</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
     <TargetFrameworkProfile>WindowsPhone71</TargetFrameworkProfile>
@@ -20,7 +20,7 @@
     </SupportedCultures>
     <XapOutputs>true</XapOutputs>
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
-    <XapFilename>ArtekSoftware.Conference.Mobile.WP7.xap</XapFilename>
+    <XapFilename>ConferencesIO.UI.WP7.xap</XapFilename>
     <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
     <SilverlightAppEntry>ArtekSoftware.Conference.Mobile.WP7.App</SilverlightAppEntry>
     <ValidateXaml>true</ValidateXaml>
@@ -100,9 +100,9 @@
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\RemoteData\WP7\RemoteData.WP7.csproj">
+    <ProjectReference Include="..\..\RemoteData\WP7\ConferencesIO.RemoteData.WP7.csproj">
       <Project>{C59509A6-15E4-4CE3-BF12-C3458BDB2AA9}</Project>
-      <Name>RemoteData.WP7</Name>
+      <Name>ConferencesIO.RemoteData.WP7</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />

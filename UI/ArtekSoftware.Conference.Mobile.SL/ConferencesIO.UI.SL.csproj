@@ -9,8 +9,8 @@
     <ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ArtekSoftware.Conference.Mobile.SL</RootNamespace>
-    <AssemblyName>ArtekSoftware.Conference.Mobile.SL</AssemblyName>
+    <RootNamespace>ConferencesIO.UI.SL</RootNamespace>
+    <AssemblyName>ConferencesIO.UI.SL</AssemblyName>
     <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
@@ -19,7 +19,7 @@
     </SupportedCultures>
     <XapOutputs>true</XapOutputs>
     <GenerateSilverlightManifest>true</GenerateSilverlightManifest>
-    <XapFilename>ArtekSoftware.Conference.Mobile.SL.xap</XapFilename>
+    <XapFilename>ConferencesIO.UI.SL.xap</XapFilename>
     <SilverlightManifestTemplate>Properties\AppManifest.xml</SilverlightManifestTemplate>
     <SilverlightAppEntry>ArtekSoftware.Conference.Mobile.SL.App</SilverlightAppEntry>
     <TestPageFileName>TestPage.html</TestPageFileName>
@@ -189,9 +189,9 @@
     <Content Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\RemoteData\SL\RemoteData.SL.csproj">
+    <ProjectReference Include="..\..\RemoteData\SL\ConferencesIO.RemoteData.SL.csproj">
       <Project>{974D59DF-D954-439C-8870-306E9A2DA570}</Project>
-      <Name>RemoteData.SL</Name>
+      <Name>ConferencesIO.RemoteData.SL</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />

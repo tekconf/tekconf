@@ -1,6 +1,6 @@
 using System;
 
-namespace ArtekSoftware.Conference.RemoteData.Dtos
+namespace ConferencesIO.RemoteData.Dtos
 {
   public class ConferencesDto
   {

@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 using System.Net;
-using ArtekSoftware.Conference.UI.Web.Services.Requests;
+using ConferencesIO.UI.Web.Services.Requests;
 using MongoDB.Driver.Linq;
 using ServiceStack.Common.Web;
 
-namespace ArtekSoftware.Conference.UI.Web
+namespace ConferencesIO.UI.Web
 {
   public class SessionResourcesService : MongoRestServiceBase<SessionResourcesRequest>
   {

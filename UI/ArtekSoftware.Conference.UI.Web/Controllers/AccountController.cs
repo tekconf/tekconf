@@ -4,9 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using ArtekSoftware.Conference.UI.Web.Models;
+using ConferencesIO.UI.Web.Models;
 
-namespace ArtekSoftware.Conference.UI.Web.Controllers
+namespace ConferencesIO.UI.Web.Controllers
 {
 
   [Authorize]

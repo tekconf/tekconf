@@ -7,9 +7,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
-using ArtekSoftware.Conference.Mobile.SL.Web.Models;
+using ConferencesIO.UI.SL.Web.Models;
 
-namespace ArtekSoftware.Conference.Mobile.SL.Web.Controllers
+namespace ConferencesIO.UI.SL.Web.Controllers
 {
 
   [HandleError]

@@ -1,7 +1,7 @@
 ﻿using KellermanSoftware.CompareNetObjects;
 using NUnit.Framework;
 
-namespace ArtekSoftware.Conference.UI.Web.Tests.Int
+namespace ConferencesIO.UI.Web.Tests.Int
 {
   [TestFixture]
   public partial class SpeakerTests : RestTestBase

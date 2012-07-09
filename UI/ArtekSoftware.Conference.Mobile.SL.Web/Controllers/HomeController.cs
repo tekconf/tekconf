@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace ArtekSoftware.Conference.Mobile.SL.Web.Controllers
+namespace ConferencesIO.UI.SL.Web.Controllers
 {
   [HandleError]
   public class HomeController : Controller

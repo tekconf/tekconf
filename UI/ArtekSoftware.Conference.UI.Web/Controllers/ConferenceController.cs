@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Configuration;
 using System.Web.Mvc;
-using ArtekSoftware.Conference.RemoteData;
-using ArtekSoftware.Conference.RemoteData.Dtos;
+using ConferencesIO.RemoteData;
+using ConferencesIO.RemoteData.Dtos;
 
-namespace ArtekSoftware.Conference.UI.Web.Controllers
+namespace ConferencesIO.UI.Web.Controllers
 {
   public class ConferenceController : AsyncController
   {

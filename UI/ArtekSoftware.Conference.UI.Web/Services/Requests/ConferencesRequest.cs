@@ -1,4 +1,4 @@
-namespace ArtekSoftware.Conference.UI.Web.Services.Requests
+namespace ConferencesIO.UI.Web.Services.Requests
 {
   public class ConferencesRequest
   {

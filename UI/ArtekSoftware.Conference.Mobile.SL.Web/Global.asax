@@ -1,1 +1,1 @@
-﻿<%@ Application Codebehind="Global.asax.cs" Inherits="ArtekSoftware.Conference.Mobile.SL.Web.MvcApplication" Language="C#" %>
+﻿<%@ Application Codebehind="Global.asax.cs" Inherits="ConferencesIO.UI.SL.Web.MvcApplication" Language="C#" %>

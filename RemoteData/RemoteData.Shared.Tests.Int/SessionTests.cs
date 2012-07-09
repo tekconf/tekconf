@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using ArtekSoftware.Conference.RemoteData;
-using ArtekSoftware.Conference.RemoteData.Dtos;
+using ConferencesIO.RemoteData;
+using ConferencesIO.RemoteData.Dtos;
 using NUnit.Framework;
 using Should;
 

@@ -1,8 +1,8 @@
-﻿using ArtekSoftware.Conference.UI.Web.Services.Requests;
+﻿using ConferencesIO.UI.Web.Services.Requests;
 using KellermanSoftware.CompareNetObjects;
 using NUnit.Framework;
 
-namespace ArtekSoftware.Conference.UI.Web.Tests.Int
+namespace ConferencesIO.UI.Web.Tests.Int
 {
   [TestFixture]
   public partial class ScheduleTests : RestTestBase

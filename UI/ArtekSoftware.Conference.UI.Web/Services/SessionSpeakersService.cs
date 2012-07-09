@@ -1,15 +1,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using ArtekSoftware.Conference.RemoteData.Dtos;
-using ArtekSoftware.Conference.UI.Web.Services.Requests;
+using ConferencesIO.RemoteData.Dtos;
+using ConferencesIO.UI.Web.Services.Requests;
 using AutoMapper;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using ServiceStack.Common.Web;
 using ServiceStack.ServiceInterface;
 
-namespace ArtekSoftware.Conference.UI.Web
+namespace ConferencesIO.UI.Web
 {
   public class SessionSpeakersService : MongoRestServiceBase<SessionSpeakersRequest>
   {

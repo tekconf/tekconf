@@ -1,10 +1,10 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
-using ArtekSoftware.Conference.RemoteData;
-using ArtekSoftware.Conference.RemoteData.Dtos;
+using ConferencesIO.RemoteData;
+using ConferencesIO.RemoteData.Dtos;
 
-namespace ArtekSoftware.Conference.Mobile.SL.Views
+namespace ConferencesIO.UI.SL.Views
 {
   public partial class Sessions : Page
   {
@@ -17,7 +17,7 @@ namespace ArtekSoftware.Conference.Mobile.SL.Views
     {
       base.OnNavigatedTo(e);
       //string baseUrl = "http://conference.azurewebsites.net/api/";
-      string baseUrl = "http://localhost/ArtekSoftware.Conference.UI.Web/api/";
+      string baseUrl = "http://localhost/ConferencesIO.UI.Web/api/";
       var client = new RemoteDataRepository(baseUrl);
       client.GetSessions("CodeMash-2012", sessions =>
       {

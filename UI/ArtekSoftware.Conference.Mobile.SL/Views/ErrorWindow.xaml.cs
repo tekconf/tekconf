@@ -2,7 +2,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArtekSoftware.Conference.Mobile.SL
+namespace ConferencesIO.UI.SL
 {
   public partial class ErrorWindow : ChildWindow
   {

@@ -1,4 +1,4 @@
-namespace ArtekSoftware.Conference.UI.Web
+namespace ConferencesIO.UI.Web
 {
   public class SessionsPrerequisitesUrlResolver : BaseUrlResolver
   {

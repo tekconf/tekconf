@@ -1,7 +1,7 @@
-﻿using ArtekSoftware.Conference.RemoteData.Dtos;
+﻿using ConferencesIO.RemoteData.Dtos;
 using KellermanSoftware.CompareNetObjects;
 using Should.Core;
-namespace ArtekSoftware.Conference.UI.Web.Tests.Int
+namespace ConferencesIO.UI.Web.Tests.Int
 {
   public static class ConferencesExtensions
   {

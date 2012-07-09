@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace ArtekSoftware.Conference.UI.Web.Controllers
+namespace ConferencesIO.UI.Web.Controllers
 {
   public class HomeController : Controller
   {

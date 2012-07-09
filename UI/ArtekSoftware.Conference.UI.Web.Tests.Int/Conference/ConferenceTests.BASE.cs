@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
-using ArtekSoftware.Conference.RemoteData.Dtos;
-using ArtekSoftware.Conference.UI.Web.Services.Requests;
+using ConferencesIO.RemoteData.Dtos;
+using ConferencesIO.UI.Web.Services.Requests;
 using NUnit.Framework;
 using ServiceStack.Text;
 
-namespace ArtekSoftware.Conference.UI.Web.Tests.Int
+namespace ConferencesIO.UI.Web.Tests.Int
 {
   [TestFixture]
   public partial class ConferenceTests : RestTestBase

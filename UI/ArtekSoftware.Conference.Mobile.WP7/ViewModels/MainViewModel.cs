@@ -14,7 +14,7 @@ using System.Windows.Shapes;
 using System.Collections.ObjectModel;
 
 
-namespace ArtekSoftware.Conference.Mobile.WP7
+namespace ConferencesIO.UI.WP7
 {
   public class MainViewModel : INotifyPropertyChanged
   {

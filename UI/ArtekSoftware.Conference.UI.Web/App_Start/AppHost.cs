@@ -1,5 +1,5 @@
 using System.Web.Mvc;
-using ArtekSoftware.Conference.UI.Web.Services.Requests;
+using ConferencesIO.UI.Web.Services.Requests;
 using ServiceStack.CacheAccess;
 using ServiceStack.CacheAccess.Azure;
 using ServiceStack.CacheAccess.Providers;
@@ -8,8 +8,8 @@ using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Auth;
 using ServiceStack.WebHost.Endpoints;
 
-[assembly: WebActivator.PreApplicationStartMethod(typeof(ArtekSoftware.Conference.UI.Web.App_Start.AppHost), "Start")]
-namespace ArtekSoftware.Conference.UI.Web.App_Start
+[assembly: WebActivator.PreApplicationStartMethod(typeof(ConferencesIO.UI.Web.App_Start.AppHost), "Start")]
+namespace ConferencesIO.UI.Web.App_Start
 {
 	//A customizeable typed UserSession that can be extended with your own properties
 	//To access ServiceStack's Session, Cache, etc from MVC Controllers inherit from ControllerBase<CustomUserSession>
@@ -22,7 +22,7 @@ namespace ArtekSoftware.Conference.UI.Web.App_Start
 		: AppHostBase
 	{		
 		public AppHost() //Tell ServiceStack the name and where to find your web services
-			: base("StarterTemplate ASP.NET Host", typeof(ConferencesService).Assembly) { }
+			: base("Conferences.IO", typeof(ConferencesService).Assembly) { }
 
 		public override void Configure(Funq.Container container)
 		{

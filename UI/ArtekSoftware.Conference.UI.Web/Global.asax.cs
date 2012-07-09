@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using ArtekSoftware.Conference.RemoteData.Dtos;
+using ConferencesIO.RemoteData.Dtos;
 using AutoMapper;
 
-namespace ArtekSoftware.Conference.UI.Web
+namespace ConferencesIO.UI.Web
 {
   public class MvcApplication : System.Web.HttpApplication
   {

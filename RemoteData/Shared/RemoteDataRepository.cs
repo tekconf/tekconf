@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Net;
-using ArtekSoftware.Conference.RemoteData.Dtos;
+using ConferencesIO.RemoteData.Dtos;
 using ServiceStack.Text;
 
-namespace ArtekSoftware.Conference.RemoteData
+namespace ConferencesIO.RemoteData
 {
   public class RemoteDataRepository
   {

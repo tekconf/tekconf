@@ -1,7 +1,7 @@
 ﻿<local:MainViewModel 
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"       
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:ArtekSoftware.Conference.Mobile.WP7" 
+    xmlns:local="clr-namespace:ConferencesIO.UI.WP7" 
     SampleProperty="Sample Text Property Value">
     
     <local:MainViewModel.Items>

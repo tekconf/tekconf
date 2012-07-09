@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Web.Mvc;
 using System.Web.Security;
 
-namespace ArtekSoftware.Conference.UI.Web.Models
+namespace ConferencesIO.UI.Web.Models
 {
 
   public class ChangePasswordModel

@@ -1,10 +1,10 @@
 using System.Linq;
-using ArtekSoftware.Conference.UI.Web.Services.Requests;
+using ConferencesIO.UI.Web.Services.Requests;
 using KellermanSoftware.CompareNetObjects;
 using NUnit.Framework;
 using Should;
 
-namespace ArtekSoftware.Conference.UI.Web.Tests.Int
+namespace ConferencesIO.UI.Web.Tests.Int
 {
   [TestFixture]
   public partial class ConferenceTests : RestTestBase

@@ -11,7 +11,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using System.Windows.Navigation;
 
-namespace ArtekSoftware.Conference.Mobile.SL.Views
+namespace ConferencesIO.UI.SL.Views
 {
   public partial class Speakers : Page
   {

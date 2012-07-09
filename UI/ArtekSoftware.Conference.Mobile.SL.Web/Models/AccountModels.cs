@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 
-namespace ArtekSoftware.Conference.Mobile.SL.Web.Models
+namespace ConferencesIO.UI.SL.Web.Models
 {
 
   #region Models

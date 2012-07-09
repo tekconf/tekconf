@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using ArtekSoftware.Conference.RemoteData.Dtos;
+using ConferencesIO.RemoteData.Dtos;
 using AutoMapper;
 
-namespace ArtekSoftware.Conference.UI.Web
+namespace ConferencesIO.UI.Web
 {
   public class Bootstrapper
   {

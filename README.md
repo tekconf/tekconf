@@ -1,4 +1,4 @@
-GET http://conferences.arteksoftware.com
+GET http://conferences.io/v1/conferences
 
   Returns list of conferences with urls to details
             
@@ -9,14 +9,14 @@ GET http://conferences.arteksoftware.com
                     "start" : "2012-08-13",
                     "end" : "2012-08-15",
                     "location" : "Wisconsin",
-                    "url" : "http://conferences.arteksoftware.com/That-Conference/2012"
+                    "url" : "http://conferences.io/v1/That-Conference/2012"
                 },
             ]
             </code></pre>
 
 
 
-GET http://conferences.arteksoftware.com/That-Conference/2012
+GET http://conferences.io/v1/conferences/That-Conference/2012
     
     
     - Returns general info with link to sessions
@@ -33,34 +33,34 @@ GET http://conferences.arteksoftware.com/That-Conference/2012
             end: "/Date(1345003200000-0400)/",
             twitterHashTag: "#codemash",
             twitterName: "@codemash",
-            sessions : "http://conferences.arteksoftware.com/CodeMash-2012/session"
+            sessions : "http://conferences.io/v1/CodeMash-2012/session"
         }
 
-GET http://conferences.arteksoftware.com/That-Conference/2012/sessions
+GET http://conferences.io/v1/conferences/That-Conference/2012/sessions
     - Returns sessions with speakers
 
-GET http://conferences.arteksoftware.com/That-Conference/2012/sessions/MonoTouch
+GET http://conferences.io/v1/conferences/That-Conference/2012/sessions/MonoTouch
     - Returns single session with speakers, prerequisites, links, resources
 
-GET http://conferences.arteksoftware.com/That-Conference/2012/sessions/MonoTouch/speakers
+GET http://conferences.io/v1/conferences/That-Conference/2012/sessions/MonoTouch/speakers
     - Returns speakers
 
-GET http://conferences.arteksoftware.com/That-Conference/2012/sessions/MonoTouch/prerequisites
+GET http://conferences.io/v1/conferences/That-Conference/2012/sessions/MonoTouch/prerequisites
     - Returns prerequisites
 
-GET http://conferences.arteksoftware.com/That-Conference/2012/sessions/MonoTouch/links
+GET http://conferences.io/v1/conferences/That-Conference/2012/sessions/MonoTouch/links
     - Returns links
 
-GET http://conferences.arteksoftware.com/That-Conference/2012/sessions/MonoTouch/resources
+GET http://conferences.io/v1/conferences/That-Conference/2012/sessions/MonoTouch/resources
     - Returns resources
 
-GET http://conferences.arteksoftware.com/That-Conference/2012/speakers
+GET http://conferences.io/v1/conferences/That-Conference/2012/speakers
     - Returns speakers with sessions
 
-GET http://conferences.arteksoftware.com/That-Conference/2012/speakers/rob-gibbens
+GET http://conferences.io/v1/conferences/That-Conference/2012/speakers/rob-gibbens
     - Returns speakers info
 
-GET http://conferences.arteksoftware.com/That-Conference/2012
+GET http://conferences.io/v1/conferences/That-Conference/2012
 
 - Authenticate
 - Get schedule

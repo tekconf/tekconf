@@ -11,7 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
-namespace ArtekSoftware.Conference.Mobile.WP7
+namespace ConferencesIO.UI.WP7
 {
   public class ItemViewModel : INotifyPropertyChanged
   {
