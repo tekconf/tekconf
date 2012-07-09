@@ -12,7 +12,7 @@ namespace ConferencesIO.UI.Api.Tests.Int
   {
     public List<SpeakersDto> GetConferenceSessionSpeakers(string conferenceSlug, string sessionSlug)
     {
-      string url = rootUrl + "/api/conferences/" + conferenceSlug + "/sessions/" + sessionSlug + "/speakers";
+      string url = rootUrl + "/conferences/" + conferenceSlug + "/sessions/" + sessionSlug + "/speakers";
 
       var client = new WebClient();
 
@@ -25,7 +25,7 @@ namespace ConferencesIO.UI.Api.Tests.Int
 
     public List<SpeakersDto> GetConferenceSpeakers(string conferenceSlug)
     {
-      string url = rootUrl + "/api/conferences/" + conferenceSlug + "/speakers";
+      string url = rootUrl + "/conferences/" + conferenceSlug + "/speakers";
 
       var client = new WebClient();
 
@@ -37,7 +37,7 @@ namespace ConferencesIO.UI.Api.Tests.Int
 
     public SpeakerDto GetConferenceSessionSpeaker(string conferenceSlug, string sessionSlug, string speakerSlug)
     {
-      string url = rootUrl + "/api/conferences/" + conferenceSlug + "/sessions/" + sessionSlug + "/speakers/" + speakerSlug;
+      string url = rootUrl + "/conferences/" + conferenceSlug + "/sessions/" + sessionSlug + "/speakers/" + speakerSlug;
 
       var client = new WebClient();
 
@@ -49,7 +49,7 @@ namespace ConferencesIO.UI.Api.Tests.Int
 
     public SpeakerDto GetConferenceSpeaker(string conferenceSlug, string speakerSlug)
     {
-      string url = rootUrl + "/api/conferences/" + conferenceSlug + "/speakers/" + speakerSlug;
+      string url = rootUrl + "/conferences/" + conferenceSlug + "/speakers/" + speakerSlug;
 
       var client = new WebClient();
 

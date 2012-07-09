@@ -12,7 +12,7 @@ namespace ConferencesIO.UI.Api.Tests.Int
   {
     public ScheduleDto GetSchedule(ScheduleRequest request)
     {
-      string url = rootUrl + "/api/conferences/" + request.conferenceSlug + "/schedule/" + request.userSlug;
+      string url = rootUrl + "/conferences/" + request.conferenceSlug + "/schedule/" + request.userSlug;
 
       var client = new WebClient { Encoding = System.Text.Encoding.UTF8 };
       client.Headers[HttpRequestHeader.Accept] = "application/json";

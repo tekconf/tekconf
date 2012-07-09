@@ -4,7 +4,7 @@ namespace ConferencesIO.UI.Api
   {
     public string ResolveUrl(string conferenceSlug)
     {
-      return RootUrl + "/api/conferences/" + conferenceSlug;
+      return RootUrl + "/conferences/" + conferenceSlug;
     }
   }
 }

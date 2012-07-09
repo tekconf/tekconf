@@ -13,7 +13,7 @@ namespace ConferencesIO.UI.Api.Tests.Int
   {
     public List<ConferencesDto> GetConferences(ConferencesRequest request)
     {
-      string url = rootUrl + "/api/conferences";
+      string url = rootUrl + "/conferences";
 
       var client = new WebClient { Encoding = System.Text.Encoding.UTF8 };
       client.Headers[HttpRequestHeader.Accept] = "application/json";
@@ -24,7 +24,7 @@ namespace ConferencesIO.UI.Api.Tests.Int
 
     public ConferenceDto GetConference(ConferencesRequest request)
     {
-      string url = rootUrl + "/api/conferences/" + request.conferenceSlug;
+      string url = rootUrl + "/conferences/" + request.conferenceSlug;
 
       var client = new WebClient { Encoding = System.Text.Encoding.UTF8 };
       client.Headers[HttpRequestHeader.Accept] = "application/json";

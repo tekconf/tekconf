@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using ConferencesIO.RemoteData.Dtos;
 using AutoMapper;
@@ -43,10 +42,7 @@ namespace ConferencesIO.UI.Api
     {
       get
       {
-        var url = HttpContext.Current.Request.Url;
-        var stringSeparators = new[] { "/api" };
-        var uriParts = url.OriginalString.Split(stringSeparators, StringSplitOptions.None);
-        var rootUrl = uriParts.First();
+        var rootUrl = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + HttpContext.Current.Request.ApplicationPath;
 
         return rootUrl.Replace(":80", "");
       }

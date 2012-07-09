@@ -14,8 +14,8 @@ namespace RemoteData.Shared.Tests.Int
   [TestFixture]
   public class ConferenceTests
   {
-    private const string _baseUrl = "http://localhost/ConferencesIO/api/";
-    //private const string _baseUrl = "http://conference.azurewebsites.net/api/";
+    private const string _baseUrl = "http://localhost/ConferencesIO/";
+    //private const string _baseUrl = "http://conference.azurewebsites.net/";
     [Test]
     public void GetConferences()
     {

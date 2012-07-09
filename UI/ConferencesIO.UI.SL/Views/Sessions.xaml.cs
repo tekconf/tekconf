@@ -16,8 +16,8 @@ namespace ConferencesIO.UI.SL.Views
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
       base.OnNavigatedTo(e);
-      //string baseUrl = "http://conference.azurewebsites.net/api/";
-      string baseUrl = "http://localhost/ConferencesIO.UI.Web/api/";
+      //string baseUrl = "http://conference.azurewebsites.net/";
+      string baseUrl = "http://localhost/ConferencesIO.UI.Web/";
       var client = new RemoteDataRepository(baseUrl);
       client.GetSessions("CodeMash-2012", sessions =>
       {

@@ -13,7 +13,7 @@ namespace ConferencesIO.UI.Api
 
     public string ResolveUrl(string speakerSlug)
     {
-      return RootUrl + "/api/conferences/" + _conferenceSlug + "/sessions/" + _sessionSlug + "/speakers/" + speakerSlug;
+      return RootUrl + "/conferences/" + _conferenceSlug + "/sessions/" + _sessionSlug + "/speakers/" + speakerSlug;
     }
   }
 }
