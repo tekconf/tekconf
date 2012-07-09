@@ -2,12 +2,16 @@
 using System.Net;
 using ConferencesIO.UI.Api.Services.Requests.v1;
 using FluentMongo.Linq;
+using ServiceStack.CacheAccess;
 using ServiceStack.Common.Web;
+using ServiceStack.ServiceHost;
 
 namespace ConferencesIO.UI.Api.Services.v1
 {
   public class SessionPrerequisitesService : MongoRestServiceBase<SessionPrerequisitesRequest>
   {
+    public ICacheClient CacheClient { get; set; }
+
     public override object OnGet(SessionPrerequisitesRequest request)
     {
       if (request.conferenceSlug == default(string))
@@ -15,21 +19,29 @@ namespace ConferencesIO.UI.Api.Services.v1
         throw new HttpError() { StatusCode = HttpStatusCode.BadRequest };
       }
 
-      var conference = this.Database.GetCollection<ConferenceEntity>("conferences")
-                  .AsQueryable()
-                  .SingleOrDefault(c => c.slug == request.conferenceSlug);
-
-      if (conference == null)
-      {
-        throw new HttpError() { StatusCode = HttpStatusCode.NotFound };
-      }
-
       if (request.sessionSlug == default(string))
       {
         throw new HttpError() { StatusCode = HttpStatusCode.BadRequest };
       }
-      else
+
+      return GetSingleSessionPrerequisites(request);
+    }
+
+    private object GetSingleSessionPrerequisites(SessionPrerequisitesRequest request)
+    {
+      var cacheKey = "GetSingleSessionPrerequisites-" + request.conferenceSlug + "-" + request.sessionSlug;
+      return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, () =>
       {
+        var conference = this.Database.GetCollection<ConferenceEntity>("conferences")
+          .AsQueryable()
+          .SingleOrDefault(c => c.slug == request.conferenceSlug);
+
+        if (conference == null)
+        {
+          throw new HttpError() { StatusCode = HttpStatusCode.NotFound };
+        }
+
+
         var session = conference.sessions.FirstOrDefault(s => s.slug == request.sessionSlug);
         if (session == null)
         {
@@ -37,7 +49,8 @@ namespace ConferencesIO.UI.Api.Services.v1
         }
 
         return session.prerequisites;
-      }
+
+      });
     }
   }
 }
