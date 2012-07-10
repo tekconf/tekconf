@@ -3,7 +3,7 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="UI/ConferencesIO.UI.iOS/SessionDetailViewController.cs">
     <Files>
       <File FileName="UI/ConferencesIO.UI.iOS/SessionsViewController.cs" Line="72" Column="75" />
-      <File FileName="UI/ConferencesIO.UI.iOS/SessionDetailViewController.cs" Line="39" Column="1" />
+      <File FileName="UI/ConferencesIO.UI.iOS/SessionDetailViewController.cs" Line="33" Column="3" />
       <File FileName="UI/ConferencesIO.UI.iOS/SessionDetailViewController.designer.cs" Line="32" Column="4" />
       <File FileName="RemoteData/Shared/v1/RemoteDataRepository.cs" Line="143" Column="3" />
     </Files>
@@ -11,7 +11,6 @@
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="/Users/Rob/dev/conferencesio/UI/ConferencesIO.UI.iOS/SessionsViewController.cs" line="197" />
-      <Breakpoint file="/Users/Rob/dev/conferencesio/UI/ConferencesIO.UI.iOS/SessionDetailViewController.cs" line="48" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

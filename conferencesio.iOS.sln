@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConferencesIO.RemoteData.iO
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConferencesIO.UI.iOS", "UI\ConferencesIO.UI.iOS\ConferencesIO.UI.iOS.csproj", "{69ED9012-6497-4B8A-9BF2-8ED1BB1F138B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConferencesIO.UI.iOS", "UI\ConferencesIO.UI.iOS.old\ConferencesIO.UI.iOS.csproj", "{F925F1DF-9434-4DB2-B819-47C7052CFB56}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
@@ -55,18 +53,6 @@ Global
 		{CF44A2C3-42DF-4970-9618-E6AE3AF31603}.Release|iPhone.Build.0 = Release|Any CPU
 		{CF44A2C3-42DF-4970-9618-E6AE3AF31603}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{CF44A2C3-42DF-4970-9618-E6AE3AF31603}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
-		{F925F1DF-9434-4DB2-B819-47C7052CFB56}.Ad-Hoc|iPhone.ActiveCfg = Ad-Hoc|iPhone
-		{F925F1DF-9434-4DB2-B819-47C7052CFB56}.Ad-Hoc|iPhone.Build.0 = Ad-Hoc|iPhone
-		{F925F1DF-9434-4DB2-B819-47C7052CFB56}.AppStore|iPhone.ActiveCfg = AppStore|iPhone
-		{F925F1DF-9434-4DB2-B819-47C7052CFB56}.AppStore|iPhone.Build.0 = AppStore|iPhone
-		{F925F1DF-9434-4DB2-B819-47C7052CFB56}.Debug|iPhone.ActiveCfg = Debug|iPhone
-		{F925F1DF-9434-4DB2-B819-47C7052CFB56}.Debug|iPhone.Build.0 = Debug|iPhone
-		{F925F1DF-9434-4DB2-B819-47C7052CFB56}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
-		{F925F1DF-9434-4DB2-B819-47C7052CFB56}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
-		{F925F1DF-9434-4DB2-B819-47C7052CFB56}.Release|iPhone.ActiveCfg = Release|iPhone
-		{F925F1DF-9434-4DB2-B819-47C7052CFB56}.Release|iPhone.Build.0 = Release|iPhone
-		{F925F1DF-9434-4DB2-B819-47C7052CFB56}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
-		{F925F1DF-9434-4DB2-B819-47C7052CFB56}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = UI\ConferencesIO.UI.iOS\ConferencesIO.UI.iOS.csproj
