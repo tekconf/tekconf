@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2182" systemVersion="11E53" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="5">
+    <dependencies>
+        <deployment defaultVersion="1296" identifier="iOS"/>
+        <development defaultVersion="4200" identifier="xcode"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1181"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="14">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="13" sceneMemberID="firstResponder"/>
+                <navigationController id="3" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="6">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="aob-3v-RAa" kind="relationship" relationship="rootViewController" id="Cd4-i2-yRr"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="474" y="-638"/>
+        </scene>
+        <!--Detail View Controller - Detail-->
+        <scene sceneID="16">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="15" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="detail" title="Detail" id="4" customClass="DetailViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="26">
+                        <rect key="frame" x="0.0" y="20" width="703" height="748"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Detail view content goes here" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" id="27">
+                                <rect key="frame" x="20" y="385" width="663" height="21"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" size="system"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="28">
+                                <rect key="frame" x="0.0" y="0.0" width="703" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items/>
+                            </toolbar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    </view>
+                    <toolbarItems/>
+                    <connections>
+                        <outlet property="detailDescriptionLabel" destination="27" id="29"/>
+                        <outlet property="toolbar" destination="28" id="38"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="527" y="248"/>
+        </scene>
+        <!--Split View Controller-->
+        <scene sceneID="18">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="17" sceneMemberID="firstResponder"/>
+                <splitViewController id="5" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackTranslucent"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <connections>
+                        <outlet property="delegate" destination="4" id="32"/>
+                        <segue destination="4" kind="relationship" relationship="detailViewController" id="8"/>
+                        <segue destination="3" kind="relationship" relationship="masterViewController" id="9"/>
+                    </connections>
+                </splitViewController>
+            </objects>
+            <point key="canvasLocation" x="-711" y="-178"/>
+        </scene>
+        <!--View Controller - Item 2-->
+        <scene sceneID="4du-N9-lUT">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QdM-ne-0ZU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="cL6-AV-ayC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="RQn-bO-xS0">
+                        <rect key="frame" x="0.0" y="64" width="320" height="655"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item 2" id="0M5-5v-OhA"/>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="2316" y="-174"/>
+        </scene>
+        <!--View Controller - Item 1-->
+        <scene sceneID="TdA-xc-WES">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FVU-2r-Abg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="q26-ri-Y99" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ju4-Th-HU1">
+                        <rect key="frame" x="0.0" y="64" width="320" height="655"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item 1" id="yMz-kS-YNz"/>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="2316" y="-1282"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="gta-le-7mq">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lAl-e5-b5D" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tabBarController definesPresentationContext="YES" id="aob-3v-RAa" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="MGD-PN-peL"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="ZSN-hV-yDC">
+                        <rect key="frame" x="129" y="330" width="163" height="49"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="q26-ri-Y99" kind="relationship" relationship="viewControllers" id="nhv-2P-3P6"/>
+                        <segue destination="cL6-AV-ayC" kind="relationship" relationship="viewControllers" id="j2i-wt-A5z"/>
+                    </connections>
+                </tabBarController>
+            </objects>
+            <point key="canvasLocation" x="946" y="-632"/>
+        </scene>
+    </scenes>
+    <classes>
+        <class className="DetailViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DetailViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="detailDescriptionLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+            </relationships>
+        </class>
+    </classes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination"/>
+    </simulatedMetricsContainer>
+</document>

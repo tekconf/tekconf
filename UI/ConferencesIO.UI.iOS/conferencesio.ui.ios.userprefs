@@ -1,0 +1,27 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="conferencesio.ui.ios/AppDelegate.cs">
+    <Files>
+      <File FileName="conferencesio.ui.ios/AppDelegate.cs" Line="109" Column="3" />
+      <File FileName="conferencesio.ui.ios/Model/Repositories/LocalSessionsRepository.cs" Line="73" Column="4" />
+      <File FileName="conferencesio.ui.ios/Model/Repositories/RemoteSessionsRepository.cs" Line="19" Column="39" />
+      <File FileName="conferencesio.ui.ios/Model/Entities/RefreshEntity.cs" Line="26" Column="1" />
+      <File FileName="conferencesio.ui.ios/Model/Repositories/RemoteScheduledSessionsRepository.cs" Line="39" Column="9" />
+      <File FileName="conferencesio.ui.ios/Model/Repositories/RemoteSpeakersRepository.cs" Line="17" Column="32" />
+      <File FileName="conferencesio.ui.ios/Model/DTOs/Speaker.cs" Line="14" Column="17" />
+      <File FileName="conferencesio.ui.ios/Model/DTOs/SpeakersList.cs" Line="1" Column="1" />
+      <File FileName="conferencesio.ui.ios/Model/DTOs/SessionsList.cs" Line="1" Column="1" />
+      <File FileName="conferencesio.ui.ios/Model/DTOs/Session.cs" Line="1" Column="1" />
+      <File FileName="conferencesio.ui.ios/Model/Entities/SessionEntity.cs" Line="1" Column="1" />
+      <File FileName="conferencesio.ui.ios/Model/Entities/SpeakerEntity.cs" Line="1" Column="1" />
+      <File FileName="conferencesio.ui.ios/Model/Repositories/RemoteTwitterRepository.cs" Line="27" Column="4" />
+      <File FileName="conferencesio.ui.ios/MoveToLibrary/QueueSync.cs" Line="27" Column="10" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/Rob/dev/conferencesio/UI/conferencesio.ui.ios/conferencesio.ui.ios/AppDelegate.cs" line="61" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>

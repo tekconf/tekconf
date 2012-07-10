@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtekSoftware.Conference.Mobile.iOS", "UI\ArtekSoftware.Conference.Mobile.iOS\ArtekSoftware.Conference.Mobile.iOS.csproj", "{F925F1DF-9434-4DB2-B819-47C7052CFB56}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemoteData.iOS", "RemoteData\iOS\RemoteData.iOS.csproj", "{CF44A2C3-42DF-4970-9618-E6AE3AF31603}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceStack.Text.MonoTouch", "..\ServiceStack.Text\src\ServiceStack.Text.MonoTouch\ServiceStack.Text.MonoTouch\ServiceStack.Text.MonoTouch.csproj", "{1137B5AC-2259-413C-A473-93721D2A7551}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConferencesIO.RemoteData.iOS", "RemoteData\iOS\ConferencesIO.RemoteData.iOS.csproj", "{CF44A2C3-42DF-4970-9618-E6AE3AF31603}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConferencesIO.UI.iOS", "UI\ConferencesIO.UI.iOS\ConferencesIO.UI.iOS.csproj", "{F925F1DF-9434-4DB2-B819-47C7052CFB56}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,6 +55,6 @@ Global
 		{F925F1DF-9434-4DB2-B819-47C7052CFB56}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = UI\ArtekSoftware.Conference.Mobile.iOS\ArtekSoftware.Conference.Mobile.iOS.csproj
+		StartupItem = UI\ConferencesIO.UI.iOS\ConferencesIO.UI.iOS.csproj
 	EndGlobalSection
 EndGlobal
