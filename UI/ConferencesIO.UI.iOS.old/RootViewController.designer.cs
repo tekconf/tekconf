@@ -6,7 +6,7 @@
 //
 using MonoTouch.Foundation;
 
-namespace ConferencesIO.UI.iOS
+namespace ArtekSoftware.Conference.Mobile.iOS
 {
 	[Register ("RootViewController")]
 	partial class RootViewController

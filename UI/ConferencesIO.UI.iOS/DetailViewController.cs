@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 
-namespace ArtekSoftware.Conference.Mobile.iOS
+namespace ConferencesIO.UI.iOS
 {
 	public partial class DetailViewController : UIViewController
 	{
@@ -13,16 +13,24 @@ namespace ArtekSoftware.Conference.Mobile.iOS
 			get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone; }
 		}
 
-		UIPopoverController masterPopoverController;
-		object detailItem;
+		UIPopoverController popoverController;
+		string detailItem;
 		
-		public DetailViewController ()
-			: base (UserInterfaceIdiomIsPhone ? "DetailViewController_iPhone" : "DetailViewController_iPad", null)
-		{
-			// Custom initialization
+		[Export("detailItem")]
+		public string DetailItem {
+			get {
+				return detailItem;
+			}
+			set {
+				SetDetailItem (value);
+			}
 		}
 		
-		public void SetDetailItem (object newDetailItem)
+		public DetailViewController (IntPtr handle) : base (handle)
+		{
+		}
+		
+		public void SetDetailItem (string newDetailItem)
 		{
 			if (detailItem != newDetailItem) {
 				detailItem = newDetailItem;
@@ -31,15 +39,15 @@ namespace ArtekSoftware.Conference.Mobile.iOS
 				ConfigureView ();
 			}
 			
-			if (this.masterPopoverController != null)
-				this.masterPopoverController.Dismiss (true);
+			if (this.popoverController != null)
+				this.popoverController.Dismiss (true);
 		}
 		
 		void ConfigureView ()
 		{
 			// Update the user interface for the detail item
-			if (detailItem != null)
-				this.detailDescriptionLabel.Text = detailItem.ToString ();
+			if (DetailItem != null)
+				this.detailDescriptionLabel.Text = DetailItem.ToString ();
 		}
 		
 		public override void DidReceiveMemoryWarning ()
@@ -50,25 +58,47 @@ namespace ArtekSoftware.Conference.Mobile.iOS
 			// Release any cached data, images, etc that aren't in use.
 		}
 		
+		#region View lifecycle
+		
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
 			
 			// Perform any additional setup after loading the view, typically from a nib.
 			ConfigureView ();
+			
+			if (!UserInterfaceIdiomIsPhone)
+				SplitViewController.Delegate = new SplitViewControllerDelegate ();
 		}
 		
 		public override void ViewDidUnload ()
 		{
 			base.ViewDidUnload ();
 			
-			// Clear any references to subviews of the main view in order to
-			// allow the Garbage Collector to collect them sooner.
-			//
-			// e.g. myOutlet.Dispose (); myOutlet = null;
-			
-			ReleaseDesignerOutlets ();
+			// Release any retained subviews of the main view.
 		}
+		
+		public override void ViewWillAppear (bool animated)
+		{
+			base.ViewWillAppear (animated);
+		}
+		
+		public override void ViewDidAppear (bool animated)
+		{
+			base.ViewDidAppear (animated);
+		}
+		
+		public override void ViewWillDisappear (bool animated)
+		{
+			base.ViewWillDisappear (animated);
+		}
+		
+		public override void ViewDidDisappear (bool animated)
+		{
+			base.ViewDidDisappear (animated);
+		}
+		
+		#endregion
 		
 		public override bool ShouldAutorotateToInterfaceOrientation (UIInterfaceOrientation toInterfaceOrientation)
 		{
@@ -80,21 +110,32 @@ namespace ArtekSoftware.Conference.Mobile.iOS
 			}
 		}
 		
-		[Export("splitViewController:willHideViewController:withBarButtonItem:forPopoverController:")]
-		public void WillHideViewController (UISplitViewController splitController, UIViewController viewController, UIBarButtonItem barButtonItem, UIPopoverController popoverController)
+		#region Split View
+		
+		class SplitViewControllerDelegate : UISplitViewControllerDelegate
 		{
-			barButtonItem.Title = "Master";
-			NavigationItem.SetLeftBarButtonItem (barButtonItem, true);
-			masterPopoverController = popoverController;
+			public override void WillHideViewController (UISplitViewController svc, UIViewController aViewController, UIBarButtonItem barButtonItem, UIPopoverController pc)
+			{
+				var dv = svc.ViewControllers [1] as DetailViewController;
+				barButtonItem.Title = "Master";
+				var items = new List<UIBarButtonItem> ();
+				items.Add (barButtonItem);
+				items.AddRange (dv.toolbar.Items);
+				dv.toolbar.SetItems (items.ToArray (), true);
+				dv.popoverController = pc;
+			}
+			
+			public override void WillShowViewController (UISplitViewController svc, UIViewController aViewController, UIBarButtonItem button)
+			{
+				var dv = svc.ViewControllers [1] as DetailViewController;
+				var items = new List<UIBarButtonItem> (dv.toolbar.Items);
+				items.RemoveAt (0);
+				dv.toolbar.SetItems (items.ToArray (), true);
+				dv.popoverController = null;
+			}
 		}
 		
-		[Export("splitViewController:willShowViewController:invalidatingBarButtonItem:")]
-		public void WillShowViewController (UISplitViewController svc, UIViewController vc, UIBarButtonItem button)
-		{
-			// Called when the view is shown again in the split view, invalidating the button and popover controller.
-			NavigationItem.SetLeftBarButtonItem (null, true);
-			masterPopoverController = null;
-		}
+		#endregion
 	}
 }
 

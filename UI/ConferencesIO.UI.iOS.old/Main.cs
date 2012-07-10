@@ -5,7 +5,7 @@ using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 
-namespace ConferencesIO.UI.iOS
+namespace ArtekSoftware.Conference.Mobile.iOS
 {
 	public class Application
 	{

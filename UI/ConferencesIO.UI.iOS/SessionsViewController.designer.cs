@@ -8,12 +8,12 @@ using MonoTouch.Foundation;
 
 namespace ConferencesIO.UI.iOS
 {
-	[Register ("RootViewController")]
-	partial class RootViewController
+	[Register ("SessionsViewController")]
+	partial class SessionsViewController
 	{
+		
 		void ReleaseDesignerOutlets ()
 		{
 		}
 	}
 }
-

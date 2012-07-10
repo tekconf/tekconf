@@ -5,7 +5,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceStack.Text.MonoTouch
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConferencesIO.RemoteData.iOS", "RemoteData\iOS\ConferencesIO.RemoteData.iOS.csproj", "{CF44A2C3-42DF-4970-9618-E6AE3AF31603}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConferencesIO.UI.iOS", "UI\ConferencesIO.UI.iOS\ConferencesIO.UI.iOS.csproj", "{F925F1DF-9434-4DB2-B819-47C7052CFB56}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConferencesIO.UI.iOS", "UI\ConferencesIO.UI.iOS\ConferencesIO.UI.iOS.csproj", "{69ED9012-6497-4B8A-9BF2-8ED1BB1F138B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConferencesIO.UI.iOS", "UI\ConferencesIO.UI.iOS.old\ConferencesIO.UI.iOS.csproj", "{F925F1DF-9434-4DB2-B819-47C7052CFB56}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,18 @@ Global
 		{1137B5AC-2259-413C-A473-93721D2A7551}.Release|iPhone.Build.0 = Release|Any CPU
 		{1137B5AC-2259-413C-A473-93721D2A7551}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{1137B5AC-2259-413C-A473-93721D2A7551}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{69ED9012-6497-4B8A-9BF2-8ED1BB1F138B}.Ad-Hoc|iPhone.ActiveCfg = Ad-Hoc|iPhone
+		{69ED9012-6497-4B8A-9BF2-8ED1BB1F138B}.Ad-Hoc|iPhone.Build.0 = Ad-Hoc|iPhone
+		{69ED9012-6497-4B8A-9BF2-8ED1BB1F138B}.AppStore|iPhone.ActiveCfg = AppStore|iPhone
+		{69ED9012-6497-4B8A-9BF2-8ED1BB1F138B}.AppStore|iPhone.Build.0 = AppStore|iPhone
+		{69ED9012-6497-4B8A-9BF2-8ED1BB1F138B}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{69ED9012-6497-4B8A-9BF2-8ED1BB1F138B}.Debug|iPhone.Build.0 = Debug|iPhone
+		{69ED9012-6497-4B8A-9BF2-8ED1BB1F138B}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{69ED9012-6497-4B8A-9BF2-8ED1BB1F138B}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{69ED9012-6497-4B8A-9BF2-8ED1BB1F138B}.Release|iPhone.ActiveCfg = Release|iPhone
+		{69ED9012-6497-4B8A-9BF2-8ED1BB1F138B}.Release|iPhone.Build.0 = Release|iPhone
+		{69ED9012-6497-4B8A-9BF2-8ED1BB1F138B}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{69ED9012-6497-4B8A-9BF2-8ED1BB1F138B}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 		{CF44A2C3-42DF-4970-9618-E6AE3AF31603}.Ad-Hoc|iPhone.ActiveCfg = Debug|Any CPU
 		{CF44A2C3-42DF-4970-9618-E6AE3AF31603}.Ad-Hoc|iPhone.Build.0 = Debug|Any CPU
 		{CF44A2C3-42DF-4970-9618-E6AE3AF31603}.AppStore|iPhone.ActiveCfg = Debug|Any CPU

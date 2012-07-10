@@ -5,7 +5,7 @@
 //
 using MonoTouch.Foundation;
 
-namespace ConferencesIO.UI.iOS
+namespace ArtekSoftware.Conference.Mobile.iOS
 {
 	[Register ("DetailViewController")]
 	partial class DetailViewController
@@ -13,19 +13,11 @@ namespace ConferencesIO.UI.iOS
 		[Outlet]
 		MonoTouch.UIKit.UILabel detailDescriptionLabel { get; set; }
 		
-		[Outlet]
-		MonoTouch.UIKit.UIToolbar toolbar { get; set; }
-		
 		void ReleaseDesignerOutlets ()
 		{
 			if (detailDescriptionLabel != null) {
 				detailDescriptionLabel.Dispose ();
 				detailDescriptionLabel = null;
-			}
-			
-			if (toolbar != null) {
-				toolbar.Dispose ();
-				toolbar = null;
 			}
 		}
 	}
