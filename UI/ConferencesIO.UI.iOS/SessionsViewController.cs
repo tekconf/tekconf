@@ -16,6 +16,12 @@ namespace ConferencesIO.UI.iOS
 	{
 		private RemoteDataRepository _client;
 		private string _baseUrl = "http://conferencesioapi.azurewebsites.net/v1/";
+		const string MoveToMapSegueName = "showSessionDetail";
+
+		public string SelectedSessionSlug {
+			get;
+			set;
+		}
 
 		static bool UserInterfaceIdiomIsPhone {
 			get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone; }
@@ -64,6 +70,16 @@ namespace ConferencesIO.UI.iOS
 				);
 		}
 
+		public override void PrepareForSegue (UIStoryboardSegue segue, NSObject sender)
+		{
+			base.PrepareForSegue (segue, sender);
+			if (segue.Identifier == MoveToMapSegueName) {
+				var view = (SessionDetailViewController)segue.DestinationViewController;
+				view.SessionSlug = this.SelectedSessionSlug;
+				//view.SelectedCity = SelectedCity;
+			}
+		}
+
 		public class SessionsTableViewSource : UITableViewSource
 		{ 
 			private readonly IList<SessionsDto> _sessions;
@@ -102,12 +118,14 @@ namespace ConferencesIO.UI.iOS
 				//new UIAlertView ("View Session", selectedSession.title, null, "Ok", null).Show (); 
 
 				if (UserInterfaceIdiomIsPhone) {
-					_sessionDetailViewController = new SessionDetailViewController (selectedSession.slug);
+					//_sessionDetailViewController = new SessionDetailViewController (selectedSession.slug);
+					_rootViewController.SelectedSessionSlug = selectedSession.slug;
+					_rootViewController.PerformSegue (MoveToMapSegueName, _rootViewController);
 					// Pass the selected object to the new view controller.
-					_rootViewController.NavigationController.PushViewController (
-						_sessionDetailViewController,
-						true
-					);
+					//_rootViewController.NavigationController.PushViewController (
+//						_sessionDetailViewController,
+//						true
+//					);
 				} else {
 					// Navigation logic may go here -- for example, create and push another view controller.
 				}

@@ -11,7 +11,7 @@ namespace ConferencesIO.UI.iOS
 	{
 		private RemoteDataRepository _client;
 		private string _baseUrl = "http://conferencesioapi.azurewebsites.net/v1/";
-		private string _sessionSlug;
+		public string SessionSlug { get; set; }
 
 		static bool UserInterfaceIdiomIsPhone {
 			get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone; }
@@ -20,11 +20,6 @@ namespace ConferencesIO.UI.iOS
 		public SessionDetailViewController () : base()
 		{
 			
-		}
-
-		public SessionDetailViewController (string sessionSlug) : base()
-		{
-			_sessionSlug = sessionSlug;
 		}
 
 		public SessionDetailViewController (IntPtr handle) : base (handle)
@@ -45,18 +40,16 @@ namespace ConferencesIO.UI.iOS
 			indicator.Center = new System.Drawing.PointF (loading.Bounds.Width / 2, loading.Bounds.Size.Height - 40); 
 			indicator.StartAnimating (); 
 			loading.AddSubview (indicator);
-			var s = this.sessionEndLabel;
-			_client.GetSession ("CodeMash-2012", _sessionSlug, session => 
+
+			_client.GetSession ("CodeMash-2012", this.SessionSlug, session => 
 			{ 
 				InvokeOnMainThread (() => 
 				{ 
 					//new UIAlertView ("Session", session.title, null, "Ok", null).Show ();
-//					this.sessionTitleLabel.Text = session.title;
-//					this.sessionEndLabel.Text = session.end.ToString ();
-//					this.sessionStartLabel.Text = session.start.ToString();
-					//this.sessionTwitterHashTagLabel.Text = session.twitterHashTag;
-					//TableView.Source = new SessionsTableViewSource (this, session); 
-					//TableView.ReloadData (); 
+					this.sessionTitleLabel.Text = session.title;
+					this.sessionEndLabel.Text = session.end.ToString ();
+					this.sessionStartLabel.Text = session.start.ToString();
+					this.sessionTwitterHashTagLabel.Text = session.twitterHashTag;
 					loading.DismissWithClickedButtonIndex (0, true); 
 				}
 				);

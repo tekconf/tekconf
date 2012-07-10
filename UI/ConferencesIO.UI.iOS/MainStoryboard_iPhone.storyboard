@@ -51,7 +51,7 @@
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <connections>
-                                            <segue destination="21" kind="push" id="33"/>
+                                            <segue destination="21" kind="push" identifier="showSessionDetail" id="33"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -109,13 +109,10 @@
                     </view>
                     <navigationItem key="navigationItem" title="Detail" id="26"/>
                     <connections>
-                        <outlet property="sessionEnd" destination="K2Z-Ap-0la" id="ccy-8s-sQl"/>
                         <outlet property="sessionEndLabel" destination="K2Z-Ap-0la" id="hmI-Fk-EHB"/>
                         <outlet property="sessionStartLabel" destination="rc3-5b-dEp" id="aPx-xd-VLc"/>
-                        <outlet property="sessionTitle" destination="TsN-ba-NMu" id="YQ8-ak-j5K"/>
                         <outlet property="sessionTitleLabel" destination="TsN-ba-NMu" id="tCF-Ts-Ycg"/>
                         <outlet property="sessionTwitterHashTagLabel" destination="np0-mk-eJS" id="nNg-a2-XyF"/>
-                        <outlet property="start" destination="rc3-5b-dEp" id="EEr-uK-dug"/>
                     </connections>
                 </viewController>
             </objects>
