@@ -14,7 +14,7 @@ namespace RemoteData.Shared.Tests.Int
   public class SpeakerTests
   {
     private const string _baseUrl = "http://localhost/ConferencesIO/v1";
-    //private const string _baseUrl = "http://conference.azurewebsites.net/v1";
+    //private const string _baseUrl = "http://conferencesioapi.azurewebsites.net/v1";
     
     [Test]
     public void GetSpeakers()

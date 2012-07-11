@@ -18,8 +18,8 @@ namespace ConferencesIO.UI.SL.Views
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
       base.OnNavigatedTo(e);
-      //string baseUrl = "http://conference.azurewebsites.net/";
-      string baseUrl = "http://localhost/ConferencesIO.UI.Api/v1";
+      string baseUrl = "http://conferencesioapi.azurewebsites.net/v1/";
+      //string baseUrl = "http://localhost/ConferencesIO.UI.Api/v1/";
       var client = new RemoteDataRepository(baseUrl);
       client.GetSessions("CodeMash-2012", sessions =>
       {
@@ -33,7 +33,7 @@ namespace ConferencesIO.UI.SL.Views
 
     private void ConferenceSelected(object sender, SelectionChangedEventArgs e)
     {
-      var session = (SessionDto)e.AddedItems[0];
+      var session = (SessionsDto)e.AddedItems[0];
       MessageBox.Show(session.title, "Full Session", MessageBoxButton.OK);
     }
 

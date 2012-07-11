@@ -9,7 +9,7 @@ namespace ConferencesIO.UI.Api.Tests.Int
 {
   public class RestTestBase
   {
-    //public static string rootUrl = "http://conference.azurewebsites.net";
+    //public static string rootUrl = "http://conferencesioapi.azurewebsites.net";
     public static string rootUrl = "http://localhost/ConferencesIO.UI.Api/v1";
 
     

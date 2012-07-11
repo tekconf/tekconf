@@ -76,9 +76,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ArtekSoftware.Conference.Mobile.SLTestPage.aspx" />
-    <Content Include="ArtekSoftware.Conference.Mobile.SLTestPage.html" />
-    <Content Include="ClientBin\ArtekSoftware.Conference.Mobile.SL.xap" />
+    <Content Include="ConferencesIO.UI.SLTestPage.aspx" />
+    <Content Include="ConferencesIO.UI.SLTestPage.html" />
     <Content Include="ClientBin\ConferencesIO.UI.SL.xap" />
     <Content Include="Global.asax" />
     <Content Include="Silverlight.js" />

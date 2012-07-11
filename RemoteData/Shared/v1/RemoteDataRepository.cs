@@ -120,19 +120,14 @@ namespace ConferencesIO.RemoteData.v1
 
     public void GetSessions(string conferenceSlug, Action<IList<SessionsDto>> callback)
     {
-      string url = _baseUrl + "conferences/" + conferenceSlug + "/sessions";
+      string url = _baseUrl + "conferences/" + conferenceSlug + "/sessions?format=json";
 
       var client = new WebClient();
       client.Encoding = System.Text.Encoding.UTF8;
-      client.Headers[HttpRequestHeader.Accept] = "application/json";
+      //client.Headers[HttpRequestHeader.Accept] = "application/json";
 
       client.DownloadStringCompleted += (sender, args) =>
         {
-          //var sessions = new List<SessionsDto>()
-          //{
-          //new SessionsDto() {title = "My Session", start = DateTime.Now},
-          //new SessionsDto() {title = "AJ's Session", start = DateTime.Now}
-          //};
           var sessions = JsonSerializer.DeserializeFromString<List<SessionsDto>>(args.Result);
           callback(sessions);
         };
