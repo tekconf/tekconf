@@ -2,6 +2,8 @@
 using System.Windows.Controls;
 using ConferencesIO.RemoteData;
 using ConferencesIO.RemoteData.Dtos;
+using ConferencesIO.RemoteData.Dtos.v1;
+using ConferencesIO.RemoteData.v1;
 using Microsoft.Phone.Controls;
 
 namespace ConferencesIO.UI.WP7
