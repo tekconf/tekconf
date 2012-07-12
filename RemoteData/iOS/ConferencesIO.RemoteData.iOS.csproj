@@ -50,12 +50,6 @@
     </VisualStudio>
   </ProjectExtensions>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\ServiceStack.Text\src\ServiceStack.Text.MonoTouch\ServiceStack.Text.MonoTouch\ServiceStack.Text.MonoTouch.csproj">
-      <Project>{1137B5AC-2259-413C-A473-93721D2A7551}</Project>
-      <Name>ServiceStack.Text.MonoTouch</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="..\Shared\v1\ConferenceDto.cs">
       <Link>v1\ConferenceDto.cs</Link>
     </Compile>
@@ -80,5 +74,11 @@
     <Compile Include="..\Shared\v1\SpeakersDto.cs">
       <Link>v1\SpeakersDto.cs</Link>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\ServiceStack.Text\src\ServiceStack.Text.MonoTouch\ServiceStack.Text.MonoTouch\ServiceStack.Text.MonoTouch.csproj">
+      <Project>{1137B5AC-2259-413C-A473-93721D2A7551}</Project>
+      <Name>ServiceStack.Text.MonoTouch</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>
