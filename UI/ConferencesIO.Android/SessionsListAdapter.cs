@@ -8,9 +8,8 @@ namespace ConferencesIO.Android
 {
   public class SessionsListAdapter : BaseAdapter
   {
-    
-    Activity _activity;
-    private IList<SessionsDto> _sessions;
+    readonly Activity _activity;
+    private readonly IList<SessionsDto> _sessions;
 
     public SessionsListAdapter(Activity activity, IList<SessionsDto> sessions)
     {
@@ -45,6 +44,5 @@ namespace ConferencesIO.Android
 
       return view;
     }
-
   }
 }
