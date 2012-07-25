@@ -11,9 +11,15 @@ namespace ConferencesIO.UI.iOS
 	[Register ("SessionsListViewController")]
 	partial class SessionsListViewController
 	{
+		[Outlet]
+		MonoTouch.UIKit.UITableView SessionsListTableView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (SessionsListTableView != null) {
+				SessionsListTableView.Dispose ();
+				SessionsListTableView = null;
+			}
 		}
 	}
 }

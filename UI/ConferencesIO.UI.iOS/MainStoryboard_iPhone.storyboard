@@ -149,6 +149,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item 1" id="Uj6-TV-sH3"/>
+                    <connections>
+                        <outlet property="SessionsListTableView" destination="qot-De-LFG" id="Zii-n1-XqB"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x95-27-c2h" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -183,6 +186,12 @@
                 <relationship kind="outlet" name="sessionStartLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="sessionTitleLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="sessionTwitterHashTagLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="SessionsListViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SessionsListViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="SessionsListTableView" candidateClass="UITableView"/>
             </relationships>
         </class>
         <class className="SessionsViewController" superclassName="UITableViewController">
