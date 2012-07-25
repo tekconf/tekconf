@@ -108,6 +108,18 @@
     <Compile Include="SessionsListRootViewController.designer.cs">
       <DependentUpon>SessionsListRootViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="ScheduleListViewController.cs" />
+    <Compile Include="ScheduleListViewController.designer.cs">
+      <DependentUpon>ScheduleListViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SpeakersListViewController.cs" />
+    <Compile Include="SpeakersListViewController.designer.cs">
+      <DependentUpon>SpeakersListViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SpeakerDetailViewController.cs" />
+    <Compile Include="SpeakerDetailViewController.designer.cs">
+      <DependentUpon>SpeakerDetailViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard_iPhone.storyboard" />

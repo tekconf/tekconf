@@ -4,6 +4,7 @@ using System.Net;
 using ConferencesIO.RemoteData.Dtos;
 using ConferencesIO.RemoteData.Dtos.v1;
 using ServiceStack.Text;
+using System.Linq;
 
 namespace ConferencesIO.RemoteData.v1
 {
@@ -94,7 +95,8 @@ namespace ConferencesIO.RemoteData.v1
       client.DownloadStringCompleted += (sender, args) =>
       {
         var speakers = JsonSerializer.DeserializeFromString<List<SpeakersDto>>(args.Result);
-        callback(speakers);
+        //callback(speakers.OrderBy(s => s.firstName).OrderBy(s => s.lastName).ToList());
+        callback(speakers.OrderBy(s => s.lastName).OrderBy(s => s.firstName).ToList());
       };
 
       client.DownloadStringAsync(new Uri(url));
