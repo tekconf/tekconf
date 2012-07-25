@@ -104,9 +104,9 @@
     <Compile Include="SessionDetailViewController.designer.cs">
       <DependentUpon>SessionDetailViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="SessionsListViewController.cs" />
-    <Compile Include="SessionsListViewController.designer.cs">
-      <DependentUpon>SessionsListViewController.cs</DependentUpon>
+    <Compile Include="SessionsListRootViewController.cs" />
+    <Compile Include="SessionsListRootViewController.designer.cs">
+      <DependentUpon>SessionsListRootViewController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

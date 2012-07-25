@@ -10,7 +10,7 @@
             <objects>
                 <viewController storyboardIdentifier="detail" title="Detail" id="21" customClass="SessionDetailViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="22">
-                        <rect key="frame" x="0.0" y="20" width="320" height="460"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" text="Label" autoshrinkMode="minimumFontSize" id="TsN-ba-NMu">
@@ -54,47 +54,52 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="23" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="924" y="64"/>
+            <point key="canvasLocation" x="520" y="1580"/>
         </scene>
-        <!--View Controller - Item 2-->
-        <scene sceneID="B3Z-GA-T7Y">
+        <!--Sessions List Root View Controller - Sessions-->
+        <scene sceneID="hPR-AZ-2jm">
             <objects>
-                <viewController id="OjN-bs-llq" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="YjA-um-aT3">
-                        <rect key="frame" x="0.0" y="20" width="320" height="411"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Item 2" id="Q2d-GM-idu"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="UkW-X8-ger" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="839" y="1510"/>
-        </scene>
-        <!--Sessions List View Controller - Item 1-->
-        <scene sceneID="5DN-Zc-j08">
-            <objects>
-                <viewController id="anq-yR-sdI" customClass="SessionsListViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="bG4-XC-Wtu">
-                        <rect key="frame" x="0.0" y="20" width="320" height="411"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="qot-De-LFG">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="411"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Item 1" id="Uj6-TV-sH3"/>
+                <tableViewController id="rVb-kj-5DA" customClass="SessionsListRootViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Oj5-1Q-YrN">
+                        <rect key="frame" x="0.0" y="64" width="320" height="367"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="nJe-dV-SgX">
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </tableViewCell>
+                        </prototypes>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Sessions" id="FRf-EY-RBl"/>
                     <connections>
-                        <outlet property="SessionsListTableView" destination="qot-De-LFG" id="Zii-n1-XqB"/>
+                        <segue destination="21" kind="push" identifier="showSessionDetail" id="WUU-6y-7Di"/>
                     </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="x95-27-c2h" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="upn-Ra-kdO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="178" y="1633"/>
+            <point key="canvasLocation" x="72" y="1580"/>
+        </scene>
+        <!--Navigation Controller - Sessions-->
+        <scene sceneID="m8X-II-ogF">
+            <objects>
+                <navigationController definesPresentationContext="YES" id="Has-nZ-PYY" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Sessions" id="vSB-AX-9QD"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ObP-sd-tlJ">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="rVb-kj-5DA" kind="relationship" relationship="rootViewController" id="Pde-IT-jG5"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gbm-6r-bNh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-375" y="1344"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="TZG-Gm-rzN">
@@ -108,8 +113,7 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="anq-yR-sdI" kind="relationship" relationship="viewControllers" id="8Uu-Jm-EOP"/>
-                        <segue destination="OjN-bs-llq" kind="relationship" relationship="viewControllers" id="Kbj-3l-Qoz"/>
+                        <segue destination="Has-nZ-PYY" kind="relationship" relationship="viewControllers" id="zoQ-RF-odd"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rn0-2q-HZQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -127,11 +131,8 @@
                 <relationship kind="outlet" name="sessionTwitterHashTagLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
-        <class className="SessionsListViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SessionsListViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="SessionsListTableView" candidateClass="UITableView"/>
-            </relationships>
+        <class className="SessionsListRootViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SessionsListRootViewController.h"/>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

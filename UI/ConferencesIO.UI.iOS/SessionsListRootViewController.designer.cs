@@ -8,18 +8,12 @@ using MonoTouch.Foundation;
 
 namespace ConferencesIO.UI.iOS
 {
-	[Register ("SessionsListViewController")]
-	partial class SessionsListViewController
+	[Register ("SessionsListRootViewController")]
+	partial class SessionsListRootViewController
 	{
-		[Outlet]
-		MonoTouch.UIKit.UITableView SessionsListTableView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (SessionsListTableView != null) {
-				SessionsListTableView.Dispose ();
-				SessionsListTableView = null;
-			}
 		}
 	}
 }

@@ -10,11 +10,11 @@ using System.Collections.Generic;
 using ConferencesIO.RemoteData.v1;
 using ConferencesIO.RemoteData.Dtos.v1;
 
-
 namespace ConferencesIO.UI.iOS
 {
-	public partial class SessionsListViewController : UIViewController
+	public partial class SessionsListRootViewController : UITableViewController
 	{
+
 		private RemoteDataRepository _client;
 		private string _baseUrl = "http://conferencesioapi.azurewebsites.net/v1/";
 		const string MoveToMapSegueName = "showSessionDetail";
@@ -28,11 +28,12 @@ namespace ConferencesIO.UI.iOS
 			get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone; }
 		}
 
-		public SessionsListViewController (IntPtr handle) : base (handle)
+		public SessionsListRootViewController (IntPtr handle) : base (handle)
 		{
+
 		}
 
-		public override void ViewDidLoad ()
+public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
 
@@ -51,8 +52,8 @@ namespace ConferencesIO.UI.iOS
 			{ 
 				InvokeOnMainThread (() => 
 				{ 
-					SessionsListTableView.Source = new SessionsTableViewSource (this, sessions); 
-					SessionsListTableView.ReloadData (); 
+					TableView.Source = new SessionsTableViewSource (this, sessions); 
+					TableView.ReloadData (); 
 					loading.DismissWithClickedButtonIndex (0, true); 
 				}
 				);
@@ -64,7 +65,7 @@ namespace ConferencesIO.UI.iOS
 			//this.TableView.Source = new DataSource (this);
 			
 			if (!UserInterfaceIdiomIsPhone)
-				this.SessionsListTableView.SelectRow (
+				this.TableView.SelectRow (
 					NSIndexPath.FromRowSection (0, 0),
 					false,
 					UITableViewScrollPosition.Middle
@@ -85,10 +86,10 @@ namespace ConferencesIO.UI.iOS
 		{ 
 			private readonly IList<SessionsDto> _sessions;
 			private const string SessionCell = "SessionCell";
-			private SessionsListViewController _rootViewController;
+			private SessionsListRootViewController _rootViewController;
 			public static SessionDetailViewController _sessionDetailViewController;
 
-			public SessionsTableViewSource (SessionsListViewController controller, IList<SessionsDto> sessions)
+			public SessionsTableViewSource (SessionsListRootViewController controller, IList<SessionsDto> sessions)
 			{ 
 				_rootViewController = controller;
 				_sessions = sessions; 
