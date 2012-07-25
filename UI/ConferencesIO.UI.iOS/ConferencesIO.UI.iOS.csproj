@@ -104,6 +104,10 @@
     <Compile Include="SessionDetailViewController.designer.cs">
       <DependentUpon>SessionDetailViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="SessionsListViewController.cs" />
+    <Compile Include="SessionsListViewController.designer.cs">
+      <DependentUpon>SessionsListViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard_iPhone.storyboard" />
