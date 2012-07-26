@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using ConferencesIO.RemoteData;
 using ConferencesIO.RemoteData.Dtos;
@@ -19,7 +20,7 @@ namespace ConferencesIO.UI.WP7
     protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
     {
       base.OnNavigatedTo(e);
-      string baseUrl = "http://conferencesioapi.azurewebsites.net/";
+      string baseUrl = "http://conferencesioapi.azurewebsites.net/v1/";
       var client = new RemoteDataRepository(baseUrl);
 
       client.GetSessions("CodeMash-2012", sessions =>
@@ -30,21 +31,21 @@ namespace ConferencesIO.UI.WP7
                                Loading.Visibility = Visibility.Collapsed;
                              });
                            });
-
-      client.GetConferences(conferences =>
-      {
-        Deployment.Current.Dispatcher.BeginInvoke(() =>
-        {
-          DataContext = conferences;
-          Loading.Visibility = Visibility.Collapsed;
-        });
-      });
     }
 
     private void SessionSelected(object sender, SelectionChangedEventArgs e)
     {
-      var conference = (ConferencesDto) e.AddedItems[ 0]; 
-      MessageBox.Show( conference.name, "Full Conference", MessageBoxButton.OK);
+      if (this.Items.SelectedIndex == -1)
+      {
+        return;
+      }
+      var session = (SessionsDto) e.AddedItems[0];
+      //NavigationService.Navigate(new Uri("/SessionDetail.xaml?selectedItem=" + ((SessionViewModel)MainListBox.SelectedItem).Uri, UriKind.Relative));
+      var url = string.Format("/SessionDetail.xaml?conferenceSlug={0}&sessionSlug={1}", "CodeMash-2012", session.slug);
+      NavigationService.Navigate(new Uri(url, UriKind.Relative));
+
+      //MessageBox.Show( session.slug, "Full Conference", MessageBoxButton.OK);
+      this.Items.SelectedIndex = -1;
     }
 
   }
