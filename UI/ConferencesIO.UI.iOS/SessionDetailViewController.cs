@@ -32,7 +32,7 @@ namespace ConferencesIO.UI.iOS
 
 			_client = new RemoteDataRepository (_baseUrl);
 
-			var loading = new UIAlertView ("Downloading Sessions", "Please wait...", null, null, null);
+			var loading = new UIAlertView ("Downloading Session", "Please wait...", null, null, null);
 
 			loading.Show ();
 

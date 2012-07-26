@@ -11,9 +11,15 @@ namespace ConferencesIO.UI.iOS
 	[Register ("SpeakerDetailViewController")]
 	partial class SpeakerDetailViewController
 	{
+		[Outlet]
+		MonoTouch.UIKit.UILabel speakerNameLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (speakerNameLabel != null) {
+				speakerNameLabel.Dispose ();
+				speakerNameLabel = null;
+			}
 		}
 	}
 }
