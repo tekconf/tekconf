@@ -1,9 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="UI/ConferencesIO.UI.iOS/SpeakerDetailViewController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="UI/ConferencesIO.UI.iOS/SessionDetailViewController.cs">
     <Files>
-      <File FileName="UI/ConferencesIO.UI.iOS/SpeakerDetailViewController.cs" Line="7" Column="35" />
-      <File FileName="UI/ConferencesIO.UI.iOS/SessionDetailViewController.cs" Line="35" Column="55" />
+      <File FileName="UI/ConferencesIO.UI.iOS/SpeakerDetailViewController.cs" Line="25" Column="3" />
+      <File FileName="UI/ConferencesIO.UI.iOS/SessionDetailViewController.cs" Line="31" Column="34" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
