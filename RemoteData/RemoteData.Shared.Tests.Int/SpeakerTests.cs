@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using ConferencesIO.RemoteData;
-using ConferencesIO.RemoteData.Dtos;
 using ConferencesIO.RemoteData.Dtos.v1;
 using ConferencesIO.RemoteData.v1;
 using NUnit.Framework;

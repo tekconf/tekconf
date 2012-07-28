@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net;
-using ConferencesIO.RemoteData.Dtos;
 using ConferencesIO.RemoteData.Dtos.v1;
 using ConferencesIO.UI.Api.Services.Requests.v1;
 using NUnit.Framework;

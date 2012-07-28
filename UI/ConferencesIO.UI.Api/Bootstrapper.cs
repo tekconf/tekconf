@@ -1,5 +1,4 @@
-﻿using ConferencesIO.RemoteData.Dtos;
-using AutoMapper;
+﻿using AutoMapper;
 using ConferencesIO.RemoteData.Dtos.v1;
 
 namespace ConferencesIO.UI.Api
