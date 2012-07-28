@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConferencesIO.RemoteData.iO
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConferencesIO.UI.iOS", "UI\ConferencesIO.UI.iOS\ConferencesIO.UI.iOS.csproj", "{69ED9012-6497-4B8A-9BF2-8ED1BB1F138B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConferencesIO.LocalData.iOS", "LocalData\iOS\ConferencesIO.LocalData.iOS\ConferencesIO.LocalData.iOS.csproj", "{2CF3432D-C779-44DF-9446-CB5AE42CB4C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
@@ -29,6 +31,18 @@ Global
 		{1137B5AC-2259-413C-A473-93721D2A7551}.Release|iPhone.Build.0 = Release|Any CPU
 		{1137B5AC-2259-413C-A473-93721D2A7551}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{1137B5AC-2259-413C-A473-93721D2A7551}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{2CF3432D-C779-44DF-9446-CB5AE42CB4C5}.Ad-Hoc|iPhone.ActiveCfg = Debug|Any CPU
+		{2CF3432D-C779-44DF-9446-CB5AE42CB4C5}.Ad-Hoc|iPhone.Build.0 = Debug|Any CPU
+		{2CF3432D-C779-44DF-9446-CB5AE42CB4C5}.AppStore|iPhone.ActiveCfg = Debug|Any CPU
+		{2CF3432D-C779-44DF-9446-CB5AE42CB4C5}.AppStore|iPhone.Build.0 = Debug|Any CPU
+		{2CF3432D-C779-44DF-9446-CB5AE42CB4C5}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{2CF3432D-C779-44DF-9446-CB5AE42CB4C5}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{2CF3432D-C779-44DF-9446-CB5AE42CB4C5}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{2CF3432D-C779-44DF-9446-CB5AE42CB4C5}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{2CF3432D-C779-44DF-9446-CB5AE42CB4C5}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{2CF3432D-C779-44DF-9446-CB5AE42CB4C5}.Release|iPhone.Build.0 = Release|Any CPU
+		{2CF3432D-C779-44DF-9446-CB5AE42CB4C5}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{2CF3432D-C779-44DF-9446-CB5AE42CB4C5}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{69ED9012-6497-4B8A-9BF2-8ED1BB1F138B}.Ad-Hoc|iPhone.ActiveCfg = Ad-Hoc|iPhone
 		{69ED9012-6497-4B8A-9BF2-8ED1BB1F138B}.Ad-Hoc|iPhone.Build.0 = Ad-Hoc|iPhone
 		{69ED9012-6497-4B8A-9BF2-8ED1BB1F138B}.AppStore|iPhone.ActiveCfg = AppStore|iPhone
