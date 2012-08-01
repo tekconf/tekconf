@@ -45,6 +45,30 @@ namespace ConferencesIO.UI.iOS
 		public override void WillTerminate (UIApplication application)
 		{
 		}
+
+		public override bool FinishedLaunching (UIApplication application, NSDictionary launcOptions)
+		{
+			//CustomizeAppearance();
+			// TODO: Implement - see: http://go-mono.com/docs/index.aspx?link=T%3aMonoTouch.Foundation.ModelAttribute
+			return true;
+		}
+
+		private void CustomizeAppearance()
+		{
+			UIImage gradientImage44 = UIImage.FromBundle(@"images/appview/top-bar");
+			UIEdgeInsets capInsets = new UIEdgeInsets(0,0,0,0);
+			gradientImage44.CreateResizableImage(capInsets);
+			UINavigationBar.Appearance.SetBackgroundImage(gradientImage44, UIBarMetrics.Default);
+
+			UITextAttributes titleAttributes = new UITextAttributes() { 
+				TextColor = UIColor.FromRGBA(red:0.204f, green:0.212f, blue:0.239f, alpha:1f), 
+				TextShadowColor = UIColor.FromRGBA(red:1f, green:1f, blue:1f, alpha:0.8f), 
+				TextShadowOffset = new UIOffset(horizontal:0, vertical:1),
+				Font = UIFont.FromName("Helvetica-Neue", size:0.0f),
+			};
+
+			UINavigationBar.Appearance.SetTitleTextAttributes(titleAttributes);
+		}
 	}
 }
 
