@@ -46,7 +46,7 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" ProjectLinkReference="1439b0ec-5c15-4b18-b4eb-8a2787abdfde" />
+      <UserProperties ProjectLinkReference="1439b0ec-5c15-4b18-b4eb-8a2787abdfde" ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" />
     </VisualStudio>
   </ProjectExtensions>
   <ItemGroup>
@@ -55,6 +55,15 @@
     </Compile>
     <Compile Include="..\Shared\v1\ConferencesDto.cs">
       <Link>v1\ConferencesDto.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\FullConferenceDto.cs">
+      <Link>v1\FullConferenceDto.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\FullSessionDto.cs">
+      <Link>v1\FullSessionDto.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\FullSpeakerDto.cs">
+      <Link>v1\FullSpeakerDto.cs</Link>
     </Compile>
     <Compile Include="..\Shared\v1\RemoteDataRepository.cs">
       <Link>v1\RemoteDataRepository.cs</Link>

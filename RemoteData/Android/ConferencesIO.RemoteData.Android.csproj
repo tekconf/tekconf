@@ -45,6 +45,15 @@
     <Compile Include="..\Shared\v1\ConferencesDto.cs">
       <Link>v1\ConferencesDto.cs</Link>
     </Compile>
+    <Compile Include="..\Shared\v1\FullConferenceDto.cs">
+      <Link>v1\FullConferenceDto.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\FullSessionDto.cs">
+      <Link>v1\FullSessionDto.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\FullSpeakerDto.cs">
+      <Link>v1\FullSpeakerDto.cs</Link>
+    </Compile>
     <Compile Include="..\Shared\v1\RemoteDataRepository.cs">
       <Link>v1\RemoteDataRepository.cs</Link>
     </Compile>
@@ -74,7 +83,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties ProjectLinkReference="1439b0ec-5c15-4b18-b4eb-8a2787abdfde" ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" />
+      <UserProperties ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" ProjectLinkReference="1439b0ec-5c15-4b18-b4eb-8a2787abdfde" />
     </VisualStudio>
   </ProjectExtensions>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

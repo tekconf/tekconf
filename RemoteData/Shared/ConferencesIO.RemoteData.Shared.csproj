@@ -56,6 +56,9 @@
     <Compile Include="v1\ConferencesDto.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="v1\FullConferenceDto.cs" />
+    <Compile Include="v1\FullSessionDto.cs" />
+    <Compile Include="v1\FullSpeakerDto.cs" />
     <Compile Include="v1\RemoteDataRepository.cs">
       <SubType>Code</SubType>
     </Compile>

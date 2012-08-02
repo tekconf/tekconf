@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -12,78 +13,113 @@ using ServiceStack.ServiceHost;
 
 namespace ConferencesIO.UI.Api.Services.v1
 {
-  public class ConferencesService : MongoRestServiceBase<ConferencesRequest>
-  {
-    public ICacheClient CacheClient { get; set; }
-
-    public override object OnGet(ConferencesRequest request)
+    public class ConferencesService : MongoRestServiceBase<ConferencesRequest>
     {
-      if (request.conferenceSlug == default(string))
-      {
-        return GetAllConferences();
-      }
-      else
-      {
-        return GetSingleConference(request);
-      }
-    }
+        public ICacheClient CacheClient { get; set; }
 
-    private object GetSingleConference(ConferencesRequest request)
-    {
-      var cacheKey = "GetSingleConference-" + request.conferenceSlug;
-      return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, () =>
-      {
-        //This delegate will be executed if the cache doesn't have an item
-        //with the provided key
-
-        //Return here your response DTO
-        //It will be cached automatically
-
-        var conference = this.Database.GetCollection<ConferenceEntity>("conferences")
-        .AsQueryable()
-        .SingleOrDefault(c => c.slug == request.conferenceSlug);
-
-        if (conference == null)
+        public override object OnGet(ConferencesRequest request)
         {
-          throw new HttpError(HttpStatusCode.NotFound, "Conference not found.");
+            if (request.conferenceSlug == default(string))
+            {
+                return GetAllConferences();
+            }
+            else
+            {
+                var detail = base.RequestContext.Get<IHttpRequest>().QueryString["detail"];
+                if (string.Compare(detail, "all", StringComparison.InvariantCultureIgnoreCase) == 0)
+                {
+                    return GetFullSingleConference(request);
+                }
+                return GetSingleConference(request);
+            }
         }
 
-        var conferenceDto = Mapper.Map<ConferenceEntity, ConferenceDto>(conference);
-        var conferenceUrlResolver = new ConferenceUrlResolver(conferenceDto.slug);
-        var conferenceSessionsUrlResolver = new ConferenceSessionsUrlResolver(conferenceDto.slug);
-        var conferenceSpeakersUrlResolver = new ConferenceSpeakersUrlResolver(conferenceDto.slug);
-
-        conferenceDto.url = conferenceUrlResolver.ResolveUrl();
-        conferenceDto.sessionsUrl = conferenceSessionsUrlResolver.ResolveUrl();
-        conferenceDto.speakersUrl = conferenceSpeakersUrlResolver.ResolveUrl();
-
-        return conferenceDto;
-      });
-
-
-
-    }
-
-    private object GetAllConferences()
-    {
-      var cacheKey = "GetAllConferences";
-      return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, () =>
-      {
-        List<ConferenceEntity> conferences = null;
-
-        conferences = this.Database.GetCollection<ConferenceEntity>("conferences")
-          .AsQueryable()
-          .ToList();
-
-        var conferencesDtos = Mapper.Map<List<ConferenceEntity>, List<ConferencesDto>>(conferences);
-        var resolver = new ConferencesUrlResolver();
-        foreach (var conferencesDto in conferencesDtos)
+        private object GetSingleConference(ConferencesRequest request)
         {
-          conferencesDto.url = resolver.ResolveUrl(conferencesDto.slug);
+            var cacheKey = "GetSingleConference-" + request.conferenceSlug;
+            return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, () =>
+            {
+                //This delegate will be executed if the cache doesn't have an item
+                //with the provided key
+
+                //Return here your response DTO
+                //It will be cached automatically
+
+                var conference = this.Database.GetCollection<ConferenceEntity>("conferences")
+                .AsQueryable()
+                .SingleOrDefault(c => c.slug == request.conferenceSlug);
+
+                if (conference == null)
+                {
+                    throw new HttpError(HttpStatusCode.NotFound, "Conference not found.");
+                }
+
+                var conferenceDto = Mapper.Map<ConferenceEntity, ConferenceDto>(conference);
+                var conferenceUrlResolver = new ConferenceUrlResolver(conferenceDto.slug);
+                var conferenceSessionsUrlResolver = new ConferenceSessionsUrlResolver(conferenceDto.slug);
+                var conferenceSpeakersUrlResolver = new ConferenceSpeakersUrlResolver(conferenceDto.slug);
+
+                conferenceDto.url = conferenceUrlResolver.ResolveUrl();
+                conferenceDto.sessionsUrl = conferenceSessionsUrlResolver.ResolveUrl();
+                conferenceDto.speakersUrl = conferenceSpeakersUrlResolver.ResolveUrl();
+
+                return conferenceDto;
+            });
         }
 
-        return conferencesDtos.ToList();
-      });
+        private object GetFullSingleConference(ConferencesRequest request)
+        {
+            var cacheKey = "GetFullSingleConference-" + request.conferenceSlug;
+            return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, () =>
+            {
+                //This delegate will be executed if the cache doesn't have an item
+                //with the provided key
+
+                //Return here your response DTO
+                //It will be cached automatically
+
+                var conference = this.Database.GetCollection<ConferenceEntity>("conferences")
+                .AsQueryable()
+                .SingleOrDefault(c => c.slug == request.conferenceSlug);
+
+                if (conference == null)
+                {
+                    throw new HttpError(HttpStatusCode.NotFound, "Conference not found.");
+                }
+
+                var conferenceDto = Mapper.Map<ConferenceEntity, FullConferenceDto>(conference);
+                //var conferenceUrlResolver = new ConferenceUrlResolver(conferenceDto.slug);
+                //var conferenceSessionsUrlResolver = new ConferenceSessionsUrlResolver(conferenceDto.slug);
+                //var conferenceSpeakersUrlResolver = new ConferenceSpeakersUrlResolver(conferenceDto.slug);
+
+                //conferenceDto.url = conferenceUrlResolver.ResolveUrl();
+                //conferenceDto.sessionsUrl = conferenceSessionsUrlResolver.ResolveUrl();
+                //conferenceDto.speakersUrl = conferenceSpeakersUrlResolver.ResolveUrl();
+
+                return conferenceDto;
+            });
+        }
+
+        private object GetAllConferences()
+        {
+            var cacheKey = "GetAllConferences";
+            return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, () =>
+            {
+                List<ConferenceEntity> conferences = null;
+
+                conferences = this.Database.GetCollection<ConferenceEntity>("conferences")
+                  .AsQueryable()
+                  .ToList();
+
+                var conferencesDtos = Mapper.Map<List<ConferenceEntity>, List<ConferencesDto>>(conferences);
+                var resolver = new ConferencesUrlResolver();
+                foreach (var conferencesDto in conferencesDtos)
+                {
+                    conferencesDto.url = resolver.ResolveUrl(conferencesDto.slug);
+                }
+
+                return conferencesDtos.ToList();
+            });
+        }
     }
-  }
 }
