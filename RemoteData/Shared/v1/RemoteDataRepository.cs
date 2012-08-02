@@ -48,6 +48,21 @@ namespace ConferencesIO.RemoteData.v1
       client.DownloadStringAsync(new Uri(url));
     }
 
+    public void GetFullConference(string slug, Action<FullConferenceDto> callback)
+    {
+        string url = _baseUrl + "conferences/" + slug + "?detail=all";
+        var client = new WebClient();
+        client.Encoding = System.Text.Encoding.UTF8;
+        client.Headers[HttpRequestHeader.Accept] = "application/json";
+        client.DownloadStringCompleted += (sender, args) =>
+        {
+            var conference = JsonSerializer.DeserializeFromString<FullConferenceDto>(args.Result);
+            callback(conference);
+        };
+
+        client.DownloadStringAsync(new Uri(url));
+    }
+
     //public void AddConference(Conference conference, Action<bool> callback)
     //{
     //  string url = _baseUrl + "conferences";
