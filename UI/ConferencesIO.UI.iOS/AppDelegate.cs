@@ -4,6 +4,9 @@ using System.Linq;
 
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using ConferencesIO.RemoteData.v1;
+using ServiceStack.Text;
+using System.IO;
 
 namespace ConferencesIO.UI.iOS
 {
@@ -14,7 +17,9 @@ namespace ConferencesIO.UI.iOS
 	public partial class AppDelegate : UIApplicationDelegate
 	{
 		// class-level declarations
-		
+		private RemoteDataRepository _client;
+		private string _baseUrl = "http://conferencesioapi.azurewebsites.net/v1/";
+
 		public override UIWindow Window {
 			get;
 			set;
@@ -49,8 +54,24 @@ namespace ConferencesIO.UI.iOS
 		public override bool FinishedLaunching (UIApplication application, NSDictionary launcOptions)
 		{
 			//CustomizeAppearance();
+			GetLatestFullConference();
 			// TODO: Implement - see: http://go-mono.com/docs/index.aspx?link=T%3aMonoTouch.Foundation.ModelAttribute
 			return true;
+		}
+
+		void GetLatestFullConference ()
+		{
+			_client = new RemoteDataRepository (_baseUrl);
+			_client.GetFullConference ("CodeMash-2012", conference => 
+			{ 
+
+				var x = conference;
+
+				var json = JsonSerializer.SerializeToString(conference);
+				string path = Environment.GetFolderPath (Environment.SpecialFolder.Personal);
+				string filePath = Path.Combine(path, "fullConference.json");
+				File.WriteAllText(filePath, json);
+			});
 		}
 
 		private void CustomizeAppearance()
