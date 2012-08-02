@@ -1,5 +1,4 @@
-﻿using ConferencesIO.UI.Api.Services.Requests;
-using ConferencesIO.UI.Api.Services.Requests.v1;
+﻿using ConferencesIO.UI.Api.Services.Requests.v1;
 using KellermanSoftware.CompareNetObjects;
 using NUnit.Framework;
 

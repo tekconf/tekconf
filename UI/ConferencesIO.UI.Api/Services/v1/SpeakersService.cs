@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using ConferencesIO.RemoteData.Dtos;
+using AutoMapper;
 using ConferencesIO.RemoteData.Dtos.v1;
 using ConferencesIO.UI.Api.Services.Requests.v1;
-using AutoMapper;
 using ConferencesIO.UI.Api.UrlResolvers.v1;
 using FluentMongo.Linq;
 using ServiceStack.CacheAccess;

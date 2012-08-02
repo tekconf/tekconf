@@ -1,7 +1,6 @@
 using System.Linq;
 using System.Net;
 using AutoMapper;
-using ConferencesIO.RemoteData.Dtos;
 using ConferencesIO.RemoteData.Dtos.v1;
 using ConferencesIO.UI.Api.Services;
 using ConferencesIO.UI.Api.Services.Requests.v1;

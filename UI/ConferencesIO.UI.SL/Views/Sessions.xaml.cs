@@ -1,8 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
-using ConferencesIO.RemoteData;
-using ConferencesIO.RemoteData.Dtos;
 using ConferencesIO.RemoteData.Dtos.v1;
 using ConferencesIO.RemoteData.v1;
 

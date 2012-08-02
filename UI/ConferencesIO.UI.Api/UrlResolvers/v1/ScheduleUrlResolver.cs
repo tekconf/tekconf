@@ -1,4 +1,3 @@
-using System;
 
 namespace ConferencesIO.UI.Api.UrlResolvers.v1
 {

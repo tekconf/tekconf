@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
-using ConferencesIO.RemoteData.Dtos;
 using ConferencesIO.RemoteData.Dtos.v1;
 using ServiceStack.Text;
-using System.Linq;
 
 namespace ConferencesIO.RemoteData.v1
 {

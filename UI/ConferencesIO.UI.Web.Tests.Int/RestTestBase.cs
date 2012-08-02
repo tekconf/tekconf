@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Net;
-using ConferencesIO.RemoteData.Dtos;
 using ConferencesIO.RemoteData.Dtos.v1;
-using ServiceStack.Text;
 
 namespace ConferencesIO.UI.Api.Tests.Int
 {

@@ -58,8 +58,7 @@ namespace ConferencesIO.UI.iOS
 					TableView.Source = new SessionsTableViewSource (this, sessions); 
 					TableView.ReloadData (); 
 					loading.DismissWithClickedButtonIndex (0, true); 
-				}
-				);
+				});
 			}
 			);
 
