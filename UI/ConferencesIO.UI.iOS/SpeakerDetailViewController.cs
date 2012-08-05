@@ -63,5 +63,12 @@ namespace ConferencesIO.UI.iOS
 //			}
 		}
 
+		public override void ViewDidLoad ()
+		{
+			base.ViewDidLoad ();
+			var backgroundImage = UIImage.FromBundle(@"images/appview/bg");
+			//this.View.BackgroundColor = UIColor.FromPatternImage(backgroundImage);
+		}
+
 	}
 }

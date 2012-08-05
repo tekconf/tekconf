@@ -37,6 +37,9 @@ namespace ConferencesIO.UI.iOS
 		{
 			base.ViewDidLoad ();
 
+			var backgroundImage = UIImage.FromBundle(@"images/appview/bg");
+			//this.View.BackgroundColor = UIColor.FromPatternImage(backgroundImage);
+
 			_client = new RemoteDataRepository (_baseUrl);
 
 			var loading = new UIAlertView (" Downloading Sessions", "Please wait...", null, null, null);
@@ -55,8 +58,7 @@ namespace ConferencesIO.UI.iOS
 					TableView.Source = new SessionsTableViewSource (this, sessions); 
 					TableView.ReloadData (); 
 					loading.DismissWithClickedButtonIndex (0, true); 
-				}
-				);
+				});
 			}
 			);
 

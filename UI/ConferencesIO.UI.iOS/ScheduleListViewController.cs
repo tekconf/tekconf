@@ -12,5 +12,12 @@ namespace ConferencesIO.UI.iOS
 		public ScheduleListViewController (IntPtr handle) : base (handle)
 		{
 		}
+
+		public override void ViewDidLoad ()
+		{
+			base.ViewDidLoad ();
+			var backgroundImage = UIImage.FromBundle(@"images/appview/bg");
+			//this.View.BackgroundColor = UIColor.FromPatternImage(backgroundImage);
+		}
 	}
 }
