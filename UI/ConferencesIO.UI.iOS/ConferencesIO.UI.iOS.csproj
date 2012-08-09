@@ -139,6 +139,14 @@
       <Project>{CF44A2C3-42DF-4970-9618-E6AE3AF31603}</Project>
       <Name>ConferencesIO.RemoteData.iOS</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\LocalData\iOS\ConferencesIO.LocalData.iOS\ConferencesIO.LocalData.iOS.csproj">
+      <Project>{2CF3432D-C779-44DF-9446-CB5AE42CB4C5}</Project>
+      <Name>ConferencesIO.LocalData.iOS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\libs\ConferencesIO.Mappers.IO\ConferencesIO.Mappers.IO.csproj">
+      <Project>{8D10D14B-3B39-42B3-9767-1C6AAA44A79D}</Project>
+      <Name>ConferencesIO.Mappers.IO</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\appview\bg.png" />

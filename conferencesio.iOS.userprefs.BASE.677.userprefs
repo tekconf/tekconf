@@ -1,0 +1,14 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="RemoteData/Shared/v1/RemoteDataRepository.cs">
+    <Files>
+      <File FileName="UI/ConferencesIO.UI.iOS/AppDelegate.cs" Line="63" Column="19" />
+      <File FileName="UI/ConferencesIO.UI.iOS/SessionsListRootViewController.cs" Line="43" Column="50" />
+      <File FileName="RemoteData/Shared/v1/RemoteDataRepository.cs" Line="36" Column="23" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
