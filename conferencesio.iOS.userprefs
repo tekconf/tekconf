@@ -1,14 +1,20 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="RemoteData/Shared/v1/RemoteDataRepository.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="libs/ConferencesIO.Mappers.IO/SessionDtoToSessionEntityMapper.cs">
     <Files>
-      <File FileName="UI/ConferencesIO.UI.iOS/AppDelegate.cs" Line="63" Column="19" />
-      <File FileName="UI/ConferencesIO.UI.iOS/SessionsListRootViewController.cs" Line="43" Column="50" />
-      <File FileName="RemoteData/Shared/v1/RemoteDataRepository.cs" Line="36" Column="23" />
+      <File FileName="UI/ConferencesIO.UI.iOS/SessionsListRootViewController.cs" Line="76" Column="4" />
+      <File FileName="LocalData/Shared/ConferencesIO.LocalData.Shared/ILocalDatabase.cs" Line="9" Column="1" />
+      <File FileName="LocalData/iOS/ConferencesIO.LocalData.iOS/SessionEntity.cs" Line="32" Column="33" />
+      <File FileName="LocalData/Shared/ConferencesIO.LocalData.Shared/LocalDatabase.cs" Line="29" Column="1" />
+      <File FileName="libs/ConferencesIO.Mappers.IO/SessionDtoToSessionEntityMapper.cs" Line="29" Column="19" />
+      <File FileName="RemoteData/Shared/v1/RemoteDataRepository.cs" Line="59" Column="1" />
+      <File FileName="../sqlite-net/src/SQLite.cs" Line="1828" Column="5" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/rgibbens/dev/conferencesio/LocalData/Shared/ConferencesIO.LocalData.Shared/LocalDatabase.cs" line="24" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

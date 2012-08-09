@@ -9,6 +9,9 @@ using System.Threading;
 using System.Collections.Generic;
 using ConferencesIO.RemoteData.v1;
 using ConferencesIO.RemoteData.Dtos.v1;
+using ConferencesIO.LocalData.Shared;
+using System.IO;
+using ConferencesIO.Mappers.IO;
 
 namespace ConferencesIO.UI.iOS
 {
@@ -50,6 +53,15 @@ namespace ConferencesIO.UI.iOS
 			indicator.Center = new System.Drawing.PointF (loading.Bounds.Width / 2, loading.Bounds.Size.Height - 40); 
 			indicator.StartAnimating (); 
 			loading.AddSubview (indicator);
+
+			_client.GetFullConference("CodeMash-2012", conference => {
+				var connectionString = Path.Combine (Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments), "conferences.db");
+				var localDatabase = new LocalDatabase(connectionString);
+				localDatabase.CreateDatabase();
+				var mapper = new SessionDtoToSessionEntityMapper();
+				var entities = mapper.MapAll("CodeMash-2012", conference.sessions.AsEnumerable());
+				localDatabase.SaveSessions(entities);
+			});
 
 			_client.GetSessions ("CodeMash-2012", sessions => 
 			{ 
