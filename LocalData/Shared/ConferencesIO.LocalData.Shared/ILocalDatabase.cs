@@ -9,10 +9,13 @@ using System.IO;
 
 namespace ConferencesIO.LocalData.Shared
 {
-  public interface ILocalDatabase
-  {
-    bool CreateDatabase();
-	void SaveSessions (IEnumerable<SessionEntity> sessions);
-  }
+	public interface ILocalDatabase
+	{
+		bool CreateDatabase ();
+
+		void SaveSessions (IEnumerable<SessionEntity> sessions);
+
+		void SaveConference (ConferenceEntity conference);
+	}
 
 }

@@ -43,5 +43,6 @@ namespace ConferencesIO.Mappers.IO
 			return entity;
 		}
 	}
+
 }
 

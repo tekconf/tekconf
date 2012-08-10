@@ -49,5 +49,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="SessionDtoToSessionEntityMapper.cs" />
+    <Compile Include="ConferenceDtoToConferenceEntityMapper.cs" />
   </ItemGroup>
 </Project>

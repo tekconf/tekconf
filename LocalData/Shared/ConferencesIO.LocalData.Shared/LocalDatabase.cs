@@ -21,14 +21,20 @@ namespace ConferencesIO.LocalData.Shared
 
 		public bool CreateDatabase ()
 		{
+			CreateTable<ConferenceEntity>();
 			CreateTable<SessionEntity>();
-			
+
 			return true;
 		}
 
 		public void SaveSessions (IEnumerable<SessionEntity> sessions)
 		{
 			InsertAll(sessions);
+		}
+
+		public void SaveConference(ConferenceEntity conference)
+		{
+			Insert(conference);
 		}
 	}
 }

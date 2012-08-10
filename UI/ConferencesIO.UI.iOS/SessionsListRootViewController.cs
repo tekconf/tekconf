@@ -58,6 +58,8 @@ namespace ConferencesIO.UI.iOS
 				var connectionString = Path.Combine (Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments), "conferences.db");
 				var localDatabase = new LocalDatabase(connectionString);
 				localDatabase.CreateDatabase();
+
+
 				var mapper = new SessionDtoToSessionEntityMapper();
 				var entities = mapper.MapAll("CodeMash-2012", conference.sessions.AsEnumerable());
 				localDatabase.SaveSessions(entities);
