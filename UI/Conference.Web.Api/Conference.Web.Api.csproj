@@ -201,6 +201,8 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Deploy.ps1" />
+    <Content Include="Conference.Web.Api.nuspec" />
     <None Include="Scripts\jquery-1.7.2.intellisense.js">
       <DependentUpon>jquery-1.7.2.js</DependentUpon>
     </None>
@@ -296,6 +298,7 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="..\..\packages\OctoPack.1.0.109\targets\OctoPack.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
