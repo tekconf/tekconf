@@ -84,6 +84,9 @@
       Condition="!Exists('$(OctopusNuSpecFileName)')"
       />
       
+	  <Message Importance="High" Text="MSBuildThisFileDirectory $(MSBuildThisFileDirectory)"/>
+	  <Message Importance="High" Text="OctopusProjectRoot $(OctopusProjectRoot)"/>
+	  <Message Importance="High" Text="$(OctopusProjectRoot)\..\..\packages\NuGet.CommandLine.2.0.0\tools\NuGet.exe" />
     <ItemGroup>
         <FindNuGet Include="$(OctopusNuGetExePath)" />
         <FindNuGet Include="$(MSBuildThisFileDirectory)..\tools\NuGet.exe" />
@@ -93,6 +96,7 @@
         <FindNuGet Include="$(OctopusProjectRoot)\..\.nuget\NuGet*.exe" />
         <FindNuGet Include="$(OctopusProjectRoot)\..\..\packages\OctoPack*\tools\NuGet.exe" />
         <FindNuGet Include="$(OctopusProjectRoot)\..\..\.nuget\NuGet*.exe" />
+		<FindNuGet Include="$(OctopusProjectRoot)\..\..\packages\NuGet.CommandLine.2.0.0\tools\NuGet.exe" />
     </ItemGroup>
     
     <PropertyGroup>        

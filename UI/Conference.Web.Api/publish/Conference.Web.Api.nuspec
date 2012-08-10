@@ -1,0 +1,13 @@
+﻿<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>ConferencesIOApi</id>
+    <title>Conferences.IO - API</title>
+    <version>1.0.0</version>
+    <authors>ConferencesIO</authors>
+    <owners>ConferencesIO</owners>
+    <licenseUrl>http://conferences.io</licenseUrl>
+    <projectUrl>http://conferences.io</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>The API for Conferences.IO</description>
+  </metadata>
+</package>
