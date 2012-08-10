@@ -20,6 +20,10 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -106,6 +110,7 @@
   <ItemGroup>
     <Content Include="clientaccesspolicy.xml" />
     <Content Include="Global.asax" />
+    <Content Include="OctoPack-Readme.txt" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -179,6 +184,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Deploy.ps1" />
+    <Content Include="ConferencesIO.UI.Api.nuspec" />
     <None Include="Properties\PublishProfiles\conferencesio - Web Deploy.pubxml" />
   </ItemGroup>
   <PropertyGroup>
@@ -206,6 +213,7 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+    <Import Project="..\..\packages\OctoPack.1.0.109\targets\OctoPack.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
