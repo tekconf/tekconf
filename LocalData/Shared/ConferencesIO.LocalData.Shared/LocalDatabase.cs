@@ -23,6 +23,12 @@ namespace ConferencesIO.LocalData.Shared
 		{
 			CreateTable<ConferenceEntity>();
 			CreateTable<SessionEntity>();
+			CreateTable<SpeakerEntity>();
+			CreateTable<LinkEntity>();
+			CreateTable<PrerequisiteEntity>();
+			CreateTable<ResourceEntity>();
+			CreateTable<SubjectEntity>();
+			CreateTable<TagEntity>();
 
 			return true;
 		}
@@ -32,7 +38,7 @@ namespace ConferencesIO.LocalData.Shared
 			InsertAll(sessions);
 		}
 
-		public void SaveConference(ConferenceEntity conference)
+		public void SaveConference(ConferenceEntity conference, IEnumerable<SessionEntity> sessions, IEnumerable<SpeakerEntity> speakers)
 		{
 			Insert(conference);
 		}
