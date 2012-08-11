@@ -54,6 +54,9 @@ namespace ConferencesIO.UI.iOS
 		public override bool FinishedLaunching (UIApplication application, NSDictionary launcOptions)
 		{
 			//CustomizeAppearance();
+			var bootStrapper = new Bootstrapper();
+			bootStrapper.Initialize();
+
 			GetLatestFullConference();
 			// TODO: Implement - see: http://go-mono.com/docs/index.aspx?link=T%3aMonoTouch.Foundation.ModelAttribute
 			return true;

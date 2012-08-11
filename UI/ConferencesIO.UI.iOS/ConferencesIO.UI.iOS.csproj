@@ -124,6 +124,7 @@
     <Compile Include="SpeakerDetailViewController.designer.cs">
       <DependentUpon>SpeakerDetailViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Bootstrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard_iPhone.storyboard" />
