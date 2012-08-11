@@ -59,10 +59,15 @@ namespace ConferencesIO.UI.iOS
 				var localDatabase = new LocalDatabase(connectionString);
 				localDatabase.CreateDatabase();
 
+				var conferenceMapper = new ConferenceDtoToConferenceEntityMapper();
+				var conferenceEntity = conferenceMapper.Map(conference);
+				localDatabase.SaveConference(conferenceEntity);
 
-				var mapper = new SessionDtoToSessionEntityMapper();
-				var entities = mapper.MapAll("CodeMash-2012", conference.sessions.AsEnumerable());
-				localDatabase.SaveSessions(entities);
+				var sessionMapper = new SessionDtoToSessionEntityMapper();
+				var sessions = sessionMapper.MapAll(conferenceEntity.Id, conference.sessions.AsEnumerable());
+				localDatabase.SaveSessions(sessions);
+
+
 			});
 
 			_client.GetSessions ("CodeMash-2012", sessions => 
