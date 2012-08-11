@@ -36,6 +36,9 @@
     <Reference Include="monotouch" />
     <Reference Include="Mono.Data.Sqlite" />
     <Reference Include="System.Data" />
+    <Reference Include="Catnap">
+      <HintPath>..\..\..\..\catnap\src\Catnap\bin\Debug\Catnap.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\Shared\ConferencesIO.LocalData.Shared\ILocalDatabase.cs">
@@ -44,6 +47,7 @@
     <Compile Include="SessionEntity.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="..\..\Shared\ConferencesIO.LocalData.Shared\LocalDatabase.cs" />
+    <Compile Include="LocalDatabaseBootstrapper.cs" />
   </ItemGroup>
   <Import Project="$(ProgramFiles)\MSBuild\MonoTouch\Novell.MonoTouch.Common.targets" Condition="'$(windir)' != '' " />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

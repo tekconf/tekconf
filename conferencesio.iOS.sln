@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqliteNet", "libs\SqliteNet
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConferencesIO.Mappers.IO", "libs\ConferencesIO.Mappers.IO\ConferencesIO.Mappers.IO.csproj", "{8D10D14B-3B39-42B3-9767-1C6AAA44A79D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Catnap", "..\catnap\src\Catnap\Catnap.csproj", "{DAA3814A-CC0D-40F8-8DDD-EC00687BC1FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
@@ -86,6 +88,20 @@ Global
 		{CF44A2C3-42DF-4970-9618-E6AE3AF31603}.Release|iPhone.Build.0 = Release|Any CPU
 		{CF44A2C3-42DF-4970-9618-E6AE3AF31603}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{CF44A2C3-42DF-4970-9618-E6AE3AF31603}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{DAA3814A-CC0D-40F8-8DDD-EC00687BC1FA}.Ad-Hoc|iPhone.ActiveCfg = Debug|Any CPU
+		{DAA3814A-CC0D-40F8-8DDD-EC00687BC1FA}.Ad-Hoc|iPhone.Build.0 = Debug|Any CPU
+		{DAA3814A-CC0D-40F8-8DDD-EC00687BC1FA}.AppStore|iPhone.ActiveCfg = Debug|Any CPU
+		{DAA3814A-CC0D-40F8-8DDD-EC00687BC1FA}.AppStore|iPhone.Build.0 = Debug|Any CPU
+		{DAA3814A-CC0D-40F8-8DDD-EC00687BC1FA}.AppStore|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{DAA3814A-CC0D-40F8-8DDD-EC00687BC1FA}.AppStore|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{DAA3814A-CC0D-40F8-8DDD-EC00687BC1FA}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{DAA3814A-CC0D-40F8-8DDD-EC00687BC1FA}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{DAA3814A-CC0D-40F8-8DDD-EC00687BC1FA}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{DAA3814A-CC0D-40F8-8DDD-EC00687BC1FA}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{DAA3814A-CC0D-40F8-8DDD-EC00687BC1FA}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{DAA3814A-CC0D-40F8-8DDD-EC00687BC1FA}.Release|iPhone.Build.0 = Release|Any CPU
+		{DAA3814A-CC0D-40F8-8DDD-EC00687BC1FA}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{DAA3814A-CC0D-40F8-8DDD-EC00687BC1FA}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{EB6D4BCE-A98E-41A2-B8DA-5860ECDA8692}.Ad-Hoc|iPhone.ActiveCfg = Debug|Any CPU
 		{EB6D4BCE-A98E-41A2-B8DA-5860ECDA8692}.Ad-Hoc|iPhone.Build.0 = Debug|Any CPU
 		{EB6D4BCE-A98E-41A2-B8DA-5860ECDA8692}.AppStore|iPhone.ActiveCfg = Debug|Any CPU
