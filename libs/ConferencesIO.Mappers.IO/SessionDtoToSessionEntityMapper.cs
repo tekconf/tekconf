@@ -24,7 +24,7 @@ namespace ConferencesIO.Mappers.IO
 			var entity = new SessionEntity()
 			{
 				Id = conferenceSlug + "/" + dto.slug,
-				ConferenceId = conferenceSlug,
+				conferenceId = conferenceSlug,
 				description = dto.description,
 				difficulty = dto.difficulty,
 				end = dto.end,
