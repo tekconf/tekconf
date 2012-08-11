@@ -16,7 +16,6 @@ namespace ConferencesIO.UI.Api
     {
       get
       {
-          var x = "";
         var rootUrl = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + HttpContext.Current.Request.ApplicationPath;
 
         return rootUrl.Replace(":80", "");
