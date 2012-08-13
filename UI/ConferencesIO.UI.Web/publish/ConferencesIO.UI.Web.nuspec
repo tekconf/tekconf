@@ -1,0 +1,14 @@
+﻿<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>ConferencesIO.Web</id>
+    <title>ConferencesIO Web</title>
+    <version>1.0.0</version>
+    <authors>conferences.io</authors>
+    <owners>conferences.io</owners>
+    <licenseUrl>http://conferences.io</licenseUrl>
+    <projectUrl>http://conferences.io</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>ConferencesIO Web site</description>
+    <releaseNotes></releaseNotes>
+  </metadata>
+</package>
