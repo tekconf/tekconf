@@ -36,9 +36,6 @@
     <Reference Include="monotouch" />
     <Reference Include="Mono.Data.Sqlite" />
     <Reference Include="System.Data" />
-    <Reference Include="Catnap">
-      <HintPath>..\..\..\..\catnap\src\Catnap\bin\Debug\Catnap.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\..\Shared\ConferencesIO.LocalData.Shared\ILocalDatabase.cs">
@@ -48,6 +45,19 @@
     <Compile Include="Database.cs" />
     <Compile Include="..\..\Shared\ConferencesIO.LocalData.Shared\LocalDatabase.cs" />
     <Compile Include="LocalDatabaseBootstrapper.cs" />
+    <Compile Include="ConferenceEntity.cs" />
+    <Compile Include="EntityGuid.cs" />
+    <Compile Include="EntityInt.cs" />
+    <Compile Include="EntityString.cs" />
+    <Compile Include="Entity.cs" />
+    <Compile Include="SpeakerEntity.cs" />
+    <Compile Include="LinkEntity.cs" />
+    <Compile Include="TagEntity.cs" />
+    <Compile Include="SubjectEntity.cs" />
+    <Compile Include="ResourceEntity.cs" />
+    <Compile Include="PrerequisiteEntity.cs" />
+    <Compile Include="..\..\Shared\ConferencesIO.LocalData.Shared\CreateSchema_Sqlite.cs" />
+    <Compile Include="SessionSpeakerEntity.cs" />
   </ItemGroup>
   <Import Project="$(ProgramFiles)\MSBuild\MonoTouch\Novell.MonoTouch.Common.targets" Condition="'$(windir)' != '' " />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
@@ -57,9 +67,9 @@
     </VisualStudio>
   </ProjectExtensions>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\libs\SqliteNet\SqliteNet.csproj">
-      <Project>{EB6D4BCE-A98E-41A2-B8DA-5860ECDA8692}</Project>
-      <Name>SqliteNet</Name>
+    <ProjectReference Include="..\..\..\..\catnap\src\Catnap\Catnap.csproj">
+      <Project>{DAA3814A-CC0D-40F8-8DDD-EC00687BC1FA}</Project>
+      <Name>Catnap</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

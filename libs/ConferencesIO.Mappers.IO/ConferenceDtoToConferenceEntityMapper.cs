@@ -10,7 +10,7 @@ namespace ConferencesIO.Mappers.IO
 	{
 		public ConferenceEntity Map(FullConferenceDto dto)
 		{
-
+			return null;
 		}
 
 	}

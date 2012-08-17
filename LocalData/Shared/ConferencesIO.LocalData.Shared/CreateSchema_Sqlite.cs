@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,14 +12,15 @@ using Catnap.Migration;
 
 namespace ConferencesIO.LocalData.Shared
 {
-	public interface ILocalDatabase
+
+	public class CreateSchema_Sqlite : BaseMigration
 	{
-		ISessionFactory CreateDatabase ();
-
-		void SaveSessions (IEnumerable<SessionEntity> sessions);
-
-		void SaveConference (ConferenceEntity conference, IEnumerable<SessionEntity> sessions, IEnumerable<SpeakerEntity> speakers);
+		public CreateSchema_Sqlite() : base(
+					SessionSpeakerEntity.CreateTableSql,
+					ConferenceEntity.CreateTableSql,
+					SessionEntity.CreateTableSql,
+					SpeakerEntity.CreateTableSql
+			) { }
 	}
-
-
+	
 }

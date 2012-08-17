@@ -54,22 +54,23 @@ namespace ConferencesIO.UI.iOS
 			indicator.StartAnimating (); 
 			loading.AddSubview (indicator);
 
-			_client.GetFullConference("CodeMash-2012", conference => {
-				var connectionString = Path.Combine (Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments), "conferences.db");
-				var localDatabase = new LocalDatabase(connectionString);
-				localDatabase.CreateDatabase();
-
-				var conferenceMapper = new ConferenceDtoToConferenceEntityMapper();
-				var conferenceEntity = conferenceMapper.Map(conference);
-				localDatabase.SaveConference(conferenceEntity);
-
-				var sessionMapper = new SessionDtoToSessionEntityMapper();
-				var sessions = sessionMapper.MapAll(conferenceEntity.Id, conference.sessions.AsEnumerable());
-				localDatabase.SaveSessions(sessions);
-
-
-			});
-
+//			_client.GetFullConference("CodeMash-2012", conference => {
+//				var connectionString = Path.Combine (Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments), "conferences.db");
+//				var localDatabase = new LocalDatabase(connectionString);
+//				localDatabase.CreateDatabase();
+//
+//				var conferenceMapper = new ConferenceDtoToConferenceEntityMapper();
+//				var conferenceEntity = conferenceMapper.Map(conference);
+//
+//				var sessionMapper = new SessionDtoToSessionEntityMapper();
+//				var sessions = sessionMapper.MapAll(conferenceEntity.Id, conference.sessions.AsEnumerable());
+//				//localDatabase.SaveSessions(sessions);
+//
+//				var speakersMapper = new SessionDtoToSessionEntityMapper();
+//				var speakerEntities = speakersMapper.MapAll(conferenceEntity.Id, conference.speakers.AsEnumerable());
+//				localDatabase.SaveConference(conferenceEntity, sessions, speakers);
+//
+//			});
 			_client.GetSessions ("CodeMash-2012", sessions => 
 			{ 
 				InvokeOnMainThread (() => 
