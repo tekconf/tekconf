@@ -23,6 +23,7 @@ namespace ConferencesIO.UI.Api.Services.v1
 
     public override object OnGet(SpeakersRequest request)
     {
+      var x = "TODO";
       if (request.conferenceSlug == default(string))
       {
         throw new HttpError() { StatusCode = HttpStatusCode.BadRequest };
