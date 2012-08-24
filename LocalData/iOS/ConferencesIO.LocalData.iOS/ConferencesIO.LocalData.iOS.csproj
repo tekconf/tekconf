@@ -41,23 +41,24 @@
     <Compile Include="..\..\Shared\ConferencesIO.LocalData.Shared\ILocalDatabase.cs">
       <Link>ILocalDatabase.cs</Link>
     </Compile>
-    <Compile Include="SessionEntity.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="..\..\Shared\ConferencesIO.LocalData.Shared\LocalDatabase.cs" />
     <Compile Include="LocalDatabaseBootstrapper.cs" />
-    <Compile Include="ConferenceEntity.cs" />
     <Compile Include="EntityGuid.cs" />
     <Compile Include="EntityInt.cs" />
-    <Compile Include="EntityString.cs" />
     <Compile Include="Entity.cs" />
-    <Compile Include="SpeakerEntity.cs" />
-    <Compile Include="LinkEntity.cs" />
-    <Compile Include="TagEntity.cs" />
-    <Compile Include="SubjectEntity.cs" />
-    <Compile Include="ResourceEntity.cs" />
-    <Compile Include="PrerequisiteEntity.cs" />
     <Compile Include="..\..\Shared\ConferencesIO.LocalData.Shared\CreateSchema_Sqlite.cs" />
-    <Compile Include="SessionSpeakerEntity.cs" />
+    <Compile Include="Data\CreateSchema.cs" />
+    <Compile Include="Model\Entities\SessionEntity.cs" />
+    <Compile Include="Model\Entities\PrerequisiteEntity.cs" />
+    <Compile Include="Model\Entities\SessionSpeakerEntity.cs" />
+    <Compile Include="Model\Entities\TagEntity.cs" />
+    <Compile Include="Model\Entities\SubjectEntity.cs" />
+    <Compile Include="Model\Entities\SpeakerEntity.cs" />
+    <Compile Include="Model\Entities\ResourceEntity.cs" />
+    <Compile Include="Model\Entities\LinkEntity.cs" />
+    <Compile Include="Repositories\SessionRepository.cs" />
+    <Compile Include="Model\Entities\ConferenceEntity.cs" />
   </ItemGroup>
   <Import Project="$(ProgramFiles)\MSBuild\MonoTouch\Novell.MonoTouch.Common.targets" Condition="'$(windir)' != '' " />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
@@ -71,5 +72,11 @@
       <Project>{DAA3814A-CC0D-40F8-8DDD-EC00687BC1FA}</Project>
       <Name>Catnap</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data\" />
+    <Folder Include="Model\" />
+    <Folder Include="Model\Entities\" />
+    <Folder Include="Repositories\" />
   </ItemGroup>
 </Project>

@@ -12,7 +12,7 @@ namespace ConferencesIO.LocalData.iOS
 			this.SessionSpeakers = new List<SessionSpeakerEntity>();
 		}
 
-		public static string TableName = "Session";
+		public static string TableName = "SessionEntity";
 		public static string CreateTableSql = @"CREATE TABLE " + TableName + " (Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
 			"slug VARCHAR, " +
 				"title VARCHAR, " + 

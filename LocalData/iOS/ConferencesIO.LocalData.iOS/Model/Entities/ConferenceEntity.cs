@@ -9,21 +9,21 @@ namespace ConferencesIO.LocalData.iOS
 	{
 		public ConferenceEntity ()
 		{
-			this.Sessions = new List<SessionEntity>();
-			this.Speakers = new List<SpeakerEntity>();
+			//this.Sessions = new List<SessionEntity>();
+			//this.Speakers = new List<SpeakerEntity>();
 		}
 		public static string TableName = "ConferenceEntity";
 		public static string CreateTableSql = @"CREATE TABLE " + TableName + " (Id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
-			"description VARCHAR, " +
-			"facebookUrl VARCHAR, " + 
+				"description VARCHAR, " +
+				"facebookUrl VARCHAR, " + 
 				"slug VARCHAR, " + 
 				"homepageUrl VARCHAR, " + 
 				"lanyrdUrl VARCHAR, " + 
 				"location VARCHAR, " + 
 				"meetupUrl VARCHAR, " + 
 				"name VARCHAR, " + 
-				"start VARCHAR, " + 
-				"end VARCHAR, " + 
+				//"start VARCHAR, " + 
+				//"end VARCHAR, " + 
 				"twitterHashTag VARCHAR, " + 
 				"twitterName VARCHAR " + 
 				")";
@@ -37,13 +37,13 @@ namespace ConferencesIO.LocalData.iOS
 		public string location { get; set; }
 		public string meetupUrl { get; set; }
 		public string name { get; set; }
-		public DateTime start { get; set; }
-		public DateTime end { get; set; }
+		//public DateTime start { get; set; }
+		//public DateTime end { get; set; }
 		public string twitterHashTag { get; set; }
 		public string twitterName { get; set; }
 
-		public IEnumerable<SessionEntity> Sessions {get;set;}
-		public IEnumerable<SpeakerEntity> Speakers {get; set;}
+		//public IEnumerable<SessionEntity> Sessions {get;set;}
+		//public IEnumerable<SpeakerEntity> Speakers {get; set;}
 
 	}
 

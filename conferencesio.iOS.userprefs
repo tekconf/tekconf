@@ -2,21 +2,27 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Tests/UI/ConferencesIO.UI.iOS/ConferencesIO.UI.iOS.Tests.Int/LocalDatabaseFixtures.cs">
     <Files>
-      <File FileName="LocalData/iOS/ConferencesIO.LocalData.iOS/ConferenceEntity.cs" Line="15" Column="53" />
-      <File FileName="Tests/UI/ConferencesIO.UI.iOS/ConferencesIO.UI.iOS.Tests.Int/LocalDatabaseFixtures.cs" Line="66" Column="5" />
-      <File FileName="LocalData/Shared/ConferencesIO.LocalData.Shared/CreateSchema_Sqlite.cs" Line="17" Column="3" />
-      <File FileName="LocalData/Shared/ConferencesIO.LocalData.Shared/LocalDatabase.cs" Line="90" Column="7" />
-      <File FileName="LocalData/iOS/ConferencesIO.LocalData.iOS/SessionEntity.cs" Line="23" Column="26" />
-      <File FileName="LocalData/iOS/ConferencesIO.LocalData.iOS/SpeakerEntity.cs" Line="18" Column="31" />
-      <File FileName="LocalData/iOS/ConferencesIO.LocalData.iOS/SessionSpeakerEntity.cs" Line="11" Column="12" />
+      <File FileName="Tests/UI/ConferencesIO.UI.iOS/ConferencesIO.UI.iOS.Tests.Int/LocalDatabaseFixtures.cs" Line="64" Column="22" />
+      <File FileName="../catnap/src/Catnap/Session.cs" Line="67" Column="10" />
+      <File FileName="../catnap/src/Catnap/UnitOfWork.cs" Line="23" Column="24" />
+      <File FileName="../catnap/src/Catnap/Mapping/Impl/DomainMap.cs" Line="61" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="ConferencesIO.LocalData.iOS" expanded="True" />
-          <Node name="ConferencesIO.Mappers.IO" expanded="True" />
+          <Node name="Catnap" expanded="True">
+            <Node name="Mapping" expanded="True">
+              <Node name="Impl" expanded="True" />
+            </Node>
+          </Node>
+          <Node name="ConferencesIO.LocalData.iOS" expanded="True">
+            <Node name="Data" expanded="True" />
+            <Node name="Model" expanded="True">
+              <Node name="Entities" expanded="True" />
+            </Node>
+          </Node>
+          <Node name="ConferencesIO.UI.iOS" expanded="True" />
           <Node name="ConferencesIO.UI.iOS.Tests.Int" expanded="True">
-            <Node name="References" expanded="True" />
             <Node name="LocalDatabaseFixtures.cs" selected="True" />
           </Node>
         </State>
@@ -28,7 +34,17 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/Users/rgibbens/dev/conferencesio/LocalData/Shared/ConferencesIO.LocalData.Shared/LocalDatabase.cs" line="41" />
+      <Breakpoint file="/Users/rgibbens/dev/conferencesio/Tests/UI/ConferencesIO.UI.iOS/ConferencesIO.UI.iOS.Tests.Int/LocalDatabaseFixtures.cs" line="201" />
+      <Breakpoint file="/Users/rgibbens/dev/conferencesio/Tests/UI/ConferencesIO.UI.iOS/ConferencesIO.UI.iOS.Tests.Int/LocalDatabaseFixtures.cs" line="204" />
+      <Breakpoint file="/Users/rgibbens/dev/conferencesio/Tests/UI/ConferencesIO.UI.iOS/ConferencesIO.UI.iOS.Tests.Int/LocalDatabaseFixtures.cs" line="203" />
+      <Breakpoint file="/Users/rgibbens/dev/conferencesio/Tests/UI/ConferencesIO.UI.iOS/ConferencesIO.UI.iOS.Tests.Int/LocalDatabaseFixtures.cs" line="227" />
+      <Breakpoint file="/Users/rgibbens/dev/catnap/src/Catnap/Session.cs" line="74" />
+      <Breakpoint file="/Users/rgibbens/dev/catnap/src/Catnap/Session.cs" line="75" />
+      <Breakpoint file="/Users/rgibbens/dev/catnap/src/Catnap/Session.cs" line="76" />
+      <Breakpoint file="/Users/rgibbens/dev/catnap/src/Catnap/Session.cs" line="77" />
+      <Breakpoint file="/Users/rgibbens/dev/conferencesio/Tests/UI/ConferencesIO.UI.iOS/ConferencesIO.UI.iOS.Tests.Int/LocalDatabaseFixtures.cs" line="98" />
+      <Breakpoint file="/Users/rgibbens/dev/conferencesio/Tests/UI/ConferencesIO.UI.iOS/ConferencesIO.UI.iOS.Tests.Int/LocalDatabaseFixtures.cs" line="112" />
+      <Breakpoint file="/Users/rgibbens/dev/conferencesio/Tests/UI/ConferencesIO.UI.iOS/ConferencesIO.UI.iOS.Tests.Int/LocalDatabaseFixtures.cs" line="60" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

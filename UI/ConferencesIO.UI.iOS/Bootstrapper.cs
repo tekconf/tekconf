@@ -15,6 +15,7 @@ namespace ConferencesIO.UI.iOS
 			var localDatabaseBootstrapper = new LocalDatabaseBootstrapper();
 			localDatabaseBootstrapper.Initialize();
 		}
+
 	}
 }
 

@@ -16,10 +16,10 @@ namespace ConferencesIO.LocalData.Shared
 	public class CreateSchema_Sqlite : BaseMigration
 	{
 		public CreateSchema_Sqlite() : base(
-					SessionSpeakerEntity.CreateTableSql,
-					ConferenceEntity.CreateTableSql,
-					SessionEntity.CreateTableSql,
-					SpeakerEntity.CreateTableSql
+					//SessionSpeakerEntity.CreateTableSql,
+					//ConferenceEntity.CreateTableSql,
+					SessionEntity.CreateTableSql
+					//SpeakerEntity.CreateTableSql
 			) { }
 	}
 	
