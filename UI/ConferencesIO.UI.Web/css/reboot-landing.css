@@ -113,7 +113,7 @@ textarea {
 	
 	line-height: 600px;
 	color: #333;
-	background: url(../img/logo.png) no-repeat 0 0;
+	/*background: url(../img/logo.png) no-repeat 0 0;*/
 }
 
 .navbar .brand {

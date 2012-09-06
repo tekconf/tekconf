@@ -213,12 +213,14 @@
     <Content Include="font\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="HOWTO.html" />
+    <Content Include="img\android.png" />
     <Content Include="img\avatar.png" />
     <Content Include="img\avatar2.png" />
     <Content Include="img\avatar3.png" />
     <Content Include="img\feature-check.png" />
     <Content Include="img\grab.png" />
     <Content Include="img\header-bg.jpg" />
+    <Content Include="img\iOS.jpg" />
     <Content Include="img\iPad1.png" />
     <Content Include="img\logo.png" />
     <Content Include="img\magnifier.png" />
@@ -226,6 +228,7 @@
     <Content Include="img\social\social-sprite-30.png" />
     <Content Include="img\social\social-sprite.png" />
     <None Include="index.hml" />
+    <Content Include="img\Win8.jpg" />
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\faq.js" />
