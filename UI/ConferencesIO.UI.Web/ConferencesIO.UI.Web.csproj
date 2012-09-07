@@ -123,6 +123,7 @@
     <Compile Include="Controllers\AppsController.cs" />
     <Compile Include="Controllers\ConferencesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\SessionController.cs" />
     <Compile Include="Controllers\SpeakerController.cs" />
     <Compile Include="Global.asax.cs">
@@ -350,6 +351,7 @@
     <Content Include="Views\Conferences\Index.cshtml" />
     <Content Include="Views\Apps\Index.cshtml" />
     <Content Include="Views\Api\Index.cshtml" />
+    <Content Include="Views\Schedule\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
