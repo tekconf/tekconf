@@ -14,7 +14,7 @@ namespace ConferencesIO.UI.Web
     public static void RegisterRoutes(RouteCollection routes)
     {
       routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-      routes.IgnoreRoute("api/{*pathInfo}");
+      //routes.IgnoreRoute("api/{*pathInfo}");
       routes.IgnoreRoute("{*favicon}", new { favicon = @"(.*/)?favicon.ico(/.*)?" }); //Prevent exceptions for favicon
 
       //routes.MapHttpRoute(
