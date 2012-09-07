@@ -216,6 +216,12 @@
     <Content Include="Global.asax" />
     <Content Include="HOWTO.html" />
     <Content Include="img\android.png" />
+    <Content Include="img\Apps\Android.gif" />
+    <Content Include="img\Apps\Apple.jpg" />
+    <Content Include="img\Apps\iOS.png" />
+    <Content Include="img\Apps\OSX.jpg" />
+    <Content Include="img\Apps\Windows.jpg" />
+    <Content Include="img\Apps\WindowsPhone.png" />
     <Content Include="img\avatar.png" />
     <Content Include="img\avatar2.png" />
     <Content Include="img\avatar3.png" />
