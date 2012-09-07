@@ -228,6 +228,7 @@
     <Content Include="img\avatar3.png" />
     <Content Include="img\conferences\Build.png" />
     <Content Include="img\conferences\CodeMash.png" />
+    <Content Include="img\conferences\MonkeySpace.jpg" />
     <Content Include="img\conferences\Monospace.png" />
     <Content Include="img\conferences\ThatConference.png" />
     <Content Include="img\feature-check.png" />
