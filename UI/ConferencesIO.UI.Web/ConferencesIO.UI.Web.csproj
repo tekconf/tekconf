@@ -119,7 +119,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AppsController.cs" />
     <Compile Include="Controllers\ConferenceController.cs" />
+    <Compile Include="Controllers\ConferencesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SessionController.cs" />
     <Compile Include="Controllers\SpeakerController.cs" />
@@ -217,6 +219,10 @@
     <Content Include="img\avatar.png" />
     <Content Include="img\avatar2.png" />
     <Content Include="img\avatar3.png" />
+    <Content Include="img\conferences\Build.png" />
+    <Content Include="img\conferences\CodeMash.png" />
+    <Content Include="img\conferences\Monospace.png" />
+    <Content Include="img\conferences\ThatConference.png" />
     <Content Include="img\feature-check.png" />
     <Content Include="img\grab.png" />
     <Content Include="img\header-bg.jpg" />
@@ -331,6 +337,8 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
+    <Content Include="Views\Conferences\Index.cshtml" />
+    <Content Include="Views\Apps\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
