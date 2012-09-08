@@ -241,7 +241,7 @@
     <Content Include="img\screenshots\placeholder.gif" />
     <Content Include="img\social\social-sprite-30.png" />
     <Content Include="img\social\social-sprite.png" />
-    <None Include="index.hml" />
+    <Content Include="index.html" />
     <Content Include="img\Win8.jpg" />
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
@@ -302,12 +302,12 @@
     <Content Include="PostDeploy.ps1">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="Scripts\jquery-1.8.0.intellisense.js" />
     <Content Include="pricing.html" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\jquery-1.8.0.js" />
-    <Content Include="Scripts\jquery-1.8.0.min.js" />
+    <None Include="Scripts\jquery-1.8.1.intellisense.js" />
+    <Content Include="Scripts\jquery-1.8.1.js" />
+    <Content Include="Scripts\jquery-1.8.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.23.js" />
     <Content Include="Scripts\jquery-ui-1.8.23.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -319,7 +319,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
-    <Content Include="Scripts\modernizr-2.5.3.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -352,6 +352,7 @@
     <Content Include="Views\Apps\Index.cshtml" />
     <Content Include="Views\Api\Index.cshtml" />
     <Content Include="Views\Schedule\Index.cshtml" />
+    <Content Include="Views\Conferences\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
