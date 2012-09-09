@@ -12,6 +12,10 @@ namespace ConferencesIO.RemoteData.v1
     private string _baseUrl;
     public RemoteDataRepository(string baseUrl)
     {
+      if (!baseUrl.EndsWith("/"))
+      {
+        baseUrl = baseUrl + "/";
+      }
       _baseUrl = baseUrl;
     }
 

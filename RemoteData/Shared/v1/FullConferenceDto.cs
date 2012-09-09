@@ -18,5 +18,8 @@ namespace ConferencesIO.RemoteData.Dtos.v1
         public string twitterHashTag { get; set; }
         public string twitterName { get; set; }
         public List<FullSessionDto> sessions { get; set; }
+
+      public string tagline { get; set; }
+      public string imageUrl { get; set; }
     }
 }

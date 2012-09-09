@@ -7,7 +7,7 @@ namespace ConferencesIO.UI.Api
   {
     public string CombineUrl(string partial)
     {
-      var rootUri = new Uri(RootUrl);
+      var rootUri = new Uri(this.RootUrl);
       var uri = new Uri(rootUri, partial);
       return uri.ToString();
     }

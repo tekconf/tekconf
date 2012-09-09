@@ -1,6 +1,6 @@
 ﻿<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
-        <id>ConferencesIOApi</id>
+        <id>ConferencesIO.Api</id>
         <title>Conferences.IO - API</title>
         <version>1.0.0</version>
         <authors>ConferencesIO</authors>
