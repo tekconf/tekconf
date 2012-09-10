@@ -21,6 +21,7 @@ namespace ConferencesIO.UI.Web.Controllers
             var repository = new RemoteDataRepository(baseUrl);
 
             AsyncManager.OutstandingOperations.Increment();
+            
             repository.GetConferences(conferences =>
             {
                 AsyncManager.Parameters["conferences"] = conferences;
