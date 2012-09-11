@@ -23,9 +23,9 @@
 <![endif]-->
 
 </head>
-  
-  <body>
-@Html.Partial("Header")
+
+<body>
+    @Html.Partial("Header")
 
 
     <div id="landing">
@@ -304,26 +304,7 @@
     </div>
     <!-- /extra -->
 
-    <div id="footer">
-        <div class="inner">
-            <div class="container">
-                <div class="row">
-                    <div id="footer-copyright" class="span4">
-                        &copy; 2012 conferences.io
-                    </div>
-                    <!-- /span4 -->
-
-                    <div id="footer-terms" class="span8">
-                    </div>
-                    <!-- /span8 -->
-                </div>
-                <!-- /row -->
-            </div>
-            <!-- /container -->
-        </div>
-        <!-- /inner -->
-    </div>
-    <!-- /footer -->
+    @Html.Partial("Footer")
 
     <script src="~/js/jquery-1.7.2.min.js"></script>
     <script src="~/js/bootstrap.js"></script>
@@ -331,9 +312,9 @@
     <script src="~/js/jcarousellite_1.0.1.js"></script>
 
     <script>
-      $(function () {
-        $(".screenshot").lightbox();
-      });
+        $(function () {
+            $(".screenshot").lightbox();
+        });
     </script>
 </body>
 </html>
