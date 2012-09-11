@@ -63,7 +63,7 @@ namespace ConferencesIO.UI.Api.Services.v1
 
       return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, () =>
       {
-        var conference = this.Database.GetCollection<ConferenceEntity>("conferences")
+        var conference = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
                 .AsQueryable()
                 .SingleOrDefault(c => c.slug == request.conferenceSlug);
 
@@ -131,7 +131,7 @@ namespace ConferencesIO.UI.Api.Services.v1
       var cacheKey = "GetAllSpeakers-" + request.conferenceSlug;
       return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, () =>
       {
-        var conference = this.Database.GetCollection<ConferenceEntity>("conferences")
+        var conference = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
         .AsQueryable()
         .SingleOrDefault(c => c.slug == request.conferenceSlug);
 

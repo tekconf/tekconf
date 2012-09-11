@@ -32,7 +32,7 @@ namespace ConferencesIO.UI.Api.Services.v1
       var cacheKey = "GetSingleSessionPrerequisites-" + request.conferenceSlug + "-" + request.sessionSlug;
       return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, () =>
       {
-        var conference = this.Database.GetCollection<ConferenceEntity>("conferences")
+        var conference = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
           .AsQueryable()
           .SingleOrDefault(c => c.slug == request.conferenceSlug);
 

@@ -24,7 +24,7 @@ namespace ConferencesIO.UI.Api.Services.v1
         throw new HttpError() { StatusCode = HttpStatusCode.BadRequest };
       }
 
-      var conference = this.Database.GetCollection<ConferenceEntity>("conferences")
+      var conference = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
                   .AsQueryable()
                   .SingleOrDefault(c => c.slug == request.conferenceSlug);
 

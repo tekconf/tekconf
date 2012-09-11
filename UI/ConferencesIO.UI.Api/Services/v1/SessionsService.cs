@@ -62,7 +62,7 @@ namespace ConferencesIO.UI.Api.Services.v1
 
       return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, () =>
       {
-        var conference = this.Database.GetCollection<ConferenceEntity>("conferences").AsQueryable()
+        var conference = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences").AsQueryable()
           //.Where(s => s.slug == request.sessionSlug)
                 .SingleOrDefault(c => c.slug == request.conferenceSlug);
 
@@ -132,7 +132,7 @@ namespace ConferencesIO.UI.Api.Services.v1
       return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, () =>
       {
         var conference =
-        this.Database.GetCollection<ConferenceEntity>("conferences").AsQueryable().SingleOrDefault(
+        this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences").AsQueryable().SingleOrDefault(
           c => c.slug == request.conferenceSlug);
 
         if (conference == null)

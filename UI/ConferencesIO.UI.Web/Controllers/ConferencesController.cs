@@ -30,10 +30,6 @@ namespace ConferencesIO.UI.Web.Controllers
 
         public void DetailAsync(string conferenceSlug)
         {
-            if (conferenceSlug == default(string))
-            {
-                conferenceSlug = "ThatConference-2012"; //TODO
-            }
             string baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
             var repository = new RemoteDataRepository(baseUrl);
 

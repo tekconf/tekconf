@@ -49,7 +49,7 @@ namespace ConferencesIO.UI.Api.Services.v1
                 //Return here your response DTO
                 //It will be cached automatically
 
-                var conference = this.Database.GetCollection<ConferenceEntity>("conferences")
+                var conference = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
                 .AsQueryable()
                 .SingleOrDefault(c => c.slug == request.conferenceSlug);
 
@@ -82,7 +82,7 @@ namespace ConferencesIO.UI.Api.Services.v1
                 //Return here your response DTO
                 //It will be cached automatically
 
-                var conference = this.Database.GetCollection<ConferenceEntity>("conferences")
+                var conference = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
                 .AsQueryable()
                 .SingleOrDefault(c => c.slug == request.conferenceSlug);
 
@@ -110,9 +110,7 @@ namespace ConferencesIO.UI.Api.Services.v1
             var cacheKey = "GetAllConferences";
             return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, () =>
             {
-                //List<ConferenceEntity> conferences = null;
-
-                var conferencesDtos = this.Database.GetCollection<ConferenceEntity>("conferences")
+                var conferencesDtos = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
                   .AsQueryable()
                   .Select(c => new ConferencesDto()
                                    {
@@ -125,21 +123,19 @@ namespace ConferencesIO.UI.Api.Services.v1
                                        description = c.description,
                                        imageUrl = c.imageUrl
                                    })
-
-
                   .OrderBy(c => c.end)
                   .ThenBy(c => c.start)
                   .ToList();
 
-                //var server = MongoServer.Create("mongodb://localhost/conferences");
-                //var db = server.GetDatabase("conferences");
-                //var collection = db.GetCollection<ConferenceEntity>("conferences");
-                //if (!collection.AsQueryable().Any())
-                //{
-                //    collection.InsertBatch(conferences);
-                //}
-                
-               // var p = conferences.Dump();
+                var remoteConferences = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
+                    .AsQueryable()
+                    .ToList();
+
+                var localConferences = this.LocalDatabase.GetCollection<ConferenceEntity>("conferences");
+                if (!localConferences.AsQueryable().Any())
+                {
+                    localConferences.InsertBatch(remoteConferences);
+                }
 
                 //var conferencesDtos = Mapper.Map<List<ConferenceEntity>, List<ConferencesDto>>(conferences);
                 var resolver = new ConferencesUrlResolver();

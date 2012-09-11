@@ -31,7 +31,7 @@ namespace ConferencesIO.UI.Api.v1
       var cacheKey = "GetSingleSchedule-" + request.conferenceSlug + "-" + request.userSlug;
       return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, () =>
           {
-            var schedule = this.Database.GetCollection<ScheduleEntity>("schedules")
+            var schedule = this.RemoteDatabase.GetCollection<ScheduleEntity>("schedules")
               .AsQueryable()
               .Where(s => s.ConferenceSlug == request.conferenceSlug)
               .SingleOrDefault(s => s.UserSlug == request.userSlug);
