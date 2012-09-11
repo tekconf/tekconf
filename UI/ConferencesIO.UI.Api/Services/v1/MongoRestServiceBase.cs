@@ -13,20 +13,20 @@ namespace ConferencesIO.UI.Api.Services
 
         public MongoDatabase RemoteDatabase
         {
-            //get
-            //{
-            //    if (_remoteServer == null)
-            //    {
-            //        _remoteServer = MongoServer.Create("mongodb://admin:goldie12@flame.mongohq.com:27100/app4727263?safe=true");
-            //    }
+            get
+            {
+                if (_remoteServer == null)
+                {
+                    _remoteServer = MongoServer.Create("mongodb://admin:goldie12@flame.mongohq.com:27100/app4727263?safe=true");
+                }
 
-            //    if (_remoteDatabase == null)
-            //    {
-            //        _remoteDatabase = _remoteServer.GetDatabase("app4727263");
-            //    }
-            //    return _remoteDatabase;
-            //}
-            get { return this.LocalDatabase; }
+                if (_remoteDatabase == null)
+                {
+                    _remoteDatabase = _remoteServer.GetDatabase("app4727263");
+                }
+                return _remoteDatabase;
+            }
+            //get { return this.LocalDatabase; }
         }
 
         public MongoDatabase LocalDatabase
