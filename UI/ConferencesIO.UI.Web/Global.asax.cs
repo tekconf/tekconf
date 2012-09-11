@@ -23,8 +23,8 @@ namespace ConferencesIO.UI.Web
             //    defaults: new { id = RouteParameter.Optional }
             //);
 
-            routes.MapRoute(name: "Detail", url: "{controller}/{slug}",
-                            defaults: new { controller = "Conferences", action = "Detail", slug = "" });
+            routes.MapRoute(name: "Detail", url: "Conferences/{conferenceSlug}",
+                defaults: new { controller = "Conferences", action = "Detail" });
 
             routes.MapRoute(
                 name: "Default",

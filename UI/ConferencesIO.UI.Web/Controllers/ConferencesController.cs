@@ -28,17 +28,17 @@ namespace ConferencesIO.UI.Web.Controllers
             return View(conferences);
         }
 
-        public void DetailAsync(string slug)
+        public void DetailAsync(string conferenceSlug)
         {
-            if (slug == default(string))
+            if (conferenceSlug == default(string))
             {
-                slug = "ThatConference-2012"; //TODO
+                conferenceSlug = "ThatConference-2012"; //TODO
             }
             string baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
             var repository = new RemoteDataRepository(baseUrl);
 
             AsyncManager.OutstandingOperations.Increment();
-            repository.GetFullConference(slug, conference =>
+            repository.GetFullConference(conferenceSlug, conference =>
             {
                 AsyncManager.Parameters["conference"] = conference;
                 AsyncManager.OutstandingOperations.Decrement();
