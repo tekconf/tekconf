@@ -14,14 +14,14 @@ namespace ConferencesIO.UI.Api.Services
             {
                 if (_server == null)
                 {
-                    _server = MongoServer.Create("mongodb://admin:goldie12@flame.mongohq.com:27100/app4727263?safe=true");
-                    //_server = MongoServer.Create("mongodb://localhost/conferences");
+                    //_server = MongoServer.Create("mongodb://admin:goldie12@flame.mongohq.com:27100/app4727263?safe=true");
+                    _server = MongoServer.Create("mongodb://localhost/conferences");
                 }
 
                 if (_database == null)
                 {
-                    _database = _server.GetDatabase("app4727263");
-                    //_database = _server.GetDatabase("conferences");
+                    //_database = _server.GetDatabase("app4727263");
+                    _database = _server.GetDatabase("conferences");
 
                 }
                 return _database;

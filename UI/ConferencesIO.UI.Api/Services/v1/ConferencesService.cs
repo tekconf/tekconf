@@ -110,22 +110,38 @@ namespace ConferencesIO.UI.Api.Services.v1
             var cacheKey = "GetAllConferences";
             return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, () =>
             {
-                List<ConferenceEntity> conferences = null;
+                //List<ConferenceEntity> conferences = null;
 
-                conferences = this.Database.GetCollection<ConferenceEntity>("conferences")
+                var conferencesDtos = this.Database.GetCollection<ConferenceEntity>("conferences")
                   .AsQueryable()
+                  .Select(c => new ConferencesDto()
+                                   {
+                                       name = c.name,
+                                       start = c.start,
+                                       end = c.end,
+                                       location = c.location,
+                                       //url = c.url,
+                                       slug = c.slug,
+                                       description = c.description,
+                                       imageUrl = c.imageUrl
+                                   })
+
+
                   .OrderBy(c => c.end)
                   .ThenBy(c => c.start)
                   .ToList();
 
-                var server = MongoServer.Create("mongodb://localhost/conferences");
-                var db = server.GetDatabase("conferences");
-                var collection = db.GetCollection<ConferenceEntity>("conferences");
-                collection.InsertBatch(conferences);
+                //var server = MongoServer.Create("mongodb://localhost/conferences");
+                //var db = server.GetDatabase("conferences");
+                //var collection = db.GetCollection<ConferenceEntity>("conferences");
+                //if (!collection.AsQueryable().Any())
+                //{
+                //    collection.InsertBatch(conferences);
+                //}
                 
                // var p = conferences.Dump();
 
-                var conferencesDtos = Mapper.Map<List<ConferenceEntity>, List<ConferencesDto>>(conferences);
+                //var conferencesDtos = Mapper.Map<List<ConferenceEntity>, List<ConferencesDto>>(conferences);
                 var resolver = new ConferencesUrlResolver();
                 foreach (var conferencesDto in conferencesDtos)
                 {
