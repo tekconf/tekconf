@@ -34,50 +34,7 @@
 </head>
 
 <body>
-    <div class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container">
-
-                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
-
-                <a class="brand" href="./">My Schedule			
-                </a>
-
-                <div class="nav-collapse">
-                    <ul class="nav pull-right">
-                        <li class="active">
-                            <a href="~/">Home
-                            </a>
-                        </li>
-                        <li class="dropdown">
-                            <a href="~/Conferences">Conferences
-                            </a>
-                        </li>
-                        <li>
-                            <a href="~/Schedule">My Schedule
-                            </a>
-                        </li>
-                        <li>
-                            <a href="~/Api">Api
-                            </a>
-                        </li>
-                        <li>
-                            <a href="~/Apps">Apps
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <!--/.nav-collapse -->
-            </div>
-            <!-- /container -->
-        </div>
-        <!-- /navbar-inner -->
-    </div>
-    <!-- /navbar -->
+    @Html.Partial("Header")
 
     <div id="subheader">
         <div class="inner">
@@ -100,7 +57,7 @@
                             <tr>
                                 <td>Resource
                                 </td>
-                               
+
                             </tr>
                         </thead>
                         <tbody>
@@ -121,7 +78,7 @@
             </div>
             <!-- /row -->
 
-            
+
 
         </div>
         <!-- /container -->

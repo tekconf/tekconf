@@ -54,6 +54,10 @@ namespace ConferencesIO.RemoteData.v1
 
     public void GetFullConference(string slug, Action<FullConferenceDto> callback)
     {
+        if (slug == default (string))
+        {
+            slug = "ThatConference-2012";
+        }
         string url = _baseUrl + "conferences/" + slug + "?detail=all";
         var client = new WebClient();
         client.Encoding = System.Text.Encoding.UTF8;

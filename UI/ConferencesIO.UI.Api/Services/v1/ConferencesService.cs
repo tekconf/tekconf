@@ -28,9 +28,11 @@ namespace ConferencesIO.UI.Api.Services.v1
                 var detail = base.RequestContext.Get<IHttpRequest>().QueryString["detail"];
                 if (string.Compare(detail, "all", StringComparison.InvariantCultureIgnoreCase) == 0)
                 {
-                    return GetFullSingleConference(request);
+                    var fullConferenceDto = GetFullSingleConference(request);
+                    return fullConferenceDto;
                 }
-                return GetSingleConference(request);
+                var conferenceDto = GetSingleConference(request);
+                return conferenceDto;
             }
         }
 
@@ -88,6 +90,7 @@ namespace ConferencesIO.UI.Api.Services.v1
                 }
 
                 var conferenceDto = Mapper.Map<ConferenceEntity, FullConferenceDto>(conference);
+                
                 //var conferenceUrlResolver = new ConferenceUrlResolver(conferenceDto.slug);
                 //var conferenceSessionsUrlResolver = new ConferenceSessionsUrlResolver(conferenceDto.slug);
                 //var conferenceSpeakersUrlResolver = new ConferenceSpeakersUrlResolver(conferenceDto.slug);
@@ -109,6 +112,8 @@ namespace ConferencesIO.UI.Api.Services.v1
 
                 conferences = this.Database.GetCollection<ConferenceEntity>("conferences")
                   .AsQueryable()
+                  .OrderBy(c => c.end)
+                  .ThenBy(c => c.start)
                   .ToList();
 
                 var conferencesDtos = Mapper.Map<List<ConferenceEntity>, List<ConferencesDto>>(conferences);

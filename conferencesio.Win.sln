@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2010
+# Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{E9367F9D-6B14-4D1B-9459-92B856BDEFB8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RemoteData", "RemoteData", "{84C5105E-C6EB-4033-9F70-B06872022C30}"
@@ -106,7 +106,6 @@ Global
 		{56838CD4-8EBC-4860-A3E1-1697875BBC61}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56838CD4-8EBC-4860-A3E1-1697875BBC61}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4C1396EF-A8EE-47F9-A6D1-011FF55167A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4C1396EF-A8EE-47F9-A6D1-011FF55167A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C1396EF-A8EE-47F9-A6D1-011FF55167A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C1396EF-A8EE-47F9-A6D1-011FF55167A9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6282B9AE-C52D-4936-BA76-2337C673F618}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -114,7 +113,6 @@ Global
 		{6282B9AE-C52D-4936-BA76-2337C673F618}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6282B9AE-C52D-4936-BA76-2337C673F618}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4FDBEECA-8B91-44B6-986A-B731014658E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4FDBEECA-8B91-44B6-986A-B731014658E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4FDBEECA-8B91-44B6-986A-B731014658E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4FDBEECA-8B91-44B6-986A-B731014658E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection

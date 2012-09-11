@@ -21,6 +21,7 @@ namespace ConferencesIO.UI.Api
     public DateTime end { get; set; }
     public string twitterHashTag { get; set; }
     public string twitterName { get; set; }
+    public string imageUrl { get; set; }
     public List<SessionEntity> sessions { get; set; }
 
   }
