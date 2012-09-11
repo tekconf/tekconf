@@ -118,10 +118,10 @@ namespace ConferencesIO.UI.Api.Services.v1
                   .ThenBy(c => c.start)
                   .ToList();
 
-                //var server = MongoServer.Create("mongodb://localhost/conferences");
-                //var db = server.GetDatabase("conferences");
-                //var collection = db.GetCollection<ConferenceEntity>("conferences");
-                //collection.InsertBatch(conferences);
+                var server = MongoServer.Create("mongodb://localhost/conferences");
+                var db = server.GetDatabase("conferences");
+                var collection = db.GetCollection<ConferenceEntity>("conferences");
+                collection.InsertBatch(conferences);
                 
                // var p = conferences.Dump();
 
