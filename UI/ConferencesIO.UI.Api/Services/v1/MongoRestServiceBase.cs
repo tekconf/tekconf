@@ -3,26 +3,31 @@ using ServiceStack.ServiceInterface;
 
 namespace ConferencesIO.UI.Api.Services
 {
-  public class MongoRestServiceBase<T> : RestServiceBase<T>
-  {
-    private MongoServer _server;
-    private MongoDatabase _database;
-
-    public MongoDatabase Database
+    public class MongoRestServiceBase<T> : RestServiceBase<T>
     {
-      get
-      {
-        if (_server == null)
-        {
-          _server = MongoServer.Create("mongodb://admin:goldie12@flame.mongohq.com:27100/app4727263?safe=true");
-        }
+        private MongoServer _server;
+        private MongoDatabase _database;
 
-        if (_database == null)
+        public MongoDatabase Database
         {
-          _database = _server.GetDatabase("app4727263");
+            get
+            {
+                if (_server == null)
+                {
+                    //_server = MongoServer.Create("mongodb://admin:goldie12@flame.mongohq.com:27100/app4727263?safe=true");
+                    _server = MongoServer.Create("mongodb://localhost/conferences");
+
+
+                }
+
+                if (_database == null)
+                {
+                    //_database = _server.GetDatabase("app4727263");
+                    _database = _server.GetDatabase("conferences");
+
+                }
+                return _database;
+            }
         }
-        return _database;
-      }
     }
-  }
 }

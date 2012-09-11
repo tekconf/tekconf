@@ -7,9 +7,11 @@ using ConferencesIO.RemoteData.Dtos.v1;
 using ConferencesIO.UI.Api.Services.Requests.v1;
 using ConferencesIO.UI.Api.UrlResolvers.v1;
 using FluentMongo.Linq;
+using MongoDB.Driver;
 using ServiceStack.CacheAccess;
 using ServiceStack.Common.Web;
 using ServiceStack.ServiceHost;
+using ServiceStack.Text;
 
 namespace ConferencesIO.UI.Api.Services.v1
 {
@@ -115,6 +117,13 @@ namespace ConferencesIO.UI.Api.Services.v1
                   .OrderBy(c => c.end)
                   .ThenBy(c => c.start)
                   .ToList();
+
+                //var server = MongoServer.Create("mongodb://localhost/conferences");
+                //var db = server.GetDatabase("conferences");
+                //var collection = db.GetCollection<ConferenceEntity>("conferences");
+                //collection.InsertBatch(conferences);
+                
+               // var p = conferences.Dump();
 
                 var conferencesDtos = Mapper.Map<List<ConferenceEntity>, List<ConferencesDto>>(conferences);
                 var resolver = new ConferencesUrlResolver();
