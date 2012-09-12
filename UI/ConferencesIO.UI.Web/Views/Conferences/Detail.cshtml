@@ -138,12 +138,12 @@
                                                 <tr>
                                                     <td><a href="#" class="btn btn-mini btn-inverse">Add to Schedule</a></td>
                                                     <td>
-                                                        @session.title
+                                                        @Html.ActionLink(session.title, "Detail", "Session", new { conferenceSlug = Model.slug, sessionSlug = session.slug })
                                                     </td>
                                                     <td>
                                                         @foreach (var speaker in session.speakers)
                                                         {
-                                                            @speaker.firstName<text> </text>@speaker.lastName
+                                                            @Html.ActionLink(@speaker.firstName + " " + @speaker.lastName, "Detail", "Speaker", new { conferenceSlug = Model.slug, speakerSlug = speaker.slug});
                                                         }
                                                     </td>
                                                 </tr>                                

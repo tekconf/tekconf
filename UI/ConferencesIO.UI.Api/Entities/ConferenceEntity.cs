@@ -22,6 +22,7 @@ namespace ConferencesIO.UI.Api
     public string twitterHashTag { get; set; }
     public string twitterName { get; set; }
     public string imageUrl { get; set; }
+    public string tagLine { get; set; }
     public List<SessionEntity> sessions { get; set; }
 
   }
