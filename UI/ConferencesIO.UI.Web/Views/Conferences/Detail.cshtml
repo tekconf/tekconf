@@ -51,8 +51,6 @@
             <!-- /row -->
             <br />
             <br />
-
-
             @{
                 var sessionGroup = Model.sessions
                 .GroupBy(s => new { s.start.Year, s.start.Month, s.start.Day })
@@ -60,60 +58,113 @@
                 .ToList();
             }
 
-            @foreach (var dayGroup in sessionGroup.OrderBy(s => s.DateKey.Year).ThenBy(s => s.DateKey.Month).ThenBy(s => s.DateKey.Day))
-            {
-                <div class="row">
-                    <div class="span12">
-                        <h3>
-                            @{
-                                var date = DateTime.Parse(dayGroup.DateKey.Month + "/" + dayGroup.DateKey.Day + "/" + dayGroup.DateKey.Year);
-                            }
-                            <span class="slash">//</span> @date.ToString("dddd, MMMM dd", CultureInfo.CreateSpecificCulture("en-US"))
-                        </h3>
-                    </div>
-                    <!-- /span12 -->
-                    <table class="table">
-                        <tbody>
-
-                            @{
-                                var sessionTimes = dayGroup.Sessions
-                                    .GroupBy(s => new { s.start })
-                                    .Select(s => new { DateKey = s.Key, Sessions = s })
-                                    .ToList();
-                            }
-                            @foreach (var sessionTime in sessionTimes)
+            <div class="span9">
+                <h3><span class="slash">//</span> Sessions</h3>
+                <div class="tabbable">
+                    <ul class="nav nav-tabs" id="myTab">
+                        @{
+                            bool isFirstTab = true;
+                        }
+                        @foreach (var dayGroup in sessionGroup.OrderBy(s => s.DateKey.Year).ThenBy(s => s.DateKey.Month).ThenBy(s => s.DateKey.Day))
+                        {
+                            var date = DateTime.Parse(dayGroup.DateKey.Month + "/" + dayGroup.DateKey.Day + "/" + dayGroup.DateKey.Year);
+                            var tabName = date.ToString("dddd, MMMM d", CultureInfo.CreateSpecificCulture("en-US")).Replace(" ", "").Replace(",","");
+                            var dateString = date.ToString("dddd, MMMM d", CultureInfo.CreateSpecificCulture("en-US"));
+                            
+                            string isTabActiveClass = null;
+                            if (isFirstTab)
                             {
-                                <tr><td colspan="4">@sessionTime.DateKey.start.ToShortTimeString()</td></tr>
-                                foreach (var session in sessionTime.Sessions.OrderBy(s => s.start.TimeOfDay))
-                                {
-                                
-                                    <tr>
-                                        <td><a href="#" class="btn btn-mini btn-inverse">Add to Schedule</a></td>
-                                        <td>
-                                            @session.start.ToShortTimeString() - @session.end.ToShortTimeString()
-                                        </td>
-                                        <td>
-                                            @session.title
-                                        </td>
-                                        <td>
-                                            @foreach (var speaker in session.speakers)
-                                            {
-                                                @speaker.firstName<text> </text>@speaker.lastName
-                                            }
-                                        </td>
-                                    </tr>                                
-                                }
-
+                                isTabActiveClass = "active";
+                                isFirstTab = false;
                             }
+                            else
+                            {
+                                isTabActiveClass = null;
+                            }
+                            
+                            <li class="@isTabActiveClass"><a href="#@tabName" data-toggle="tab">@dateString</a></li>
+                            
+                        }
+                    </ul>
+
+                    <div class="tab-content">
+                        @{
+                            bool isFirstContentTab = true;
+                        }
+
+                        @foreach (var dayGroup in sessionGroup.OrderBy(s => s.DateKey.Year).ThenBy(s => s.DateKey.Month).ThenBy(s => s.DateKey.Day))
+                        {
+                            var date = DateTime.Parse(dayGroup.DateKey.Month + "/" + dayGroup.DateKey.Day + "/" + dayGroup.DateKey.Year);
+                            var tabName = date.ToString("dddd, MMMM d", CultureInfo.CreateSpecificCulture("en-US")).Replace(" ", "").Replace(",", "");
+                            var dateString = date.ToString("dddd, MMMM d", CultureInfo.CreateSpecificCulture("en-US"));
+                            
+                            string isContentActiveClass = null;
+                            if (isFirstContentTab)
+                            {
+                                isContentActiveClass = "active";
+                                isFirstContentTab = false;
+                            }
+                            else
+                            {
+                                isContentActiveClass = null;
+                            }
+                            
+                            <div class="tab-pane @isContentActiveClass" id="@tabName">
+                                <div class="row">
+                                    <div class="span12">
+                                        <h3>
+
+                                            <span class="slash">//</span> @dateString
+                                        </h3>
+                                    </div>
+                                    <!-- /span12 -->
+                                    <table class="table">
+                                        <tbody>
+
+                                            @{
+                            var sessionTimes = dayGroup.Sessions
+                                .GroupBy(s => new { s.start })
+                                .Select(s => new { DateKey = s.Key, Sessions = s })
+                                .ToList();
+                                            }
+                                            @foreach (var sessionTime in sessionTimes)
+                                            {
+                                                <tr>
+                                                    <td colspan="4">@sessionTime.DateKey.start.ToShortTimeString()</td>
+                                                </tr>
+                                                foreach (var session in sessionTime.Sessions.OrderBy(s => s.start.TimeOfDay))
+                                                {
+                                
+                                                <tr>
+                                                    <td><a href="#" class="btn btn-mini btn-inverse">Add to Schedule</a></td>
+                                                    <td>
+                                                        @session.start.ToShortTimeString() - @session.end.ToShortTimeString()
+                                                    </td>
+                                                    <td>
+                                                        @session.title
+                                                    </td>
+                                                    <td>
+                                                        @foreach (var speaker in session.speakers)
+                                                        {
+                                                            @speaker.firstName<text> </text>@speaker.lastName
+                                                        }
+                                                    </td>
+                                                </tr>                                
+                                                }
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
 
 
-                        </tbody>
-                    </table>
 
+                            </div>
+                        }
+
+                    </div>
                 </div>
-                <!-- /row -->                            
+            </div>
 
-            }
 
             <br />
             <br />
@@ -183,8 +234,8 @@
 
     @Html.Partial("Footer")
 
-    <script src="./js/jquery-1.7.2.min.js"></script>
-    <script src="./js/bootstrap.js"></script>
+    <script src="~/js/jquery-1.7.2.min.js"></script>
+    <script src="~/js/bootstrap.js"></script>
     <script>
         $(function () {
 
