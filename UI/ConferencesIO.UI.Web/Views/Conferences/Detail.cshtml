@@ -50,16 +50,28 @@
             <!-- /row -->
             <br />
             <br />
-            <div class="row">
-                <div class="span12">
-                    <h3>
-                        <span class="slash">//</span> Sessions</h3>
-                </div>
-                <!-- /span12 -->
-                <table class="table">
-                    <tbody>
-                        @foreach (var session in Model.sessions.OrderBy(s => s.start).ThenBy(s => s.end))
-                        {
+            
+            @{
+                var sessionGroup = Model.sessions
+                .GroupBy(s => new { s.start.Year, s.start.Month, s.start.Day })
+                .Select(s => new { DateKey = s.Key, Sessions = s })
+                .ToList();
+            }
+
+            @foreach (var dayGroup in sessionGroup.OrderBy(s => s.DateKey.Year).ThenBy(s => s.DateKey.Month).ThenBy(s => s.DateKey.Day))
+            {
+                <div class="row">
+                    <div class="span12">
+                        <h3>
+                            <span class="slash">//</span> @dayGroup.DateKey.Month<text>/</text>@dayGroup.DateKey.Day</h3>
+                    </div>
+                    <!-- /span12 -->
+                    <table class="table">
+                        <tbody>                
+                
+                
+                @foreach (var session in dayGroup.Sessions.OrderBy(s => s.start))
+                {
                             <tr>
                                 <td><a href="#" class="btn btn-mini btn-inverse">Add to Schedule</a></td>
                                 <td>
@@ -74,13 +86,17 @@
                                         @speaker.firstName<text> </text>@speaker.lastName
                                     }
                                 </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                            </tr>                                
+                }
+                            
+                        </tbody>
+                    </table>
 
-            </div>
-            <!-- /row -->
+                </div>
+                <!-- /row -->                            
+
+            }            
+            
             <br />
             <br />
 

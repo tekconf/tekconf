@@ -1,0 +1,278 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<head lang="en">
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<title>Reboot Landing Documentation</title>
+	<!-- Framework CSS -->
+	<link rel="stylesheet" href="docs/assets/blueprint-css/screen.css" type="text/css" media="screen, projection">
+	<link rel="stylesheet" href="docs/assets/blueprint-css/print.css" type="text/css" media="print">
+	<!--[if lt IE 8]><link rel="stylesheet" href="docs/assets/blueprint-css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+	<link rel="stylesheet" href="docs/assets/blueprint-css/plugins/fancy-type/screen.css" type="text/css" media="screen, projection">
+	<style type="text/css" media="screen">
+		p, table, hr, .box { margin-bottom:25px; }
+		.box p { margin-bottom:10px; }
+		
+		
+		h2 {
+			font-size: 28px;
+			font-weight: 400;
+			
+			color: #900;
+		}
+		
+		h2 strong {
+			font-weight: 400;
+		}
+		
+		h3 {
+			font-size: 20px;
+			font-weight: normal;
+			color: #F90;
+		}
+	</style>
+</head>
+
+
+<body>
+	<div class="container">
+	
+		<h3 class="center alt">&ldquo;Reboot Landing&rdquo; Documentation by &ldquo;Rod Howard	&rdquo; v1.0</h3>
+		
+		<hr>
+		
+		<h1 class="center">&ldquo;Reboot Landing&rdquo;</h1>
+		
+		<div class="borderTop">
+			<div class="span-6 colborder info prepend-1">
+				<p class="prepend-top">
+					<strong>
+					Created: May 1st, 2012<br>
+					By: Rod Howard<br>
+					Email: <a href="mailto:rod@rodh.me">rod@rodh.me</a>
+					</strong>
+				</p>
+			</div><!-- end div .span-6 -->		
+	
+			<div class="span-12 last">
+				<p class="prepend-top append-0">Thank you for purchasing Reboot Landing. If you have any questions that have not been answered below, feel free to shoot me a message by email at <a href="mailto:rod@rodh.me">here</a>. Thanks again!</p>
+			</div>
+		</div><!-- end div .borderTop -->
+		
+		<hr>
+		
+		<h2 id="toc" class="alt">Table of Contents</h2>
+		<ol class="alpha">
+			<li><a href="#rounded-image">Rounded Image</a></li>
+			<li><a href="#circle-icon">Circle Icon</a></li>
+			<li><a href="#pricing">Pricing Plans</a></li>
+			<li><a href="#faq">FAQ Plugin</a></li>	
+			<li><a href="#lightbox">Lightbox Plugin</a></li>		
+			<li><a href="#credits">Credits</a></li>		
+		</ol>
+		
+		<hr>
+		
+		<h2 id="rounded-image"><strong>Rounded Images</strong></h2>
+
+		
+		
+	<p>To create a rounded image simple wrap your image tag in a div with the class .img. The wrapping div will automatically adjust to the width and height of your image.</p>
+		
+		<pre>
+&lt;div class="img"&gt;
+	&lt;img src="./img/avatar.png" alt="Avatar" /&gt;
+&lt;/div&gt;
+		</pre>
+		
+		
+		
+		<p>You can also set the width of your rounded image via css: </p>
+		
+		
+		<pre>
+&lt;style&gt;
+.img {
+	width: 50px;
+	height: 50px;
+}
+&lt;/style&gt;
+		</pre>
+		
+		
+		<hr />
+		
+		
+		
+		<h2 id="circle-icon"><strong>Circle Icon</strong></h2>
+		
+		
+		
+		<pre>
+&lt;div class="circle-icon"&gt;
+	&lt;div&gt;
+	
+		&lt;i class="icon-list-alt"&gt;&lt;/i&gt;
+		
+	&lt;/div&gt;
+&lt;/div&gt;
+		</pre>
+		
+		
+		
+		
+		<hr />
+		
+		
+		
+		<h2 id="pricing"><strong>Pricing Plans</strong></h2>
+		
+		<h3>Plans Wrapper</h3>
+		
+		<p>All pricing plans need to be placed within this container.</p>
+		
+
+		<pre>
+&lt;div class="pricing-plans plans-4"&gt;
+
+	--- Plans go here ---
+	
+&lt;/div&gt;
+		</pre>
+		
+		<p>You can add or remove the number of pricing tables in a row using the following classes:</p>
+		
+		<ul>
+			<li>plans-1</li>
+			<li>plans-2</li>
+			<li>plans-3</li>
+			<li>plans-4</li>
+		</ul>
+		
+		<br />
+		
+		<h3>Plan Html</h3>
+		
+		<pre>
+&lt;div class="plan-container"&gt;
+
+    &lt;div class="plan"&gt;
+    
+        &lt;div class="plan-header"&gt;
+            
+        	&lt;div class="plan-title"&gt;
+        		Micro	        		
+    		&lt;/div&gt; &lt;!-- /plan-title --&gt;
+            
+    		&lt;div class="plan-price"&gt;
+    			&lt;span class="note"&gt;$&lt;/span&gt;15&lt;span class="term"&gt;Per Month&lt;/span&gt;
+		&lt;/div&gt; &lt;!-- /plan-price --&gt;
+			
+        &lt;/div&gt; &lt;!-- /plan-header --&gt;	        
+        
+        &lt;div class="plan-features"&gt;
+        
+			&lt;ul&gt;
+				&lt;li&gt;&lt;strong&gt;Free&lt;/strong&gt; setup&lt;/li&gt;
+				&lt;li&gt;&lt;strong&gt;1&lt;/strong&gt; Website&lt;/li&gt;
+				&lt;li&gt;&lt;strong&gt;2&lt;/strong&gt; Projects&lt;/li&gt;
+				&lt;li&gt;&lt;strong&gt;1GB&lt;/strong&gt; Storage&lt;/li&gt;
+				&lt;li&gt;&lt;strong&gt;$0&lt;/strong&gt; Google Adwords Credit&lt;/li&gt;
+			&lt;/ul&gt;
+			
+		&lt;/div&gt; &lt;!-- /plan-features --&gt;
+		
+		&lt;div class="plan-actions"&gt;				
+			&lt;a href="javascript:;" class="btn"&gt;Purchase Now&lt;/a&gt;				
+		&lt;/div&gt; &lt;!-- /plan-actions --&gt;
+
+	&lt;/div&gt; &lt;!-- /plan --&gt;
+	
+&lt;/div&gt; &lt;!-- /plan-container --&gt;
+	
+		</pre>
+		
+		
+		
+		<hr />
+		
+		
+		
+		<h2 id="faq"><strong>Faq Plugin</strong></h2>
+		
+		
+		<h3>Faq Html</h3>
+		
+		<p>The html for the faq plugin is very basic. Styling and layout will be added when the plugin is called.</p>
+		
+		<p><strong>NOTE: Be sure the set your faq title as an h4 tag as that is what the table of contents is generated from.</strong></p>
+		
+		<pre>
+&lt;ol class="faq-list"&gt;
+						
+	&lt;li&gt;
+		
+		&lt;h4&gt;How can I get my own domain name?&lt;/h4&gt;
+		&lt;p&gt;The Internet Corporation for Assigned Names and Numbers (ICANN) maintains a list of...&lt;/p&gt;		
+	&lt;/li&gt;
+	
+&lt;/ol&gt;			
+			
+		</pre>
+		
+		
+		<br />
+		
+		<h3>Faq Javascript</h3>
+		
+		<p>Below is the javascript to initialize the faq plugin and the available configuration options</p>
+		
+		<pre>
+$('.faq-list').goFaq ({ 
+	enableSearch: true,
+	enableToc: true,
+	enableStyling: true
+});</pre>
+
+
+
+		<hr />
+		
+		
+		
+		<h2 id="lightbox"><strong>Lightbox Plugin</strong></h2>
+		
+		
+		<h3><a href="./docs/jquery.lightbox">Lightbox Evolution Documentation</a></h3>
+		
+		
+		
+
+
+		<br />
+		
+		<hr />
+		
+		<br />
+		<br />
+		<br />
+
+		<h2 id="credits"><strong>Credits</strong></h2>
+
+		
+		<p><strong>Javascript</strong></p>
+		<ol>			
+			<li><strong>Bootstrap</strong> - http://twitter.github.com/bootstrap/</li>
+			<li><strong>Jquery</strong> - http://jquery.com</li>
+			<li><strong>Font Awesome</strong> - http://fortawesome.github.com/Font-Awesome/</li>
+		</ol>
+		
+		<hr />
+		
+		<p>Again, thank you so much for purchasing this theme. As I stated at the beginning, I'd be more than happy to help should any questions arise relating to this theme. No promises, but I'll do my best to help you in any way I can. Should you have a more general inquiries relating to the themes on ThemeForest, you might consider visiting the forums and asking your question in the "Item Discussion" section.</p> 
+		
+		<p class="append-bottom alt large"><strong>Rod Howard</strong></p>
+		<p><a href="#toc">Go To Table of Contents</a></p>
+		
+		<hr class="space">
+	</div><!-- end div .container -->
+</body>
+</html>

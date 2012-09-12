@@ -91,8 +91,21 @@ namespace ConferencesIO.UI.Api.Services.v1
                     throw new HttpError(HttpStatusCode.NotFound, "Conference not found.");
                 }
 
+  
+
                 var conferenceDto = Mapper.Map<ConferenceEntity, FullConferenceDto>(conference);
-                
+
+                //var sessions = conferenceDto.sessions;
+                //var sessionResults = sessions.GroupBy(s => new { s.start.Year, s.start.Month, s.start.Day }).Select(s => new { DateKey = s.Key, Sessions = s }).ToList();
+
+                //foreach (var dayGroup in sessionResults)
+                //{
+                //    foreach (var session in dayGroup.Sessions)
+                //    {
+
+                //    }
+                //}
+
                 //var conferenceUrlResolver = new ConferenceUrlResolver(conferenceDto.slug);
                 //var conferenceSessionsUrlResolver = new ConferenceSessionsUrlResolver(conferenceDto.slug);
                 //var conferenceSpeakersUrlResolver = new ConferenceSpeakersUrlResolver(conferenceDto.slug);
@@ -127,15 +140,15 @@ namespace ConferencesIO.UI.Api.Services.v1
                   .ThenBy(c => c.start)
                   .ToList();
 
-                var remoteConferences = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
-                    .AsQueryable()
-                    .ToList();
+                //var remoteConferences = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
+                //    .AsQueryable()
+                //    .ToList();
 
-                var localConferences = this.LocalDatabase.GetCollection<ConferenceEntity>("conferences");
-                if (!localConferences.AsQueryable().Any())
-                {
-                    localConferences.InsertBatch(remoteConferences);
-                }
+                //var localConferences = this.LocalDatabase.GetCollection<ConferenceEntity>("conferences");
+                //if (!localConferences.AsQueryable().Any())
+                //{
+                //    localConferences.InsertBatch(remoteConferences);
+                //}
 
                 //var conferencesDtos = Mapper.Map<List<ConferenceEntity>, List<ConferencesDto>>(conferences);
                 var resolver = new ConferencesUrlResolver();
@@ -147,5 +160,17 @@ namespace ConferencesIO.UI.Api.Services.v1
                 return conferencesDtos.ToList();
             });
         }
+    }
+
+    public class SessionResult
+    {
+        public DateKey DateKey { get; set; }
+        public SessionEntity Session { get; set; }
+    }
+    public class DateKey
+    {
+        public int Year { get; set; }
+        public int Month { get; set; }
+        public int Day { get; set; }
     }
 }
