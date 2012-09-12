@@ -75,7 +75,7 @@
                             <tr>
                                 <td><a href="#" class="btn btn-mini btn-inverse">Add to Schedule</a></td>
                                 <td>
-                                    @session.start.ToShortTimeString() - @session.end.ToShortTimeString()
+                                    @session.start.ToLocalTime().ToShortTimeString() - @session.end.ToLocalTime().ToShortTimeString()
                                 </td>
                                 <td>
                                     @session.title
