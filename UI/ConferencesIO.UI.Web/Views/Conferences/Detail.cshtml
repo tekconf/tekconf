@@ -122,24 +122,21 @@
                                         <tbody>
 
                                             @{
-                            var sessionTimes = dayGroup.Sessions
-                                .GroupBy(s => new { s.start })
-                                .Select(s => new { DateKey = s.Key, Sessions = s })
-                                .ToList();
+                                            var sessionTimes = dayGroup.Sessions
+                                                .GroupBy(s => new { s.start })
+                                                .Select(s => new { DateKey = s.Key, Sessions = s })
+                                                .ToList();
                                             }
                                             @foreach (var sessionTime in sessionTimes)
                                             {
                                                 <tr>
-                                                    <td colspan="4">@sessionTime.DateKey.start.ToShortTimeString()</td>
+                                                    <td colspan="3">@sessionTime.DateKey.start.ToShortTimeString()</td>
                                                 </tr>
                                                 foreach (var session in sessionTime.Sessions.OrderBy(s => s.start.TimeOfDay))
                                                 {
                                 
                                                 <tr>
                                                     <td><a href="#" class="btn btn-mini btn-inverse">Add to Schedule</a></td>
-                                                    <td>
-                                                        @session.start.ToShortTimeString() - @session.end.ToShortTimeString()
-                                                    </td>
                                                     <td>
                                                         @session.title
                                                     </td>
