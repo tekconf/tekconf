@@ -1,4 +1,5 @@
-﻿@model ConferencesIO.RemoteData.Dtos.v1.FullConferenceDto
+﻿@using System.Globalization
+@model ConferencesIO.RemoteData.Dtos.v1.FullConferenceDto
 @{
     Layout = null;
 }
@@ -64,31 +65,47 @@
                 <div class="row">
                     <div class="span12">
                         <h3>
-                            <span class="slash">//</span> @dayGroup.DateKey.Month<text>/</text>@dayGroup.DateKey.Day</h3>
+                            @{
+                                var date = DateTime.Parse(dayGroup.DateKey.Month + "/" + dayGroup.DateKey.Day + "/" + dayGroup.DateKey.Year);
+                            }
+                            <span class="slash">//</span> @date.ToString("dddd, MMMM dd", CultureInfo.CreateSpecificCulture("en-US"))
+                        </h3>
                     </div>
                     <!-- /span12 -->
                     <table class="table">
                         <tbody>
 
-
-                            @foreach (var session in dayGroup.Sessions.OrderBy(s => s.start))
-                            {
-                                <tr>
-                                    <td><a href="#" class="btn btn-mini btn-inverse">Add to Schedule</a></td>
-                                    <td>
-                                        @session.start.ToLocalTime().ToShortTimeString() - @session.end.ToLocalTime().ToShortTimeString()
-                                    </td>
-                                    <td>
-                                        @session.title
-                                    </td>
-                                    <td>
-                                        @foreach (var speaker in session.speakers)
-                                        {
-                                            @speaker.firstName<text> </text>@speaker.lastName
-                                        }
-                                    </td>
-                                </tr>                                
+                            @{
+                                var sessionTimes = dayGroup.Sessions
+                                    .GroupBy(s => new { s.start })
+                                    .Select(s => new { DateKey = s.Key, Sessions = s })
+                                    .ToList();
                             }
+                            @foreach (var sessionTime in sessionTimes)
+                            {
+                                <tr><td colspan="4">@sessionTime.DateKey.start.ToShortTimeString()</td></tr>
+                                foreach (var session in sessionTime.Sessions.OrderBy(s => s.start.TimeOfDay))
+                                {
+                                
+                                    <tr>
+                                        <td><a href="#" class="btn btn-mini btn-inverse">Add to Schedule</a></td>
+                                        <td>
+                                            @session.start.ToShortTimeString() - @session.end.ToShortTimeString()
+                                        </td>
+                                        <td>
+                                            @session.title
+                                        </td>
+                                        <td>
+                                            @foreach (var speaker in session.speakers)
+                                            {
+                                                @speaker.firstName<text> </text>@speaker.lastName
+                                            }
+                                        </td>
+                                    </tr>                                
+                                }
+
+                            }
+
 
                         </tbody>
                     </table>
