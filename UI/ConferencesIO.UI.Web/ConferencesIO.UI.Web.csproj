@@ -553,6 +553,8 @@
     <Content Include="Views\Session\Index.cshtml" />
     <Content Include="Views\Speaker\Create.cshtml" />
     <Content Include="Views\Speaker\Index.cshtml" />
+    <Content Include="Views\Shared\Footer.cshtml" />
+    <Content Include="Views\Shared\Header.cshtml" />
     <None Include="Views\Web.Debug.config" />
     <None Include="Views\Web.Release.config" />
   </ItemGroup>
