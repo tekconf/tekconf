@@ -129,9 +129,6 @@
                                             }
                                             @foreach (var sessionTime in sessionTimes)
                                             {
-                                                <tr>
-                                                    <td colspan="3">@sessionTime.DateKey.start.ToShortTimeString()</td>
-                                                </tr>
                                                 foreach (var session in sessionTime.Sessions.OrderBy(s => s.start.TimeOfDay))
                                                 {
                                 
