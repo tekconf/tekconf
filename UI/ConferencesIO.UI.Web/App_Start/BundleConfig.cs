@@ -39,6 +39,16 @@ namespace ConferencesIO.UI.Web
             //            "~/Content/themes/base/jquery.ui.progressbar.css",
             //            "~/Content/themes/base/jquery.ui.theme.css"));
 
+            bundles.Add(new ScriptBundle("~/js/common")
+                .Include(
+                            "~/js/jquery-1.7.2.min.js",
+                            "~/js/bootstrap.js"
+                        )
+            );
+
+                "~/js/jquery-1.7.2.min.js",
+   "~/js/bootstrap.js"
+
             bundles.Add(new StyleBundle("~/css/home")
                 .Include(
                             "~/css/bootstrap.css",
