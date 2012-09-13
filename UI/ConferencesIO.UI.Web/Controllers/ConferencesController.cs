@@ -45,5 +45,6 @@ namespace ConferencesIO.UI.Web.Controllers
         {
             return View(conference);
         }
+    
     }
 }

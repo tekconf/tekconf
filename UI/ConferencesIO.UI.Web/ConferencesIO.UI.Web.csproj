@@ -359,6 +359,7 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Shared\Footer.cshtml" />
     <Content Include="Views\Administration\Index.cshtml" />
+    <Content Include="Views\Session\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

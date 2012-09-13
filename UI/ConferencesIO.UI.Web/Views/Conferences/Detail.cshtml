@@ -135,7 +135,7 @@
                                                 <tr>
                                                     <td><a href="#" class="btn btn-mini btn-inverse">Add to Schedule</a></td>
                                                     <td>
-                                                        @Html.ActionLink(session.title, "Detail", "Session", new { conferenceSlug = Model.slug, sessionSlug = session.slug })
+                                                        @Html.ActionLink(session.title, "Detail", "Session", new { conferenceSlug = Model.slug, slug = session.slug }, null)
                                                     </td>
                                                     <td>
                                                         @foreach (var speaker in session.speakers)

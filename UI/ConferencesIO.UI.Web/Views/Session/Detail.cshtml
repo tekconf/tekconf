@@ -1,0 +1,262 @@
+﻿@model ConferencesIO.RemoteData.Dtos.v1.SessionDto
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>@Model.conferenceSlug - @Model.title - conferences.io</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <link href="~/css/bootstrap.css" rel="stylesheet">
+    <link href="~/css/bootstrap-responsive.css" rel="stylesheet">
+
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet" type="text/css">
+    <link href="~/css/font-awesome.css" rel="stylesheet">
+    <link href="~/css/reboot-landing.css" rel="stylesheet">
+    <link href="~/css/reboot-landing-responsive.css" rel="stylesheet">
+    <link href="~/css/themes/green/theme.css" rel="stylesheet">
+    <link href="~/css/pages/about.css" rel="stylesheet">
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+</head>
+
+<body>
+
+    @Html.Partial("Header")
+
+    <div id="subheader">
+        <div class="inner">
+            <div class="container">
+                <h1>@Model.conferenceSlug</h1>
+            </div>
+            <!-- /.container -->
+        </div>
+        <!-- /inner -->
+    </div>
+    <!-- /subheader -->
+
+    <div id="subpage">
+        <div class="container">
+            <div class="row">
+                <div class="span12">
+                    <div class="big-intro">@Model.title</div>
+                </div>
+                <!-- /span12 -->
+            </div>
+            <!-- /row -->
+            <br />
+            <br />
+
+            <div class="row">
+                <div class="span6">
+                    <p>@Model.description</p>
+                </div>
+                <!-- /span6 -->
+
+
+                <div class="span4">
+                    <div class="sidebar">
+                        <h4><span class="slash">//</span> More Information</h4>
+                        <p>
+                            <b>Time :</b>
+                            @Model.start.ToString("dddd hh:mm")<text> - </text>@Model.end.ToString("hh:mm")<br />
+                            <b>Room :</b>
+                            @Model.room<br />
+                            <b>Difficulty :</b>
+                            @Model.difficulty<br />
+                            <b>Type :</b>
+                            @Model.sessionType<br />
+                            <b>Twitter :</b>
+                            @Model.twitterHashTag<br />
+                        </p>
+                        @if (@Model.links.Any())
+                        {
+                            <b>Links</b>
+                            <p>
+                                @foreach (var link in @Model.links)
+                                {
+                                    @link<br />
+                                }
+                            </p>
+                        }
+                        @if (Model.prerequisites.Any())
+                        {
+                            <b> Prerequisites</b>
+                            <p>
+                                @foreach (var prerequisite in @Model.prerequisites)
+                                {
+                                    @prerequisite<br />
+                                }
+                            </p>
+                        }
+                        @if (Model.subjects.Any())
+                        {
+                            <b>Subjects</b>
+                            <p>
+                                @foreach (var subject in @Model.subjects)
+                                {
+                                    @subject<br />
+                                }
+                            </p>
+                        }
+                        @if (Model.tags.Any())
+                        {
+                            <b>Tags</b>
+                            <p>
+                                @foreach (var tag in @Model.tags)
+                                {
+                                    @tag<br />
+                                }
+                            </p>
+                        }
+                    </div>
+                    <!-- /sidebar -->
+                </div>
+                <!-- /span4 -->
+
+
+            </div>
+            <!-- /row -->
+
+            <br />
+            <br />
+
+            <div class="row">
+                <div class="span12">
+                    <h3><span class="slash">//</span> Speakers</h3>
+                </div>
+                <!-- /span12 -->
+
+                @foreach (var speaker in Model.speakers)
+                {
+                    
+                    <div class="span4">
+                        <div class="about-user">
+                            <div class="img">
+                                <img src="~/img/avatar.png" alt="@speaker.fullName" />
+                            </div>
+
+                            <h4>@speaker.fullName</h4>
+
+                            <p>Speaker Bio</p>
+                        </div>
+                        <!-- /about-user -->
+
+                    </div>
+                    <!-- /span4 -->                    
+                }
+
+
+
+            </div>
+            <!-- /row -->
+
+
+
+
+        </div>
+        <!-- /container -->
+
+
+
+    </div>
+    <!-- /subpage -->
+
+    <div id="extra">
+        <div class="inner">
+            <div class="container">
+                <div class="row">
+                    <div class="span4">
+                        <h3><span class="slash">//</span> Quick Links</h3>
+
+                        <ul class="footer-links clearfix">
+                            <li><a href="./">Home</a></li>
+                            <li><a href="./pricing.html">Plans</a></li>
+                            <li><a href="../features.html">Features</a></li>
+                            <li><a href="./about.html">About</a></li>
+                            <li><a href="./faq.html">FAQ</a></li>
+                        </ul>
+
+                        <ul class="footer-links clearfix">
+                            <li><a href="javascript:;">Support</a></li>
+                            <li><a href="javascript:;">License</a></li>
+                            <li><a href="javascript:;">Terms of Use</a></li>
+                            <li><a href="javascript:;">Privacy Policy</a></li>
+                            <li><a href="javascript:;">Something Else</a></li>
+                        </ul>
+                    </div>
+                    <!-- /span4 -->
+
+                    <div class="span4">
+                        <h3><span class="slash">//</span> Stay In Touch</h3>
+
+                        <p>There are real people behind conferences.io, so if you have a question or suggestion (no matter how small) please get in touch with us:</p>
+
+                        <ul class="social-icons-container">
+                            <li>
+                                <a href="javascript:;" class="social-icon social-icon-twitter">Twitter
+                                </a>
+                            </li>
+                            <li>
+                                <a href="javascript:;" class="social-icon social-icon-googleplus">Google +
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:;" class="social-icon social-icon-facebook">Facebook
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- /extra-social -->
+                    </div>
+                    <!-- /span4 -->
+
+                    <div class="span4">
+                        <h3><span class="slash">//</span> Subscribe and get updates</h3>
+
+                        <p>Subscribe to our newsletter and get exclusive deals you wont find anywhere else straight to your inbox!</p>
+
+                        <form>
+                            <input type="text" name="subscribe_email" placeholder="Your Email" />
+                            <br />
+                            <button class="btn ">Subscribe</button>
+                        </form>
+
+                    </div>
+                    <!-- /span4 -->
+                </div>
+                <!-- /row -->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /inner -->
+    </div>
+    <!-- /extra -->
+
+
+    @Html.Partial("Footer")
+
+
+    <script src="~/js/jquery-1.7.2.min.js"></script>
+    <script src="~/js/bootstrap.js"></script>
+
+    <script>
+
+        $(function () {
+
+        });
+
+    </script>
+</body>
+</html>

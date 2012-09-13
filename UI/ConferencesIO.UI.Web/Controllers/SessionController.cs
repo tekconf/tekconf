@@ -30,7 +30,7 @@ namespace ConferencesIO.UI.Web.Controllers
       return View(sessions);
     }
 
-    public void DetailsAsync(string conferenceSlug, string slug)
+    public void DetailAsync(string conferenceSlug, string slug)
     {
       var remoteData = new RemoteDataRepository(BaseUrl());
       AsyncManager.OutstandingOperations.Increment();
@@ -41,7 +41,7 @@ namespace ConferencesIO.UI.Web.Controllers
       });
     }
 
-    public ActionResult DetailsCompleted(SessionDto session)
+    public ActionResult DetailCompleted(SessionDto session)
     {
       return View(session);
     }
