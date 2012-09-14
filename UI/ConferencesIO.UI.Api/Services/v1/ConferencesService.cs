@@ -38,6 +38,49 @@ namespace ConferencesIO.UI.Api.Services.v1
             }
         }
 
+        private object GetAllConferences()
+        {
+            var cacheKey = "GetAllConferences";
+            return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, () =>
+            {
+                var conferencesDtos = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
+                  .AsQueryable()
+                  .Select(c => new ConferencesDto()
+                  {
+                      name = c.name,
+                      start = c.start,
+                      end = c.end,
+                      location = c.location,
+                      //url = c.url,
+                      slug = c.slug,
+                      description = c.description,
+                      imageUrl = c.imageUrl
+                  })
+                  .OrderBy(c => c.end)
+                  .ThenBy(c => c.start)
+                  .ToList();
+
+                //var remoteConferences = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
+                //    .AsQueryable()
+                //    .ToList();
+
+                //var localConferences = this.LocalDatabase.GetCollection<ConferenceEntity>("conferences");
+                //if (!localConferences.AsQueryable().Any())
+                //{
+                //    localConferences.InsertBatch(remoteConferences);
+                //}
+
+                //var conferencesDtos = Mapper.Map<List<ConferenceEntity>, List<ConferencesDto>>(conferences);
+                var resolver = new ConferencesUrlResolver();
+                foreach (var conferencesDto in conferencesDtos)
+                {
+                    conferencesDto.url = resolver.ResolveUrl(conferencesDto.slug);
+                }
+
+                return conferencesDtos.ToList();
+            });
+        }
+
         private object GetSingleConference(ConferencesRequest request)
         {
             var cacheKey = "GetSingleConference-" + request.conferenceSlug;
@@ -118,48 +161,7 @@ namespace ConferencesIO.UI.Api.Services.v1
             });
         }
 
-        private object GetAllConferences()
-        {
-            var cacheKey = "GetAllConferences";
-            return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, () =>
-            {
-                var conferencesDtos = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
-                  .AsQueryable()
-                  .Select(c => new ConferencesDto()
-                                   {
-                                       name = c.name,
-                                       start = c.start,
-                                       end = c.end,
-                                       location = c.location,
-                                       //url = c.url,
-                                       slug = c.slug,
-                                       description = c.description,
-                                       imageUrl = c.imageUrl
-                                   })
-                  .OrderBy(c => c.end)
-                  .ThenBy(c => c.start)
-                  .ToList();
 
-                //var remoteConferences = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
-                //    .AsQueryable()
-                //    .ToList();
-
-                //var localConferences = this.LocalDatabase.GetCollection<ConferenceEntity>("conferences");
-                //if (!localConferences.AsQueryable().Any())
-                //{
-                //    localConferences.InsertBatch(remoteConferences);
-                //}
-
-                //var conferencesDtos = Mapper.Map<List<ConferenceEntity>, List<ConferencesDto>>(conferences);
-                var resolver = new ConferencesUrlResolver();
-                foreach (var conferencesDto in conferencesDtos)
-                {
-                    conferencesDto.url = resolver.ResolveUrl(conferencesDto.slug);
-                }
-
-                return conferencesDtos.ToList();
-            });
-        }
     }
 
     public class SessionResult
