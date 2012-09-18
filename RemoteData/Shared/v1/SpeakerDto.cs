@@ -1,4 +1,4 @@
-namespace ConferencesIO.RemoteData.Dtos.v1
+namespace TekConf.RemoteData.Dtos.v1
 {
   public class SpeakerDto
   {

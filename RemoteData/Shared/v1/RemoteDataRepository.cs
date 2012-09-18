@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using ConferencesIO.RemoteData.Dtos.v1;
+using TekConf.RemoteData.Dtos.v1;
 using ServiceStack.Text;
 
-namespace ConferencesIO.RemoteData.v1
+namespace TekConf.RemoteData.v1
 {
   public class RemoteDataRepository
   {
