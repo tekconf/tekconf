@@ -56,57 +56,14 @@
             }
 
             <div class="span9">
-                <h3><span class="slash">//</span> Sessions</h3>
-                <div class="tabbable">
-                    <ul class="nav nav-tabs" id="myTab">
-                        @{
-                            bool isFirstTab = true;
-                        }
+                
+             
                         @foreach (var dayGroup in sessionGroup.OrderBy(s => s.DateKey.Year).ThenBy(s => s.DateKey.Month).ThenBy(s => s.DateKey.Day))
                         {
                             var date = DateTime.Parse(dayGroup.DateKey.Month + "/" + dayGroup.DateKey.Day + "/" + dayGroup.DateKey.Year);
                             var tabName = date.ToString("dddd, MMMM d", CultureInfo.CreateSpecificCulture("en-US")).Replace(" ", "").Replace(",", "");
                             var dateString = date.ToString("dddd, MMMM d", CultureInfo.CreateSpecificCulture("en-US"));
 
-                            string isTabActiveClass = null;
-                            if (isFirstTab)
-                            {
-                                isTabActiveClass = "active";
-                                isFirstTab = false;
-                            }
-                            else
-                            {
-                                isTabActiveClass = null;
-                            }
-                            
-                            <li class="@isTabActiveClass"><a href="#@tabName" data-toggle="tab">@dateString</a></li>
-                            
-                        }
-                    </ul>
-
-                    <div class="tab-content">
-                        @{
-                            bool isFirstContentTab = true;
-                        }
-
-                        @foreach (var dayGroup in sessionGroup.OrderBy(s => s.DateKey.Year).ThenBy(s => s.DateKey.Month).ThenBy(s => s.DateKey.Day))
-                        {
-                            var date = DateTime.Parse(dayGroup.DateKey.Month + "/" + dayGroup.DateKey.Day + "/" + dayGroup.DateKey.Year);
-                            var tabName = date.ToString("dddd, MMMM d", CultureInfo.CreateSpecificCulture("en-US")).Replace(" ", "").Replace(",", "");
-                            var dateString = date.ToString("dddd, MMMM d", CultureInfo.CreateSpecificCulture("en-US"));
-
-                            string isContentActiveClass = null;
-                            if (isFirstContentTab)
-                            {
-                                isContentActiveClass = "active";
-                                isFirstContentTab = false;
-                            }
-                            else
-                            {
-                                isContentActiveClass = null;
-                            }
-                            
-                            <div class="tab-pane @isContentActiveClass" id="@tabName">
                                 <div class="row">
                                     <div class="span12">
                                         <h3>
@@ -117,12 +74,11 @@
                                     <!-- /span12 -->
                                     <table class="table">
                                         <tbody>
-
                                             @{
-                            var sessionTimes = dayGroup.Sessions
-                                .GroupBy(s => new { s.start })
-                                .Select(s => new { DateKey = s.Key, Sessions = s })
-                                .ToList();
+                                                var sessionTimes = dayGroup.Sessions
+                                                    .GroupBy(s => new { s.start })
+                                                    .Select(s => new { DateKey = s.Key, Sessions = s })
+                                                    .ToList();
                                             }
                                             @foreach (var sessionTime in sessionTimes)
                                             {
@@ -135,7 +91,7 @@
                                                 <tr>
                                                     <td><a href="#" class="btn btn-mini btn-inverse">Add to Schedule</a></td>
                                                     <td>
-                                                        @Html.ActionLink(session.title, "Detail", "Session", new { conferenceSlug = Model.slug, slug = session.slug })
+                                                        @Html.ActionLink(session.title, "Detail", "Session", new { conferenceSlug = Model.slug, sessionSlug = session.slug }, null)
                                                     </td>
                                                     <td>
                                                         @foreach (var speaker in session.speakers)
@@ -150,16 +106,10 @@
                                     </table>
                                 </div>
 
-
-
-                            </div>
                         }
 
                     </div>
-                </div>
-            </div>
-
-
+     
             <br />
             <br />
 

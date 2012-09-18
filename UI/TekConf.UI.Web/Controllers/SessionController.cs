@@ -30,11 +30,11 @@ namespace TekConf.UI.Web.Controllers
       return View(sessions);
     }
 
-    public void DetailAsync(string conferenceSlug, string slug)
+    public void DetailAsync(string conferenceSlug, string sessionSlug)
     {
       var remoteData = new RemoteDataRepository(BaseUrl());
       AsyncManager.OutstandingOperations.Increment();
-      remoteData.GetSession(conferenceSlug, slug, session =>
+      remoteData.GetSession(conferenceSlug, sessionSlug, session =>
       {
         AsyncManager.Parameters["session"] = session;
         AsyncManager.OutstandingOperations.Decrement();
