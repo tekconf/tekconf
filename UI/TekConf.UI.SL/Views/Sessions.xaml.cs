@@ -1,10 +1,10 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
-using ConferencesIO.RemoteData.Dtos.v1;
-using ConferencesIO.RemoteData.v1;
+using TekConf.RemoteData.Dtos.v1;
+using TekConf.RemoteData.v1;
 
-namespace ConferencesIO.UI.SL.Views
+namespace TekConf.UI.SL.Views
 {
   public partial class Sessions : Page
   {
@@ -16,8 +16,8 @@ namespace ConferencesIO.UI.SL.Views
     protected override void OnNavigatedTo(NavigationEventArgs e)
     {
       base.OnNavigatedTo(e);
-      string baseUrl = "http://conferencesioapi.azurewebsites.net/v1/";
-      //string baseUrl = "http://localhost/ConferencesIO.UI.Api/v1/";
+      string baseUrl = "http://api.tekconf.com/v1/";
+      //string baseUrl = "http://localhost:25825/v1/";
       var client = new RemoteDataRepository(baseUrl);
       client.GetSessions("CodeMash-2012", sessions =>
       {

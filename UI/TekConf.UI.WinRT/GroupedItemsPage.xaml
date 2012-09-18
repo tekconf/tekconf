@@ -1,13 +1,13 @@
 ﻿<common:LayoutAwarePage
     x:Name="pageRoot"
-    x:Class="ConferencesIO.UI.WinRT.GroupedItemsPage"
+    x:Class="TekConf.UI.WinRT.GroupedItemsPage"
     DataContext="{Binding DefaultViewModel, RelativeSource={RelativeSource Self}}"
     IsTabStop="false"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:ConferencesIO.UI.WinRT"
-    xmlns:data="using:ConferencesIO.UI.WinRT.Data"
-    xmlns:common="using:ConferencesIO.UI.WinRT.Common"
+    xmlns:local="using:TekConf.UI.WinRT"
+    xmlns:data="using:TekConf.UI.WinRT.Data"
+    xmlns:common="using:TekConf.UI.WinRT.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">

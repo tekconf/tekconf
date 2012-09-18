@@ -1,4 +1,4 @@
-﻿using ConferencesIO.UI.WinRT.Common;
+﻿using TekConf.UI.WinRT.Common;
 
 using System;
 using System.Collections.Generic;
@@ -18,7 +18,7 @@ using Windows.UI.Xaml.Navigation;
 
 // The Grid App template is documented at http://go.microsoft.com/fwlink/?LinkId=234226
 
-namespace ConferencesIO.UI.WinRT
+namespace TekConf.UI.WinRT
 {
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.

@@ -1,9 +1,9 @@
 ﻿<Application
-    x:Class="ConferencesIO.UI.WinRT.App"
+    x:Class="TekConf.UI.WinRT.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:ConferencesIO.UI.WinRT"
-    xmlns:localData="using:ConferencesIO.UI.WinRT.Data">
+    xmlns:local="using:TekConf.UI.WinRT"
+    xmlns:localData="using:TekConf.UI.WinRT.Data">
 
     <Application.Resources>
         <ResourceDictionary>
@@ -18,7 +18,7 @@
 
             <!-- Application-specific resources -->
 
-            <x:String x:Key="AppName">ConferencesIO.UI.WinRT</x:String>
+            <x:String x:Key="AppName">TekConf.UI.WinRT</x:String>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

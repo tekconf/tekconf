@@ -2,7 +2,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 
-namespace ConferencesIO.UI.SL
+namespace TekConf.UI.SL
 {
   public partial class MainPage : UserControl
   {

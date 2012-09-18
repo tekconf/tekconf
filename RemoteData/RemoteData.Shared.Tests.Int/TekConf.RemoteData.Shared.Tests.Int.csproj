@@ -8,8 +8,8 @@
     <ProjectGuid>{85810EC4-3E4F-4A31-8379-8BF73CDD7C01}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ConferencesIO.RemoteData.Shared.Tests.Int</RootNamespace>
-    <AssemblyName>ConferencesIO.RemoteData.Shared.Tests.Int</AssemblyName>
+    <RootNamespace>TekConf.RemoteData.Shared.Tests.Int</RootNamespace>
+    <AssemblyName>TekConf.RemoteData.Shared.Tests.Int</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -64,9 +64,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Shared\ConferencesIO.RemoteData.Shared.csproj">
-      <Project>{1439B0EC-5C15-4B18-B4EB-8A2787ABDFDE}</Project>
-      <Name>ConferencesIO.RemoteData.Shared</Name>
+    <ProjectReference Include="..\Shared\TekConf.RemoteData.Shared.csproj">
+      <Project>{1439b0ec-5c15-4b18-b4eb-8a2787abdfde}</Project>
+      <Name>TekConf.RemoteData.Shared</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

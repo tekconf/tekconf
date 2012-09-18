@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Navigation;
 
-namespace ConferencesIO.UI.SL.Views
+namespace TekConf.UI.SL.Views
 {
   public partial class Schedule : Page
   {

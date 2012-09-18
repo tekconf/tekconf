@@ -1,4 +1,4 @@
-<sdk:ChildWindow x:Class="ConferencesIO.UI.SL.ChildWindow1"
+<sdk:ChildWindow x:Class="TekConf.UI.SL.ChildWindow1"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:sdk="http://schemas.microsoft.com/winfx/2006/xaml/presentation/sdk"	

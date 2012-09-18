@@ -9,8 +9,8 @@
     <ProjectTypeGuids>{A1591282-1198-4647-A2B1-27E5FF5F6F3B};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ConferencesIO.UI.SL</RootNamespace>
-    <AssemblyName>ConferencesIO.UI.SL</AssemblyName>
+    <RootNamespace>TekConf.UI.SL</RootNamespace>
+    <AssemblyName>TekConf.UI.SL</AssemblyName>
     <TargetFrameworkIdentifier>Silverlight</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
     <SilverlightVersion>$(TargetFrameworkVersion)</SilverlightVersion>
@@ -189,9 +189,9 @@
     <Content Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\RemoteData\SL\ConferencesIO.RemoteData.SL.csproj">
-      <Project>{974D59DF-D954-439C-8870-306E9A2DA570}</Project>
-      <Name>ConferencesIO.RemoteData.SL</Name>
+    <ProjectReference Include="..\..\RemoteData\SL\TekConf.RemoteData.SL.csproj">
+      <Project>{974d59df-d954-439c-8870-306e9a2da570}</Project>
+      <Name>TekConf.RemoteData.SL</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />

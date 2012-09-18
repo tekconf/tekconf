@@ -7,8 +7,8 @@
     <ProjectGuid>{4C1396EF-A8EE-47F9-A6D1-011FF55167A9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ConferencesIO.LocalData.Shared</RootNamespace>
-    <AssemblyName>ConferencesIO.LocalData.Shared</AssemblyName>
+    <RootNamespace>TekConf.LocalData.Shared</RootNamespace>
+    <AssemblyName>TekConf.LocalData.Shared</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

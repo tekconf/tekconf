@@ -1,4 +1,4 @@
-﻿using ConferencesIO.UI.WinRT.Data;
+﻿using TekConf.UI.WinRT.Data;
 
 using System;
 using System.Collections.Generic;
@@ -16,13 +16,13 @@ using Windows.UI.Xaml.Navigation;
 
 // The Item Detail Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234232
 
-namespace ConferencesIO.UI.WinRT
+namespace TekConf.UI.WinRT
 {
     /// <summary>
     /// A page that displays details for a single item within a group while allowing gestures to
     /// flip through other items belonging to the same group.
     /// </summary>
-    public sealed partial class ItemDetailPage : ConferencesIO.UI.WinRT.Common.LayoutAwarePage
+    public sealed partial class ItemDetailPage : TekConf.UI.WinRT.Common.LayoutAwarePage
     {
         public ItemDetailPage()
         {

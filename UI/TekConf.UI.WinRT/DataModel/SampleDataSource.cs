@@ -18,14 +18,14 @@ using Windows.UI.Xaml.Media.Imaging;
 // Applications may use this model as a starting point and build on it, or discard it entirely and
 // replace it with something appropriate to their needs.
 
-namespace ConferencesIO.UI.WinRT.Data
+namespace TekConf.UI.WinRT.Data
 {
     /// <summary>
     /// Base class for <see cref="SampleDataItem"/> and <see cref="SampleDataGroup"/> that
     /// defines properties common to both.
     /// </summary>
     [Windows.Foundation.Metadata.WebHostHidden]
-    public abstract class SampleDataCommon : ConferencesIO.UI.WinRT.Common.BindableBase
+    public abstract class SampleDataCommon : TekConf.UI.WinRT.Common.BindableBase
     {
         private static Uri _baseUri = new Uri("ms-appx:///");
 

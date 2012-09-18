@@ -1,5 +1,5 @@
 <OutOfBrowserSettings ShortName="CodeMash2012" EnableGPUAcceleration="True" ShowInstallMenuItem="True">
-  <OutOfBrowserSettings.Blurb>ConferencesIO.UI.SL Application on your desktop; at home, at work or on the go.</OutOfBrowserSettings.Blurb>
+  <OutOfBrowserSettings.Blurb>TekConf.UI.SL Application on your desktop; at home, at work or on the go.</OutOfBrowserSettings.Blurb>
   <OutOfBrowserSettings.WindowSettings>
     <WindowSettings Title="CodeMash 2012" />
   </OutOfBrowserSettings.WindowSettings>

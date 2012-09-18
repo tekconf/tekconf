@@ -2,7 +2,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ConferencesIO.UI.SL
+namespace TekConf.UI.SL
 {
   public partial class ErrorWindow : ChildWindow
   {

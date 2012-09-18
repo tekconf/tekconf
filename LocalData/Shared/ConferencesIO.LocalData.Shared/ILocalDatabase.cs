@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ConferencesIO.LocalData.iOS;
+using TekConf.LocalData.iOS;
 using System.Diagnostics;
 using System.IO;
 using Catnap.Database.Sqlite;
@@ -10,7 +10,7 @@ using Catnap;
 using Catnap.Mapping;
 using Catnap.Migration;
 
-namespace ConferencesIO.LocalData.Shared
+namespace TekConf.LocalData.Shared
 {
 	public interface ILocalDatabase
 	{

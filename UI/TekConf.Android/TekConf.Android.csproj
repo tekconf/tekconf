@@ -9,8 +9,8 @@
     <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ConferencesIO.Android</RootNamespace>
-    <AssemblyName>ConferencesIO.Android</AssemblyName>
+    <RootNamespace>TekConf.Android</RootNamespace>
+    <AssemblyName>TekConf.Android</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <AndroidApplication>true</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
@@ -72,9 +72,13 @@
     <AndroidResource Include="Resources\Drawable\Icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\RemoteData\Android\ConferencesIO.RemoteData.Android.csproj">
+    <ProjectReference Include="..\..\..\ServiceStack.Text\src\ServiceStack.Text.Android\ServiceStack.Text.Android\ServiceStack.Text.Android.csproj">
+      <Project>{56838cd4-8ebc-4860-a3e1-1697875bbc61}</Project>
+      <Name>ServiceStack.Text.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\RemoteData\Android\TekConf.RemoteData.Android.csproj">
       <Project>{AD35B5FE-4B66-4820-BA9B-A9FCB5A6A931}</Project>
-      <Name>ConferencesIO.RemoteData.Android</Name>
+      <Name>TekConf.RemoteData.Android</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

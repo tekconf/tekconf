@@ -1,4 +1,4 @@
-﻿using ConferencesIO.UI.WinRT.Data;
+﻿using TekConf.UI.WinRT.Data;
 
 using System;
 using System.Collections.Generic;
@@ -16,12 +16,12 @@ using Windows.UI.Xaml.Navigation;
 
 // The Grouped Items Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234231
 
-namespace ConferencesIO.UI.WinRT
+namespace TekConf.UI.WinRT
 {
     /// <summary>
     /// A page that displays a grouped collection of items.
     /// </summary>
-    public sealed partial class GroupedItemsPage : ConferencesIO.UI.WinRT.Common.LayoutAwarePage
+    public sealed partial class GroupedItemsPage : TekConf.UI.WinRT.Common.LayoutAwarePage
     {
         public GroupedItemsPage()
         {

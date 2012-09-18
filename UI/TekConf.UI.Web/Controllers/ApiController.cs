@@ -28,7 +28,7 @@ namespace TekConf.UI.Web.Controllers
                           start: ""/Date(1326171600000)/"",
                           end: ""/Date(1326430800000)/"",
                           location: ""Sandusky, OH, USA"",
-                          url: ""http://conferencesio.cloudapp.net:81/v1/conferences/CodeMash-2012"",
+                          url: ""http://api.tekconf.com/v1/conferences/CodeMash-2012"",
                           slug: ""CodeMash-2012""
                         },
                         {
@@ -36,13 +36,13 @@ namespace TekConf.UI.Web.Controllers
                           start: ""/Date(1344830400000)/"",
                           end: ""/Date(1345003200000)/"",
                           location: ""Kalahari Resort, Wisconsin Dells, WI"",
-                          url: ""http://conferencesio.cloudapp.net:81/v1/conferences/ThatConference-2012"",
+                          url: ""http://api.tekconf.com/v1/conferences/ThatConference-2012"",
                           slug: ""ThatConference-2012""
                         }
                         ]",
-              ExampleUri = "http://conferencesio.cloudapp.net:81/v1/conferences",
+              ExampleUri = "http://api.tekconf.com/v1/conferences",
               HttpMethod = "GET",
-              Uri = "http://conferencesio.cloudapp.net:81/v1/conferences"
+              Uri = "http://api.tekconf.com/v1/conferences"
               
             }
         };

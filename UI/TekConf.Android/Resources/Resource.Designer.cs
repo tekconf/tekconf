@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ConferencesIO.Android
+namespace TekConf.Android
 {
 	
 	

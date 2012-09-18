@@ -6,7 +6,7 @@
             Version="1.0.0.0" />
 
   <Properties>
-    <DisplayName>ConferencesIO.UI.WinRT</DisplayName>
+    <DisplayName>TekConf.UI.WinRT</DisplayName>
     <PublisherDisplayName>rgibbens</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -23,12 +23,12 @@
   <Applications>
     <Application Id="App"
         Executable="$targetnametoken$.exe"
-        EntryPoint="ConferencesIO.UI.WinRT.App">
+        EntryPoint="TekConf.UI.WinRT.App">
         <VisualElements
-            DisplayName="ConferencesIO.UI.WinRT"
+            DisplayName="TekConf.UI.WinRT"
             Logo="Assets\Logo.png"
             SmallLogo="Assets\SmallLogo.png"
-            Description="ConferencesIO.UI.WinRT"
+            Description="TekConf.UI.WinRT"
             ForegroundText="light"
             BackgroundColor="#464646">
             <DefaultTile ShowName="allLogos" />

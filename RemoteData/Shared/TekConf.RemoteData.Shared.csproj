@@ -7,8 +7,8 @@
     <ProjectGuid>{1439B0EC-5C15-4B18-B4EB-8A2787ABDFDE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ConferencesIO.RemoteData.Shared</RootNamespace>
-    <AssemblyName>ConferencesIO.RemoteData.Shared</AssemblyName>
+    <RootNamespace>TekConf.RemoteData.Shared</RootNamespace>
+    <AssemblyName>TekConf.RemoteData.Shared</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

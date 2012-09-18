@@ -1,4 +1,4 @@
-namespace ConferencesIO.LocalData.Shared
+namespace TekConf.LocalData.Shared
 {
   public interface ILocalDatabase
   {
