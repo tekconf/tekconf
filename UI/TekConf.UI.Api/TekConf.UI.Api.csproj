@@ -216,7 +216,7 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="..\..\packages\OctoPack.1.0.109\targets\OctoPack.targets" />
+  <!--<Import Project="..\..\packages\OctoPack.1.0.109\targets\OctoPack.targets" />-->
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
