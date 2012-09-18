@@ -182,7 +182,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Deploy.ps1" />
-    <Content Include="ConferencesIO.UI.Api.nuspec" />
     <None Include="Properties\PublishProfiles\conferencesio - Web Deploy.pubxml" />
   </ItemGroup>
   <ItemGroup>
