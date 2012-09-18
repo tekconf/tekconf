@@ -1,15 +1,16 @@
 ﻿using System.Reflection;
-using System.Resources;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Resources;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("TekConf.UI.WP7")]
+[assembly: AssemblyTitle("TekConf.LocalData.WP7")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("TekConf.UI.WP7")]
+[assembly: AssemblyProduct("TekConf.LocalData.WP7")]
 [assembly: AssemblyCopyright("Copyright ©  2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +21,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("1338a4ab-6d6e-4df3-a8e6-b6928f171b9a")]
+[assembly: Guid("0a78bcc4-3404-45cd-9d75-58a8bbb5b7d0")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using ConferencesIO.RemoteData.Dtos.v1;
-using ConferencesIO.RemoteData.v1;
+using TekConf.RemoteData.Dtos.v1;
+using TekConf.RemoteData.v1;
 using Microsoft.Phone.Controls;
 
-namespace ConferencesIO.UI.WP7
+namespace TekConf.UI.WP7
 {
   public partial class MainPage : PhoneApplicationPage
   {
@@ -18,7 +18,7 @@ namespace ConferencesIO.UI.WP7
     protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
     {
       base.OnNavigatedTo(e);
-      string baseUrl = "http://conferencesioapi.azurewebsites.net/v1/";
+      string baseUrl = "http://api.tekconf.com/v1/";
       var client = new RemoteDataRepository(baseUrl);
 
       client.GetSessions("CodeMash-2012", sessions =>

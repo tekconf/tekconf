@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.1">
-  <App xmlns="" ProductID="{1aace677-019d-47f2-9998-6996482fb0db}" Title="ConferencesIO.UI.WP7" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Conferences.IO author" Description="Sample description" Publisher="Conferences.IO">
+  <App xmlns="" ProductID="{1aace677-019d-47f2-9998-6996482fb0db}" Title="TekConf.UI.WP7" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="TekConf author" Description="Sample description" Publisher="TekConf">
     <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_GAMERSERVICES" />
@@ -22,11 +22,11 @@
       <DefaultTask Name="_default" NavigationPage="MainPage.xaml" />
     </Tasks>
     <Tokens>
-      <PrimaryToken TokenID="ConferencesIO.UI.WP7Token" TaskName="_default">
+      <PrimaryToken TokenID="TekConf.UI.WP7Token" TaskName="_default">
         <TemplateType5>
           <BackgroundImageURI IsRelative="true" IsResource="false">Background.png</BackgroundImageURI>
           <Count>0</Count>
-          <Title>ConferencesIO.UI.WP7</Title>
+          <Title>TekConf.UI.WP7</Title>
         </TemplateType5>
       </PrimaryToken>
     </Tokens>

@@ -2,9 +2,9 @@
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
-using ConferencesIO.UI.SL.Web.Models;
+using TekConf.UI.SL.Web.Models;
 
-namespace ConferencesIO.UI.SL.Web.Controllers
+namespace TekConf.UI.SL.Web.Controllers
 {
 
   [HandleError]

@@ -1,8 +1,8 @@
 ﻿using System.Windows;
-using ConferencesIO.RemoteData.v1;
+using TekConf.RemoteData.v1;
 using Microsoft.Phone.Controls;
 
-namespace ConferencesIO.UI.WP7
+namespace TekConf.UI.WP7
 {
   public partial class SessionDetail : PhoneApplicationPage
   {
@@ -17,7 +17,7 @@ namespace ConferencesIO.UI.WP7
       var conferenceSlug = NavigationContext.QueryString["conferenceSlug"];
       var sessionSlug = NavigationContext.QueryString["sessionSlug"];
 
-      string baseUrl = "http://conferencesioapi.azurewebsites.net/v1/";
+      string baseUrl = "http://api.tekconf.com/v1/";
       var client = new RemoteDataRepository(baseUrl);
 
       client.GetSession("CodeMash-2012", sessionSlug, session =>

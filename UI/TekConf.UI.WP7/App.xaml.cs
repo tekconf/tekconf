@@ -3,7 +3,7 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 
-namespace ConferencesIO.UI.WP7
+namespace TekConf.UI.WP7
 {
   public partial class App : Application
   {

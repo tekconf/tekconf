@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Web.Security;
 
-namespace ConferencesIO.UI.SL.Web.Models
+namespace TekConf.UI.SL.Web.Models
 {
 
   #region Models

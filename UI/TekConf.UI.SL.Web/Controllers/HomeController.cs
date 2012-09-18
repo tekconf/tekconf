@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace ConferencesIO.UI.SL.Web.Controllers
+namespace TekConf.UI.SL.Web.Controllers
 {
   [HandleError]
   public class HomeController : Controller

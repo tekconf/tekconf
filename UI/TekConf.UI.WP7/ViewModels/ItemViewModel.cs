@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace ConferencesIO.UI.WP7
+namespace TekConf.UI.WP7
 {
   public class ItemViewModel : INotifyPropertyChanged
   {

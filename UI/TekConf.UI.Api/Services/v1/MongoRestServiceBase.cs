@@ -5,8 +5,8 @@ namespace TekConf.UI.Api.Services
 {
     public class MongoRestServiceBase<T> : RestServiceBase<T>
     {
-        private MongoServer _remoteServer;
-        private MongoDatabase _remoteDatabase;
+        //private MongoServer _remoteServer;
+        //private MongoDatabase _remoteDatabase;
         private MongoServer _localServer;
         private MongoDatabase _localDatabase;
 
