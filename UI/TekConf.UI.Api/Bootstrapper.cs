@@ -10,6 +10,7 @@ namespace TekConf.UI.Api
             Mapper.CreateMap<ConferenceEntity, ConferencesDto>()
                 .ForMember(dest => dest.url, opt => opt.Ignore());
 
+            Mapper.CreateMap<ConferenceEntity, ConferenceEntity>();
             Mapper.CreateMap<ConferenceEntity, ConferenceDto>()
                 .ForMember(dest => dest.url, opt => opt.Ignore())
                 .ForMember(dest => dest.sessionsUrl, opt => opt.Ignore())
