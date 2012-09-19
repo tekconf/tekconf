@@ -89,6 +89,23 @@ namespace TekConf.RemoteData.v1
 
     //}
 
+    public void GetFeaturedSpeakers(Action<List<SpeakersDto>> callback)
+    {
+        string url = _baseUrl + "speakers/featured";
+
+        var client = new WebClient();
+        client.Encoding = System.Text.Encoding.UTF8;
+        client.Headers[HttpRequestHeader.Accept] = "application/json";
+
+        client.DownloadStringCompleted += (sender, args) =>
+        {
+            var speakers = JsonSerializer.DeserializeFromString<List<SpeakersDto>>(args.Result);
+            callback(speakers);
+        };
+
+        client.DownloadStringAsync(new Uri(url));
+    }
+
     public void GetSpeakers(string conferenceSlug, string sessionSlug, Action<IList<SpeakersDto>> callback)
     {
       string url = _baseUrl + "conferences/" + conferenceSlug + "/speakers";
@@ -210,5 +227,6 @@ namespace TekConf.RemoteData.v1
     //  };
     //  client.UploadStringAsync(new Uri(url), "POST", sessionJson);
     //}
+
   }
 }

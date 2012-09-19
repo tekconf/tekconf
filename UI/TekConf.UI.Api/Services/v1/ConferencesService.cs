@@ -41,6 +41,7 @@ namespace TekConf.UI.Api.Services.v1
         private object GetAllConferences()
         {
             var cacheKey = "GetAllConferences";
+
             return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, () =>
             {
                 var conferencesDtos = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
@@ -60,17 +61,6 @@ namespace TekConf.UI.Api.Services.v1
                   .ThenBy(c => c.start)
                   .ToList();
 
-                //var remoteConferences = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
-                //    .AsQueryable()
-                //    .ToList();
-
-                //var localConferences = this.LocalDatabase.GetCollection<ConferenceEntity>("conferences");
-                //if (!localConferences.AsQueryable().Any())
-                //{
-                //    localConferences.InsertBatch(remoteConferences);
-                //}
-
-                //var conferencesDtos = Mapper.Map<List<ConferenceEntity>, List<ConferencesDto>>(conferences);
                 var resolver = new ConferencesUrlResolver();
                 foreach (var conferencesDto in conferencesDtos)
                 {

@@ -1,4 +1,5 @@
 @using System.Web.Optimization
+@model List<TekConf.RemoteData.Dtos.v1.ConferencesDto>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +9,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    
+
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
 
     @Styles.Render("~/css/home/index")
@@ -56,78 +57,26 @@
                     <div class="span8">
                         <h3><span class="slash">//</span> Upcoming Conferences</h3>
                         <ul class="features-list">
-                            <li class="feature">
-                                <div class="feature-thumbnail">
-                                    <div class="circle-icon">
-                                        <div>
-                                            <i class="icon-list-alt"></i>
+                            @foreach (var featuredConference in Model)
+                            {
+                                <li class="feature">
+                                    <div class="feature-thumbnail">
+                                        <div class="circle-icon">
+                                            <div>
+                                                <i class="icon-list-alt"></i>
+                                            </div>
                                         </div>
+                                        <!-- /circle-icon -->
                                     </div>
-                                    <!-- /circle-icon -->
-                                </div>
-                                <!-- /feature-thumbnail -->
 
-                                <div class="feature-content">
-                                    <h3>That Conference</h3>
-                                    <h3>August 13-15, 2012</h3>
-                                    <p>With over 150 sessions to choose from, your head will eventually start to overheat. Cool off in one of the many nearby pools, because unlike your traditional technology conference, you will be camping at a giant indoor waterpark. Be sure to follow us on twitter and check us out on facebook. Then start practicing your cannon balls.</p>
-                                </div>
-                                <!-- /feature-content -->
-                            </li>
-                            <li class="feature">
-                                <div class="feature-thumbnail">
-                                    <div class="circle-icon">
-                                        <div>
-                                            <i class="icon-flag"></i>
-                                        </div>
+                                    <div class="feature-content">
+                                        <h3>@featuredConference.name</h3>
+                                        <h3>@featuredConference.start.ToString("MMMM dd, yyyy")</h3>
+                                        <p>@featuredConference.description</p>
                                     </div>
-                                    <!-- /circle-icon -->
-                                </div>
-                                <!-- /feature-thumbnail -->
+                                </li>
+                            }
 
-                                <div class="feature-content">
-                                    <h3>MonkeySpace</h3>
-                                    <h3>October 17-19, 2012</h3>
-                                    <p>MonkeySpace is the official cross platform and open-source .NET conference. Want to learn more about developing for the iPhone, Android, Mac, and *nix platforms using .NET technologies? How about developing games or learning more about open-source projects using .NET technologies? MonkeySpace has provided an annual venue to collaborate, share, and socialize around these topics and more.</p>
-                                </div>
-                                <!-- /feature-content -->
-                            </li>
-                            <li class="feature">
-                                <div class="feature-thumbnail">
-                                    <div class="circle-icon">
-                                        <div>
-                                            <i class="icon-resize-small"></i>
-                                        </div>
-                                    </div>
-                                    <!-- /circle-icon -->
-                                </div>
-                                <!-- /feature-thumbnail -->
-
-                                <div class="feature-content">
-                                    <h3>Codemash</h3>
-                                    <h3>January 8-11, 2013</h3>
-                                    <p>CodeMash is a unique event that will educate developers on current practices, methodologies, and technology trends in a variety of platforms and development languages such as Java, .Net, Ruby, Python and PHP.</p>
-                                </div>
-                                <!-- /feature-content -->
-                            </li>
-                            <li class="feature">
-                                <div class="feature-thumbnail">
-                                    <div class="circle-icon">
-                                        <div>
-                                            <i class="icon-tint"></i>
-                                        </div>
-                                    </div>
-                                    <!-- /circle-icon -->
-                                </div>
-                                <!-- /feature-thumbnail -->
-
-                                <div class="feature-content">
-                                    <h3>//build</h3>
-                                    <h3>October 30 - November 2, 2012</h3>
-                                    <p>At Build, we’ll dive deep to cover all the areas you care about. How to design and build beautiful Windows 8 apps. How to sell your apps in the Windows 8 Store and make money. And much more.</p>
-                                </div>
-                                <!-- /feature-content -->
-                            </li>
 
                         </ul>
                         <!-- /features-list -->

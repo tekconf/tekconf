@@ -114,7 +114,9 @@
     <Content Include="clientaccesspolicy.xml" />
     <Content Include="Global.asax" />
     <Content Include="OctoPack-Readme.txt" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -125,6 +127,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppHost.cs" />
+    <Compile Include="Requests\v1\FeaturedSpeakersRequest.cs" />
+    <Compile Include="Services\v1\FeaturedSpeakersService.cs" />
     <Compile Include="UrlResolvers\BaseUrlResolver.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Global.asax.cs">
