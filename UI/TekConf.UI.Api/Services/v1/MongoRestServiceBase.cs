@@ -1,3 +1,4 @@
+using System.Configuration;
 using MongoDB.Driver;
 using ServiceStack.ServiceInterface;
 
@@ -35,7 +36,8 @@ namespace TekConf.UI.Api.Services
             {
                 if (_localServer == null)
                 {
-                    _localServer = MongoServer.Create("mongodb://localhost/conferences");
+                    var mongoServer = ConfigurationManager.AppSettings["MongoServer"];
+                    _localServer = MongoServer.Create(mongoServer);
                 }
 
                 if (_localDatabase == null)
