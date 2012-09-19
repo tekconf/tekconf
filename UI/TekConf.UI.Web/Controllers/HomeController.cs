@@ -16,8 +16,7 @@ namespace TekConf.UI.Web.Controllers
             string baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
             var repository = new RemoteDataRepository(baseUrl);
 
-            AsyncManager.OutstandingOperations.Increment();
-            AsyncManager.OutstandingOperations.Increment();
+            AsyncManager.OutstandingOperations.Increment(2);
 
             repository.GetConferences(conferences =>
             {
@@ -36,8 +35,13 @@ namespace TekConf.UI.Web.Controllers
         public ActionResult IndexCompleted(List<ConferencesDto> conferences, List<SpeakersDto> featuredSpeakers)
         {
             var filteredConferences = conferences.Where(c => c.start >= DateTime.Now.AddDays(-2)).OrderByDescending(c => c.start).Take(4).ToList();
-            
-            return View(filteredConferences);
+
+            var vm = new HomePageViewModel()
+                         {
+                             FeaturedConferences = filteredConferences,
+                             FeaturedSpeakers = featuredSpeakers
+                         };
+            return View(vm);
         }
 
     }

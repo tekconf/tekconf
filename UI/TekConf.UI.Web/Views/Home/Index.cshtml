@@ -1,5 +1,5 @@
 @using System.Web.Optimization
-@model List<TekConf.RemoteData.Dtos.v1.ConferencesDto>
+@model TekConf.UI.Web.Controllers.HomePageViewModel
 <!DOCTYPE html>
 <html lang="en">
 
@@ -57,7 +57,7 @@
                     <div class="span8">
                         <h3><span class="slash">//</span> Upcoming Conferences</h3>
                         <ul class="features-list">
-                            @foreach (var featuredConference in Model)
+                            @foreach (var featuredConference in Model.FeaturedConferences)
                             {
                                 <li class="feature">
                                     <div class="feature-thumbnail">
@@ -88,56 +88,26 @@
                     <div class="span4">
                         <h3><span class="slash">//</span> Featured Speakers</h3>
                         <ul class="testimonials-list">
-                            <li>
-                                <div class="testimonial-avatar">
-                                    <div class="img">
-                                        <img src="~/img/avatar.png" alt="Thumbnail" />
+                            @foreach (var featuredSpeaker in Model.FeaturedSpeakers)
+                            {
+                                <li>
+                                    <div class="testimonial-avatar">
+                                        <div class="img">
+                                            <img src="~/img/avatar.png" alt="Thumbnail" />
+                                        </div>
                                     </div>
-                                </div>
-                                <!-- /testimonial-avatar -->
+                                    <!-- /testimonial-avatar -->
 
-                                <div class="testimonial-text">
-                                    <p>
-                                        <span class="testimonial-author">Scott Hanselman</span>
-                                        Scott Hanselman is a former professor, former Chief Architect in finance, now speaker, consultant, father, diabetic, and Microsoft employee. I am a failed stand-up comic, a cornrower, and a book author.
-                                    </p>
-                                </div>
-                                <!-- /testimonial-text -->
-                            </li>
-                            <li>
-                                <div class="testimonial-avatar">
-                                    <div class="img">
-                                        <img src="~/img/avatar2.png" alt="Thumbnail" />
+                                    <div class="testimonial-text">
+                                        <p>
+                                            <span class="testimonial-author">@featuredSpeaker.fullName</span>
+                                            @featuredSpeaker.description
+                                            </p>
                                     </div>
-                                </div>
-                                <!-- /testimonial-avatar -->
-
-                                <div class="testimonial-text">
-                                    <p>
-                                        <span class="testimonial-author">Richard Campbell</span>
-                                        Richard Campbell is one of the co-founders of Strangeloop Networks and today serves as product evangelist, introducing the company's unique story to advisors, investors, patent attorneys, beta-customer candidates, potential employees, etc. Richard has more than 30 years of high-tech experience and is both a Microsoft Regional Director and Microsoft Most Valuable Professional (MVP).
-										
-                                    </p>
-                                </div>
-                                <!-- /testimonial-text -->
-                            </li>
-                            <li>
-                                <div class="testimonial-avatar">
-                                    <div class="img">
-                                        <img src="~/img/avatar3.png" alt="Thumbnail" />
-                                    </div>
-                                </div>
-                                <!-- /testimonial-avatar -->
-
-                                <div class="testimonial-text">
-                                    <p>
-                                        <span class="testimonial-author">Rob Conery</span>
-                                        I am the Co-Founder of Tekpub.com Creator of This Developer's Life, an Author, Speaker, A bit of a malcontent, and care for many, many Open Source libraries such as Massive, SubSonic, and Manatee
-										
-                                    </p>
-                                </div>
-                                <!-- /testimonial-text -->
-                            </li>
+                                    <!-- /testimonial-text -->
+                                </li>
+                            }
+                            
                         </ul>
                     </div>
                     <!-- /span4 -->

@@ -1,13 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using AutoMapper;
-using TekConf.RemoteData.Dtos.v1;
+﻿using System.Linq;
 using TekConf.UI.Api.Services.Requests.v1;
-using TekConf.UI.Api.UrlResolvers.v1;
 using FluentMongo.Linq;
 using ServiceStack.CacheAccess;
-using ServiceStack.Common.Web;
 using ServiceStack.ServiceHost;
 
 namespace TekConf.UI.Api.Services.v1
@@ -15,14 +9,11 @@ namespace TekConf.UI.Api.Services.v1
     public class FeaturedSpeakersService : MongoRestServiceBase<FeaturedSpeakersRequest>
     {
         public ICacheClient CacheClient { get; set; }
-        static HttpError SpeakerNotFound = HttpError.NotFound("Speaker not found") as HttpError;
-        static HashSet<string> NonExistingSpeakers = new HashSet<string>();
 
         public override object OnGet(FeaturedSpeakersRequest request)
         {
             return GetAllSpeakers(request);
         }
-
 
         private object GetAllSpeakers(FeaturedSpeakersRequest request)
         {
@@ -30,11 +21,21 @@ namespace TekConf.UI.Api.Services.v1
             return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, () =>
             {
                 var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
-                var featuredSpeakers = collection.AsQueryable().Select(c => new SpeakersDto() { });
+
+                var featuredSpeakers = collection
+                                        .AsQueryable()
+                                        .ToList()
+                                        .Where(c => c.sessions != null)
+                                        .SelectMany(c => c.sessions)
+                                        .Where(s => s.speakers != null)
+                                        .SelectMany(s => s.speakers)
+                                        .Where(s => s.isFeatured)
+                                        .Where(s => !string.IsNullOrWhiteSpace(s.description))
+                                        .Distinct()
+                                        .Take(3);
 
                 return featuredSpeakers.ToList();
             });
-
 
         }
     }

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using AutoMapper;
@@ -7,11 +6,9 @@ using TekConf.RemoteData.Dtos.v1;
 using TekConf.UI.Api.Services.Requests.v1;
 using TekConf.UI.Api.UrlResolvers.v1;
 using FluentMongo.Linq;
-using MongoDB.Driver;
 using ServiceStack.CacheAccess;
 using ServiceStack.Common.Web;
 using ServiceStack.ServiceHost;
-using ServiceStack.Text;
 
 namespace TekConf.UI.Api.Services.v1
 {
@@ -41,6 +38,15 @@ namespace TekConf.UI.Api.Services.v1
         private object GetAllConferences()
         {
             var cacheKey = "GetAllConferences";
+
+            //var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
+            //var thatConf = collection.AsQueryable().Where(c => c.slug == "ThatConference-2012").FirstOrDefault();
+            //var nextConf = Mapper.Map<ConferenceEntity>(thatConf);
+            //nextConf._id = Guid.NewGuid();
+            //nextConf.start = thatConf.start.AddYears(1);
+            //nextConf.end = thatConf.end.AddYears(1);
+            //nextConf.slug = "ThatConference-2013";
+            //collection.Save(nextConf);
 
             return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, () =>
             {
@@ -76,12 +82,6 @@ namespace TekConf.UI.Api.Services.v1
             var cacheKey = "GetSingleConference-" + request.conferenceSlug;
             return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, () =>
             {
-                //This delegate will be executed if the cache doesn't have an item
-                //with the provided key
-
-                //Return here your response DTO
-                //It will be cached automatically
-
                 var conference = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
                 .AsQueryable()
                 .SingleOrDefault(c => c.slug == request.conferenceSlug);
@@ -109,12 +109,6 @@ namespace TekConf.UI.Api.Services.v1
             var cacheKey = "GetFullSingleConference-" + request.conferenceSlug;
             return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, () =>
             {
-                //This delegate will be executed if the cache doesn't have an item
-                //with the provided key
-
-                //Return here your response DTO
-                //It will be cached automatically
-
                 var conference = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
                 .AsQueryable()
                 .SingleOrDefault(c => c.slug == request.conferenceSlug);
@@ -124,28 +118,7 @@ namespace TekConf.UI.Api.Services.v1
                     throw new HttpError(HttpStatusCode.NotFound, "Conference not found.");
                 }
 
-  
-
                 var conferenceDto = Mapper.Map<ConferenceEntity, FullConferenceDto>(conference);
-
-                //var sessions = conferenceDto.sessions;
-                //var sessionResults = sessions.GroupBy(s => new { s.start.Year, s.start.Month, s.start.Day }).Select(s => new { DateKey = s.Key, Sessions = s }).ToList();
-
-                //foreach (var dayGroup in sessionResults)
-                //{
-                //    foreach (var session in dayGroup.Sessions)
-                //    {
-
-                //    }
-                //}
-
-                //var conferenceUrlResolver = new ConferenceUrlResolver(conferenceDto.slug);
-                //var conferenceSessionsUrlResolver = new ConferenceSessionsUrlResolver(conferenceDto.slug);
-                //var conferenceSpeakersUrlResolver = new ConferenceSpeakersUrlResolver(conferenceDto.slug);
-
-                //conferenceDto.url = conferenceUrlResolver.ResolveUrl();
-                //conferenceDto.sessionsUrl = conferenceSessionsUrlResolver.ResolveUrl();
-                //conferenceDto.speakersUrl = conferenceSpeakersUrlResolver.ResolveUrl();
 
                 return conferenceDto;
             });
