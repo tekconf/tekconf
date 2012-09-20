@@ -91,12 +91,12 @@
                                                 <tr>
                                                     <td><a href="#" class="btn btn-mini btn-inverse">Add to Schedule</a></td>
                                                     <td>
-                                                        @Html.ActionLink(session.title, "Detail", "Session", new { conferenceSlug = Model.slug, sessionSlug = session.slug }, null)
+                                                        @Html.RouteLink(session.title, "SessionDetail", new { conferenceSlug = Model.slug, sessionSlug = session.slug }, null)
                                                     </td>
                                                     <td>
                                                         @foreach (var speaker in session.speakers)
                                                         {
-                                                            @Html.ActionLink(@speaker.firstName + " " + @speaker.lastName, "Detail", "Speaker", new { conferenceSlug = Model.slug, speakerSlug = speaker.slug });
+                                                            @Html.RouteLink(speaker.firstName + " " + @speaker.lastName, "SessionSpeakerDetail", new { conferenceSlug = Model.slug, sessionSlug = session.slug, speakerSlug = speaker.slug }, null)
                                                         }
                                                     </td>
                                                 </tr>                                

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace TekConf.UI.Web
@@ -16,8 +12,11 @@ namespace TekConf.UI.Web
             routes.MapRoute(name: "Detail", url: "Conferences/{conferenceSlug}",
                 defaults: new { controller = "Conferences", action = "Detail" });
 
-            routes.MapRoute(name: "SessionDetail", url: "Conferences/{conferenceSlug}/{slug}",
+            routes.MapRoute(name: "SessionDetail", url: "Conferences/{conferenceSlug}/{sessionSlug}",
                 defaults: new { controller = "Session", action = "Detail" });
+
+            routes.MapRoute(name: "SessionSpeakerDetail", url: "Conferences/{conferenceSlug}/{sessionSlug}/{speakerSlug}",
+                defaults: new { controller = "Speaker", action = "Detail" });
 
             routes.MapRoute(
                 name: "Default",

@@ -557,6 +557,7 @@
     <Content Include="Views\Speaker\Index.cshtml" />
     <Content Include="Views\Shared\Footer.cshtml" />
     <Content Include="Views\Shared\Header.cshtml" />
+    <Content Include="Views\Speaker\Detail.cshtml" />
     <None Include="Views\Web.Debug.config" />
     <None Include="Views\Web.Release.config" />
   </ItemGroup>

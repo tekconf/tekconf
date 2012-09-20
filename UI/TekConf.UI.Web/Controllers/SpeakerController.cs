@@ -47,14 +47,20 @@ namespace TekConf.UI.Web.Controllers
       return View();
     }
 
-    public void DetailsAsync(object conferenceslug, string slug)
+    public void DetailAsync(string conferenceSlug, string sessionSlug, string speakerSlug)
     {
-      throw new NotImplementedException();
+        var remoteData = new RemoteDataRepository(BaseUrl());
+        AsyncManager.OutstandingOperations.Increment();
+        remoteData.GetSpeaker(conferenceSlug, speakerSlug, speaker =>
+        {
+            AsyncManager.Parameters["speaker"] = speaker;
+            AsyncManager.OutstandingOperations.Decrement();
+        });
     }
 
-    public ActionResult DetailsCompleted()
+    public ActionResult DetailCompleted(SpeakerDto speaker)
     {
-      throw new NotImplementedException();
+        return View(speaker);
     }
   }
 }
