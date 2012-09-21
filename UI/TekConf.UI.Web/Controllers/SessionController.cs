@@ -36,6 +36,7 @@ namespace TekConf.UI.Web.Controllers
       AsyncManager.OutstandingOperations.Increment();
       remoteData.GetSession(conferenceSlug, sessionSlug, session =>
       {
+        session.conferenceSlug = conferenceSlug;
         AsyncManager.Parameters["session"] = session;
         AsyncManager.OutstandingOperations.Decrement();
       });
@@ -46,66 +47,5 @@ namespace TekConf.UI.Web.Controllers
       return View(session);
     }
 
-    public ActionResult Create()
-    {
-      return View();
-    }
-
-    [HttpPost]
-    public void CreateAsync(SessionDto session)
-    {
-      var remoteData = new RemoteDataRepository(BaseUrl());
-      AsyncManager.OutstandingOperations.Increment();
-      //remoteData.AddSession(session, b =>
-      //{
-        //AsyncManager.Parameters["conference"] = conference;
-        AsyncManager.OutstandingOperations.Decrement();
-      //});
-    }
-
-    public ActionResult CreateCompleted()
-    {
-      return RedirectToAction("Index");
-    }
-
-    public ActionResult Edit(int id)
-    {
-      return View();
-    }
-
-    [HttpPost]
-    public ActionResult Edit(int id, FormCollection collection)
-    {
-      try
-      {
-        // TODO: Add update logic here
-
-        return RedirectToAction("Index");
-      }
-      catch
-      {
-        return View();
-      }
-    }
-
-    public ActionResult Delete(int id)
-    {
-      return View();
-    }
-
-    [HttpPost]
-    public ActionResult Delete(int id, FormCollection collection)
-    {
-      try
-      {
-        // TODO: Add delete logic here
-
-        return RedirectToAction("Index");
-      }
-      catch
-      {
-        return View();
-      }
-    }
   }
 }

@@ -56,60 +56,60 @@
             }
 
             <div class="span9">
-                
-             
-                        @foreach (var dayGroup in sessionGroup.OrderBy(s => s.DateKey.Year).ThenBy(s => s.DateKey.Month).ThenBy(s => s.DateKey.Day))
-                        {
-                            var date = DateTime.Parse(dayGroup.DateKey.Month + "/" + dayGroup.DateKey.Day + "/" + dayGroup.DateKey.Year);
-                            var tabName = date.ToString("dddd, MMMM d", CultureInfo.CreateSpecificCulture("en-US")).Replace(" ", "").Replace(",", "");
-                            var dateString = date.ToString("dddd, MMMM d", CultureInfo.CreateSpecificCulture("en-US"));
 
-                                <div class="row">
-                                    <div class="span12">
-                                        <h3>
 
-                                            <span class="slash">//</span> @dateString
-                                        </h3>
-                                    </div>
-                                    <!-- /span12 -->
-                                    <table class="table">
-                                        <tbody>
-                                            @{
-                                                var sessionTimes = dayGroup.Sessions
-                                                    .GroupBy(s => new { s.start })
-                                                    .Select(s => new { DateKey = s.Key, Sessions = s })
-                                                    .ToList();
-                                            }
-                                            @foreach (var sessionTime in sessionTimes)
-                                            {
-                                                <tr>
-                                                    <td colspan="3">@sessionTime.DateKey.start.ToShortTimeString()</td>
-                                                </tr>
-                                                foreach (var session in sessionTime.Sessions.OrderBy(s => s.start.TimeOfDay))
-                                                {
+                @foreach (var dayGroup in sessionGroup.OrderBy(s => s.DateKey.Year).ThenBy(s => s.DateKey.Month).ThenBy(s => s.DateKey.Day))
+                {
+                    var date = DateTime.Parse(dayGroup.DateKey.Month + "/" + dayGroup.DateKey.Day + "/" + dayGroup.DateKey.Year);
+                    var tabName = date.ToString("dddd, MMMM d", CultureInfo.CreateSpecificCulture("en-US")).Replace(" ", "").Replace(",", "");
+                    var dateString = date.ToString("dddd, MMMM d", CultureInfo.CreateSpecificCulture("en-US"));
+
+                    <div class="row">
+                        <div class="span12">
+                            <h3>
+
+                                <span class="slash">//</span> @dateString
+                            </h3>
+                        </div>
+                        <!-- /span12 -->
+                        <table class="table">
+                            <tbody>
+                                @{
+                    var sessionTimes = dayGroup.Sessions
+                        .GroupBy(s => new { s.start })
+                        .Select(s => new { DateKey = s.Key, Sessions = s })
+                        .ToList();
+                                }
+                                @foreach (var sessionTime in sessionTimes)
+                                {
+                                    <tr>
+                                        <td colspan="3">@sessionTime.DateKey.start.ToShortTimeString()</td>
+                                    </tr>
+                                    foreach (var session in sessionTime.Sessions.OrderBy(s => s.start.TimeOfDay))
+                                    {
                                 
-                                                <tr>
-                                                    <td><a href="#" class="btn btn-mini btn-inverse">Add to Schedule</a></td>
-                                                    <td>
-                                                        @Html.RouteLink(session.title, "SessionDetail", new { conferenceSlug = Model.slug, sessionSlug = session.slug }, null)
-                                                    </td>
-                                                    <td>
-                                                        @foreach (var speaker in session.speakers)
-                                                        {
-                                                            @Html.RouteLink(speaker.firstName + " " + @speaker.lastName, "SessionSpeakerDetail", new { conferenceSlug = Model.slug, sessionSlug = session.slug, speakerSlug = speaker.slug }, null)
-                                                        }
-                                                    </td>
-                                                </tr>                                
-                                                }
+                                    <tr>
+                                        <td><a href="#" class="btn btn-mini btn-inverse">Add to Schedule</a></td>
+                                        <td>
+                                            @Html.RouteLink(session.title, "SessionDetail", new { conferenceSlug = Model.slug, sessionSlug = session.slug }, null)
+                                        </td>
+                                        <td>
+                                            @foreach (var speaker in session.speakers)
+                                            {
+                                                @Html.RouteLink(speaker.fullName, "SessionSpeakerDetail", new { conferenceSlug = Model.slug, sessionSlug = session.slug, speakerSlug = speaker.slug }, null)
                                             }
-                                        </tbody>
-                                    </table>
-                                </div>
-
-                        }
-
+                                        </td>
+                                    </tr>                                
+                                    }
+                                }
+                            </tbody>
+                        </table>
                     </div>
-     
+
+                }
+
+            </div>
+
             <br />
             <br />
 
@@ -117,63 +117,8 @@
         <!-- /container -->
     </div>
     <!-- /subpage -->
-    <div id="extra">
-        <div class="inner">
-            <div class="container">
-                <div class="row">
-                    <div class="span4">
-                        <h3>
-                            <span class="slash">//</span> Quick Links</h3>
-                        <ul class="footer-links clearfix">
-                            <li><a href="~/">Home</a></li>
-                            <li><a href="~/Conferences">Conferences</a></li>
-                            <li><a href="~/Schedule">My Schedule</a></li>
-                        </ul>
-                        <ul class="footer-links clearfix">
-                            <li><a href="~/Api">Api</a></li>
-                            <li><a href="~/Apps">Apps</a></li>
-                        </ul>
-                    </div>
-                    <!-- /span4 -->
-                    <div class="span4">
-                        <h3>
-                            <span class="slash">//</span> Stay In Touch</h3>
-                        <p>
-                            There are real people behind tekconf, so if you have a question or suggestion (no matter how small) please get in touch with us:
-                        </p>
-                        <ul class="social-icons-container">
-                            <li><a href="javascript:;" class="social-icon social-icon-twitter">Twitter </a></li>
-                            <li><a href="javascript:;" class="social-icon social-icon-googleplus">Google + </a>
-                            </li>
-                            <li><a href="javascript:;" class="social-icon social-icon-facebook">Facebook </a>
-                            </li>
-                        </ul>
-                        <!-- /extra-social -->
-                    </div>
-                    <!-- /span4 -->
-                    <div class="span4">
-                        <h3>
-                            <span class="slash">//</span> Subscribe and get updates</h3>
-                        <p>
-                            Subscribe to our newsletter and get exclusive deals you wont find anywhere else
-              straight to your inbox!
-                        </p>
-                        <form>
-                            <input type="text" name="subscribe_email" placeholder="Your Email" />
-                            <br />
-                            <button class="btn ">
-                                Subscribe</button>
-                        </form>
-                    </div>
-                    <!-- /span4 -->
-                </div>
-                <!-- /row -->
-            </div>
-            <!-- /container -->
-        </div>
-        <!-- /inner -->
-    </div>
-    <!-- /extra -->
+
+    @Html.Partial("Extra")
 
     @Html.Partial("Footer")
 
