@@ -47,8 +47,8 @@ namespace TekConf.UI.Api.Services.v1
             //nextConf.end = thatConf.end.AddYears(1);
             //nextConf.slug = "ThatConference-2013";
             //collection.Save(nextConf);
-
-            return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, () =>
+            var expireInTimespan = new TimeSpan(0, 0, 20);
+            return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
             {
                 var conferencesDtos = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
                   .AsQueryable()
@@ -80,7 +80,8 @@ namespace TekConf.UI.Api.Services.v1
         private object GetSingleConference(ConferencesRequest request)
         {
             var cacheKey = "GetSingleConference-" + request.conferenceSlug;
-            return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, () =>
+            var expireInTimespan = new TimeSpan(0, 0, 20);
+            return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
             {
                 var conference = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
                 .AsQueryable()
@@ -107,7 +108,8 @@ namespace TekConf.UI.Api.Services.v1
         private object GetFullSingleConference(ConferencesRequest request)
         {
             var cacheKey = "GetFullSingleConference-" + request.conferenceSlug;
-            return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, () =>
+            var expireInTimespan = new TimeSpan(0, 0, 20);
+            return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
             {
                 var conference = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
                 .AsQueryable()

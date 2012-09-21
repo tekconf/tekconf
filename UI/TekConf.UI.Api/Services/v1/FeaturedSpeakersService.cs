@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using TekConf.UI.Api.Services.Requests.v1;
 using FluentMongo.Linq;
 using ServiceStack.CacheAccess;
@@ -18,7 +19,8 @@ namespace TekConf.UI.Api.Services.v1
         private object GetAllSpeakers(FeaturedSpeakersRequest request)
         {
             var cacheKey = "GetFeaturedSpeakers";
-            return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, () =>
+            var expireInTimespan = new TimeSpan(0, 0, 20);
+            return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
             {
                 var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
 

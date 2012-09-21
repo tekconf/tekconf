@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using AutoMapper;
@@ -60,7 +61,8 @@ namespace TekConf.UI.Api.Services.v1
                 }
             }
 
-            return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, () =>
+            var expireInTimespan = new TimeSpan(0, 0, 20);
+            return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
             {
                 var conference = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
                         .AsQueryable()
@@ -128,7 +130,8 @@ namespace TekConf.UI.Api.Services.v1
             }
 
             var cacheKey = "GetAllSpeakers-" + request.conferenceSlug;
-            return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, () =>
+            var expireInTimespan = new TimeSpan(0, 0, 20);
+            return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
             {
                 var conference = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
                 .AsQueryable()
@@ -180,7 +183,8 @@ namespace TekConf.UI.Api.Services.v1
 
 
         //var cacheKey = "";
-        //return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, () =>
+        //var expireInTimespan = new TimeSpan(0, 0, 20);
+        //return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
         //{
 
         //});

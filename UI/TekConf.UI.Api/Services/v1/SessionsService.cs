@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -58,9 +59,9 @@ namespace TekConf.UI.Api.Services.v1
         {
           throw SessionNotFound;
         }
-      } 
-
-      return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, () =>
+      }
+      var expireInTimespan = new TimeSpan(0, 0, 20);
+      return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
       {
         var conference = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences").AsQueryable()
           //.Where(s => s.slug == request.sessionSlug)
@@ -128,8 +129,8 @@ namespace TekConf.UI.Api.Services.v1
           throw ConferenceNotFound;
         }
       }
-
-      return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, () =>
+      var expireInTimespan = new TimeSpan(0, 0, 20);
+      return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
       {
         var conference =
         this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences").AsQueryable().SingleOrDefault(

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net;
 using TekConf.UI.Api.Services.Requests.v1;
 using FluentMongo.Linq;
@@ -40,7 +41,8 @@ namespace TekConf.UI.Api.Services.v1
     private object GetSingleSessionResources(SessionResourcesRequest request, ConferenceEntity conference)
     {
       var cacheKey = "GetSingleSessionResources-" + request.conferenceSlug + "-" + request.sessionSlug;
-      return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, () =>
+      var expireInTimespan = new TimeSpan(0, 0, 20);
+      return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
       {
         var session = conference.sessions.FirstOrDefault(s => s.slug == request.sessionSlug);
         if (session == null)

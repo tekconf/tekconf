@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Net;
 using AutoMapper;
@@ -29,7 +30,8 @@ namespace TekConf.UI.Api.v1
     private object GetSingleSchedule(ScheduleRequest request)
     {
       var cacheKey = "GetSingleSchedule-" + request.conferenceSlug + "-" + request.userSlug;
-      return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, () =>
+      var expireInTimespan = new TimeSpan(0, 0, 20);
+      return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
           {
             var schedule = this.RemoteDatabase.GetCollection<ScheduleEntity>("schedules")
               .AsQueryable()

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -57,7 +58,8 @@ namespace TekConf.UI.Api.Services.v1
     private object GetSingleSpeaker(SessionSpeakersRequest request, SessionEntity session)
     {
       var cacheKey = "GetSingleSpeaker-" + request.conferenceSlug + "-" + request.sessionSlug + "-" + request.speakerSlug;
-      return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, () =>
+      var expireInTimespan = new TimeSpan(0, 0, 20);
+      return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
       {
         var speaker = session.speakers.FirstOrDefault(s => s.slug == request.speakerSlug);
 
@@ -73,7 +75,8 @@ namespace TekConf.UI.Api.Services.v1
     private object GetAllSpeakers(SessionSpeakersRequest request, SessionEntity session)
     {
       var cacheKey = "GetAllSpeakers-" + request.conferenceSlug + "-" + request.sessionSlug;
-      return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, () =>
+      var expireInTimespan = new TimeSpan(0, 0, 20);
+      return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
       {
         var speakersDtos = Mapper.Map<List<SpeakerEntity>, List<SpeakersDto>>(session.speakers);
         var resolver = new SpeakersUrlResolver(request.conferenceSlug, request.sessionSlug);
