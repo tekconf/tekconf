@@ -31,22 +31,6 @@ namespace TekConf.UI.Web.Controllers
       return View(speakers);
     }
 
-    [HttpPost]
-    public void CreateAsync(SpeakerDto speaker)
-    {
-      var remoteData = new RemoteDataRepository(BaseUrl());
-      AsyncManager.OutstandingOperations.Increment();
-      //remoteData.AddSpeaker(speaker, b =>
-      //{
-        //AsyncManager.Parameters["conference"] = conference;
-        AsyncManager.OutstandingOperations.Decrement();
-      //});
-    }
-
-    public ActionResult Create()
-    {
-      return View();
-    }
 
     public void DetailAsync(string conferenceSlug, string sessionSlug, string speakerSlug)
     {
@@ -100,11 +84,16 @@ namespace TekConf.UI.Web.Controllers
                                       twitterHashTag = s.twitterHashTag,
                                   };
 
+        var profileImage = new GravatarImage();
+        
+        var profileImageUrl = profileImage.GetURL("robgibbens@gmail.com", 100, "pg"); //TODO
+        speaker.profileImageUrl = profileImageUrl;
+
         var viewModel = new SpeakerDetailViewModel()
                      {
                          Conference = conferenceDto,
                          Speaker = speaker,
-                         Sessions = sessions.ToList()
+                         Sessions = sessions.ToList(),
                      };
 
         return View(viewModel);

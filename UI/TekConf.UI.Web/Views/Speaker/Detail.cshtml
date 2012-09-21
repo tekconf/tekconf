@@ -44,7 +44,12 @@
         <div class="container">
             <div class="row">
                 <div class="span12">
-                    <div class="big-intro">@Model.Speaker.fullName</div>
+                    <div class="big-intro">
+                        <div class="img">
+                            <img src="@Model.Speaker.profileImageUrl" alt="@Model.Speaker.fullName" />
+                        </div>
+                        &nbsp;@Model.Speaker.fullName
+                    </div>
                 </div>
                 <!-- /span12 -->
             </div>
@@ -73,27 +78,27 @@
                             @if (!string.IsNullOrWhiteSpace(Model.Speaker.blogUrl))
                             {
                                 <b>Website :</b>
-                                @HtmlHelpers.SimpleLink(Model.Speaker.blogUrl, Model.Speaker.blogUrl )<br />
+                                @HtmlHelpers.SimpleLink(Model.Speaker.blogUrl, Model.Speaker.blogUrl)<br />
                             }
-                            
+
                             @if (!string.IsNullOrWhiteSpace(Model.Speaker.emailAddress))
                             {
                                 <b>Email :</b>
                                 @Model.Speaker.emailAddress<br />
                             }
-                            
+
                             @if (!string.IsNullOrWhiteSpace(Model.Speaker.facebookUrl))
                             {
                                 <b>Facebook :</b>
-                                @HtmlHelpers.SimpleLink(Model.Speaker.facebookUrl,Model.Speaker.facebookUrl)<br />
+                                @HtmlHelpers.SimpleLink(Model.Speaker.facebookUrl, Model.Speaker.facebookUrl)<br />
                             }
-                            
+
                             @if (!string.IsNullOrWhiteSpace(Model.Speaker.linkedInUrl))
                             {
                                 <b>Linked :</b>
                                 @HtmlHelpers.SimpleLink(Model.Speaker.linkedInUrl, Model.Speaker.linkedInUrl)<br />
                             }
-                            
+
                             @if (!string.IsNullOrWhiteSpace(Model.Speaker.twitterName))
                             {
                                 <b>Twitter :</b>
@@ -133,12 +138,10 @@
                     
                     <div class="span4">
                         <div class="about-user">
-                            <div class="img">
-                                <img src="~/img/avatar.png" alt="@session.title" />
-                            </div>
-                
                             <h4>@Html.RouteLink(session.title, "SessionDetail", new { conferenceSlug = Model.Conference.slug, sessionSlug = session.slug }, null)</h4>
-
+                            
+                            @HtmlHelpers.FormatSessionTime(session.start, session.end)<br />@session.room<br/>
+                            <a href="#" class="btn btn-small btn-primary btn-inverse">Add to Schedule</a><br/><br/>
                             <p>@session.description</p>
                         </div>
                         <!-- /about-user -->

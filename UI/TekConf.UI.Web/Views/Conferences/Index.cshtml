@@ -51,7 +51,7 @@
                                 <img src="@conference.imageUrl" alt="@conference.name">
                                 <div class="caption">
                                     <h3>@conference.name</h3>
-                                    <h4>@DateRange.FormatDateRange(conference.start, conference.end)<br />@conference.location</h4>
+                                    <h4>@HtmlHelpers.FormatDateRange(conference.start, conference.end)<br />@conference.location</h4>
                                     <p style="height: 231px;">
                                         @conference.description
                                     </p>

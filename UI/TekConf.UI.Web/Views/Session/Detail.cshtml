@@ -55,9 +55,9 @@
             <div class="row">
                 <div class="span6">
                     <p>@Model.description</p>
+                    <a href="#" class="btn btn-large btn-primary btn-inverse">Add to Schedule</a>
                 </div>
                 <!-- /span6 -->
-
 
                 <div class="span4">
                     <div class="sidebar">
@@ -137,7 +137,7 @@
                     <div class="span4">
                         <div class="about-user">
                             <div class="img">
-                                <img src="~/img/avatar.png" alt="@speaker.fullName" />
+                                <img src="@speaker.profileImageUrl" alt="@speaker.fullName" />
                             </div>
 
                             <h4>@Html.RouteLink(speaker.fullName, "SessionSpeakerDetail", new { conferenceSlug = Model.conferenceSlug, sessionSlug = Model.slug, speakerSlug = speaker.slug }, null)</h4>

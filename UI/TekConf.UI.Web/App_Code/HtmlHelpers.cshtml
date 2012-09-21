@@ -23,3 +23,20 @@
         @: @SimpleLink(url, twitterName)
     }
 }
+
+@helper FormatDateRange(DateTime startDate, DateTime endDate)
+{
+    if (startDate.Month == endDate.Month && startDate.Year == endDate.Year)
+    {
+        @: @startDate.ToString("MMMM")<text> </text>@startDate.Day<text> - </text>@endDate.Day<text>, </text>@startDate.Year
+    }
+    else
+    {
+        @: @startDate.ToShortDateString()<text> - </text>@endDate.ToShortDateString()<text>
+    }
+}
+            
+@helper FormatSessionTime(DateTime startDate, DateTime endDate)
+{    
+    @: @startDate.ToString("MMMM")<text> </text>@startDate.Day @startDate.ToShortTimeString()<text> - </text>@endDate.ToShortTimeString()
+}

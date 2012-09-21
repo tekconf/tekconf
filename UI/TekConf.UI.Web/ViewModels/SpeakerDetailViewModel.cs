@@ -7,6 +7,7 @@ namespace TekConf.UI.Web.Controllers
     {
         public ConferencesDto Conference { get; set; }
         public FullSpeakerDto Speaker { get; set; }
-        public List<SessionsDto> Sessions { get; set; } 
+        public List<SessionsDto> Sessions { get; set; }
+        public string ProfileImageUrl { get; set; }
     }
 }

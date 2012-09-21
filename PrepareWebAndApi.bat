@@ -1,0 +1,1 @@
+ren TekConf.WebAndApi.sln.temp TekConf.WebAndApi.sln
