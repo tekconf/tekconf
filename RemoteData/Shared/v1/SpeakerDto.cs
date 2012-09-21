@@ -13,6 +13,6 @@ namespace TekConf.RemoteData.Dtos.v1
     public string emailAddress { get; set; }
     public string phoneNumber { get; set; }
     public string url { get; set; }
-    public string fullName { get { return this.firstName + " " + this.lastName; } }
+    public string fullName { get; set; }
   }
 }

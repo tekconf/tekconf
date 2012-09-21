@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Net;
+using System.Text.RegularExpressions;
 using AutoMapper;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.UI.Api.Services.Requests.v1;
@@ -39,7 +40,34 @@ namespace TekConf.UI.Api.Services.v1
         {
             var cacheKey = "GetAllConferences";
 
-            //var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
+            //try
+            //{
+            //    var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
+            //    foreach (var conference in collection.AsQueryable())
+            //    {
+            //        conference.slug = (conference.name + "-" + conference.start.Year).GenerateSlug();
+            //        foreach (var session in conference.sessions)
+            //        {
+            //            session.slug = session.title.GenerateSlug();
+            //            if (session.speakers != null)
+            //            {
+            //                foreach (var speaker in session.speakers)
+            //                {
+            //                    speaker.slug = speaker.fullName.GenerateSlug();
+            //                }
+            //            }
+            //        }
+            //        collection.Save(conference);
+
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+
+            //    var sdsds = ex.Message;
+            //}
+
+
             //var thatConf = collection.AsQueryable().Where(c => c.slug == "ThatConference-2012").FirstOrDefault();
             //var nextConf = Mapper.Map<ConferenceEntity>(thatConf);
             //nextConf._id = Guid.NewGuid();
@@ -139,5 +167,27 @@ namespace TekConf.UI.Api.Services.v1
         public int Year { get; set; }
         public int Month { get; set; }
         public int Day { get; set; }
+    }
+
+    public static class Helpers
+    {
+        public static string GenerateSlug(this string phrase)
+        {
+            string slug = phrase.RemoveAccent().ToLower();
+            // invalid chars           
+            slug = Regex.Replace(slug, @"[^a-z0-9\s-]", "");
+            // convert multiple spaces into one space   
+            slug = Regex.Replace(slug, @"\s+", " ").Trim();
+            // cut and trim 
+            slug = slug.Substring(0, slug.Length <= 45 ? slug.Length : 45).Trim();
+            slug = Regex.Replace(slug, @"\s", "-"); // hyphens   
+            return slug;
+        }
+
+        public static string RemoveAccent(this string txt)
+        {
+            byte[] bytes = System.Text.Encoding.GetEncoding("Cyrillic").GetBytes(txt);
+            return System.Text.Encoding.ASCII.GetString(bytes);
+        }
     }
 }

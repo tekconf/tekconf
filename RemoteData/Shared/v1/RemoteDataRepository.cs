@@ -194,39 +194,6 @@ namespace TekConf.RemoteData.v1
             client.DownloadStringAsync(new Uri(url));
         }
 
-        //public void AddSession(Session session, Action<bool> callback)
-        //{
-        //  string url = _baseUrl + "conferences/" + session.conferenceSlug + "/sessions";
-
-        //  var client = new WebClient();
-        //  client.Encoding = System.Text.Encoding.UTF8;
-        //  client.Headers[HttpRequestHeader.Accept] = "application/json";
-
-        //  var sessionJson = JsonSerializer.SerializeToString(session);
-        //  client.UploadStringCompleted += (sender, args) =>
-        //  {
-        //    var x = args.Result;
-        //    callback(true);
-        //  };
-        //  client.UploadStringAsync(new Uri(url), "POST", sessionJson);
-        //}
-
-        //public void AddSpeaker(Speaker speaker, Action<bool> callback)
-        //{
-        //  string url = _baseUrl + "conferences/" + speaker.conferenceSlug + "/sessions/" + speaker.SessionSlug + "/speakers";
-
-        //  var client = new WebClient();
-        //  client.Encoding = System.Text.Encoding.UTF8;";
-        //  client.Headers[HttpRequestHeader.Accept] = "application/json";
-
-        //  var sessionJson = JsonSerializer.SerializeToString(speaker);
-        //  client.UploadStringCompleted += (sender, args) =>
-        //  {
-        //    var x = args.Result;
-        //    callback(true);
-        //  };
-        //  client.UploadStringAsync(new Uri(url), "POST", sessionJson);
-        //}
 
     }
 }

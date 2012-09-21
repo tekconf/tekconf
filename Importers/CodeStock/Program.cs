@@ -40,7 +40,7 @@ namespace CodeStock
                         end = new DateTime(2012, 6, 16),
                         facebookUrl = "",
                         homepageUrl = "http://codestock.org",
-                        imageUrl = "",
+                        imageUrl = "/img/conferences/CodeStock.png",
                         lanyrdUrl = "",
                         location = "Knoxville, TN",
                         meetupUrl = "",
@@ -50,7 +50,8 @@ namespace CodeStock
                         start = new DateTime(2012, 6, 14),
                         tagLine = "Gathered together from the cosmic reaches of the universe...",
                         twitterHashTag = "#codeStock",
-                        twitterName = "@codeStock"
+                        twitterName = "@codeStock",
+                        
                     };
 
                     foreach (var session in sessionsRoot.d)
@@ -95,8 +96,10 @@ namespace CodeStock
                             }
                             else
                             {
+                                speakerEntity.firstName = string.Empty;
                                 speakerEntity.lastName = speaker.Name;
                             }
+                            speakerEntity.slug = (speakerEntity.firstName.ToLower() + " " + speakerEntity.lastName.ToLower()).Trim().Replace(" ", "-");
                             speakerEntity.profileImageUrl = speaker.PhotoUrl;
                             speakerEntity.twitterName = speaker.TwitterID;
                             speakerEntity.blogUrl = speaker.Website;

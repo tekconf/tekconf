@@ -6,7 +6,7 @@ namespace TekConf.RemoteData.Dtos.v1
         public string firstName { get; set; }
         public string lastName { get; set; }
         public string url { get; set; }
-        public string fullName { get { return this.firstName + " " + this.lastName; } }
+        public string fullName { get; set; }
         public string description { get; set; }
         public string profileImageUrl { get; set; }
     }

@@ -20,5 +20,34 @@ namespace TekConf.UI.Api
         public string phoneNumber { get; set; }
         public bool isFeatured { get; set; }
         public string profileImageUrl { get; set; }
+
+
+        public string fullName
+        {
+            get
+            {
+                string name = string.Empty;
+                if (string.IsNullOrWhiteSpace(this.firstName))
+                {
+                    if (!string.IsNullOrWhiteSpace(this.lastName))
+                    {
+                        name = this.lastName;
+                    }
+                }
+                else if (string.IsNullOrWhiteSpace(this.lastName))
+                {
+                    if (!string.IsNullOrWhiteSpace(this.firstName))
+                    {
+                        name = this.firstName;
+                    }
+                }
+                else
+                {
+                    name = this.firstName + " " + this.lastName;
+                }
+                return name;
+            }
+        }
+
     }
 }
