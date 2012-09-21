@@ -407,6 +407,7 @@
     <Content Include="font\fontawesome-webfont.svgz" />
     <Content Include="font\fontawesome-webfont.ttf" />
     <Content Include="font\fontawesome-webfont.woff" />
+    <Content Include="img\conferences\CodeStock.png" />
     <Content Include="PostDeploy.ps1" />
     <Content Include="HOWTO.html" />
     <Content Include="img\android.png" />

@@ -181,12 +181,5 @@ namespace TekConf.UI.Api.Services.v1
 
         }
 
-
-        //var cacheKey = "";
-        //var expireInTimespan = new TimeSpan(0, 0, 20);
-        //return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
-        //{
-
-        //});
     }
 }
