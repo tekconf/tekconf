@@ -136,8 +136,8 @@
                             <div class="img">
                                 <img src="~/img/avatar.png" alt="@session.title" />
                             </div>
-
-                            <h4>@session.title</h4>
+                
+                            <h4>@Html.RouteLink(session.title, "SessionDetail", new { conferenceSlug = Model.Conference.slug, sessionSlug = session.slug }, null)</h4>
 
                             <p>@session.description</p>
                         </div>
