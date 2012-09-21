@@ -1,0 +1,25 @@
+﻿@helper SimpleLink(string url, string text)
+{
+    @: <a href="@url">@text</a>
+}
+        
+@helper PhoneLink(string phoneNumber)
+{
+    @: <a href="tel:@phoneNumber">@phoneNumber</a>    
+}
+        
+@helper TwitterUserLink(string twitterName)
+{
+    
+    if (!string.IsNullOrWhiteSpace(twitterName))
+    {
+        string twitterUrlName = twitterName;
+        if (twitterName.StartsWith("@"))
+        {
+            twitterUrlName = twitterName.Remove(0, 1);
+        }
+
+        var url = "http://twitter.com/" + twitterUrlName;
+        @: @SimpleLink(url, twitterName)
+    }
+}

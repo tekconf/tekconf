@@ -8,6 +8,5 @@ namespace TekConf.RemoteData.Dtos.v1
         public string url { get; set; }
         public string fullName { get { return this.firstName + " " + this.lastName; } }
         public string description { get; set; }
-
     }
 }
