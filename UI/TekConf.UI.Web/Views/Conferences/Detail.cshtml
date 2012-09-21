@@ -8,20 +8,24 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+
     <title>@Model.name - tekconf</title>
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet" type="text/css">
-
-
     @Styles.Render("~/css/conferences/detail")
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
 <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+
 </head>
+
 <body>
+
     @Html.Partial("Header")
 
     <div id="subheader">
@@ -34,6 +38,7 @@
         <!-- /inner -->
     </div>
     <!-- /subheader -->
+
     <div id="subpage">
         <div class="container">
             <div class="row">
@@ -44,77 +49,109 @@
                     </div>
                 </div>
                 <!-- /span12 -->
+                @Model.description
             </div>
             <!-- /row -->
             <br />
             <br />
-            @{
-                var sessionGroup = Model.sessions
-                .GroupBy(s => new { s.start.Year, s.start.Month, s.start.Day })
-                .Select(s => new { DateKey = s.Key, Sessions = s })
-                .ToList();
-            }
 
-            <div class="span9">
+            <div class="row">
 
-
-                @foreach (var dayGroup in sessionGroup.OrderBy(s => s.DateKey.Year).ThenBy(s => s.DateKey.Month).ThenBy(s => s.DateKey.Day))
-                {
-                    var date = DateTime.Parse(dayGroup.DateKey.Month + "/" + dayGroup.DateKey.Day + "/" + dayGroup.DateKey.Year);
-                    var tabName = date.ToString("dddd, MMMM d", CultureInfo.CreateSpecificCulture("en-US")).Replace(" ", "").Replace(",", "");
-                    var dateString = date.ToString("dddd, MMMM d", CultureInfo.CreateSpecificCulture("en-US"));
-
-                    <div class="row">
-                        <div class="span12">
-                            <h3>
-
-                                <span class="slash">//</span> @dateString
-                            </h3>
-                        </div>
-                        <!-- /span12 -->
-                        <table class="table">
-                            <tbody>
-                                @{
-                    var sessionTimes = dayGroup.Sessions
-                        .GroupBy(s => new { s.start })
+                <div class="span8">
+                     @{
+                    var sessionGroup = Model.sessions
+                        .GroupBy(s => new { s.start.Year, s.start.Month, s.start.Day })
                         .Select(s => new { DateKey = s.Key, Sessions = s })
                         .ToList();
-                                }
-                                @foreach (var sessionTime in sessionTimes)
-                                {
-                                    <tr>
-                                        <td colspan="3">@sessionTime.DateKey.start.ToShortTimeString()</td>
-                                    </tr>
-                                    foreach (var session in sessionTime.Sessions.OrderBy(s => s.start.TimeOfDay))
-                                    {
-                                
-                                    <tr>
-                                        <td><a href="#" class="btn btn-mini btn-inverse">Add to Schedule</a></td>
-                                        <td>
-                                            @Html.RouteLink(session.title, "SessionDetail", new { conferenceSlug = Model.slug, sessionSlug = session.slug }, null)
-                                        </td>
-                                        <td>
-                                            @foreach (var speaker in session.speakers)
-                                            {
-                                                @Html.RouteLink(speaker.fullName, "SessionSpeakerDetail", new { conferenceSlug = Model.slug, sessionSlug = session.slug, speakerSlug = speaker.slug }, null)<br />
-                                            }
-                                        </td>
-                                    </tr>                                
-                                    }
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-
                 }
 
+                    @foreach (var dayGroup in sessionGroup.OrderBy(s => s.DateKey.Year).ThenBy(s => s.DateKey.Month).ThenBy(s => s.DateKey.Day))
+                    {
+                        var date = DateTime.Parse(dayGroup.DateKey.Month + "/" + dayGroup.DateKey.Day + "/" + dayGroup.DateKey.Year);
+                        var tabName = date.ToString("dddd, MMMM d", CultureInfo.CreateSpecificCulture("en-US")).Replace(" ", "").Replace(",", "");
+                        var dateString = date.ToString("dddd, MMMM d", CultureInfo.CreateSpecificCulture("en-US"));
+
+                        <div class="row">
+                            <div class="span12">
+                                <h3>
+
+                                    <span class="slash">//</span> @dateString
+                                </h3>
+                            </div>
+                            <!-- /span12 -->
+                            <table class="table">
+                                <tbody>
+                                    @{
+                                        var sessionTimes = dayGroup.Sessions
+                                            .GroupBy(s => new { s.start })
+                                            .Select(s => new { DateKey = s.Key, Sessions = s })
+                                            .ToList();
+                                    }
+                                    @foreach (var sessionTime in sessionTimes)
+                                    {
+                                        <tr>
+                                            <td colspan="3">@sessionTime.DateKey.start.ToShortTimeString()</td>
+                                        </tr>
+                                        foreach (var session in sessionTime.Sessions.OrderBy(s => s.start.TimeOfDay))
+                                        {
+                                
+                                            <tr>
+                                                <td><a href="#" class="btn btn-mini btn-inverse">Add to Schedule</a></td>
+                                                <td>
+                                                    @Html.RouteLink(session.title, "SessionDetail", new { conferenceSlug = Model.slug, sessionSlug = session.slug }, null)
+                                                </td>
+                                                <td>
+                                                    @foreach (var speaker in session.speakers)
+                                                    {
+                                                        @Html.RouteLink(speaker.fullName, "SessionSpeakerDetail", new { conferenceSlug = Model.slug, sessionSlug = session.slug, speakerSlug = speaker.slug }, null)<br />
+                                                    }
+                                                </td>
+                                            </tr>                                
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+
+                    }
+                </div>
+                <!-- /span6 -->
+
+                <div class="span4">
+                    <div class="sidebar">
+                        <h4><span class="slash">//</span> More Information</h4>
+                        <p>
+                            @Model.start<br/>
+                            @Model.end<br/>
+                            @Model.facebookUrl<br/>
+                            @Model.homepageUrl<br/>
+                            @Model.lanyrdUrl<br/>
+                            @Model.location<br/>
+                            @Model.meetupUrl<br/>
+                            @Model.twitterHashTag<br/>
+                            @Model.twitterName
+                        </p>
+
+                    </div>
+                    <!-- /sidebar -->
+                </div>
+                <!-- /span4 -->
+
+
             </div>
+            <!-- /row -->
 
             <br />
             <br />
+
+            <div class="row">
+
+            </div>
+            <!-- /row -->
 
         </div>
         <!-- /container -->
+
     </div>
     <!-- /subpage -->
 
@@ -123,6 +160,7 @@
     @Html.Partial("Footer")
 
     @Scripts.Render("~/js/common")
+
     <script>
         $(function () {
 
