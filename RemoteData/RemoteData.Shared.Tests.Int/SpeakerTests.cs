@@ -47,7 +47,7 @@ namespace RemoteData.Shared.Tests.Int
     public void GetSpeaker()
     {
       RemoteDataRepository remoteData = new RemoteDataRepository(_baseUrl);
-      SpeakerDto speaker = null;
+      FullSpeakerDto speaker = null;
       string conferenceSlug = "CodeMash-2013";
       string slug = "Speaker-Slug2";
       remoteData.GetSpeaker(conferenceSlug, slug, s =>
