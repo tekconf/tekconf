@@ -58,12 +58,12 @@
             <div class="row">
 
                 <div class="span8">
-                     @{
-                    var sessionGroup = Model.sessions
-                        .GroupBy(s => new { s.start.Year, s.start.Month, s.start.Day })
-                        .Select(s => new { DateKey = s.Key, Sessions = s })
-                        .ToList();
-                }
+                    @{
+                        var sessionGroup = Model.sessions
+                            .GroupBy(s => new { s.start.Year, s.start.Month, s.start.Day })
+                            .Select(s => new { DateKey = s.Key, Sessions = s })
+                            .ToList();
+                    }
 
                     @foreach (var dayGroup in sessionGroup.OrderBy(s => s.DateKey.Year).ThenBy(s => s.DateKey.Month).ThenBy(s => s.DateKey.Day))
                     {
@@ -82,10 +82,10 @@
                             <table class="table">
                                 <tbody>
                                     @{
-                                        var sessionTimes = dayGroup.Sessions
-                                            .GroupBy(s => new { s.start })
-                                            .Select(s => new { DateKey = s.Key, Sessions = s })
-                                            .ToList();
+                        var sessionTimes = dayGroup.Sessions
+                            .GroupBy(s => new { s.start })
+                            .Select(s => new { DateKey = s.Key, Sessions = s })
+                            .ToList();
                                     }
                                     @foreach (var sessionTime in sessionTimes)
                                     {
@@ -95,18 +95,18 @@
                                         foreach (var session in sessionTime.Sessions.OrderBy(s => s.start.TimeOfDay))
                                         {
                                 
-                                            <tr>
-                                                <td><a href="#" class="btn btn-mini btn-inverse">Add to Schedule</a></td>
-                                                <td>
-                                                    @Html.RouteLink(session.title, "SessionDetail", new { conferenceSlug = Model.slug, sessionSlug = session.slug }, null)
-                                                </td>
-                                                <td>
-                                                    @foreach (var speaker in session.speakers)
-                                                    {
-                                                        @Html.RouteLink(speaker.fullName, "SessionSpeakerDetail", new { conferenceSlug = Model.slug, sessionSlug = session.slug, speakerSlug = speaker.slug }, null)<br />
-                                                    }
-                                                </td>
-                                            </tr>                                
+                                        <tr>
+                                            <td><a href="#" class="btn btn-mini btn-inverse">Add to Schedule</a></td>
+                                            <td>
+                                                @Html.RouteLink(session.title, "SessionDetail", new { conferenceSlug = Model.slug, sessionSlug = session.slug }, null)
+                                            </td>
+                                            <td>
+                                                @foreach (var speaker in session.speakers)
+                                                {
+                                                    @Html.RouteLink(speaker.fullName, "SessionSpeakerDetail", new { conferenceSlug = Model.slug, sessionSlug = session.slug, speakerSlug = speaker.slug }, null)<br />
+                                                }
+                                            </td>
+                                        </tr>                                
                                         }
                                     }
                                 </tbody>
@@ -121,15 +121,65 @@
                     <div class="sidebar">
                         <h4><span class="slash">//</span> More Information</h4>
                         <p>
-                            @Model.start<br/>
-                            @Model.end<br/>
-                            @Model.facebookUrl<br/>
-                            @Model.homepageUrl<br/>
-                            @Model.lanyrdUrl<br/>
-                            @Model.location<br/>
-                            @Model.meetupUrl<br/>
-                            @Model.twitterHashTag<br/>
-                            @Model.twitterName
+                            @HtmlHelpers.FormatDateRange(Model.start, Model.end)<br />
+                            @if (!string.IsNullOrWhiteSpace(Model.location))
+                            {
+                                @Model.location<br />
+                            }
+                            <h4><span class="slash">//</span> Connect</h4>
+                            @if (!string.IsNullOrWhiteSpace(Model.homepageUrl))
+                            {
+                                <img src="~/img/social/website-24x24.png" /> @HtmlHelpers.SimpleLink(Model.homepageUrl, Model.homepageUrl.Replace("http://", ""))<br />
+                            }                            
+
+                            @if (!string.IsNullOrWhiteSpace(Model.twitterName))
+                            {
+                                <img src="~/img/social/twitter-16x16.png" /> @HtmlHelpers.TwitterUserLink(Model.twitterName)<br />
+                            }
+                            @if (!string.IsNullOrWhiteSpace(Model.twitterHashTag))
+                            {
+                                <img src="~/img/social/twitter-16x16.png" /> @HtmlHelpers.SimpleLink("https://twitter.com/#!/search/" + Model.twitterHashTag.Replace("#", "%23"), Model.twitterHashTag)<br />
+                            }
+
+                            @if (!string.IsNullOrWhiteSpace(Model.facebookUrl))
+                            {
+                                <img src="~/img/social/facebook-16x16.png" /> @HtmlHelpers.SimpleLink(Model.facebookUrl, "Facebook")<br />
+                            }
+
+                            @if (!string.IsNullOrWhiteSpace(Model.lanyrdUrl))
+                            {
+                                <img src="~/img/social/lanyrd-16x16.png" /> @HtmlHelpers.SimpleLink(Model.lanyrdUrl, "Lanyrd")<br />
+                            }
+
+                            @if (!string.IsNullOrWhiteSpace(Model.meetupUrl))
+                            {
+                                <img src="~/img/social/meetup-16x16.png" /> @HtmlHelpers.SimpleLink(Model.meetupUrl, "Meetup")<br />
+                            }
+
+                            @if (!string.IsNullOrWhiteSpace(Model.googlePlusUrl))
+                            {
+                                <img src="~/img/social/googlePlus-16x16.png" /> @HtmlHelpers.SimpleLink(Model.googlePlusUrl, "Google+")<br />
+                            }
+
+                            @if (!string.IsNullOrWhiteSpace(Model.vimeoUrl))
+                            {
+                                <img src="~/img/social/vimeo-16x16.png" /> @HtmlHelpers.SimpleLink(Model.vimeoUrl, "Vimeo")<br />
+                            }
+
+                            @if (!string.IsNullOrWhiteSpace(Model.youtubeUrl))
+                            {
+                                <img src="~/img/social/youtube-16x16.png" /> @HtmlHelpers.SimpleLink(Model.youtubeUrl, "YouTube")<br />
+                            }
+
+                            @if (!string.IsNullOrWhiteSpace(Model.githubUrl))
+                            {
+                                <img src="~/img/social/github-16x16.png" /> @HtmlHelpers.SimpleLink(Model.googlePlusUrl, "Github")<br />
+                            }
+
+                            @if (!string.IsNullOrWhiteSpace(Model.linkedInUrl))
+                            {
+                                <img src="~/img/social/linkedin-16x16.png" /> @HtmlHelpers.SimpleLink(Model.linkedInUrl, "LinkedIn")<br />
+                            }
                         </p>
 
                     </div>
@@ -145,7 +195,6 @@
             <br />
 
             <div class="row">
-
             </div>
             <!-- /row -->
 

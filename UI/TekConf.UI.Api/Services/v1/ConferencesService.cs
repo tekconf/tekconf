@@ -111,7 +111,8 @@ namespace TekConf.UI.Api.Services.v1
             var expireInTimespan = new TimeSpan(0, 0, 20);
             return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
             {
-                var conference = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
+                var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
+                var conference = collection
                 .AsQueryable()
                 .SingleOrDefault(c => c.slug == request.conferenceSlug);
 
@@ -119,6 +120,7 @@ namespace TekConf.UI.Api.Services.v1
                 {
                     throw new HttpError(HttpStatusCode.NotFound, "Conference not found.");
                 }
+
 
                 var conferenceDto = Mapper.Map<ConferenceEntity, ConferenceDto>(conference);
                 var conferenceUrlResolver = new ConferenceUrlResolver(conferenceDto.slug);
@@ -139,7 +141,8 @@ namespace TekConf.UI.Api.Services.v1
             var expireInTimespan = new TimeSpan(0, 0, 20);
             return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
             {
-                var conference = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
+                var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
+                var conference = collection
                 .AsQueryable()
                 .SingleOrDefault(c => c.slug == request.conferenceSlug);
 
@@ -147,7 +150,16 @@ namespace TekConf.UI.Api.Services.v1
                 {
                     throw new HttpError(HttpStatusCode.NotFound, "Conference not found.");
                 }
-
+                //if (conference.name == "CodeMash")
+                //{
+                //    conference.githubUrl = "http://github.com";
+                //    conference.googlePlusUrl = "http://plus.google.com";
+                //    conference.lanyrdUrl = "http://lanyrd.com";
+                //    conference.meetupUrl = "http://meetup.com";
+                //    conference.vimeoUrl = "http://vimeo.com";
+                //    conference.youtubeUrl = "http://youtube.com";
+                //    collection.Save(conference);
+                //}
                 var conferenceDto = Mapper.Map<ConferenceEntity, FullConferenceDto>(conference);
 
                 return conferenceDto;

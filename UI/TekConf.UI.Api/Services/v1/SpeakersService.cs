@@ -64,7 +64,8 @@ namespace TekConf.UI.Api.Services.v1
             var expireInTimespan = new TimeSpan(0, 0, 20);
             return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
             {
-                var conference = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
+                var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
+                var conference = collection
                         .AsQueryable()
                         .SingleOrDefault(c => c.slug == request.conferenceSlug);
 
@@ -110,7 +111,23 @@ namespace TekConf.UI.Api.Services.v1
                     }
                     throw SpeakerNotFound;
                 }
-                var speakerDto = Mapper.Map<SpeakerEntity, SpeakerDto>(speaker);
+                if (speaker.lastName == "Hanselman")
+                {
+                    speaker.bitbucketUrl = "http://bitbucket.org";
+                    speaker.blogUrl = "http://hanselman.com";
+                    speaker.codeplexUrl = "http://codeplex.com";
+                    speaker.coderWallUrl = "http://coderwall.com";
+                    speaker.facebookUrl = "http://facebook.com";
+                    speaker.githubUrl = "http://github.com/shanselman";
+                    speaker.googlePlusUrl = "http://plus.google.com/shanselman";
+                    speaker.linkedInUrl = "http://linkedin.com";
+                    speaker.stackoverflowUrl = "http://stackoverflow.com";
+                    speaker.vimeoUrl = "http://vimeo.com";
+                    speaker.youtubeUrl = "http://youtube.com";
+                    speaker.emailAddress = "scottha@microsoft.com";
+                    collection.Save(conference);
+                }
+                var speakerDto = Mapper.Map<SpeakerEntity, FullSpeakerDto>(speaker);
                 var resolver = new ConferencesSpeakerResolver(request.conferenceSlug, speakerDto.slug);
                 speakerDto.url = resolver.ResolveUrl();
 

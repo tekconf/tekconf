@@ -75,40 +75,81 @@
                     <div class="sidebar">
                         <h4><span class="slash">//</span> More Information</h4>
                         <p>
+
+
+
+
+
+
+
                             @if (!string.IsNullOrWhiteSpace(Model.Speaker.blogUrl))
                             {
-                                <b>Website :</b>
-                                @HtmlHelpers.SimpleLink(Model.Speaker.blogUrl, Model.Speaker.blogUrl)<br />
+                                <img src="~/img/social/website-16x16.png" /> @HtmlHelpers.SimpleLink(Model.Speaker.blogUrl, Model.Speaker.blogUrl.Replace("http://", ""))<br />
                             }
 
                             @if (!string.IsNullOrWhiteSpace(Model.Speaker.emailAddress))
                             {
-                                <b>Email :</b>
-                                @Model.Speaker.emailAddress<br />
-                            }
-
-                            @if (!string.IsNullOrWhiteSpace(Model.Speaker.facebookUrl))
-                            {
-                                <b>Facebook :</b>
-                                @HtmlHelpers.SimpleLink(Model.Speaker.facebookUrl, Model.Speaker.facebookUrl)<br />
-                            }
-
-                            @if (!string.IsNullOrWhiteSpace(Model.Speaker.linkedInUrl))
-                            {
-                                <b>Linked :</b>
-                                @HtmlHelpers.SimpleLink(Model.Speaker.linkedInUrl, Model.Speaker.linkedInUrl)<br />
-                            }
-
-                            @if (!string.IsNullOrWhiteSpace(Model.Speaker.twitterName))
-                            {
-                                <b>Twitter :</b>
-                                @HtmlHelpers.TwitterUserLink(Model.Speaker.twitterName)<br />
+                                <img src="~/img/social/email-16x16.png" /> @Model.Speaker.emailAddress<br />
                             }
 
                             @if (!string.IsNullOrWhiteSpace(Model.Speaker.phoneNumber))
                             {
-                                <b>Phone :</b>
-                                @HtmlHelpers.PhoneLink(Model.Speaker.phoneNumber)<br />
+                                <img src="~/img/social/" /> @HtmlHelpers.PhoneLink(Model.Speaker.phoneNumber)<br />
+                            }
+
+                            @if (!string.IsNullOrWhiteSpace(Model.Speaker.twitterName))
+                            {
+                                <img src="~/img/social/twitter-16x16.png" /> @HtmlHelpers.TwitterUserLink(Model.Speaker.twitterName)<br />
+                            }
+
+
+                            @if (!string.IsNullOrWhiteSpace(Model.Speaker.facebookUrl))
+                            {
+                                <img src="~/img/social/facebook-16x16.png" /> @HtmlHelpers.SimpleLink(Model.Speaker.facebookUrl, "Facebook")<br />
+                            }
+
+                            @if (!string.IsNullOrWhiteSpace(Model.Speaker.googlePlusUrl))
+                            {
+                                <img src="~/img/social/googlePlus-16x16.png" /> @HtmlHelpers.SimpleLink(Model.Speaker.googlePlusUrl, "Google+")<br />
+                            }
+
+                            @if (!string.IsNullOrWhiteSpace(Model.Speaker.vimeoUrl))
+                            {
+                                <img src="~/img/social/vimeo-16x16.png" /> @HtmlHelpers.SimpleLink(Model.Speaker.vimeoUrl, "Vimeo")<br />
+                            }
+
+                            @if (!string.IsNullOrWhiteSpace(Model.Speaker.youtubeUrl))
+                            {
+                                <img src="~/img/social/youtube-16x16.png" /> @HtmlHelpers.SimpleLink(Model.Speaker.youtubeUrl, "YouTube")<br />
+                            }
+
+                            @if (!string.IsNullOrWhiteSpace(Model.Speaker.githubUrl))
+                            {
+                                <img src="~/img/social/github-16x16.png" /> @HtmlHelpers.SimpleLink(Model.Speaker.googlePlusUrl, "Github")<br />
+                            }
+
+                            @if (!string.IsNullOrWhiteSpace(Model.Speaker.linkedInUrl))
+                            {
+                                <img src="~/img/social/linkedin-16x16.png" /> @HtmlHelpers.SimpleLink(Model.Speaker.linkedInUrl, "LinkedIn")<br />
+                            }
+
+                            @if (!string.IsNullOrWhiteSpace(Model.Speaker.stackoverflowUrl))
+                            {
+                                <img src="~/img/social/stackoverflow-16x16.png" /> @HtmlHelpers.SimpleLink(Model.Speaker.stackoverflowUrl, "StackOverflow")<br />
+                            }
+
+                            @if (!string.IsNullOrWhiteSpace(Model.Speaker.coderWallUrl))
+                            {
+                                <img src="~/img/social/xxx" /> @HtmlHelpers.SimpleLink(Model.Speaker.coderWallUrl, "CoderWall")<br />
+                            }
+
+                            @if (!string.IsNullOrWhiteSpace(Model.Speaker.bitbucketUrl))
+                            {
+                                <img src="~/img/social/xxx" /> @HtmlHelpers.SimpleLink(Model.Speaker.bitbucketUrl, "BitBucket")<br />
+                            }
+                            @if (!string.IsNullOrWhiteSpace(Model.Speaker.codeplexUrl))
+                            {
+                                <img src="~/img/social/xxx" /> @HtmlHelpers.SimpleLink(Model.Speaker.codeplexUrl, "CodePlex")<br />
                             }
                         </p>
 
@@ -139,9 +180,10 @@
                     <div class="span4">
                         <div class="about-user">
                             <h4>@Html.RouteLink(session.title, "SessionDetail", new { conferenceSlug = Model.Conference.slug, sessionSlug = session.slug }, null)</h4>
-                            
-                            @HtmlHelpers.FormatSessionTime(session.start, session.end)<br />@session.room<br/>
-                            <a href="#" class="btn btn-small btn-primary btn-inverse">Add to Schedule</a><br/><br/>
+
+                            @HtmlHelpers.FormatSessionTime(session.start, session.end)<br />@session.room<br />
+                            <a href="#" class="btn btn-small btn-primary btn-inverse">Add to Schedule</a><br />
+                            <br />
                             <p>@session.description</p>
                         </div>
                         <!-- /about-user -->
