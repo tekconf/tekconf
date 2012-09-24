@@ -408,6 +408,7 @@
     <Content Include="font\fontawesome-webfont.ttf" />
     <Content Include="font\fontawesome-webfont.woff" />
     <Content Include="img\conferences\CodeStock.png" />
+    <Content Include="img\conferences\RailsConf.png" />
     <Content Include="img\social\500px-16x16.png" />
     <Content Include="img\social\500px-24x24.png" />
     <Content Include="img\social\500px-32x32.png" />
@@ -827,9 +828,9 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="App_Code\HtmlHelpers.cshtml" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <None Include="Scripts\jquery-1.8.1.intellisense.js" />
-    <Content Include="Scripts\jquery-1.8.1.js" />
-    <Content Include="Scripts\jquery-1.8.1.min.js" />
+    <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.8.2.js" />
+    <Content Include="Scripts\jquery-1.8.2.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.23.js" />
     <Content Include="Scripts\jquery-ui-1.8.23.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />

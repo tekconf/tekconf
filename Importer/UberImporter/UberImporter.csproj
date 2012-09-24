@@ -54,10 +54,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers.cs" />
     <Compile Include="MongoDbConnection.cs" />
-    <Compile Include="MonkeySpace.cs" />
+    <Compile Include="MonkeySpaceImporter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RailsConfImporter.cs" />
+    <Compile Include="StringExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">
@@ -70,6 +73,12 @@
       <DependentUpon>app.config</DependentUpon>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Entities\TekConf.Common.Entities\TekConf.Common.Entities.csproj">
+      <Project>{67514387-8c88-477f-ad16-f24b32b69113}</Project>
+      <Name>TekConf.Common.Entities</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

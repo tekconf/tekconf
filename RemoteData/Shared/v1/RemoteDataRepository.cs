@@ -71,23 +71,6 @@ namespace TekConf.RemoteData.v1
             client.DownloadStringAsync(new Uri(url));
         }
 
-        //public void AddConference(Conference conference, Action<bool> callback)
-        //{
-        //  string url = _baseUrl + "conferences";
-        //  var conferenceJson = JsonSerializer.SerializeToString(conference);
-
-        //  var client = new WebClient();
-        //  client.Encoding = System.Text.Encoding.UTF8;
-        //  client.Headers[HttpRequestHeader.Accept] = "application/json";
-
-        //  client.UploadStringCompleted += (sender, args) =>
-        //                                    {
-        //                                      var x = args.Result;
-        //                                      callback(true);
-        //                                    };
-        //  client.UploadStringAsync(new Uri(url), "POST", conferenceJson);
-
-        //}
 
         public void GetFeaturedSpeakers(Action<List<SpeakersDto>> callback)
         {

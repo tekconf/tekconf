@@ -82,10 +82,10 @@
                             <table class="table">
                                 <tbody>
                                     @{
-                        var sessionTimes = dayGroup.Sessions
-                            .GroupBy(s => new { s.start })
-                            .Select(s => new { DateKey = s.Key, Sessions = s })
-                            .ToList();
+                                        var sessionTimes = dayGroup.Sessions
+                                            .GroupBy(s => new { s.start })
+                                            .Select(s => new { DateKey = s.Key, Sessions = s })
+                                            .ToList();
                                     }
                                     @foreach (var sessionTime in sessionTimes)
                                     {

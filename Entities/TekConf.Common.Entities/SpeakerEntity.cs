@@ -20,6 +20,7 @@ namespace TekConf.UI.Api
         public string phoneNumber { get; set; }
         public bool isFeatured { get; set; }
         public string profileImageUrl { get; set; }
+        public string company { get; set; }
 
 
         public string googlePlusUrl { get; set; }
