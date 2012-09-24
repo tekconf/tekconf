@@ -53,6 +53,7 @@
     <Compile Include="ScheduleEntity.cs" />
     <Compile Include="SessionEntity.cs" />
     <Compile Include="SpeakerEntity.cs" />
+    <Compile Include="UserEntity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
