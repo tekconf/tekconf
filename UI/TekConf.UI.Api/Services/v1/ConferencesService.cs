@@ -40,34 +40,36 @@ namespace TekConf.UI.Api.Services.v1
         {
             var cacheKey = "GetAllConferences";
 
-            //try
-            //{
-            //    var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
-            //    foreach (var conference in collection.AsQueryable())
-            //    {
-            //        conference.slug = (conference.name + "-" + conference.start.Year).GenerateSlug();
-            //        foreach (var session in conference.sessions)
-            //        {
-            //            session.slug = session.title.GenerateSlug();
-            //            if (session.speakers != null)
-            //            {
-            //                foreach (var speaker in session.speakers)
-            //                {
-            //                    speaker.slug = speaker.fullName.GenerateSlug();
-            //                }
-            //            }
-            //        }
-            //        collection.Save(conference);
+            //TODO : Fix slugs
+            try
+            {
+                var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
+                foreach (var conference in collection.AsQueryable())
+                {
+                    conference.slug = (conference.name + "-" + conference.start.Year).GenerateSlug();
+                    foreach (var session in conference.sessions)
+                    {
+                        session.slug = session.title.GenerateSlug();
+                        if (session.speakers != null)
+                        {
+                            foreach (var speaker in session.speakers)
+                            {
+                                speaker.slug = speaker.fullName.GenerateSlug();
+                            }
+                        }
+                    }
+                    collection.Save(conference);
 
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
+                }
+            }
+            catch (Exception ex)
+            {
 
-            //    var sdsds = ex.Message;
-            //}
+                var sdsds = ex.Message;
+            }
 
 
+            //TODO : Take Conference to the next year
             //var thatConf = collection.AsQueryable().Where(c => c.slug == "ThatConference-2012").FirstOrDefault();
             //var nextConf = Mapper.Map<ConferenceEntity>(thatConf);
             //nextConf._id = Guid.NewGuid();
@@ -150,16 +152,17 @@ namespace TekConf.UI.Api.Services.v1
                 {
                     throw new HttpError(HttpStatusCode.NotFound, "Conference not found.");
                 }
-                //if (conference.name == "CodeMash")
-                //{
-                //    conference.githubUrl = "http://github.com";
-                //    conference.googlePlusUrl = "http://plus.google.com";
-                //    conference.lanyrdUrl = "http://lanyrd.com";
-                //    conference.meetupUrl = "http://meetup.com";
-                //    conference.vimeoUrl = "http://vimeo.com";
-                //    conference.youtubeUrl = "http://youtube.com";
-                //    collection.Save(conference);
-                //}
+                //TODO : Temp import
+                if (conference.name == "CodeMash")
+                {
+                    conference.githubUrl = "http://github.com";
+                    conference.googlePlusUrl = "http://plus.google.com";
+                    conference.lanyrdUrl = "http://lanyrd.com";
+                    conference.meetupUrl = "http://meetup.com";
+                    conference.vimeoUrl = "http://vimeo.com";
+                    conference.youtubeUrl = "http://youtube.com";
+                    collection.Save(conference);
+                }
                 var conferenceDto = Mapper.Map<ConferenceEntity, FullConferenceDto>(conference);
 
                 return conferenceDto;

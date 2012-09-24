@@ -22,7 +22,7 @@ namespace UberImporter.MonkeySpace
             {
                 MongoDbConnection connection = new MongoDbConnection();
                 var collection = connection.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
-                if (!collection.AsQueryable().Any(c => c.name == "MonkeySpace"))
+                if (!collection.AsQueryable().Any(c => c.slug == "MonkeySpace-2012"))
                 {
                     var conference = new ConferenceEntity()
                     {
