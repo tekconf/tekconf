@@ -17,6 +17,29 @@ namespace TekConf.UI.Api.Services.v1
     {
         public ICacheClient CacheClient { get; set; }
 
+        public override object OnGet(UsersRequest request)
+        {
+            if (request == null || request.userName == default(string))
+            {
+                return new HttpError()
+                           {StatusCode = HttpStatusCode.BadRequest, StatusDescription = "UserName is required."};
+
+            }
+            else
+            {
+                var collection = this.RemoteDatabase.GetCollection<UserEntity>("users");
+                var user = collection.AsQueryable().FirstOrDefault(u => u.userName == request.userName);
+                if (user == null)
+                {
+                    return new HttpError() {StatusCode = HttpStatusCode.BadRequest, StatusDescription = "User not found"};
+                }
+                else
+                {
+                    return user;
+                }
+            }
+        }
+
         public override object OnPost(UsersRequest request)
         {
             var collection = this.RemoteDatabase.GetCollection<UserEntity>("users");
