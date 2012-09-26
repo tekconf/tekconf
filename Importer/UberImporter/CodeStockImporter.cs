@@ -31,7 +31,7 @@ namespace UberImporter
             if (sessionsRoot != null)
             {
                 MongoDbConnection connection = new MongoDbConnection();
-                var collection = connection.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
+                var collection = connection.RemoteDatabase.GetCollection<ConferenceEntity>("app4727263");
                 if (!collection.AsQueryable().Any(c => c.slug == "CodeStock-2012"))
                 {
                     var conference = new ConferenceEntity()

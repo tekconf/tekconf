@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
-namespace MvcApplication1.Models
+namespace TekConf.UI.Web.Models
 {
     //public class UsersContext : DbContext
     //{

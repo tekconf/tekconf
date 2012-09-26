@@ -25,7 +25,7 @@ namespace TekConf.UI.Api.Services.v1
         throw new HttpError() { StatusCode = HttpStatusCode.BadRequest };
       }
 
-      var conference = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
+      var conference = this.RemoteDatabase.GetCollection<ConferenceEntity>("app4727263")
                   .AsQueryable()
                   .SingleOrDefault(c => c.slug == request.conferenceSlug);
 

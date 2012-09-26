@@ -10,9 +10,9 @@ using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.RemoteData.v1;
+using TekConf.UI.Web.Models;
 using WebMatrix.WebData;
 //using MvcApplication1.Filters;
-using MvcApplication1.Models;
 
 namespace MvcApplication1.Controllers
 {

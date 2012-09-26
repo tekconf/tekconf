@@ -41,7 +41,7 @@ namespace UberImporter
 
                 if (_localDatabase == null)
                 {
-                    _localDatabase = _localServer.GetDatabase("conferences");
+                    _localDatabase = _localServer.GetDatabase("app4727263");
 
                 }
                 return _localDatabase;

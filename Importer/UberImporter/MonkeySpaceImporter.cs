@@ -21,7 +21,7 @@ namespace UberImporter.MonkeySpace
             if (root != null)
             {
                 MongoDbConnection connection = new MongoDbConnection();
-                var collection = connection.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
+                var collection = connection.RemoteDatabase.GetCollection<ConferenceEntity>("app4727263");
                 if (!collection.AsQueryable().Any(c => c.slug == "MonkeySpace-2012"))
                 {
                     var conference = new ConferenceEntity()
@@ -31,7 +31,7 @@ namespace UberImporter.MonkeySpace
                         end = new DateTime(2012, 10, 19),
                         facebookUrl = "",
                         homepageUrl = "http://monkeyspace.org",
-                        imageUrl = "",
+                        imageUrl = "/img/conferences/MonkeySpace.png",
                         lanyrdUrl = "",
                         location = "Boston, MA",
                         meetupUrl = "",

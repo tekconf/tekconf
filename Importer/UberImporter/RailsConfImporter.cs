@@ -21,7 +21,7 @@ namespace UberImporter.RailsConf
             if (root != null)
             {
                 var connection = new MongoDbConnection();
-                var collection = connection.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
+                var collection = connection.RemoteDatabase.GetCollection<ConferenceEntity>("app4727263");
                 if (!collection.AsQueryable().Any(c => c.slug == "RailsConf-2012"))
                 {
                     var conference = new ConferenceEntity()
