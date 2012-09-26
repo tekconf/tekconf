@@ -13,7 +13,7 @@ using ServiceStack.ServiceHost;
 
 namespace TekConf.UI.Api.Services.v1
 {
-    public class SpeakersService : MongoRestServiceBase<SpeakersRequest>
+    public class SpeakerService : MongoServiceBase
     {
         public ICacheClient CacheClient { get; set; }
         static HttpError ConferenceNotFound = HttpError.NotFound("Conference not found") as HttpError;
@@ -22,26 +22,18 @@ namespace TekConf.UI.Api.Services.v1
         static HttpError SpeakerNotFound = HttpError.NotFound("Speaker not found") as HttpError;
         static HashSet<string> NonExistingSpeakers = new HashSet<string>();
 
-        public override object OnGet(SpeakersRequest request)
+        public object Get(Speaker request)
         {
             if (request.conferenceSlug == default(string))
             {
                 throw new HttpError() { StatusCode = HttpStatusCode.BadRequest };
             }
 
-            if (request.speakerSlug == default(string))
-            {
-                return GetAllSpeakers(request);
-            }
-            else
-            {
-                return GetSingleSpeaker(request);
-            }
-
+            return GetSingleSpeaker(request);
 
         }
 
-        private object GetSingleSpeaker(SpeakersRequest request)
+        private object GetSingleSpeaker(Speaker request)
         {
             var cacheKey = "GetSingleSpeaker-" + request.conferenceSlug + "-" + request.speakerSlug;
 
@@ -136,7 +128,28 @@ namespace TekConf.UI.Api.Services.v1
 
         }
 
-        private object GetAllSpeakers(SpeakersRequest request)
+    }
+
+    public class SpeakersService : MongoServiceBase
+    {
+        public ICacheClient CacheClient { get; set; }
+        static HttpError ConferenceNotFound = HttpError.NotFound("Conference not found") as HttpError;
+        static HashSet<string> NonExistingConferences = new HashSet<string>();
+
+        static HttpError SpeakerNotFound = HttpError.NotFound("Speaker not found") as HttpError;
+        static HashSet<string> NonExistingSpeakers = new HashSet<string>();
+
+        public object Get(Speakers request)
+        {
+            if (request.conferenceSlug == default(string))
+            {
+                throw new HttpError() { StatusCode = HttpStatusCode.BadRequest };
+            }
+
+            return GetAllSpeakers(request);
+        }
+
+        private object GetAllSpeakers(Speakers request)
         {
             lock (NonExistingConferences)
             {

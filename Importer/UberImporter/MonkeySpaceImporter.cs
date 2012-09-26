@@ -31,7 +31,7 @@ namespace UberImporter.MonkeySpace
                         end = new DateTime(2012, 10, 19),
                         facebookUrl = "",
                         homepageUrl = "http://monkeyspace.org",
-                        imageUrl = "/img/conferences/MonkeySpace.png",
+                        imageUrl = "/img/conferences/MonkeySpace.jpg",
                         lanyrdUrl = "",
                         location = "Boston, MA",
                         meetupUrl = "",

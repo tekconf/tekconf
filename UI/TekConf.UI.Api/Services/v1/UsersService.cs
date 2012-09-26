@@ -1,23 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using AutoMapper;
-using TekConf.RemoteData.Dtos.v1;
 using TekConf.UI.Api.Services.Requests.v1;
-using TekConf.UI.Api.UrlResolvers.v1;
 using FluentMongo.Linq;
 using ServiceStack.CacheAccess;
 using ServiceStack.Common.Web;
-using ServiceStack.ServiceHost;
 
 namespace TekConf.UI.Api.Services.v1
 {
-    public class UsersService : MongoRestServiceBase<UsersRequest>
+    public class UserService : MongoServiceBase
     {
         public ICacheClient CacheClient { get; set; }
 
-        public override object OnGet(UsersRequest request)
+        public object Get(User request)
         {
             if (request == null || request.userName == default(string))
             {
@@ -40,7 +35,7 @@ namespace TekConf.UI.Api.Services.v1
             }
         }
 
-        public override object OnPost(UsersRequest request)
+        public object Post(User request)
         {
             var collection = this.RemoteDatabase.GetCollection<UserEntity>("users");
             var userExists = collection

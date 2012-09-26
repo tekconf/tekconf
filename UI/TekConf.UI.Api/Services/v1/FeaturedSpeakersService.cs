@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
+using TekConf.RemoteData.Dtos.v1;
 using TekConf.UI.Api.Services.Requests.v1;
 using FluentMongo.Linq;
 using ServiceStack.CacheAccess;
@@ -7,16 +10,16 @@ using ServiceStack.ServiceHost;
 
 namespace TekConf.UI.Api.Services.v1
 {
-    public class FeaturedSpeakersService : MongoRestServiceBase<FeaturedSpeakersRequest>
+    public class FeaturedSpeakersService : MongoServiceBase
     {
         public ICacheClient CacheClient { get; set; }
 
-        public override object OnGet(FeaturedSpeakersRequest request)
+        public object Get(FeaturedSpeakers request)
         {
             return GetAllSpeakers(request);
         }
 
-        private object GetAllSpeakers(FeaturedSpeakersRequest request)
+        private object GetAllSpeakers(FeaturedSpeakers request)
         {
             var cacheKey = "GetFeaturedSpeakers";
             var expireInTimespan = new TimeSpan(0, 0, 20);
@@ -36,7 +39,8 @@ namespace TekConf.UI.Api.Services.v1
                                         .Distinct()
                                         .Take(3);
 
-                return featuredSpeakers.ToList();
+                var speakersDto = Mapper.Map<List<FullSpeakerDto>>(featuredSpeakers);
+                return speakersDto.ToList();
             });
 
         }

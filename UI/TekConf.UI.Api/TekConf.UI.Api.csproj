@@ -59,17 +59,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\mongocsharpdriver.1.6\lib\net35\MongoDB.Driver.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack, Version=3.9.17.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack, Version=3.9.18.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\ServiceStack.3.9.17\lib\net35\ServiceStack.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.3.9.18\lib\net35\ServiceStack.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Common, Version=3.9.14.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Common, Version=3.9.18.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\ServiceStack.Common.3.9.14\lib\net35\ServiceStack.Common.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.Common.3.9.18\lib\net35\ServiceStack.Common.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Interfaces, Version=3.9.14.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\ServiceStack.Common.3.9.14\lib\net35\ServiceStack.Interfaces.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.Common.3.9.18\lib\net35\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.OrmLite, Version=3.9.14.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -85,7 +85,7 @@
     </Reference>
     <Reference Include="ServiceStack.ServiceInterface, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\ServiceStack.3.9.17\lib\net35\ServiceStack.ServiceInterface.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.3.9.18\lib\net35\ServiceStack.ServiceInterface.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Text, Version=3.9.14.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -124,9 +124,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppHost.cs" />
-    <Compile Include="Requests\v1\UsersRequest.cs" />
-    <Compile Include="Requests\v1\FeaturedSpeakersRequest.cs" />
     <Compile Include="Services\v1\FeaturedSpeakersService.cs" />
+    <Compile Include="Services\v1\MongoServiceBase.cs" />
     <Compile Include="Services\v1\UsersService.cs" />
     <Compile Include="UrlResolvers\BaseUrlResolver.cs" />
     <Compile Include="Bootstrapper.cs" />
@@ -137,14 +136,6 @@
     <Compile Include="UrlResolvers\v1\ScheduleSessionsResolver.cs" />
     <Compile Include="Services\v1\ConferencesService.cs" />
     <Compile Include="Services\v1\MongoRestServiceBase.cs" />
-    <Compile Include="Requests\v1\ConferencesRequest.cs" />
-    <Compile Include="Requests\v1\ScheduleRequest.cs" />
-    <Compile Include="Requests\v1\SessionLinksRequest.cs" />
-    <Compile Include="Requests\v1\SessionPrerequisitesRequest.cs" />
-    <Compile Include="Requests\v1\SessionResourcesRequest.cs" />
-    <Compile Include="Requests\v1\SessionSpeakersRequest.cs" />
-    <Compile Include="Requests\v1\SessionsRequest.cs" />
-    <Compile Include="Requests\v1\SpeakersRequest.cs" />
     <Compile Include="Services\v1\ScheduleService.cs" />
     <Compile Include="Services\v1\SessionLinksService.cs" />
     <Compile Include="Services\v1\SessionPrerequisitesService.cs" />
@@ -176,6 +167,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Requests\v1\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

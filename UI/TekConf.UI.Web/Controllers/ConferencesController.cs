@@ -23,7 +23,7 @@ namespace TekConf.UI.Web.Controllers
 
         }
 
-        public ActionResult IndexCompleted(List<ConferencesDto> conferences)
+        public ActionResult IndexCompleted(List<FullConferenceDto> conferences)
         {
             return View(conferences);
         }
