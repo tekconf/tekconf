@@ -13,9 +13,11 @@ namespace UberImporter
         {
             var monkeySpace = new MonkeySpaceImporter();
             var railsConf = new RailsConfImporter();
+            var codestock = new CodeStockImporter();
 
-            //monkeySpace.Import();
+            monkeySpace.Import();
             railsConf.Import();
+            codestock.Import();
         }
     }
 }

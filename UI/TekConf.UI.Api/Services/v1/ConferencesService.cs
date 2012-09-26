@@ -39,10 +39,11 @@ namespace TekConf.UI.Api.Services.v1
         private object GetAllConferences()
         {
             var cacheKey = "GetAllConferences";
+            var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("app4727263");
 
+            ////TODO : Fix slugs
             //try
             //{
-            //    var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
             //    foreach (var conference in collection.AsQueryable())
             //    {
             //        conference.slug = (conference.name + "-" + conference.start.Year).GenerateSlug();
@@ -68,17 +69,26 @@ namespace TekConf.UI.Api.Services.v1
             //}
 
 
-            //var thatConf = collection.AsQueryable().Where(c => c.slug == "ThatConference-2012").FirstOrDefault();
-            //var nextConf = Mapper.Map<ConferenceEntity>(thatConf);
-            //nextConf._id = Guid.NewGuid();
-            //nextConf.start = thatConf.start.AddYears(1);
-            //nextConf.end = thatConf.end.AddYears(1);
-            //nextConf.slug = "ThatConference-2013";
-            //collection.Save(nextConf);
+            ////TODO : Take Conference to the next year
+            //var thatConf = collection.AsQueryable().FirstOrDefault(c => c.slug == "ThatConference-2012");
+            //if (thatConf != null)
+            //{
+            //    var nextConf = Mapper.Map<ConferenceEntity>(thatConf);
+            //    if (nextConf != null)
+            //    {
+            //        nextConf._id = Guid.NewGuid();
+            //        nextConf.start = thatConf.start.AddYears(1);
+            //        nextConf.end = thatConf.end.AddYears(1);
+            //        nextConf.slug = "ThatConference-2013";
+            //        collection.Save(nextConf);
+            //    }
+            //}
+
             var expireInTimespan = new TimeSpan(0, 0, 20);
+
             return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
             {
-                var conferencesDtos = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
+                var conferencesDtos = this.RemoteDatabase.GetCollection<ConferenceEntity>("app4727263")
                   .AsQueryable()
                   .Select(c => new ConferencesDto()
                   {
@@ -111,7 +121,7 @@ namespace TekConf.UI.Api.Services.v1
             var expireInTimespan = new TimeSpan(0, 0, 20);
             return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
             {
-                var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
+                var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("app4727263");
                 var conference = collection
                 .AsQueryable()
                 .SingleOrDefault(c => c.slug == request.conferenceSlug);
@@ -141,7 +151,7 @@ namespace TekConf.UI.Api.Services.v1
             var expireInTimespan = new TimeSpan(0, 0, 20);
             return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
             {
-                var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
+                var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("app4727263");
                 var conference = collection
                 .AsQueryable()
                 .SingleOrDefault(c => c.slug == request.conferenceSlug);
@@ -150,6 +160,8 @@ namespace TekConf.UI.Api.Services.v1
                 {
                     throw new HttpError(HttpStatusCode.NotFound, "Conference not found.");
                 }
+
+                ////TODO : Temp import
                 //if (conference.name == "CodeMash")
                 //{
                 //    conference.githubUrl = "http://github.com";

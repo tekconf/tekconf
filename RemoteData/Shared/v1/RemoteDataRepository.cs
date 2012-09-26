@@ -178,5 +178,27 @@ namespace TekConf.RemoteData.v1
         }
 
 
+        public void CreateUser(string userName, Action<UserDto> callback)
+        {
+            string url = _baseUrl + "users/" + userName;
+
+            var client = new WebClient { Encoding = System.Text.Encoding.UTF8 };
+            client.Headers[HttpRequestHeader.Accept] = "application/json";
+            
+            client.DownloadStringCompleted += (sender, args) =>
+            {
+                var user = JsonSerializer.DeserializeFromString<UserDto>(args.Result);
+                callback(user);
+            };
+
+            client.DownloadStringAsync(new Uri(url));
+        }
+
+        public void GetUser(string userName, Action<UserDto> callback)
+        {
+            //TODO : Auth against service
+            var user = new UserDto() {userName = userName};
+            callback(user);
+        }
     }
 }

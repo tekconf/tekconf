@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeStockImporter.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="MongoDbConnection.cs" />
     <Compile Include="MonkeySpaceImporter.cs" />
@@ -72,6 +73,7 @@
     <None Include="App.Release.config">
       <DependentUpon>app.config</DependentUpon>
     </None>
+    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

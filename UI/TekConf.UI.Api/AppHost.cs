@@ -41,6 +41,8 @@ namespace TekConf.UI.Api
                 .Add<SessionResourcesRequest>("/v1/conferences/{conferenceSlug}/sessions/{sessionSlug}/resources")
                 .Add<ScheduleRequest>("/v1/conferences/{conferenceSlug}/schedule/{userSlug}")
                 .Add<FeaturedSpeakersRequest>("/v1/speakers/featured")
+                .Add<UsersRequest>("/v1/users")
+                //.Add<UsersRequest>("/v1/users/{userName}")
                 ;
 			//Change the default ServiceStack configuration
 			//SetConfig(new EndpointHostConfig {
