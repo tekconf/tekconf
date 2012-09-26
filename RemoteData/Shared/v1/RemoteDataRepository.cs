@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using ServiceStack.ServiceClient.Web;
@@ -25,7 +26,7 @@ namespace TekConf.RemoteData.v1
         {
             get
             {
-                string baseUri = "http://localhost:25825";
+                string baseUri = ConfigurationManager.AppSettings["BaseUrl"];
 
                 var restClient = new JsonServiceClient(baseUri);
                 return restClient;
