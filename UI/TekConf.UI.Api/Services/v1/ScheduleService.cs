@@ -13,11 +13,11 @@ using ServiceStack.ServiceHost;
 
 namespace TekConf.UI.Api.v1
 {
-  public class ScheduleService : MongoRestServiceBase<ScheduleRequest>
+  public class ScheduleService : MongoServiceBase
   {
     public ICacheClient CacheClient { get; set; }
 
-    public override object OnGet(ScheduleRequest request)
+    public object Get(Schedule request)
     {
       if (request.conferenceSlug == default(string) || request.userSlug == default(string))
       {
@@ -27,7 +27,7 @@ namespace TekConf.UI.Api.v1
       return GetSingleSchedule(request);
     }
 
-    private object GetSingleSchedule(ScheduleRequest request)
+    private object GetSingleSchedule(Schedule request)
     {
       var cacheKey = "GetSingleSchedule-" + request.conferenceSlug + "-" + request.userSlug;
       var expireInTimespan = new TimeSpan(0, 0, 20);

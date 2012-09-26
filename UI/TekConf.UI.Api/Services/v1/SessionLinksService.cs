@@ -9,11 +9,11 @@ using ServiceStack.ServiceHost;
 
 namespace TekConf.UI.Api.Services.v1
 {
-  public class SessionLinksService : MongoRestServiceBase<SessionLinksRequest>
+  public class SessionLinksService : MongoServiceBase
   {
     public ICacheClient CacheClient { get; set; }
 
-    public override object OnGet(SessionLinksRequest request)
+    public object Get(SessionLinks request)
     {
       if (request.conferenceSlug == default(string))
       {
@@ -28,7 +28,7 @@ namespace TekConf.UI.Api.Services.v1
       return GetSingleSessionLinks(request);
     }
 
-    private object GetSingleSessionLinks(SessionLinksRequest request)
+    private object GetSingleSessionLinks(SessionLinks request)
     {
       var cacheKey = "GetSingleSessionLinks-" + request.conferenceSlug + "-" + request.sessionSlug;
       var expireInTimespan = new TimeSpan(0, 0, 20);

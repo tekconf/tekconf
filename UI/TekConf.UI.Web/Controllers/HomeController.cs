@@ -32,7 +32,7 @@ namespace TekConf.UI.Web.Controllers
         }
 
         [CompressFilter]
-        public ActionResult IndexCompleted(List<ConferencesDto> conferences, List<SpeakersDto> featuredSpeakers)
+        public ActionResult IndexCompleted(List<FullConferenceDto> conferences, List<SpeakersDto> featuredSpeakers)
         {
             var filteredConferences = conferences.Where(c => c.start >= DateTime.Now.AddDays(-2)).OrderByDescending(c => c.start).Take(4).ToList();
 

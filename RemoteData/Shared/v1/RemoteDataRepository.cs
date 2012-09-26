@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using ServiceStack.ServiceClient.Web;
 using TekConf.RemoteData.Dtos.v1;
 using ServiceStack.Text;
+using TekConf.UI.Api.Services.Requests.v1;
 
 namespace TekConf.RemoteData.v1
 {
@@ -19,38 +21,27 @@ namespace TekConf.RemoteData.v1
             _baseUrl = baseUrl;
         }
 
-        public void GetConferences(Action<IList<ConferencesDto>> callback)
+        private JsonServiceClient ServiceClient
         {
-            string url = _baseUrl + "conferences";
-
-            var client = new WebClient();
-            client.Encoding = System.Text.Encoding.UTF8;
-            client.Headers[HttpRequestHeader.Accept] = "application/json";
-
-            client.DownloadStringCompleted += (sender, args) =>
-                                                  {
-                                                      var conferences = JsonSerializer.DeserializeFromString<List<ConferencesDto>>(args.Result);
-                                                      callback(conferences);
-                                                  };
-
-            client.DownloadStringAsync(new Uri(url));
-
-        }
-
-        public void GetConference(string slug, Action<ConferenceDto> callback)
-        {
-            string url = _baseUrl + "conferences/" + slug;
-            var client = new WebClient();
-            client.Encoding = System.Text.Encoding.UTF8;
-            client.Headers[HttpRequestHeader.Accept] = "application/json";
-            client.DownloadStringCompleted += (sender, args) =>
+            get
             {
-                var conference = JsonSerializer.DeserializeFromString<ConferenceDto>(args.Result);
-                callback(conference);
-            };
+                string baseUri = "http://localhost:25825";
 
-            client.DownloadStringAsync(new Uri(url));
+                var restClient = new JsonServiceClient(baseUri);
+                return restClient;
+            }
         }
+
+        public void GetConferences(Action<IList<FullConferenceDto>> callback)
+        {
+            ServiceClient.GetAsync(new Conferences(), callback, (r, ex) => { throw ex; });
+        }
+
+        public void GetConference(string slug, Action<FullConferenceDto> callback)
+        {
+            ServiceClient.GetAsync(new Conference() { conferenceSlug = slug}, callback, (r, ex) => { throw ex; });
+        }
+
 
         public void GetFullConference(string slug, Action<FullConferenceDto> callback)
         {
@@ -163,18 +154,7 @@ namespace TekConf.RemoteData.v1
 
         public void GetSession(string conferenceSlug, string slug, Action<SessionDto> callback)
         {
-            string url = _baseUrl + "conferences/" + conferenceSlug + "/sessions/" + slug;
-
-            var client = new WebClient { Encoding = System.Text.Encoding.UTF8 };
-            client.Headers[HttpRequestHeader.Accept] = "application/json";
-
-            client.DownloadStringCompleted += (sender, args) =>
-            {
-                var session = JsonSerializer.DeserializeFromString<SessionDto>(args.Result);
-                callback(session);
-            };
-
-            client.DownloadStringAsync(new Uri(url));
+            ServiceClient.GetAsync(new Session() { conferenceSlug = conferenceSlug, sessionSlug = slug }, callback, (r, ex) => { throw ex; });
         }
 
 

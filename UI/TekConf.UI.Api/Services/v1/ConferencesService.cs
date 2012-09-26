@@ -4,6 +4,7 @@ using System.Net;
 using System.Text.RegularExpressions;
 using AutoMapper;
 using TekConf.RemoteData.Dtos.v1;
+using TekConf.RemoteData.v1;
 using TekConf.UI.Api.Services.Requests.v1;
 using TekConf.UI.Api.UrlResolvers.v1;
 using FluentMongo.Linq;
@@ -13,27 +14,93 @@ using ServiceStack.ServiceHost;
 
 namespace TekConf.UI.Api.Services.v1
 {
-    public class ConferencesService : MongoRestServiceBase<ConferencesRequest>
+    public class ConferenceService : MongoServiceBase
     {
         public ICacheClient CacheClient { get; set; }
 
-        public override object OnGet(ConferencesRequest request)
+        public object Get(Conference request)
         {
-            if (request.conferenceSlug == default(string))
+            var detail = base.RequestContext.Get<IHttpRequest>().QueryString["detail"];
+            if (string.Compare(detail, "all", StringComparison.InvariantCultureIgnoreCase) == 0)
             {
-                return GetAllConferences();
+                var fullConferenceDto = GetFullSingleConference(request);
+                return fullConferenceDto;
             }
-            else
+            var conferenceDto = GetSingleConference(request);
+            return conferenceDto;
+        }
+
+        private object GetSingleConference(Conference request)
+        {
+            var cacheKey = "GetSingleConference-" + request.conferenceSlug;
+            var expireInTimespan = new TimeSpan(0, 0, 20);
+            return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
             {
-                var detail = base.RequestContext.Get<IHttpRequest>().QueryString["detail"];
-                if (string.Compare(detail, "all", StringComparison.InvariantCultureIgnoreCase) == 0)
+                var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("app4727263");
+                var conference = collection
+                .AsQueryable()
+                .SingleOrDefault(c => c.slug == request.conferenceSlug);
+
+                if (conference == null)
                 {
-                    var fullConferenceDto = GetFullSingleConference(request);
-                    return fullConferenceDto;
+                    throw new HttpError(HttpStatusCode.NotFound, "Conference not found.");
                 }
-                var conferenceDto = GetSingleConference(request);
+
+
+                var conferenceDto = Mapper.Map<ConferenceEntity, ConferenceDto>(conference);
+                var conferenceUrlResolver = new ConferenceUrlResolver(conferenceDto.slug);
+                var conferenceSessionsUrlResolver = new ConferenceSessionsUrlResolver(conferenceDto.slug);
+                var conferenceSpeakersUrlResolver = new ConferenceSpeakersUrlResolver(conferenceDto.slug);
+
+                conferenceDto.url = conferenceUrlResolver.ResolveUrl();
+                conferenceDto.sessionsUrl = conferenceSessionsUrlResolver.ResolveUrl();
+                conferenceDto.speakersUrl = conferenceSpeakersUrlResolver.ResolveUrl();
+
                 return conferenceDto;
-            }
+            });
+        }
+
+        private object GetFullSingleConference(Conference request)
+        {
+            var cacheKey = "GetFullSingleConference-" + request.conferenceSlug;
+            var expireInTimespan = new TimeSpan(0, 0, 20);
+            return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
+            {
+                var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("app4727263");
+                var conference = collection
+                .AsQueryable()
+                .SingleOrDefault(c => c.slug == request.conferenceSlug);
+
+                if (conference == null)
+                {
+                    throw new HttpError(HttpStatusCode.NotFound, "Conference not found.");
+                }
+
+                ////TODO : Temp import
+                //if (conference.name == "CodeMash")
+                //{
+                //    conference.githubUrl = "http://github.com";
+                //    conference.googlePlusUrl = "http://plus.google.com";
+                //    conference.lanyrdUrl = "http://lanyrd.com";
+                //    conference.meetupUrl = "http://meetup.com";
+                //    conference.vimeoUrl = "http://vimeo.com";
+                //    conference.youtubeUrl = "http://youtube.com";
+                //    collection.Save(conference);
+                //}
+                var conferenceDto = Mapper.Map<ConferenceEntity, FullConferenceDto>(conference);
+
+                return conferenceDto;
+            });
+        }
+    }
+
+    public class ConferencesService : MongoServiceBase
+    {
+        public ICacheClient CacheClient { get; set; }
+        
+        public object Get(Conferences request)
+        {
+            return GetAllConferences();
         }
 
         private object GetAllConferences()
@@ -114,71 +181,6 @@ namespace TekConf.UI.Api.Services.v1
                 return conferencesDtos.ToList();
             });
         }
-
-        private object GetSingleConference(ConferencesRequest request)
-        {
-            var cacheKey = "GetSingleConference-" + request.conferenceSlug;
-            var expireInTimespan = new TimeSpan(0, 0, 20);
-            return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
-            {
-                var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("app4727263");
-                var conference = collection
-                .AsQueryable()
-                .SingleOrDefault(c => c.slug == request.conferenceSlug);
-
-                if (conference == null)
-                {
-                    throw new HttpError(HttpStatusCode.NotFound, "Conference not found.");
-                }
-
-
-                var conferenceDto = Mapper.Map<ConferenceEntity, ConferenceDto>(conference);
-                var conferenceUrlResolver = new ConferenceUrlResolver(conferenceDto.slug);
-                var conferenceSessionsUrlResolver = new ConferenceSessionsUrlResolver(conferenceDto.slug);
-                var conferenceSpeakersUrlResolver = new ConferenceSpeakersUrlResolver(conferenceDto.slug);
-
-                conferenceDto.url = conferenceUrlResolver.ResolveUrl();
-                conferenceDto.sessionsUrl = conferenceSessionsUrlResolver.ResolveUrl();
-                conferenceDto.speakersUrl = conferenceSpeakersUrlResolver.ResolveUrl();
-
-                return conferenceDto;
-            });
-        }
-
-        private object GetFullSingleConference(ConferencesRequest request)
-        {
-            var cacheKey = "GetFullSingleConference-" + request.conferenceSlug;
-            var expireInTimespan = new TimeSpan(0, 0, 20);
-            return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
-            {
-                var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("app4727263");
-                var conference = collection
-                .AsQueryable()
-                .SingleOrDefault(c => c.slug == request.conferenceSlug);
-
-                if (conference == null)
-                {
-                    throw new HttpError(HttpStatusCode.NotFound, "Conference not found.");
-                }
-
-                ////TODO : Temp import
-                //if (conference.name == "CodeMash")
-                //{
-                //    conference.githubUrl = "http://github.com";
-                //    conference.googlePlusUrl = "http://plus.google.com";
-                //    conference.lanyrdUrl = "http://lanyrd.com";
-                //    conference.meetupUrl = "http://meetup.com";
-                //    conference.vimeoUrl = "http://vimeo.com";
-                //    conference.youtubeUrl = "http://youtube.com";
-                //    collection.Save(conference);
-                //}
-                var conferenceDto = Mapper.Map<ConferenceEntity, FullConferenceDto>(conference);
-
-                return conferenceDto;
-            });
-        }
-
-
     }
 
     public class SessionResult
@@ -186,6 +188,7 @@ namespace TekConf.UI.Api.Services.v1
         public DateKey DateKey { get; set; }
         public SessionEntity Session { get; set; }
     }
+
     public class DateKey
     {
         public int Year { get; set; }
