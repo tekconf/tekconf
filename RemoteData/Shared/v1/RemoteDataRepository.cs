@@ -1,35 +1,31 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Net;
 using ServiceStack.ServiceClient.Web;
 using TekConf.RemoteData.Dtos.v1;
-using ServiceStack.Text;
 using TekConf.UI.Api.Services.Requests.v1;
 
 namespace TekConf.RemoteData.v1
 {
     public class RemoteDataRepository
     {
-        private string _baseUrl;
-        public RemoteDataRepository(string baseUrl)
-        {
-            if (!baseUrl.EndsWith("/"))
-            {
-                baseUrl = baseUrl + "/";
-            }
-            _baseUrl = baseUrl;
-        }
-
+        private JsonServiceClient _restClient;
         private JsonServiceClient ServiceClient
         {
             get
             {
-                string baseUri = ConfigurationManager.AppSettings["BaseUrl"];
+                var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
+                if (!baseUrl.EndsWith("/"))
+                {
+                    baseUrl = baseUrl + "/";
+                }
 
-                var restClient = new JsonServiceClient(baseUri);
-                return restClient;
+                if (_restClient == null)
+                {
+                    _restClient = new JsonServiceClient(baseUrl);
+                }
+
+                return _restClient;
             }
         }
 
@@ -80,29 +76,14 @@ namespace TekConf.RemoteData.v1
             ServiceClient.GetAsync(new Session() { conferenceSlug = conferenceSlug, sessionSlug = slug }, callback, (r, ex) => { throw ex; });
         }
 
-
         public void CreateUser(string userName, Action<UserDto> callback)
         {
-            ServiceClient.Post(new User() {userName = userName}, callback, (r, ex) => { throw ex; });
-            string url = _baseUrl + "users/" + userName;
-
-            var client = new WebClient { Encoding = System.Text.Encoding.UTF8 };
-            client.Headers[HttpRequestHeader.Accept] = "application/json";
-            
-            client.DownloadStringCompleted += (sender, args) =>
-            {
-                var user = JsonSerializer.DeserializeFromString<UserDto>(args.Result);
-                callback(user);
-            };
-
-            client.DownloadStringAsync(new Uri(url));
+            ServiceClient.PostAsync(new User() {userName = userName}, callback, (r, ex) => { throw ex; });
         }
 
         public void GetUser(string userName, Action<UserDto> callback)
         {
-            //TODO : Auth against service
-            var user = new UserDto() {userName = userName};
-            callback(user);
+            ServiceClient.GetAsync(new User() { userName = userName }, callback, (r, ex) => { throw ex; });
         }
     }
 }

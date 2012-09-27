@@ -53,8 +53,7 @@ namespace MvcApplication1.Controllers
                 var userDataFromProvider = result.ExtraData;
                 var email = userDataFromProvider["email"];
 
-                string baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
-                var repository = new RemoteDataRepository(baseUrl);
+                var repository = new RemoteDataRepository();
                 AsyncManager.OutstandingOperations.Increment();
                 repository.CreateUser(email, user =>
                 {

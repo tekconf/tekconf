@@ -20,44 +20,8 @@ namespace TekConf.UI.Api.Services.v1
 
         public object Get(Conference request)
         {
-            var detail = base.RequestContext.Get<IHttpRequest>().QueryString["detail"];
-            if (string.Compare(detail, "all", StringComparison.InvariantCultureIgnoreCase) == 0)
-            {
-                var fullConferenceDto = GetFullSingleConference(request);
-                return fullConferenceDto;
-            }
-            var conferenceDto = GetSingleConference(request);
-            return conferenceDto;
-        }
-
-        private object GetSingleConference(Conference request)
-        {
-            var cacheKey = "GetSingleConference-" + request.conferenceSlug;
-            var expireInTimespan = new TimeSpan(0, 0, 20);
-            return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
-            {
-                var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("app4727263");
-                var conference = collection
-                .AsQueryable()
-                .SingleOrDefault(c => c.slug == request.conferenceSlug);
-
-                if (conference == null)
-                {
-                    throw new HttpError(HttpStatusCode.NotFound, "Conference not found.");
-                }
-
-
-                var conferenceDto = Mapper.Map<ConferenceEntity, ConferenceDto>(conference);
-                var conferenceUrlResolver = new ConferenceUrlResolver(conferenceDto.slug);
-                var conferenceSessionsUrlResolver = new ConferenceSessionsUrlResolver(conferenceDto.slug);
-                var conferenceSpeakersUrlResolver = new ConferenceSpeakersUrlResolver(conferenceDto.slug);
-
-                conferenceDto.url = conferenceUrlResolver.ResolveUrl();
-                conferenceDto.sessionsUrl = conferenceSessionsUrlResolver.ResolveUrl();
-                conferenceDto.speakersUrl = conferenceSpeakersUrlResolver.ResolveUrl();
-
-                return conferenceDto;
-            });
+            var fullConferenceDto = GetFullSingleConference(request);
+            return fullConferenceDto;
         }
 
         private object GetFullSingleConference(Conference request)
@@ -97,7 +61,7 @@ namespace TekConf.UI.Api.Services.v1
     public class ConferencesService : MongoServiceBase
     {
         public ICacheClient CacheClient { get; set; }
-        
+
         public object Get(Conferences request)
         {
             return GetAllConferences();
