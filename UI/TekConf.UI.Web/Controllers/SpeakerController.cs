@@ -19,7 +19,7 @@ namespace TekConf.UI.Web.Controllers
     {
       var remoteData = new RemoteDataRepository(BaseUrl());
       AsyncManager.OutstandingOperations.Increment();
-      remoteData.GetSpeakers(conferenceSlug, sessionSlug, sessions =>
+      remoteData.GetSessionSpeakers(conferenceSlug, sessionSlug, sessions =>
       {
         AsyncManager.Parameters["sessions"] = sessions;
         AsyncManager.OutstandingOperations.Decrement();

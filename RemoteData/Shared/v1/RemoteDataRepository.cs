@@ -46,112 +46,34 @@ namespace TekConf.RemoteData.v1
 
         public void GetFullConference(string slug, Action<FullConferenceDto> callback)
         {
-            if (slug == default(string))
-            {
-                slug = "ThatConference-2012";
-            }
-            string url = _baseUrl + "conferences/" + slug + "?detail=all";
-            var client = new WebClient();
-            client.Encoding = System.Text.Encoding.UTF8;
-            client.Headers[HttpRequestHeader.Accept] = "application/json";
-            client.DownloadStringCompleted += (sender, args) =>
-            {
-                var conference = JsonSerializer.DeserializeFromString<FullConferenceDto>(args.Result);
-                callback(conference);
-            };
-
-            client.DownloadStringAsync(new Uri(url));
+            ServiceClient.GetAsync(new Conference() { conferenceSlug = slug }, callback, (r, ex) => { throw ex; });
         }
 
 
-        public void GetFeaturedSpeakers(Action<List<SpeakersDto>> callback)
+        public void GetFeaturedSpeakers(Action<List<FullSpeakerDto>> callback)
         {
-            string url = _baseUrl + "speakers/featured";
-
-            var client = new WebClient();
-            client.Encoding = System.Text.Encoding.UTF8;
-            client.Headers[HttpRequestHeader.Accept] = "application/json";
-
-            client.DownloadStringCompleted += (sender, args) =>
-            {
-                var speakers = JsonSerializer.DeserializeFromString<List<SpeakersDto>>(args.Result);
-                callback(speakers);
-            };
-
-            client.DownloadStringAsync(new Uri(url));
+            ServiceClient.GetAsync(new FeaturedSpeakers(), callback, (r, ex) => { throw ex; });
         }
 
-        public void GetSpeakers(string conferenceSlug, string sessionSlug, Action<IList<SpeakersDto>> callback)
+        public void GetSessionSpeakers(string conferenceSlug, string sessionSlug, Action<IList<SpeakersDto>> callback)
         {
-            string url = _baseUrl + "conferences/" + conferenceSlug + "/speakers";
-
-            var client = new WebClient();
-            client.Encoding = System.Text.Encoding.UTF8;
-            client.Headers[HttpRequestHeader.Accept] = "application/json";
-
-            client.DownloadStringCompleted += (sender, args) =>
-            {
-                var speakers = JsonSerializer.DeserializeFromString<List<SpeakersDto>>(args.Result);
-                callback(speakers);
-            };
-
-            client.DownloadStringAsync(new Uri(url));
+            ServiceClient.GetAsync(new SessionSpeakers() { conferenceSlug = conferenceSlug, sessionSlug = sessionSlug }, callback, (r, ex) => { throw ex; });
         }
 
-        public void GetSpeakers(string conferenceSlug, Action<IList<SpeakersDto>> callback)
+        public void GetSpeakers(string conferenceSlug, Action<IList<FullSpeakerDto>> callback)
         {
-            string url = _baseUrl + "conferences/" + conferenceSlug + "/speakers";
-
-            var client = new WebClient();
-            client.Encoding = System.Text.Encoding.UTF8;
-            client.Headers[HttpRequestHeader.Accept] = "application/json";
-
-            client.DownloadStringCompleted += (sender, args) =>
-            {
-                var speakers = JsonSerializer.DeserializeFromString<List<SpeakersDto>>(args.Result);
-                //callback(speakers.OrderBy(s => s.firstName).OrderBy(s => s.lastName).ToList());
-                callback(speakers.OrderBy(s => s.lastName).OrderBy(s => s.firstName).ToList());
-            };
-
-            client.DownloadStringAsync(new Uri(url));
-
+            ServiceClient.GetAsync(new Speakers() { conferenceSlug = conferenceSlug }, callback, (r, ex) => { throw ex; });
         }
 
-        public void GetSpeaker(string conferenceSlug, string slug, Action<FullSpeakerDto> callback)
+        public void GetSpeaker(string conferenceSlug, string speakerSlug, Action<FullSpeakerDto> callback)
         {
-            string url = _baseUrl + "conferences/" + conferenceSlug + "/speakers/" + slug;
-
-            var client = new WebClient();
-            client.Encoding = System.Text.Encoding.UTF8;
-            client.Headers[HttpRequestHeader.Accept] = "application/json";
-
-            client.DownloadStringCompleted += (sender, args) =>
-            {
-                var speaker = JsonSerializer.DeserializeFromString<FullSpeakerDto>(args.Result);
-                callback(speaker);
-            };
-
-            client.DownloadStringAsync(new Uri(url));
+            ServiceClient.GetAsync(new Speaker() { conferenceSlug = conferenceSlug, speakerSlug = speakerSlug}, callback, (r, ex) => { throw ex; });
         }
 
         public void GetSessions(string conferenceSlug, Action<IList<SessionsDto>> callback)
         {
-            string url = _baseUrl + "conferences/" + conferenceSlug + "/sessions?format=json";
-
-            var client = new WebClient();
-            client.Encoding = System.Text.Encoding.UTF8;
-            //client.Headers[HttpRequestHeader.Accept] = "application/json";
-
-            client.DownloadStringCompleted += (sender, args) =>
-              {
-                  var sessions = JsonSerializer.DeserializeFromString<List<SessionsDto>>(args.Result);
-                  callback(sessions);
-              };
-
-            client.DownloadStringAsync(new Uri(url));
-
+            ServiceClient.GetAsync(new Sessions() { conferenceSlug = conferenceSlug }, callback, (r, ex) => { throw ex; });
         }
-
 
         public void GetSession(string conferenceSlug, string slug, Action<SessionDto> callback)
         {
@@ -161,6 +83,7 @@ namespace TekConf.RemoteData.v1
 
         public void CreateUser(string userName, Action<UserDto> callback)
         {
+            ServiceClient.Post(new User() {userName = userName}, callback, (r, ex) => { throw ex; });
             string url = _baseUrl + "users/" + userName;
 
             var client = new WebClient { Encoding = System.Text.Encoding.UTF8 };
