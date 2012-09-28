@@ -39,6 +39,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CommonCore.Base">
+      <HintPath>..\..\packages\CommonCore.1.0.0.2\lib\CommonCore.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="CommonCore.Cache">
+      <HintPath>..\..\packages\CommonCore.1.0.0.2\lib\CommonCore.Cache.dll</HintPath>
+    </Reference>
+    <Reference Include="CommonCore.Collections">
+      <HintPath>..\..\packages\CommonCore.1.0.0.2\lib\CommonCore.Collections.dll</HintPath>
+    </Reference>
     <Reference Include="DotNetOpenAuth.AspNet, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\DotNetOpenAuth.AspNet.4.1.0.12182\lib\net40-full\DotNetOpenAuth.AspNet.dll</HintPath>
@@ -70,6 +79,15 @@
       <HintPath>..\..\packages\Glimpse.Mvc3.0.87\lib\net40\Glimpse.Mvc3.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MongoDB.Bson">
+      <HintPath>..\..\packages\mongocsharpdriver.1.6\lib\net35\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver">
+      <HintPath>..\..\packages\mongocsharpdriver.1.6\lib\net35\MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Web">
+      <HintPath>..\..\packages\MongoDB.Web2.1.5.0.6\lib\MongoDB.Web.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Newtonsoft.Json.4.5.9\lib\net40\Newtonsoft.Json.dll</HintPath>

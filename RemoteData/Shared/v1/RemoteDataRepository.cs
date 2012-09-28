@@ -78,7 +78,9 @@ namespace TekConf.RemoteData.v1
 
         public void CreateUser(string userName, Action<UserDto> callback)
         {
-            ServiceClient.PostAsync(new User() {userName = userName}, callback, (r, ex) => { throw ex; });
+            //ServiceClient.PostAsync(new User() {userName = userName}, callback, (r, ex) => { throw ex; });
+            var user = new UserDto() {userName = userName };
+            callback(user);
         }
 
         public void GetUser(string userName, Action<UserDto> callback)
