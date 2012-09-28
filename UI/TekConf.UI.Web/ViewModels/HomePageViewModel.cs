@@ -5,7 +5,7 @@ namespace TekConf.UI.Web.Controllers
 {
     public class HomePageViewModel
     {
-        public List<SpeakersDto> FeaturedSpeakers { get; set; }
+        public List<FullSpeakerDto> FeaturedSpeakers { get; set; }
         public List<FullConferenceDto> FeaturedConferences { get; set; } 
     }
 }

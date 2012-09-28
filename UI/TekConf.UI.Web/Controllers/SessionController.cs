@@ -8,14 +8,9 @@ namespace TekConf.UI.Web.Controllers
 {
     public class SessionController : AsyncController
     {
-        public string BaseUrl()
-        {
-            return ConfigurationManager.AppSettings["baseUrl"];
-        }
-
         public void IndexAsync(string conferenceSlug)
         {
-            var remoteData = new RemoteDataRepository(BaseUrl());
+            var remoteData = new RemoteDataRepository();
             AsyncManager.OutstandingOperations.Increment();
             remoteData.GetSessions(conferenceSlug, sessions =>
             {
@@ -32,7 +27,7 @@ namespace TekConf.UI.Web.Controllers
 
         public void DetailAsync(string conferenceSlug, string sessionSlug)
         {
-            var remoteData = new RemoteDataRepository(BaseUrl());
+            var remoteData = new RemoteDataRepository();
             AsyncManager.OutstandingOperations.Increment();
             remoteData.GetSession(conferenceSlug, sessionSlug, session =>
             {

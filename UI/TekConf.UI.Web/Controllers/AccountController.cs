@@ -23,14 +23,14 @@ namespace MvcApplication1.Controllers
         //
         // GET: /Account/Login
         [AllowAnonymous]
-        public void LoginWithProvider()
+        public void Login()
         {
             string provider = "google";
             OAuthWebSecurity.RequestAuthentication(provider, Url.Action("AuthenticationCallbackAsync"));
         }
 
         [AllowAnonymous]
-        public void AuthenticationCallbackAsync()
+        public ActionResult AuthenticationCallbackAsync()
         {
             var result = OAuthWebSecurity.VerifyAuthentication();
             if (result.IsSuccessful)
@@ -53,20 +53,21 @@ namespace MvcApplication1.Controllers
                 var userDataFromProvider = result.ExtraData;
                 var email = userDataFromProvider["email"];
 
-                string baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
-                var repository = new RemoteDataRepository(baseUrl);
+                var repository = new RemoteDataRepository();
                 AsyncManager.OutstandingOperations.Increment();
-                repository.CreateUser(email, user =>
-                {
-                    AsyncManager.Parameters["user"] = user;
-                    AsyncManager.OutstandingOperations.Decrement();
-                });
+                MembershipCreateStatus status;
+                Membership.Provider.CreateUser(email, string.Empty, email, "", "", true, Guid.NewGuid(), out status);
+                //repository.CreateUser(email, user =>
+                //{
+                //    AsyncManager.Parameters["user"] = user;
+                //    AsyncManager.OutstandingOperations.Decrement();
+                //});
 
                 //var gender = userDataFromProvider["gender"];
 
-                //return RedirectToAction("Index", "Api", result);
+                return RedirectToAction("Index", "Api", result);
             }
-            //return View("Error", result.Error);
+            return View("Error", result.Error);
         }
 
         public ActionResult AuthenticationCallbackCompleted(UserDto user)

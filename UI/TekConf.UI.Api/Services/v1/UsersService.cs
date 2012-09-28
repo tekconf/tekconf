@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Net;
+using System.Web.Security;
 using TekConf.UI.Api.Services.Requests.v1;
 using FluentMongo.Linq;
 using ServiceStack.CacheAccess;
@@ -22,16 +23,18 @@ namespace TekConf.UI.Api.Services.v1
             }
             else
             {
-                var collection = this.RemoteDatabase.GetCollection<UserEntity>("users");
-                var user = collection.AsQueryable().FirstOrDefault(u => u.userName == request.userName);
-                if (user == null)
-                {
-                    return new HttpError() {StatusCode = HttpStatusCode.BadRequest, StatusDescription = "User not found"};
-                }
-                else
-                {
-                    return user;
-                }
+                var user3 = Membership.FindUsersByName(request.userName);
+                return null;
+                //var collection = this.RemoteDatabase.GetCollection<UserEntity>("ASPNETDB");
+                //var user = collection.AsQueryable().FirstOrDefault(u => u.userName == request.userName);
+                //if (user == null)
+                //{
+                //    return new HttpError() {StatusCode = HttpStatusCode.BadRequest, StatusDescription = "User not found"};
+                //}
+                //else
+                //{
+                //    return user;
+                //}
             }
         }
 

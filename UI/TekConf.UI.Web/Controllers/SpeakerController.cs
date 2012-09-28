@@ -10,16 +10,11 @@ namespace TekConf.UI.Web.Controllers
 {
   public class SpeakerController : AsyncController
   {
-    public string BaseUrl()
-    {
-      return ConfigurationManager.AppSettings["baseUrl"];
-    }
-
     public void IndexAsync(string conferenceSlug, string sessionSlug)
     {
-      var remoteData = new RemoteDataRepository(BaseUrl());
+      var remoteData = new RemoteDataRepository();
       AsyncManager.OutstandingOperations.Increment();
-      remoteData.GetSpeakers(conferenceSlug, sessionSlug, sessions =>
+      remoteData.GetSessionSpeakers(conferenceSlug, sessionSlug, sessions =>
       {
         AsyncManager.Parameters["sessions"] = sessions;
         AsyncManager.OutstandingOperations.Decrement();
@@ -34,7 +29,7 @@ namespace TekConf.UI.Web.Controllers
 
     public void DetailAsync(string conferenceSlug, string sessionSlug, string speakerSlug)
     {
-        var remoteData = new RemoteDataRepository(BaseUrl());
+        var remoteData = new RemoteDataRepository();
         AsyncManager.OutstandingOperations.Increment(2);
 
         remoteData.GetSpeaker(conferenceSlug, speakerSlug, speaker =>
