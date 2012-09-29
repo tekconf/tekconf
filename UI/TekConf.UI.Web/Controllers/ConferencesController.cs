@@ -10,8 +10,7 @@ namespace TekConf.UI.Web.Controllers
     {
         public void IndexAsync()
         {
-            string baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
-            var repository = new RemoteDataRepository(baseUrl);
+            var repository = new RemoteDataRepository();
 
             AsyncManager.OutstandingOperations.Increment();
             
@@ -30,8 +29,7 @@ namespace TekConf.UI.Web.Controllers
 
         public void DetailAsync(string conferenceSlug)
         {
-            string baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
-            var repository = new RemoteDataRepository(baseUrl);
+            var repository = new RemoteDataRepository();
 
             AsyncManager.OutstandingOperations.Increment();
             repository.GetFullConference(conferenceSlug, conference =>

@@ -18,12 +18,12 @@ namespace TekConf.UI.Api.Services
             //{
             //    if (_remoteServer == null)
             //    {
-            //        _remoteServer = MongoServer.Create("mongodb://admin:goldie12@flame.mongohq.com:27100/app4727263?safe=true");
+            //        _remoteServer = MongoServer.Create("mongodb://admin:mongo12@flame.mongohq.com:27100/app4727263?safe=true");
             //    }
 
             //    if (_remoteDatabase == null)
             //    {
-            //        _remoteDatabase = _remoteServer.GetDatabase("app4727263");
+            //        _remoteDatabase = _remoteServer.GetDatabase("conferences");
             //    }
             //    return _remoteDatabase;
             //}
@@ -36,13 +36,13 @@ namespace TekConf.UI.Api.Services
             {
                 if (_localServer == null)
                 {
-                    var mongoServer = ConfigurationManager.AppSettings["MongoServer"];
+                    var mongoServer = ConfigurationManager.ConnectionStrings["MongoServer"].ConnectionString;
                     _localServer = MongoServer.Create(mongoServer);
                 }
 
                 if (_localDatabase == null)
                 {
-                    _localDatabase = _localServer.GetDatabase("app4727263");
+                    _localDatabase = _localServer.GetDatabase("conferences");
 
                 }
                 return _localDatabase;
