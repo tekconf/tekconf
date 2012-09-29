@@ -47,7 +47,7 @@ namespace TekConf.UI.Api.Services.v1
             return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
             {
                 var conference =
-                this.RemoteDatabase.GetCollection<ConferenceEntity>("app4727263").AsQueryable().SingleOrDefault(
+                this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences").AsQueryable().SingleOrDefault(
                   c => c.slug == request.conferenceSlug);
 
                 if (conference == null)
@@ -126,7 +126,7 @@ namespace TekConf.UI.Api.Services.v1
             var expireInTimespan = new TimeSpan(0, 0, 20);
             return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
             {
-                var conference = this.RemoteDatabase.GetCollection<ConferenceEntity>("app4727263").AsQueryable()
+                var conference = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences").AsQueryable()
                     //.Where(s => s.slug == request.sessionSlug)
                         .SingleOrDefault(c => c.slug == request.conferenceSlug);
 

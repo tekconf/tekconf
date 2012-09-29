@@ -30,7 +30,7 @@ namespace TekConf.UI.Api.Services.v1
             var expireInTimespan = new TimeSpan(0, 0, 20);
             return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
             {
-                var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("app4727263");
+                var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
                 var conference = collection
                 .AsQueryable()
                 .SingleOrDefault(c => c.slug == request.conferenceSlug);
@@ -70,7 +70,7 @@ namespace TekConf.UI.Api.Services.v1
         private object GetAllConferences()
         {
             var cacheKey = "GetAllConferences";
-            var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("app4727263");
+            var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
 
             ////TODO : Fix slugs
             //try
@@ -119,7 +119,7 @@ namespace TekConf.UI.Api.Services.v1
 
             return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
             {
-                var conferencesDtos = this.RemoteDatabase.GetCollection<ConferenceEntity>("app4727263")
+                var conferencesDtos = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
                   .AsQueryable()
                   .Select(c => new ConferencesDto()
                   {
