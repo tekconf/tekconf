@@ -42,7 +42,7 @@ namespace TekConf.UI.Api.Services
 
                 if (_localDatabase == null)
                 {
-                    _localDatabase = _localServer.GetDatabase("conferences");
+                    _localDatabase = _localServer.GetDatabase("tekconf");
 
                 }
                 return _localDatabase;
