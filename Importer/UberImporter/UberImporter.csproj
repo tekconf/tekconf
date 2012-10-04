@@ -54,13 +54,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CodeStockImporter.cs" />
+    <Compile Include="Importers\OneDevDayDetroitImporter.cs" />
+    <Compile Include="Importers\CodeStockImporter.cs" />
     <Compile Include="Helpers.cs" />
     <Compile Include="MongoDbConnection.cs" />
-    <Compile Include="MonkeySpaceImporter.cs" />
+    <Compile Include="Importers\MonkeySpaceImporter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RailsConfImporter.cs" />
+    <Compile Include="Importers\RailsConfImporter.cs" />
     <Compile Include="StringExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -73,7 +74,6 @@
     <None Include="App.Release.config">
       <DependentUpon>app.config</DependentUpon>
     </None>
-    <None Include="ClassDiagram1.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

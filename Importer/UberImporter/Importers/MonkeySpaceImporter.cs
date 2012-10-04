@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using FluentMongo.Linq;
+using MongoDB.Driver;
+using MongoDB.Driver.Builders;
 using ServiceStack.Text;
 using TekConf.UI.Api;
 
@@ -12,7 +14,8 @@ namespace UberImporter.MonkeySpace
     {
         public void Import()
         {
-
+            MongoDbConnection connection = new MongoDbConnection();
+            var collection = connection.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
 
             var url = "http://monkeyspace.org/data/schedule.json";
             var request = new WebClient();
@@ -20,8 +23,6 @@ namespace UberImporter.MonkeySpace
             var root = json.FromJson<root>();
             if (root != null)
             {
-                MongoDbConnection connection = new MongoDbConnection();
-                var collection = connection.RemoteDatabase.GetCollection<ConferenceEntity>("app4727263");
                 if (!collection.AsQueryable().Any(c => c.slug == "MonkeySpace-2012"))
                 {
                     var conference = new ConferenceEntity()

@@ -445,6 +445,7 @@
     <Content Include="font\fontawesome-webfont.ttf" />
     <Content Include="font\fontawesome-webfont.woff" />
     <Content Include="img\conferences\CodeStock.png" />
+    <Content Include="img\conferences\OneDevDayDetroit.png" />
     <Content Include="img\conferences\RailsConf.png" />
     <Content Include="img\social\500px-16x16.png" />
     <Content Include="img\social\500px-24x24.png" />
@@ -795,7 +796,7 @@
     <Content Include="img\conferences\Build.png" />
     <Content Include="img\conferences\CodeMash.png" />
     <Content Include="img\conferences\MonkeySpace.jpg" />
-    <Content Include="img\conferences\Monospace.png" />
+    <Content Include="img\conferences\MonkeySpace.png" />
     <Content Include="img\conferences\ThatConference.png" />
     <Content Include="img\feature-check.png" />
     <Content Include="img\grab.png" />
