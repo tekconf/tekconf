@@ -1,0 +1,143 @@
+﻿@using System.Globalization
+@using System.Web.Optimization
+@model TekConf.RemoteData.Dtos.v1.FullConferenceDto
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>Create Conference - tekconf</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet" type="text/css">
+    @Styles.Render("~/css/conferences/detail")
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+</head>
+
+<body>
+
+    @Html.Partial("Header")
+
+    <div id="subheader">
+        <div class="inner">
+            <div class="container">
+                <h1>Create Conference</h1>
+            </div>
+            <!-- /.container -->
+        </div>
+        <!-- /inner -->
+    </div>
+    <!-- /subheader -->
+
+    <div id="subpage">
+        <div class="container">
+
+            @using (Html.BeginForm())
+            {
+                <div class="row">
+                    <legend>Main Information</legend>
+
+                    <div class="span4">
+
+                        <label>Conference Name</label>
+                        <input type="text">
+                        <span class="help-block">Example block-level help text here.</span>
+
+                        <label>Start Date/Time</label>
+                        <input type="datetime">
+
+                        <label>End Date/Time</label>
+                        <input type="datetime">
+
+                        <label>Location</label>
+                        <input type="text">
+
+                        <label>Tagline</label>
+                        <input type="text">
+
+                        <label>Image</label>
+                        <input type="file">
+                    </div>
+                    <div class="span4">
+                        <label>Description</label>
+                        <textarea rows="19" cols="100">
+                        </textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <legend>Optional Information</legend>
+
+                    <div class="span4">
+
+                        <label>Website</label>
+                        <input type="url">
+
+                        <label>Facebook</label>
+                        <input type="text">
+
+                        <label>Twitter Name</label>
+                        <input type="text">
+
+                        <label>Twitter Hash Tag</label>
+                        <input type="text">
+
+                        <label>Lanyrd</label>
+                        <input type="text">
+                    </div>
+                    <div class="span4">
+                        <label>Meetup</label>
+                        <input type="text">
+
+                        <label>Google+</label>
+                        <input type="text">
+
+                        <label>Vimeo</label>
+                        <input type="text">
+
+                        <label>YouTube</label>
+                        <input type="text">
+
+                        <label>GitHub</label>
+                        <input type="text">
+
+                        <label>LinkedIn</label>
+                        <input type="text">
+                    </div>
+
+                </div>
+                    
+                    
+            }
+
+            <div class="row">
+                <button type="submit" class="btn-large btn btn-primary">Save Conference</button>
+            </div>
+        </div>
+        <!-- /container -->
+
+    </div>
+    <!-- /subpage -->
+
+    @Html.Partial("Extra")
+
+    @Html.Partial("Footer")
+
+    @Scripts.Render("~/js/common")
+
+    <script>
+        $(function () {
+
+        });
+    </script>
+</body>
+</html>

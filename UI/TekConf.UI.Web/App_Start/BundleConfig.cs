@@ -76,7 +76,7 @@ namespace TekConf.UI.Web
                             "~/css/reboot-landing.css",
                             "~/css/reboot-landing-responsive.css",
                             "~/css/themes/green/theme.css",
-                            "~/css/pages/faq.css"
+                            "~/css/pages/plans.css"
                         )
                 );
 
