@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Importers\AlohaRubyConfImporter.cs" />
     <Compile Include="Importers\OneDevDayDetroitImporter.cs" />
     <Compile Include="Importers\CodeStockImporter.cs" />
     <Compile Include="Helpers.cs" />

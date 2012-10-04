@@ -292,7 +292,7 @@
     <Content Include="css\pages\faq.css" />
     <Content Include="css\pages\features.css" />
     <Content Include="css\pages\homepage.css" />
-    <Content Include="css\plans.css" />
+    <Content Include="css\pages\plans.css" />
     <Content Include="css\reboot-landing-responsive.css" />
     <Content Include="css\reboot-landing.css" />
     <Content Include="css\themes\green\img\header-bg.png" />
@@ -888,6 +888,7 @@
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\_references.js" />
@@ -934,6 +935,7 @@
     <Content Include="Views\Shared\Header.cshtml" />
     <Content Include="Views\Speaker\Detail.cshtml" />
     <Content Include="Views\Shared\Extra.cshtml" />
+    <Content Include="Views\Admin\CreateConference.cshtml" />
     <None Include="Views\Web.Debug.config" />
     <None Include="Views\Web.Release.config" />
   </ItemGroup>
