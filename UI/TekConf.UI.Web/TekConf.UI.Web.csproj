@@ -476,9 +476,13 @@
     <Content Include="font\fontawesome-webfont.svgz" />
     <Content Include="font\fontawesome-webfont.ttf" />
     <Content Include="font\fontawesome-webfont.woff" />
+    <Content Include="img\conferences\AlohaRubyConf.png" />
+    <Content Include="img\conferences\aspConf.png" />
     <Content Include="img\conferences\CodeStock.png" />
+    <Content Include="img\conferences\MidwestPHP.png" />
     <Content Include="img\conferences\OneDevDayDetroit.png" />
     <Content Include="img\conferences\RailsConf.png" />
+    <Content Include="img\conferences\Webstock.png" />
     <Content Include="img\social\500px-16x16.png" />
     <Content Include="img\social\500px-24x24.png" />
     <Content Include="img\social\500px-32x32.png" />
