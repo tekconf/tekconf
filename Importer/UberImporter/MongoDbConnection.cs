@@ -17,12 +17,12 @@ namespace UberImporter
             //{
             //    if (_remoteServer == null)
             //    {
-            //        _remoteServer = MongoServer.Create("mongodb://admin:goldie12@flame.mongohq.com:27100/app4727263?safe=true");
+            //        _remoteServer = MongoServer.Create("mongodb://tekconf:tekconf1234@alex.mongohq.com:10035/?safe=true");
             //    }
 
             //    if (_remoteDatabase == null)
             //    {
-            //        _remoteDatabase = _remoteServer.GetDatabase("app4727263");
+            //        _remoteDatabase = _remoteServer.GetDatabase("tekconf");
             //    }
             //    return _remoteDatabase;
             //}
@@ -41,7 +41,7 @@ namespace UberImporter
 
                 if (_localDatabase == null)
                 {
-                    _localDatabase = _localServer.GetDatabase("app4727263");
+                    _localDatabase = _localServer.GetDatabase("tekconf");
 
                 }
                 return _localDatabase;

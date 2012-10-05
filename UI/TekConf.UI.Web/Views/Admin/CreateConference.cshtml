@@ -1,0 +1,142 @@
+﻿@using System.Globalization
+@using System.Web.Optimization
+@model TekConf.UI.Api.Services.Requests.v1.CreateConference
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>Create Conference - tekconf</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet" type="text/css">
+    @Styles.Render("~/css/conferences/detail")
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+</head>
+
+<body>
+
+    @Html.Partial("Header")
+
+    <div id="subheader">
+        <div class="inner">
+            <div class="container">
+                <h1>Create Conference</h1>
+            </div>
+            <!-- /.container -->
+        </div>
+        <!-- /inner -->
+    </div>
+    <!-- /subheader -->
+
+    <div id="subpage">
+        <div class="container">
+
+            @using (Html.BeginForm("CreateConference", "Admin"))
+            {
+                <div class="row">
+                    <legend>Main Information</legend>
+
+                    <div class="span4">
+
+                        <label>Conference Name</label>
+                        @Html.TextBoxFor(c => c.name)
+                        <span class="help-block">Example block-level help text here.</span>
+
+                        <label>Start Date/Time</label>
+                        @Html.TextBoxFor(c => c.start, new { type = "datetime"})
+
+                        <label>End Date/Time</label>
+                        @Html.TextBoxFor(c => c.end, new { type = "datetime"})
+
+                        <label>Location</label>
+                        @Html.TextBoxFor(c => c.location)
+
+                        <label>Tagline</label>
+                        @Html.TextBoxFor(c => c.tagline)
+
+                        <label>Image</label>
+                        <input type="file">
+                    </div>
+                    <div class="span4">
+                        <label>Description</label>
+                        @Html.TextAreaFor(c => c.description, 19, 100, null)
+                    </div>
+                </div>
+                <div class="row">
+                    <legend>Optional Information</legend>
+
+                    <div class="span4">
+
+                        <label>Website</label>
+                        @Html.TextBoxFor(c => c.homepageUrl)
+
+                        <label>Facebook</label>
+                        @Html.TextBoxFor(c => c.facebookUrl)
+
+                        <label>Twitter Name</label>
+                        @Html.TextBoxFor(c => c.twitterName)
+
+                        <label>Twitter Hash Tag</label>
+                        @Html.TextBoxFor(c => c.twitterHashTag)
+
+                        <label>Lanyrd</label>
+                        @Html.TextBoxFor(c => c.lanyrdUrl)
+                    </div>
+                    <div class="span4">
+                        <label>Meetup</label>
+                        @Html.TextBoxFor(c => c.meetupUrl)
+
+                        <label>Google+</label>
+                        @Html.TextBoxFor(c => c.googlePlusUrl)
+
+                        <label>Vimeo</label>
+                        @Html.TextBoxFor(c => c.vimeoUrl)
+
+                        <label>YouTube</label>
+                        @Html.TextBoxFor(c => c.youtubeUrl)
+
+                        <label>GitHub</label>
+                        @Html.TextBoxFor(c => c.githubUrl)
+
+                        <label>LinkedIn</label>
+                        @Html.TextBoxFor(c => c.linkedInUrl)
+                    </div>
+
+                </div>
+                    
+                <div class="row">
+                    <input type="submit" class="btn-large btn btn-primary" value="Save Conference" />
+                </div>      
+            }
+
+
+        </div>
+        <!-- /container -->
+
+    </div>
+    <!-- /subpage -->
+
+    @Html.Partial("Extra")
+
+    @Html.Partial("Footer")
+
+    @Scripts.Render("~/js/common")
+
+    <script>
+        $(function () {
+
+        });
+    </script>
+</body>
+</html>

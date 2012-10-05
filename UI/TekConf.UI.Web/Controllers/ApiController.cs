@@ -12,7 +12,7 @@ namespace TekConf.UI.Web.Controllers
     //
     // GET: /Api/
 
-      [Authorize]
+      //[Authorize]
     public ActionResult Index()
     {
       var documentation = new List<ApiDocumentation>()
