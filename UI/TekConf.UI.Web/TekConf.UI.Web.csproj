@@ -481,6 +481,7 @@
     <Content Include="img\conferences\BackboneConf.png" />
     <Content Include="img\conferences\CodeStock.png" />
     <Content Include="img\conferences\Devlink.png" />
+    <Content Include="img\conferences\KalamazooX.png" />
     <Content Include="img\conferences\MidwestPHP.png" />
     <Content Include="img\conferences\OneDevDayDetroit.png" />
     <Content Include="img\conferences\RailsConf.png" />
