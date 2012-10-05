@@ -478,6 +478,7 @@
     <Content Include="font\fontawesome-webfont.woff" />
     <Content Include="img\conferences\AlohaRubyConf.png" />
     <Content Include="img\conferences\aspConf.png" />
+    <Content Include="img\conferences\BackboneConf.png" />
     <Content Include="img\conferences\CodeStock.png" />
     <Content Include="img\conferences\MidwestPHP.png" />
     <Content Include="img\conferences\OneDevDayDetroit.png" />
