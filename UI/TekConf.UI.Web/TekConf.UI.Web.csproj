@@ -105,6 +105,38 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Newtonsoft.Json.4.5.9\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="ServiceStack, Version=3.9.23.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\ServiceStack.3.9.23\lib\net35\ServiceStack.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Common, Version=3.9.21.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\ServiceStack.Common.3.9.21\lib\net35\ServiceStack.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Interfaces, Version=3.9.21.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\ServiceStack.Common.3.9.21\lib\net35\ServiceStack.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.OrmLite, Version=3.9.14.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\ServiceStack.OrmLite.SqlServer.3.9.14\lib\ServiceStack.OrmLite.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.OrmLite.SqlServer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\ServiceStack.OrmLite.SqlServer.3.9.14\lib\ServiceStack.OrmLite.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Redis, Version=3.9.14.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\ServiceStack.Redis.3.9.14\lib\net35\ServiceStack.Redis.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.ServiceInterface, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\ServiceStack.3.9.23\lib\net35\ServiceStack.ServiceInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Text, Version=3.9.21.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\ServiceStack.Text.3.9.21\lib\net35\ServiceStack.Text.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -868,8 +900,8 @@
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
-    <Content Include="Scripts\jquery-ui-1.8.23.js" />
-    <Content Include="Scripts\jquery-ui-1.8.23.min.js" />
+    <Content Include="Scripts\jquery-ui-1.8.24.js" />
+    <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />

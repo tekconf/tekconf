@@ -1,7 +1,6 @@
 using System;
 using System.Linq;
 using System.Net;
-using System.Text.RegularExpressions;
 using AutoMapper;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.RemoteData.v1;
@@ -22,6 +21,39 @@ namespace TekConf.UI.Api.Services.v1
         {
             var fullConferenceDto = GetFullSingleConference(request);
             return fullConferenceDto;
+        }
+
+        public object Post(CreateConference conference)
+        {
+            var entity = new ConferenceEntity()
+                             {
+                                 _id = Guid.NewGuid(),
+                                 description = conference.description,
+                                 end = conference.end,
+                                 facebookUrl = conference.facebookUrl,
+                                 githubUrl = conference.githubUrl,
+                                 googlePlusUrl = conference.googlePlusUrl,
+                                 homepageUrl = conference.homepageUrl,
+                                 imageUrl = conference.imageUrl,
+                                 lanyrdUrl = conference.lanyrdUrl,
+                                 linkedInUrl = conference.linkedInUrl,
+                                 location = conference.location,
+                                 meetupUrl = conference.meetupUrl,
+                                 name = conference.name,
+                                 slug = conference.name.GenerateSlug(),
+                                 start = conference.start,
+                                 tagLine = conference.tagline,
+                                 twitterHashTag = conference.twitterHashTag,
+                                 twitterName = conference.twitterName,
+                                 vimeoUrl = conference.vimeoUrl,
+                                 youtubeUrl = conference.youtubeUrl
+                             };
+
+            var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
+            collection.Save(entity);
+            var conferenceDto = Mapper.Map<ConferenceEntity, FullConferenceDto>(entity);
+
+            return conferenceDto;
         }
 
         private object GetFullSingleConference(Conference request)
@@ -162,23 +194,23 @@ namespace TekConf.UI.Api.Services.v1
 
     public static class Helpers
     {
-        public static string GenerateSlug(this string phrase)
-        {
-            string slug = phrase.RemoveAccent().ToLower();
-            // invalid chars           
-            slug = Regex.Replace(slug, @"[^a-z0-9\s-]", "");
-            // convert multiple spaces into one space   
-            slug = Regex.Replace(slug, @"\s+", " ").Trim();
-            // cut and trim 
-            slug = slug.Substring(0, slug.Length <= 45 ? slug.Length : 45).Trim();
-            slug = Regex.Replace(slug, @"\s", "-"); // hyphens   
-            return slug;
-        }
+        //public static string GenerateSlug(this string phrase)
+        //{
+        //    string slug = phrase.RemoveAccent().ToLower();
+        //    // invalid chars           
+        //    slug = Regex.Replace(slug, @"[^a-z0-9\s-]", "");
+        //    // convert multiple spaces into one space   
+        //    slug = Regex.Replace(slug, @"\s+", " ").Trim();
+        //    // cut and trim 
+        //    slug = slug.Substring(0, slug.Length <= 45 ? slug.Length : 45).Trim();
+        //    slug = Regex.Replace(slug, @"\s", "-"); // hyphens   
+        //    return slug;
+        //}
 
-        public static string RemoveAccent(this string txt)
-        {
-            byte[] bytes = System.Text.Encoding.GetEncoding("Cyrillic").GetBytes(txt);
-            return System.Text.Encoding.ASCII.GetString(bytes);
-        }
+        //public static string RemoveAccent(this string txt)
+        //{
+        //    byte[] bytes = System.Text.Encoding.GetEncoding("Cyrillic").GetBytes(txt);
+        //    return System.Text.Encoding.ASCII.GetString(bytes);
+        //}
     }
 }

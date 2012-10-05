@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Text.RegularExpressions;
 using ServiceStack.ServiceClient.Web;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.UI.Api.Services.Requests.v1;
@@ -76,6 +77,12 @@ namespace TekConf.RemoteData.v1
             ServiceClient.GetAsync(new Session() { conferenceSlug = conferenceSlug, sessionSlug = slug }, callback, (r, ex) => { throw ex; });
         }
 
+        public void CreateConference(CreateConference conference, Action<FullConferenceDto> callback)
+        {
+            conference.slug = conference.name.GenerateSlug();
+            ServiceClient.PostAsync(conference, callback, (r, ex) => { throw ex; });
+        }
+
         public void CreateUser(string userName, Action<UserDto> callback)
         {
             //ServiceClient.PostAsync(new User() {userName = userName}, callback, (r, ex) => { throw ex; });
@@ -86,6 +93,28 @@ namespace TekConf.RemoteData.v1
         public void GetUser(string userName, Action<UserDto> callback)
         {
             ServiceClient.GetAsync(new User() { userName = userName }, callback, (r, ex) => { throw ex; });
+        }
+    }
+
+    public static class Helpers
+    {
+        public static string GenerateSlug(this string phrase)
+        {
+            string slug = phrase.RemoveAccent().ToLower();
+            // invalid chars           
+            slug = Regex.Replace(slug, @"[^a-z0-9\s-]", "");
+            // convert multiple spaces into one space   
+            slug = Regex.Replace(slug, @"\s+", " ").Trim();
+            // cut and trim 
+            slug = slug.Substring(0, slug.Length <= 45 ? slug.Length : 45).Trim();
+            slug = Regex.Replace(slug, @"\s", "-"); // hyphens   
+            return slug;
+        }
+
+        public static string RemoveAccent(this string txt)
+        {
+            byte[] bytes = System.Text.Encoding.GetEncoding("Cyrillic").GetBytes(txt);
+            return System.Text.Encoding.ASCII.GetString(bytes);
         }
     }
 }

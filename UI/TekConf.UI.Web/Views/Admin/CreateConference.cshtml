@@ -1,6 +1,6 @@
 ﻿@using System.Globalization
 @using System.Web.Optimization
-@model TekConf.RemoteData.Dtos.v1.FullConferenceDto
+@model TekConf.UI.Api.Services.Requests.v1.CreateConference
 @{
     Layout = null;
 }
@@ -42,7 +42,7 @@
     <div id="subpage">
         <div class="container">
 
-            @using (Html.BeginForm())
+            @using (Html.BeginForm("CreateConference", "Admin"))
             {
                 <div class="row">
                     <legend>Main Information</legend>
@@ -50,28 +50,27 @@
                     <div class="span4">
 
                         <label>Conference Name</label>
-                        <input type="text">
+                        @Html.TextBoxFor(c => c.name)
                         <span class="help-block">Example block-level help text here.</span>
 
                         <label>Start Date/Time</label>
-                        <input type="datetime">
+                        @Html.TextBoxFor(c => c.start, new { type = "datetime"})
 
                         <label>End Date/Time</label>
-                        <input type="datetime">
+                        @Html.TextBoxFor(c => c.end, new { type = "datetime"})
 
                         <label>Location</label>
-                        <input type="text">
+                        @Html.TextBoxFor(c => c.location)
 
                         <label>Tagline</label>
-                        <input type="text">
+                        @Html.TextBoxFor(c => c.tagline)
 
                         <label>Image</label>
                         <input type="file">
                     </div>
                     <div class="span4">
                         <label>Description</label>
-                        <textarea rows="19" cols="100">
-                        </textarea>
+                        @Html.TextAreaFor(c => c.description, 19, 100, null)
                     </div>
                 </div>
                 <div class="row">
@@ -80,48 +79,48 @@
                     <div class="span4">
 
                         <label>Website</label>
-                        <input type="url">
+                        @Html.TextBoxFor(c => c.homepageUrl)
 
                         <label>Facebook</label>
-                        <input type="text">
+                        @Html.TextBoxFor(c => c.facebookUrl)
 
                         <label>Twitter Name</label>
-                        <input type="text">
+                        @Html.TextBoxFor(c => c.twitterName)
 
                         <label>Twitter Hash Tag</label>
-                        <input type="text">
+                        @Html.TextBoxFor(c => c.twitterHashTag)
 
                         <label>Lanyrd</label>
-                        <input type="text">
+                        @Html.TextBoxFor(c => c.lanyrdUrl)
                     </div>
                     <div class="span4">
                         <label>Meetup</label>
-                        <input type="text">
+                        @Html.TextBoxFor(c => c.meetupUrl)
 
                         <label>Google+</label>
-                        <input type="text">
+                        @Html.TextBoxFor(c => c.googlePlusUrl)
 
                         <label>Vimeo</label>
-                        <input type="text">
+                        @Html.TextBoxFor(c => c.vimeoUrl)
 
                         <label>YouTube</label>
-                        <input type="text">
+                        @Html.TextBoxFor(c => c.youtubeUrl)
 
                         <label>GitHub</label>
-                        <input type="text">
+                        @Html.TextBoxFor(c => c.githubUrl)
 
                         <label>LinkedIn</label>
-                        <input type="text">
+                        @Html.TextBoxFor(c => c.linkedInUrl)
                     </div>
 
                 </div>
                     
-                    
+                <div class="row">
+                    <input type="submit" class="btn-large btn btn-primary" value="Save Conference" />
+                </div>      
             }
 
-            <div class="row">
-                <button type="submit" class="btn-large btn btn-primary">Save Conference</button>
-            </div>
+
         </div>
         <!-- /container -->
 
