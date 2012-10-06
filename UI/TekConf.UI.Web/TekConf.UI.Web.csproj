@@ -476,9 +476,20 @@
     <Content Include="font\fontawesome-webfont.svgz" />
     <Content Include="font\fontawesome-webfont.ttf" />
     <Content Include="font\fontawesome-webfont.woff" />
+    <Content Include="img\conferences\AlohaRubyConf.png" />
+    <Content Include="img\conferences\aspConf.png" />
+    <Content Include="img\conferences\BackboneConf.png" />
+    <Content Include="img\conferences\chicago-web-conf-2012.png" />
+    <Content Include="img\conferences\cocoaconf-portland-2012.png" />
     <Content Include="img\conferences\CodeStock.png" />
+    <Content Include="img\conferences\Devlink.png" />
+    <Content Include="img\conferences\KalamazooX.png" />
+    <Content Include="img\conferences\MidwestPHP.png" />
     <Content Include="img\conferences\OneDevDayDetroit.png" />
+    <Content Include="img\conferences\oredev-2012.png" />
     <Content Include="img\conferences\RailsConf.png" />
+    <Content Include="img\conferences\Webstock.png" />
+    <Content Include="img\conferences\wwdc-2012.png" />
     <Content Include="img\social\500px-16x16.png" />
     <Content Include="img\social\500px-24x24.png" />
     <Content Include="img\social\500px-32x32.png" />
@@ -968,6 +979,7 @@
     <Content Include="Views\Speaker\Detail.cshtml" />
     <Content Include="Views\Shared\Extra.cshtml" />
     <Content Include="Views\Admin\CreateConference.cshtml" />
+    <Content Include="Views\Admin\AddSession.cshtml" />
     <None Include="Views\Web.Debug.config" />
     <None Include="Views\Web.Release.config" />
   </ItemGroup>

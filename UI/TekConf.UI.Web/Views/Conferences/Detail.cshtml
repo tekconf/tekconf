@@ -52,11 +52,11 @@
                 @Model.description
             </div>
             <!-- /row -->
-            <br />
-            <br />
 
+            @Html.RouteLink("Add Session", "AdminAddSession", new { conferenceSlug = Model.slug}, new { @class = "btn" })		
+            <br/><br/>
             <div class="row">
-
+                
                 <div class="span8">
                     @{
                         var sessionGroup = Model.sessions

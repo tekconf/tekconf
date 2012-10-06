@@ -94,6 +94,12 @@ namespace TekConf.RemoteData.v1
         {
             ServiceClient.GetAsync(new User() { userName = userName }, callback, (r, ex) => { throw ex; });
         }
+
+        public void AddSessionToConference(AddSession session, Action<FullConferenceDto> callback)
+        {
+            session.slug = session.title.GenerateSlug();
+            ServiceClient.PostAsync(session, callback, (r, ex) => { throw ex; });
+        }
     }
 
     public static class Helpers

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using AutoMapper;
 using TekConf.RemoteData.Dtos.v1;
+using TekConf.RemoteData.v1;
 using TekConf.UI.Api.Services.Requests.v1;
 using TekConf.UI.Api.UrlResolvers.v1;
 using FluentMongo.Linq;
@@ -103,6 +104,41 @@ namespace TekConf.UI.Api.Services.v1
             return GetSingleSession(request);
         }
 
+        public object Post(AddSession request)
+        {
+            var entity = new SessionEntity()
+                             {
+                                 _id = Guid.NewGuid(),
+                                 description = request.description,
+                                 difficulty = request.difficulty,
+                                 end = request.end,
+                                 room = request.room,
+                                 slug = request.title.GenerateSlug(),
+                                 start = request.start,
+                                 title = request.title,
+                                 twitterHashTag = request.twitterHashTag,
+                             };
+
+            var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
+            var conference = collection.AsQueryable().FirstOrDefault(x => x.slug == request.conferenceSlug);
+
+            if (conference == null)
+            {
+                return new HttpError() { StatusCode = HttpStatusCode.BadRequest };
+            }
+
+            if (conference.sessions == null)
+            {
+                conference.sessions = new List<SessionEntity>();
+            }
+
+            conference.sessions.Add(entity);
+            collection.Save(conference);
+
+            var conferenceDto = Mapper.Map<ConferenceEntity, FullConferenceDto>(conference);
+
+            return conferenceDto;
+        }
 
         private object GetSingleSession(Session request)
         {
@@ -181,7 +217,6 @@ namespace TekConf.UI.Api.Services.v1
             });
 
         }
-
 
     }
 
