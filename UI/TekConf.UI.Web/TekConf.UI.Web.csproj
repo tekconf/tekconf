@@ -486,6 +486,7 @@
     <Content Include="img\conferences\KalamazooX.png" />
     <Content Include="img\conferences\MidwestPHP.png" />
     <Content Include="img\conferences\OneDevDayDetroit.png" />
+    <Content Include="img\conferences\oredev-2012.png" />
     <Content Include="img\conferences\RailsConf.png" />
     <Content Include="img\conferences\Webstock.png" />
     <Content Include="img\conferences\wwdc-2012.png" />
