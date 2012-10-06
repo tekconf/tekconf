@@ -36,8 +36,33 @@ namespace TekConf.UI.Web.Controllers
 
         public ActionResult CreateConferenceCompleted(FullConferenceDto conference)
         {
-            return RedirectToAction("Detail", "Conferences", new { conferenceSlug = conference.slug }); //TODO 
+            return RedirectToAction("Detail", "Conferences", new { conferenceSlug = conference.slug });
         }
 
+        [HttpGet]
+        public ActionResult AddSession(string conferenceSlug)
+        {
+            var session = new AddSession() {conferenceSlug = conferenceSlug};
+            return View(session);
+        }
+
+        [HttpPost]
+        public void AddSessionToConferenceAsync(AddSession session)
+        {
+            var repository = new RemoteDataRepository();
+
+            AsyncManager.OutstandingOperations.Increment();
+
+            repository.AddSessionToConference(session, c =>
+            {
+                AsyncManager.Parameters["conference"] = c;
+                AsyncManager.OutstandingOperations.Decrement();
+            });
+        }
+
+        public ActionResult AddSessionToConferenceCompleted(FullConferenceDto conference)
+        {
+            return RedirectToAction("Detail", "Conferences", new { conferenceSlug = conference.slug });
+        }
     }
 }

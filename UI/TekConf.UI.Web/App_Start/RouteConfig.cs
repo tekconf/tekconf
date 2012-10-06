@@ -9,18 +9,21 @@ namespace TekConf.UI.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute(name: "Detail", url: "Conferences/{conferenceSlug}",
-                defaults: new { controller = "Conferences", action = "Detail" });
+            routes.MapRoute(name: "Detail", url: "conferences/{conferenceSlug}",
+                defaults: new { controller = "conferences", action = "Detail" });
 
-            routes.MapRoute(name: "SessionDetail", url: "Conferences/{conferenceSlug}/{sessionSlug}",
+            routes.MapRoute(name: "SessionDetail", url: "conferences/{conferenceSlug}/{sessionSlug}",
                 defaults: new { controller = "Session", action = "Detail" });
 
-            routes.MapRoute(name: "SessionSpeakerDetail", url: "Conferences/{conferenceSlug}/{sessionSlug}/{speakerSlug}",
+            routes.MapRoute(name: "SessionSpeakerDetail", url: "conferences/{conferenceSlug}/{sessionSlug}/{speakerSlug}",
                 defaults: new { controller = "Speaker", action = "Detail" });
 
-            routes.MapRoute(name: "AdminCreateConference", url: "Admin/Conferences/Create",
+            routes.MapRoute(name: "AdminCreateConference", url: "admin/conferences/create",
                 defaults: new { controller = "Admin", action = "CreateConference" });
 
+            routes.MapRoute(name: "AdminAddSession", url: "admin/conferences/{conferenceSlug}/sessions/add", 
+                defaults: new { controller = "Admin", action = "AddSession"});
+            
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

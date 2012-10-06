@@ -979,6 +979,7 @@
     <Content Include="Views\Speaker\Detail.cshtml" />
     <Content Include="Views\Shared\Extra.cshtml" />
     <Content Include="Views\Admin\CreateConference.cshtml" />
+    <Content Include="Views\Admin\AddSession.cshtml" />
     <None Include="Views\Web.Debug.config" />
     <None Include="Views\Web.Release.config" />
   </ItemGroup>
