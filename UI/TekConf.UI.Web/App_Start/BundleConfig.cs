@@ -23,6 +23,14 @@ namespace TekConf.UI.Web
                         )
             );
 
+            bundles.Add(new ScriptBundle("~/scripts/conferences/detail")
+                .Include(
+                            "~/Scripts/jquery-1.8.2.js",
+                            "~/Scripts/jquery-ui-1.8.24.js",
+                            "~/Scripts/jquery-ui-sliderAccess.js",
+                            "~/Scripts/jquery-ui-timepicker-addon.js"
+                        )
+            );
             bundles.Add(new ScriptBundle("~/js/commonFaq")
                 .Include(
                             "~/js/jquery-1.7.2.min.js",
@@ -64,7 +72,9 @@ namespace TekConf.UI.Web
                             "~/css/reboot-landing.css",
                             "~/css/reboot-landing-responsive.css",
                             "~/css/themes/green/theme.css",
-                            "~/css/pages/about.css"
+                            "~/css/pages/about.css",
+                            "~/Content/themes/base/jquery-ui.css",
+                            "~/css/jquery-ui-timepicker-addon.css"
                         )
                 );
 

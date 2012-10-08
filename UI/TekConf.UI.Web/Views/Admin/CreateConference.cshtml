@@ -21,6 +21,7 @@
     <!--[if lt IE 9]>
 <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+    @Scripts.Render("~/scripts/conferences/detail")
 
 </head>
 
@@ -54,10 +55,10 @@
                         <span class="help-block">Example block-level help text here.</span>
 
                         <label>Start Date/Time</label>
-                        @Html.TextBoxFor(c => c.start, new { type = "datetime"})
+                        @Html.TextBoxFor(c => c.start)
 
                         <label>End Date/Time</label>
-                        @Html.TextBoxFor(c => c.end, new { type = "datetime"})
+                        @Html.TextBoxFor(c => c.end)
 
                         <label>Location</label>
                         @Html.TextBoxFor(c => c.location)
@@ -135,7 +136,8 @@
 
     <script>
         $(function () {
-
+            $('#start').datetimepicker();
+            $('#end').datetimepicker();
         });
     </script>
 </body>
