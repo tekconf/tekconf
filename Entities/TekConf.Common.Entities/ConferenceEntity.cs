@@ -14,6 +14,11 @@ namespace TekConf.UI.Api
         public string slug { get; set; }
         public DateTime start { get; set; }
         public DateTime end { get; set; }
+        public DateTime callForSpeakersOpens { get; set; }
+        public DateTime callForSpeakersCloses { get; set; }
+        public DateTime registrationOpens { get; set; }
+        public DateTime registrationCloses { get; set; }
+
         public string location { get; set; }
         public string description { get; set; }
 
