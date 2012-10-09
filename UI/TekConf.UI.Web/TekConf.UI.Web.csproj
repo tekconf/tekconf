@@ -480,10 +480,16 @@
     <Content Include="img\conferences\AlohaRubyConf.png" />
     <Content Include="img\conferences\aspConf.png" />
     <Content Include="img\conferences\BackboneConf.png" />
+    <Content Include="img\conferences\big-omaha-2012.png" />
+    <Content Include="img\conferences\big-sky-devcon-2012.png" />
     <Content Include="img\conferences\chicago-web-conf-2012.png" />
+    <Content Include="img\conferences\cloud-develop-2012.png" />
     <Content Include="img\conferences\cocoaconf-portland-2012.png" />
     <Content Include="img\conferences\CodeStock.png" />
+    <Content Include="img\conferences\devconnections-2012.png" />
     <Content Include="img\conferences\Devlink.png" />
+    <Content Include="img\conferences\iowa-code-camp-2012.png" />
+    <Content Include="img\conferences\javaone-2012.png" />
     <Content Include="img\conferences\KalamazooX.png" />
     <Content Include="img\conferences\MidwestPHP.png" />
     <Content Include="img\conferences\OneDevDayDetroit.png" />
