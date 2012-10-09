@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.RemoteData.v1;
 using TekConf.UI.Api.Services.Requests.v1;
+using System.IO;
 
 namespace TekConf.UI.Web.Controllers
 {
@@ -22,11 +25,21 @@ namespace TekConf.UI.Web.Controllers
         }
 
         [HttpPost]
-        public void CreateConferenceAsync(CreateConference conference)
+        public void CreateConferenceAsync(CreateConference conference, HttpPostedFileBase file)
         {
             var repository = new RemoteDataRepository();
 
-            AsyncManager.OutstandingOperations.Increment();
+            AsyncManager.OutstandingOperations.Increment(2);
+
+            var url = "/img/conferences/" + conference.name.GenerateSlug() + Path.GetExtension(file.FileName); ;
+            var filename = Server.MapPath(url);
+            conference.imageUrl = url;
+
+            ThreadPool.QueueUserWorkItem(o =>
+            {
+                file.SaveAs(filename);
+                AsyncManager.OutstandingOperations.Decrement();
+            }, null);
 
             repository.CreateConference(conference, c =>
             {

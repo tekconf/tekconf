@@ -42,8 +42,7 @@
 
     <div id="subpage">
         <div class="container">
-
-            @using (Html.BeginForm("CreateConference", "Admin"))
+            @using (Html.BeginForm("CreateConference", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 <div class="row">
                     <legend>Main Information</legend>
@@ -67,7 +66,7 @@
                         @Html.TextBoxFor(c => c.tagline)
 
                         <label>Image</label>
-                        <input type="file">
+                        <input type="file" name="file" id="file" />
                     </div>
                     <div class="span4">
                         <label>Description</label>
