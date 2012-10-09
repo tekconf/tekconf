@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Web.Mvc;
 using TekConf.RemoteData.Dtos.v1;
@@ -9,11 +10,12 @@ namespace TekConf.UI.Web.Controllers
 {
     public class ConferencesController : AsyncController
     {
-        public void IndexAsync(string sortBy)
+        public void IndexAsync(string sortBy, bool? showPastConferences)
         {
             var repository = new RemoteDataRepository();
 
             AsyncManager.OutstandingOperations.Increment();
+            ViewData["showPastConferences"] = showPastConferences;
             ViewData["sortBy"] = sortBy;
 
             repository.GetConferences(conferences =>
@@ -38,26 +40,32 @@ namespace TekConf.UI.Web.Controllers
             {
                 sorted = conferences.OrderBy(c => c.start).ToList();                
             }
+            else if (sortBy == "name")
+            {
+                sorted = conferences.OrderBy(c => c.name).ToList();
+            }
             else if (sortBy == "callForSpeakersOpeningDate")
             {
-                //sorted = conferences.OrderBy(c => c.start).ToList();
-                sorted = conferences.OrderBy(c => c.start).ToList();              
+                sorted = conferences.OrderBy(c => c.callForSpeakersOpens).ToList();              
             }
             else if (sortBy == "callForSpeakersClosingDate")
             {
-                //sorted = conferences.OrderBy(c => c.start).ToList();
-                sorted = conferences.OrderBy(c => c.start).ToList();
+                sorted = conferences.OrderBy(c => c.callForSpeakersCloses).ToList();
             }
-            else if (sortBy == "callForSpeakersDate")
+            else if (sortBy == "registrationOpens")
             {
-                //sorted = conferences.OrderBy(c => c.start).ToList();
-                sorted = conferences.OrderBy(c => c.start).ToList();             
+                sorted = conferences.OrderBy(c => c.registrationOpens).ToList();             
             }
             else
             {
                 sorted = conferences.OrderBy(c => c.start).ToList();
             }
 
+            var showPastConferences = ViewData["showPastConferences"];
+            if (showPastConferences != null && !(bool)showPastConferences)
+            {
+                sorted = sorted.Where(c => c.end > DateTime.Now).ToList();
+            }
             return View(sorted);
         }
 

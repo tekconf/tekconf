@@ -48,12 +48,15 @@
                     var sorts = new List<SelectListItem>()
                                     {
                                         new SelectListItem() { Text = "Start Date", Value = "startDate"},
+                                        new SelectListItem() { Text = "Name", Value = "name" },
                                         new SelectListItem() { Text = "Call for Speakers Opening", Value = "callForSpeakersOpeningDate"},
                                         new SelectListItem() { Text = "Call for Speakers Closing", Value = "callForSpeakersClosingDate"},
-                                        new SelectListItem() { Text = "Tickets on Sale Date", Value = "callForSpeakersDate"}
+                                        new SelectListItem() { Text = "Tickets on Sale Date", Value = "registrationOpens"}
                                     };
                     
                     @Html.DropDownList("sortBy", sorts, new { @onchange = "this.form.submit();" })
+
+                    <text>&nbsp;</text>@Html.CheckBox("showPastConferences", new { @onchange = "this.form.submit();" })<text> Show Past Conferences?</text>
                 }
                 
                 <ul class="thumbnails">
