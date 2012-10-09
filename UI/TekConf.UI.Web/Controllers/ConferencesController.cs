@@ -62,7 +62,7 @@ namespace TekConf.UI.Web.Controllers
             }
 
             var showPastConferences = ViewData["showPastConferences"];
-            if (showPastConferences != null && !(bool)showPastConferences)
+            if (showPastConferences == null || !(bool)showPastConferences)
             {
                 sorted = sorted.Where(c => c.end > DateTime.Now).ToList();
             }
