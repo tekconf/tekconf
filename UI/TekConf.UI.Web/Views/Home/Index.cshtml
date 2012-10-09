@@ -53,7 +53,15 @@
         <div class="inner">
             <div class="container">
                 <div class="row">
-                    <div class="span8">
+                    @{
+
+                        var spanClass = "span8";
+                        if (Model.FeaturedSpeakers == null || Model.FeaturedSpeakers.Count == 0)
+                        {
+                            spanClass = "span12";
+                        }
+                    }
+                    <div class="@spanClass">
                         <h3><span class="slash">//</span> Upcoming Conferences</h3>
                         <ul class="features-list">
                             @foreach (var featuredConference in Model.FeaturedConferences)
@@ -83,32 +91,35 @@
                         <!-- /features-list -->
                     </div>
                     <!-- /span8 -->
-
-                    <div class="span4">
-                        <h3><span class="slash">//</span> Featured Speakers</h3>
-                        <ul class="testimonials-list">
-                            @foreach (var featuredSpeaker in Model.FeaturedSpeakers)
-                            {
-                                <li>
-                                    <div class="testimonial-avatar">
-                                        <div class="img">
-                                            <img src="~/img/avatar.png" alt="Thumbnail" />
+                    
+                    @if (Model.FeaturedSpeakers != null && Model.FeaturedSpeakers.Count > 0)
+                    {
+                        <div class="span4">
+                            <h3><span class="slash">//</span> Featured Speakers</h3>
+                            <ul class="testimonials-list">
+                                @foreach (var featuredSpeaker in Model.FeaturedSpeakers)
+                                {
+                                    <li>
+                                        <div class="testimonial-avatar">
+                                            <div class="img">
+                                                <img src="~/img/avatar.png" alt="Thumbnail" />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <!-- /testimonial-avatar -->
+                                        <!-- /testimonial-avatar -->
 
-                                    <div class="testimonial-text">
-                                        <p>
-                                            <span class="testimonial-author">@featuredSpeaker.fullName</span>
-                                            @featuredSpeaker.description
-                                        </p>
-                                    </div>
-                                    <!-- /testimonial-text -->
-                                </li>
-                            }
+                                        <div class="testimonial-text">
+                                            <p>
+                                                <span class="testimonial-author">@featuredSpeaker.fullName</span>
+                                                @featuredSpeaker.description
+                                            </p>
+                                        </div>
+                                        <!-- /testimonial-text -->
+                                    </li>
+                                }
 
-                        </ul>
-                    </div>
+                            </ul>
+                        </div>
+                    }
                     <!-- /span4 -->
                 </div>
                 <!-- /row -->
