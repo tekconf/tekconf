@@ -126,6 +126,11 @@
                             {
                                 @Model.location<br />
                             }
+                            
+                            @if (Model.callForSpeakersOpens != default(DateTime))
+                            {
+                                <text>Call for Speakers : </text>@Model.callForSpeakersOpens<text>-</text>@Model.callForSpeakersCloses
+                            }
                             <h4><span class="slash">//</span> Connect</h4>
                             @if (!string.IsNullOrWhiteSpace(Model.homepageUrl))
                             {

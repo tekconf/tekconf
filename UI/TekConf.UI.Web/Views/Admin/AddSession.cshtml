@@ -21,7 +21,7 @@
     <!--[if lt IE 9]>
 <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
-
+    @Scripts.Render("~/scripts/conferences/detail")
 </head>
 
 <body>
@@ -90,7 +90,7 @@
 
     </div>
     <!-- /subpage -->
-
+    
     @Html.Partial("Extra")
 
     @Html.Partial("Footer")
@@ -99,7 +99,8 @@
 
     <script>
         $(function () {
-
+            $('#start').datetimepicker();
+            $('#end').datetimepicker();
         });
     </script>
 </body>

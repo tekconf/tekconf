@@ -21,6 +21,7 @@
     <!--[if lt IE 9]>
 <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
+    @Scripts.Render("~/scripts/conferences/detail")
 
 </head>
 
@@ -41,8 +42,7 @@
 
     <div id="subpage">
         <div class="container">
-
-            @using (Html.BeginForm("CreateConference", "Admin"))
+            @using (Html.BeginForm("CreateConference", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 <div class="row">
                     <legend>Main Information</legend>
@@ -64,9 +64,21 @@
 
                         <label>Tagline</label>
                         @Html.TextBoxFor(c => c.tagline)
+                        
+                        <label>Call for Speakers Opens</label>
+                        @Html.TextBoxFor(c => c.callForSpeakersOpens)
+                        
+                        <label>Call for Speakers Closes</label>
+                        @Html.TextBoxFor(c => c.callForSpeakersCloses)                        
+                        
+                        <label>Registration Opens</label>
+                        @Html.TextBoxFor(c => c.registrationOpens)                        
+                        
+                         <label>Registration Closes</label>
+                        @Html.TextBoxFor(c => c.registrationCloses)                         
 
                         <label>Image</label>
-                        <input type="file">
+                        <input type="file" name="file" id="file" />
                     </div>
                     <div class="span4">
                         <label>Description</label>
@@ -135,7 +147,12 @@
 
     <script>
         $(function () {
-
+            $('#start').datetimepicker();
+            $('#end').datetimepicker();
+            $('#callForSpeakersOpens').datetimepicker();
+            $('#callForSpeakersCloses').datetimepicker();
+            $('#registrationOpens').datetimepicker();
+            $('#registrationCloses').datetimepicker();
         });
     </script>
 </body>

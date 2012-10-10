@@ -1,25 +1,26 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Web.Mvc;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.RemoteData.v1;
+using System.Linq;
 
 namespace TekConf.UI.Web.Controllers
 {
     public class ConferencesController : AsyncController
     {
-        public void IndexAsync()
+        public void IndexAsync(string sortBy, bool? showPastConferences, string search)
         {
             var repository = new RemoteDataRepository();
 
             AsyncManager.OutstandingOperations.Increment();
-            
-            repository.GetConferences(conferences =>
+
+            repository.GetConferences(sortBy: sortBy, showPastConferences: showPastConferences, search:search, callback:conferences =>
             {
                 AsyncManager.Parameters["conferences"] = conferences;
                 AsyncManager.OutstandingOperations.Decrement();
             });
-
         }
 
         public ActionResult IndexCompleted(List<FullConferenceDto> conferences)

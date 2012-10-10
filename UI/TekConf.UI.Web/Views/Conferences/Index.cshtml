@@ -14,7 +14,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    
+
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
 
     @Styles.Render("~/css/conferences/index")
@@ -43,7 +43,32 @@
     <div id="subpage">
         <div class="container">
             <div class="row">
+                @using (Html.BeginForm())
+                {
+                    var sorts = new List<SelectListItem>()
+                                    {
+                                        new SelectListItem() { Text = "Start Date", Value = "startDate"},
+                                        new SelectListItem() { Text = "Name", Value = "name" },
+                                        new SelectListItem() { Text = "Call for Speakers Opening", Value = "callForSpeakersOpeningDate"},
+                                        new SelectListItem() { Text = "Call for Speakers Closing", Value = "callForSpeakersClosingDate"},
+                                        new SelectListItem() { Text = "Tickets on Sale Date", Value = "registrationOpens"}
+                                    };
+                    
+                    <div class="span8">
+                        @Html.DropDownList("sortBy", sorts, new { @onchange = "this.form.submit();" })
+
+                        <text>&nbsp;&nbsp;</text>@Html.CheckBox("showPastConferences", new { @onchange = "this.form.submit();" })<text> Show Past Conferences?</text>
+                    </div>
+                    <div class="span4">
+                        @Html.TextBox("search")
+                        <button class="btn" onclick="this.form.submit()">Search</button>
+                    </div>
+                }
+            </div>
+
+            <div class="row">
                 <ul class="thumbnails">
+
                     @foreach (var conference in Model)
                     {
                         <li class="span3">
