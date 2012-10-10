@@ -18,6 +18,7 @@ namespace TekConf.UI.Api
         public DateTime callForSpeakersCloses { get; set; }
         public DateTime registrationOpens { get; set; }
         public DateTime registrationCloses { get; set; }
+        public bool isLive { get; set; }
 
         public string location { get; set; }
         public AddressEntity address { get; set; }

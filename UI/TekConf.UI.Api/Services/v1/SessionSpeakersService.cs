@@ -31,6 +31,7 @@ namespace TekConf.UI.Api.Services.v1
 
             var conference = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
               .AsQueryable()
+              .Where(c => c.isLive)
               .SingleOrDefault(c => c.slug == request.conferenceSlug);
 
             if (conference == null)
@@ -86,6 +87,7 @@ namespace TekConf.UI.Api.Services.v1
 
             var conference = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
               .AsQueryable()
+              .Where(c => c.isLive)
               .SingleOrDefault(c => c.slug == request.conferenceSlug);
 
             if (conference == null)

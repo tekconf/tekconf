@@ -42,6 +42,10 @@ namespace TekConf.UI.Web.Controllers
 
         public ActionResult DetailCompleted(FullConferenceDto conference)
         {
+            if (conference == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
             return View(conference);
         }
     

@@ -45,7 +45,11 @@ namespace TekConf.RemoteData.v1
 
         public void GetFullConference(string slug, Action<FullConferenceDto> callback)
         {
-            ServiceClient.GetAsync(new Conference() { conferenceSlug = slug }, callback, (r, ex) => { throw ex; });
+            ServiceClient.GetAsync(new Conference() { conferenceSlug = slug }, callback, (r, ex) =>
+                                                                                             {
+                                                                                                 callback(null);
+                                                                                                 //throw ex;
+                                                                                             });
         }
 
 

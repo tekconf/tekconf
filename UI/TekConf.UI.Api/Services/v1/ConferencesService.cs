@@ -27,36 +27,21 @@ namespace TekConf.UI.Api.Services.v1
 
         public object Post(CreateConference conference)
         {
-            var address = Mapper.Map<AddressEntity>(conference.address);
+            FullConferenceDto conferenceDto = null;
+            try
+            {
+                var entity = Mapper.Map<ConferenceEntity>(conference);
 
-            var entity = new ConferenceEntity()
-                             {
-                                 _id = Guid.NewGuid(),
-                                 description = conference.description,
-                                 end = conference.end,
-                                 facebookUrl = conference.facebookUrl,
-                                 githubUrl = conference.githubUrl,
-                                 googlePlusUrl = conference.googlePlusUrl,
-                                 homepageUrl = conference.homepageUrl,
-                                 imageUrl = conference.imageUrl,
-                                 lanyrdUrl = conference.lanyrdUrl,
-                                 linkedInUrl = conference.linkedInUrl,
-                                 location = conference.location,
-                                 meetupUrl = conference.meetupUrl,
-                                 name = conference.name,
-                                 slug = conference.name.GenerateSlug(),
-                                 start = conference.start,
-                                 tagLine = conference.tagline,
-                                 twitterHashTag = conference.twitterHashTag,
-                                 twitterName = conference.twitterName,
-                                 vimeoUrl = conference.vimeoUrl,
-                                 youtubeUrl = conference.youtubeUrl,
-                                 address = address
-                             };
+                var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
+                collection.Save(entity);
 
-            var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
-            collection.Save(entity);
-            var conferenceDto = Mapper.Map<ConferenceEntity, FullConferenceDto>(entity);
+                conferenceDto = Mapper.Map<ConferenceEntity, FullConferenceDto>(entity);
+            }
+            catch (Exception ex)
+            {
+                var s = ex.Message;
+                throw;
+            }
 
             return conferenceDto;
         }
@@ -65,11 +50,14 @@ namespace TekConf.UI.Api.Services.v1
         {
             var cacheKey = "GetFullSingleConference-" + request.conferenceSlug;
             var expireInTimespan = new TimeSpan(0, 0, 20);
+            
             return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
             {
                 var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
+                
                 var conference = collection
                 .AsQueryable()
+                .Where(c => c.isLive)
                 .SingleOrDefault(c => c.slug == request.conferenceSlug);
 
                 if (conference == null)
@@ -77,17 +65,6 @@ namespace TekConf.UI.Api.Services.v1
                     throw new HttpError(HttpStatusCode.NotFound, "Conference not found.");
                 }
 
-                ////TODO : Temp import
-                //if (conference.name == "CodeMash")
-                //{
-                //    conference.githubUrl = "http://github.com";
-                //    conference.googlePlusUrl = "http://plus.google.com";
-                //    conference.lanyrdUrl = "http://lanyrd.com";
-                //    conference.meetupUrl = "http://meetup.com";
-                //    conference.vimeoUrl = "http://vimeo.com";
-                //    conference.youtubeUrl = "http://youtube.com";
-                //    collection.Save(conference);
-                //}
                 var conferenceDto = Mapper.Map<ConferenceEntity, FullConferenceDto>(conference);
 
                 return conferenceDto;
@@ -123,63 +100,6 @@ namespace TekConf.UI.Api.Services.v1
                 var query = collection
                   .AsQueryable();
 
-                foreach (var conf in query)
-                {
-                    if (conf.address == null)
-                    {
-                        conf.address = new AddressEntity();
-                    }
-
-                    if (!string.IsNullOrWhiteSpace(conf.location) && conf.location.Contains(","))
-                    {
-                        conf.address.City = conf.location.Split(',')[0].Trim();
-                        conf.address.State = conf.location.Split(',')[1].Trim();
-                    }
-                    if (conf.sessions == null)
-                    {
-                        conf.sessions = new List<SessionEntity>();
-                    }
-
-                    foreach (var session in conf.sessions)
-                    {
-                        if (session.tags == null)
-                        {
-                            session.tags = new List<string>();
-                        }
-                        if (session.subjects == null)
-                        {
-                            session.subjects = new List<string>();
-                        }
-                        if (session.prerequisites == null)
-                        {
-                            session.prerequisites = new List<string>();
-                        }
-                        if (session.links == null)
-                        {
-                            session.links = new List<string>();
-                        }
-                        if (session.resources == null)
-                        {
-                            session.resources = new List<string>();
-                        }
-                        if (session.speakers == null)
-                        {
-                            session.speakers = new List<SpeakerEntity>();
-                        }
-
-                    }
-                    try
-                    {
-                        collection.Save(conf);
-                    }
-                    catch (Exception ee)
-                    {
-                        var m = ee.Message;
-                        //throw;
-                    }
-
-                }
-
                 if (search != null)
                 {
                     query = query.Where(search);
@@ -189,11 +109,13 @@ namespace TekConf.UI.Api.Services.v1
                 {
                     query = query.Where(showPastConferences);
                 }
+                
                 List<ConferencesDto> conferencesDtos = null;
 
                 try
                 {
                     conferencesDtos = query
+                      .Where(c => c.isLive)
                       .OrderBy(orderByFunc)
                       .ThenBy(c => c.start)
                       .Select(c => new ConferencesDto()
