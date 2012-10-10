@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
@@ -117,10 +118,68 @@ namespace TekConf.UI.Api.Services.v1
                 var orderByFunc = GetOrderByFunc(request.sortBy);
                 var search = GetSearch(request.search);
                 var showPastConferences = GetShowPastConferences(request.showPastConferences);
-                
-                var query = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
+
+                var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
+                var query = collection
                   .AsQueryable();
-                
+
+                foreach (var conf in query)
+                {
+                    if (conf.address == null)
+                    {
+                        conf.address = new AddressEntity();
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(conf.location) && conf.location.Contains(","))
+                    {
+                        conf.address.City = conf.location.Split(',')[0].Trim();
+                        conf.address.State = conf.location.Split(',')[1].Trim();
+                    }
+                    if (conf.sessions == null)
+                    {
+                        conf.sessions = new List<SessionEntity>();
+                    }
+
+                    foreach (var session in conf.sessions)
+                    {
+                        if (session.tags == null)
+                        {
+                            session.tags = new List<string>();
+                        }
+                        if (session.subjects == null)
+                        {
+                            session.subjects = new List<string>();
+                        }
+                        if (session.prerequisites == null)
+                        {
+                            session.prerequisites = new List<string>();
+                        }
+                        if (session.links == null)
+                        {
+                            session.links = new List<string>();
+                        }
+                        if (session.resources == null)
+                        {
+                            session.resources = new List<string>();
+                        }
+                        if (session.speakers == null)
+                        {
+                            session.speakers = new List<SpeakerEntity>();
+                        }
+
+                    }
+                    try
+                    {
+                        collection.Save(conf);
+                    }
+                    catch (Exception ee)
+                    {
+                        var m = ee.Message;
+                        //throw;
+                    }
+
+                }
+
                 if (search != null)
                 {
                     query = query.Where(search);
@@ -130,22 +189,32 @@ namespace TekConf.UI.Api.Services.v1
                 {
                     query = query.Where(showPastConferences);
                 }
-                  
-                var conferencesDtos = query
-                  .OrderBy(orderByFunc)
-                  .ThenBy(c => c.start)
-                  .Select(c => new ConferencesDto()
-                  {
-                      name = c.name,
-                      start = c.start,
-                      end = c.end,
-                      location = c.location,
-                      //url = c.url,
-                      slug = c.slug,
-                      description = c.description,
-                      imageUrl = c.imageUrl
-                  })
-                  .ToList();
+                List<ConferencesDto> conferencesDtos = null;
+
+                try
+                {
+                    conferencesDtos = query
+                      .OrderBy(orderByFunc)
+                      .ThenBy(c => c.start)
+                      .Select(c => new ConferencesDto()
+                      {
+                          name = c.name,
+                          start = c.start,
+                          end = c.end,
+                          location = c.location,
+                          //url = c.url,
+                          slug = c.slug,
+                          description = c.description,
+                          imageUrl = c.imageUrl
+                      })
+                      .ToList();
+                }
+                catch (Exception ex)
+                {
+                    var e = ex.Message;
+                    throw;
+                }
+
 
                 var resolver = new ConferencesUrlResolver();
                 foreach (var conferencesDto in conferencesDtos)
@@ -175,7 +244,16 @@ namespace TekConf.UI.Api.Services.v1
             if (!string.IsNullOrWhiteSpace(search))
             {
                 searchBy = c => c.name.Contains(search)
-                    || c.description.Contains(search);
+                    || c.description.Contains(search)
+                    || c.address.City.Contains(search)
+                    || c.address.Country.Contains(search)
+                    || c.sessions.Any(s => s.description.Contains(search))
+                    || c.sessions.Any(s => s.title.Contains(search))
+                    //|| c.sessions.Any(s => s.tags.Any(t => t.Contains(search)))
+                    //|| c.sessions.Any(session => session.speakers.Any(s => s.firstName.Contains(search)))
+                    //|| c.sessions.Any(session => session.speakers.Any(s => s.lastName.Contains(search)))
+                    //|| c.sessions.Any(session => session.speakers.Any(s => s.twitterName.Contains(search)))
+                    ;
             }
 
             return searchBy;
