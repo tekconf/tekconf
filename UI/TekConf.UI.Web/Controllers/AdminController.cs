@@ -29,17 +29,28 @@ namespace TekConf.UI.Web.Controllers
         {
             var repository = new RemoteDataRepository();
 
-            AsyncManager.OutstandingOperations.Increment(2);
-
-            var url = "/img/conferences/" + conference.name.GenerateSlug() + Path.GetExtension(file.FileName); ;
-            var filename = Server.MapPath(url);
-            conference.imageUrl = url;
-
-            ThreadPool.QueueUserWorkItem(o =>
+            if (file != null)
             {
-                file.SaveAs(filename);
-                AsyncManager.OutstandingOperations.Decrement();
-            }, null);
+                AsyncManager.OutstandingOperations.Increment(2);                
+            }
+            else
+            {
+                AsyncManager.OutstandingOperations.Increment(1);                
+            }
+
+            if (file != null)
+            {
+
+                var url = "/img/conferences/" + conference.name.GenerateSlug() + Path.GetExtension(file.FileName); ;
+                var filename = Server.MapPath(url);
+                conference.imageUrl = url;
+
+                ThreadPool.QueueUserWorkItem(o =>
+                {
+                    file.SaveAs(filename);
+                    AsyncManager.OutstandingOperations.Decrement();
+                }, null);
+            }
 
             repository.CreateConference(conference, c =>
             {

@@ -26,6 +26,8 @@ namespace TekConf.UI.Api.Services.v1
 
         public object Post(CreateConference conference)
         {
+            var address = Mapper.Map<AddressEntity>(conference.address);
+
             var entity = new ConferenceEntity()
                              {
                                  _id = Guid.NewGuid(),
@@ -47,7 +49,8 @@ namespace TekConf.UI.Api.Services.v1
                                  twitterHashTag = conference.twitterHashTag,
                                  twitterName = conference.twitterName,
                                  vimeoUrl = conference.vimeoUrl,
-                                 youtubeUrl = conference.youtubeUrl
+                                 youtubeUrl = conference.youtubeUrl,
+                                 address = address
                              };
 
             var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");

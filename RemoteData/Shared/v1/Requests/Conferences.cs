@@ -13,7 +13,6 @@ namespace TekConf.UI.Api.Services.Requests.v1
         public bool? showPastConferences { get; set; }
     }
 
-
     [Route("/v1/conferences/{conferenceSlug}", "GET")]
     public class Conference : IReturn<FullConferenceDto>
     {
@@ -35,6 +34,7 @@ namespace TekConf.UI.Api.Services.Requests.v1
         public DateTime registrationCloses { get; set; }
         public string description { get; set; }
         public string location { get; set; }
+        public Address address { get; set; }
         public string tagline { get; set; }
         public string imageUrl { get; set; }
 
@@ -49,7 +49,5 @@ namespace TekConf.UI.Api.Services.Requests.v1
         public string linkedInUrl { get; set; }
         public string twitterHashTag { get; set; }
         public string twitterName { get; set; }
-
     }
-
 }

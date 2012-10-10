@@ -16,6 +16,7 @@ namespace TekConf.RemoteData.Dtos.v1
         public DateTime registrationCloses { get; set; }
         public string description { get; set; }
         public string location { get; set; }
+        public AddressDto address { get; set; }
         public string tagline { get; set; }
         public string imageUrl { get; set; }
         

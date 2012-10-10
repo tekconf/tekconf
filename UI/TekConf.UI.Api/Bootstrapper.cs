@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using TekConf.RemoteData.Dtos.v1;
+using TekConf.UI.Api.Services.Requests.v1;
 
 namespace TekConf.UI.Api
 {
@@ -35,6 +36,10 @@ namespace TekConf.UI.Api
             Mapper.CreateMap<SpeakerEntity, FullSpeakerDto>();
 
             Mapper.CreateMap<ScheduleEntity, ScheduleDto>();
+
+            Mapper.CreateMap<AddressEntity, Address>();
+            Mapper.CreateMap<Address, AddressEntity>();
+            Mapper.CreateMap<AddressEntity, AddressDto>();
         }
 
     }

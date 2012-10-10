@@ -61,7 +61,7 @@
 
                         <label>Location</label>
                         @Html.TextBoxFor(c => c.location)
-
+                        
                         <label>Tagline</label>
                         @Html.TextBoxFor(c => c.tagline)
                         
@@ -82,7 +82,11 @@
                     </div>
                     <div class="span4">
                         <label>Description</label>
-                        @Html.TextAreaFor(c => c.description, 19, 100, null)
+                        @Html.TextAreaFor(c => c.description, 30, 150, null)
+                    </div>
+                    <div class="span4">
+                        <label>Address</label>
+                        @Html.EditorFor(c => c.address)
                     </div>
                 </div>
                 <div class="row">

@@ -43,6 +43,7 @@
       <HintPath>..\..\packages\ServiceStack.Text.3.9.14\lib\net35\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="v1\Dtos\AddressDto.cs" />
     <Compile Include="v1\Dtos\ConferenceDto.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -79,6 +81,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="v1\Dtos\UserDto.cs" />
+    <Compile Include="v1\Requests\Address.cs" />
     <Compile Include="v1\Requests\Conferences.cs" />
     <Compile Include="v1\Requests\FeaturedSpeakers.cs" />
     <Compile Include="v1\Requests\Schedule.cs" />

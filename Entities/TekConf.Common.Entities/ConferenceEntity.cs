@@ -20,12 +20,12 @@ namespace TekConf.UI.Api
         public DateTime registrationCloses { get; set; }
 
         public string location { get; set; }
+        public AddressEntity address { get; set; }
         public string description { get; set; }
 
         public string imageUrl { get; set; }
         public string tagLine { get; set; }
         public List<SessionEntity> sessions { get; set; }
-
 
         public string facebookUrl { get; set; }
         public string homepageUrl { get; set; }
@@ -38,6 +38,5 @@ namespace TekConf.UI.Api
         public string youtubeUrl { get; set; }
         public string githubUrl { get; set; }
         public string linkedInUrl { get; set; }
-
     }
 }
