@@ -48,8 +48,10 @@ namespace TekConf.UI.Api.Services.v1
             return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
             {
                 var conference =
-                this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences").AsQueryable().SingleOrDefault(
-                  c => c.slug == request.conferenceSlug);
+                this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
+                .AsQueryable()
+                .Where(c => c.isLive)
+                .SingleOrDefault(c => c.slug == request.conferenceSlug);
 
                 if (conference == null)
                 {
@@ -106,30 +108,17 @@ namespace TekConf.UI.Api.Services.v1
 
         public object Post(AddSession request)
         {
-            var entity = new SessionEntity()
-                             {
-                                 _id = Guid.NewGuid(),
-                                 description = request.description,
-                                 difficulty = request.difficulty,
-                                 end = request.end,
-                                 room = request.room,
-                                 slug = request.title.GenerateSlug(),
-                                 start = request.start,
-                                 title = request.title,
-                                 twitterHashTag = request.twitterHashTag,
-                             };
+            var entity = Mapper.Map<SessionEntity>(request);
 
             var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
-            var conference = collection.AsQueryable().FirstOrDefault(x => x.slug == request.conferenceSlug);
+            var conference = collection
+                .AsQueryable()
+                .Where(c => c.isLive)
+                .FirstOrDefault(x => x.slug == request.conferenceSlug);
 
             if (conference == null)
             {
                 return new HttpError() { StatusCode = HttpStatusCode.BadRequest };
-            }
-
-            if (conference.sessions == null)
-            {
-                conference.sessions = new List<SessionEntity>();
             }
 
             conference.sessions.Add(entity);
@@ -162,9 +151,11 @@ namespace TekConf.UI.Api.Services.v1
             var expireInTimespan = new TimeSpan(0, 0, 20);
             return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
             {
-                var conference = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences").AsQueryable()
+                var conference = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
+                    .AsQueryable()
                     //.Where(s => s.slug == request.sessionSlug)
-                        .SingleOrDefault(c => c.slug == request.conferenceSlug);
+                    .Where(c => c.isLive)
+                    .SingleOrDefault(c => c.slug == request.conferenceSlug);
 
                 if (conference == null)
                 {

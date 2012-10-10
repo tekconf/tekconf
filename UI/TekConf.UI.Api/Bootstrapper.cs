@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Collections.Generic;
+using AutoMapper;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.UI.Api.Services.Requests.v1;
 
@@ -30,6 +32,24 @@ namespace TekConf.UI.Api
 
             Mapper.CreateMap<SpeakerEntity, SpeakersDto>()
                 .ForMember(dest => dest.url, opt => opt.Ignore());
+
+            Mapper.CreateMap<AddSession, SessionEntity>()
+                .ForMember(s => s._id, opt => opt.UseValue(Guid.NewGuid()))
+                .ForMember(s => s.tags, opt => opt.UseValue(new List<string>()))
+                .ForMember(s => s.links, opt => opt.UseValue(new List<string>()))
+                .ForMember(s => s.prerequisites, opt => opt.UseValue(new List<string>()))
+                .ForMember(s => s.resources, opt => opt.UseValue(new List<string>()))
+                .ForMember(s => s.speakers, opt => opt.UseValue(new List<SpeakerEntity>()))
+                .ForMember(s => s.subjects, opt => opt.UseValue(new List<string>()))
+                ;
+
+            Mapper.CreateMap<User, UserEntity>()
+                .ForMember(u => u._id, opt => opt.UseValue(Guid.NewGuid()));
+
+            Mapper.CreateMap<CreateConference, ConferenceEntity>()
+                .ForMember(c => c._id, opt => opt.UseValue(Guid.NewGuid()))
+                .ForMember(c => c.sessions, opt => opt.UseValue(new List<SessionEntity>()))
+                ;
 
             Mapper.CreateMap<SpeakerEntity, SpeakerDto>();
 

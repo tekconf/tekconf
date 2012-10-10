@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Net;
 using System.Web.Security;
+using AutoMapper;
 using TekConf.UI.Api.Services.Requests.v1;
 using FluentMongo.Linq;
 using ServiceStack.CacheAccess;
@@ -53,11 +54,8 @@ namespace TekConf.UI.Api.Services.v1
             }
             else
             {
-                var user = new UserEntity()
-                               {
-                                   _id = Guid.NewGuid(),
-                                   userName = request.userName,
-                               };
+                var user = Mapper.Map<UserEntity>(request);
+
                 collection.Save(user);
                 return new HttpResult() {StatusCode = HttpStatusCode.Created};
             }

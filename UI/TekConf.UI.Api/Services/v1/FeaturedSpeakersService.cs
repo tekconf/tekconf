@@ -29,6 +29,7 @@ namespace TekConf.UI.Api.Services.v1
 
                 var featuredSpeakers = collection
                                         .AsQueryable()
+                                        .Where(c => c.isLive)
                                         .ToList()
                                         .Where(c => c.sessions != null)
                                         .SelectMany(c => c.sessions)

@@ -12,6 +12,7 @@ namespace TekConf.UI.Api
         public string AddressTypeId { get; set; }
         public string LocalMunicipality { get; set; }
         public string City { get; set; }
+        public string State { get; set; }
         public string GoverningDistrict { get; set; }
         public string PostalArea { get; set; }
         public string Country { get; set; }

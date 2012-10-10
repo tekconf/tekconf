@@ -34,6 +34,9 @@ namespace TekConf.UI.Api.Services.Requests.v1
         [Display(Name = "City")]
         public string City { get; set; }
 
+        [Display(Name = "State")]
+        public string State { get; set; }
+
         //[Display(Name = "Governing District")]
         //public string GoverningDistrict { get; set; }
 
