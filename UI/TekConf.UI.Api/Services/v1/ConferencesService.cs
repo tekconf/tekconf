@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
 using AutoMapper;
 using TekConf.RemoteData.Dtos.v1;
@@ -96,63 +97,40 @@ namespace TekConf.UI.Api.Services.v1
 
         public object Get(Conferences request)
         {
-            return GetAllConferences();
+            return GetAllConferences(request);
         }
 
-        private object GetAllConferences()
+        private object GetAllConferences(Conferences request)
         {
-            var cacheKey = "GetAllConferences";
-            var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
+            string searchCacheKey = request.search ?? string.Empty;
+            string sortByCacheKey = request.sortBy ?? string.Empty;
+            string showPastConferencesCacheKey = request.showPastConferences.ToString() ?? string.Empty;
 
-            ////TODO : Fix slugs
-            //try
-            //{
-            //    foreach (var conference in collection.AsQueryable())
-            //    {
-            //        conference.slug = (conference.name + "-" + conference.start.Year).GenerateSlug();
-            //        foreach (var session in conference.sessions)
-            //        {
-            //            session.slug = session.title.GenerateSlug();
-            //            if (session.speakers != null)
-            //            {
-            //                foreach (var speaker in session.speakers)
-            //                {
-            //                    speaker.slug = speaker.fullName.GenerateSlug();
-            //                }
-            //            }
-            //        }
-            //        collection.Save(conference);
-
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-
-            //    var sdsds = ex.Message;
-            //}
-
-
-            ////TODO : Take Conference to the next year
-            //var thatConf = collection.AsQueryable().FirstOrDefault(c => c.slug == "ThatConference-2012");
-            //if (thatConf != null)
-            //{
-            //    var nextConf = Mapper.Map<ConferenceEntity>(thatConf);
-            //    if (nextConf != null)
-            //    {
-            //        nextConf._id = Guid.NewGuid();
-            //        nextConf.start = thatConf.start.AddYears(1);
-            //        nextConf.end = thatConf.end.AddYears(1);
-            //        nextConf.slug = "ThatConference-2013";
-            //        collection.Save(nextConf);
-            //    }
-            //}
-
+            var cacheKey = "GetAllConferences-" + searchCacheKey + "-" + sortByCacheKey + "-" + showPastConferencesCacheKey;
             var expireInTimespan = new TimeSpan(0, 0, 20);
 
             return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
             {
-                var conferencesDtos = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
-                  .AsQueryable()
+                var orderByFunc = GetOrderByFunc(request.sortBy);
+                var search = GetSearch(request.search);
+                var showPastConferences = GetShowPastConferences(request.showPastConferences);
+                
+                var query = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
+                  .AsQueryable();
+                
+                if (search != null)
+                {
+                    query = query.Where(search);
+                }
+
+                if (showPastConferences != null)
+                {
+                    query = query.Where(showPastConferences);
+                }
+                  
+                var conferencesDtos = query
+                  .OrderBy(orderByFunc)
+                  .ThenBy(c => c.start)
                   .Select(c => new ConferencesDto()
                   {
                       name = c.name,
@@ -164,8 +142,6 @@ namespace TekConf.UI.Api.Services.v1
                       description = c.description,
                       imageUrl = c.imageUrl
                   })
-                  .OrderBy(c => c.end)
-                  .ThenBy(c => c.start)
                   .ToList();
 
                 var resolver = new ConferencesUrlResolver();
@@ -176,6 +152,62 @@ namespace TekConf.UI.Api.Services.v1
 
                 return conferencesDtos.ToList();
             });
+        }
+
+        private Expression<Func<ConferenceEntity, bool>> GetShowPastConferences(bool? showPastConferences)
+        {
+            Expression<Func<ConferenceEntity, bool>> searchBy = null;
+           
+            if (showPastConferences == null || !(bool)showPastConferences)
+            {
+                searchBy = c => c.end > DateTime.Now;
+            }
+
+            return searchBy;            
+        }
+        private Expression<Func<ConferenceEntity, bool>> GetSearch(string search)
+        {
+            Expression<Func<ConferenceEntity, bool>> searchBy = null;
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                searchBy = c => c.name.Contains(search)
+                    || c.description.Contains(search);
+            }
+
+            return searchBy;
+        }
+
+        private Func<ConferenceEntity, object> GetOrderByFunc(string sortBy)
+        {
+            Func<ConferenceEntity, object> orderByFunc = null;
+
+            if (sortBy == "startDate")
+            {
+                orderByFunc = c => c.start;
+            }
+            else if (sortBy == "name")
+            {
+                orderByFunc = c => c.name;
+            }
+            else if (sortBy == "callForSpeakersOpeningDate")
+            {
+                orderByFunc = c => c.callForSpeakersOpens;
+            }
+            else if (sortBy == "callForSpeakersClosingDate")
+            {
+                orderByFunc = c => c.callForSpeakersCloses;
+            }
+            else if (sortBy == "registrationOpens")
+            {
+                orderByFunc = c => c.registrationOpens;
+            }
+            else
+            {
+                orderByFunc = c => c.end;
+            }
+
+            return orderByFunc;
         }
     }
 

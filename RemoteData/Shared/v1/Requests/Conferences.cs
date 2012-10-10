@@ -8,6 +8,9 @@ namespace TekConf.UI.Api.Services.Requests.v1
     [Route("/v1/conferences", "GET")]
     public class Conferences : IReturn<List<FullConferenceDto>>
     {
+        public string search { get; set; }
+        public string sortBy { get; set; }
+        public bool? showPastConferences { get; set; }
     }
 
 

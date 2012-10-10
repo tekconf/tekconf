@@ -10,63 +10,22 @@ namespace TekConf.UI.Web.Controllers
 {
     public class ConferencesController : AsyncController
     {
-        public void IndexAsync(string sortBy, bool? showPastConferences)
+        public void IndexAsync(string sortBy, bool? showPastConferences, string search)
         {
             var repository = new RemoteDataRepository();
 
             AsyncManager.OutstandingOperations.Increment();
-            ViewData["showPastConferences"] = showPastConferences;
-            ViewData["sortBy"] = sortBy;
 
-            repository.GetConferences(conferences =>
+            repository.GetConferences(sortBy: sortBy, showPastConferences: showPastConferences, search:search, callback:conferences =>
             {
                 AsyncManager.Parameters["conferences"] = conferences;
                 AsyncManager.OutstandingOperations.Decrement();
             });
-
         }
 
         public ActionResult IndexCompleted(List<FullConferenceDto> conferences)
         {
-            List<FullConferenceDto> sorted = null;
-            string sortBy = string.Empty;
-
-            if (ViewData["sortBy"] != null)
-            {
-                sortBy = ViewData["sortBy"].ToString();
-            }
-
-            if (sortBy == "startDate")
-            {
-                sorted = conferences.OrderBy(c => c.start).ToList();                
-            }
-            else if (sortBy == "name")
-            {
-                sorted = conferences.OrderBy(c => c.name).ToList();
-            }
-            else if (sortBy == "callForSpeakersOpeningDate")
-            {
-                sorted = conferences.OrderBy(c => c.callForSpeakersOpens).ToList();              
-            }
-            else if (sortBy == "callForSpeakersClosingDate")
-            {
-                sorted = conferences.OrderBy(c => c.callForSpeakersCloses).ToList();
-            }
-            else if (sortBy == "registrationOpens")
-            {
-                sorted = conferences.OrderBy(c => c.registrationOpens).ToList();             
-            }
-            else
-            {
-                sorted = conferences.OrderBy(c => c.start).ToList();
-            }
-
-            var showPastConferences = ViewData["showPastConferences"];
-            if (showPastConferences == null || !(bool)showPastConferences)
-            {
-                sorted = sorted.Where(c => c.end > DateTime.Now).ToList();
-            }
-            return View(sorted);
+            return View(conferences);
         }
 
         public void DetailAsync(string conferenceSlug)

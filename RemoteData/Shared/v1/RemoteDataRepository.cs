@@ -30,14 +30,16 @@ namespace TekConf.RemoteData.v1
             }
         }
 
-        public void GetConferences(Action<IList<FullConferenceDto>> callback)
+
+        public void GetConferences(Action<IList<FullConferenceDto>> callback, string sortBy = "end", bool? showPastConferences = false, string search = null)
         {
-            ServiceClient.GetAsync(new Conferences(), callback, (r, ex) => { throw ex; });
+            var conferences = new Conferences() { sortBy = sortBy, showPastConferences = showPastConferences, search = search };
+            ServiceClient.GetAsync(conferences, callback, (r, ex) => { throw ex; });
         }
 
         public void GetConference(string slug, Action<FullConferenceDto> callback)
         {
-            ServiceClient.GetAsync(new Conference() { conferenceSlug = slug}, callback, (r, ex) => { throw ex; });
+            ServiceClient.GetAsync(new Conference() { conferenceSlug = slug }, callback, (r, ex) => { throw ex; });
         }
 
 
@@ -64,7 +66,7 @@ namespace TekConf.RemoteData.v1
 
         public void GetSpeaker(string conferenceSlug, string speakerSlug, Action<FullSpeakerDto> callback)
         {
-            ServiceClient.GetAsync(new Speaker() { conferenceSlug = conferenceSlug, speakerSlug = speakerSlug}, callback, (r, ex) => { throw ex; });
+            ServiceClient.GetAsync(new Speaker() { conferenceSlug = conferenceSlug, speakerSlug = speakerSlug }, callback, (r, ex) => { throw ex; });
         }
 
         public void GetSessions(string conferenceSlug, Action<IList<SessionsDto>> callback)
@@ -86,7 +88,7 @@ namespace TekConf.RemoteData.v1
         public void CreateUser(string userName, Action<UserDto> callback)
         {
             //ServiceClient.PostAsync(new User() {userName = userName}, callback, (r, ex) => { throw ex; });
-            var user = new UserDto() {userName = userName };
+            var user = new UserDto() { userName = userName };
             callback(user);
         }
 
