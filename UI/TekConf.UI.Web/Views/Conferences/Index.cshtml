@@ -54,14 +54,15 @@
                                         new SelectListItem() { Text = "Tickets on Sale Date", Value = "registrationOpens"}
                                     };
                     
-                    <div class="span8">
+                    <div class="span3 sortBy">
                         @Html.DropDownList("sortBy", sorts, new { @onchange = "this.form.submit();" })
-
-                        <text>&nbsp;&nbsp;</text>@Html.CheckBox("showPastConferences", new { @onchange = "this.form.submit();" })<text> Show Past Conferences?</text>
                     </div>
-                    <div class="span4">
+                    <div class="span3 showPastConferences">
+                        <text>&nbsp;&nbsp;</text>@Html.CheckBox("showPastConferences", new { @onchange = "this.form.submit();" })<text> Show Past Conferences?</text>                        
+                    </div>
+                    <div class="span6 searchBox">
                         @Html.TextBox("search")
-                        <button class="btn" onclick="this.form.submit()">Search</button>
+                        <button class="btn" onclick="this.form.submit()" style="margin-right:30px;">Search</button>
                     </div>
                 }
             </div>
