@@ -114,11 +114,11 @@
                                 }
                             </p>
                         }
+
                     </div>
                     <!-- /sidebar -->
                 </div>
                 <!-- /span4 -->
-
 
             </div>
             <!-- /row -->
@@ -149,9 +149,10 @@
                     </div>
                     <!-- /span4 -->                    
                 }
-
+                
             </div>
             <!-- /row -->
+            @Html.RouteLink("Add Speaker", "AdminAddSpeaker", new { conferenceSlug = Model.conferenceSlug, sessionSlug = Model.slug}, new { @class = "btn" })
         </div>
         <!-- /container -->
 

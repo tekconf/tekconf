@@ -25,6 +25,42 @@ namespace TekConf.UI.Api.Services.v1
             return fullConferenceDto;
         }
 
+        public object Post(CreateSpeaker speaker)
+        {
+            FullSpeakerDto speakerDto = null;
+            try
+            {
+                var entity = Mapper.Map<SpeakerEntity>(speaker);
+
+                var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
+                var conference = collection.AsQueryable().FirstOrDefault(c => c.slug == speaker.conferenceSlug);
+                if (conference == null)
+                {
+                    return new HttpError() {StatusCode = HttpStatusCode.BadRequest};
+                }
+
+                var session = conference.sessions.FirstOrDefault(s => s.slug == speaker.sessionSlug);
+
+                if (session == null)
+                {
+                    return new HttpError() { StatusCode = HttpStatusCode.BadRequest };
+                }
+
+                session.speakers.Add(entity);
+
+                collection.Save(conference);
+
+                speakerDto = Mapper.Map<SpeakerEntity, FullSpeakerDto>(entity);
+            }
+            catch (Exception ex)
+            {
+                var s = ex.Message;
+                throw;
+            }
+
+            return speakerDto;
+        }
+
         public object Post(CreateConference conference)
         {
             FullConferenceDto conferenceDto = null;

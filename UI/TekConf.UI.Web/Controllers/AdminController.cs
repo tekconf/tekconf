@@ -18,6 +18,9 @@ namespace TekConf.UI.Web.Controllers
             return View();
         }
 
+
+        #region Add Conference
+
         [HttpGet]
         public ActionResult CreateConference()
         {
@@ -65,6 +68,11 @@ namespace TekConf.UI.Web.Controllers
             return RedirectToAction("Detail", "Conferences", new { conferenceSlug = conference.slug });
         }
 
+        #endregion
+
+
+        #region Add Session
+
         public void AddSessionAsync(string conferenceSlug)
         {
             var repository = new RemoteDataRepository();
@@ -104,5 +112,63 @@ namespace TekConf.UI.Web.Controllers
         {
             return RedirectToAction("Detail", "Conferences", new { conferenceSlug = conference.slug });
         }
+
+        #endregion
+
+
+        #region Add Speaker
+
+        [HttpGet]
+        public ActionResult CreateSpeaker()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public void CreateSpeakerAsync(CreateSpeaker speaker, HttpPostedFileBase file)
+        {
+            var repository = new RemoteDataRepository();
+
+            if (file != null)
+            {
+                AsyncManager.OutstandingOperations.Increment(2);
+            }
+            else
+            {
+                AsyncManager.OutstandingOperations.Increment(1);
+            }
+
+            if (file != null)
+            {
+
+                var url = "/img/speakers/" + (speaker.firstName + " " + speaker.lastName).GenerateSlug() + Path.GetExtension(file.FileName); ;
+                var filename = Server.MapPath(url);
+                speaker.profileImageUrl = url;
+
+                ThreadPool.QueueUserWorkItem(o =>
+                {
+                    file.SaveAs(filename);
+                    AsyncManager.OutstandingOperations.Decrement();
+                }, null);
+            }
+
+            repository.AddSpeakerToSession(speaker, s =>
+            {
+                AsyncManager.Parameters["speaker"] = s;
+                AsyncManager.Parameters["conferenceSlug"] = speaker.conferenceSlug;
+                AsyncManager.Parameters["sessionSlug"] = speaker.sessionSlug;
+
+                AsyncManager.OutstandingOperations.Decrement();
+            });
+
+        }
+
+        public ActionResult CreateSpeakerCompleted(FullSpeakerDto speaker, string conferenceSlug, string sessionSlug)
+        {
+            return RedirectToAction("Detail", "Session", new { conferenceSlug = conferenceSlug, sessionSlug =  sessionSlug});
+        }
+
+        #endregion
+
     }
 }

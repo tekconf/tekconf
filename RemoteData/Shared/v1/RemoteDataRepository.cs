@@ -30,7 +30,6 @@ namespace TekConf.RemoteData.v1
             }
         }
 
-
         public void GetConferences(Action<IList<FullConferenceDto>> callback, string sortBy = "end", bool? showPastConferences = false, string search = null)
         {
             var conferences = new Conferences() { sortBy = sortBy, showPastConferences = showPastConferences, search = search };
@@ -42,7 +41,6 @@ namespace TekConf.RemoteData.v1
             ServiceClient.GetAsync(new Conference() { conferenceSlug = slug }, callback, (r, ex) => { throw ex; });
         }
 
-
         public void GetFullConference(string slug, Action<FullConferenceDto> callback)
         {
             ServiceClient.GetAsync(new Conference() { conferenceSlug = slug }, callback, (r, ex) =>
@@ -51,7 +49,6 @@ namespace TekConf.RemoteData.v1
                                                                                                  //throw ex;
                                                                                              });
         }
-
 
         public void GetFeaturedSpeakers(Action<List<FullSpeakerDto>> callback)
         {
@@ -105,6 +102,16 @@ namespace TekConf.RemoteData.v1
         {
             session.slug = session.title.GenerateSlug();
             ServiceClient.PostAsync(session, callback, (r, ex) => { throw ex; });
+        }
+
+
+        public void AddSpeakerToSession(CreateSpeaker speaker, Action<FullSpeakerDto> callback)
+        {
+            speaker.slug = (speaker.firstName.ToLower() + " " + speaker.lastName.ToLower()).GenerateSlug();
+            ServiceClient.PostAsync(speaker, callback, (r, ex) =>
+                                                           {
+                                                               throw ex;
+                                                           });
         }
     }
 
