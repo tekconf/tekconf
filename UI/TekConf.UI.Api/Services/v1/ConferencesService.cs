@@ -67,7 +67,11 @@ namespace TekConf.UI.Api.Services.v1
             try
             {
                 var entity = Mapper.Map<ConferenceEntity>(conference);
-
+                entity.dateAdded = DateTime.Now; // TODO : This logic should be encapsulated
+                if (entity.isLive)
+                {
+                    entity.datePublished = DateTime.Now;
+                }
                 var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
                 collection.Save(entity);
 
@@ -114,7 +118,32 @@ namespace TekConf.UI.Api.Services.v1
 
         public object Get(Conferences request)
         {
+            //Prerun();
+
             return GetAllConferences(request);
+        }
+
+        private void Prerun()
+        {
+            var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
+            var confs = collection.AsQueryable()
+                //.Where(c => c.slug == "monkeyspace-2012")
+                .ToList();
+            foreach (var conf in confs)
+            {
+                if (DateTime.Now.Millisecond % 2 == 0)
+                {
+                    conf.dateAdded = new DateTime(2012, 09, 01);
+                    conf.datePublished = new DateTime(2012, 09, 01);
+                }
+                else
+                {
+                    conf.dateAdded = new DateTime(2012, 10, 01);
+                    conf.datePublished = new DateTime(2012, 01, 01);
+                }
+
+                collection.Save(conf);
+            }
         }
 
         private object GetAllConferences(Conferences request)
@@ -150,10 +179,17 @@ namespace TekConf.UI.Api.Services.v1
 
                 try
                 {
+                    query = query.Where(c => c.isLive);
+                    if (request.sortBy == "dateAdded")
+                    {
+                        query = query.OrderByDescending(orderByFunc).ThenBy(c => c.start).AsQueryable();
+                    }
+                    else
+                    {
+                        query = query.OrderBy(orderByFunc).ThenBy(c => c.start).AsQueryable();
+                    }
+
                     conferencesDtos = query
-                      .Where(c => c.isLive)
-                      .OrderBy(orderByFunc)
-                      .ThenBy(c => c.start)
                       .Select(c => new ConferencesDto()
                       {
                           name = c.name,
@@ -241,6 +277,10 @@ namespace TekConf.UI.Api.Services.v1
             {
                 orderByFunc = c => c.registrationOpens;
             }
+            else if (sortBy == "dateAdded")
+            {
+                orderByFunc = c => c.datePublished;
+            }
             else
             {
                 orderByFunc = c => c.end;
@@ -263,25 +303,4 @@ namespace TekConf.UI.Api.Services.v1
         public int Day { get; set; }
     }
 
-    public static class Helpers
-    {
-        //public static string GenerateSlug(this string phrase)
-        //{
-        //    string slug = phrase.RemoveAccent().ToLower();
-        //    // invalid chars           
-        //    slug = Regex.Replace(slug, @"[^a-z0-9\s-]", "");
-        //    // convert multiple spaces into one space   
-        //    slug = Regex.Replace(slug, @"\s+", " ").Trim();
-        //    // cut and trim 
-        //    slug = slug.Substring(0, slug.Length <= 45 ? slug.Length : 45).Trim();
-        //    slug = Regex.Replace(slug, @"\s", "-"); // hyphens   
-        //    return slug;
-        //}
-
-        //public static string RemoveAccent(this string txt)
-        //{
-        //    byte[] bytes = System.Text.Encoding.GetEncoding("Cyrillic").GetBytes(txt);
-        //    return System.Text.Encoding.ASCII.GetString(bytes);
-        //}
-    }
 }
