@@ -39,6 +39,11 @@ namespace TekConf.UI.Web.Controllers
 
         public ActionResult DetailCompleted(SessionDto session)
         {
+            if (session == null)
+            {
+                return RedirectToAction("NotFound", "Error");
+            }
+
             var gravatarImage = new GravatarImage();
             foreach (var speaker in session.speakers)
             {

@@ -47,6 +47,11 @@ namespace TekConf.UI.Web.Controllers
 
     public ActionResult DetailCompleted(FullSpeakerDto speaker, FullConferenceDto conference)
     {
+        if (speaker == null || conference == null)
+        {
+            return RedirectToAction("NotFound", "Error");
+        }
+
         var conferenceDto = new ConferencesDto()
                                 {
                                     description = conference.description,

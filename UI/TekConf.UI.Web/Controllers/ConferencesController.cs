@@ -44,8 +44,9 @@ namespace TekConf.UI.Web.Controllers
         {
             if (conference == null)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("NotFound", "Error");
             }
+
             return View(conference);
         }
     
