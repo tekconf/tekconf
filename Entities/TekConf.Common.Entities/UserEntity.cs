@@ -1,16 +1,37 @@
 using System;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.IdGenerators;
+using MongoDB.Driver;
+using TekConf.Common.Entities;
+using TinyMessenger;
 
 namespace TekConf.UI.Api
 {
     public class UserEntity
     {
+        [BsonIgnore]
+        public ITinyMessengerHub Hub { get; set; }
+
+        public void Save(MongoCollection<UserEntity> collection)
+        {
+            if (!this.isSaved)
+            {
+                if (_id == default(Guid))
+                {
+                    _id = Guid.NewGuid();
+                }
+                slug = (firstName + "-" + lastName).ToLower().GenerateSlug();
+                isSaved = true;
+            }
+            collection.Save(this);
+        }
+
         [BsonId(IdGenerator = typeof(CombGuidGenerator))]
-        public Guid _id { get; set; }
+        public Guid _id { get; private set; }
+        public string slug { get; private set; }
+        public bool isSaved { get; private set; }
 
         public string userName { get; set; }
-        public string slug { get; set; }
         public string firstName { get; set; }
         public string lastName { get; set; }
         public string description { get; set; }

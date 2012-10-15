@@ -56,7 +56,7 @@ namespace TekConf.UI.Api.Services.v1
             {
                 var user = Mapper.Map<UserEntity>(request);
 
-                collection.Save(user);
+                user.Save(collection);
                 return new HttpResult() {StatusCode = HttpStatusCode.Created};
             }
         }

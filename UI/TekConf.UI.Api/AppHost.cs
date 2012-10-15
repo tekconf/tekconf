@@ -6,6 +6,7 @@ using ServiceStack.CacheAccess.Providers;
 using ServiceStack.ServiceInterface;
 using ServiceStack.ServiceInterface.Auth;
 using ServiceStack.WebHost.Endpoints;
+using TinyMessenger;
 
 namespace TekConf.UI.Api
 {
@@ -26,24 +27,6 @@ namespace TekConf.UI.Api
             //Set JSON web services to return idiomatic JSON camelCase properties
             ServiceStack.Text.JsConfig.EmitCamelCaseNames = true;
 
-            //Configure User Defined REST Paths
-            //Routes
-            //.Add<ConferencesRequest>("/v1/conferences")
-            //.Add<ConferencesRequest>("/v1/conferences/{conferenceSlug}")
-            //.Add<Sessions>("/v1/conferences/{conferenceSlug}/sessions")
-            //.Add<Sessions>("/v1/conferences/{conferenceSlug}/sessions/{sessionSlug}")
-            //.Add<SessionSpeakersRequest>("/v1/conferences/{conferenceSlug}/sessions/{sessionSlug}/speakers")
-            //.Add<SessionSpeakersRequest>("/v1/conferences/{conferenceSlug}/sessions/{sessionSlug}/speakers/{speakerSlug}")
-            //.Add<SpeakersRequest>("/v1/conferences/{conferenceSlug}/speakers")
-            //.Add<SpeakersRequest>("/v1/conferences/{conferenceSlug}/speakers/{speakerSlug}")
-            //.Add<SessionPrerequisitesRequest>("/v1/conferences/{conferenceSlug}/sessions/{sessionSlug}/prerequisites")
-            //.Add<SessionLinksRequest>("/v1/conferences/{conferenceSlug}/sessions/{sessionSlug}/links")
-            //.Add<SessionResourcesRequest>("/v1/conferences/{conferenceSlug}/sessions/{sessionSlug}/resources")
-            //.Add<ScheduleRequest>("/v1/conferences/{conferenceSlug}/schedule/{userSlug}")
-            //.Add<FeaturedSpeakersRequest>("/v1/speakers/featured")
-            //.Add<UsersRequest>("/v1/users")
-            //.Add<UsersRequest>("/v1/users/{userName}")
-            ;
             //Change the default ServiceStack configuration
             //SetConfig(new EndpointHostConfig {
             //    DebugMode = true, //Show StackTraces in responses in development
@@ -58,6 +41,12 @@ namespace TekConf.UI.Api
             //Register In-Memory Cache provider. 
             //For Distributed Cache Providers Use: PooledRedisClientManager, BasicRedisClientManager or see: https://github.com/ServiceStack/ServiceStack/wiki/Caching
             container.Register<ICacheClient>(new MemoryCacheClient());
+            var hub = new TinyMessengerHub();
+            container.Register<ITinyMessengerHub>(hub);
+            
+            var subscriptions = new HubSubscriptions(hub);
+
+
             //container.Register<ICacheClient>(new AzureCacheClient());
 
             container.Register<ISessionFactory>(c =>

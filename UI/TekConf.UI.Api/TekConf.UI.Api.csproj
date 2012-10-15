@@ -148,9 +148,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppHost.cs" />
+    <Compile Include="HubSubscriptions.cs" />
+    <Compile Include="Services\v1\ConferenceService.cs" />
     <Compile Include="Services\v1\FeaturedSpeakersService.cs" />
     <Compile Include="Services\v1\MongoServiceBase.cs" />
-    <Compile Include="Services\v1\UsersService.cs" />
+    <Compile Include="Services\v1\SessionService.cs" />
+    <Compile Include="Services\v1\SessionSpeakerService.cs" />
+    <Compile Include="Services\v1\SpeakerService.cs" />
+    <Compile Include="Services\v1\UserService.cs" />
     <Compile Include="UrlResolvers\BaseUrlResolver.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Global.asax.cs">
@@ -159,7 +164,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UrlResolvers\v1\ScheduleSessionsResolver.cs" />
     <Compile Include="Services\v1\ConferencesService.cs" />
-    <Compile Include="Services\v1\MongoRestServiceBase.cs" />
     <Compile Include="Services\v1\ScheduleService.cs" />
     <Compile Include="Services\v1\SessionLinksService.cs" />
     <Compile Include="Services\v1\SessionPrerequisitesService.cs" />
@@ -204,6 +208,10 @@
     <ProjectReference Include="..\..\Entities\TekConf.Common.Entities\TekConf.Common.Entities.csproj">
       <Project>{67514387-8c88-477f-ad16-f24b32b69113}</Project>
       <Name>TekConf.Common.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\libs\TinyMessenger\TinyMessenger.csproj">
+      <Project>{7c6925bc-f644-4d3e-9c66-f1593ecbf522}</Project>
+      <Name>TinyMessenger</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\RemoteData\Shared\TekConf.RemoteData.Shared.csproj">
       <Project>{1439b0ec-5c15-4b18-b4eb-8a2787abdfde}</Project>
