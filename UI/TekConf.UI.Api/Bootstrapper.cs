@@ -47,7 +47,7 @@ namespace TekConf.UI.Api
                 .ForMember(u => u._id, opt => opt.UseValue(Guid.NewGuid()));
 
             Mapper.CreateMap<CreateConference, ConferenceEntity>()
-                .ForMember(c => c._id, opt => opt.UseValue(Guid.NewGuid()))
+                //.ForMember(c => c._id, opt => opt.UseValue(Guid.NewGuid()))
                 .ForMember(c => c.sessions, opt => opt.UseValue(new List<SessionEntity>()))
                 ;
 

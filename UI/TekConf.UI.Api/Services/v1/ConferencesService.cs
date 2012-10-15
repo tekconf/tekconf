@@ -2,119 +2,26 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Net;
-using AutoMapper;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.RemoteData.v1;
 using TekConf.UI.Api.Services.Requests.v1;
 using TekConf.UI.Api.UrlResolvers.v1;
 using FluentMongo.Linq;
 using ServiceStack.CacheAccess;
-using ServiceStack.Common.Web;
 using ServiceStack.ServiceHost;
+using TinyMessenger;
 
 namespace TekConf.UI.Api.Services.v1
 {
-    public class ConferenceService : MongoServiceBase
-    {
-        public ICacheClient CacheClient { get; set; }
-
-        public object Get(Conference request)
-        {
-            var fullConferenceDto = GetFullSingleConference(request);
-            return fullConferenceDto;
-        }
-
-        public object Post(CreateSpeaker speaker)
-        {
-            FullSpeakerDto speakerDto = null;
-            try
-            {
-                var entity = Mapper.Map<SpeakerEntity>(speaker);
-
-                var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
-                var conference = collection.AsQueryable().FirstOrDefault(c => c.slug == speaker.conferenceSlug);
-                if (conference == null)
-                {
-                    return new HttpError() {StatusCode = HttpStatusCode.BadRequest};
-                }
-
-                var session = conference.sessions.FirstOrDefault(s => s.slug == speaker.sessionSlug);
-
-                if (session == null)
-                {
-                    return new HttpError() { StatusCode = HttpStatusCode.BadRequest };
-                }
-
-                session.speakers.Add(entity);
-
-                collection.Save(conference);
-
-                speakerDto = Mapper.Map<SpeakerEntity, FullSpeakerDto>(entity);
-            }
-            catch (Exception ex)
-            {
-                var s = ex.Message;
-                throw;
-            }
-
-            return speakerDto;
-        }
-
-        public object Post(CreateConference conference)
-        {
-            FullConferenceDto conferenceDto = null;
-            try
-            {
-                var entity = Mapper.Map<ConferenceEntity>(conference);
-                entity.dateAdded = DateTime.Now; // TODO : This logic should be encapsulated
-                if (entity.isLive)
-                {
-                    entity.datePublished = DateTime.Now;
-                }
-                var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
-                collection.Save(entity);
-
-                conferenceDto = Mapper.Map<ConferenceEntity, FullConferenceDto>(entity);
-            }
-            catch (Exception ex)
-            {
-                var s = ex.Message;
-                throw;
-            }
-
-            return conferenceDto;
-        }
-
-        private object GetFullSingleConference(Conference request)
-        {
-            var cacheKey = "GetFullSingleConference-" + request.conferenceSlug;
-            var expireInTimespan = new TimeSpan(0, 0, 20);
-            
-            return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
-            {
-                var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
-                
-                var conference = collection
-                .AsQueryable()
-                .Where(c => c.isLive)
-                .SingleOrDefault(c => c.slug == request.conferenceSlug);
-
-                if (conference == null)
-                {
-                    throw new HttpError(HttpStatusCode.NotFound, "Conference not found.");
-                }
-
-                var conferenceDto = Mapper.Map<ConferenceEntity, FullConferenceDto>(conference);
-
-                return conferenceDto;
-            });
-        }
-    }
-
     public class ConferencesService : MongoServiceBase
     {
+        private readonly ITinyMessengerHub _hub;
         public ICacheClient CacheClient { get; set; }
+
+        public ConferencesService(ITinyMessengerHub hub)
+        {
+            _hub = hub;
+        }
 
         public object Get(Conferences request)
         {
@@ -125,25 +32,22 @@ namespace TekConf.UI.Api.Services.v1
 
         private void Prerun()
         {
-            var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
-            var confs = collection.AsQueryable()
-                //.Where(c => c.slug == "monkeyspace-2012")
-                .ToList();
-            foreach (var conf in confs)
+            try
             {
-                if (DateTime.Now.Millisecond % 2 == 0)
-                {
-                    conf.dateAdded = new DateTime(2012, 09, 01);
-                    conf.datePublished = new DateTime(2012, 09, 01);
-                }
-                else
-                {
-                    conf.dateAdded = new DateTime(2012, 10, 01);
-                    conf.datePublished = new DateTime(2012, 01, 01);
-                }
+                var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
+                var confs = collection.AsQueryable()
+                    .ToList();
 
-                collection.Save(conf);
+                foreach (var conf in confs)
+                {
+                    conf.Save(collection);
+                }
             }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
         }
 
         private object GetAllConferences(Conferences request)
