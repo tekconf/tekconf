@@ -77,6 +77,10 @@ namespace TekConf.UI.Api
             get { return _sessions.AsEnumerable(); }
             private set 
             { 
+                if (value == null)
+                {
+                    value = new List<SessionEntity>();
+                }
                 _sessions = value.ToList(); 
             }
         }

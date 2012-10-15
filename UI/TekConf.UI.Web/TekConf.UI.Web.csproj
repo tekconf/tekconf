@@ -988,9 +988,7 @@
     <Content Include="Views\Schedule\Index.cshtml" />
     <Content Include="Views\Session\Create.cshtml" />
     <Content Include="Views\Session\Detail.cshtml" />
-    <Content Include="Views\Session\Index.cshtml" />
     <Content Include="Views\Speaker\Create.cshtml" />
-    <Content Include="Views\Speaker\Index.cshtml" />
     <Content Include="Views\Shared\Footer.cshtml" />
     <Content Include="Views\Shared\Header.cshtml" />
     <Content Include="Views\Speaker\Detail.cshtml" />

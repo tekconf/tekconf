@@ -54,10 +54,10 @@
                         <span class="help-block">Example block-level help text here.</span>
 
                         <label>Start Date/Time</label>
-                        @Html.TextBoxFor(c => c.start, new { type = "datetime"})
+                        @Html.TextBoxFor(c => c.start, new { type = "datetime" })
 
                         <label>End Date/Time</label>
-                        @Html.TextBoxFor(c => c.end, new { type = "datetime"})
+                        @Html.TextBoxFor(c => c.end, new { type = "datetime" })
 
                         <label>Room</label>
                         @Html.TextBoxFor(c => c.room)
@@ -67,7 +67,7 @@
 
                         <label>Session Type</label>
                         @Html.TextBoxFor(c => c.sessionType)
-                        
+
                         <label>Twitter Hash Tag</label>
                         @Html.TextBoxFor(c => c.twitterHashTag)
 
@@ -78,7 +78,116 @@
                         @Html.TextAreaFor(c => c.description, 19, 100, null)
                     </div>
                 </div>
-                    
+                <div class="row">
+                    <div class="span-4">
+                        <table class="table table-bordered table-condensed table-striped">
+                            <caption>Prerequisites</caption>
+                            <tbody>
+                                @foreach (var prerequisite in Model.prerequisites ?? new List<string>())
+                                {
+
+                                    <tr>
+                                        <td>Row #<span>1</span></td>
+                                    </tr>
+                                }
+                                <tr>
+
+                                    <td><a href="#" class="add">Add</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div id="rowIndex"></div>
+                    </div>
+                </div> 
+                <div class="row">
+                    <div class="span-4">
+                        <table class="table table-bordered table-condensed table-striped">
+                            <caption>Resources</caption>
+                            <tbody>
+                                @foreach (var prerequisite in Model.resources ?? new List<string>())
+                                {
+
+                                    <tr>
+                                        <td>Row #<span>1</span></td>
+                                    </tr>
+                                }
+                                <tr>
+
+                                    <td><a href="#" class="add">Add</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div id="rowIndex"></div>
+                    </div>
+                </div>                 
+                <div class="row">
+                    <div class="span-4">
+                        <table class="table table-bordered table-condensed table-striped">
+                            <caption>Subjects</caption>
+                            <tbody>
+                                @foreach (var prerequisite in Model.subjects ?? new List<string>())
+                                {
+
+                                    <tr>
+                                        <td>Row #<span>1</span></td>
+                                    </tr>
+                                }
+                                <tr>
+
+                                    <td><a href="#" class="add">Add</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div id="rowIndex"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span-4">
+                        <table class="table table-bordered table-condensed table-striped">
+                            <caption>Tags</caption>
+                            <tbody>
+                                @foreach (var prerequisite in Model.tags ?? new List<string>())
+                                {
+
+                                    <tr>
+                                        <td>Row #<span>1</span></td>
+                                    </tr>
+                                }
+                                <tr>
+
+                                    <td><a href="#" class="add">Add</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div id="rowIndex"></div>
+                    </div>
+                </div>                 
+                <div class="row">
+                    <div class="span-4">
+                        <table class="table table-bordered table-condensed table-striped">
+                            <caption>Links</caption>
+                            <tbody>
+                                @foreach (var prerequisite in Model.links ?? new List<string>())
+                                {
+
+                                    <tr>
+                                        <td>Row #<span>1</span></td>
+                                    </tr>
+                                }
+                                <tr>
+
+                                    <td><a href="#" class="add">Add</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div id="rowIndex"></div>
+                    </div>
+                </div>                                                     
                 <div class="row">
                     <input type="submit" class="btn-large btn btn-primary" value="Save Session" />
                 </div>      
@@ -90,7 +199,7 @@
 
     </div>
     <!-- /subpage -->
-    
+
     @Html.Partial("Extra")
 
     @Html.Partial("Footer")
@@ -101,6 +210,22 @@
         $(function () {
             $('#start').datetimepicker();
             $('#end').datetimepicker();
+        });
+
+        $('.add').live('click', function (e) {
+            e.preventDefault();
+
+            // Add New Row AFTER Clicked Row //
+            $(this).closest('tr').after('<tr><td>Row #<span></span></td></tr>');
+
+            // Reorder Indexes //
+            $('table td').each(function (index, el) {
+                $('span', this).text(index);
+            });
+
+            //// Get Row Index //
+            //var rowIndex = $(this).closest('tr').prevAll().length;
+            //$('#rowIndex').text(rowIndex);
         });
     </script>
 </body>

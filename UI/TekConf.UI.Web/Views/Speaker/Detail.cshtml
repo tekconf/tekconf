@@ -1,4 +1,5 @@
 ﻿@using System.Web.Optimization
+@using TekConf.RemoteData.Dtos.v1
 @model TekConf.UI.Web.Controllers.SpeakerDetailViewModel
 
 @{
@@ -174,7 +175,7 @@
                 </div>
                 <!-- /span12 -->
 
-                @foreach (var session in Model.Sessions)
+                @foreach (var session in Model.Sessions ?? new List<SessionsDto>())
                 {
                     
                     <div class="span4">
