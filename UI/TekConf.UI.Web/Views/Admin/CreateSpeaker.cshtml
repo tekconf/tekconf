@@ -56,7 +56,7 @@
                         @Html.TextBoxFor(c => c.lastName)
 
                         <label>Is Featured?</label>
-                        @Html.TextBoxFor(c => c.isFeatured)
+                        @Html.CheckBoxFor(c => c.isFeatured)
 
                         <label>Image</label>
                         <input type="file" name="file" id="file" />
@@ -124,7 +124,7 @@
                 </div>
                     
                 <div class="row">
-                    <input type="submit" class="btn-large btn btn-primary" value="Save Conference" />
+                    <input type="submit" class="btn-large btn btn-primary" value="Save Speaker" />
                 </div>      
             }
 

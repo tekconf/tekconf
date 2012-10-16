@@ -33,7 +33,7 @@
     <div id="subheader">
         <div class="inner">
             <div class="container">
-                <h1>@Model.conferenceSlug</h1>
+                <h1>@Html.ActionLink(Model.conferenceSlug, "Detail", "Conferences", null, new { conferenceSlug = Model.conferenceSlug })</h1>
             </div>
             <!-- /.container -->
         </div>
