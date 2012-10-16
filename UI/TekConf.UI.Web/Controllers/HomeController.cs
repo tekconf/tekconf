@@ -45,7 +45,7 @@ namespace TekConf.UI.Web.Controllers
                 conferences = new List<FullConferenceDto>();
             }
 
-            var filteredConferences = conferences.Where(c => c.start >= DateTime.Now.AddDays(-2)).OrderByDescending(c => c.start).Take(4).ToList();
+            var filteredConferences = conferences.Where(c => c.start >= DateTime.Now.AddDays(-2)).OrderBy(c => c.start).Take(4).ToList();
 
             var vm = new HomePageViewModel()
                          {

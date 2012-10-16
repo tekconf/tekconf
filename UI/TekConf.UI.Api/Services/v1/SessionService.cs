@@ -10,17 +10,25 @@ using TekConf.RemoteData.Dtos.v1;
 using TekConf.UI.Api.Services.Requests.v1;
 using TekConf.UI.Api.UrlResolvers.v1;
 using ServiceStack.ServiceHost;
+using TinyMessenger;
 
 namespace TekConf.UI.Api.Services.v1
 {
     public class SessionService : MongoServiceBase
     {
         public ICacheClient CacheClient { get; set; }
+        private ITinyMessengerHub _hub;
+
         static HttpError ConferenceNotFound = HttpError.NotFound("Conference not found") as HttpError;
         static HashSet<string> NonExistingConferences = new HashSet<string>();
 
         static HttpError SessionNotFound = HttpError.NotFound("Session not found") as HttpError;
         static HashSet<string> NonExistingSessions = new HashSet<string>();
+
+        public SessionService(ITinyMessengerHub hub)
+        {
+            _hub = hub;
+        }
 
         public object Get(Session request)
         {
@@ -47,6 +55,7 @@ namespace TekConf.UI.Api.Services.v1
                 return new HttpError() { StatusCode = HttpStatusCode.BadRequest };
             }
 
+            conference.Hub = _hub;
             conference.AddSession(entity);
             conference.Save(collection);
 
