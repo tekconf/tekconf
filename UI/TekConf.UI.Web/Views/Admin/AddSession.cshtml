@@ -92,7 +92,7 @@
                                 }
                                 <tr>
 
-                                    <td><a href="#" class="add">Add</a></td>
+                                    <td><a href="#" class="addPrerequisite">Add</a></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -105,7 +105,7 @@
                         <table class="table table-bordered table-condensed table-striped">
                             <caption>Resources</caption>
                             <tbody>
-                                @foreach (var prerequisite in Model.resources ?? new List<string>())
+                                @foreach (var resource in Model.resources ?? new List<string>())
                                 {
 
                                     <tr>
@@ -127,7 +127,7 @@
                         <table class="table table-bordered table-condensed table-striped">
                             <caption>Subjects</caption>
                             <tbody>
-                                @foreach (var prerequisite in Model.subjects ?? new List<string>())
+                                @foreach (var subject in Model.subjects ?? new List<string>())
                                 {
 
                                     <tr>
@@ -149,7 +149,7 @@
                         <table class="table table-bordered table-condensed table-striped">
                             <caption>Tags</caption>
                             <tbody>
-                                @foreach (var prerequisite in Model.tags ?? new List<string>())
+                                @foreach (var tag in Model.tags ?? new List<string>())
                                 {
 
                                     <tr>
@@ -171,7 +171,7 @@
                         <table class="table table-bordered table-condensed table-striped">
                             <caption>Links</caption>
                             <tbody>
-                                @foreach (var prerequisite in Model.links ?? new List<string>())
+                                @foreach (var link in Model.links ?? new List<string>())
                                 {
 
                                     <tr>
@@ -212,15 +212,17 @@
             $('#end').datetimepicker();
         });
 
-        $('.add').live('click', function (e) {
+        $('.addPrerequisite').live('click', function (e) {
             e.preventDefault();
 
             // Add New Row AFTER Clicked Row //
-            $(this).closest('tr').after('<tr><td>Row #<span></span></td></tr>');
+            $(this).closest('tr').after('<tr><td><input type="text" id="prerequisite" /><span></span></td></tr>');
 
             // Reorder Indexes //
             $('table td').each(function (index, el) {
-                $('span', this).text(index);
+                //$('span', this).text(index);
+                
+                $('input', this).attr('id', 'prerequisite' + index);
             });
 
             //// Get Row Index //
