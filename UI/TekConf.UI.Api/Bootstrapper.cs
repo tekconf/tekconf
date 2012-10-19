@@ -35,12 +35,12 @@ namespace TekConf.UI.Api
 
             Mapper.CreateMap<AddSession, SessionEntity>()
                 .ForMember(s => s._id, opt => opt.UseValue(Guid.NewGuid()))
-                .ForMember(s => s.tags, opt => opt.UseValue(new List<string>()))
-                .ForMember(s => s.links, opt => opt.UseValue(new List<string>()))
-                .ForMember(s => s.prerequisites, opt => opt.UseValue(new List<string>()))
-                .ForMember(s => s.resources, opt => opt.UseValue(new List<string>()))
+                //.ForMember(s => s.tags, opt => opt.UseValue(new List<string>()))
+                //.ForMember(s => s.links, opt => opt.UseValue(new List<string>()))
+                //.ForMember(s => s.prerequisites, opt => opt.UseValue(new List<string>()))
+                //.ForMember(s => s.resources, opt => opt.UseValue(new List<string>()))
+                //.ForMember(s => s.subjects, opt => opt.UseValue(new List<string>()))
                 .ForMember(s => s.speakers, opt => opt.UseValue(new List<SpeakerEntity>()))
-                .ForMember(s => s.subjects, opt => opt.UseValue(new List<string>()))
                 ;
 
             Mapper.CreateMap<User, UserEntity>()

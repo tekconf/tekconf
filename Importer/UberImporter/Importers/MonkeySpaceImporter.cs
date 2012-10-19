@@ -8,7 +8,7 @@ using MongoDB.Driver.Builders;
 using ServiceStack.Text;
 using TekConf.UI.Api;
 
-namespace UberImporter.MonkeySpace
+namespace UberImporter.Importers.MonkeySpace2012
 {
     public class MonkeySpaceImporter
     {
@@ -27,7 +27,7 @@ namespace UberImporter.MonkeySpace
                 {
                     var conference = new ConferenceEntity()
                     {
-                        _id = Guid.NewGuid(),
+                        //_id = Guid.NewGuid(),
                         description = @"MonkeySpace, formerly known as Monospace, is the official cross platform and open-source .NET conference. Want to learn more about developing for the iPhone, Android, Mac, and *nix platforms using .NET technologies? How about developing games or learning more about open-source projects using .NET technologies? MonkeySpace has provided an annual venue to collaborate, share, and socialize around these topics and more.",
                         end = new DateTime(2012, 10, 19),
                         facebookUrl = "",
@@ -37,8 +37,8 @@ namespace UberImporter.MonkeySpace
                         location = "Boston, MA",
                         meetupUrl = "",
                         name = "MonkeySpace",
-                        sessions = new List<SessionEntity>(),
-                        slug = "MonkeySpace-2012",
+                        //sessions = new List<SessionEntity>(),
+                        //slug = "MonkeySpace-2012",
                         start = new DateTime(2012, 10, 17),
                         tagLine = ".net. Everywhere.",
                         twitterHashTag = "#monkeySpace",
@@ -82,11 +82,11 @@ namespace UberImporter.MonkeySpace
                                 sessionEntity.speakers.Add(speakerEntity);
                             }
 
-                            conference.sessions.Add(sessionEntity);
+                            conference.AddSession(sessionEntity);
                         }
                     }
 
-                    collection.Save(conference);
+                    conference.Save(collection);
                 }
             }
         

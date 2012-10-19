@@ -9,7 +9,7 @@ using FluentMongo.Linq;
 using ServiceStack.Text;
 using TekConf.UI.Api;
 
-namespace UberImporter
+namespace UberImporter.Importers.CodeStock2012
 {
     public class CodeStockImporter
     {
@@ -36,7 +36,7 @@ namespace UberImporter
                 {
                     var conference = new ConferenceEntity()
                     {
-                        _id = Guid.NewGuid(),
+                        //_id = Guid.NewGuid(),
                         description = @"CodeStock is a two day event for technology and information exchange.  Created by the community, for the community – this is not an industry trade show pushing the latest in marketing as technology, but a gathering of working professionals sharing knowledge and experience.",
                         end = new DateTime(2012, 6, 16),
                         facebookUrl = "",
@@ -46,8 +46,8 @@ namespace UberImporter
                         location = "Knoxville, TN",
                         meetupUrl = "",
                         name = "CodeStock",
-                        sessions = new List<SessionEntity>(),
-                        slug = "CodeStock-2012",
+                        //sessions = new List<SessionEntity>(),
+                        //slug = "CodeStock-2012",
                         start = new DateTime(2012, 6, 14),
                         tagLine = "Gathered together from the cosmic reaches of the universe...",
                         twitterHashTag = "#codeStock",
@@ -108,11 +108,11 @@ namespace UberImporter
                             sessionEntity.speakers = new List<SpeakerEntity>() { speakerEntity };
                         }
 
-                        conference.sessions.Add(sessionEntity);
+                        conference.AddSession(sessionEntity);
                     }
 
                     var dsds = conference;
-                    collection.Save(conference);
+                    conference.Save(collection);
                 }
 
             }

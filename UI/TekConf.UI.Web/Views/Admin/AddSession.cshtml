@@ -80,7 +80,7 @@
                 </div>
                 <div class="row">
                     <div class="span-4">
-                        <table class="table table-bordered table-condensed table-striped">
+                        <table class="table table-bordered table-condensed table-striped" id="prerequisitesTable">
                             <caption>Prerequisites</caption>
                             <tbody>
                                 @foreach (var prerequisite in Model.prerequisites ?? new List<string>())
@@ -102,7 +102,7 @@
                 </div> 
                 <div class="row">
                     <div class="span-4">
-                        <table class="table table-bordered table-condensed table-striped">
+                        <table class="table table-bordered table-condensed table-striped" id="resourcesTable">
                             <caption>Resources</caption>
                             <tbody>
                                 @foreach (var resource in Model.resources ?? new List<string>())
@@ -114,7 +114,7 @@
                                 }
                                 <tr>
 
-                                    <td><a href="#" class="add">Add</a></td>
+                                    <td><a href="#" class="addResource">Add</a></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -124,7 +124,7 @@
                 </div>                 
                 <div class="row">
                     <div class="span-4">
-                        <table class="table table-bordered table-condensed table-striped">
+                        <table class="table table-bordered table-condensed table-striped" id="subjectsTable">
                             <caption>Subjects</caption>
                             <tbody>
                                 @foreach (var subject in Model.subjects ?? new List<string>())
@@ -136,7 +136,7 @@
                                 }
                                 <tr>
 
-                                    <td><a href="#" class="add">Add</a></td>
+                                    <td><a href="#" class="addSubject">Add</a></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -146,7 +146,7 @@
                 </div>
                 <div class="row">
                     <div class="span-4">
-                        <table class="table table-bordered table-condensed table-striped">
+                        <table class="table table-bordered table-condensed table-striped" id="tagsTable">
                             <caption>Tags</caption>
                             <tbody>
                                 @foreach (var tag in Model.tags ?? new List<string>())
@@ -158,7 +158,7 @@
                                 }
                                 <tr>
 
-                                    <td><a href="#" class="add">Add</a></td>
+                                    <td><a href="#" class="addTag">Add</a></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -168,19 +168,12 @@
                 </div>                 
                 <div class="row">
                     <div class="span-4">
-                        <table class="table table-bordered table-condensed table-striped">
+                        <table class="table table-bordered table-condensed table-striped" id="linksTable">
                             <caption>Links</caption>
                             <tbody>
-                                @foreach (var link in Model.links ?? new List<string>())
-                                {
-
-                                    <tr>
-                                        <td>Row #<span>1</span></td>
-                                    </tr>
-                                }
                                 <tr>
 
-                                    <td><a href="#" class="add">Add</a></td>
+                                    <td><a href="#" class="addLink">Add</a></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -215,19 +208,66 @@
         $('.addPrerequisite').live('click', function (e) {
             e.preventDefault();
 
-            // Add New Row AFTER Clicked Row //
             $(this).closest('tr').after('<tr><td><input type="text" id="prerequisite" /><span></span></td></tr>');
 
-            // Reorder Indexes //
-            $('table td').each(function (index, el) {
-                //$('span', this).text(index);
-                
-                $('input', this).attr('id', 'prerequisite' + index);
-            });
+            $('#prerequisitesTable td').each(function (index, el) {
+                var element = index - 1;
+                $('input', this).attr('id', 'prerequisites[' + element + ']');
+                $('input', this).attr('name', 'prerequisites[' + element + ']');
 
-            //// Get Row Index //
-            //var rowIndex = $(this).closest('tr').prevAll().length;
-            //$('#rowIndex').text(rowIndex);
+            });
+        });
+        
+        $('.addResource').live('click', function (e) {
+            e.preventDefault();
+
+            $(this).closest('tr').after('<tr><td><input type="text" /><span></span></td></tr>');
+
+            $('#resourcesTable td').each(function (index, el) {
+                var element = index - 1;
+                $('input', this).attr('id', 'resources[' + element + ']');
+                $('input', this).attr('name', 'resources[' + element + ']');
+
+            });
+        });
+        
+        $('.addSubject').live('click', function (e) {
+            e.preventDefault();
+
+            $(this).closest('tr').after('<tr><td><input type="text" /><span></span></td></tr>');
+
+            $('#subjectsTable td').each(function (index, el) {
+                var element = index - 1;
+                $('input', this).attr('id', 'subjects[' + element + ']');
+                $('input', this).attr('name', 'subjects[' + element + ']');
+
+            });
+        });
+        
+        $('.addTag').live('click', function (e) {
+            e.preventDefault();
+
+            $(this).closest('tr').after('<tr><td><input type="text" /><span></span></td></tr>');
+
+            $('#tagsTable td').each(function (index, el) {
+                var element = index - 1;
+                $('input', this).attr('id', 'tags[' + element + ']');
+                $('input', this).attr('name', 'tags[' + element + ']');
+
+            });
+        });
+        
+        $('.addLink').live('click', function (e) {
+            e.preventDefault();
+
+            $(this).closest('tr').after('<tr><td><input type="text" /><span></span></td></tr>');
+
+            $('#linksTable td').each(function (index, el) {
+                var element = index - 1;
+                $('input', this).attr('id', 'links[' + element + ']');
+                $('input', this).attr('name', 'links[' + element + ']');
+
+            });
         });
     </script>
 </body>
