@@ -10,6 +10,8 @@ namespace TekConf.UI.Api
     {
         public void BootstrapAutomapper()
         {
+            Mapper.AddFormatter<TrimmingFormatter>();
+
             Mapper.CreateMap<ConferenceEntity, ConferencesDto>()
                 .ForMember(dest => dest.url, opt => opt.Ignore());
 
@@ -35,11 +37,6 @@ namespace TekConf.UI.Api
 
             Mapper.CreateMap<AddSession, SessionEntity>()
                 .ForMember(s => s._id, opt => opt.UseValue(Guid.NewGuid()))
-                //.ForMember(s => s.tags, opt => opt.UseValue(new List<string>()))
-                //.ForMember(s => s.links, opt => opt.UseValue(new List<string>()))
-                //.ForMember(s => s.prerequisites, opt => opt.UseValue(new List<string>()))
-                //.ForMember(s => s.resources, opt => opt.UseValue(new List<string>()))
-                //.ForMember(s => s.subjects, opt => opt.UseValue(new List<string>()))
                 .ForMember(s => s.speakers, opt => opt.UseValue(new List<SpeakerEntity>()))
                 ;
 
@@ -66,5 +63,33 @@ namespace TekConf.UI.Api
             Mapper.CreateMap<AddressEntity, AddressDto>();
         }
 
+    }
+
+    public class TrimmingFormatter : BaseFormatter<string>
+    {
+        protected override string FormatValueCore(string value)
+        {
+            return value.Trim();
+        }
+    }
+
+    public abstract class BaseFormatter<T> : IValueFormatter
+    {
+        public string FormatValue(ResolutionContext context)
+        {
+            if (context.SourceValue == null)
+            {
+                return null;
+            }
+
+            if (!(context.SourceValue is T))
+            {
+                return context.SourceValue == null ? String.Empty : context.SourceValue.ToString();
+            }
+
+            return FormatValueCore((T)context.SourceValue);
+        }
+
+        protected abstract string FormatValueCore(T value);
     }
 }
