@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
+﻿using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using TekConf.RemoteData.Dtos.v1;
@@ -111,7 +109,6 @@ namespace TekConf.UI.Web.Controllers
         public ActionResult AddSessionToConferenceCompleted(SessionDto session)
         {
             return RedirectToRoute("AdminAddSpeaker", new { conferenceSlug = session.conferenceSlug, sessionSlug = session.slug });
-            //return RedirectToAction("Detail", "Session", new { conferenceSlug = session.conferenceSlug, sessionSlug = session.slug });
         }
 
         #endregion

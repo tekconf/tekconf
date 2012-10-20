@@ -505,6 +505,7 @@
     <Content Include="img\conferences\RailsConf.png" />
     <Content Include="img\conferences\Webstock.png" />
     <Content Include="img\conferences\wwdc-2012.png" />
+    <Content Include="img\OnSale.png" />
     <Content Include="img\social\500px-16x16.png" />
     <Content Include="img\social\500px-24x24.png" />
     <Content Include="img\social\500px-32x32.png" />
