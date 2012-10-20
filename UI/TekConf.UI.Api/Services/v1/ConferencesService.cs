@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using AutoMapper;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.RemoteData.v1;
 using TekConf.UI.Api.Services.Requests.v1;
@@ -79,8 +80,8 @@ namespace TekConf.UI.Api.Services.v1
                     query = query.Where(showPastConferences);
                 }
                 
-                List<ConferencesDto> conferencesDtos = null;
-
+                List<FullConferenceDto> conferencesDtos = null;
+                List<ConferenceEntity> conferences = null;
                 try
                 {
                     query = query.Where(c => c.isLive);
@@ -93,19 +94,20 @@ namespace TekConf.UI.Api.Services.v1
                         query = query.OrderBy(orderByFunc).ThenBy(c => c.start).AsQueryable();
                     }
 
-                    conferencesDtos = query
-                      .Select(c => new ConferencesDto()
-                      {
-                          name = c.name,
-                          start = c.start,
-                          end = c.end,
-                          location = c.location,
-                          //url = c.url,
-                          slug = c.slug,
-                          description = c.description,
-                          imageUrl = c.imageUrl
-                      })
+                    conferences = query
+                      //.Select(c => new ConferencesDto()
+                      //{
+                      //    name = c.name,
+                      //    start = c.start,
+                      //    end = c.end,
+                      //    location = c.location,
+                      //    //url = c.url,
+                      //    slug = c.slug,
+                      //    description = c.description,
+                      //    imageUrl = c.imageUrl
+                      //})
                       .ToList();
+                    conferencesDtos = Mapper.Map<List<FullConferenceDto>>(conferences);
                 }
                 catch (Exception ex)
                 {
@@ -113,12 +115,11 @@ namespace TekConf.UI.Api.Services.v1
                     throw;
                 }
 
-
-                var resolver = new ConferencesUrlResolver();
-                foreach (var conferencesDto in conferencesDtos)
-                {
-                    conferencesDto.url = resolver.ResolveUrl(conferencesDto.slug);
-                }
+                //var resolver = new ConferencesUrlResolver();
+                //foreach (var conferencesDto in conferencesDtos)
+                //{
+                //    conferencesDto.url = resolver.ResolveUrl(conferencesDto.slug);
+                //}
 
                 return conferencesDtos.ToList();
             });
