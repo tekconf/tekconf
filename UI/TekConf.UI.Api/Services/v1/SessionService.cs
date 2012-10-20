@@ -59,9 +59,9 @@ namespace TekConf.UI.Api.Services.v1
             conference.AddSession(entity);
             conference.Save(collection);
 
-            var conferenceDto = Mapper.Map<ConferenceEntity, FullConferenceDto>(conference);
-
-            return conferenceDto;
+            var sessionDto = Mapper.Map<SessionEntity, SessionDto>(entity);
+            sessionDto.conferenceSlug = request.conferenceSlug;
+            return sessionDto;
         }
 
         private object GetSingleSession(Session request)

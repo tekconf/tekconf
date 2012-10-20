@@ -103,14 +103,15 @@ namespace TekConf.UI.Web.Controllers
 
             repository.AddSessionToConference(session, c =>
             {
-                AsyncManager.Parameters["conference"] = c;
+                AsyncManager.Parameters["session"] = c;
                 AsyncManager.OutstandingOperations.Decrement();
             });
         }
 
-        public ActionResult AddSessionToConferenceCompleted(FullConferenceDto conference)
+        public ActionResult AddSessionToConferenceCompleted(SessionDto session)
         {
-            return RedirectToAction("Detail", "Conferences", new { conferenceSlug = conference.slug });
+            return RedirectToRoute("AdminAddSpeaker", new { conferenceSlug = session.conferenceSlug, sessionSlug = session.slug });
+            //return RedirectToAction("Detail", "Session", new { conferenceSlug = session.conferenceSlug, sessionSlug = session.slug });
         }
 
         #endregion

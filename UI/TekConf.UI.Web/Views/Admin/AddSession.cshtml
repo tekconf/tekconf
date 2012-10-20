@@ -78,10 +78,11 @@
                         @Html.TextAreaFor(c => c.description, 19, 100, null)
                     </div>
                 </div>
+
                 <div class="row">
                     <div class="span-4">
                         <table class="table table-bordered table-condensed table-striped" id="prerequisitesTable">
-                            <caption>Prerequisites</caption>
+                            <caption style="text-align: left">Prerequisites</caption>
                             <tbody>
                                 <tr>
 
@@ -94,7 +95,7 @@
                 <div class="row">
                     <div class="span-4">
                         <table class="table table-bordered table-condensed table-striped" id="resourcesTable">
-                            <caption>Resources</caption>
+                            <caption style="text-align: left">Resources</caption>
                             <tbody>
                                 <tr>
 
@@ -107,7 +108,7 @@
                 <div class="row">
                     <div class="span-4">
                         <table class="table table-bordered table-condensed table-striped" id="subjectsTable">
-                            <caption>Subjects</caption>
+                            <caption style="text-align: left">Subjects</caption>
                             <tbody>
                                 <tr>
 
@@ -120,7 +121,7 @@
                 <div class="row">
                     <div class="span-4">
                         <table class="table table-bordered table-condensed table-striped" id="tagsTable">
-                            <caption>Tags</caption>
+                            <caption style="text-align: left">Tags</caption>
                             <tbody>
                                 <tr>
                                     <td><a href="#" class="addTag">Add</a></td>
@@ -132,7 +133,7 @@
                 <div class="row">
                     <div class="span-4">
                         <table class="table table-bordered table-condensed table-striped" id="linksTable">
-                            <caption>Links</caption>
+                            <caption style="text-align: left">Links</caption>
                             <tbody>
                                 <tr>
 
@@ -141,7 +142,8 @@
                             </tbody>
                         </table>
                     </div>
-                </div>                                                     
+                </div>
+                                                    
                 <div class="row">
                     <input type="submit" class="btn-large btn btn-primary" value="Save Session" />
                 </div>      
@@ -178,7 +180,7 @@
 
             });
         });
-        
+
         $('.addResource').live('click', function (e) {
             e.preventDefault();
 
@@ -191,7 +193,7 @@
 
             });
         });
-        
+
         $('.addSubject').live('click', function (e) {
             e.preventDefault();
 
@@ -204,7 +206,7 @@
 
             });
         });
-        
+
         $('.addTag').live('click', function (e) {
             e.preventDefault();
 
@@ -217,7 +219,7 @@
 
             });
         });
-        
+
         $('.addLink').live('click', function (e) {
             e.preventDefault();
 
@@ -227,6 +229,19 @@
                 var element = index - 1;
                 $('input', this).attr('id', 'links[' + element + ']');
                 $('input', this).attr('name', 'links[' + element + ']');
+
+            });
+        });
+
+        $('.addSpeaker').live('click', function (e) {
+            e.preventDefault();
+
+            $(this).closest('tr').after('<tr><td><input type="text" /><span></span></td></tr>');
+
+            $('#speakersTable td').each(function (index, el) {
+                var element = index - 1;
+                $('input', this).attr('id', 'speakers[' + element + ']');
+                $('input', this).attr('name', 'speakers[' + element + ']');
 
             });
         });
