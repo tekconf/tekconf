@@ -26,10 +26,27 @@ namespace TekConf.UI.Api.Services.v1
             FullSpeakerDto speakerDto = null;
             try
             {
+                if (string.IsNullOrWhiteSpace(speaker.profileImageUrl) && !string.IsNullOrWhiteSpace(speaker.emailAddress))
+                {
+                    var profileImage = new GravatarImage();
+
+                    var profileImageUrl = profileImage.GetUrl(speaker.emailAddress, 100, "pg");
+
+                    if (profileImage.GravatarExists(profileImageUrl))
+                    {
+                        speaker.profileImageUrl = profileImageUrl;
+                    }
+                    else
+                    {
+                        speaker.profileImageUrl = "/img/speakers/default.png";
+                    }
+                }
+
                 var entity = Mapper.Map<SpeakerEntity>(speaker);
 
                 var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
                 var conference = collection.AsQueryable().FirstOrDefault(c => c.slug == speaker.conferenceSlug);
+                
                 if (conference == null)
                 {
                     return new HttpError() {StatusCode = HttpStatusCode.BadRequest};
@@ -105,5 +122,6 @@ namespace TekConf.UI.Api.Services.v1
                                         return conferenceDto;
                                     });
         }
+    
     }
 }

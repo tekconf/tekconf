@@ -146,10 +146,12 @@
                 {
                     <div class="span4">
                         <div class="about-user">
-                            <div class="img">
-                                <img src="@speaker.profileImageUrl" alt="@speaker.fullName" />
-                            </div>
-
+                            @if (!string.IsNullOrWhiteSpace(speaker.profileImageUrl))
+                            {
+                                <div class="img">
+                                    <img src="@speaker.profileImageUrl" alt="@speaker.fullName" />
+                                </div>
+                            }
                             <h4>@Html.RouteLink(speaker.fullName, "SessionSpeakerDetail", new { conferenceSlug = Model.conferenceSlug, sessionSlug = Model.slug, speakerSlug = speaker.slug }, null)</h4>
 
                             <p>@speaker.description</p>

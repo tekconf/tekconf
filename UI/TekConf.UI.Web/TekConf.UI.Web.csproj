@@ -840,6 +840,7 @@
     <Content Include="img\social\_template-24x24.png" />
     <Content Include="img\social\_template-32x32.png" />
     <Content Include="img\social\_template-48x48.png" />
+    <Content Include="img\Speakers\default.png" />
     <Content Include="PostDeploy.ps1" />
     <Content Include="HOWTO.html" />
     <Content Include="img\android.png" />
@@ -989,7 +990,6 @@
     <Content Include="Views\Schedule\Index.cshtml" />
     <Content Include="Views\Session\Create.cshtml" />
     <Content Include="Views\Session\Detail.cshtml" />
-    <Content Include="Views\Speaker\Create.cshtml" />
     <Content Include="Views\Shared\Footer.cshtml" />
     <Content Include="Views\Shared\Header.cshtml" />
     <Content Include="Views\Speaker\Detail.cshtml" />
@@ -1003,7 +1003,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="img\Speakers\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

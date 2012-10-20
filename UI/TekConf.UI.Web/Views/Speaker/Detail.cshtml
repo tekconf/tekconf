@@ -46,10 +46,14 @@
             <div class="row">
                 <div class="span12">
                     <div class="big-intro">
-                        <div class="img">
-                            <img src="@Model.Speaker.profileImageUrl" alt="@Model.Speaker.fullName" />
-                        </div>
-                        &nbsp;@Model.Speaker.fullName
+                        @if (!string.IsNullOrWhiteSpace(Model.Speaker.profileImageUrl))
+                        {
+                            <div class="img">
+                                <img src="@Model.Speaker.profileImageUrl" alt="@Model.Speaker.fullName" />
+                            </div>
+                            <text>&nbsp;</text>  
+                        }
+                        @Model.Speaker.fullName
                     </div>
                 </div>
                 <!-- /span12 -->

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Configuration;
 using System.Web.Mvc;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.RemoteData.v1;
@@ -44,11 +43,6 @@ namespace TekConf.UI.Web.Controllers
                 return RedirectToAction("NotFound", "Error");
             }
 
-            var gravatarImage = new GravatarImage();
-            foreach (var speaker in session.speakers)
-            {
-                speaker.profileImageUrl = gravatarImage.GetURL("robgibbens@gmail.com", 65, "pg");
-            }
             return View(session);
         }
 

@@ -138,7 +138,6 @@ namespace TekConf.UI.Web.Controllers
 
             if (file != null)
             {
-
                 var url = "/img/speakers/" + (speaker.firstName + " " + speaker.lastName).GenerateSlug() + Path.GetExtension(file.FileName); ;
                 var filename = Server.MapPath(url);
                 speaker.profileImageUrl = url;
