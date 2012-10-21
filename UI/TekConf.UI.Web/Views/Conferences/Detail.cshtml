@@ -185,7 +185,7 @@
                                 <img src="~/img/social/linkedin-16x16.png" /> @HtmlHelpers.SimpleLink(Model.linkedInUrl, "LinkedIn")<br />
                             }
                         </p>
-                        @Html.RouteLink("Edit Conference", "AdminEditConference", new { conferenceSlug = Model.slug}, new { @class = "btn" })	
+                        @Html.RouteLink("Edit Conference", "AdminEditConference", new { conferenceSlug = Model.slug}, new { @class = "btn btn-info" })	
                         @Html.RouteLink("Add Session", "AdminAddSession", new { conferenceSlug = Model.slug}, new { @class = "btn" })	
                         <br/>
                     </div>

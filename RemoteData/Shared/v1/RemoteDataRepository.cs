@@ -67,9 +67,9 @@ namespace TekConf.RemoteData.v1
         public void GetSpeaker(string conferenceSlug, string speakerSlug, Action<FullSpeakerDto> callback)
         {
             ServiceClient.GetAsync(new Speaker() { conferenceSlug = conferenceSlug, speakerSlug = speakerSlug }, callback, (r, ex) =>
-                                                                                                                               {
-                                                                                                                                   callback(null);
-                                                                                                                               });
+                                                        {
+                                                            callback(null);
+                                                        });
         }
 
         public void GetSessions(string conferenceSlug, Action<IList<SessionsDto>> callback)
@@ -80,9 +80,9 @@ namespace TekConf.RemoteData.v1
         public void GetSession(string conferenceSlug, string slug, Action<SessionDto> callback)
         {
             ServiceClient.GetAsync(new Session() { conferenceSlug = conferenceSlug, sessionSlug = slug }, callback, (r, ex) =>
-                                                                                                                        {
-                                                                                                                            callback(null);
-                                                                                                                        });
+                                            {
+                                                callback(null);
+                                            });
         }
 
         public void CreateConference(CreateConference conference, Action<FullConferenceDto> callback)
@@ -114,6 +114,10 @@ namespace TekConf.RemoteData.v1
             ServiceClient.PostAsync(session, callback, (r, ex) => { callback(null); });
         }
 
+        public void EditSessionInConference(AddSession session, Action<SessionDto> callback)
+        {  
+            ServiceClient.PutAsync(session, callback, (r, ex) => { callback(null); });
+        }
 
         public void AddSpeakerToSession(CreateSpeaker speaker, Action<FullSpeakerDto> callback)
         {

@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
@@ -133,8 +134,6 @@ namespace TekConf.UI.Web.Controllers
         #endregion
 
 
-
-
         #region Add Session
 
         public void AddSessionAsync(string conferenceSlug)
@@ -178,6 +177,50 @@ namespace TekConf.UI.Web.Controllers
         }
 
         #endregion
+
+        #region Edit Session
+
+        public void EditSessionAsync(string conferenceSlug, string sessionSlug)
+        {
+            var repository = new RemoteDataRepository();
+
+            AsyncManager.OutstandingOperations.Increment();
+            repository.GetFullConference(conferenceSlug, conference =>
+            {
+                var session = conference.sessions.FirstOrDefault(s => s.slug == sessionSlug);
+                AsyncManager.Parameters["session"] = session;
+                AsyncManager.OutstandingOperations.Decrement();
+            });
+        }
+
+        public ActionResult EditSessionCompleted(FullSessionDto session)
+        {
+            var addSession = Mapper.Map<AddSession>(session);
+            
+            return View(addSession);
+        }
+
+        [HttpPost]
+        public void EditSessionInConferenceAsync(AddSession session)
+        {
+            var repository = new RemoteDataRepository();
+
+            AsyncManager.OutstandingOperations.Increment();
+
+            repository.EditSessionInConference(session, c =>
+            {
+                AsyncManager.Parameters["session"] = c;
+                AsyncManager.OutstandingOperations.Decrement();
+            });
+        }
+
+        public ActionResult EditSessionInConferenceCompleted(SessionDto session)
+        {
+            return RedirectToRoute("SessionDetail", new { conferenceSlug = session.conferenceSlug, sessionSlug = session.slug });
+        }
+
+        #endregion
+
 
 
         #region Add Speaker
