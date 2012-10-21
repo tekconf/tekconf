@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Web;
 using System.Web.Mvc;
+using AutoMapper;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.RemoteData.v1;
 using TekConf.UI.Api.Services.Requests.v1;
@@ -67,6 +68,71 @@ namespace TekConf.UI.Web.Controllers
         }
 
         #endregion
+
+        #region Edit Conference
+
+        [HttpGet]
+        public void EditConferenceAsync(string conferenceSlug)
+        {
+            var repository = new RemoteDataRepository();
+
+            AsyncManager.OutstandingOperations.Increment();
+            repository.GetFullConference(conferenceSlug, conference =>
+            {
+                AsyncManager.Parameters["conference"] = conference;
+                AsyncManager.OutstandingOperations.Decrement();
+            });
+        }
+
+        public ActionResult EditConferenceCompleted(FullConferenceDto conference)
+        {
+            var createConference = Mapper.Map<CreateConference>(conference);
+            return View(createConference);
+        }
+
+        [HttpPost]
+        public void EditConfAsync(CreateConference conference, HttpPostedFileBase file)
+        {
+            var repository = new RemoteDataRepository();
+
+            if (file != null)
+            {
+                AsyncManager.OutstandingOperations.Increment(2);
+            }
+            else
+            {
+                AsyncManager.OutstandingOperations.Increment(1);
+            }
+
+            if (file != null)
+            {
+                var url = "/img/conferences/" + conference.name.GenerateSlug() + Path.GetExtension(file.FileName); ;
+                var filename = Server.MapPath(url);
+                conference.imageUrl = url;
+
+                ThreadPool.QueueUserWorkItem(o =>
+                {
+                    file.SaveAs(filename);
+                    AsyncManager.OutstandingOperations.Decrement();
+                }, null);
+            }
+
+            repository.EditConference(conference, c =>
+            {
+                AsyncManager.Parameters["conference"] = c;
+                AsyncManager.OutstandingOperations.Decrement();
+            });
+
+        }
+
+        public ActionResult EditConfCompleted(FullConferenceDto conference)
+        {
+            return RedirectToAction("Detail", "Conferences", new { conferenceSlug = conference.slug });
+        }
+
+        #endregion
+
+
 
 
         #region Add Session

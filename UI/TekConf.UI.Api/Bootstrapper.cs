@@ -15,7 +15,8 @@ namespace TekConf.UI.Api
             Mapper.CreateMap<ConferenceEntity, ConferencesDto>()
                 .ForMember(dest => dest.url, opt => opt.Ignore());
 
-            Mapper.CreateMap<ConferenceEntity, ConferenceEntity>();
+            Mapper.CreateMap<ConferenceEntity, ConferenceEntity>().ForMember(c => c._id, opt => opt.Ignore());
+
             Mapper.CreateMap<ConferenceEntity, ConferenceDto>()
                 .ForMember(dest => dest.url, opt => opt.Ignore())
                 .ForMember(dest => dest.sessionsUrl, opt => opt.Ignore())
@@ -44,8 +45,8 @@ namespace TekConf.UI.Api
                 .ForMember(u => u._id, opt => opt.UseValue(Guid.NewGuid()));
 
             Mapper.CreateMap<CreateConference, ConferenceEntity>()
-                //.ForMember(c => c._id, opt => opt.UseValue(Guid.NewGuid()))
-                .ForMember(c => c.sessions, opt => opt.UseValue(new List<SessionEntity>()))
+                .ForMember(c => c._id, opt => opt.Ignore())
+                //.ForMember(c => c.sessions, opt => opt.UseValue(new List<SessionEntity>()))
                 ;
 
             Mapper.CreateMap<CreateSpeaker, SpeakerEntity>()

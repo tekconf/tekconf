@@ -91,6 +91,11 @@ namespace TekConf.RemoteData.v1
             ServiceClient.PostAsync(conference, callback, (r, ex) => { callback(null); });
         }
 
+        public void EditConference(CreateConference conference, Action<FullConferenceDto> callback)
+        {
+            ServiceClient.PutAsync(conference, callback, (r, ex) => { callback(null); });
+        }
+
         public void CreateUser(string userName, Action<UserDto> callback)
         {
             //ServiceClient.PostAsync(new User() {userName = userName}, callback, (r, ex) => { callback(null); });

@@ -8,12 +8,19 @@ using ServiceStack.Common.Web;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.UI.Api.Services.Requests.v1;
 using ServiceStack.ServiceHost;
+using TinyMessenger;
 
 namespace TekConf.UI.Api.Services.v1
 {
     public class ConferenceService : MongoServiceBase
     {
+        private readonly ITinyMessengerHub _hub;
         public ICacheClient CacheClient { get; set; }
+
+        public ConferenceService(ITinyMessengerHub hub)
+        {
+            _hub = hub;
+        }
 
         public object Get(Conference request)
         {
@@ -96,6 +103,34 @@ namespace TekConf.UI.Api.Services.v1
                 entity.Save(collection);
 
                 conferenceDto = Mapper.Map<ConferenceEntity, FullConferenceDto>(entity);
+            }
+            catch (Exception ex)
+            {
+                var s = ex.Message;
+                throw;
+            }
+
+            return conferenceDto;
+        }
+
+        public object Put(CreateConference conference)
+        {
+            FullConferenceDto conferenceDto = null;
+            try
+            {
+                var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
+                var existingConference = collection.AsQueryable().FirstOrDefault(c => c.slug == conference.slug);
+                existingConference.Hub = _hub;
+                bool existingConferenceIsLive = existingConference.isLive;
+                Mapper.Map<CreateConference, ConferenceEntity>(conference, existingConference);
+
+                if (!existingConferenceIsLive && existingConference.isLive)
+                {
+                    existingConference.Publish();
+                }
+                existingConference.Save(collection);
+
+                conferenceDto = Mapper.Map<ConferenceEntity, FullConferenceDto>(existingConference);
             }
             catch (Exception ex)
             {

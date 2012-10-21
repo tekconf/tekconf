@@ -19,7 +19,7 @@ namespace TekConf.RemoteData.Dtos.v1
         public AddressDto address { get; set; }
         public string tagline { get; set; }
         public string imageUrl { get; set; }
-        
+        public bool isLive { get; set; }
         public string facebookUrl { get; set; }
         public string homepageUrl { get; set; }
         public string lanyrdUrl { get; set; }
