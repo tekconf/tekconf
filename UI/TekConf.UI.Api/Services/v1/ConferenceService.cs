@@ -33,10 +33,35 @@ namespace TekConf.UI.Api.Services.v1
             FullSpeakerDto speakerDto = null;
             try
             {
+                if (string.IsNullOrWhiteSpace(speaker.profileImageUrl))
+                {
+                    if (!string.IsNullOrWhiteSpace(speaker.emailAddress))
+                    {
+                        var profileImage = new GravatarImage();
+
+                        var profileImageUrl = profileImage.GetUrl(speaker.emailAddress, 100, "pg");
+
+                        if (profileImage.GravatarExists(profileImageUrl))
+                        {
+                            speaker.profileImageUrl = profileImageUrl;
+                        }
+                        else
+                        {
+                            speaker.profileImageUrl = "/img/speakers/default.png";
+                        }
+                    }
+                    else
+                    {
+                        speaker.profileImageUrl = "/img/speakers/default.png";                        
+                    }
+                }
+
+
                 var entity = Mapper.Map<SpeakerEntity>(speaker);
 
                 var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
                 var conference = collection.AsQueryable().FirstOrDefault(c => c.slug == speaker.conferenceSlug);
+                
                 if (conference == null)
                 {
                     return new HttpError() {StatusCode = HttpStatusCode.BadRequest};
@@ -89,6 +114,34 @@ namespace TekConf.UI.Api.Services.v1
             return conferenceDto;
         }
 
+        public object Put(CreateConference conference)
+        {
+            FullConferenceDto conferenceDto = null;
+            try
+            {
+                var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
+                var existingConference = collection.AsQueryable().FirstOrDefault(c => c.slug == conference.slug);
+                existingConference.Hub = _hub;
+                bool existingConferenceIsLive = existingConference.isLive;
+                Mapper.Map<CreateConference, ConferenceEntity>(conference, existingConference);
+
+                if (!existingConferenceIsLive && existingConference.isLive)
+                {
+                    existingConference.Publish();
+                }
+                existingConference.Save(collection);
+
+                conferenceDto = Mapper.Map<ConferenceEntity, FullConferenceDto>(existingConference);
+            }
+            catch (Exception ex)
+            {
+                var s = ex.Message;
+                throw;
+            }
+
+            return conferenceDto;
+        }
+
         private object GetFullSingleConference(Conference request)
         {
             var cacheKey = "GetFullSingleConference-" + request.conferenceSlug;
@@ -113,5 +166,6 @@ namespace TekConf.UI.Api.Services.v1
                                         return conferenceDto;
                                     });
         }
+    
     }
 }

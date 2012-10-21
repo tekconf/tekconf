@@ -59,9 +59,23 @@ namespace TekConf.UI.Api.Services.v1
             conference.AddSession(entity);
             conference.Save(collection);
 
-            var conferenceDto = Mapper.Map<ConferenceEntity, FullConferenceDto>(conference);
+            var sessionDto = Mapper.Map<SessionEntity, SessionDto>(entity);
+            sessionDto.conferenceSlug = request.conferenceSlug;
+            return sessionDto;
+        }
 
-            return conferenceDto;
+        public object Put(AddSession request)
+        {
+            var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
+            var conference = collection.AsQueryable().FirstOrDefault(c => c.slug == request.conferenceSlug);
+            conference.Hub = _hub;
+            var session = conference.sessions.FirstOrDefault(s => s.slug == request.slug);
+            Mapper.Map<AddSession, SessionEntity>(request, session);
+
+            conference.Save(collection);
+            var sessionDto = Mapper.Map<SessionEntity, SessionDto>(session);
+            sessionDto.conferenceSlug = request.conferenceSlug;
+            return sessionDto;
         }
 
         private object GetSingleSession(Session request)

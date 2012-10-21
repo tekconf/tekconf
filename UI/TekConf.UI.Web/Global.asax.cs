@@ -6,6 +6,9 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using AutoMapper;
+using TekConf.RemoteData.Dtos.v1;
+using TekConf.UI.Api.Services.Requests.v1;
 
 namespace TekConf.UI.Web
 {
@@ -23,8 +26,21 @@ namespace TekConf.UI.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
+            var bootstrapper = new Bootstrapper();
+            bootstrapper.BootstrapAutomapper();
         }
 
         
+    }
+
+    public class Bootstrapper
+    {
+        public void BootstrapAutomapper()
+        {
+            Mapper.CreateMap<FullConferenceDto, CreateConference>();
+            Mapper.CreateMap<AddressDto, Address>();
+
+            Mapper.CreateMap<FullSessionDto, AddSession>();
+        }
     }
 }

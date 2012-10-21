@@ -6,7 +6,7 @@ using FluentMongo.Linq;
 using ServiceStack.Text;
 using TekConf.UI.Api;
 
-namespace UberImporter.RailsConf
+namespace UberImporter.Importers.RailsConf2012
 {
     public class RailsConfImporter
     {
@@ -26,7 +26,7 @@ namespace UberImporter.RailsConf
                 {
                     var conference = new ConferenceEntity()
                     {
-                        _id = Guid.NewGuid(),
+                        //_id = Guid.NewGuid(),
                         description = @"RailsConf, the largest gathering of Rubyists and Rails developers worldwide, will be in Portland, OR. Join us April 29 - May 2, 2013!",
                         end = new DateTime(2012, 04, 25),
                         facebookUrl = "",
@@ -36,8 +36,8 @@ namespace UberImporter.RailsConf
                         location = "Austin, TX",
                         meetupUrl = "",
                         name = "RailsConf",
-                        sessions = new List<SessionEntity>(),
-                        slug = "RailsConf-2012",
+                        //sessions = new List<SessionEntity>(),
+                        //slug = "RailsConf-2012",
                         start = new DateTime(2012, 04, 23),
                         tagLine = "",
                         twitterHashTag = "#railsConf",
@@ -118,10 +118,10 @@ namespace UberImporter.RailsConf
                         }
 
 
-                        conference.sessions.Add(sessionEntity);
+                        conference.AddSession(sessionEntity);
                     }
 
-                    collection.Save(conference);
+                    conference.Save(collection);
                 }
             }
 

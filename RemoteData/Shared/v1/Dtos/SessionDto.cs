@@ -26,6 +26,7 @@ namespace TekConf.RemoteData.Dtos.v1
     public List<string> prerequisites { get; set; }
     public List<string> tags { get; set; }
     public List<string> subjects { get; set; }
+    public List<string> resources { get; set; }
     public List<SpeakersDto> speakers { get; set; }
   }
 }

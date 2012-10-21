@@ -39,6 +39,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\..\packages\AutoMapper.2.2.0\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="CommonCore.Base, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\CommonCore.1.0.0.4\lib\net35\CommonCore.Base.dll</HintPath>
@@ -505,6 +508,7 @@
     <Content Include="img\conferences\RailsConf.png" />
     <Content Include="img\conferences\Webstock.png" />
     <Content Include="img\conferences\wwdc-2012.png" />
+    <Content Include="img\OnSale.png" />
     <Content Include="img\social\500px-16x16.png" />
     <Content Include="img\social\500px-24x24.png" />
     <Content Include="img\social\500px-32x32.png" />
@@ -839,6 +843,7 @@
     <Content Include="img\social\_template-24x24.png" />
     <Content Include="img\social\_template-32x32.png" />
     <Content Include="img\social\_template-48x48.png" />
+    <Content Include="img\Speakers\default.png" />
     <Content Include="PostDeploy.ps1" />
     <Content Include="HOWTO.html" />
     <Content Include="img\android.png" />
@@ -988,7 +993,6 @@
     <Content Include="Views\Schedule\Index.cshtml" />
     <Content Include="Views\Session\Create.cshtml" />
     <Content Include="Views\Session\Detail.cshtml" />
-    <Content Include="Views\Speaker\Create.cshtml" />
     <Content Include="Views\Shared\Footer.cshtml" />
     <Content Include="Views\Shared\Header.cshtml" />
     <Content Include="Views\Speaker\Detail.cshtml" />
@@ -997,12 +1001,13 @@
     <Content Include="Views\Admin\AddSession.cshtml" />
     <Content Include="Views\Admin\CreateSpeaker.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Admin\EditConference.cshtml" />
+    <Content Include="Views\Admin\EditSession.cshtml" />
     <None Include="Views\Web.Debug.config" />
     <None Include="Views\Web.Release.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="img\Speakers\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

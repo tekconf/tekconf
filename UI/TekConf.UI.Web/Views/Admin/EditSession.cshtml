@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8">
 
-    <title>Add Session - tekconf</title>
+    <title>Edit Session - tekconf</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -19,8 +19,9 @@
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
     @Scripts.Render("~/scripts/conferences/detail")
 </head>
 
@@ -31,7 +32,7 @@
     <div id="subheader">
         <div class="inner">
             <div class="container">
-                <h1>Add Session</h1>
+                <h1>Edit Session</h1>
             </div>
             <!-- /.container -->
         </div>
@@ -42,12 +43,13 @@
     <div id="subpage">
         <div class="container">
 
-            @using (Html.BeginForm("AddSessionToConference", "Admin"))
+            @using (Html.BeginForm("EditSessionInConference", "Admin"))
             {
                 <div class="row">
                     <legend>Main Information</legend>
 
                     <div class="span4">
+                        @Html.HiddenFor(s => s.slug)
 
                         <label>Title</label>
                         @Html.TextBoxFor(c => c.title)
@@ -85,9 +87,12 @@
                             <caption style="text-align: left">Prerequisites</caption>
                             <tbody>
                                 <tr>
-
                                     <td><a href="#" class="addPrerequisite">Add</a></td>
                                 </tr>
+                                @for (var counter = 0; counter < Model.prerequisites.Count; counter++)
+                                {
+                                    <tr><td><input type="text" id="prerequisites[@counter]" name="prerequisites[@counter]" value="@Model.prerequisites[counter]" /></td></tr>
+                                }
                             </tbody>
                         </table>
                     </div>
@@ -98,9 +103,12 @@
                             <caption style="text-align: left">Resources</caption>
                             <tbody>
                                 <tr>
-
                                     <td><a href="#" class="addResource">Add</a></td>
                                 </tr>
+                                @for (var counter = 0; counter < Model.resources.Count; counter++)
+                                {
+                                    <tr><td><input type="text" id="resources[@counter]" name="resources[@counter]" value="@Model.resources[counter]" /></td></tr>
+                                }
                             </tbody>
                         </table>
                     </div>
@@ -109,11 +117,14 @@
                     <div class="span-4">
                         <table class="table table-bordered table-condensed table-striped" id="subjectsTable">
                             <caption style="text-align: left">Subjects</caption>
-                            <tbody>
+                            <tbody>                                 
                                 <tr>
-
                                     <td><a href="#" class="addSubject">Add</a></td>
                                 </tr>
+                                @for (var counter = 0; counter < Model.subjects.Count; counter++)
+                                {
+                                    <tr><td><input type="text" id="subjects[@counter]" name="subjects[@counter]" value="@Model.subjects[counter]" /></td></tr>
+                                } 
                             </tbody>
                         </table>
                     </div>
@@ -122,10 +133,14 @@
                     <div class="span-4">
                         <table class="table table-bordered table-condensed table-striped" id="tagsTable">
                             <caption style="text-align: left">Tags</caption>
-                            <tbody>
+                            <tbody>                                 
                                 <tr>
                                     <td><a href="#" class="addTag">Add</a></td>
                                 </tr>
+                                @for (var counter = 0; counter < Model.tags.Count; counter++)
+                                {
+                                    <tr><td><input type="text" id="tags[@counter]" name="tags[@counter]" value="@Model.tags[counter]" /></td></tr>
+                                } 
                             </tbody>
                         </table>
                     </div>
@@ -134,11 +149,14 @@
                     <div class="span-4">
                         <table class="table table-bordered table-condensed table-striped" id="linksTable">
                             <caption style="text-align: left">Links</caption>
-                            <tbody>
+                            <tbody>                                
                                 <tr>
-
                                     <td><a href="#" class="addLink">Add</a></td>
                                 </tr>
+                                @for (var counter = 0; counter < Model.links.Count; counter++)
+                                {
+                                    <tr><td><input type="text" id="links[@counter]" name="links[@counter]" value="@Model.links[counter]" /></td></tr>
+                                }  
                             </tbody>
                         </table>
                     </div>
@@ -184,7 +202,7 @@
         $('.addResource').live('click', function (e) {
             e.preventDefault();
 
-            $(this).closest('tr').after('<tr><td><input type="text" /><span></span></td></tr>');
+            $(this).closest('tr').after('<tr><td><input type="text" /></td></tr>');
 
             $('#resourcesTable td').each(function (index, el) {
                 var element = index - 1;
@@ -197,7 +215,7 @@
         $('.addSubject').live('click', function (e) {
             e.preventDefault();
 
-            $(this).closest('tr').after('<tr><td><input type="text" /><span></span></td></tr>');
+            $(this).closest('tr').after('<tr><td><input type="text" /></td></tr>');
 
             $('#subjectsTable td').each(function (index, el) {
                 var element = index - 1;
@@ -210,7 +228,7 @@
         $('.addTag').live('click', function (e) {
             e.preventDefault();
 
-            $(this).closest('tr').after('<tr><td><input type="text" /><span></span></td></tr>');
+            $(this).closest('tr').after('<tr><td><input type="text" /></td></tr>');
 
             $('#tagsTable td').each(function (index, el) {
                 var element = index - 1;
@@ -223,7 +241,7 @@
         $('.addLink').live('click', function (e) {
             e.preventDefault();
 
-            $(this).closest('tr').after('<tr><td><input type="text" /><span></span></td></tr>');
+            $(this).closest('tr').after('<tr><td><input type="text" /></td></tr>');
 
             $('#linksTable td').each(function (index, el) {
                 var element = index - 1;
@@ -236,7 +254,7 @@
         $('.addSpeaker').live('click', function (e) {
             e.preventDefault();
 
-            $(this).closest('tr').after('<tr><td><input type="text" /><span></span></td></tr>');
+            $(this).closest('tr').after('<tr><td><input type="text" /></td></tr>');
 
             $('#speakersTable td').each(function (index, el) {
                 var element = index - 1;

@@ -4,7 +4,7 @@ using System.Linq;
 using FluentMongo.Linq;
 using TekConf.UI.Api;
 
-namespace UberImporter
+namespace UberImporter.Importers.OneDevDay2012
 {
     public class OneDevDayDetroitImporter
     {
@@ -18,7 +18,7 @@ namespace UberImporter
             {
                 var conference = new ConferenceEntity()
                                      {
-                                         _id = Guid.NewGuid(),
+                                         //_id = Guid.NewGuid(),
                                          description =
                                              @"The DetroitDevDays mission is to build a software developer community in the Detroit area that is regarded as the best in the world.  DevDays educate and unite our Software Developer community with inclusive, accessible and affordable events and conferences. The events are typically held on Saturdays so we do not conflict with attendee work schedules. The cost to attend is kept as low as possible, so developers of all pay scales can afford a ticket.",
                                          end = new DateTime(2012, 11, 17),
@@ -29,47 +29,47 @@ namespace UberImporter
                                          location = "Detroit, MI",
                                          meetupUrl = "",
                                          name = "1DevDayDetroit",
-                                         sessions = new List<SessionEntity>(),
-                                         slug = "1DevDayDetroit-2012",
+                                         //sessions = new List<SessionEntity>(),
+                                         //slug = "1DevDayDetroit-2012",
                                          start = new DateTime(2012, 11, 17),
                                          tagLine = "",
                                          twitterHashTag = "#1devDayDetroit",
                                          twitterName = "@devdaydet"
                                      };
 
-                conference.sessions.Add(AddSessionOne());
-                conference.sessions.Add(AddSessionTwo());
-                conference.sessions.Add(AddSessionThree());
-                conference.sessions.Add(AddSessionFour());
-                conference.sessions.Add(AddSessionFive());
-                conference.sessions.Add(AddSessionSix());
-                conference.sessions.Add(AddSessionSeven());
-                conference.sessions.Add(AddSessionEight());
-                conference.sessions.Add(AddSessionNine());
-                conference.sessions.Add(AddSessionTen());
-                conference.sessions.Add(AddSessionEleven());
-                conference.sessions.Add(AddSessionTwelve());
-                conference.sessions.Add(AddSessionThirteen());
-                conference.sessions.Add(AddSessionFourteen());
-                conference.sessions.Add(AddSessionFifteen());
-                conference.sessions.Add(AddSessionSixteen());
-                conference.sessions.Add(AddSessionSeventeen());
-                conference.sessions.Add(AddSessionEighteen());
-                conference.sessions.Add(AddSessionNineteen());
-                conference.sessions.Add(AddSessionTwenty());
-                conference.sessions.Add(AddSessionTwentyOne());
-                conference.sessions.Add(AddSessionTwentyTwo());
-                conference.sessions.Add(AddSessionTwentyThree());
-                conference.sessions.Add(AddSessionTwentyFour());
-                conference.sessions.Add(AddSessionTwentyFive());
-                conference.sessions.Add(AddSessionTwentySix());
-                conference.sessions.Add(AddSessionTwentySeven());
-                conference.sessions.Add(AddSessionTwentyEight());
-                conference.sessions.Add(AddSessionTwentyNine());
-                conference.sessions.Add(AddSessionThirty());
+                conference.AddSession(AddSessionOne());
+                conference.AddSession(AddSessionTwo());
+                conference.AddSession(AddSessionThree());
+                conference.AddSession(AddSessionFour());
+                conference.AddSession(AddSessionFive());
+                conference.AddSession(AddSessionSix());
+                conference.AddSession(AddSessionSeven());
+                conference.AddSession(AddSessionEight());
+                conference.AddSession(AddSessionNine());
+                conference.AddSession(AddSessionTen());
+                conference.AddSession(AddSessionEleven());
+                conference.AddSession(AddSessionTwelve());
+                conference.AddSession(AddSessionThirteen());
+                conference.AddSession(AddSessionFourteen());
+                conference.AddSession(AddSessionFifteen());
+                conference.AddSession(AddSessionSixteen());
+                conference.AddSession(AddSessionSeventeen());
+                conference.AddSession(AddSessionEighteen());
+                conference.AddSession(AddSessionNineteen());
+                conference.AddSession(AddSessionTwenty());
+                conference.AddSession(AddSessionTwentyOne());
+                conference.AddSession(AddSessionTwentyTwo());
+                conference.AddSession(AddSessionTwentyThree());
+                conference.AddSession(AddSessionTwentyFour());
+                conference.AddSession(AddSessionTwentyFive());
+                conference.AddSession(AddSessionTwentySix());
+                conference.AddSession(AddSessionTwentySeven());
+                conference.AddSession(AddSessionTwentyEight());
+                conference.AddSession(AddSessionTwentyNine());
+                conference.AddSession(AddSessionThirty());
 
 
-                collection.Save(conference);
+                conference.Save(collection);
             }
         }
 
