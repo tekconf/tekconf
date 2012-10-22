@@ -88,6 +88,43 @@ namespace TekConf.UI.Api.Services.v1
             return speakerDto;
         }
 
+        public object Put(CreateSpeaker request)
+        {
+            var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
+            var conference = collection.AsQueryable()
+                                    .Where(c => c.slug == request.conferenceSlug)
+                                    .FirstOrDefault(c => c.sessions != null);
+
+            
+            if (conference != null && conference.sessions != null)
+            {
+                conference.Hub = _hub;
+
+                var speakers = conference.sessions
+                    .Where(session => session.speakers != null)
+                    .SelectMany(session => session.speakers)
+                    .Where(speaker => speaker.slug == request.slug)
+                    .ToList();
+
+                SpeakerEntity lastSpeakerEntity = null;
+                foreach (var speakerEntity in speakers)
+                {
+                    Mapper.Map<CreateSpeaker, SpeakerEntity>(request, speakerEntity);
+                    lastSpeakerEntity = speakerEntity;
+                }
+
+
+                conference.Save(collection);
+                var speakerDto = Mapper.Map<SpeakerEntity, FullSpeakerDto>(lastSpeakerEntity);
+
+                return speakerDto;
+            }
+            else
+            {
+                return new HttpError() {StatusCode = HttpStatusCode.BadRequest};
+            }
+        }
+
         public object Post(CreateConference conference)
         {
             FullConferenceDto conferenceDto = null;

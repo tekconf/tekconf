@@ -7,6 +7,7 @@ namespace TekConf.RemoteData.Dtos.v1
   {
     public string slug { get; set; }
     public string conferenceSlug { get; set; }
+    public string conferenceName { get; set; }
     public string title { get; set; }
     public DateTime start { get; set; }
     public DateTime end { get; set; }
