@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Text.RegularExpressions;
 using ServiceStack.ServiceClient.Web;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.UI.Api.Services.Requests.v1;
@@ -115,7 +114,7 @@ namespace TekConf.RemoteData.v1
         }
 
         public void EditSessionInConference(AddSession session, Action<SessionDto> callback)
-        {  
+        {
             ServiceClient.PutAsync(session, callback, (r, ex) => { callback(null); });
         }
 
@@ -127,27 +126,14 @@ namespace TekConf.RemoteData.v1
                                                                callback(null);
                                                            });
         }
-    }
 
-    public static class Helpers
-    {
-        public static string GenerateSlug(this string phrase)
+        public void EditSpeaker(CreateSpeaker speaker, Action<FullSpeakerDto> callback)
         {
-            string slug = phrase.RemoveAccent().ToLower();
-            // invalid chars           
-            slug = Regex.Replace(slug, @"[^a-z0-9\s-]", "");
-            // convert multiple spaces into one space   
-            slug = Regex.Replace(slug, @"\s+", " ").Trim();
-            // cut and trim 
-            slug = slug.Substring(0, slug.Length <= 45 ? slug.Length : 45).Trim();
-            slug = Regex.Replace(slug, @"\s", "-"); // hyphens   
-            return slug;
+            ServiceClient.PutAsync(speaker, callback, (r, ex) =>
+                                    {
+                                        callback(null);
+                                    });
         }
 
-        public static string RemoveAccent(this string txt)
-        {
-            byte[] bytes = System.Text.Encoding.GetEncoding("Cyrillic").GetBytes(txt);
-            return System.Text.Encoding.ASCII.GetString(bytes);
-        }
     }
 }

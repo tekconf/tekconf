@@ -41,6 +41,8 @@ namespace TekConf.UI.Web
             Mapper.CreateMap<AddressDto, Address>();
 
             Mapper.CreateMap<FullSessionDto, AddSession>();
+
+            Mapper.CreateMap<FullSpeakerDto, CreateSpeaker>();
         }
     }
 }

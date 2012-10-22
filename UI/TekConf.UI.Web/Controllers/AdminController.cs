@@ -133,7 +133,6 @@ namespace TekConf.UI.Web.Controllers
 
         #endregion
 
-
         #region Add Session
 
         public void AddSessionAsync(string conferenceSlug)
@@ -221,8 +220,6 @@ namespace TekConf.UI.Web.Controllers
 
         #endregion
 
-
-
         #region Add Speaker
 
         [HttpGet]
@@ -272,6 +269,71 @@ namespace TekConf.UI.Web.Controllers
         public ActionResult CreateSpeakerCompleted(FullSpeakerDto speaker, string conferenceSlug, string sessionSlug)
         {
             return RedirectToAction("Detail", "Session", new { conferenceSlug = conferenceSlug, sessionSlug =  sessionSlug});
+        }
+
+        #endregion
+
+        #region Edit Speaker
+
+        [HttpGet]
+        public void EditSpeakerAsync(string conferenceSlug, string speakerSlug)
+        {
+            var remoteData = new RemoteDataRepository();
+            AsyncManager.OutstandingOperations.Increment();
+
+            remoteData.GetSpeaker(conferenceSlug, speakerSlug, speaker =>
+            {
+                AsyncManager.Parameters["speaker"] = speaker;
+                AsyncManager.OutstandingOperations.Decrement();
+            });
+        }
+
+        public ActionResult EditSpeakerCompleted(FullSpeakerDto speaker)
+        {
+            var createSpeaker = Mapper.Map<CreateSpeaker>(speaker);
+            return View(createSpeaker);
+        }
+
+        [HttpPost]
+        public void EditSpeakerInConferenceAsync(CreateSpeaker speaker, HttpPostedFileBase file)
+        {
+            var repository = new RemoteDataRepository();
+
+            if (file != null)
+            {
+                AsyncManager.OutstandingOperations.Increment(2);
+            }
+            else
+            {
+                AsyncManager.OutstandingOperations.Increment(1);
+            }
+
+            if (file != null)
+            {
+                var url = "/img/speakers/" + (speaker.firstName + " " + speaker.lastName).GenerateSlug() + Path.GetExtension(file.FileName); ;
+                var filename = Server.MapPath(url);
+                speaker.profileImageUrl = url;
+
+                ThreadPool.QueueUserWorkItem(o =>
+                {
+                    file.SaveAs(filename);
+                    AsyncManager.OutstandingOperations.Decrement();
+                }, null);
+            }
+
+            repository.EditSpeaker(speaker, s =>
+            {
+                AsyncManager.Parameters["speaker"] = s;
+                AsyncManager.Parameters["conferenceSlug"] = speaker.conferenceSlug;
+
+                AsyncManager.OutstandingOperations.Decrement();
+            });
+
+        }
+
+        public ActionResult EditSpeakerInConferenceCompleted(FullSpeakerDto speaker, string conferenceSlug)
+        {
+            return RedirectToRoute("SessionSpeakerDetail", new { conferenceSlug = conferenceSlug, speakerSlug = speaker.slug });
         }
 
         #endregion

@@ -102,7 +102,7 @@
                                             <td>
                                                 @foreach (var speaker in session.speakers)
                                                 {
-                                                    @Html.RouteLink(speaker.fullName, "SessionSpeakerDetail", new { conferenceSlug = Model.slug, sessionSlug = session.slug, speakerSlug = speaker.slug }, null)<br />
+                                                    @Html.RouteLink(speaker.fullName, "SessionSpeakerDetail", new { conferenceSlug = Model.slug, speakerSlug = speaker.slug }, null)<br />
                                                 }
                                             </td>
                                         </tr>                                

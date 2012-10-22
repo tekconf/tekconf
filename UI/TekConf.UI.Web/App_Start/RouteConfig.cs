@@ -15,7 +15,7 @@ namespace TekConf.UI.Web
             routes.MapRoute(name: "SessionDetail", url: "conferences/{conferenceSlug}/{sessionSlug}",
                 defaults: new { controller = "Session", action = "Detail" });
 
-            routes.MapRoute(name: "SessionSpeakerDetail", url: "conferences/{conferenceSlug}/{sessionSlug}/{speakerSlug}",
+            routes.MapRoute(name: "SessionSpeakerDetail", url: "conferences/{conferenceSlug}/speakers/{speakerSlug}",
                 defaults: new { controller = "Speaker", action = "Detail" });
 
             routes.MapRoute(name: "AdminCreateConference", url: "admin/conferences/create",
@@ -32,6 +32,11 @@ namespace TekConf.UI.Web
 
             routes.MapRoute(name: "AdminAddSpeaker", url: "admin/conferences/{conferenceSlug}/sessions/{sessionSlug}/speakers/add",
                 defaults: new { controller = "Admin", action = "CreateSpeaker" });
+
+            routes.MapRoute(name: "AdminEditSpeaker", url: "admin/conferences/{conferenceSlug}/speakers/{speakerSlug}/edit",
+                defaults: new { controller = "Admin", action = "EditSpeaker" });
+
+            
 
             routes.MapRoute(
                 name: "Default",

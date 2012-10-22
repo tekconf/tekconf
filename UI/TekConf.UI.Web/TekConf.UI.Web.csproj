@@ -529,8 +529,11 @@
     <Content Include="img\social\bbcid-24x24.png" />
     <Content Include="img\social\bbcid-32x32.png" />
     <Content Include="img\social\bbcid-48x48.png" />
+    <Content Include="img\social\bitbucket.png" />
     <Content Include="img\social\blinklist.png" />
     <Content Include="img\social\brightkite.png" />
+    <Content Include="img\social\codeplex.png" />
+    <Content Include="img\social\coderwall.png" />
     <Content Include="img\social\creativecommons-16x16.png" />
     <Content Include="img\social\creativecommons-24x24.png" />
     <Content Include="img\social\creativecommons-32x32.png" />
@@ -700,6 +703,7 @@
     <Content Include="img\social\orkut-24x24.png" />
     <Content Include="img\social\orkut-32x32.png" />
     <Content Include="img\social\orkut-48x48.png" />
+    <Content Include="img\social\phone.png" />
     <Content Include="img\social\pinboard-16x16.png" />
     <Content Include="img\social\pinboard-24x24.png" />
     <Content Include="img\social\pinboard-32x32.png" />
@@ -1003,6 +1007,7 @@
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Admin\EditConference.cshtml" />
     <Content Include="Views\Admin\EditSession.cshtml" />
+    <Content Include="Views\Admin\EditSpeaker.cshtml" />
     <None Include="Views\Web.Debug.config" />
     <None Include="Views\Web.Release.config" />
   </ItemGroup>

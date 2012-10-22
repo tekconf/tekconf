@@ -16,10 +16,10 @@ namespace TekConf.UI.Api.Services.v1
 
         public object Get(FeaturedSpeakers request)
         {
-            return GetAllSpeakers(request);
+            return GetFeaturedSpeakers(request);
         }
 
-        private object GetAllSpeakers(FeaturedSpeakers request)
+        private object GetFeaturedSpeakers(FeaturedSpeakers request)
         {
             var cacheKey = "GetFeaturedSpeakers";
             var expireInTimespan = new TimeSpan(0, 0, 20);
