@@ -33,10 +33,35 @@ namespace TekConf.UI.Api.Services.v1
             FullSpeakerDto speakerDto = null;
             try
             {
+                if (string.IsNullOrWhiteSpace(speaker.profileImageUrl))
+                {
+                    if (!string.IsNullOrWhiteSpace(speaker.emailAddress))
+                    {
+                        var profileImage = new GravatarImage();
+
+                        var profileImageUrl = profileImage.GetUrl(speaker.emailAddress, 100, "pg");
+
+                        if (profileImage.GravatarExists(profileImageUrl))
+                        {
+                            speaker.profileImageUrl = profileImageUrl;
+                        }
+                        else
+                        {
+                            speaker.profileImageUrl = "/img/speakers/default.png";
+                        }
+                    }
+                    else
+                    {
+                        speaker.profileImageUrl = "/img/speakers/default.png";                        
+                    }
+                }
+
+
                 var entity = Mapper.Map<SpeakerEntity>(speaker);
 
                 var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
                 var conference = collection.AsQueryable().FirstOrDefault(c => c.slug == speaker.conferenceSlug);
+                
                 if (conference == null)
                 {
                     return new HttpError() {StatusCode = HttpStatusCode.BadRequest};
@@ -63,6 +88,43 @@ namespace TekConf.UI.Api.Services.v1
             return speakerDto;
         }
 
+        public object Put(CreateSpeaker request)
+        {
+            var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
+            var conference = collection.AsQueryable()
+                                    .Where(c => c.slug == request.conferenceSlug)
+                                    .FirstOrDefault(c => c.sessions != null);
+
+            
+            if (conference != null && conference.sessions != null)
+            {
+                conference.Hub = _hub;
+
+                var speakers = conference.sessions
+                    .Where(session => session.speakers != null)
+                    .SelectMany(session => session.speakers)
+                    .Where(speaker => speaker.slug == request.slug)
+                    .ToList();
+
+                SpeakerEntity lastSpeakerEntity = null;
+                foreach (var speakerEntity in speakers)
+                {
+                    Mapper.Map<CreateSpeaker, SpeakerEntity>(request, speakerEntity);
+                    lastSpeakerEntity = speakerEntity;
+                }
+
+
+                conference.Save(collection);
+                var speakerDto = Mapper.Map<SpeakerEntity, FullSpeakerDto>(lastSpeakerEntity);
+
+                return speakerDto;
+            }
+            else
+            {
+                return new HttpError() {StatusCode = HttpStatusCode.BadRequest};
+            }
+        }
+
         public object Post(CreateConference conference)
         {
             FullConferenceDto conferenceDto = null;
@@ -79,6 +141,34 @@ namespace TekConf.UI.Api.Services.v1
                 entity.Save(collection);
 
                 conferenceDto = Mapper.Map<ConferenceEntity, FullConferenceDto>(entity);
+            }
+            catch (Exception ex)
+            {
+                var s = ex.Message;
+                throw;
+            }
+
+            return conferenceDto;
+        }
+
+        public object Put(CreateConference conference)
+        {
+            FullConferenceDto conferenceDto = null;
+            try
+            {
+                var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
+                var existingConference = collection.AsQueryable().FirstOrDefault(c => c.slug == conference.slug);
+                existingConference.Hub = _hub;
+                bool existingConferenceIsLive = existingConference.isLive;
+                Mapper.Map<CreateConference, ConferenceEntity>(conference, existingConference);
+
+                if (!existingConferenceIsLive && existingConference.isLive)
+                {
+                    existingConference.Publish();
+                }
+                existingConference.Save(collection);
+
+                conferenceDto = Mapper.Map<ConferenceEntity, FullConferenceDto>(existingConference);
             }
             catch (Exception ex)
             {
@@ -113,5 +203,6 @@ namespace TekConf.UI.Api.Services.v1
                                         return conferenceDto;
                                     });
         }
+    
     }
 }

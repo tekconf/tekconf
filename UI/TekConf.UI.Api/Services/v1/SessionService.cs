@@ -59,9 +59,25 @@ namespace TekConf.UI.Api.Services.v1
             conference.AddSession(entity);
             conference.Save(collection);
 
-            var conferenceDto = Mapper.Map<ConferenceEntity, FullConferenceDto>(conference);
+            var sessionDto = Mapper.Map<SessionEntity, SessionDto>(entity);
+            sessionDto.conferenceSlug = request.conferenceSlug;
+            sessionDto.conferenceName = conference.name;
+            return sessionDto;
+        }
 
-            return conferenceDto;
+        public object Put(AddSession request)
+        {
+            var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
+            var conference = collection.AsQueryable().FirstOrDefault(c => c.slug == request.conferenceSlug);
+            conference.Hub = _hub;
+            var session = conference.sessions.FirstOrDefault(s => s.slug == request.slug);
+            Mapper.Map<AddSession, SessionEntity>(request, session);
+
+            conference.Save(collection);
+            var sessionDto = Mapper.Map<SessionEntity, SessionDto>(session);
+            sessionDto.conferenceSlug = request.conferenceSlug;
+            sessionDto.conferenceName = conference.name;
+            return sessionDto;
         }
 
         private object GetSingleSession(Session request)
@@ -85,62 +101,63 @@ namespace TekConf.UI.Api.Services.v1
             }
             var expireInTimespan = new TimeSpan(0, 0, 20);
             return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
-                                                                                                                     {
-                                                                                                                         var conference = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
-                                                                                                                             .AsQueryable()
-                                                                                                                             //.Where(s => s.slug == request.sessionSlug)
-                                                                                                                             .Where(c => c.isLive)
-                                                                                                                             .SingleOrDefault(c => c.slug == request.conferenceSlug);
+                    {
+                        var conference = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
+                            .AsQueryable()
+                            //.Where(s => s.slug == request.sessionSlug)
+                            .Where(c => c.isLive)
+                            .SingleOrDefault(c => c.slug == request.conferenceSlug);
 
-                                                                                                                         if (conference == null)
-                                                                                                                         {
-                                                                                                                             lock (NonExistingConferences)
-                                                                                                                             {
-                                                                                                                                 NonExistingConferences.Add(request.conferenceSlug);
-                                                                                                                             }
-                                                                                                                             throw ConferenceNotFound;
-                                                                                                                         }
+                        if (conference == null)
+                        {
+                            lock (NonExistingConferences)
+                            {
+                                NonExistingConferences.Add(request.conferenceSlug);
+                            }
+                            throw ConferenceNotFound;
+                        }
 
 
-                                                                                                                         if (conference.sessions == null)
-                                                                                                                         {
-                                                                                                                             lock (NonExistingSessions)
-                                                                                                                             {
-                                                                                                                                 NonExistingSessions.Add(request.conferenceSlug + "-" + request.sessionSlug);
-                                                                                                                             }
-                                                                                                                             throw SessionNotFound;
-                                                                                                                         }
+                        if (conference.sessions == null)
+                        {
+                            lock (NonExistingSessions)
+                            {
+                                NonExistingSessions.Add(request.conferenceSlug + "-" + request.sessionSlug);
+                            }
+                            throw SessionNotFound;
+                        }
 
-                                                                                                                         var session = conference.sessions.FirstOrDefault(s => s.slug == request.sessionSlug);
+                        var session = conference.sessions.FirstOrDefault(s => s.slug == request.sessionSlug);
 
-                                                                                                                         if (session != null)
-                                                                                                                         {
-                                                                                                                             var sessionDto = Mapper.Map<SessionEntity, SessionDto>(session);
-                                                                                                                             var sessionUrlResolver = new SessionUrlResolver(request.conferenceSlug, sessionDto.slug);
-                                                                                                                             var sessionSpeakersUrlResolver = new SessionSpeakersUrlResolver(request.conferenceSlug, sessionDto.slug);
-                                                                                                                             var sessionLinksUrlResolver = new SessionLinksUrlResolver(request.conferenceSlug, sessionDto.slug);
-                                                                                                                             var sessionSubjectsUrlResolver = new SessionSubjectsUrlResolver(request.conferenceSlug, sessionDto.slug);
-                                                                                                                             var sessionTagsUrlResolver = new SessionTagsUrlResolver(request.conferenceSlug, sessionDto.slug);
-                                                                                                                             var sessionPrerequisitesUrlResolver = new SessionPrerequisitesUrlResolver(request.conferenceSlug, sessionDto.slug);
+                        if (session != null)
+                        {
+                            var sessionDto = Mapper.Map<SessionEntity, SessionDto>(session);
+                            var sessionUrlResolver = new SessionUrlResolver(request.conferenceSlug, sessionDto.slug);
+                            var sessionSpeakersUrlResolver = new SessionSpeakersUrlResolver(request.conferenceSlug, sessionDto.slug);
+                            var sessionLinksUrlResolver = new SessionLinksUrlResolver(request.conferenceSlug, sessionDto.slug);
+                            var sessionSubjectsUrlResolver = new SessionSubjectsUrlResolver(request.conferenceSlug, sessionDto.slug);
+                            var sessionTagsUrlResolver = new SessionTagsUrlResolver(request.conferenceSlug, sessionDto.slug);
+                            var sessionPrerequisitesUrlResolver = new SessionPrerequisitesUrlResolver(request.conferenceSlug, sessionDto.slug);
 
-                                                                                                                             sessionDto.url = sessionUrlResolver.ResolveUrl();
-                                                                                                                             sessionDto.speakersUrl = sessionSpeakersUrlResolver.ResolveUrl();
-                                                                                                                             sessionDto.linksUrl = sessionLinksUrlResolver.ResolveUrl();
-                                                                                                                             sessionDto.subjectsUrl = sessionSubjectsUrlResolver.ResolveUrl();
-                                                                                                                             sessionDto.tagsUrl = sessionTagsUrlResolver.ResolveUrl();
-                                                                                                                             sessionDto.prerequisitesUrl = sessionPrerequisitesUrlResolver.ResolveUrl();
+                            sessionDto.conferenceName = conference.name;
+                            sessionDto.url = sessionUrlResolver.ResolveUrl();
+                            sessionDto.speakersUrl = sessionSpeakersUrlResolver.ResolveUrl();
+                            sessionDto.linksUrl = sessionLinksUrlResolver.ResolveUrl();
+                            sessionDto.subjectsUrl = sessionSubjectsUrlResolver.ResolveUrl();
+                            sessionDto.tagsUrl = sessionTagsUrlResolver.ResolveUrl();
+                            sessionDto.prerequisitesUrl = sessionPrerequisitesUrlResolver.ResolveUrl();
 
-                                                                                                                             return sessionDto;
-                                                                                                                         }
-                                                                                                                         else
-                                                                                                                         {
-                                                                                                                             lock (NonExistingSessions)
-                                                                                                                             {
-                                                                                                                                 NonExistingSessions.Add(request.conferenceSlug + "-" + request.sessionSlug);
-                                                                                                                             }
-                                                                                                                             throw SessionNotFound;
-                                                                                                                         }
-                                                                                                                     });
+                            return sessionDto;
+                        }
+                        else
+                        {
+                            lock (NonExistingSessions)
+                            {
+                                NonExistingSessions.Add(request.conferenceSlug + "-" + request.sessionSlug);
+                            }
+                            throw SessionNotFound;
+                        }
+                    });
 
         }
 

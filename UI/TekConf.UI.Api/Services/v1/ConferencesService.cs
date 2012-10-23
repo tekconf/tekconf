@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using AutoMapper;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.RemoteData.v1;
 using TekConf.UI.Api.Services.Requests.v1;
@@ -27,7 +28,14 @@ namespace TekConf.UI.Api.Services.v1
         {
             //Prerun();
 
-            return GetAllConferences(request);
+            if (request.showOnlyFeatured)
+            {
+                return GetFeaturedConferences(request);
+            }
+            else
+            {
+                return GetAllConferences(request);
+            }
         }
 
         private void Prerun()
@@ -78,9 +86,9 @@ namespace TekConf.UI.Api.Services.v1
                 {
                     query = query.Where(showPastConferences);
                 }
-                
-                List<ConferencesDto> conferencesDtos = null;
 
+                List<FullConferenceDto> conferencesDtos = null;
+                List<ConferenceEntity> conferences = null;
                 try
                 {
                     query = query.Where(c => c.isLive);
@@ -93,19 +101,20 @@ namespace TekConf.UI.Api.Services.v1
                         query = query.OrderBy(orderByFunc).ThenBy(c => c.start).AsQueryable();
                     }
 
-                    conferencesDtos = query
-                      .Select(c => new ConferencesDto()
-                      {
-                          name = c.name,
-                          start = c.start,
-                          end = c.end,
-                          location = c.location,
-                          //url = c.url,
-                          slug = c.slug,
-                          description = c.description,
-                          imageUrl = c.imageUrl
-                      })
+                    conferences = query
+                        //.Select(c => new ConferencesDto()
+                        //{
+                        //    name = c.name,
+                        //    start = c.start,
+                        //    end = c.end,
+                        //    location = c.location,
+                        //    //url = c.url,
+                        //    slug = c.slug,
+                        //    description = c.description,
+                        //    imageUrl = c.imageUrl
+                        //})
                       .ToList();
+                    conferencesDtos = Mapper.Map<List<FullConferenceDto>>(conferences);
                 }
                 catch (Exception ex)
                 {
@@ -113,27 +122,61 @@ namespace TekConf.UI.Api.Services.v1
                     throw;
                 }
 
-
-                var resolver = new ConferencesUrlResolver();
-                foreach (var conferencesDto in conferencesDtos)
-                {
-                    conferencesDto.url = resolver.ResolveUrl(conferencesDto.slug);
-                }
+                //var resolver = new ConferencesUrlResolver();
+                //foreach (var conferencesDto in conferencesDtos)
+                //{
+                //    conferencesDto.url = resolver.ResolveUrl(conferencesDto.slug);
+                //}
 
                 return conferencesDtos.ToList();
             });
         }
 
+        private object GetFeaturedConferences(Conferences request)
+        {
+            var cacheKey = "GetFeaturedConferences";
+            var expireInTimespan = new TimeSpan(0, 0, 20);
+
+            return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
+            {
+                var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
+
+                List<ConferenceEntity> conferences;
+                try
+                {
+                    conferences = collection
+                        .AsQueryable()
+                        .Where(c => c.start >= DateTime.Now.AddDays(-2))
+                        .OrderBy(c => c.start)
+                        .ToList()
+                        .Where(c => !string.IsNullOrWhiteSpace(c.description))
+                        .Take(4)
+.                       ToList();
+                }
+                catch (Exception ex)
+                {
+                    var s = ex.Message;
+                    throw;
+                }
+
+
+                var conferencesDtos = Mapper.Map<List<FullConferenceDto>>(conferences);
+
+                return conferencesDtos.ToList();
+            });
+        }
+
+
         private Expression<Func<ConferenceEntity, bool>> GetShowPastConferences(bool? showPastConferences)
         {
             Expression<Func<ConferenceEntity, bool>> searchBy = null;
-           
+
             if (showPastConferences == null || !(bool)showPastConferences)
             {
                 searchBy = c => c.end > DateTime.Now;
             }
 
-            return searchBy;            
+            return searchBy;
         }
         private Expression<Func<ConferenceEntity, bool>> GetSearch(string search)
         {

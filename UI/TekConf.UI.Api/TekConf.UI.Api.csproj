@@ -151,6 +151,7 @@
     <Compile Include="HubSubscriptions.cs" />
     <Compile Include="Services\v1\ConferenceService.cs" />
     <Compile Include="Services\v1\FeaturedSpeakersService.cs" />
+    <Compile Include="Services\v1\GravatarImage.cs" />
     <Compile Include="Services\v1\MongoServiceBase.cs" />
     <Compile Include="Services\v1\SessionService.cs" />
     <Compile Include="Services\v1\SessionSpeakerService.cs" />

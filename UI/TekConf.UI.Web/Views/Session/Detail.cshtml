@@ -33,7 +33,7 @@
     <div id="subheader">
         <div class="inner">
             <div class="container">
-                <h1>@Html.ActionLink(Model.conferenceSlug, "Detail", "Conferences", null, new { conferenceSlug = Model.conferenceSlug })</h1>
+                <h1>@Html.ActionLink(Model.conferenceName, "Detail", "Conferences", null, new { conferenceSlug = Model.conferenceSlug })</h1>
             </div>
             <!-- /.container -->
         </div>
@@ -65,7 +65,7 @@
                         <h4><span class="slash">//</span> More Information</h4>
                         <p>
                             <b>Time :</b>
-                            @Model.start.ToString("dddd hh:mm")<text> - </text>@Model.end.ToString("hh:mm")<br />
+                            @Model.start.ToString("dddd h:mm")<text> - </text>@Model.end.ToString("h:mm")<br />
                             <b>Room :</b>
                             @Model.room<br />
                             <b>Difficulty :</b>
@@ -95,6 +95,16 @@
                                 }
                             </p>
                         }
+                        @if (Model.resources.Any())
+                        {
+                            <b>Resources</b>
+                            <p>
+                                @foreach (var resource in @Model.resources)
+                                {
+                                    @resource<br />
+                                }
+                            </p>
+                        }
                         @if (Model.subjects.Any())
                         {
                             <b>Subjects</b>
@@ -115,14 +125,15 @@
                                 }
                             </p>
                         }
-
+                        @Html.RouteLink("Edit Session", "AdminEditSession", new { conferenceSlug = Model.conferenceSlug, sessionSlug = Model.slug}, new { @class = "btn btn-info" })
+                        
+                        @Html.RouteLink("Add Speaker", "AdminAddSpeaker", new { conferenceSlug = Model.conferenceSlug, sessionSlug = Model.slug}, new { @class = "btn" })
                     </div>
-                    <!-- /sidebar -->
+
                 </div>
-                <!-- /span4 -->
 
             </div>
-            <!-- /row -->
+            
 
             <br />
             <br />
@@ -137,11 +148,13 @@
                 {
                     <div class="span4">
                         <div class="about-user">
-                            <div class="img">
-                                <img src="@speaker.profileImageUrl" alt="@speaker.fullName" />
-                            </div>
-
-                            <h4>@Html.RouteLink(speaker.fullName, "SessionSpeakerDetail", new { conferenceSlug = Model.conferenceSlug, sessionSlug = Model.slug, speakerSlug = speaker.slug }, null)</h4>
+                            @if (!string.IsNullOrWhiteSpace(speaker.profileImageUrl))
+                            {
+                                <div class="img">
+                                    <img src="@speaker.profileImageUrl" alt="@speaker.fullName" />
+                                </div>
+                            }
+                            <h4>@Html.RouteLink(speaker.fullName, "SessionSpeakerDetail", new { conferenceSlug = Model.conferenceSlug, speakerSlug = speaker.slug }, null)</h4>
 
                             <p>@speaker.description</p>
                         </div>
@@ -153,7 +166,6 @@
                 
             </div>
             <!-- /row -->
-            @Html.RouteLink("Add Speaker", "AdminAddSpeaker", new { conferenceSlug = Model.conferenceSlug, sessionSlug = Model.slug}, new { @class = "btn" })
         </div>
         <!-- /container -->
 

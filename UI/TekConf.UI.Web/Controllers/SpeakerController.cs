@@ -84,11 +84,6 @@ namespace TekConf.UI.Web.Controllers
                                       twitterHashTag = s.twitterHashTag,
                                   };
 
-        var profileImage = new GravatarImage();
-        
-        var profileImageUrl = profileImage.GetURL("robgibbens@gmail.com", 100, "pg"); //TODO
-        speaker.profileImageUrl = profileImageUrl;
-
         var viewModel = new SpeakerDetailViewModel()
                      {
                          Conference = conferenceDto,

@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8">
 
-    <title>Add Speaker - tekconf</title>
+    <title>Edit Speaker - tekconf</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -32,7 +32,7 @@
     <div id="subheader">
         <div class="inner">
             <div class="container">
-                <h1>Add Speaker</h1>
+                <h1>Edit Speaker</h1>
             </div>
             <!-- /.container -->
         </div>
@@ -42,12 +42,14 @@
 
     <div id="subpage">
         <div class="container">
-            @using (Html.BeginForm("CreateSpeaker", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            @using (Html.BeginForm("EditSpeakerInConference", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 <div class="row">
                     <legend>Main Information</legend>
 
                     <div class="span4">
+                        @Html.HiddenFor(s => s.slug)
+                        @Html.HiddenFor(s => s.conferenceSlug)
 
                         <label>First Name</label>
                         @Html.TextBoxFor(c => c.firstName)

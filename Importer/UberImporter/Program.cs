@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using MongoDB.Driver;
-using MongoDB.Driver.Builders;
-using TekConf.UI.Api;
-using UberImporter.MonkeySpace;
-using UberImporter.RailsConf;
+﻿using UberImporter.Importers.CodeMash2013;
+using UberImporter.Importers.CodeStock2012;
+using UberImporter.Importers.MonkeySpace2012;
+using UberImporter.Importers.OneDevDay2012;
+using UberImporter.Importers.RailsConf2012;
 
 namespace UberImporter
 {
@@ -39,11 +35,13 @@ namespace UberImporter
             var railsConf = new RailsConfImporter();
             var codestock = new CodeStockImporter();
             var oneDevDayDetroit = new OneDevDayDetroitImporter();
+            var codeMash2013 = new CodeMash2013Importer();
 
-            oneDevDayDetroit.Import();
-            monkeySpace.Import();
-            railsConf.Import();
-            codestock.Import();
+            //oneDevDayDetroit.Import();
+            //monkeySpace.Import();
+            //railsConf.Import();
+            //codestock.Import();
+            codeMash2013.Import();
         }
     }
 }
