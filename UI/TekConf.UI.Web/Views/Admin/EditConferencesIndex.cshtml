@@ -1,0 +1,81 @@
+﻿@using System.Web.Optimization
+@model List<TekConf.RemoteData.Dtos.v1.FullConferenceDto>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>Edit Conferences - tekconf</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
+
+   @Styles.Render("~/css/api/index")
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+    @Html.Partial("Header")
+
+    <div id="subheader">
+        <div class="inner">
+            <div class="container">
+                <h1>Edit Conferences</h1>
+            </div>
+            <!-- /.container -->
+        </div>
+        <!-- /inner -->
+    </div>
+    <!-- /subheader -->
+
+    <div id="subpage">
+        <div class="container">
+            <div class="row">
+                <div class="span12">
+                    <table class="table">
+                        <tbody>
+                            @foreach (var conference in Model)
+                            {
+                                <tr>
+                                    <td>@Html.RouteLink("Edit", "AdminEditConference", new { conferenceSlug = conference.slug })</td>
+                                    <td>@conference.name</td>
+                                    <td>@conference.start.ToString("MM/dd/yyyy") - @conference.end.ToString("MM/dd/yyyy")</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                
+            </div>
+            <!-- /row -->
+
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /subpage -->
+
+    @Html.Partial("Extra")
+
+    @Html.Partial("Footer")
+
+    @Scripts.Render("~/js/commonFaq")
+
+    <script>
+        $(function () {
+        });
+    </script>
+</body>
+</html>

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Web;
 using System.Web.Mvc;
@@ -338,5 +339,22 @@ namespace TekConf.UI.Web.Controllers
 
         #endregion
 
+        public void EditConferencesIndexAsync(string sortBy, bool? showPastConferences, string search)
+        {
+            var repository = new RemoteDataRepository();
+
+            AsyncManager.OutstandingOperations.Increment();
+
+            repository.GetConferences(sortBy: sortBy, showPastConferences: showPastConferences, search: search, callback: conferences =>
+            {
+                AsyncManager.Parameters["conferences"] = conferences;
+                AsyncManager.OutstandingOperations.Decrement();
+            });
+        }
+
+        public ActionResult EditConferencesIndexCompleted(List<FullConferenceDto> conferences)
+        {
+            return View(conferences.OrderBy(c => c.name).ToList());
+        }
     }
 }

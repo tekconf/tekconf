@@ -1008,6 +1008,7 @@
     <Content Include="Views\Admin\EditConference.cshtml" />
     <Content Include="Views\Admin\EditSession.cshtml" />
     <Content Include="Views\Admin\EditSpeaker.cshtml" />
+    <Content Include="Views\Admin\EditConferencesIndex.cshtml" />
     <None Include="Views\Web.Debug.config" />
     <None Include="Views\Web.Release.config" />
   </ItemGroup>
