@@ -14,7 +14,7 @@
     <RootNamespace>TekConf.UI.Api</RootNamespace>
     <AssemblyName>TekConf.UI.Api</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
@@ -234,7 +234,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>25825</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:25825/</IISUrl>
+          <IISUrl>http://localhost/TekConf.UI.Api</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
