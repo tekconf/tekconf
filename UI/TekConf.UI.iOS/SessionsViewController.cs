@@ -7,10 +7,10 @@ using MonoTouch.UIKit;
 using System.Linq;
 using System.Threading;
 using System.Collections.Generic;
-using ConferencesIO.RemoteData.v1;
-using ConferencesIO.RemoteData.Dtos.v1;
+using TekConf.RemoteData.v1;
+using TekConf.RemoteData.Dtos.v1;
 
-namespace ConferencesIO.UI.iOS
+namespace TekConf.UI.iOS
 {
 	public partial class SessionsViewController : UITableViewController
 	{

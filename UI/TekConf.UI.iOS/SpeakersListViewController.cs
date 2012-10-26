@@ -4,16 +4,18 @@ using System;
 
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
-using ConferencesIO.RemoteData.v1;
-using ConferencesIO.RemoteData.Dtos.v1;
+using TekConf.RemoteData.v1;
+using TekConf.RemoteData.Dtos.v1;
 using System.Collections.Generic;
 
-namespace ConferencesIO.UI.iOS
+namespace TekConf.UI.iOS
 {
 	public partial class SpeakersListViewController : UITableViewController
 	{
 		private RemoteDataRepository _client;
-		private string _baseUrl = "http://conferencesioapi.azurewebsites.net/v1/";
+		//private string _baseUrl = "http://conferencesioapi.azurewebsites.net/v1/";
+		private string _baseUrl = "http://192.168.1.105/TekConf.UI.Api";
+		
 		const string MoveToMapSegueName = "showSpeakerDetail";
 
 		public string SelectedSpeakerSlug {
@@ -47,7 +49,7 @@ namespace ConferencesIO.UI.iOS
 			indicator.StartAnimating (); 
 			loading.AddSubview (indicator);
 
-			_client.GetSpeakers ("CodeMash-2012", speakers => 
+			_client.GetSpeakers ("thatconference-2013", speakers => 
 			{ 
 				InvokeOnMainThread (() => 
 				{ 
@@ -83,12 +85,12 @@ namespace ConferencesIO.UI.iOS
 
 		public class SpeakersTableViewSource : UITableViewSource
 		{ 
-			private readonly IList<SpeakersDto> _speakers;
+			private readonly IList<FullSpeakerDto> _speakers;
 			private const string SpeakerCell = "SpeakerCell";
 			private SpeakersListViewController _rootViewController;
 			public static SpeakerDetailViewController _speakerDetailViewController;
 
-			public SpeakersTableViewSource (SpeakersListViewController controller, IList<SpeakersDto> speakers)
+			public SpeakersTableViewSource (SpeakersListViewController controller, IList<FullSpeakerDto> speakers)
 			{ 
 				_rootViewController = controller;
 				_speakers = speakers; 
@@ -115,7 +117,7 @@ namespace ConferencesIO.UI.iOS
 
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 			{ 
-				SpeakersDto selectedSpeaker = _speakers [indexPath.Row]; 
+				var selectedSpeaker = _speakers [indexPath.Row]; 
 				//new UIAlertView ("View Speaker", selectedSpeaker.title, null, "Ok", null).Show (); 
 
 				if (UserInterfaceIdiomIsPhone) {

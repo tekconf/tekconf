@@ -7,19 +7,21 @@ using MonoTouch.UIKit;
 using System.Linq;
 using System.Threading;
 using System.Collections.Generic;
-using ConferencesIO.RemoteData.v1;
-using ConferencesIO.RemoteData.Dtos.v1;
-using ConferencesIO.LocalData.Shared;
+using TekConf.RemoteData.v1;
+using TekConf.RemoteData.Dtos.v1;
+//using TekConf.LocalData.Shared;
 using System.IO;
-using ConferencesIO.Mappers.IO;
+//using TekConf.Mappers.IO;
 
-namespace ConferencesIO.UI.iOS
+namespace TekConf.UI.iOS
 {
 	public partial class SessionsListRootViewController : UITableViewController
 	{
 
 		private RemoteDataRepository _client;
-		private string _baseUrl = "http://conferencesioapi.azurewebsites.net/v1/";
+		//private string _baseUrl = "http://conferencesioapi.azurewebsites.net/v1/";
+		private string _baseUrl = "http://192.168.1.105/TekConf.UI.Api";
+
 		const string MoveToMapSegueName = "showSessionDetail";
 
 		public string SelectedSessionSlug {
@@ -71,7 +73,7 @@ namespace ConferencesIO.UI.iOS
 //				localDatabase.SaveConference(conferenceEntity, sessions, speakers);
 //
 //			});
-			_client.GetSessions ("CodeMash-2012", sessions => 
+			_client.GetSessions ("thatconference-2013", sessions => 
 			{ 
 				InvokeOnMainThread (() => 
 				{ 

@@ -4,11 +4,11 @@ using System.Linq;
 
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
-using ConferencesIO.RemoteData.v1;
+using TekConf.RemoteData.v1;
 using ServiceStack.Text;
 using System.IO;
 
-namespace ConferencesIO.UI.iOS
+namespace TekConf.UI.iOS
 {
 	// The UIApplicationDelegate for the application. This class is responsible for launching the 
 	// User Interface of the application, as well as listening (and optionally responding) to 
@@ -18,7 +18,8 @@ namespace ConferencesIO.UI.iOS
 	{
 		// class-level declarations
 		private RemoteDataRepository _client;
-		private string _baseUrl = "http://conferencesioapi.azurewebsites.net/v1/";
+		//private string _baseUrl = "http://conferencesioapi.azurewebsites.net/v1/";
+		private string _baseUrl = "http://192.168.1.105/TekConf.UI.Api";
 
 		public override UIWindow Window {
 			get;
@@ -65,7 +66,7 @@ namespace ConferencesIO.UI.iOS
 		void GetLatestFullConference ()
 		{
 			_client = new RemoteDataRepository (_baseUrl);
-			_client.GetFullConference ("CodeMash-2012", conference => 
+			_client.GetFullConference ("thatconference-2013", conference => 
 			{ 
 
 				var x = conference;

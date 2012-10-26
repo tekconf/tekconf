@@ -3,14 +3,16 @@ using System;
 
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
-using ConferencesIO.RemoteData.v1;
+using TekConf.RemoteData.v1;
 
-namespace ConferencesIO.UI.iOS
+namespace TekConf.UI.iOS
 {
 	public partial class SessionDetailViewController : UIViewController
 	{
 		private RemoteDataRepository _client;
-		private string _baseUrl = "http://conferencesioapi.azurewebsites.net/v1/";
+		//private string _baseUrl = "http://conferencesioapi.azurewebsites.net/v1/";
+		private string _baseUrl = "http://192.168.1.105/TekConf.UI.Api";
+
 		public string SessionSlug { get; set; }
 
 		static bool UserInterfaceIdiomIsPhone {
@@ -41,7 +43,7 @@ namespace ConferencesIO.UI.iOS
 			indicator.StartAnimating (); 
 			loading.AddSubview (indicator);
 
-			_client.GetSession ("CodeMash-2012", this.SessionSlug, session => 
+			_client.GetSession ("thatconference-2013", this.SessionSlug, session => 
 			{ 
 				InvokeOnMainThread (() => 
 				{ 

@@ -14,20 +14,25 @@ namespace TekConf.RemoteData.v1
         {
             get
             {
-                var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
-                if (!baseUrl.EndsWith("/"))
-                {
-                    baseUrl = baseUrl + "/";
-                }
-
                 if (_restClient == null)
                 {
-                    _restClient = new JsonServiceClient(baseUrl);
+                    _restClient = new JsonServiceClient(_baseUrl);
                 }
 
                 return _restClient;
             }
         }
+
+		private string _baseUrl;
+		public RemoteDataRepository (string baseUrl)
+		{
+//			if (!baseUrl.EndsWith("/"))
+//			{
+//				baseUrl = baseUrl + "/";
+//			}
+
+			_baseUrl = baseUrl;
+		}
 
         public void GetConferences(Action<IList<FullConferenceDto>> callback, string sortBy = "end", bool? showPastConferences = false, string search = null)
         {
@@ -79,7 +84,10 @@ namespace TekConf.RemoteData.v1
 
         public void GetSessions(string conferenceSlug, Action<IList<SessionsDto>> callback)
         {
-            ServiceClient.GetAsync(new Sessions() { conferenceSlug = conferenceSlug }, callback, (r, ex) => { callback(null); });
+            ServiceClient.GetAsync(new Sessions() { conferenceSlug = conferenceSlug }, callback, (r, ex) => { 
+				var x = r;
+				throw ex; 
+			});
         }
 
         public void GetSession(string conferenceSlug, string slug, Action<SessionDto> callback)

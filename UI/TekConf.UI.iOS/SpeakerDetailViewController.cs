@@ -4,14 +4,16 @@ using System;
 
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
-using ConferencesIO.RemoteData.v1;
+using TekConf.RemoteData.v1;
 
-namespace ConferencesIO.UI.iOS
+namespace TekConf.UI.iOS
 {
 	public partial class SpeakerDetailViewController : UIViewController
 	{
 		private RemoteDataRepository _client;
-		private string _baseUrl = "http://conferencesioapi.azurewebsites.net/v1/";
+		//private string _baseUrl = "http://conferencesioapi.azurewebsites.net/v1/";
+		private string _baseUrl = "http://192.168.1.105/TekConf.UI.Api";
+
 		public string SpeakerSlug { get; set; }
 
 		public SpeakerDetailViewController () : base()
@@ -38,7 +40,7 @@ namespace ConferencesIO.UI.iOS
 			indicator.StartAnimating (); 
 			loading.AddSubview (indicator);
 
-			_client.GetSpeaker ("CodeMash-2012", this.SpeakerSlug, speaker => 
+			_client.GetSpeaker ("thatconference-2013", this.SpeakerSlug, speaker => 
 			{ 
 				InvokeOnMainThread (() => 
 				{ 
