@@ -5,9 +5,16 @@ using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.UI.Api.Services.Requests.v1
 {
+
+    [Route("/v1/conferences", "GET")]
+    public class FeaturedConferences : IReturn<List<FullConferenceDto>>
+    {
+    }
+
     [Route("/v1/conferences", "GET")]
     public class Conferences : IReturn<List<FullConferenceDto>>
     {
+        public bool showOnlyFeatured { get; set; }
         public string search { get; set; }
         public string sortBy { get; set; }
         public bool? showPastConferences { get; set; }

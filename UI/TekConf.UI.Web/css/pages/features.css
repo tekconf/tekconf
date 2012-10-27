@@ -85,3 +85,10 @@
         
     }
 }
+.overlay { 
+    background: url(~/img/OnSale.png);
+    top: -10px;
+    left: -20px;
+    position: absolute; 
+    z-index: 1; 
+}

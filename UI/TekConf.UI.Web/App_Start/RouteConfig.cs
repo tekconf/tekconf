@@ -24,6 +24,9 @@ namespace TekConf.UI.Web
             routes.MapRoute(name: "AdminEditConference", url: "admin/conferences/{conferenceSlug}/edit",
                 defaults: new { controller = "Admin", action = "EditConference" });
 
+            routes.MapRoute(name: "AdminEditConferences", url: "admin/conferences/",
+                defaults: new { controller = "Admin", action = "EditConferencesIndex" });
+
             routes.MapRoute(name: "AdminAddSession", url: "admin/conferences/{conferenceSlug}/sessions/add",
                 defaults: new { controller = "Admin", action = "AddSession" });
 

@@ -66,9 +66,9 @@ namespace TekConf.UI.Api.Services.v1
                 {
                     return new HttpError() {StatusCode = HttpStatusCode.BadRequest};
                 }
+                conference.Hub = _hub;
 
                 var session = conference.sessions.FirstOrDefault(s => s.slug == speaker.sessionSlug);
-
                 if (session == null)
                 {
                     return new HttpError() { StatusCode = HttpStatusCode.BadRequest };
@@ -131,6 +131,7 @@ namespace TekConf.UI.Api.Services.v1
             try
             {
                 var entity = Mapper.Map<ConferenceEntity>(conference);
+                entity.Hub = _hub;
                 entity.dateAdded = DateTime.Now; // TODO : This logic should be encapsulated
                 if (entity.isLive)
                 {
