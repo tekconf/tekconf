@@ -19,7 +19,7 @@ namespace TekConf.UI.iOS
 		// class-level declarations
 		private RemoteDataRepository _client;
 		//private string _baseUrl = "http://conferencesioapi.azurewebsites.net/v1/";
-		private string _baseUrl = "http://192.168.1.105/TekConf.UI.Api";
+		private string _baseUrl = "http://api.tekconf.com";
 
 		public override UIWindow Window {
 			get;
