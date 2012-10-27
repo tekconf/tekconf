@@ -51,6 +51,7 @@
     <div id="subpage">
         <div class="container">
             <div class="row">
+
                 @using (Html.BeginForm())
                 {
                     var sorts = new List<SelectListItem>()
@@ -69,8 +70,9 @@
                     <div class="span3 showPastConferences">
                         <text>&nbsp;&nbsp;</text>@Html.CheckBox("showPastConferences", new { @onchange = "this.form.submit();" })<text> Show Past Conferences?</text>                        
                     </div>
-                    <div class="span6 searchBox">
-                        @Html.TextBox("search")
+                    
+                    <div class="span6 searchBox input-append"> 
+                        @Html.TextBox("search", null, new { @class = "span2 search-query"})
                         <button class="btn" onclick="this.form.submit()" style="margin-right:30px;">Search</button>
                     </div>
                 }
