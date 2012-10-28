@@ -1,11 +1,20 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
+<<<<<<< HEAD
+  <MonoDevelop.Ide.Workbench ActiveDocument="UI/TekConf.UI.iPhone/Views/ConferencesListViewController.cs">
+    <Files>
+      <File FileName="UI/TekConf.UI.iPhone/Views/ConferencesListViewController.cs" Line="92" Column="4" />
+      <File FileName="UI/TekConf.UI.iPhone/AppDelegate.cs" Line="53" Column="24" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/ConferenceDetailViewController.cs" Line="46" Column="7" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/BaseUIViewController.cs" Line="15" Column="4" />
+=======
   <MonoDevelop.Ide.Workbench ActiveDocument="UI/TekConf.UI.iPhone/Views/SpeakerDetailAboutViewController.cs">
     <Files>
       <File FileName="UI/TekConf.UI.iPhone/Views/ConferenceDetailSpeakersViewController.cs" Line="120" Column="11" />
       <File FileName="UI/TekConf.UI.iPhone/Views/SpeakerDetailTabBarController.cs" Line="20" Column="24" />
       <File FileName="UI/TekConf.UI.iPhone/Views/SpeakerDetailAboutViewController.cs" Line="36" Column="54" />
       <File FileName="UI/TekConf.UI.iPhone/Views/ConferencesListViewController.cs" Line="92" Column="4" />
+>>>>>>> 48e86e0a3f110287bd46344944b9243e3386ef51
     </Files>
     <Pads>
       <Pad Id="ProjectPad">

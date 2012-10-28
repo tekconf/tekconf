@@ -54,7 +54,7 @@ namespace TekConf.UI.iPhone
 			
 			Root.Add(new Section() {
 				new StyledStringElement("Conferences", () => { NavigationController.PushViewController(new ConferencesListViewController(), true); }),
-				new StyledStringElement("CodeMash 2013", () => { NavigationController.PushViewController(new ConferenceDetailViewController(), true); }),
+				new StyledStringElement("CodeMash 2013", () => { NavigationController.PushViewController(new ConferenceDetailTabBarController(), true); }),
 				//new StyledStringElement("Stuff", () => { NavigationController.PushViewController(new StuffViewController(), true); }),
 				//new StyledStringElement("Full Screen", () => { NavigationController.PushViewController(new FullscreenViewController(), true); })
 			});
