@@ -32,7 +32,7 @@ namespace TekConf.UI.iPhone
 			window = new UIWindow (UIScreen.MainScreen.Bounds);
 			Menu = new SlideoutNavigationController();
 			Menu.TopView = new ConferencesListViewController();
-			Menu.MenuView = new DummyController();
+			Menu.MenuView = new SideListController();
 			
 			window.RootViewController = Menu;
 			window.MakeKeyAndVisible ();
@@ -41,9 +41,9 @@ namespace TekConf.UI.iPhone
 		}
 	}
 
-	public class DummyController : DialogViewController
+	public class SideListController : DialogViewController
 	{
-		public DummyController() 
+		public SideListController() 
 			: base(UITableViewStyle.Plain,new RootElement(""))
 		{
 		}
@@ -54,7 +54,7 @@ namespace TekConf.UI.iPhone
 			
 			Root.Add(new Section() {
 				new StyledStringElement("Conferences", () => { NavigationController.PushViewController(new ConferencesListViewController(), true); }),
-				//new StyledStringElement("About", () => { NavigationController.PushViewController(new AboutViewController(), true); }),
+				new StyledStringElement("CodeMash 2013", () => { NavigationController.PushViewController(new ConferenceDetailViewController(), true); }),
 				//new StyledStringElement("Stuff", () => { NavigationController.PushViewController(new StuffViewController(), true); }),
 				//new StyledStringElement("Full Screen", () => { NavigationController.PushViewController(new FullscreenViewController(), true); })
 			});

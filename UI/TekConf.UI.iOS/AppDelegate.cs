@@ -8,7 +8,6 @@ using TekConf.RemoteData.v1;
 using ServiceStack.Text;
 using System.IO;
 using MonoTouch.Dialog;
-using MonoTouch.SlideoutNavigation;
 
 namespace TekConf.UI.iOS
 {

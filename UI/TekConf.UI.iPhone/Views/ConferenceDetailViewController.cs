@@ -1,19 +1,22 @@
+
 using System;
 using System.Drawing;
+
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
-using TekConf.RemoteData.v1;
 using System.Collections.Generic;
 using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.UI.iPhone
 {
-
-	public partial class ConferencesListViewController : BaseUIViewController
+	public partial class ConferenceDetailViewController : BaseUIViewController
 	{
-		public ConferencesListViewController () : base ("ConferencesListViewController", null)
+		private string conferenceSlug = "codemash-2013";
+		private string conferenceName = "CodeMash 2013";
+
+		public ConferenceDetailViewController () : base ("ConferenceDetailViewController", null)
 		{
-			Title = "Conferences";
+			Title = conferenceName;
 		}
 		
 		public override void DidReceiveMemoryWarning ()
@@ -27,9 +30,9 @@ namespace TekConf.UI.iPhone
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-
-			var loading = new UIAlertView (" Downloading Conferences", "Please wait...", null, null, null);
-
+			
+			var loading = new UIAlertView (" Downloading Sessions", "Please wait...", null, null, null);
+			
 			loading.Show ();
 			
 			var indicator = new UIActivityIndicatorView (UIActivityIndicatorViewStyle.WhiteLarge); 
@@ -37,19 +40,19 @@ namespace TekConf.UI.iPhone
 			indicator.StartAnimating (); 
 			loading.AddSubview (indicator);
 			
-			Repository.GetConferences (sortBy: "", showPastConferences: false, search: "", callback:conferences => 
+			Repository.GetSessions (conferenceSlug, sessions => 
 			{ 
 				InvokeOnMainThread (() => 
-			    { 
-					conferencesTableView.Source = new ConferencesTableViewSource (this, conferences); 
-					conferencesTableView.ReloadData (); 
+				{ 
+					sessionsTableView.Source = new SessionsTableViewSource (this, sessions); 
+					sessionsTableView.ReloadData (); 
 					loading.DismissWithClickedButtonIndex (0, true); 
 				});
 			});
 			
 			if (!UserInterfaceIdiomIsPhone)
 			{
-				this.conferencesTableView.SelectRow (
+				this.sessionsTableView.SelectRow (
 					NSIndexPath.FromRowSection (0, 0),
 					false,
 					UITableViewScrollPosition.Middle
@@ -78,21 +81,22 @@ namespace TekConf.UI.iPhone
 		}
 	
 	
-		private class ConferencesTableViewSource : UITableViewSource
+		
+		private class SessionsTableViewSource : UITableViewSource
 		{ 
-			private readonly IList<FullConferenceDto> _conferences;
-			private const string ConferenceCell = "ConferenceCell";
-			private ConferencesListViewController _rootViewController;
+			private readonly IList<SessionsDto> _sessions;
+			private const string SessionCell = "SessionCell";
+			private ConferenceDetailViewController _rootViewController;
 			
-			public ConferencesTableViewSource (ConferencesListViewController controller, IList<FullConferenceDto> conferences)
+			public SessionsTableViewSource (ConferenceDetailViewController controller, IList<SessionsDto> sessions)
 			{ 
 				_rootViewController = controller;
-				_conferences = conferences; 
+				_sessions = sessions; 
 			}
 			
 			public override int RowsInSection (UITableView tableView, int section)
 			{ 
-				return _conferences.Count; 
+				return _sessions.Count; 
 			}
 			
 			public override float GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
@@ -102,25 +106,25 @@ namespace TekConf.UI.iPhone
 			
 			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
 			{ 
-				var cell = tableView.DequeueReusableCell (ConferenceCell) ?? new UITableViewCell (UITableViewCellStyle.Subtitle, ConferenceCell); 
-				var conference = _conferences [indexPath.Row]; 
-				cell.TextLabel.Text = conference.name; 
-				cell.DetailTextLabel.Text = conference.start.ToLocalTime ().ToString (); 
+				var cell = tableView.DequeueReusableCell (SessionCell) ?? new UITableViewCell (UITableViewCellStyle.Subtitle, SessionCell); 
+				var session = _sessions [indexPath.Row]; 
+				cell.TextLabel.Text = session.title; 
+				cell.DetailTextLabel.Text = session.start.ToLocalTime ().ToString (); 
 				return cell; 
 			}
 			
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 			{ 
-				FullConferenceDto selectedConference = _conferences [indexPath.Row]; 
-				//new UIAlertView ("View Conference", selectedConference.name, null, "Ok", null).Show (); 
+				SessionsDto selectedSession = _sessions [indexPath.Row]; 
+				//new UIAlertView ("View Session", selectedSession.title, null, "Ok", null).Show (); 
 				
 				if (UserInterfaceIdiomIsPhone) {
-					//_conferenceDetailViewController = new ConferenceDetailViewController (selectedConference.slug);
-					//_rootViewController.SelectedConferenceSlug = selectedConference.slug;
+					//_sessionDetailViewController = new SessionDetailViewController (selectedSession.slug);
+					//_rootViewController.SelectedSessionSlug = selectedSession.slug;
 					//_rootViewController.PerformSegue (MoveToMapSegueName, _rootViewController);
 					// Pass the selected object to the new view controller.
 					//_rootViewController.NavigationController.PushViewController (
-					//						_conferenceDetailViewController,
+					//						_sessionDetailViewController,
 					//						true
 					//					);
 				} else {
@@ -184,7 +188,7 @@ namespace TekConf.UI.iPhone
 			{
 				if (editingStyle == UITableViewCellEditingStyle.Delete) {
 					// Delete the row from the data source.
-					controller.conferencesTableView.DeleteRows (new NSIndexPath[] { indexPath }, UITableViewRowAnimation.Fade);
+					controller.sessionsTableView.DeleteRows (new NSIndexPath[] { indexPath }, UITableViewRowAnimation.Fade);
 				} else if (editingStyle == UITableViewCellEditingStyle.Insert) {
 					// Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
 				}
@@ -210,17 +214,18 @@ namespace TekConf.UI.iPhone
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 			{
 				if (UserInterfaceIdiomIsPhone) {
-//					var DetailViewController = new ConferenceDetailViewController ();
-//					// Pass the selected object to the new view controller.
-//					controller.NavigationController.PushViewController (
-//						DetailViewController,
-//						true
-//						);
+					//					var DetailViewController = new SessionDetailViewController ();
+					//					// Pass the selected object to the new view controller.
+					//					controller.NavigationController.PushViewController (
+					//						DetailViewController,
+					//						true
+					//						);
 				} else {
 					// Navigation logic may go here -- for example, create and push another view controller.
 				}
 			}
 		}
+		
 
 	
 	}

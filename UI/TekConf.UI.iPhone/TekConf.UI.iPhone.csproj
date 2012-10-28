@@ -92,6 +92,11 @@
     <Compile Include="Views\ConferencesListViewController.designer.cs">
       <DependentUpon>ConferencesListViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\ConferenceDetailViewController.cs" />
+    <Compile Include="Views\ConferenceDetailViewController.designer.cs">
+      <DependentUpon>ConferenceDetailViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BaseUIViewController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -121,5 +126,6 @@
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Views\ConferencesListViewController.xib" />
+    <InterfaceDefinition Include="Views\ConferenceDetailViewController.xib" />
   </ItemGroup>
 </Project>
