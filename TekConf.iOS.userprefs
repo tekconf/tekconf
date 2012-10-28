@@ -1,13 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="RemoteData/Shared/v1/RemoteDataRepository.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="UI/TekConf.UI.iPhone/Views/ConferencesListViewController.cs">
     <Files>
-      <File FileName="UI/TekConf.UI.iOS/AppDelegate.cs" Line="22" Column="52" />
-      <File FileName="RemoteData/Shared/v1/RemoteDataRepository.cs" Line="28" Column="4" />
-      <File FileName="UI/TekConf.UI.iOS/SessionDetailViewController.cs" Line="46" Column="44" />
-      <File FileName="UI/TekConf.UI.iOS/SpeakerDetailViewController.cs" Line="43" Column="44" />
-      <File FileName="RemoteData/Shared/v1/Requests/Sessions.cs" Line="29" Column="44" />
-      <File FileName="UI/TekConf.UI.iOS/SessionsListRootViewController.cs" Line="37" Column="4" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/ConferencesListViewController.cs" Line="92" Column="4" />
+      <File FileName="UI/TekConf.UI.iPhone/AppDelegate.cs" Line="53" Column="24" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/ConferenceDetailViewController.cs" Line="46" Column="7" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/BaseUIViewController.cs" Line="15" Column="4" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
