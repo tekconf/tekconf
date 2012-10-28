@@ -7,6 +7,8 @@ using MonoTouch.UIKit;
 using TekConf.RemoteData.v1;
 using ServiceStack.Text;
 using System.IO;
+using MonoTouch.Dialog;
+using MonoTouch.SlideoutNavigation;
 
 namespace TekConf.UI.iOS
 {
@@ -16,16 +18,13 @@ namespace TekConf.UI.iOS
 	[Register ("AppDelegate")]
 	public partial class AppDelegate : UIApplicationDelegate
 	{
-		// class-level declarations
 		private RemoteDataRepository _client;
 		//private string _baseUrl = "http://conferencesioapi.azurewebsites.net/v1/";
 		private string _baseUrl = "http://api.tekconf.com";
 
-		public override UIWindow Window {
-			get;
-			set;
-		}
-		
+		//UIWindow window;
+		public override UIWindow Window { get; set; }
+
 		//
 		// This method is invoked when the application is about to move from active to inactive state.
 		//
@@ -59,7 +58,7 @@ namespace TekConf.UI.iOS
 			bootStrapper.Initialize();
 
 			GetLatestFullConference();
-			// TODO: Implement - see: http://go-mono.com/docs/index.aspx?link=T%3aMonoTouch.Foundation.ModelAttribute
+
 			return true;
 		}
 
@@ -95,5 +94,6 @@ namespace TekConf.UI.iOS
 			UINavigationBar.Appearance.SetTitleTextAttributes(titleAttributes);
 		}
 	}
+
 }
 
