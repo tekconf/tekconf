@@ -1,5 +1,6 @@
 using System;
 using MonoTouch.UIKit;
+using TekConf.RemoteData.v1;
 
 namespace TekConf.UI.iPhone
 {
@@ -30,6 +31,25 @@ namespace TekConf.UI.iPhone
 				                                                                blue:0.302f, 
 				                                                                alpha:1f);
 			}
+		}
+
+		private string _baseUrl = "http://api.tekconf.com";
+		private RemoteDataRepository _client;
+		protected RemoteDataRepository Repository
+		{
+			get
+			{
+				if (this._client == null)
+				{
+					this._client = new RemoteDataRepository(_baseUrl);
+				}
+				
+				return this._client;
+			}
+		}
+		
+		protected static bool UserInterfaceIdiomIsPhone {
+			get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone; }
 		}
 	}
 	

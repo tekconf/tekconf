@@ -9,11 +9,12 @@ namespace TekConf.UI.iPhone
 {
 	public partial class ConferenceDetailSpeakersViewController : BaseUIViewController
 	{
-		private string conferenceSlug = "codemash-2013";
+		private FullConferenceDto _conference;
 
-		public ConferenceDetailSpeakersViewController () : base ("ConferenceDetailSpeakersViewController", null)
+		public ConferenceDetailSpeakersViewController (FullConferenceDto conference) : base ("ConferenceDetailSpeakersViewController", null)
 		{
-
+			_conference = conference;
+			Title = _conference.name;
 		}
 		
 		public override void DidReceiveMemoryWarning ()
@@ -37,7 +38,7 @@ namespace TekConf.UI.iPhone
 			indicator.StartAnimating (); 
 			loading.AddSubview (indicator);
 			
-			Repository.GetSpeakers (conferenceSlug, speakers => 
+			Repository.GetSpeakers (_conference.slug, speakers => 
 			{ 
 				InvokeOnMainThread (() => 
 				{ 

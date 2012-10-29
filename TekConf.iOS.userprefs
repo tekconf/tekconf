@@ -1,23 +1,23 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="UI/TekConf.UI.iPhone/AppDelegate.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="UI/TekConf.UI.iPhone/Views/ConferencesListViewController.cs">
     <Files>
-      <File FileName="UI/TekConf.UI.iPhone/AppDelegate.cs" Line="41" Column="32" />
-      <File FileName="UI/TekConf.UI.iPhone/Views/ConferencesListViewController.cs" Line="172" Column="38" />
-      <File FileName="UI/TekConf.UI.iPhone/Views/ConferenceDetailAboutViewController.cs" Line="40" Column="42" />
-      <File FileName="UI/TekConf.UI.iPhone/Views/ConferenceDetailTabBarController.cs" Line="13" Column="24" />
-      <File FileName="UI/TekConf.UI.iPhone/Views/SpeakerDetailTabBarController.cs" Line="7" Column="69" />
-      <File FileName="UI/TekConf.UI.iPhone/Views/BaseUITabBarController.cs" Line="19" Column="5" />
-      <File FileName="UI/TekConf.UI.iPhone/Info.plist" />
-      <File FileName="UI/TekConf.UI.iPhone/Views/ConferenceDetailViewController.cs" Line="173" Column="38" />
-      <File FileName="UI/TekConf.UI.iPhone/Views/ConferenceDetailSpeakersViewController.cs" Line="156" Column="5" />
+      <File FileName="UI/TekConf.UI.iPhone/AppDelegate.cs" Line="35" Column="76" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/ConferenceDetailAboutViewController.cs" Line="51" Column="54" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/ConferenceDetailTabBarController.cs" Line="21" Column="73" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/ConferenceDetailAboutViewController.designer.cs" Line="32" Column="11" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/ConferencesListViewController.cs" Line="96" Column="38" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/BaseUIViewController.cs" Line="48" Column="5" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Option id="ShowAllFiles" value="True" />
           <Node name="TekConf.UI.iPhone" expanded="True">
-            <Node name="AppDelegate.cs" selected="True" />
+            <Node name="Views" expanded="True">
+              <Node name="ConferenceDetailAboutViewController.cs" expanded="True" />
+              <Node name="ConferencesListViewController.cs" selected="True" />
+            </Node>
           </Node>
         </State>
       </Pad>
@@ -30,8 +30,6 @@
     <BreakpointStore>
       <Breakpoint file="/Users/Rob/dev/tekconf/UI/TekConf.UI.iOS/SessionsListRootViewController.cs" line="80" />
       <Breakpoint file="/Users/Rob/dev/tekconf/UI/TekConf.UI.iOS/SessionsListRootViewController.cs" line="76" />
-      <Breakpoint file="/Users/Rob/dev/tekconf/RemoteData/Shared/v1/RemoteDataRepository.cs" line="88" />
-      <Breakpoint file="/Users/Rob/dev/tekconf/RemoteData/Shared/v1/RemoteDataRepository.cs" line="89" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>

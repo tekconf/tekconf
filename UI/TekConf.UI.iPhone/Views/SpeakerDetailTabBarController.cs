@@ -12,7 +12,7 @@ namespace TekConf.UI.iPhone
 		public SpeakerDetailTabBarController (FullSpeakerDto speaker)
 		{
 			_speaker = speaker;
-
+			this.Title = _speaker.fullName;
 			aboutTab = new SpeakerDetailAboutViewController(_speaker);
 			aboutTab.Title = "About";
 			

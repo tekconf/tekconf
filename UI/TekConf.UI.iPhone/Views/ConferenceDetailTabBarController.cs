@@ -1,21 +1,38 @@
 using System;
 using MonoTouch.UIKit;
+using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.UI.iPhone
 {
 	public class ConferenceDetailTabBarController : BaseUITabBarController {
 		
 		UIViewController aboutTab, sessionsTab, speakersTab;
-		
-		public ConferenceDetailTabBarController ()
+		public ConferenceDetailTabBarController (string conferenceSlug)
 		{
-			aboutTab = new ConferenceDetailAboutViewController();
-			aboutTab.Title = "About";
+			Repository.GetConference (conferenceSlug, conference => 
+			{ 
+				InvokeOnMainThread (() => 
+				{ 
+					SetTabs(conference);
+				});
+			});
+		}
 
-			sessionsTab = new ConferenceDetailViewController();
+		public ConferenceDetailTabBarController (FullConferenceDto conference)
+		{
+			SetTabs(conference);
+		}
+
+		public void SetTabs(FullConferenceDto conference)
+		{
+			this.Title = conference.name;
+			aboutTab = new ConferenceDetailAboutViewController(conference);
+			aboutTab.Title = "About";
+			
+			sessionsTab = new ConferenceDetailViewController(conference);
 			sessionsTab.Title = "Sessions";
 			
-			speakersTab = new ConferenceDetailSpeakersViewController();
+			speakersTab = new ConferenceDetailSpeakersViewController(conference);
 			speakersTab.Title = "Speakers";
 			
 			#region Additional Info

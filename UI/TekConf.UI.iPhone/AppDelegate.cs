@@ -29,7 +29,11 @@ namespace TekConf.UI.iPhone
 		//
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
-			var font = UIFont.FromName("OpenSans-Light", 16f);
+			var font = UIFont.FromName("OpenSans-Light", 14f);
+			var headerFont = UIFont.FromName("OpenSans", 16f);
+			
+			UITextAttributes attributes = new UITextAttributes() { Font = headerFont } ;
+			UINavigationBar.Appearance.SetTitleTextAttributes(attributes);
 			UILabel.Appearance.Font = font;
 		
 			window = new UIWindow (UIScreen.MainScreen.Bounds);
@@ -56,9 +60,16 @@ namespace TekConf.UI.iPhone
 		{
 			base.ViewDidLoad ();
 
+			var font = UIFont.FromName("OpenSans-Light", 16f);
+			
 			Root.Add(new Section() {
-				new StyledStringElement("Conferences", () => { NavigationController.PushViewController(new ConferencesListViewController(), true); }),
-				new StyledStringElement("CodeMash 2013", () => { NavigationController.PushViewController(new ConferenceDetailTabBarController(), true); }),
+				new StyledStringElement("Conferences", () => { NavigationController.PushViewController(new ConferencesListViewController(), true); }) { Font = font },
+
+				new StyledStringElement("CodeMash 2013", () => { NavigationController.PushViewController(new ConferenceDetailTabBarController("codemash-2013"), true); }) { Font = font },
+				new StyledStringElement("Build 2013", () => { NavigationController.PushViewController(new ConferenceDetailTabBarController("build-2013"), true); }) { Font = font },
+				new StyledStringElement("Settings", () => { NavigationController.PushViewController(new ConferenceDetailTabBarController("codemash-2013"), true); }) { Font = font },
+				new StyledStringElement("Login", () => { NavigationController.PushViewController(new ConferenceDetailTabBarController("codemash-2013"), true); }) { Font = font },
+				
 				//new StyledStringElement("Stuff", () => { NavigationController.PushViewController(new StuffViewController(), true); }),
 				//new StyledStringElement("Full Screen", () => { NavigationController.PushViewController(new FullscreenViewController(), true); })
 			});

@@ -1,7 +1,5 @@
-
 using System;
 using System.Drawing;
-
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using System.Collections.Generic;
@@ -11,12 +9,12 @@ namespace TekConf.UI.iPhone
 {
 	public partial class ConferenceDetailViewController : BaseUIViewController
 	{
-		private string conferenceSlug = "codemash-2013";
-		private string conferenceName = "CodeMash 2013";
+		private FullConferenceDto _conference;
 
-		public ConferenceDetailViewController () : base ("ConferenceDetailViewController", null)
+		public ConferenceDetailViewController (FullConferenceDto conference) : base ("ConferenceDetailViewController", null)
 		{
-			Title = conferenceName;
+			_conference = conference;
+			Title = _conference.name;
 		}
 		
 		public override void DidReceiveMemoryWarning ()
@@ -30,7 +28,7 @@ namespace TekConf.UI.iPhone
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-			
+
 			var loading = new UIAlertView (" Downloading Sessions", "Please wait...", null, null, null);
 			
 			loading.Show ();
@@ -39,17 +37,23 @@ namespace TekConf.UI.iPhone
 			indicator.Center = new System.Drawing.PointF (loading.Bounds.Width / 2, loading.Bounds.Size.Height - 40); 
 			indicator.StartAnimating (); 
 			loading.AddSubview (indicator);
-			
-			Repository.GetSessions (conferenceSlug, sessions => 
-			{ 
-				InvokeOnMainThread (() => 
-				{ 
-					sessionsTableView.Source = new SessionsTableViewSource (this, sessions); 
-					sessionsTableView.ReloadData (); 
-					loading.DismissWithClickedButtonIndex (0, true); 
-				});
-			});
-			
+
+//			if (_conference == null) {
+//				Repository.GetSessions (conferenceSlug, sessions => 
+//				{ 
+//					InvokeOnMainThread (() => 
+//					{ 
+//						sessionsTableView.Source = new SessionsTableViewSource (this, sessions); 
+//						sessionsTableView.ReloadData (); 
+//						loading.DismissWithClickedButtonIndex (0, true); 
+//					});
+//				});
+//			} else {
+				sessionsTableView.Source = new SessionsTableViewSource (this, _conference.sessions); 
+				sessionsTableView.ReloadData (); 
+				loading.DismissWithClickedButtonIndex (0, true); 
+			//}
+
 			if (!UserInterfaceIdiomIsPhone)
 			{
 				this.sessionsTableView.SelectRow (
@@ -84,11 +88,11 @@ namespace TekConf.UI.iPhone
 		
 		private class SessionsTableViewSource : UITableViewSource
 		{ 
-			private readonly IList<SessionsDto> _sessions;
+			private readonly IList<FullSessionDto> _sessions;
 			private const string SessionCell = "SessionCell";
 			private ConferenceDetailViewController _rootViewController;
 			
-			public SessionsTableViewSource (ConferenceDetailViewController controller, IList<SessionsDto> sessions)
+			public SessionsTableViewSource (ConferenceDetailViewController controller, IList<FullSessionDto> sessions)
 			{ 
 				_rootViewController = controller;
 				_sessions = sessions; 
@@ -119,7 +123,7 @@ namespace TekConf.UI.iPhone
 			
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 			{ 
-				SessionsDto selectedSession = _sessions [indexPath.Row]; 
+				var selectedSession = _sessions [indexPath.Row]; 
 				//new UIAlertView ("View Session", selectedSession.title, null, "Ok", null).Show (); 
 				
 				if (UserInterfaceIdiomIsPhone) {

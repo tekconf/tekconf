@@ -31,6 +31,9 @@ namespace TekConf.UI.iPhone
 
 		[Outlet]
 		MonoTouch.UIKit.UILabel twitterHashTagLabel { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIImageView logoImage { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -67,6 +70,11 @@ namespace TekConf.UI.iPhone
 			if (twitterHashTagLabel != null) {
 				twitterHashTagLabel.Dispose ();
 				twitterHashTagLabel = null;
+			}
+
+			if (logoImage != null) {
+				logoImage.Dispose ();
+				logoImage = null;
 			}
 		}
 	}

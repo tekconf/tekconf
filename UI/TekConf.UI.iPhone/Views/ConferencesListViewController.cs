@@ -23,7 +23,11 @@ namespace TekConf.UI.iPhone
 			
 			// Release any cached data, images, etc that aren't in use.
 		}
-		
+
+		public override void ViewWillAppear (bool animated)
+		{
+			base.ViewWillAppear (animated);
+		}
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
@@ -85,6 +89,7 @@ namespace TekConf.UI.iPhone
 			private readonly IList<FullConferenceDto> _conferences;
 			private const string ConferenceCell = "ConferenceCell";
 			private ConferencesListViewController _rootViewController;
+			private ConferenceDetailTabBarController _conferenceDetailViewController;
 			
 			public ConferencesTableViewSource (ConferencesListViewController controller, IList<FullConferenceDto> conferences)
 			{ 
@@ -122,17 +127,15 @@ namespace TekConf.UI.iPhone
 				//new UIAlertView ("View Conference", selectedConference.name, null, "Ok", null).Show (); 
 				
 				if (UserInterfaceIdiomIsPhone) {
-					//_conferenceDetailViewController = new ConferenceDetailViewController (selectedConference.slug);
-					//_rootViewController.SelectedConferenceSlug = selectedConference.slug;
-					//_rootViewController.PerformSegue (MoveToMapSegueName, _rootViewController);
-					// Pass the selected object to the new view controller.
-					//_rootViewController.NavigationController.PushViewController (
-					//						_conferenceDetailViewController,
-					//						true
-					//					);
+					_conferenceDetailViewController = new ConferenceDetailTabBarController (selectedConference);
+					_rootViewController.NavigationController.PushViewController (
+											_conferenceDetailViewController,
+											true
+										);
 				} else {
 					// Navigation logic may go here -- for example, create and push another view controller.
 				}
+
 			} 
 		}
 		
