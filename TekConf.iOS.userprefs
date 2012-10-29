@@ -1,25 +1,23 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="UI/TekConf.UI.iPhone/Views/SpeakerDetailAboutViewController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="UI/TekConf.UI.iPhone/AppDelegate.cs">
     <Files>
-      <File FileName="UI/TekConf.UI.iPhone/Views/ConferenceDetailSpeakersViewController.cs" Line="120" Column="11" />
-      <File FileName="UI/TekConf.UI.iPhone/Views/SpeakerDetailTabBarController.cs" Line="20" Column="24" />
-      <File FileName="UI/TekConf.UI.iPhone/Views/SpeakerDetailAboutViewController.cs" Line="36" Column="54" />
-      <File FileName="UI/TekConf.UI.iPhone/Views/ConferencesListViewController.cs" Line="92" Column="4" />
+      <File FileName="UI/TekConf.UI.iPhone/AppDelegate.cs" Line="41" Column="32" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/ConferencesListViewController.cs" Line="172" Column="38" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/ConferenceDetailAboutViewController.cs" Line="40" Column="42" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/ConferenceDetailTabBarController.cs" Line="13" Column="24" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/SpeakerDetailTabBarController.cs" Line="7" Column="69" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/BaseUITabBarController.cs" Line="19" Column="5" />
+      <File FileName="UI/TekConf.UI.iPhone/Info.plist" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/ConferenceDetailViewController.cs" Line="173" Column="38" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/ConferenceDetailSpeakersViewController.cs" Line="156" Column="5" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="TekConf.RemoteData.iOS" expanded="True">
-            <Node name="v1" expanded="True">
-              <Node name="Requests" expanded="True" />
-            </Node>
-          </Node>
-          <Node name="TekConf.UI.iOS" expanded="True" />
+          <Option id="ShowAllFiles" value="True" />
           <Node name="TekConf.UI.iPhone" expanded="True">
-            <Node name="Views" expanded="True">
-              <Node name="SpeakerDetailAboutViewController.cs" selected="True" />
-            </Node>
+            <Node name="AppDelegate.cs" selected="True" />
           </Node>
         </State>
       </Pad>

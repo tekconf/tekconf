@@ -29,6 +29,9 @@ namespace TekConf.UI.iPhone
 		//
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
+			var font = UIFont.FromName("OpenSans-Light", 16f);
+			UILabel.Appearance.Font = font;
+		
 			window = new UIWindow (UIScreen.MainScreen.Bounds);
 			Menu = new SlideoutNavigationController();
 			Menu.TopView = new ConferencesListViewController();
@@ -44,20 +47,30 @@ namespace TekConf.UI.iPhone
 	public class SideListController : DialogViewController
 	{
 		public SideListController() 
-			: base(UITableViewStyle.Plain,new RootElement(""))
+			: base(UITableViewStyle.Plain, new RootElement(""))
 		{
 		}
-		
+
+
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-			
+
 			Root.Add(new Section() {
 				new StyledStringElement("Conferences", () => { NavigationController.PushViewController(new ConferencesListViewController(), true); }),
 				new StyledStringElement("CodeMash 2013", () => { NavigationController.PushViewController(new ConferenceDetailTabBarController(), true); }),
 				//new StyledStringElement("Stuff", () => { NavigationController.PushViewController(new StuffViewController(), true); }),
 				//new StyledStringElement("Full Screen", () => { NavigationController.PushViewController(new FullscreenViewController(), true); })
 			});
+
+			if (NavigationController != null)
+			{
+				NavigationController.NavigationBar.TintColor = UIColor.FromRGBA(red:0.506f, 
+				                                                                green:0.6f, 
+				                                                                blue:0.302f, 
+				                                                                alpha:1f);
+
+			}
 		}
 	}
 }

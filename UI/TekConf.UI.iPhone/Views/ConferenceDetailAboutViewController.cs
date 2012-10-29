@@ -29,7 +29,17 @@ namespace TekConf.UI.iPhone
 			base.ViewDidLoad ();
 			
 			var loading = new UIAlertView (" Downloading Conference", "Please wait...", null, null, null);
-			
+			//var fonts = UIFont.FontNamesForFamilyName("Open Sans");
+			//var font = UIFont.FromName("OpenSans-Light", 16f);
+
+//			this.nameLabel.Font = font;
+//			this.descriptionLabel.Font = font;
+//			this.endLabel.Font = font;
+//			this.startLabel.Font = font;
+//			this.taglineLabel.Font = font;
+//			this.twitterHashTagLabel.Font = font;
+//			this.twitterNameLabel.Font = font;
+
 			loading.Show ();
 			
 			var indicator = new UIActivityIndicatorView (UIActivityIndicatorViewStyle.WhiteLarge); 
@@ -66,6 +76,7 @@ namespace TekConf.UI.iPhone
 					loading.DismissWithClickedButtonIndex (0, true); 
 				});
 			});
+
 
 		}
 

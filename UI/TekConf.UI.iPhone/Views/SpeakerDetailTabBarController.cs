@@ -4,7 +4,7 @@ using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.UI.iPhone
 {
-	public class SpeakerDetailTabBarController : UITabBarController {
+	public class SpeakerDetailTabBarController : BaseUITabBarController {
 		
 		UIViewController aboutTab, sessionsTab;
 

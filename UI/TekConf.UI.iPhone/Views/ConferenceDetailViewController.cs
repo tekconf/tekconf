@@ -108,6 +108,10 @@ namespace TekConf.UI.iPhone
 			{ 
 				var cell = tableView.DequeueReusableCell (SessionCell) ?? new UITableViewCell (UITableViewCellStyle.Subtitle, SessionCell); 
 				var session = _sessions [indexPath.Row]; 
+
+				var font = UIFont.FromName("OpenSans", 12f);
+				cell.TextLabel.Font = font;
+				cell.DetailTextLabel.Font = font;
 				cell.TextLabel.Text = session.title; 
 				cell.DetailTextLabel.Text = session.start.ToLocalTime ().ToString (); 
 				return cell; 
@@ -164,7 +168,9 @@ namespace TekConf.UI.iPhone
 						cell.Accessory = UITableViewCellAccessory.DisclosureIndicator;
 					}
 				}
-				
+				var font = UIFont.FromName("OpenSans", 12f);
+				cell.TextLabel.Font = font;
+				cell.DetailTextLabel.Font = font;
 				// Configure the cell.
 				//cell.TextLabel.Text = NSBundle.MainBundle.LocalizedString (
 				//	"Detail",

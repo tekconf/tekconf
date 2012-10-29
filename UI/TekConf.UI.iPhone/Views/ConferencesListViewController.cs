@@ -55,6 +55,8 @@ namespace TekConf.UI.iPhone
 					UITableViewScrollPosition.Middle
 					);
 			}
+
+			
 		}
 
 		[Obsolete]
@@ -104,6 +106,11 @@ namespace TekConf.UI.iPhone
 			{ 
 				var cell = tableView.DequeueReusableCell (ConferenceCell) ?? new UITableViewCell (UITableViewCellStyle.Subtitle, ConferenceCell); 
 				var conference = _conferences [indexPath.Row]; 
+
+				var font = UIFont.FromName("OpenSans", 12f);
+				cell.TextLabel.Font = font;
+				cell.DetailTextLabel.Font = font;
+
 				cell.TextLabel.Text = conference.name; 
 				cell.DetailTextLabel.Text = conference.start.ToLocalTime ().ToString (); 
 				return cell; 
@@ -160,7 +167,9 @@ namespace TekConf.UI.iPhone
 						cell.Accessory = UITableViewCellAccessory.DisclosureIndicator;
 					}
 				}
-				
+				var font = UIFont.FromName("OpenSans", 12f);
+				cell.TextLabel.Font = font;
+				cell.DetailTextLabel.Font = font;
 				// Configure the cell.
 				//cell.TextLabel.Text = NSBundle.MainBundle.LocalizedString (
 				//	"Detail",

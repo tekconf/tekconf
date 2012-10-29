@@ -3,7 +3,7 @@ using MonoTouch.UIKit;
 
 namespace TekConf.UI.iPhone
 {
-	public class ConferenceDetailTabBarController : UITabBarController {
+	public class ConferenceDetailTabBarController : BaseUITabBarController {
 		
 		UIViewController aboutTab, sessionsTab, speakersTab;
 		

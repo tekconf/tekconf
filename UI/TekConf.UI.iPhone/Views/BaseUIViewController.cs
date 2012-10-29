@@ -12,7 +12,7 @@ namespace TekConf.UI.iPhone
 	{
 		public BaseUIViewController (string nibName, NSBundle bundle) : base(nibName, bundle)
 		{
-			
+
 		}
 
 		private string _baseUrl = "http://api.tekconf.com";
@@ -32,6 +32,21 @@ namespace TekConf.UI.iPhone
 
 		protected static bool UserInterfaceIdiomIsPhone {
 			get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone; }
+		}
+
+		public override void ViewDidLoad ()
+		{
+			base.ViewDidLoad();
+
+			if (NavigationController != null)
+			{
+				//UIColor colorWithRed:0.506 green:0.6 blue:0.302 alpha:1
+				NavigationController.NavigationBar.TintColor = UIColor.FromRGBA(red:0.506f, 
+				                                                                green:0.6f, 
+				                                                                blue:0.302f,
+				                                                                alpha:1f);
+			}
+
 		}
 	}
 	

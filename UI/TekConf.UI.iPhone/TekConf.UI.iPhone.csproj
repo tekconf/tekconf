@@ -86,6 +86,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
+    <None Include="fonts\OpenSans-Bold.ttf" />
+    <None Include="fonts\OpenSans-BoldItalic.ttf" />
+    <None Include="fonts\OpenSans-ExtraBold.ttf" />
+    <None Include="fonts\OpenSans-ExtraBoldItalic.ttf" />
+    <None Include="fonts\OpenSans-Italic.ttf" />
+    <None Include="fonts\OpenSans-Light.ttf" />
+    <None Include="fonts\OpenSans-LightItalic.ttf" />
+    <None Include="fonts\OpenSans-Regular.ttf" />
+    <None Include="fonts\OpenSans-Semibold.ttf" />
+    <None Include="fonts\OpenSans-SemiboldItalic.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
@@ -117,6 +127,7 @@
     <Compile Include="Views\SpeakerDetailSessionsViewController.designer.cs">
       <DependentUpon>SpeakerDetailSessionsViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\BaseUITabBarController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -151,5 +162,21 @@
     <InterfaceDefinition Include="Views\ConferenceDetailSpeakersViewController.xib" />
     <InterfaceDefinition Include="Views\SpeakerDetailAboutViewController.xib" />
     <InterfaceDefinition Include="Views\SpeakerDetailSessionsViewController.xib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Default-Landscape.png" />
+    <Content Include="Default-Portrait.png" />
+    <Content Include="Default.png" />
+    <Content Include="Default%402x.png" />
+    <Content Include="OpenSans-Bold.ttf" />
+    <Content Include="OpenSans-BoldItalic.ttf" />
+    <Content Include="OpenSans-ExtraBold.ttf" />
+    <Content Include="OpenSans-ExtraBoldItalic.ttf" />
+    <Content Include="OpenSans-Italic.ttf" />
+    <Content Include="OpenSans-Light.ttf" />
+    <Content Include="OpenSans-LightItalic.ttf" />
+    <Content Include="OpenSans-Regular.ttf" />
+    <Content Include="OpenSans-Semibold.ttf" />
+    <Content Include="OpenSans-SemiboldItalic.ttf" />
   </ItemGroup>
 </Project>
