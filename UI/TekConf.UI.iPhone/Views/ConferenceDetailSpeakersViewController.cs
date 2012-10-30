@@ -122,9 +122,6 @@ namespace TekConf.UI.iPhone
 				if (UserInterfaceIdiomIsPhone) {
 					_speakerDetailViewController = new SpeakerDetailTabBarController (selectedSpeaker);
 
-					//_rootViewController.SelectedSpeakerSlug = selectedSpeaker.slug;
-					//_rootViewController.PerformSegue (MoveToMapSegueName, _rootViewController);
-					// Pass the selected object to the new view controller.
 					_rootViewController.NavigationController.PushViewController (
 											_speakerDetailViewController,
 											true

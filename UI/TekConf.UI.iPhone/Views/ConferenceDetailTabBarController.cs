@@ -31,9 +31,11 @@ namespace TekConf.UI.iPhone
 			
 			sessionsTab = new ConferenceDetailViewController(conference);
 			sessionsTab.Title = "Sessions";
+			sessionsTab.TabBarItem.Image = UIImage.FromBundle("images/glyphicons_061_keynote");
 			
 			speakersTab = new ConferenceDetailSpeakersViewController(conference);
 			speakersTab.Title = "Speakers";
+			speakersTab.TabBarItem.Image = UIImage.FromBundle("images/glyphicons_042_group");
 			
 			#region Additional Info
 			//			tab1.TabBarItem = new UITabBarItem (UITabBarSystemItem.History, 0); // sets image AND text

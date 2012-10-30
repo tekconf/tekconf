@@ -28,6 +28,15 @@ namespace TekConf.UI.iPhone
 
 		[Outlet]
 		MonoTouch.UIKit.UILabel twitterNameLabel { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIScrollView contentDetailsScrollView { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIImageView profileImageView { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIView moreInformationView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -59,6 +68,21 @@ namespace TekConf.UI.iPhone
 			if (twitterNameLabel != null) {
 				twitterNameLabel.Dispose ();
 				twitterNameLabel = null;
+			}
+
+			if (contentDetailsScrollView != null) {
+				contentDetailsScrollView.Dispose ();
+				contentDetailsScrollView = null;
+			}
+
+			if (profileImageView != null) {
+				profileImageView.Dispose ();
+				profileImageView = null;
+			}
+
+			if (moreInformationView != null) {
+				moreInformationView.Dispose ();
+				moreInformationView = null;
 			}
 		}
 	}
