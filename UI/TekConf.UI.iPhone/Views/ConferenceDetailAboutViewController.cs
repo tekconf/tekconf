@@ -26,7 +26,15 @@ namespace TekConf.UI.iPhone
 			
 			// Release any cached data, images, etc that aren't in use.
 		}
-		
+		public override void ViewWillAppear (bool animated)
+		{
+			base.ViewWillAppear (animated);
+			this.contentScrollView.ContentSize = new SizeF(width:this.View.Frame.Width, height:600);
+			this.contentScrollView.ScrollEnabled = true;
+			this.contentScrollView.ClipsToBounds = true;
+			this.contentScrollView.ContentInset = new UIEdgeInsets(top:-30, left:0, bottom:900, right:0);
+		}
+
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
@@ -42,15 +50,20 @@ namespace TekConf.UI.iPhone
 
 			InvokeOnMainThread (() => 
 			{ 
-				this.nameLabel.Text = _conference.name;
+
 				this.descriptionLabel.Text = _conference.description;
 
 				this.descriptionLabel.Lines  = 0;
 
 				this.descriptionLabel.SizeToFit();
-				this.endLabel.Text = _conference.end.ToString ();
-				this.startLabel.Text = _conference.start.ToString ();
+
+				this.detailsContainerView.Frame.Location = new PointF(x: this.descriptionLabel.Frame.Bottom + 20, y: this.descriptionLabel.Frame.Location.Y);
+				this.detailsContainerView.BackgroundColor = UIColor.FromRGBA(red: 0.933f, green: 0.933f, blue: 0.933f, alpha: 1f);
+				//[UIColor colorWithRed:0.933 green:0.933 blue:0.933 alpha:1] /*#eeeeee*/
+				this.startLabel.Text = _conference.CalculateConferenceDates(_conference);
 				this.taglineLabel.Text = _conference.tagline;
+				var font = UIFont.FromName("OpenSans", 15f);
+				this.taglineLabel.Font = font;
 				this.twitterHashTagLabel.Text = _conference.twitterHashTag;
 				this.twitterNameLabel.Text = _conference.twitterName;
 
@@ -83,7 +96,6 @@ namespace TekConf.UI.iPhone
 
 				loading.DismissWithClickedButtonIndex (0, true); 
 			});
-
 
 		}
 

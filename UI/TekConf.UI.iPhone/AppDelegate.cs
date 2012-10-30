@@ -60,7 +60,7 @@ namespace TekConf.UI.iPhone
 		{
 			base.ViewDidLoad ();
 
-			var font = UIFont.FromName("OpenSans-Light", 16f);
+			var font = UIFont.FromName("OpenSans", 16f);
 			
 			Root.Add(new Section() {
 				new StyledStringElement("Conferences", () => { NavigationController.PushViewController(new ConferencesListViewController(), true); }) { Font = font },

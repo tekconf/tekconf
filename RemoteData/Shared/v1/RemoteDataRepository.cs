@@ -17,6 +17,7 @@ namespace TekConf.RemoteData.v1
                 if (_restClient == null)
                 {
                     _restClient = new JsonServiceClient(_baseUrl);
+					_restClient.Timeout = new TimeSpan(0,0,0,20,0);
                 }
 
                 return _restClient;

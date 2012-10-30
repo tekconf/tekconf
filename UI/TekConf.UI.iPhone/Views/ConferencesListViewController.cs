@@ -112,12 +112,13 @@ namespace TekConf.UI.iPhone
 				var cell = tableView.DequeueReusableCell (ConferenceCell) ?? new UITableViewCell (UITableViewCellStyle.Subtitle, ConferenceCell); 
 				var conference = _conferences [indexPath.Row]; 
 
-				var font = UIFont.FromName("OpenSans", 12f);
-				cell.TextLabel.Font = font;
-				cell.DetailTextLabel.Font = font;
+				var mainFont = UIFont.FromName("OpenSans", 14f);
+				var detailFont = UIFont.FromName("OpenSans", 12f);
+				cell.TextLabel.Font = mainFont;
+				cell.DetailTextLabel.Font = detailFont;
 
 				cell.TextLabel.Text = conference.name; 
-				cell.DetailTextLabel.Text = conference.start.ToLocalTime ().ToString (); 
+				cell.DetailTextLabel.Text = conference.CalculateConferenceDates(conference); 
 				return cell; 
 			}
 			

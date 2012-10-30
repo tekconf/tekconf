@@ -12,9 +12,6 @@ namespace TekConf.UI.iPhone
 	partial class ConferenceDetailAboutViewController
 	{
 		[Outlet]
-		MonoTouch.UIKit.UILabel nameLabel { get; set; }
-
-		[Outlet]
 		MonoTouch.UIKit.UILabel descriptionLabel { get; set; }
 
 		[Outlet]
@@ -24,9 +21,6 @@ namespace TekConf.UI.iPhone
 		MonoTouch.UIKit.UILabel startLabel { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel endLabel { get; set; }
-
-		[Outlet]
 		MonoTouch.UIKit.UILabel twitterNameLabel { get; set; }
 
 		[Outlet]
@@ -34,14 +28,15 @@ namespace TekConf.UI.iPhone
 
 		[Outlet]
 		MonoTouch.UIKit.UIImageView logoImage { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIScrollView contentScrollView { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIView detailsContainerView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (nameLabel != null) {
-				nameLabel.Dispose ();
-				nameLabel = null;
-			}
-
 			if (descriptionLabel != null) {
 				descriptionLabel.Dispose ();
 				descriptionLabel = null;
@@ -57,11 +52,6 @@ namespace TekConf.UI.iPhone
 				startLabel = null;
 			}
 
-			if (endLabel != null) {
-				endLabel.Dispose ();
-				endLabel = null;
-			}
-
 			if (twitterNameLabel != null) {
 				twitterNameLabel.Dispose ();
 				twitterNameLabel = null;
@@ -75,6 +65,16 @@ namespace TekConf.UI.iPhone
 			if (logoImage != null) {
 				logoImage.Dispose ();
 				logoImage = null;
+			}
+
+			if (contentScrollView != null) {
+				contentScrollView.Dispose ();
+				contentScrollView = null;
+			}
+
+			if (detailsContainerView != null) {
+				detailsContainerView.Dispose ();
+				detailsContainerView = null;
 			}
 		}
 	}
