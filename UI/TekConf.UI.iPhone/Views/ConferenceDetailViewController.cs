@@ -91,7 +91,7 @@ namespace TekConf.UI.iPhone
 			private readonly IList<FullSessionDto> _sessions;
 			private const string SessionCell = "SessionCell";
 			private ConferenceDetailViewController _rootViewController;
-			
+			private SessionDetailTabBarController _sessionDetailTabBarViewController;
 			public SessionsTableViewSource (ConferenceDetailViewController controller, IList<FullSessionDto> sessions)
 			{ 
 				_rootViewController = controller;
@@ -124,17 +124,14 @@ namespace TekConf.UI.iPhone
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 			{ 
 				var selectedSession = _sessions [indexPath.Row]; 
-				//new UIAlertView ("View Session", selectedSession.title, null, "Ok", null).Show (); 
 				
 				if (UserInterfaceIdiomIsPhone) {
-					//_sessionDetailViewController = new SessionDetailViewController (selectedSession.slug);
-					//_rootViewController.SelectedSessionSlug = selectedSession.slug;
-					//_rootViewController.PerformSegue (MoveToMapSegueName, _rootViewController);
-					// Pass the selected object to the new view controller.
-					//_rootViewController.NavigationController.PushViewController (
-					//						_sessionDetailViewController,
-					//						true
-					//					);
+					_sessionDetailTabBarViewController = new SessionDetailTabBarController (selectedSession);
+					
+					_rootViewController.NavigationController.PushViewController (
+						_sessionDetailTabBarViewController,
+						true
+						);
 				} else {
 					// Navigation logic may go here -- for example, create and push another view controller.
 				}

@@ -5,6 +5,7 @@ using MonoTouch.UIKit;
 using TekConf.RemoteData.v1;
 using System.Collections.Generic;
 using TekConf.RemoteData.Dtos.v1;
+using MonoTouch.Dialog.Utilities;
 
 namespace TekConf.UI.iPhone
 {
@@ -84,7 +85,7 @@ namespace TekConf.UI.iPhone
 		}
 	
 	
-		private class ConferencesTableViewSource : UITableViewSource
+		private class ConferencesTableViewSource : UITableViewSource, IImageUpdated
 		{ 
 			private readonly IList<FullConferenceDto> _conferences;
 			private const string ConferenceCell = "ConferenceCell";
@@ -117,6 +118,19 @@ namespace TekConf.UI.iPhone
 				cell.TextLabel.Font = mainFont;
 				cell.DetailTextLabel.Font = detailFont;
 
+				if (!string.IsNullOrWhiteSpace(conference.imageUrl))
+				{
+					var logo = ImageLoader.DefaultRequestImage(new Uri("http://www.tekconf.com" + conference.imageUrl), this);
+					if (logo == null)
+					{
+						//logoImage.Image = DefaultImage;
+					}
+					else 
+					{
+						cell.ImageView.Image = logo;
+					}
+				}
+
 				cell.TextLabel.Text = conference.name; 
 				cell.DetailTextLabel.Text = conference.CalculateConferenceDates(conference); 
 				return cell; 
@@ -138,6 +152,15 @@ namespace TekConf.UI.iPhone
 				}
 
 			} 
+
+			#region IImageUpdated implementation
+			
+			public void UpdatedImage (Uri uri)
+			{
+				//logoImage.Image = ImageLoader.DefaultRequestImage(uri, this);
+			}
+			
+			#endregion
 		}
 		
 		private class DataSource : UITableViewSource

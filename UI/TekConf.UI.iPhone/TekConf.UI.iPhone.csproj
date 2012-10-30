@@ -132,6 +132,11 @@
       <DependentUpon>SpeakerDetailSessionsViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\BaseUITabBarController.cs" />
+    <Compile Include="Views\SessionDetailTabBarController.cs" />
+    <Compile Include="Views\SessionDetailAboutViewController.cs" />
+    <Compile Include="Views\SessionDetailAboutViewController.designer.cs">
+      <DependentUpon>SessionDetailAboutViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -166,6 +171,7 @@
     <InterfaceDefinition Include="Views\ConferenceDetailSpeakersViewController.xib" />
     <InterfaceDefinition Include="Views\SpeakerDetailAboutViewController.xib" />
     <InterfaceDefinition Include="Views\SpeakerDetailSessionsViewController.xib" />
+    <InterfaceDefinition Include="Views\SessionDetailAboutViewController.xib" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Default-Landscape.png" />
@@ -182,5 +188,7 @@
     <Content Include="OpenSans-Regular.ttf" />
     <Content Include="OpenSans-Semibold.ttf" />
     <Content Include="OpenSans-SemiboldItalic.ttf" />
+    <Content Include="images\glyphicons_042_group.png" />
+    <Content Include="images\glyphicons_061_keynote.png" />
   </ItemGroup>
 </Project>
