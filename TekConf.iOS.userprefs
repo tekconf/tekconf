@@ -1,11 +1,8 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="RemoteData/Shared/v1/Dtos/FullConferenceDto.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="UI/TekConf.UI.iPhone/Views/ConferenceDetailViewController.cs">
     <Files>
-      <File FileName="UI/TekConf.UI.iPhone/Views/SpeakerDetailAboutViewController.cs" Line="28" Column="4" />
-      <File FileName="UI/TekConf.UI.iPhone/Views/SessionDetailAboutViewController.cs" Line="1" Column="1" />
-      <File FileName="UI/TekConf.UI.iPhone/Views/ConferencesListViewController.cs" Line="135" Column="51" />
-      <File FileName="RemoteData/Shared/v1/Dtos/FullConferenceDto.cs" Line="48" Column="5" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/ConferenceDetailViewController.cs" Line="83" Column="25" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -13,14 +10,13 @@
           <Option id="ShowAllFiles" value="True" />
           <Node name="TekConf.RemoteData.iOS" expanded="True">
             <Node name="v1" expanded="True">
-              <Node name="Dtos" expanded="True">
-                <Node name="FullConferenceDto.cs" selected="True" />
-              </Node>
+              <Node name="Dtos" expanded="True" />
             </Node>
           </Node>
           <Node name="TekConf.UI.iPhone" expanded="True">
             <Node name="Views" expanded="True">
               <Node name="ConferenceDetailAboutViewController.cs" expanded="True" />
+              <Node name="ConferenceDetailViewController.cs" selected="True" />
             </Node>
           </Node>
         </State>
@@ -34,11 +30,14 @@
     <BreakpointStore>
       <Breakpoint file="/Users/Rob/dev/tekconf/UI/TekConf.UI.iOS/SessionsListRootViewController.cs" line="80" />
       <Breakpoint file="/Users/Rob/dev/tekconf/UI/TekConf.UI.iOS/SessionsListRootViewController.cs" line="76" />
+      <Breakpoint file="/Users/Rob/dev/tekconf/UI/TekConf.UI.iPhone/Views/ConferenceDetailViewController.cs" line="93" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>
     <Watch file="RemoteData/Shared/v1/RemoteDataRepository.cs" line="28" offsetX="519" offsetY="486" expression="baseUrl" liveUpdate="False" />
     <Watch file="UI/TekConf.UI.iPhone/Views/SpeakerDetailAboutViewController.cs" line="16" offsetX="343" offsetY="270" expression="speaker" liveUpdate="False" />
+    <Watch file="UI/TekConf.UI.iPhone/Views/ConferenceDetailViewController.cs" line="136" offsetX="957" offsetY="2096" expression="indexPath.Section" liveUpdate="False" />
+    <Watch file="UI/TekConf.UI.iPhone/Views/ConferenceDetailViewController.cs" line="138" offsetX="958" offsetY="2131" expression="indexPath.Row" liveUpdate="False" />
   </MonoDevelop.Ide.DebuggingService.PinnedWatches>
   <MonoDevelop.Ide.ItemProperties.TekConf.UI.iPhone>
     <IPhoneTestFlightSettings_27CRelease ApiToken="28ea2cf46ef75d633a2bce49d2adbfb7_NzYwOA" TeamToken="19a8eedfedeed47cf1f6d74fd7ab561c_MTkxNDIwMTEtMDktMjkgMjE6MTc6MTAuNjM0NTAw" ReleaseNotes="First release of TekConf" NotifyTeamMembers="True" ReplaceBinaries="False" DistributionLists="TekConf" />

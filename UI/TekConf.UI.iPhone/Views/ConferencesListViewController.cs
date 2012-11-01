@@ -29,6 +29,7 @@ namespace TekConf.UI.iPhone
 		{
 			base.ViewWillAppear (animated);
 		}
+
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
