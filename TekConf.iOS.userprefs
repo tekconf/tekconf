@@ -1,8 +1,9 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="UI/TekConf.UI.iPhone/Views/ConferenceDetailViewController.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|iPhone" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="UI/TekConf.UI.iPhone/AppDelegate.cs">
     <Files>
       <File FileName="UI/TekConf.UI.iPhone/Views/ConferenceDetailViewController.cs" Line="83" Column="25" />
+      <File FileName="UI/TekConf.UI.iPhone/AppDelegate.cs" Line="63" Column="45" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -16,8 +17,8 @@
           <Node name="TekConf.UI.iPhone" expanded="True">
             <Node name="Views" expanded="True">
               <Node name="ConferenceDetailAboutViewController.cs" expanded="True" />
-              <Node name="ConferenceDetailViewController.cs" selected="True" />
             </Node>
+            <Node name="AppDelegate.cs" selected="True" />
           </Node>
         </State>
       </Pad>
