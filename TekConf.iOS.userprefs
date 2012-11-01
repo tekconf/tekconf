@@ -1,9 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="UI/TekConf.UI.iPhone/Views/SpeakerDetailAboutViewController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="RemoteData/Shared/v1/Dtos/FullConferenceDto.cs">
     <Files>
-      <File FileName="UI/TekConf.UI.iPhone/Views/SpeakerDetailAboutViewController.cs" Line="26" Column="47" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/SpeakerDetailAboutViewController.cs" Line="28" Column="4" />
       <File FileName="UI/TekConf.UI.iPhone/Views/SessionDetailAboutViewController.cs" Line="1" Column="1" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/ConferencesListViewController.cs" Line="135" Column="51" />
+      <File FileName="RemoteData/Shared/v1/Dtos/FullConferenceDto.cs" Line="48" Column="5" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -11,13 +13,14 @@
           <Option id="ShowAllFiles" value="True" />
           <Node name="TekConf.RemoteData.iOS" expanded="True">
             <Node name="v1" expanded="True">
-              <Node name="Dtos" expanded="True" />
+              <Node name="Dtos" expanded="True">
+                <Node name="FullConferenceDto.cs" selected="True" />
+              </Node>
             </Node>
           </Node>
           <Node name="TekConf.UI.iPhone" expanded="True">
             <Node name="Views" expanded="True">
               <Node name="ConferenceDetailAboutViewController.cs" expanded="True" />
-              <Node name="SpeakerDetailAboutViewController.cs" selected="True" />
             </Node>
           </Node>
         </State>

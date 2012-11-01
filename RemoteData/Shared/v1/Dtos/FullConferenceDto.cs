@@ -48,23 +48,23 @@ namespace TekConf.RemoteData.Dtos.v1
 			{
 				if (conference.start.Date == conference.end.Date)
 				{
-					conferenceDates = conference.start.ToString("MMMM dd, yyyy");
+					conferenceDates = conference.start.ToString("MMMM d, yyyy");
 				}
 				else if (conference.start.Year == conference.end.Year)
 				{
 					if (conference.start.Month == conference.end.Month)
 					{
 						//@startDate.ToString("MMMM")<text> </text>@startDate.Day<text> - </text>@endDate.Day<text>, </text>@startDate.Year
-						conferenceDates = conference.start.ToString("MMMM dd") + " - " + conference.end.Day + ", " + conference.end.Year;
+						conferenceDates = conference.start.ToString("MMMM d") + " - " + conference.end.Day + ", " + conference.end.Year;
 					}
 					else
 					{
-						conferenceDates = conference.start.ToString("MMMM dd") + " - " + conference.end.ToString("MMMM dd") + ", " + conference.end.Year;
+						conferenceDates = conference.start.ToString("MMMM d") + " - " + conference.end.ToString("MMMM d") + ", " + conference.end.Year;
 					}
 				}
 				else
 				{
-					conferenceDates = conference.start.ToString("MMMM dd, yyyy") + " - " + conference.end.ToString("MMMM dd, yyyy");
+					conferenceDates = conference.start.ToString("MMMM d, yyyy") + " - " + conference.end.ToString("MMMM d, yyyy");
 				}
 			}
 			
