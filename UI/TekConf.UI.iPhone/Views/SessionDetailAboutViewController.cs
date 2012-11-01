@@ -41,7 +41,7 @@ namespace TekConf.UI.iPhone
 			this.titleLabel.Lines = 0;
 			this.titleLabel.SizeToFit();
 			
-			this.startLabel.Text = _session.start.ToString();
+			this.startLabel.Text = _session.startDescription;
 			this.startLabel.Frame.Location = new PointF(y: this.titleLabel.Frame.Location.Y + this.titleLabel.Frame.Height + 20, x: this.titleLabel.Frame.Location.X);
 			
 			this.roomLabel.Text = _session.room;

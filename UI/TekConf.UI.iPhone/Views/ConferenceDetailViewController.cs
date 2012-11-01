@@ -113,13 +113,14 @@ namespace TekConf.UI.iPhone
 				var cell = tableView.DequeueReusableCell (SessionCell) ?? new UITableViewCell (UITableViewCellStyle.Subtitle, SessionCell); 
 				var session = _sessions [indexPath.Row]; 
 
-				var font = UIFont.FromName("OpenSans", 12f);
+				var font = UIFont.FromName ("OpenSans", 12f);
 				cell.TextLabel.Font = font;
 				cell.DetailTextLabel.Font = font;
-				cell.TextLabel.Text = session.title; 
-				cell.DetailTextLabel.Text = session.start.ToLocalTime ().ToString (); 
+
+				cell.TextLabel.Text = session.title;
+				cell.DetailTextLabel.Text = session.startDescription;
 				return cell; 
-			}
+				}
 			
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 			{ 
