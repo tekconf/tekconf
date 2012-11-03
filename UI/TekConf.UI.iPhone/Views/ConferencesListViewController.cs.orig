@@ -42,7 +42,11 @@ namespace TekConf.UI.iPhone
 			indicator.Center = new System.Drawing.PointF (loading.Bounds.Width / 2, loading.Bounds.Size.Height - 40); 
 			indicator.StartAnimating (); 
 			loading.AddSubview (indicator);
+<<<<<<< HEAD
+
+=======
 			
+>>>>>>> f21e126352cf5a82664011a4a11001514165f682
 			Repository.GetConferences (sortBy: "", showPastConferences: true, search: "", callback:conferences => 
 			{ 
 				InvokeOnMainThread (() => 
