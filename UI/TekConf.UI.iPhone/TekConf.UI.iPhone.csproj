@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B0B8941A-8FCE-4253-9A89-E070B7C78E5D}</ProjectGuid>
+    <ProjectTypeGuids>{6BC8ED88-2882-458C-8E55-DFD12B67127B};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>TekConf.UI.iPhone</RootNamespace>
+    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+    <AssemblyName>TekConfUIiPhone</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>False</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+    <MtouchDebug>True</MtouchDebug>
+    <MtouchProfiling>True</MtouchProfiling>
+    <MtouchLink>None</MtouchLink>
+    <MtouchI18n />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
+    <DebugType>none</DebugType>
+    <Optimize>True</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+    <MtouchLink>None</MtouchLink>
+    <MtouchI18n />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>False</Optimize>
+    <OutputPath>bin\iPhone\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <MtouchDebug>True</MtouchDebug>
+    <MtouchProfiling>True</MtouchProfiling>
+    <IpaPackageName />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
+    <DebugType>none</DebugType>
+    <Optimize>True</Optimize>
+    <OutputPath>bin\iPhone\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+    <CodesignKey>iPhone Distribution: Artek Software</CodesignKey>
+    <CodesignProvision>E377DD6E-1EF2-49E7-850F-0C8DE1F998DB</CodesignProvision>
+    <MtouchI18n />
+    <BuildIpa>True</BuildIpa>
+    <IpaPackageName />
+    <MtouchLink>None</MtouchLink>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
+    <DebugType>none</DebugType>
+    <Optimize>True</Optimize>
+    <OutputPath>bin\iPhone\Ad-Hoc</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+    <BuildIpa>True</BuildIpa>
+    <CodesignKey>iPhone Distribution: Artek Software</CodesignKey>
+    <CodesignProvision>B281B13B-EF60-4233-949D-B0566546B35B</CodesignProvision>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|iPhone' ">
+    <DebugType>none</DebugType>
+    <Optimize>True</Optimize>
+    <OutputPath>bin\iPhone\AppStore</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+    <CodesignKey>iPhone Distribution: Artek Software</CodesignKey>
+    <CodesignProvision>B281B13B-EF60-4233-949D-B0566546B35B</CodesignProvision>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="monotouch" />
+    <Reference Include="MonoTouch.Dialog-1" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Info.plist" />
+    <None Include="fonts\OpenSans-Bold.ttf" />
+    <None Include="fonts\OpenSans-BoldItalic.ttf" />
+    <None Include="fonts\OpenSans-ExtraBold.ttf" />
+    <None Include="fonts\OpenSans-ExtraBoldItalic.ttf" />
+    <None Include="fonts\OpenSans-Italic.ttf" />
+    <None Include="fonts\OpenSans-Light.ttf" />
+    <None Include="fonts\OpenSans-LightItalic.ttf" />
+    <None Include="fonts\OpenSans-Regular.ttf" />
+    <None Include="fonts\OpenSans-Semibold.ttf" />
+    <None Include="fonts\OpenSans-SemiboldItalic.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Main.cs" />
+    <Compile Include="AppDelegate.cs" />
+    <Compile Include="Views\ConferencesListViewController.cs" />
+    <Compile Include="Views\ConferencesListViewController.designer.cs">
+      <DependentUpon>ConferencesListViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ConferenceDetailViewController.cs" />
+    <Compile Include="Views\ConferenceDetailViewController.designer.cs">
+      <DependentUpon>ConferenceDetailViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BaseUIViewController.cs" />
+    <Compile Include="Views\ConferenceDetailTabBarController.cs" />
+    <Compile Include="Views\ConferenceDetailAboutViewController.cs" />
+    <Compile Include="Views\ConferenceDetailAboutViewController.designer.cs">
+      <DependentUpon>ConferenceDetailAboutViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ConferenceDetailSpeakersViewController.cs" />
+    <Compile Include="Views\ConferenceDetailSpeakersViewController.designer.cs">
+      <DependentUpon>ConferenceDetailSpeakersViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SpeakerDetailTabBarController.cs" />
+    <Compile Include="Views\SpeakerDetailAboutViewController.cs" />
+    <Compile Include="Views\SpeakerDetailAboutViewController.designer.cs">
+      <DependentUpon>SpeakerDetailAboutViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SpeakerDetailSessionsViewController.cs" />
+    <Compile Include="Views\SpeakerDetailSessionsViewController.designer.cs">
+      <DependentUpon>SpeakerDetailSessionsViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BaseUITabBarController.cs" />
+    <Compile Include="Views\SessionDetailTabBarController.cs" />
+    <Compile Include="Views\SessionDetailAboutViewController.cs" />
+    <Compile Include="Views\SessionDetailAboutViewController.designer.cs">
+      <DependentUpon>SessionDetailAboutViewController.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\monotouch.slideoutnavigation\MonoTouch.SlideoutNavigation\MonoTouch.SlideoutNavigation.csproj">
+      <Project>{6D7B9B53-CFEF-46BE-A608-14A4A1381CF6}</Project>
+      <Name>MonoTouch.SlideoutNavigation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ServiceStack\src\ServiceStack.MonoTouch\ServiceStack.Common.MonoTouch\ServiceStack.Common.MonoTouch.csproj">
+      <Project>{105AD659-A41C-4063-A57B-E3EB31026445}</Project>
+      <Name>ServiceStack.Common.MonoTouch</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ServiceStack\src\ServiceStack.MonoTouch\ServiceStack.Interfaces.MonoTouch\ServiceStack.Interfaces.MonoTouch.csproj">
+      <Project>{4E0544B6-8D34-45D2-AB27-605F51BF4C55}</Project>
+      <Name>ServiceStack.Interfaces.MonoTouch</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ServiceStack.Text\src\ServiceStack.Text.MonoTouch\ServiceStack.Text.MonoTouch\ServiceStack.Text.MonoTouch.csproj">
+      <Project>{1137B5AC-2259-413C-A473-93721D2A7551}</Project>
+      <Name>ServiceStack.Text.MonoTouch</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\RemoteData\iOS\TekConf.RemoteData.iOS.csproj">
+      <Project>{CF44A2C3-42DF-4970-9618-E6AE3AF31603}</Project>
+      <Name>TekConf.RemoteData.iOS</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterfaceDefinition Include="Views\ConferencesListViewController.xib" />
+    <InterfaceDefinition Include="Views\ConferenceDetailViewController.xib" />
+    <InterfaceDefinition Include="Views\ConferenceDetailAboutViewController.xib" />
+    <InterfaceDefinition Include="Views\ConferenceDetailSpeakersViewController.xib" />
+    <InterfaceDefinition Include="Views\SpeakerDetailAboutViewController.xib" />
+    <InterfaceDefinition Include="Views\SpeakerDetailSessionsViewController.xib" />
+    <InterfaceDefinition Include="Views\SessionDetailAboutViewController.xib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Default-Landscape.png" />
+    <Content Include="Default-Portrait.png" />
+    <Content Include="Default.png" />
+    <Content Include="Default%402x.png" />
+    <Content Include="OpenSans-Bold.ttf" />
+    <Content Include="OpenSans-BoldItalic.ttf" />
+    <Content Include="OpenSans-ExtraBold.ttf" />
+    <Content Include="OpenSans-ExtraBoldItalic.ttf" />
+    <Content Include="OpenSans-Italic.ttf" />
+    <Content Include="OpenSans-Light.ttf" />
+    <Content Include="OpenSans-LightItalic.ttf" />
+    <Content Include="OpenSans-Regular.ttf" />
+    <Content Include="OpenSans-Semibold.ttf" />
+    <Content Include="OpenSans-SemiboldItalic.ttf" />
+    <Content Include="images\glyphicons_042_group.png" />
+    <Content Include="images\glyphicons_061_keynote.png" />
+    <Content Include="images\three_lines.png" />
+    <Content Include="artekLogo114.png" />
+    <Content Include="artekLogo57.png" />
+    <Content Include="artekLogo72.png" />
+  </ItemGroup>
+</Project>

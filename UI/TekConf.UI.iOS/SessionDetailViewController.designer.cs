@@ -6,7 +6,7 @@
 //
 using MonoTouch.Foundation;
 
-namespace ConferencesIO.UI.iOS
+namespace TekConf.UI.iOS
 {
 	[Register ("SessionDetailViewController")]
 	partial class SessionDetailViewController

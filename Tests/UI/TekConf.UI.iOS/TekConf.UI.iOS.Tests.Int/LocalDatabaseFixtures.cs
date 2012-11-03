@@ -1,13 +1,13 @@
 using System;
 using NUnit.Framework;
-using ConferencesIO.LocalData.Shared;
+using TekConf.LocalData.Shared;
 using System.IO;
 using Catnap;
-using ConferencesIO.LocalData.iOS;
+using TekConf.LocalData.iOS;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ConferencesIO.UI.iOS.Tests.Int
+namespace TekConf.UI.iOS.Tests.Int
 {
 	[TestFixture]
 	public class LocalDatabaseFixtures

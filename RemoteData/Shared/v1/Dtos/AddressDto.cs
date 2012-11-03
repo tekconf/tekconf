@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations;
-
 namespace TekConf.RemoteData.Dtos.v1
 {
     public class AddressDto

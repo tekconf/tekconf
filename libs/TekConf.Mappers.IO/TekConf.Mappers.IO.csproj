@@ -38,17 +38,13 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\..\LocalData\iOS\ConferencesIO.LocalData.iOS\ConferencesIO.LocalData.iOS.csproj">
-      <Project>{2CF3432D-C779-44DF-9446-CB5AE42CB4C5}</Project>
-      <Name>ConferencesIO.LocalData.iOS</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\RemoteData\iOS\ConferencesIO.RemoteData.iOS.csproj">
-      <Project>{CF44A2C3-42DF-4970-9618-E6AE3AF31603}</Project>
-      <Name>ConferencesIO.RemoteData.iOS</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="SessionDtoToSessionEntityMapper.cs" />
     <Compile Include="ConferenceDtoToConferenceEntityMapper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\RemoteData\iOS\TekConf.RemoteData.iOS.csproj">
+      <Project>{CF44A2C3-42DF-4970-9618-E6AE3AF31603}</Project>
+      <Name>TekConf.RemoteData.iOS</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>
