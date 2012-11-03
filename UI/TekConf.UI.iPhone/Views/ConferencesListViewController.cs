@@ -43,7 +43,7 @@ namespace TekConf.UI.iPhone
 			indicator.StartAnimating (); 
 			loading.AddSubview (indicator);
 			
-			Repository.GetConferences (sortBy: "", showPastConferences: false, search: "", callback:conferences => 
+			Repository.GetConferences (sortBy: "", showPastConferences: true, search: "", callback:conferences => 
 			{ 
 				InvokeOnMainThread (() => 
 			    { 

@@ -34,6 +34,18 @@ namespace TekConf.UI.iPhone
 
 		[Outlet]
 		MonoTouch.UIKit.UIView detailsContainerView { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel tagLineSeparatorTop { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel tagLineSeparatorBottom { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel detailsSlashesLabel { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel moreInformationLabel { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -75,6 +87,26 @@ namespace TekConf.UI.iPhone
 			if (detailsContainerView != null) {
 				detailsContainerView.Dispose ();
 				detailsContainerView = null;
+			}
+
+			if (tagLineSeparatorTop != null) {
+				tagLineSeparatorTop.Dispose ();
+				tagLineSeparatorTop = null;
+			}
+
+			if (tagLineSeparatorBottom != null) {
+				tagLineSeparatorBottom.Dispose ();
+				tagLineSeparatorBottom = null;
+			}
+
+			if (detailsSlashesLabel != null) {
+				detailsSlashesLabel.Dispose ();
+				detailsSlashesLabel = null;
+			}
+
+			if (moreInformationLabel != null) {
+				moreInformationLabel.Dispose ();
+				moreInformationLabel = null;
 			}
 		}
 	}

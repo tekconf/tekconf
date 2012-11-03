@@ -1,11 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|iPhone" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="../monotouch.slideoutnavigation/MonoTouch.SlideoutNavigation/SlideoutNavigationController.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="UI/TekConf.UI.iPhone/Views/ConferenceDetailAboutViewController.cs">
     <Files>
-      <File FileName="UI/TekConf.UI.iPhone/AppDelegate.cs" Line="21" Column="3" />
-      <File FileName="UI/TekConf.UI.iPhone/Views/ConferencesListViewController.cs" Line="32" Column="3" />
-      <File FileName="RemoteData/Shared/v1/RemoteDataRepository.cs" Line="1" Column="1" />
-      <File FileName="../monotouch.slideoutnavigation/MonoTouch.SlideoutNavigation/SlideoutNavigationController.cs" Line="338" Column="22" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/ConferenceDetailAboutViewController.cs" Line="124" Column="71" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/ConferencesListViewController.cs" Line="113" Column="6" />
+      <File FileName="UI/TekConf.UI.iPhone/AppDelegate.cs" Line="32" Column="54" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -14,8 +13,12 @@
           <Node name="MonoTouch.SlideoutNavigation" expanded="True">
             <Node name="Images" expanded="True" />
           </Node>
-          <Node name="TekConf.UI.iPhone" expanded="True" selected="True">
+          <Node name="TekConf.RemoteData.iOS" expanded="True" />
+          <Node name="TekConf.UI.iPhone" expanded="True">
             <Node name="images" expanded="True" />
+            <Node name="Views" expanded="True">
+              <Node name="ConferenceDetailAboutViewController.xib" selected="True" />
+            </Node>
           </Node>
         </State>
       </Pad>
@@ -29,6 +32,7 @@
       <Breakpoint file="/Users/Rob/dev/tekconf/UI/TekConf.UI.iOS/SessionsListRootViewController.cs" line="80" />
       <Breakpoint file="/Users/Rob/dev/tekconf/UI/TekConf.UI.iOS/SessionsListRootViewController.cs" line="76" />
       <Breakpoint file="/Users/Rob/dev/tekconf/UI/TekConf.UI.iPhone/Views/ConferenceDetailViewController.cs" line="93" />
+      <Breakpoint hitAction="PrintExpression" traceExpression="{this.descriptionLabel.Frame}" file="/Users/Rob/dev/tekconf/UI/TekConf.UI.iPhone/Views/ConferenceDetailAboutViewController.cs" line="71" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>
@@ -36,6 +40,10 @@
     <Watch file="UI/TekConf.UI.iPhone/Views/SpeakerDetailAboutViewController.cs" line="16" offsetX="343" offsetY="270" expression="speaker" liveUpdate="False" />
     <Watch file="UI/TekConf.UI.iPhone/Views/ConferenceDetailViewController.cs" line="136" offsetX="957" offsetY="2096" expression="indexPath.Section" liveUpdate="False" />
     <Watch file="UI/TekConf.UI.iPhone/Views/ConferenceDetailViewController.cs" line="138" offsetX="958" offsetY="2131" expression="indexPath.Row" liveUpdate="False" />
+    <Watch file="UI/TekConf.UI.iPhone/Views/ConferenceDetailAboutViewController.cs" line="71" offsetX="727" offsetY="1118" expression="this.detailsContainerView.Frame" liveUpdate="False" />
+    <Watch file="UI/TekConf.UI.iPhone/Views/ConferenceDetailAboutViewController.cs" line="71" offsetX="1189" offsetY="1116" expression="this.detailsContainerView.Frame.Location" liveUpdate="False" />
+    <Watch file="UI/TekConf.UI.iPhone/Views/ConferenceDetailAboutViewController.cs" line="71" offsetX="727" offsetY="1084" expression="this.descriptionLabel.Frame" liveUpdate="True" />
+    <Watch file="UI/TekConf.UI.iPhone/Views/ConferenceDetailAboutViewController.cs" line="71" offsetX="1192" offsetY="1083" expression="this.descriptionLabel.Frame.Location" liveUpdate="False" />
   </MonoDevelop.Ide.DebuggingService.PinnedWatches>
   <MonoDevelop.Ide.ItemProperties.TekConf.UI.iPhone>
     <IPhoneTestFlightSettings_27CRelease ApiToken="28ea2cf46ef75d633a2bce49d2adbfb7_NzYwOA" TeamToken="19a8eedfedeed47cf1f6d74fd7ab561c_MTkxNDIwMTEtMDktMjkgMjE6MTc6MTAuNjM0NTAw" ReleaseNotes="First release of TekConf.  There are LOTS of known issues. Track issues here : https://trello.com/board/tekconf/50747c7b7dfbc8a32f0417b7" NotifyTeamMembers="True" ReplaceBinaries="False" DistributionLists="TekConf" />
