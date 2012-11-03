@@ -164,6 +164,10 @@
       <Project>{CF44A2C3-42DF-4970-9618-E6AE3AF31603}</Project>
       <Name>TekConf.RemoteData.iOS</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\azure-mobile-services\sdk\ios\src\Microsoft.Azure.Zumo.iOS\Microsoft.Azure.Zumo.iOS.csproj">
+      <Project>{8E35FADF-4690-4044-BA12-EB6011BA7486}</Project>
+      <Name>Microsoft.Azure.Zumo.iOS</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\" />

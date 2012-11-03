@@ -5,11 +5,14 @@ using MonoTouch.UIKit;
 using TekConf.RemoteData.v1;
 using System.Collections.Generic;
 using TekConf.RemoteData.Dtos.v1;
+using Microsoft.WindowsAzure.MobileServices;
+using System.Threading.Tasks;
 
 namespace TekConf.UI.iPhone
 {
 	public class BaseUIViewController : UIViewController
 	{
+		private static readonly MobileServiceClient MobileService = new MobileServiceClient ("https://tekconf.azure-mobile.net/");
 		public BaseUIViewController (string nibName, NSBundle bundle) : base(nibName, bundle)
 		{
 
@@ -37,6 +40,9 @@ namespace TekConf.UI.iPhone
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad();
+
+			Task<MobileServiceUser> login = MobileService.LoginAsync("17351920-ZX9KsONzhX2uIGP54DEkY1D00Gu58fgTSzFLpgJ0");
+
 
 			if (NavigationController != null)
 			{

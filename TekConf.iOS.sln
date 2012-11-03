@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoTouch.SlideoutNavigatio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TekConf.UI.iPhone", "UI\TekConf.UI.iPhone\TekConf.UI.iPhone.csproj", "{B0B8941A-8FCE-4253-9A89-E070B7C78E5D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microsoft.Azure.Zumo.iOS", "..\azure-mobile-services\sdk\ios\src\Microsoft.Azure.Zumo.iOS\Microsoft.Azure.Zumo.iOS.csproj", "{8E35FADF-4690-4044-BA12-EB6011BA7486}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|iPhoneSimulator = Debug|iPhoneSimulator
@@ -114,6 +116,20 @@ Global
 		{8D10D14B-3B39-42B3-9767-1C6AAA44A79D}.Release|iPhone.Build.0 = Release|Any CPU
 		{8D10D14B-3B39-42B3-9767-1C6AAA44A79D}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{8D10D14B-3B39-42B3-9767-1C6AAA44A79D}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{8E35FADF-4690-4044-BA12-EB6011BA7486}.Ad-Hoc|iPhone.ActiveCfg = Debug|iPhone
+		{8E35FADF-4690-4044-BA12-EB6011BA7486}.Ad-Hoc|iPhone.Build.0 = Debug|iPhone
+		{8E35FADF-4690-4044-BA12-EB6011BA7486}.AppStore|iPhone.ActiveCfg = Debug|iPhone
+		{8E35FADF-4690-4044-BA12-EB6011BA7486}.AppStore|iPhone.Build.0 = Debug|iPhone
+		{8E35FADF-4690-4044-BA12-EB6011BA7486}.AppStore|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{8E35FADF-4690-4044-BA12-EB6011BA7486}.AppStore|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{8E35FADF-4690-4044-BA12-EB6011BA7486}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{8E35FADF-4690-4044-BA12-EB6011BA7486}.Debug|iPhone.Build.0 = Debug|iPhone
+		{8E35FADF-4690-4044-BA12-EB6011BA7486}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{8E35FADF-4690-4044-BA12-EB6011BA7486}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{8E35FADF-4690-4044-BA12-EB6011BA7486}.Release|iPhone.ActiveCfg = Release|iPhone
+		{8E35FADF-4690-4044-BA12-EB6011BA7486}.Release|iPhone.Build.0 = Release|iPhone
+		{8E35FADF-4690-4044-BA12-EB6011BA7486}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{8E35FADF-4690-4044-BA12-EB6011BA7486}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 		{B0B8941A-8FCE-4253-9A89-E070B7C78E5D}.Ad-Hoc|iPhone.ActiveCfg = Ad-Hoc|iPhone
 		{B0B8941A-8FCE-4253-9A89-E070B7C78E5D}.Ad-Hoc|iPhone.Build.0 = Ad-Hoc|iPhone
 		{B0B8941A-8FCE-4253-9A89-E070B7C78E5D}.AppStore|iPhone.ActiveCfg = AppStore|iPhone
