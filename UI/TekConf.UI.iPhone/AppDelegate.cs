@@ -38,7 +38,11 @@ namespace TekConf.UI.iPhone
 		
 			window = new UIWindow (UIScreen.MainScreen.Bounds);
 			Menu = new SlideoutNavigationController();
+			Console.WriteLine("AD1");
+			
 			Menu.TopView = new ConferencesListViewController();
+			Console.WriteLine("AD2");
+			
 			Menu.MenuView = new SideListController();
 			
 			window.RootViewController = Menu;

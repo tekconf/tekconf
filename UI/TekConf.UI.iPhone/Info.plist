@@ -4,6 +4,12 @@
 <dict>
 	<key>CFBundleDisplayName</key>
 	<string>TekConf</string>
+	<key>CFBundleIconFiles</key>
+	<array>
+		<string>artekLogo114.png</string>
+		<string>artekLogo57.png</string>
+		<string>artekLogo72.png</string>
+	</array>
 	<key>CFBundleIdentifier</key>
 	<string>com.arteksoftware.tekconf</string>
 	<key>CFBundleVersion</key>

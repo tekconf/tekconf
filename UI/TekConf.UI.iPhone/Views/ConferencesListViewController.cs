@@ -33,7 +33,7 @@ namespace TekConf.UI.iPhone
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-
+			Console.WriteLine("CLVC1");
 			var loading = new UIAlertView (" Downloading Conferences", "Please wait...", null, null, null);
 
 			loading.Show ();

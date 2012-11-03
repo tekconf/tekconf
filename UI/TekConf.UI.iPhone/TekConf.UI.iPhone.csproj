@@ -34,6 +34,7 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>False</ConsolePause>
     <MtouchLink>None</MtouchLink>
+    <MtouchI18n />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <DebugSymbols>True</DebugSymbols>
@@ -57,9 +58,11 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>False</ConsolePause>
     <CodesignKey>iPhone Distribution: Artek Software</CodesignKey>
-    <CodesignProvision>6215A7FA-6513-44F5-8899-601A2D2DA213</CodesignProvision>
+    <CodesignProvision>E377DD6E-1EF2-49E7-850F-0C8DE1F998DB</CodesignProvision>
     <MtouchI18n />
     <BuildIpa>True</BuildIpa>
+    <IpaPackageName />
+    <MtouchLink>None</MtouchLink>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
     <DebugType>none</DebugType>
@@ -70,7 +73,7 @@
     <ConsolePause>False</ConsolePause>
     <BuildIpa>True</BuildIpa>
     <CodesignKey>iPhone Distribution: Artek Software</CodesignKey>
-    <CodesignProvision>6215A7FA-6513-44F5-8899-601A2D2DA213</CodesignProvision>
+    <CodesignProvision>B281B13B-EF60-4233-949D-B0566546B35B</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|iPhone' ">
     <DebugType>none</DebugType>
@@ -79,7 +82,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>False</ConsolePause>
-    <CodesignKey>iPhone Distribution</CodesignKey>
+    <CodesignKey>iPhone Distribution: Artek Software</CodesignKey>
+    <CodesignProvision>B281B13B-EF60-4233-949D-B0566546B35B</CodesignProvision>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -190,5 +194,9 @@
     <Content Include="OpenSans-SemiboldItalic.ttf" />
     <Content Include="images\glyphicons_042_group.png" />
     <Content Include="images\glyphicons_061_keynote.png" />
+    <Content Include="images\three_lines.png" />
+    <Content Include="artekLogo114.png" />
+    <Content Include="artekLogo57.png" />
+    <Content Include="artekLogo72.png" />
   </ItemGroup>
 </Project>
