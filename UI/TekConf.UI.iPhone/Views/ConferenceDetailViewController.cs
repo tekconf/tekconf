@@ -153,7 +153,13 @@ namespace TekConf.UI.iPhone
 
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 			{ 
-				var selectedSession = _sessions [indexPath.Row]; 
+				var startTimeSection = _sessionStartTimes [indexPath.Section];
+				var filteredSessions = _sessions.Where (s => s.start == startTimeSection).OrderBy (o => o.title).ToArray ();
+				
+				//var cell = tableView.DequeueReusableCell (SessionCell) ?? new UITableViewCell (UITableViewCellStyle.Subtitle, SessionCell); 
+				var selectedSession = filteredSessions [indexPath.Row]; 
+
+				//var selectedSession = _sessions [indexPath.Row]; 
 				
 				if (UserInterfaceIdiomIsPhone) {
 					_sessionDetailTabBarViewController = new SessionDetailTabBarController (selectedSession);
