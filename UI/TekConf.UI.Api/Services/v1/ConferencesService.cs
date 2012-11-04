@@ -65,7 +65,7 @@ namespace TekConf.UI.Api.Services.v1
             string showPastConferencesCacheKey = request.showPastConferences.ToString() ?? string.Empty;
 
             var cacheKey = "GetAllConferences-" + searchCacheKey + "-" + sortByCacheKey + "-" + showPastConferencesCacheKey;
-            var expireInTimespan = new TimeSpan(0, 0, 20);
+            var expireInTimespan = new TimeSpan(0, 0, 120);
 
             return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
             {
@@ -87,7 +87,7 @@ namespace TekConf.UI.Api.Services.v1
                     query = query.Where(showPastConferences);
                 }
 
-                List<FullConferenceDto> conferencesDtos = null;
+                List<ConferencesDto> conferencesDtos = null;
                 List<ConferenceEntity> conferences = null;
                 try
                 {
@@ -102,31 +102,26 @@ namespace TekConf.UI.Api.Services.v1
                     }
 
                     conferences = query
-                        //.Select(c => new ConferencesDto()
-                        //{
-                        //    name = c.name,
-                        //    start = c.start,
-                        //    end = c.end,
-                        //    location = c.location,
-                        //    //url = c.url,
-                        //    slug = c.slug,
-                        //    description = c.description,
-                        //    imageUrl = c.imageUrl
-                        //})
+                        .Select(c => new ConferenceEntity()
+                        {
+                            name = c.name,
+                            start = c.start,
+                            end = c.end,
+                            registrationCloses = c.registrationCloses,
+                            registrationOpens = c.registrationOpens,
+                            location = c.location,
+                            address = c.address,
+                            description = c.description,
+                            imageUrl = c.imageUrl,
+                        })
                       .ToList();
-                    conferencesDtos = Mapper.Map<List<FullConferenceDto>>(conferences);
+                    conferencesDtos = Mapper.Map<List<ConferencesDto>>(conferences);
                 }
                 catch (Exception ex)
                 {
                     var e = ex.Message;
                     throw;
                 }
-
-                //var resolver = new ConferencesUrlResolver();
-                //foreach (var conferencesDto in conferencesDtos)
-                //{
-                //    conferencesDto.url = resolver.ResolveUrl(conferencesDto.slug);
-                //}
 
                 return conferencesDtos.ToList();
             });

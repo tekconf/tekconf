@@ -12,7 +12,7 @@ namespace TekConf.UI.Api.Services.Requests.v1
     }
 
     [Route("/v1/conferences", "GET")]
-    public class Conferences : IReturn<List<FullConferenceDto>>
+    public class Conferences : IReturn<List<ConferencesDto>>
     {
         public bool showOnlyFeatured { get; set; }
         public string search { get; set; }

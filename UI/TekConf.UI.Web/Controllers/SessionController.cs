@@ -1,50 +1,39 @@
-﻿using System.Collections.Generic;
+﻿using System.Threading.Tasks;
 using System.Web.Mvc;
-using TekConf.RemoteData.Dtos.v1;
-using TekConf.RemoteData.v1;
+using TekConf.UI.Web.App_Start;
 
 namespace TekConf.UI.Web.Controllers
 {
-    public class SessionController : AsyncController
+    public class SessionController : Controller
     {
-        public void IndexAsync(string conferenceSlug)
-        {
-            var remoteData = new RemoteDataRepository();
-            AsyncManager.OutstandingOperations.Increment();
-            remoteData.GetSessions(conferenceSlug, sessions =>
-            {
-                AsyncManager.Parameters["sessions"] = sessions;
-                AsyncManager.OutstandingOperations.Decrement();
-            });
+        private RemoteDataRepositoryAsync _repository;
 
+        public SessionController()
+        {
+            _repository = new RemoteDataRepositoryAsync();
         }
 
-        public ActionResult IndexCompleted(List<SessionsDto> sessions)
+        [CompressFilter]
+        public async Task<ActionResult> Index(string conferenceSlug)
         {
-            return View(sessions);
+            var sessionsTask = _repository.GetSessions(conferenceSlug);
+            await sessionsTask;
+            return View(sessionsTask.Result);
         }
 
-        public void DetailAsync(string conferenceSlug, string sessionSlug)
+        [CompressFilter]
+        public async Task<ActionResult> Detail(string conferenceSlug, string sessionSlug)
         {
-            var remoteData = new RemoteDataRepository();
-            AsyncManager.OutstandingOperations.Increment();
-            remoteData.GetSession(conferenceSlug, sessionSlug, session =>
-            {
-                session.conferenceSlug = conferenceSlug;
-                AsyncManager.Parameters["session"] = session;
-                AsyncManager.OutstandingOperations.Decrement();
-            });
-        }
+            var sessionDetailTask = _repository.GetSessionDetail(conferenceSlug, sessionSlug);
+            
+            await sessionDetailTask;
 
-        public ActionResult DetailCompleted(SessionDto session)
-        {
-            if (session == null)
+            if (sessionDetailTask.Result == null)
             {
                 return RedirectToAction("NotFound", "Error");
             }
 
-            return View(session);
+            return View(sessionDetailTask.Result);
         }
-
     }
 }

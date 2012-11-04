@@ -232,8 +232,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bootstrapper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminConferenceController.cs" />
+    <Compile Include="Controllers\AdminSessionController.cs" />
+    <Compile Include="Controllers\AdminSpeakerController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\RemoteDataRepositoryAsync.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="ViewModels\GravatarImage.cs" />
@@ -1003,14 +1008,14 @@
     <Content Include="Views\Shared\Header.cshtml" />
     <Content Include="Views\Speaker\Detail.cshtml" />
     <Content Include="Views\Shared\Extra.cshtml" />
-    <Content Include="Views\Admin\CreateConference.cshtml" />
-    <Content Include="Views\Admin\AddSession.cshtml" />
-    <Content Include="Views\Admin\CreateSpeaker.cshtml" />
+    <Content Include="Views\AdminConference\CreateConference.cshtml" />
+    <Content Include="Views\AdminSession\AddSession.cshtml" />
+    <Content Include="Views\AdminSpeaker\CreateSpeaker.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
-    <Content Include="Views\Admin\EditConference.cshtml" />
-    <Content Include="Views\Admin\EditSession.cshtml" />
-    <Content Include="Views\Admin\EditSpeaker.cshtml" />
-    <Content Include="Views\Admin\EditConferencesIndex.cshtml" />
+    <Content Include="Views\AdminConference\EditConference.cshtml" />
+    <Content Include="Views\AdminSession\EditSession.cshtml" />
+    <Content Include="Views\AdminSpeaker\EditSpeaker.cshtml" />
+    <Content Include="Views\AdminConference\EditConferencesIndex.cshtml" />
     <None Include="Views\Web.Debug.config" />
     <None Include="Views\Web.Release.config" />
   </ItemGroup>

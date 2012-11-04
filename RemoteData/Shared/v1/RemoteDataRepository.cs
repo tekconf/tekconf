@@ -24,19 +24,13 @@ namespace TekConf.RemoteData.v1
             }
         }
 
-		private string _baseUrl;
-		public RemoteDataRepository (string baseUrl)
-		{
-			_baseUrl = baseUrl;
-		}
-
-        public void GetConferences(Action<IList<FullConferenceDto>> callback, string sortBy = "end", bool? showPastConferences = false, string search = null)
+        public void GetConferences(Action<IList<ConferencesDto>> callback, string sortBy = "end", bool? showPastConferences = false, string search = null)
         {
             var conferences = new Conferences() { sortBy = sortBy, showPastConferences = showPastConferences, search = search, showOnlyFeatured = false };
             ServiceClient.GetAsync(conferences, callback, (r, ex) => { callback(null); });
         }
 
-        public void GetFeaturedConferences(Action<IList<FullConferenceDto>> callback)
+        public void GetFeaturedConferences(Action<IList<ConferencesDto>> callback)
         {
             var featured = new Conferences() { showOnlyFeatured = true };
             ServiceClient.GetAsync(featured, callback, (r, ex) => { callback(null); });
@@ -80,10 +74,7 @@ namespace TekConf.RemoteData.v1
 
         public void GetSessions(string conferenceSlug, Action<IList<SessionsDto>> callback)
         {
-            ServiceClient.GetAsync(new Sessions() { conferenceSlug = conferenceSlug }, callback, (r, ex) => { 
-				var x = r;
-				throw ex; 
-			});
+            ServiceClient.GetAsync(new Sessions() { conferenceSlug = conferenceSlug }, callback, (r, ex) => { callback(null); });
         }
 
         public void GetSession(string conferenceSlug, string slug, Action<SessionDto> callback)
