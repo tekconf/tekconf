@@ -1,61 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using TekConf.RemoteData.Dtos.v1;
-using TekConf.RemoteData.v1;
 using TekConf.UI.Web.App_Start;
 using System.Linq;
 
 namespace TekConf.UI.Web.Controllers
 {
-    public class HomeController : AsyncController
+    public class HomeController : Controller
     {
-        public void IndexAsync()
+        private RemoteDataRepositoryAsync _repository;
+
+        public HomeController()
         {
-            var repository = new RemoteDataRepository();
-
-            AsyncManager.OutstandingOperations.Increment(2);
-
-            repository.GetFeaturedConferences(conferences =>
-            {
-                AsyncManager.Parameters["conferences"] = conferences;
-                AsyncManager.OutstandingOperations.Decrement();
-            });
-
-            repository.GetFeaturedSpeakers(speakers =>
-            {
-                AsyncManager.Parameters["featuredSpeakers"] = speakers;
-                AsyncManager.OutstandingOperations.Decrement();
-            });
+            _repository = new RemoteDataRepositoryAsync();
         }
 
         [CompressFilter]
-        public ActionResult IndexCompleted(List<FullConferenceDto> conferences, List<FullSpeakerDto> featuredSpeakers)
+        public async Task<ActionResult> Index()
         {
-            if (featuredSpeakers == null)
-            {
-                featuredSpeakers = new List<FullSpeakerDto>();
-            }
+            var conferencesTask = _repository.GetFeaturedConferences();
+            var speakersTask = _repository.GetFeaturedSpeakers();
 
-            if (conferences == null)
-            {
-                conferences = new List<FullConferenceDto>();
-            }
+            await Task.WhenAll(conferencesTask, speakersTask);
 
-            var filteredConferences = conferences
+            var featuredSpeakers = speakersTask.Result == null ? new List<FullSpeakerDto>() : speakersTask.Result.ToList();
+            var featuredConferences = conferencesTask.Result == null ? new List<ConferencesDto>() : conferencesTask.Result.ToList();
+
+            var filteredConferences = featuredConferences
                                         .Where(c => c.start >= DateTime.Now.AddDays(-2))
                                         .OrderBy(c => c.start)
                                         .Take(4)
                                         .ToList();
 
             var vm = new HomePageViewModel()
-                         {
-                             FeaturedConferences = filteredConferences,
-                             FeaturedSpeakers = featuredSpeakers
-                         };
+            {
+                FeaturedConferences = filteredConferences,
+                FeaturedSpeakers = featuredSpeakers
+            };
+
             return View(vm);
         }
-
     }
 }

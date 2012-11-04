@@ -20,8 +20,6 @@ namespace MvcApplication1.Controllers
     //[InitializeSimpleMembership]
     public class AccountController : Controller
     {
-        //
-        // GET: /Account/Login
         [AllowAnonymous]
         public void Login()
         {
