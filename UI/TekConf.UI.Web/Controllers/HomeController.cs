@@ -26,7 +26,7 @@ namespace TekConf.UI.Web.Controllers
             await Task.WhenAll(conferencesTask, speakersTask);
 
             var featuredSpeakers = speakersTask.Result == null ? new List<FullSpeakerDto>() : speakersTask.Result.ToList();
-            var featuredConferences = conferencesTask.Result == null ? new List<FullConferenceDto>() : conferencesTask.Result.ToList();
+            var featuredConferences = conferencesTask.Result == null ? new List<ConferencesDto>() : conferencesTask.Result.ToList();
 
             var filteredConferences = featuredConferences
                                         .Where(c => c.start >= DateTime.Now.AddDays(-2))

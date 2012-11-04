@@ -51,7 +51,6 @@ namespace TekConf.UI.Web.Controllers
                 imageUrl = conference.imageUrl,
                 location = conference.location,
                 name = conference.name,
-                slug = conference.slug,
                 start = conference.start
             };
 
