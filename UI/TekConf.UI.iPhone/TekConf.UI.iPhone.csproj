@@ -24,7 +24,7 @@
     <MtouchDebug>True</MtouchDebug>
     <MtouchProfiling>True</MtouchProfiling>
     <MtouchLink>None</MtouchLink>
-    <MtouchI18n />
+    <MtouchI18n>other</MtouchI18n>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>

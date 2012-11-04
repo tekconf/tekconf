@@ -1,11 +1,13 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|iPhone" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="RemoteData/Shared/v1/Dtos/FullSessionDto.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="RemoteData/Shared/v1/Helpers.cs">
     <Files>
-      <File FileName="UI/TekConf.UI.iPhone/Views/SessionDetailAboutViewController.cs" Line="79" Column="42" />
-      <File FileName="UI/TekConf.UI.iPhone/AppDelegate.cs" Line="32" Column="54" />
-      <File FileName="RemoteData/Shared/v1/Dtos/FullSessionDto.cs" Line="17" Column="48" />
-      <File FileName="UI/TekConf.UI.iPhone/Views/ConferenceDetailViewController.cs" Line="114" Column="66" />
+      <File FileName="RemoteData/Shared/v1/Dtos/ConferencesDto.cs" Line="27" Column="10" />
+      <File FileName="RemoteData/Shared/v1/RemoteDataRepository.cs" Line="6" Column="28" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/ConferencesListViewController.cs" Line="128" Column="7" />
+      <File FileName="RemoteData/Shared/v1/Dtos/FullConferenceDto.cs" Line="44" Column="1" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/ConferenceDetailTabBarController.cs" Line="21" Column="5" />
+      <File FileName="RemoteData/Shared/v1/Helpers.cs" Line="26" Column="2" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -16,12 +18,10 @@
           </Node>
           <Node name="TekConf.RemoteData.iOS" expanded="True">
             <Node name="v1" expanded="True">
-              <Node name="Dtos" expanded="True">
-                <Node name="FullSessionDto.cs" selected="True" />
-              </Node>
+              <Node name="Dtos" expanded="True" />
             </Node>
           </Node>
-          <Node name="TekConf.UI.iPhone" expanded="True">
+          <Node name="TekConf.UI.iPhone" expanded="True" selected="True">
             <Node name="References" expanded="True" />
             <Node name="images" expanded="True" />
             <Node name="Views" expanded="True" />

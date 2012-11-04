@@ -88,12 +88,12 @@ namespace TekConf.UI.iPhone
 	
 		private class ConferencesTableViewSource : UITableViewSource, IImageUpdated
 		{ 
-			private readonly IList<FullConferenceDto> _conferences;
+			private readonly IList<ConferencesDto> _conferences;
 			private const string ConferenceCell = "ConferenceCell";
 			private ConferencesListViewController _rootViewController;
 			private ConferenceDetailTabBarController _conferenceDetailViewController;
 			
-			public ConferencesTableViewSource (ConferencesListViewController controller, IList<FullConferenceDto> conferences)
+			public ConferencesTableViewSource (ConferencesListViewController controller, IList<ConferencesDto> conferences)
 			{ 
 				_rootViewController = controller;
 				_conferences = conferences; 
@@ -139,11 +139,11 @@ namespace TekConf.UI.iPhone
 			
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 			{ 
-				FullConferenceDto selectedConference = _conferences [indexPath.Row]; 
+				var selectedConference = _conferences [indexPath.Row]; 
 				//new UIAlertView ("View Conference", selectedConference.name, null, "Ok", null).Show (); 
 				
 				if (UserInterfaceIdiomIsPhone) {
-					_conferenceDetailViewController = new ConferenceDetailTabBarController (selectedConference);
+					_conferenceDetailViewController = new ConferenceDetailTabBarController (selectedConference.slug);
 					_rootViewController.NavigationController.PushViewController (
 											_conferenceDetailViewController,
 											true

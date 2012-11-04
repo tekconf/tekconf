@@ -18,10 +18,10 @@ namespace TekConf.UI.iPhone
 			});
 		}
 
-		public ConferenceDetailTabBarController (FullConferenceDto conference)
-		{
-			SetTabs(conference);
-		}
+//		public ConferenceDetailTabBarController (ConferencesDto conference)
+//		{
+//			SetTabs(conference);
+//		}
 
 		public void SetTabs(FullConferenceDto conference)
 		{

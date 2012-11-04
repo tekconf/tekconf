@@ -9,6 +9,11 @@ namespace TekConf.RemoteData.v1
 {
     public class RemoteDataRepository
     {
+		private string _baseUrl;
+		public RemoteDataRepository (string baseUrl)
+		{
+			_baseUrl = baseUrl;
+		}
         private JsonServiceClient _restClient;
         private JsonServiceClient ServiceClient
         {
@@ -17,7 +22,7 @@ namespace TekConf.RemoteData.v1
                 if (_restClient == null)
                 {
                     _restClient = new JsonServiceClient(_baseUrl);
-					_restClient.Timeout = new TimeSpan(0,0,0,20,0);
+					_restClient.Timeout = new TimeSpan(0,0,0, 60, 0);
                 }
 
                 return _restClient;
