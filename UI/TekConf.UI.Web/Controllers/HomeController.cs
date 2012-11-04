@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using TekConf.RemoteData.Dtos.v1;
-using TekConf.RemoteData.v1;
 using TekConf.UI.Web.App_Start;
 using System.Linq;
 
@@ -12,11 +10,18 @@ namespace TekConf.UI.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private RemoteDataRepositoryAsync _repository;
+
+        public HomeController()
+        {
+            _repository = new RemoteDataRepositoryAsync();
+        }
+
         [CompressFilter]
         public async Task<ActionResult> Index()
         {
-            var conferencesTask = GetFeaturedConferences();
-            var speakersTask = GetFeaturedSpeakers();
+            var conferencesTask = _repository.GetFeaturedConferences();
+            var speakersTask = _repository.GetFeaturedSpeakers();
 
             await Task.WhenAll(conferencesTask, speakersTask);
 
@@ -36,37 +41,6 @@ namespace TekConf.UI.Web.Controllers
             };
 
             return View(vm);
-        }
-
-
-
-        public Task<IList<FullConferenceDto>> GetFeaturedConferences()
-        {
-            return Task.Run(() =>
-            {
-                var repository = new RemoteDataRepository();
-
-                var t = new TaskCompletionSource<IList<FullConferenceDto>>();
-
-                repository.GetFeaturedConferences(c => t.TrySetResult(c));
-                
-                return t.Task;
-            });
-        }
-
-        public Task<IList<FullSpeakerDto>> GetFeaturedSpeakers()
-        {
-            return Task.Run(() =>
-            {
-                var repository = new RemoteDataRepository();
-
-                var t = new TaskCompletionSource<IList<FullSpeakerDto>>();
-
-                repository.GetFeaturedSpeakers(s => t.TrySetResult(s));
-
-                return t.Task;
-                
-            });
         }
     }
 }
