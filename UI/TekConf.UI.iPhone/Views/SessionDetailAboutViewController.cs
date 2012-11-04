@@ -31,30 +31,97 @@ namespace TekConf.UI.iPhone
 		public override void ViewWillAppear (bool animated)
 		{
 			base.ViewWillAppear (animated);
+
 			this.contentDetailScrollView.ContentSize = new SizeF(width:this.View.Frame.Width, height:600);
 			this.contentDetailScrollView.ScrollEnabled = true;
 			this.contentDetailScrollView.ClipsToBounds = true;
 			this.contentDetailScrollView.ContentInset = new UIEdgeInsets(top:0, left:0, bottom:900, right:0);
 
 
+			SetTitle ();
+
+			SetSeparatorBelowTitle ();
+			
+			SetStart ();
+			
+			SetRoom ();
+
+			SetSeparatorBelowRoom ();
+			
+			SetDescription ();
+			
+			SetMoreInformation();
+		}
+
+		void SetTitle ()
+		{
+			var font = UIFont.FromName("OpenSans-Light", 22f);
+			this.titleLabel.Font = font;
 			this.titleLabel.Text = _session.title;
 			this.titleLabel.Lines = 0;
-			this.titleLabel.SizeToFit();
-			
-			this.startLabel.Text = _session.startDescription;
-			this.startLabel.Frame.Location = new PointF(y: this.titleLabel.Frame.Location.Y + this.titleLabel.Frame.Height + 20, x: this.titleLabel.Frame.Location.X);
-			
-			this.roomLabel.Text = _session.room;
-			this.roomLabel.Frame.Location = new PointF(x: this.startLabel.Frame.Bottom + 44, y: this.startLabel.Frame.Location.Y);
-			
-			this.descriptionLabel.Text = _session.description;
-			this.descriptionLabel.Lines  = 0;
-			this.descriptionLabel.SizeToFit();
-			this.descriptionLabel.Frame.Location = new PointF(x: this.roomLabel.Frame.Bottom + 44, y: this.roomLabel.Frame.Location.Y);
-			
-			this.moreInformationView.Frame.Location = new PointF(x: this.descriptionLabel.Frame.Bottom + 60, y: this.descriptionLabel.Frame.Location.Y);
-			this.moreInformationView.BackgroundColor = UIColor.FromRGBA(red: 0.933f, green: 0.933f, blue: 0.933f, alpha: 1f);
+			this.titleLabel.SizeToFit ();
+		}
 
+		void SetSeparatorBelowTitle ()
+		{
+			var size = this.titleLabel.StringSize(this.titleLabel.Text, this.titleLabel.Font);
+			var font = UIFont.FromName("OpenSans-Bold", 24f);
+			//this.separatorBelowTitle.Font = font;
+			var frame = this.separatorBelowTitle.Frame;
+			//frame.Y = this.titleLabel.Frame.Y + size.Height + 20;
+			frame.Y = this.titleLabel.Frame.Y + this.titleLabel.Frame.Height + 5;
+			
+			this.separatorBelowTitle.Frame = frame;
+		}
+
+		void SetStart ()
+		{
+			this.startLabel.Text = _session.startDescription;
+			var frame = this.startLabel.Frame;
+			frame.Y = this.separatorBelowTitle.Frame.Y + this.separatorBelowTitle.Frame.Height + 5;
+			this.startLabel.Frame = frame;
+		}
+
+		void SetRoom ()
+		{
+			if (string.IsNullOrEmpty(_session.room))
+			{
+				this.roomLabel.Text = "No room set";
+			}
+			else
+			{
+				this.roomLabel.Text = _session.room;
+			}
+
+			var frame = this.roomLabel.Frame;
+			frame.Y = this.startLabel.Frame.Y + this.startLabel.Frame.Height + 10;
+			this.roomLabel.Frame = frame;
+		}
+
+		void SetSeparatorBelowRoom ()
+		{
+			var frame = this.separatorBelowRoom.Frame;
+			frame.Y = this.roomLabel.Frame.Y + this.roomLabel.Frame.Height + 5;
+			this.separatorBelowRoom.Frame = frame;
+		}
+
+		void SetDescription ()
+		{
+			this.descriptionLabel.Text = _session.description;
+			this.descriptionLabel.Lines = 0;
+			this.descriptionLabel.SizeToFit ();
+
+			var frame = this.descriptionLabel.Frame;
+			frame.Y  = this.separatorBelowRoom.Frame.Y + this.separatorBelowRoom.Frame.Height + 5;
+			this.descriptionLabel.Frame = frame;
+		}
+
+		void SetMoreInformation()
+		{
+			this.moreInformationView.BackgroundColor = UIColor.FromRGBA(red: 0.933f, green: 0.933f, blue: 0.933f, alpha: 1f);
+			var frame = this.moreInformationView.Frame;
+			frame.Y = this.descriptionLabel.Frame.Y + this.descriptionLabel.Frame.Height + 20;
+			this.moreInformationView.Frame = frame;
 		}
 
 		public override void ViewDidLoad ()

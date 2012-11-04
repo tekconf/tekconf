@@ -26,7 +26,7 @@ namespace TekConf.RemoteData.Dtos.v1
 				if (this.start == default(DateTime)) {
 					return "Not scheduled yet"; 
 				} else {
-					 return this.start.ToLocalTime ().ToString (); 
+					return this.start.ToString ("dddd h:mm tt").ToString (); 
 				}
 			}
 		}
