@@ -91,7 +91,7 @@ namespace TekConf.UI.Api.Services.v1
                 List<ConferenceEntity> conferences = null;
                 try
                 {
-                    query = query.Where(c => c.isLive);
+                    //TODO : query = query.Where(c => c.isLive);
                     if (request.sortBy == "dateAdded")
                     {
                         query = query.OrderByDescending(orderByFunc).ThenBy(c => c.start).AsQueryable();

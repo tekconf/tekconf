@@ -59,7 +59,7 @@ namespace TekConf.UI.Api.Services.v1
                     var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
                     var conference = collection
                         .AsQueryable()
-                        .Where(c => c.isLive)
+                        //.Where(c => c.isLive)
                         .SingleOrDefault(c => c.slug == request.conferenceSlug);
 
                     if (conference == null)
