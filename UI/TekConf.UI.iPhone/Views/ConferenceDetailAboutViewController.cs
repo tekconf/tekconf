@@ -16,7 +16,9 @@ namespace TekConf.UI.iPhone
 		public ConferenceDetailAboutViewController (FullConferenceDto conference) : base ("ConferenceDetailAboutViewController", null)
 		{
 			_conference = conference;
-			Title = _conference.name;
+			if (_conference != null) {
+				Title = _conference.name;
+			}
 		}
 		
 		public override void DidReceiveMemoryWarning ()

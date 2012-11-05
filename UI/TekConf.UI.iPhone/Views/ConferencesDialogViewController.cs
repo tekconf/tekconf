@@ -71,6 +71,20 @@ namespace TekConf.UI.iPhone
 			});
 		}
 
+		public override void ViewWillAppear (bool animated)
+		{
+			base.ViewWillAppear (animated);
+			var frame = this.View.Frame;
+			TableView.Frame = frame;
+
+		}
+		public override void ViewDidAppear (bool animated)
+		{
+			base.ViewDidAppear (animated);
+			var frame = this.View.Frame;
+			TableView.Frame = frame;
+
+		}
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
