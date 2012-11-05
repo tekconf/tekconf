@@ -6,98 +6,93 @@ using TekConf.RemoteData.v1;
 using System.Collections.Generic;
 using TekConf.RemoteData.Dtos.v1;
 using MonoTouch.Dialog.Utilities;
+using MonoTouch.Dialog;
 
 namespace TekConf.UI.iPhone
 {
-
-	public partial class ConferencesListViewController : BaseUIViewController
+	public class ConferencesDialogViewController : DialogViewController
 	{
-		public ConferencesListViewController () : base ("ConferencesListViewController", null)
+		private string _baseUrl = "http://api.tekconf.com";
+		private RemoteDataRepository _client;
+		protected RemoteDataRepository Repository
 		{
-			Title = "Conferences";
-		}
-		
-		public override void DidReceiveMemoryWarning ()
-		{
-			// Releases the view if it doesn't have a superview.
-			base.DidReceiveMemoryWarning ();
-			
-			// Release any cached data, images, etc that aren't in use.
-		}
-
-		public override void ViewWillAppear (bool animated)
-		{
-			base.ViewWillAppear (animated);
+			get
+			{
+				if (this._client == null)
+				{
+					this._client = new RemoteDataRepository(_baseUrl);
+				}
+				
+				return this._client;
+			}
 		}
 
-		public override void ViewDidLoad ()
+		public ConferencesDialogViewController () : base(new RootElement("Conferences"))
 		{
-			base.ViewDidLoad ();
-			Console.WriteLine("CLVC1");
+			if (UIDevice.CurrentDevice.CheckSystemVersion (6,0)) {
+				// UIRefreshControl iOS6
+				RefreshControl = new UIRefreshControl();
+				RefreshControl.ValueChanged += (sender, e) => { Refresh(); };
+			} else {
+				// old style refresh button
+				NavigationItem.SetRightBarButtonItem (new UIBarButtonItem (UIBarButtonSystemItem.Refresh), false);
+				NavigationItem.RightBarButtonItem.Clicked += (sender, e) => { Refresh(); };
+			}
+
+			Refresh();
+		}
+
+
+
+		public void Refresh()
+		{
 			var loading = new UIAlertView (" Downloading Conferences", "Please wait...", null, null, null);
-
+			
 			loading.Show ();
 			
 			var indicator = new UIActivityIndicatorView (UIActivityIndicatorViewStyle.WhiteLarge); 
 			indicator.Center = new System.Drawing.PointF (loading.Bounds.Width / 2, loading.Bounds.Size.Height - 40); 
 			indicator.StartAnimating (); 
 			loading.AddSubview (indicator);
-<<<<<<< HEAD
 
-=======
-			
->>>>>>> f21e126352cf5a82664011a4a11001514165f682
-			Repository.GetConferences (sortBy: "", showPastConferences: true, search: "", callback:conferences => 
+			Repository.GetConferences (sortBy: "", showPastConferences: true, search: "", callback: conferences => 
 			{ 
 				InvokeOnMainThread (() => 
-			    { 
-					conferencesTableView.Source = new ConferencesTableViewSource (this, conferences); 
-					conferencesTableView.ReloadData (); 
-					loading.DismissWithClickedButtonIndex (0, true); 
+				{ 
+					TableView.Source = new ConferencesTableViewSource (this, conferences); 
+					TableView.ReloadData (); 
+					loading.DismissWithClickedButtonIndex (0, true);
+
+					if (UIDevice.CurrentDevice.CheckSystemVersion (6,0)) {
+						RefreshControl.EndRefreshing();
+					}
+
 				});
 			});
-			
-			if (!UserInterfaceIdiomIsPhone)
+		}
+
+		public override void ViewDidLoad ()
+		{
+			base.ViewDidLoad ();
+
+			if (NavigationController != null)
 			{
-				this.conferencesTableView.SelectRow (
-					NSIndexPath.FromRowSection (0, 0),
-					false,
-					UITableViewScrollPosition.Middle
-					);
+				NavigationController.NavigationBar.TintColor = UIColor.FromRGBA(red:0.506f, 
+				                                                                green:0.6f, 
+				                                                                blue:0.302f,
+				                                                                alpha:1f);
+				
 			}
-
-			
 		}
 
-		[Obsolete]
-		public override void ViewDidUnload ()
-		{
-			base.ViewDidUnload ();
-			
-			// Clear any references to subviews of the main view in order to
-			// allow the Garbage Collector to collect them sooner.
-			//
-			// e.g. myOutlet.Dispose (); myOutlet = null;
-			
-			ReleaseDesignerOutlets ();
-		}
-
-		[Obsolete]
-		public override bool ShouldAutorotateToInterfaceOrientation (UIInterfaceOrientation toInterfaceOrientation)
-		{
-			// Return true for supported orientations
-			return (toInterfaceOrientation != UIInterfaceOrientation.PortraitUpsideDown);
-		}
-	
-	
 		private class ConferencesTableViewSource : UITableViewSource, IImageUpdated
 		{ 
-			private readonly IList<FullConferenceDto> _conferences;
+			private readonly IList<ConferencesDto> _conferences;
 			private const string ConferenceCell = "ConferenceCell";
-			private ConferencesListViewController _rootViewController;
+			private ConferencesDialogViewController _rootViewController;
 			private ConferenceDetailTabBarController _conferenceDetailViewController;
 			
-			public ConferencesTableViewSource (ConferencesListViewController controller, IList<FullConferenceDto> conferences)
+			public ConferencesTableViewSource (ConferencesDialogViewController controller, IList<ConferencesDto> conferences)
 			{ 
 				_rootViewController = controller;
 				_conferences = conferences; 
@@ -117,47 +112,45 @@ namespace TekConf.UI.iPhone
 			{ 
 				var cell = tableView.DequeueReusableCell (ConferenceCell) ?? new UITableViewCell (UITableViewCellStyle.Subtitle, ConferenceCell); 
 				var conference = _conferences [indexPath.Row]; 
-
-				var mainFont = UIFont.FromName("OpenSans", 14f);
-				var detailFont = UIFont.FromName("OpenSans", 12f);
+				
+				var mainFont = UIFont.FromName ("OpenSans", 14f);
+				var detailFont = UIFont.FromName ("OpenSans", 12f);
 				cell.TextLabel.Font = mainFont;
 				cell.DetailTextLabel.Font = detailFont;
-
-				if (!string.IsNullOrWhiteSpace(conference.imageUrl))
-				{
-					var logo = ImageLoader.DefaultRequestImage(new Uri("http://www.tekconf.com" + conference.imageUrl), this);
-					if (logo == null)
-					{
+				
+				if (!string.IsNullOrWhiteSpace (conference.imageUrl)) {
+					var logo = ImageLoader.DefaultRequestImage (new Uri ("http://www.tekconf.com" + conference.imageUrl), this);
+					if (logo == null) {
 						//logoImage.Image = DefaultImage;
-					}
-					else 
-					{
+					} else {
 						cell.ImageView.Image = logo;
 					}
 				}
-
+				
 				cell.TextLabel.Text = conference.name; 
-				cell.DetailTextLabel.Text = conference.CalculateConferenceDates(conference); 
+				cell.DetailTextLabel.Text = conference.CalculateConferenceDates (conference); 
 				return cell; 
 			}
-			
+			protected static bool UserInterfaceIdiomIsPhone {
+				get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone; }
+			}
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 			{ 
-				FullConferenceDto selectedConference = _conferences [indexPath.Row]; 
+				var selectedConference = _conferences [indexPath.Row]; 
 				//new UIAlertView ("View Conference", selectedConference.name, null, "Ok", null).Show (); 
 				
 				if (UserInterfaceIdiomIsPhone) {
-					_conferenceDetailViewController = new ConferenceDetailTabBarController (selectedConference);
+					_conferenceDetailViewController = new ConferenceDetailTabBarController (selectedConference.slug);
 					_rootViewController.NavigationController.PushViewController (
-											_conferenceDetailViewController,
-											true
-										);
+						_conferenceDetailViewController,
+						true
+						);
 				} else {
 					// Navigation logic may go here -- for example, create and push another view controller.
 				}
-
+				
 			} 
-
+			
 			#region IImageUpdated implementation
 			
 			public void UpdatedImage (Uri uri)
@@ -165,7 +158,7 @@ namespace TekConf.UI.iPhone
 				//logoImage.Image = ImageLoader.DefaultRequestImage(uri, this);
 			}
 			
-			#endregion
+#endregion
 		}
 		
 		private class DataSource : UITableViewSource
@@ -199,7 +192,7 @@ namespace TekConf.UI.iPhone
 						cell.Accessory = UITableViewCellAccessory.DisclosureIndicator;
 					}
 				}
-				var font = UIFont.FromName("OpenSans", 12f);
+				var font = UIFont.FromName ("OpenSans", 12f);
 				cell.TextLabel.Font = font;
 				cell.DetailTextLabel.Font = font;
 				// Configure the cell.
@@ -247,23 +240,24 @@ namespace TekConf.UI.iPhone
 				return true;
 			}
 			*/
-			
+			protected static bool UserInterfaceIdiomIsPhone {
+				get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone; }
+			}
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 			{
 				if (UserInterfaceIdiomIsPhone) {
-//					var DetailViewController = new ConferenceDetailViewController ();
-//					// Pass the selected object to the new view controller.
-//					controller.NavigationController.PushViewController (
-//						DetailViewController,
-//						true
-//						);
+					//					var DetailViewController = new ConferenceDetailViewController ();
+					//					// Pass the selected object to the new view controller.
+					//					controller.NavigationController.PushViewController (
+					//						DetailViewController,
+					//						true
+					//						);
 				} else {
 					// Navigation logic may go here -- for example, create and push another view controller.
 				}
 			}
 		}
 
-	
 	}
+	
 }
-

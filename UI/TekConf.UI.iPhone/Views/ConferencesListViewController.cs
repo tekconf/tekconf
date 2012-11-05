@@ -6,6 +6,7 @@ using TekConf.RemoteData.v1;
 using System.Collections.Generic;
 using TekConf.RemoteData.Dtos.v1;
 using MonoTouch.Dialog.Utilities;
+using MonoTouch.Dialog;
 
 namespace TekConf.UI.iPhone
 {
@@ -33,7 +34,7 @@ namespace TekConf.UI.iPhone
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-			Console.WriteLine("CLVC1");
+			Console.WriteLine ("CLVC1");
 			var loading = new UIAlertView (" Downloading Conferences", "Please wait...", null, null, null);
 
 			loading.Show ();
@@ -43,23 +44,22 @@ namespace TekConf.UI.iPhone
 			indicator.StartAnimating (); 
 			loading.AddSubview (indicator);
 			
-			Repository.GetConferences (sortBy: "", showPastConferences: true, search: "", callback:conferences => 
+			Repository.GetConferences (sortBy: "", showPastConferences: true, search: "", callback: conferences => 
 			{ 
 				InvokeOnMainThread (() => 
-			    { 
+				{ 
 					conferencesTableView.Source = new ConferencesTableViewSource (this, conferences); 
 					conferencesTableView.ReloadData (); 
 					loading.DismissWithClickedButtonIndex (0, true); 
 				});
 			});
 			
-			if (!UserInterfaceIdiomIsPhone)
-			{
+			if (!UserInterfaceIdiomIsPhone) {
 				this.conferencesTableView.SelectRow (
 					NSIndexPath.FromRowSection (0, 0),
 					false,
 					UITableViewScrollPosition.Middle
-					);
+				);
 			}
 
 			
@@ -114,26 +114,22 @@ namespace TekConf.UI.iPhone
 				var cell = tableView.DequeueReusableCell (ConferenceCell) ?? new UITableViewCell (UITableViewCellStyle.Subtitle, ConferenceCell); 
 				var conference = _conferences [indexPath.Row]; 
 
-				var mainFont = UIFont.FromName("OpenSans", 14f);
-				var detailFont = UIFont.FromName("OpenSans", 12f);
+				var mainFont = UIFont.FromName ("OpenSans", 14f);
+				var detailFont = UIFont.FromName ("OpenSans", 12f);
 				cell.TextLabel.Font = mainFont;
 				cell.DetailTextLabel.Font = detailFont;
 
-				if (!string.IsNullOrWhiteSpace(conference.imageUrl))
-				{
-					var logo = ImageLoader.DefaultRequestImage(new Uri("http://www.tekconf.com" + conference.imageUrl), this);
-					if (logo == null)
-					{
+				if (!string.IsNullOrWhiteSpace (conference.imageUrl)) {
+					var logo = ImageLoader.DefaultRequestImage (new Uri ("http://www.tekconf.com" + conference.imageUrl), this);
+					if (logo == null) {
 						//logoImage.Image = DefaultImage;
-					}
-					else 
-					{
+					} else {
 						cell.ImageView.Image = logo;
 					}
 				}
 
 				cell.TextLabel.Text = conference.name; 
-				cell.DetailTextLabel.Text = conference.CalculateConferenceDates(conference); 
+				cell.DetailTextLabel.Text = conference.CalculateConferenceDates (conference); 
 				return cell; 
 			}
 			
@@ -147,7 +143,7 @@ namespace TekConf.UI.iPhone
 					_rootViewController.NavigationController.PushViewController (
 											_conferenceDetailViewController,
 											true
-										);
+					);
 				} else {
 					// Navigation logic may go here -- for example, create and push another view controller.
 				}
@@ -195,7 +191,7 @@ namespace TekConf.UI.iPhone
 						cell.Accessory = UITableViewCellAccessory.DisclosureIndicator;
 					}
 				}
-				var font = UIFont.FromName("OpenSans", 12f);
+				var font = UIFont.FromName ("OpenSans", 12f);
 				cell.TextLabel.Font = font;
 				cell.DetailTextLabel.Font = font;
 				// Configure the cell.
