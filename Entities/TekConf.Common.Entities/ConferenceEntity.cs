@@ -52,7 +52,7 @@ namespace TekConf.UI.Api
         [BsonId(IdGenerator = typeof(CombGuidGenerator))]
         public Guid _id { get; private set; }
         public bool isLive { get; private set; }
-        public string slug { get; private set; }
+        public string slug { get; set; }
         public DateTime datePublished { get; private set; }
         public bool isSaved { get; private set; }
 
