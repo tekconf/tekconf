@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text.RegularExpressions;
 using AutoMapper;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.RemoteData.v1;
@@ -176,15 +177,17 @@ namespace TekConf.UI.Api.Services.v1
         private Expression<Func<ConferenceEntity, bool>> GetSearch(string search)
         {
             Expression<Func<ConferenceEntity, bool>> searchBy = null;
-
+            
             if (!string.IsNullOrWhiteSpace(search))
             {
-                searchBy = c => c.name.Contains(search)
-                    || c.description.Contains(search)
-                    || c.address.City.Contains(search)
-                    || c.address.Country.Contains(search)
-                    || c.sessions.Any(s => s.description.Contains(search))
-                    || c.sessions.Any(s => s.title.Contains(search))
+                var regex = new Regex(search, RegexOptions.IgnoreCase);
+                
+                searchBy = c => Regex.IsMatch(c.name, search, RegexOptions.IgnoreCase)
+                    || Regex.IsMatch(c.description, search, RegexOptions.IgnoreCase)
+                    || Regex.IsMatch(c.address.City, search, RegexOptions.IgnoreCase)
+                    || Regex.IsMatch(c.address.Country, search, RegexOptions.IgnoreCase)
+                    || c.sessions.Any(s => Regex.IsMatch(s.description, search, RegexOptions.IgnoreCase))
+                    || c.sessions.Any(s => Regex.IsMatch(s.title, search, RegexOptions.IgnoreCase))
                     //|| c.sessions.Any(s => s.tags.Any(t => t.Contains(search)))
                     //|| c.sessions.Any(session => session.speakers.Any(s => s.firstName.Contains(search)))
                     //|| c.sessions.Any(session => session.speakers.Any(s => s.lastName.Contains(search)))

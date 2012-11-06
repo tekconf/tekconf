@@ -60,7 +60,7 @@ namespace TekConf.UI.Api.Services.v1
                 var entity = Mapper.Map<SpeakerEntity>(speaker);
 
                 var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
-                var conference = collection.AsQueryable().FirstOrDefault(c => c.slug == speaker.conferenceSlug);
+                var conference = collection.AsQueryable().FirstOrDefault(c => c.slug.ToLower() == speaker.conferenceSlug.ToLower());
                 
                 if (conference == null)
                 {
@@ -68,7 +68,7 @@ namespace TekConf.UI.Api.Services.v1
                 }
                 conference.Hub = _hub;
 
-                var session = conference.sessions.FirstOrDefault(s => s.slug == speaker.sessionSlug);
+                var session = conference.sessions.FirstOrDefault(s => s.slug.ToLower() == speaker.sessionSlug.ToLower());
                 if (session == null)
                 {
                     return new HttpError() { StatusCode = HttpStatusCode.BadRequest };
@@ -92,7 +92,7 @@ namespace TekConf.UI.Api.Services.v1
         {
             var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
             var conference = collection.AsQueryable()
-                                    .Where(c => c.slug == request.conferenceSlug)
+                                    .Where(c => c.slug.ToLower() == request.conferenceSlug.ToLower())
                                     .FirstOrDefault(c => c.sessions != null);
 
             
@@ -103,7 +103,7 @@ namespace TekConf.UI.Api.Services.v1
                 var speakers = conference.sessions
                     .Where(session => session.speakers != null)
                     .SelectMany(session => session.speakers)
-                    .Where(speaker => speaker.slug == request.slug)
+                    .Where(speaker => speaker.slug.ToLower() == request.slug.ToLower())
                     .ToList();
 
                 SpeakerEntity lastSpeakerEntity = null;
@@ -157,7 +157,7 @@ namespace TekConf.UI.Api.Services.v1
             try
             {
                 var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
-                var existingConference = collection.AsQueryable().FirstOrDefault(c => c.slug == conference.slug);
+                var existingConference = collection.AsQueryable().FirstOrDefault(c => c.slug.ToLower() == conference.slug.ToLower());
                 existingConference.Hub = _hub;
                 bool existingConferenceIsLive = existingConference.isLive;
                 Mapper.Map<CreateConference, ConferenceEntity>(conference, existingConference);
@@ -191,7 +191,7 @@ namespace TekConf.UI.Api.Services.v1
                                         var conference = collection
                                             .AsQueryable()
                                             //.Where(c => c.isLive)
-                                            .SingleOrDefault(c => c.slug == request.conferenceSlug);
+                                            .SingleOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
 
                                         if (conference == null)
                                         {

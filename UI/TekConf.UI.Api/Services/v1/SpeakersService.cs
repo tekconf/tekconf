@@ -49,7 +49,7 @@ namespace TekConf.UI.Api.Services.v1
                 var conference = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
                 .AsQueryable()
                 //.Where(c => c.isLive)
-                .SingleOrDefault(c => c.slug == request.conferenceSlug);
+                .SingleOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
 
                 if (conference == null)
                 {
@@ -69,7 +69,7 @@ namespace TekConf.UI.Api.Services.v1
                     {
                         foreach (var speakerEntity in session.speakers)
                         {
-                            if (!speakersList.Any(s => s.slug == speakerEntity.slug))
+                            if (!speakersList.Any(s => s.slug.ToLower() == speakerEntity.slug.ToLower()))
                             {
                                 speakersList.Add(speakerEntity);
                             }
