@@ -503,6 +503,7 @@
     <Content Include="img\conferences\cloud-develop-2012.png" />
     <Content Include="img\conferences\cocoaconf-portland-2012.png" />
     <Content Include="img\conferences\CodeStock.png" />
+    <Content Include="img\conferences\DefaultConference.png" />
     <Content Include="img\conferences\devconnections-2012.png" />
     <Content Include="img\conferences\Devlink.png" />
     <Content Include="img\conferences\iowa-code-camp-2012.png" />

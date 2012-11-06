@@ -50,8 +50,9 @@ namespace MvcApplication1.Controllers
                 // dictionary of values from identity provider
                 var userDataFromProvider = result.ExtraData;
                 var email = userDataFromProvider["email"];
+                var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
 
-                var repository = new RemoteDataRepository();
+                var repository = new RemoteDataRepository(baseUrl);
                 AsyncManager.OutstandingOperations.Increment();
                 MembershipCreateStatus status;
                 Membership.Provider.CreateUser(email, string.Empty, email, "", "", true, Guid.NewGuid(), out status);

@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Configuration;
+using System.Web.Mvc;
 
 namespace TekConf.UI.Web.Controllers
 {
@@ -7,7 +8,8 @@ namespace TekConf.UI.Web.Controllers
         private RemoteDataRepositoryAsync _repository;
         public AdminController()
         {
-            _repository = new RemoteDataRepositoryAsync();
+            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
+            _repository = new RemoteDataRepositoryAsync(baseUrl);
         }
 
         public ActionResult Index()

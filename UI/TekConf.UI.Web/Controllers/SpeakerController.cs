@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Configuration;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using TekConf.RemoteData.Dtos.v1;
@@ -12,7 +13,9 @@ namespace TekConf.UI.Web.Controllers
 
         public SpeakerController()
         {
-            _repository = new RemoteDataRepositoryAsync();
+            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
+
+            _repository = new RemoteDataRepositoryAsync(baseUrl);
         }
 
         [CompressFilter]

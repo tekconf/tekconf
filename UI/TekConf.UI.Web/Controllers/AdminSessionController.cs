@@ -1,3 +1,4 @@
+using System.Configuration;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
@@ -12,14 +13,18 @@ namespace TekConf.UI.Web.Controllers
         private RemoteDataRepositoryAsync _repository;
         public AdminSessionController()
         {
-            _repository = new RemoteDataRepositoryAsync();
+            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
+
+            _repository = new RemoteDataRepositoryAsync(baseUrl);
         }
 
         #region Add Session
 
         public void AddSessionAsync(string conferenceSlug)
         {
-            var repository = new RemoteDataRepository();
+            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
+
+            var repository = new RemoteDataRepository(baseUrl);
 
             AsyncManager.OutstandingOperations.Increment();
             repository.GetFullConference(conferenceSlug, conference =>
@@ -41,7 +46,9 @@ namespace TekConf.UI.Web.Controllers
         [HttpPost]
         public void AddSessionToConferenceAsync(AddSession session)
         {
-            var repository = new RemoteDataRepository();
+            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
+
+            var repository = new RemoteDataRepository(baseUrl);
 
             AsyncManager.OutstandingOperations.Increment();
 
@@ -63,7 +70,9 @@ namespace TekConf.UI.Web.Controllers
 
         public void EditSessionAsync(string conferenceSlug, string sessionSlug)
         {
-            var repository = new RemoteDataRepository();
+            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
+
+            var repository = new RemoteDataRepository(baseUrl);
 
             AsyncManager.OutstandingOperations.Increment();
             repository.GetFullConference(conferenceSlug, conference =>
@@ -84,7 +93,9 @@ namespace TekConf.UI.Web.Controllers
         [HttpPost]
         public void EditSessionInConferenceAsync(AddSession session)
         {
-            var repository = new RemoteDataRepository();
+            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
+
+            var repository = new RemoteDataRepository(baseUrl);
 
             AsyncManager.OutstandingOperations.Increment();
 

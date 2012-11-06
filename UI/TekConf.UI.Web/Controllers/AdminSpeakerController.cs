@@ -1,3 +1,4 @@
+using System.Configuration;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,7 +15,9 @@ namespace TekConf.UI.Web.Controllers
         private readonly RemoteDataRepositoryAsync _repository;
         public AdminSpeakerController()
         {
-            _repository = new RemoteDataRepositoryAsync();
+            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
+
+            _repository = new RemoteDataRepositoryAsync(baseUrl);
         }
 
         [HttpGet]

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -18,7 +19,9 @@ namespace TekConf.UI.Web.Controllers
         private RemoteDataRepositoryAsync _repository;
         public AdminConferenceController()
         {
-            _repository = new RemoteDataRepositoryAsync();
+            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
+
+            _repository = new RemoteDataRepositoryAsync(baseUrl);
         }
 
         #region Add Conference
@@ -69,7 +72,9 @@ namespace TekConf.UI.Web.Controllers
         [HttpGet]
         public void EditConferenceAsync(string conferenceSlug)
         {
-            var repository = new RemoteDataRepository();
+            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
+
+            var repository = new RemoteDataRepository(baseUrl);
 
             AsyncManager.OutstandingOperations.Increment();
             repository.GetFullConference(conferenceSlug, conference =>
@@ -88,7 +93,9 @@ namespace TekConf.UI.Web.Controllers
         [HttpPost]
         public void EditConfAsync(CreateConference conference, HttpPostedFileBase file)
         {
-            var repository = new RemoteDataRepository();
+            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
+
+            var repository = new RemoteDataRepository(baseUrl);
 
             if (file != null)
             {
@@ -129,7 +136,9 @@ namespace TekConf.UI.Web.Controllers
 
         public void EditConferencesIndexAsync(string sortBy, bool? showPastConferences, string search)
         {
-            var repository = new RemoteDataRepository();
+            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
+
+            var repository = new RemoteDataRepository(baseUrl);
 
             AsyncManager.OutstandingOperations.Increment();
 

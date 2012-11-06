@@ -65,7 +65,7 @@ namespace TekConf.UI.Api.Services.v1
             string showPastConferencesCacheKey = request.showPastConferences.ToString() ?? string.Empty;
 
             var cacheKey = "GetAllConferences-" + searchCacheKey + "-" + sortByCacheKey + "-" + showPastConferencesCacheKey;
-            var expireInTimespan = new TimeSpan(0, 0, 120);
+            var expireInTimespan = new TimeSpan(0, 0, 2);
 
             return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
             {
