@@ -94,13 +94,21 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\LocalData\iOS\ConferencesIO.LocalData.iOS\ConferencesIO.LocalData.iOS.csproj">
+    <ProjectReference Include="..\..\..\..\LocalData\iOS\TekConf.LocalData.iOS\TekConf.LocalData.iOS.csproj">
       <Project>{2CF3432D-C779-44DF-9446-CB5AE42CB4C5}</Project>
-      <Name>ConferencesIO.LocalData.iOS</Name>
+      <Name>TekConf.LocalData.iOS</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\catnap\src\Catnap\Catnap.csproj">
-      <Project>{DAA3814A-CC0D-40F8-8DDD-EC00687BC1FA}</Project>
-      <Name>Catnap</Name>
+    <ProjectReference Include="..\..\..\..\libs\TekConf.Mappers.IO\TekConf.Mappers.IO.csproj">
+      <Project>{8D10D14B-3B39-42B3-9767-1C6AAA44A79D}</Project>
+      <Name>TekConf.Mappers.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\RemoteData\iOS\TekConf.RemoteData.iOS.csproj">
+      <Project>{CF44A2C3-42DF-4970-9618-E6AE3AF31603}</Project>
+      <Name>TekConf.RemoteData.iOS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\UI\TekConf.UI.iOS\TekConf.UI.iOS.csproj">
+      <Project>{69ED9012-6497-4B8A-9BF2-8ED1BB1F138B}</Project>
+      <Name>TekConf.UI.iOS</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

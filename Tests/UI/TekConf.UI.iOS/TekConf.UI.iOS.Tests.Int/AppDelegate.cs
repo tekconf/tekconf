@@ -6,7 +6,7 @@ using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using MonoTouch.NUnit.UI;
 
-namespace ConferencesIO.UI.iOS.Tests.Int
+namespace TekConf.UI.iOS.Tests.Int
 {
 	// The UIApplicationDelegate for the application. This class is responsible for launching the 
 	// User Interface of the application, as well as listening (and optionally responding) to 

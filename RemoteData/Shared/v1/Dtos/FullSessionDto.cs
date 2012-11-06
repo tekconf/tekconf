@@ -20,5 +20,15 @@ namespace TekConf.RemoteData.Dtos.v1
         public List<string> resources { get; set; }
         public List<string> prerequisites { get; set; }
         public List<FullSpeakerDto> speakers { get; set; }
+		public string startDescription {
+			get {
+			
+				if (this.start == default(DateTime)) {
+					return "Not scheduled yet"; 
+				} else {
+					return this.start.ToString ("dddd h:mm tt").ToString (); 
+				}
+			}
+		}
     }
 }

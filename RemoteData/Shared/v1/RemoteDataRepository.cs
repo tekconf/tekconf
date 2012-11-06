@@ -9,20 +9,20 @@ namespace TekConf.RemoteData.v1
 {
     public class RemoteDataRepository
     {
+		private string _baseUrl;
+		public RemoteDataRepository (string baseUrl)
+		{
+			_baseUrl = baseUrl;
+		}
         private JsonServiceClient _restClient;
         private JsonServiceClient ServiceClient
         {
             get
             {
-                var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
-                if (!baseUrl.EndsWith("/"))
-                {
-                    baseUrl = baseUrl + "/";
-                }
-
                 if (_restClient == null)
                 {
-                    _restClient = new JsonServiceClient(baseUrl);
+                    _restClient = new JsonServiceClient(_baseUrl);
+					_restClient.Timeout = new TimeSpan(0,0,0, 60, 0);
                 }
 
                 return _restClient;

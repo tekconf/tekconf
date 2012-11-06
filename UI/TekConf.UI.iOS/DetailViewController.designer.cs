@@ -5,7 +5,7 @@
 //
 using MonoTouch.Foundation;
 
-namespace ConferencesIO.UI.iOS
+namespace TekConf.UI.iOS
 {
 	[Register ("DetailViewController")]
 	partial class DetailViewController

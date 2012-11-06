@@ -1,7 +1,7 @@
 using System;
-using ConferencesIO.LocalData.iOS;
+//using TekConf.LocalData.iOS;
 
-namespace ConferencesIO.UI.iOS
+namespace TekConf.UI.iOS
 {
 	public class Bootstrapper
 	{
@@ -12,8 +12,8 @@ namespace ConferencesIO.UI.iOS
 
 		void InitializeLocalDatabase ()
 		{
-			var localDatabaseBootstrapper = new LocalDatabaseBootstrapper();
-			localDatabaseBootstrapper.Initialize();
+//			var localDatabaseBootstrapper = new LocalDatabaseBootstrapper();
+//			localDatabaseBootstrapper.Initialize();
 		}
 
 	}

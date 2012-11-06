@@ -5,7 +5,7 @@ using System;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 
-namespace ConferencesIO.UI.iOS
+namespace TekConf.UI.iOS
 {
 	public partial class ScheduleListViewController : UITableViewController
 	{
