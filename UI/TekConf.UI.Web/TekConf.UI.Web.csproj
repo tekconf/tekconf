@@ -13,13 +13,14 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TekConf.UI.Web</RootNamespace>
     <AssemblyName>TekConf.UI.Web</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -29,6 +30,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -37,8 +39,12 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\..\packages\AutoMapper.2.2.0\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="CommonCore.Base, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\CommonCore.1.0.0.4\lib\net35\CommonCore.Base.dll</HintPath>
@@ -139,17 +145,15 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
@@ -205,6 +209,7 @@
       <Private>True</Private>
       <HintPath>..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\..\packages\Microsoft.AspNet.WebPages.Data.2.0.20710.0\lib\net40\WebMatrix.Data.dll</HintPath>
@@ -227,8 +232,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bootstrapper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminConferenceController.cs" />
+    <Compile Include="Controllers\AdminSessionController.cs" />
+    <Compile Include="Controllers\AdminSpeakerController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\RemoteDataRepositoryAsync.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="ViewModels\GravatarImage.cs" />
@@ -493,6 +503,7 @@
     <Content Include="img\conferences\cloud-develop-2012.png" />
     <Content Include="img\conferences\cocoaconf-portland-2012.png" />
     <Content Include="img\conferences\CodeStock.png" />
+    <Content Include="img\conferences\DefaultConference.png" />
     <Content Include="img\conferences\devconnections-2012.png" />
     <Content Include="img\conferences\Devlink.png" />
     <Content Include="img\conferences\iowa-code-camp-2012.png" />
@@ -505,6 +516,7 @@
     <Content Include="img\conferences\RailsConf.png" />
     <Content Include="img\conferences\Webstock.png" />
     <Content Include="img\conferences\wwdc-2012.png" />
+    <Content Include="img\OnSale.png" />
     <Content Include="img\social\500px-16x16.png" />
     <Content Include="img\social\500px-24x24.png" />
     <Content Include="img\social\500px-32x32.png" />
@@ -525,8 +537,11 @@
     <Content Include="img\social\bbcid-24x24.png" />
     <Content Include="img\social\bbcid-32x32.png" />
     <Content Include="img\social\bbcid-48x48.png" />
+    <Content Include="img\social\bitbucket.png" />
     <Content Include="img\social\blinklist.png" />
     <Content Include="img\social\brightkite.png" />
+    <Content Include="img\social\codeplex.png" />
+    <Content Include="img\social\coderwall.png" />
     <Content Include="img\social\creativecommons-16x16.png" />
     <Content Include="img\social\creativecommons-24x24.png" />
     <Content Include="img\social\creativecommons-32x32.png" />
@@ -696,6 +711,7 @@
     <Content Include="img\social\orkut-24x24.png" />
     <Content Include="img\social\orkut-32x32.png" />
     <Content Include="img\social\orkut-48x48.png" />
+    <Content Include="img\social\phone.png" />
     <Content Include="img\social\pinboard-16x16.png" />
     <Content Include="img\social\pinboard-24x24.png" />
     <Content Include="img\social\pinboard-32x32.png" />
@@ -839,6 +855,7 @@
     <Content Include="img\social\_template-24x24.png" />
     <Content Include="img\social\_template-32x32.png" />
     <Content Include="img\social\_template-48x48.png" />
+    <Content Include="img\Speakers\default.png" />
     <Content Include="PostDeploy.ps1" />
     <Content Include="HOWTO.html" />
     <Content Include="img\android.png" />
@@ -988,23 +1005,23 @@
     <Content Include="Views\Schedule\Index.cshtml" />
     <Content Include="Views\Session\Create.cshtml" />
     <Content Include="Views\Session\Detail.cshtml" />
-    <Content Include="Views\Session\Index.cshtml" />
-    <Content Include="Views\Speaker\Create.cshtml" />
-    <Content Include="Views\Speaker\Index.cshtml" />
     <Content Include="Views\Shared\Footer.cshtml" />
     <Content Include="Views\Shared\Header.cshtml" />
     <Content Include="Views\Speaker\Detail.cshtml" />
     <Content Include="Views\Shared\Extra.cshtml" />
-    <Content Include="Views\Admin\CreateConference.cshtml" />
-    <Content Include="Views\Admin\AddSession.cshtml" />
-    <Content Include="Views\Admin\CreateSpeaker.cshtml" />
+    <Content Include="Views\AdminConference\CreateConference.cshtml" />
+    <Content Include="Views\AdminSession\AddSession.cshtml" />
+    <Content Include="Views\AdminSpeaker\CreateSpeaker.cshtml" />
     <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\AdminConference\EditConference.cshtml" />
+    <Content Include="Views\AdminSession\EditSession.cshtml" />
+    <Content Include="Views\AdminSpeaker\EditSpeaker.cshtml" />
+    <Content Include="Views\AdminConference\EditConferencesIndex.cshtml" />
     <None Include="Views\Web.Debug.config" />
     <None Include="Views\Web.Release.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="img\Speakers\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -1033,7 +1050,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>2118</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:1719/</IISUrl>
+          <IISUrl>http://localhost/TekConf.UI.Web</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

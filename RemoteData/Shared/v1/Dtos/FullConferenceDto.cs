@@ -19,7 +19,7 @@ namespace TekConf.RemoteData.Dtos.v1
         public AddressDto address { get; set; }
         public string tagline { get; set; }
         public string imageUrl { get; set; }
-        
+        public bool isLive { get; set; }
         public string facebookUrl { get; set; }
         public string homepageUrl { get; set; }
         public string lanyrdUrl { get; set; }
@@ -34,5 +34,41 @@ namespace TekConf.RemoteData.Dtos.v1
         
         public List<FullSessionDto> sessions { get; set; }
 
+        public bool IsOnSale()
+        {
+            bool isOnSale = this.registrationOpens <= DateTime.Now && this.registrationCloses >= DateTime.Now;
+
+            return isOnSale;
+        }
+
+		public string CalculateConferenceDates (FullConferenceDto conference)
+		{
+			string conferenceDates = "No dates scheduled";
+			if (conference.start != default(DateTime) && conference.end != default(DateTime))
+			{
+				if (conference.start.Date == conference.end.Date)
+				{
+					conferenceDates = conference.start.ToString("MMMM d, yyyy");
+				}
+				else if (conference.start.Year == conference.end.Year)
+				{
+					if (conference.start.Month == conference.end.Month)
+					{
+						//@startDate.ToString("MMMM")<text> </text>@startDate.Day<text> - </text>@endDate.Day<text>, </text>@startDate.Year
+						conferenceDates = conference.start.ToString("MMMM d") + " - " + conference.end.Day + ", " + conference.end.Year;
+					}
+					else
+					{
+						conferenceDates = conference.start.ToString("MMMM d") + " - " + conference.end.ToString("MMMM d") + ", " + conference.end.Year;
+					}
+				}
+				else
+				{
+					conferenceDates = conference.start.ToString("MMMM d, yyyy") + " - " + conference.end.ToString("MMMM d, yyyy");
+				}
+			}
+			
+			return conferenceDates;
+		}
     }
 }

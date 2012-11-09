@@ -1,4 +1,5 @@
 ﻿@using System.Web.Optimization
+@using TekConf.RemoteData.Dtos.v1
 @model TekConf.UI.Web.Controllers.SpeakerDetailViewModel
 
 @{
@@ -20,8 +21,8 @@
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
 
 </head>
 
@@ -45,10 +46,14 @@
             <div class="row">
                 <div class="span12">
                     <div class="big-intro">
-                        <div class="img">
-                            <img src="@Model.Speaker.profileImageUrl" alt="@Model.Speaker.fullName" />
-                        </div>
-                        &nbsp;@Model.Speaker.fullName
+                        @if (!string.IsNullOrWhiteSpace(Model.Speaker.profileImageUrl))
+                        {
+                            <div class="img">
+                                <img src="@Model.Speaker.profileImageUrl" alt="@Model.Speaker.fullName" />
+                            </div>
+                            <text>&nbsp;</text>  
+                        }
+                        @Model.Speaker.fullName
                     </div>
                 </div>
                 <!-- /span12 -->
@@ -76,12 +81,6 @@
                         <h4><span class="slash">//</span> More Information</h4>
                         <p>
 
-
-
-
-
-
-
                             @if (!string.IsNullOrWhiteSpace(Model.Speaker.blogUrl))
                             {
                                 <img src="~/img/social/website-16x16.png" /> @HtmlHelpers.SimpleLink(Model.Speaker.blogUrl, Model.Speaker.blogUrl.Replace("http://", ""))<br />
@@ -94,14 +93,13 @@
 
                             @if (!string.IsNullOrWhiteSpace(Model.Speaker.phoneNumber))
                             {
-                                <img src="~/img/social/" /> @HtmlHelpers.PhoneLink(Model.Speaker.phoneNumber)<br />
+                                <img src="~/img/social/phone.png" /> @HtmlHelpers.PhoneLink(Model.Speaker.phoneNumber)<br />
                             }
 
                             @if (!string.IsNullOrWhiteSpace(Model.Speaker.twitterName))
                             {
                                 <img src="~/img/social/twitter-16x16.png" /> @HtmlHelpers.TwitterUserLink(Model.Speaker.twitterName)<br />
                             }
-
 
                             @if (!string.IsNullOrWhiteSpace(Model.Speaker.facebookUrl))
                             {
@@ -140,18 +138,19 @@
 
                             @if (!string.IsNullOrWhiteSpace(Model.Speaker.coderWallUrl))
                             {
-                                <img src="~/img/social/xxx" /> @HtmlHelpers.SimpleLink(Model.Speaker.coderWallUrl, "CoderWall")<br />
+                                <img src="~/img/social/coderwall.png" /> @HtmlHelpers.SimpleLink(Model.Speaker.coderWallUrl, "CoderWall")<br />
                             }
 
                             @if (!string.IsNullOrWhiteSpace(Model.Speaker.bitbucketUrl))
                             {
-                                <img src="~/img/social/xxx" /> @HtmlHelpers.SimpleLink(Model.Speaker.bitbucketUrl, "BitBucket")<br />
+                                <img src="~/img/social/bitbucket.png" /> @HtmlHelpers.SimpleLink(Model.Speaker.bitbucketUrl, "BitBucket")<br />
                             }
                             @if (!string.IsNullOrWhiteSpace(Model.Speaker.codeplexUrl))
                             {
-                                <img src="~/img/social/xxx" /> @HtmlHelpers.SimpleLink(Model.Speaker.codeplexUrl, "CodePlex")<br />
+                                <img src="~/img/social/codeplex.png" /> @HtmlHelpers.SimpleLink(Model.Speaker.codeplexUrl, "CodePlex")<br />
                             }
                         </p>
+                        @Html.RouteLink("Edit Speaker", "AdminEditSpeaker", new { conferenceSlug = Model.Conference.slug, speakerSlug = Model.Speaker.slug}, new { @class = "btn btn-info" })
 
                     </div>
                     <!-- /sidebar -->
@@ -174,7 +173,7 @@
                 </div>
                 <!-- /span12 -->
 
-                @foreach (var session in Model.Sessions)
+                @foreach (var session in Model.Sessions ?? new List<SessionsDto>())
                 {
                     
                     <div class="span4">

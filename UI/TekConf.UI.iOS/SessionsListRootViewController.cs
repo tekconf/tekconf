@@ -7,19 +7,21 @@ using MonoTouch.UIKit;
 using System.Linq;
 using System.Threading;
 using System.Collections.Generic;
-using ConferencesIO.RemoteData.v1;
-using ConferencesIO.RemoteData.Dtos.v1;
-using ConferencesIO.LocalData.Shared;
+using TekConf.RemoteData.v1;
+using TekConf.RemoteData.Dtos.v1;
+//using TekConf.LocalData.Shared;
 using System.IO;
-using ConferencesIO.Mappers.IO;
+//using TekConf.Mappers.IO;
 
-namespace ConferencesIO.UI.iOS
+namespace TekConf.UI.iOS
 {
 	public partial class SessionsListRootViewController : UITableViewController
 	{
 
 		private RemoteDataRepository _client;
-		private string _baseUrl = "http://conferencesioapi.azurewebsites.net/v1/";
+		//private string _baseUrl = "http://conferencesioapi.azurewebsites.net/v1/";
+		private string _baseUrl = "http://api.tekconf.com";
+
 		const string MoveToMapSegueName = "showSessionDetail";
 
 		public string SelectedSessionSlug {
@@ -54,24 +56,7 @@ namespace ConferencesIO.UI.iOS
 			indicator.StartAnimating (); 
 			loading.AddSubview (indicator);
 
-//			_client.GetFullConference("CodeMash-2012", conference => {
-//				var connectionString = Path.Combine (Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments), "conferences.db");
-//				var localDatabase = new LocalDatabase(connectionString);
-//				localDatabase.CreateDatabase();
-//
-//				var conferenceMapper = new ConferenceDtoToConferenceEntityMapper();
-//				var conferenceEntity = conferenceMapper.Map(conference);
-//
-//				var sessionMapper = new SessionDtoToSessionEntityMapper();
-//				var sessions = sessionMapper.MapAll(conferenceEntity.Id, conference.sessions.AsEnumerable());
-//				//localDatabase.SaveSessions(sessions);
-//
-//				var speakersMapper = new SessionDtoToSessionEntityMapper();
-//				var speakerEntities = speakersMapper.MapAll(conferenceEntity.Id, conference.speakers.AsEnumerable());
-//				localDatabase.SaveConference(conferenceEntity, sessions, speakers);
-//
-//			});
-			_client.GetSessions ("CodeMash-2012", sessions => 
+			_client.GetSessions ("thatconference-2013", sessions => 
 			{ 
 				InvokeOnMainThread (() => 
 				{ 
@@ -79,13 +64,8 @@ namespace ConferencesIO.UI.iOS
 					TableView.ReloadData (); 
 					loading.DismissWithClickedButtonIndex (0, true); 
 				});
-			}
-			);
+			});
 
-			// Perform any additional setup after loading the view, typically from a nib.
-			
-			//this.TableView.Source = new DataSource (this);
-			
 			if (!UserInterfaceIdiomIsPhone)
 				this.TableView.SelectRow (
 					NSIndexPath.FromRowSection (0, 0),

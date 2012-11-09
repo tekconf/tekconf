@@ -21,7 +21,7 @@ namespace TekConf.UI.Api.Services.Requests.v1
 
     [Route("/v1/conferences/{conferenceSlug}/sessions/{slug}", "POST")]
     [Route("/v1/conferences/{conferenceSlug}/sessions/{slug}", "PUT")]
-    public class AddSession : IReturn<FullConferenceDto>
+    public class AddSession : IReturn<SessionDto>
     {
         public string slug { get; set; }
         public string conferenceSlug { get; set; }

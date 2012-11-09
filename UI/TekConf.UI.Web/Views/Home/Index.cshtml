@@ -1,4 +1,5 @@
 @using System.Web.Optimization
+@using TekConf.RemoteData.Dtos.v1
 @model TekConf.UI.Web.Controllers.HomePageViewModel
 <!DOCTYPE html>
 <html lang="en">
@@ -64,7 +65,7 @@
                     <div class="@spanClass">
                         <h3><span class="slash">//</span> Upcoming Conferences</h3>
                         <ul class="features-list">
-                            @foreach (var featuredConference in Model.FeaturedConferences)
+                            @foreach (var featuredConference in Model.FeaturedConferences ?? new List<ConferencesDto>())
                             {
                                 <li class="feature">
                                     <div class="feature-thumbnail">
@@ -97,7 +98,7 @@
                         <div class="span4">
                             <h3><span class="slash">//</span> Featured Speakers</h3>
                             <ul class="testimonials-list">
-                                @foreach (var featuredSpeaker in Model.FeaturedSpeakers)
+                                @foreach (var featuredSpeaker in Model.FeaturedSpeakers ?? new List<FullSpeakerDto>())
                                 {
                                     <li>
                                         <div class="testimonial-avatar">

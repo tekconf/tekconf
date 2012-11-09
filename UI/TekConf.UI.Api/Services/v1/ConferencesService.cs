@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text.RegularExpressions;
+using AutoMapper;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.RemoteData.v1;
 using TekConf.UI.Api.Services.Requests.v1;
@@ -27,7 +29,14 @@ namespace TekConf.UI.Api.Services.v1
         {
             //Prerun();
 
-            return GetAllConferences(request);
+            if (request.showOnlyFeatured)
+            {
+                return GetFeaturedConferences(request);
+            }
+            else
+            {
+                return GetAllConferences(request);
+            }
         }
 
         private void Prerun()
@@ -57,7 +66,7 @@ namespace TekConf.UI.Api.Services.v1
             string showPastConferencesCacheKey = request.showPastConferences.ToString() ?? string.Empty;
 
             var cacheKey = "GetAllConferences-" + searchCacheKey + "-" + sortByCacheKey + "-" + showPastConferencesCacheKey;
-            var expireInTimespan = new TimeSpan(0, 0, 20);
+            var expireInTimespan = new TimeSpan(0, 0, 2);
 
             return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
             {
@@ -78,12 +87,12 @@ namespace TekConf.UI.Api.Services.v1
                 {
                     query = query.Where(showPastConferences);
                 }
-                
-                List<ConferencesDto> conferencesDtos = null;
 
+                List<ConferencesDto> conferencesDtos = null;
+                List<ConferenceEntity> conferences = null;
                 try
                 {
-                    query = query.Where(c => c.isLive);
+                    //TODO : query = query.Where(c => c.isLive);
                     if (request.sortBy == "dateAdded")
                     {
                         query = query.OrderByDescending(orderByFunc).ThenBy(c => c.start).AsQueryable();
@@ -93,19 +102,21 @@ namespace TekConf.UI.Api.Services.v1
                         query = query.OrderBy(orderByFunc).ThenBy(c => c.start).AsQueryable();
                     }
 
-                    conferencesDtos = query
-                      .Select(c => new ConferencesDto()
-                      {
-                          name = c.name,
-                          start = c.start,
-                          end = c.end,
-                          location = c.location,
-                          //url = c.url,
-                          slug = c.slug,
-                          description = c.description,
-                          imageUrl = c.imageUrl
-                      })
+                    conferences = query
+                        .Select(c => new ConferenceEntity()
+                        {
+                            name = c.name,
+                            start = c.start,
+                            end = c.end,
+                            registrationCloses = c.registrationCloses,
+                            registrationOpens = c.registrationOpens,
+                            location = c.location,
+                            address = c.address,
+                            description = c.description,
+                            imageUrl = c.imageUrl,
+                        })
                       .ToList();
+                    conferencesDtos = Mapper.Map<List<ConferencesDto>>(conferences);
                 }
                 catch (Exception ex)
                 {
@@ -113,40 +124,70 @@ namespace TekConf.UI.Api.Services.v1
                     throw;
                 }
 
+                return conferencesDtos.ToList();
+            });
+        }
 
-                var resolver = new ConferencesUrlResolver();
-                foreach (var conferencesDto in conferencesDtos)
+        private object GetFeaturedConferences(Conferences request)
+        {
+            var cacheKey = "GetFeaturedConferences";
+            var expireInTimespan = new TimeSpan(0, 0, 20);
+
+            return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
+            {
+                var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
+
+                List<ConferenceEntity> conferences;
+                try
                 {
-                    conferencesDto.url = resolver.ResolveUrl(conferencesDto.slug);
+                    conferences = collection
+                        .AsQueryable()
+                        .Where(c => c.start >= DateTime.Now.AddDays(-2))
+                        .OrderBy(c => c.start)
+                        .ToList()
+                        .Where(c => !string.IsNullOrWhiteSpace(c.description))
+                        .Take(4)
+.                       ToList();
                 }
+                catch (Exception ex)
+                {
+                    var s = ex.Message;
+                    throw;
+                }
+
+
+                var conferencesDtos = Mapper.Map<List<FullConferenceDto>>(conferences);
 
                 return conferencesDtos.ToList();
             });
         }
 
+
         private Expression<Func<ConferenceEntity, bool>> GetShowPastConferences(bool? showPastConferences)
         {
             Expression<Func<ConferenceEntity, bool>> searchBy = null;
-           
+
             if (showPastConferences == null || !(bool)showPastConferences)
             {
                 searchBy = c => c.end > DateTime.Now;
             }
 
-            return searchBy;            
+            return searchBy;
         }
         private Expression<Func<ConferenceEntity, bool>> GetSearch(string search)
         {
             Expression<Func<ConferenceEntity, bool>> searchBy = null;
-
+            
             if (!string.IsNullOrWhiteSpace(search))
             {
-                searchBy = c => c.name.Contains(search)
-                    || c.description.Contains(search)
-                    || c.address.City.Contains(search)
-                    || c.address.Country.Contains(search)
-                    || c.sessions.Any(s => s.description.Contains(search))
-                    || c.sessions.Any(s => s.title.Contains(search))
+                var regex = new Regex(search, RegexOptions.IgnoreCase);
+                
+                searchBy = c => Regex.IsMatch(c.name, search, RegexOptions.IgnoreCase)
+                    || Regex.IsMatch(c.description, search, RegexOptions.IgnoreCase)
+                    || Regex.IsMatch(c.address.City, search, RegexOptions.IgnoreCase)
+                    || Regex.IsMatch(c.address.Country, search, RegexOptions.IgnoreCase)
+                    || c.sessions.Any(s => Regex.IsMatch(s.description, search, RegexOptions.IgnoreCase))
+                    || c.sessions.Any(s => Regex.IsMatch(s.title, search, RegexOptions.IgnoreCase))
                     //|| c.sessions.Any(s => s.tags.Any(t => t.Contains(search)))
                     //|| c.sessions.Any(session => session.speakers.Any(s => s.firstName.Contains(search)))
                     //|| c.sessions.Any(session => session.speakers.Any(s => s.lastName.Contains(search)))

@@ -1,54 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Configuration;
+using System.Threading.Tasks;
 using System.Web.Mvc;
-using TekConf.RemoteData.Dtos.v1;
-using TekConf.RemoteData.v1;
 using System.Linq;
+using TekConf.UI.Web.App_Start;
 
 namespace TekConf.UI.Web.Controllers
 {
-    public class ConferencesController : AsyncController
+    public class ConferencesController : Controller
     {
-        public void IndexAsync(string sortBy, bool? showPastConferences, string search)
+        private RemoteDataRepositoryAsync _repository;
+
+        public ConferencesController()
         {
-            var repository = new RemoteDataRepository();
+            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
 
-            AsyncManager.OutstandingOperations.Increment();
-
-            repository.GetConferences(sortBy: sortBy, showPastConferences: showPastConferences, search:search, callback:conferences =>
-            {
-                AsyncManager.Parameters["conferences"] = conferences;
-                AsyncManager.OutstandingOperations.Decrement();
-            });
+            _repository = new RemoteDataRepositoryAsync(baseUrl);
         }
 
-        public ActionResult IndexCompleted(List<FullConferenceDto> conferences)
+        [CompressFilter]
+        public async Task<ActionResult> Index(string sortBy, bool? showPastConferences, string search)
         {
-            return View(conferences);
+            var conferencesTask = _repository.GetConferences(sortBy, showPastConferences, search);
+
+            await conferencesTask;
+
+            return View(conferencesTask.Result.ToList());
+
         }
 
-        public void DetailAsync(string conferenceSlug)
+        [CompressFilter]
+        public async Task<ActionResult> Detail(string conferenceSlug)
         {
-            var repository = new RemoteDataRepository();
+            var conferenceTask = _repository.GetFullConference(conferenceSlug);
 
-            AsyncManager.OutstandingOperations.Increment();
-            repository.GetFullConference(conferenceSlug, conference =>
-            {
-                AsyncManager.Parameters["conference"] = conference;
-                AsyncManager.OutstandingOperations.Decrement();
-            });
-        }
+            await conferenceTask;
 
-        public ActionResult DetailCompleted(FullConferenceDto conference)
-        {
-            if (conference == null)
+            if (conferenceTask.Result == null)
             {
                 return RedirectToAction("NotFound", "Error");
             }
 
-            return View(conference);
+            return View(conferenceTask.Result);
         }
-    
     }
 }

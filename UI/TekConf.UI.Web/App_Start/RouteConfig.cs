@@ -15,17 +15,39 @@ namespace TekConf.UI.Web
             routes.MapRoute(name: "SessionDetail", url: "conferences/{conferenceSlug}/{sessionSlug}",
                 defaults: new { controller = "Session", action = "Detail" });
 
-            routes.MapRoute(name: "SessionSpeakerDetail", url: "conferences/{conferenceSlug}/{sessionSlug}/{speakerSlug}",
+            routes.MapRoute(name: "SessionSpeakerDetail", url: "conferences/{conferenceSlug}/speakers/{speakerSlug}",
                 defaults: new { controller = "Speaker", action = "Detail" });
 
+
+
             routes.MapRoute(name: "AdminCreateConference", url: "admin/conferences/create",
-                defaults: new { controller = "Admin", action = "CreateConference" });
+                defaults: new { controller = "AdminConference", action = "CreateConference" });
+
+            routes.MapRoute(name: "AdminEditConference", url: "admin/conferences/{conferenceSlug}/edit",
+                defaults: new { controller = "AdminConference", action = "EditConference" });
+
+            routes.MapRoute(name: "AdminEditConferences", url: "admin/conferences/",
+                defaults: new { controller = "AdminConference", action = "EditConferencesIndex" });
+
+
+
 
             routes.MapRoute(name: "AdminAddSession", url: "admin/conferences/{conferenceSlug}/sessions/add",
-                defaults: new { controller = "Admin", action = "AddSession" });
+                defaults: new { controller = "AdminSession", action = "AddSession" });
 
+            routes.MapRoute(name: "AdminEditSession", url: "admin/conferences/{conferenceSlug}/sessions/{sessionSlug}/edit",
+                defaults: new { controller = "AdminSession", action = "EditSession" });
+
+
+            
+            
             routes.MapRoute(name: "AdminAddSpeaker", url: "admin/conferences/{conferenceSlug}/sessions/{sessionSlug}/speakers/add",
-                defaults: new { controller = "Admin", action = "CreateSpeaker" });
+                defaults: new { controller = "AdminSpeaker", action = "CreateSpeaker" });
+
+            routes.MapRoute(name: "AdminEditSpeaker", url: "admin/conferences/{conferenceSlug}/speakers/{speakerSlug}/edit",
+                defaults: new { controller = "AdminSpeaker", action = "EditSpeaker" });
+
+            
 
             routes.MapRoute(
                 name: "Default",

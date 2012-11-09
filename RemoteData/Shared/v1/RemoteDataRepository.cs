@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Text.RegularExpressions;
 using ServiceStack.ServiceClient.Web;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.UI.Api.Services.Requests.v1;
@@ -10,30 +9,46 @@ namespace TekConf.RemoteData.v1
 {
     public class RemoteDataRepository
     {
+		private string _baseUrl;
+		public RemoteDataRepository (string baseUrl)
+		{
+			_baseUrl = baseUrl;
+		}
         private JsonServiceClient _restClient;
         private JsonServiceClient ServiceClient
         {
             get
             {
-                var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
-                if (!baseUrl.EndsWith("/"))
-                {
-                    baseUrl = baseUrl + "/";
-                }
-
                 if (_restClient == null)
                 {
-                    _restClient = new JsonServiceClient(baseUrl);
+                    _restClient = new JsonServiceClient(_baseUrl);
+					_restClient.Timeout = new TimeSpan(0,0,0, 60, 0);
                 }
 
                 return _restClient;
             }
         }
 
-        public void GetConferences(Action<IList<FullConferenceDto>> callback, string sortBy = "end", bool? showPastConferences = false, string search = null)
+        public void GetConferences(Action<IList<ConferencesDto>> callback, string sortBy = "end", bool? showPastConferences = false, string search = null)
         {
-            var conferences = new Conferences() { sortBy = sortBy, showPastConferences = showPastConferences, search = search };
+            if (sortBy == null)
+            {
+                sortBy = "end";
+            }
+
+            if (!showPastConferences.HasValue)
+            {
+                showPastConferences = false;
+            }
+
+            var conferences = new Conferences() { sortBy = sortBy, showPastConferences = showPastConferences, search = search, showOnlyFeatured = false };
             ServiceClient.GetAsync(conferences, callback, (r, ex) => { callback(null); });
+        }
+
+        public void GetFeaturedConferences(Action<IList<ConferencesDto>> callback)
+        {
+            var featured = new Conferences() { showOnlyFeatured = true };
+            ServiceClient.GetAsync(featured, callback, (r, ex) => { callback(null); });
         }
 
         public void GetConference(string slug, Action<FullConferenceDto> callback)
@@ -67,9 +82,9 @@ namespace TekConf.RemoteData.v1
         public void GetSpeaker(string conferenceSlug, string speakerSlug, Action<FullSpeakerDto> callback)
         {
             ServiceClient.GetAsync(new Speaker() { conferenceSlug = conferenceSlug, speakerSlug = speakerSlug }, callback, (r, ex) =>
-                                                                                                                               {
-                                                                                                                                   callback(null);
-                                                                                                                               });
+                                                        {
+                                                            callback(null);
+                                                        });
         }
 
         public void GetSessions(string conferenceSlug, Action<IList<SessionsDto>> callback)
@@ -80,15 +95,20 @@ namespace TekConf.RemoteData.v1
         public void GetSession(string conferenceSlug, string slug, Action<SessionDto> callback)
         {
             ServiceClient.GetAsync(new Session() { conferenceSlug = conferenceSlug, sessionSlug = slug }, callback, (r, ex) =>
-                                                                                                                        {
-                                                                                                                            callback(null);
-                                                                                                                        });
+                                            {
+                                                callback(null);
+                                            });
         }
 
         public void CreateConference(CreateConference conference, Action<FullConferenceDto> callback)
         {
             conference.slug = conference.name.GenerateSlug();
             ServiceClient.PostAsync(conference, callback, (r, ex) => { callback(null); });
+        }
+
+        public void EditConference(CreateConference conference, Action<FullConferenceDto> callback)
+        {
+            ServiceClient.PutAsync(conference, callback, (r, ex) => { callback(null); });
         }
 
         public void CreateUser(string userName, Action<UserDto> callback)
@@ -103,12 +123,16 @@ namespace TekConf.RemoteData.v1
             ServiceClient.GetAsync(new User() { userName = userName }, callback, (r, ex) => { callback(null); });
         }
 
-        public void AddSessionToConference(AddSession session, Action<FullConferenceDto> callback)
+        public void AddSessionToConference(AddSession session, Action<SessionDto> callback)
         {
             session.slug = session.title.GenerateSlug();
             ServiceClient.PostAsync(session, callback, (r, ex) => { callback(null); });
         }
 
+        public void EditSessionInConference(AddSession session, Action<SessionDto> callback)
+        {
+            ServiceClient.PutAsync(session, callback, (r, ex) => { callback(null); });
+        }
 
         public void AddSpeakerToSession(CreateSpeaker speaker, Action<FullSpeakerDto> callback)
         {
@@ -118,27 +142,14 @@ namespace TekConf.RemoteData.v1
                                                                callback(null);
                                                            });
         }
-    }
 
-    public static class Helpers
-    {
-        public static string GenerateSlug(this string phrase)
+        public void EditSpeaker(CreateSpeaker speaker, Action<FullSpeakerDto> callback)
         {
-            string slug = phrase.RemoveAccent().ToLower();
-            // invalid chars           
-            slug = Regex.Replace(slug, @"[^a-z0-9\s-]", "");
-            // convert multiple spaces into one space   
-            slug = Regex.Replace(slug, @"\s+", " ").Trim();
-            // cut and trim 
-            slug = slug.Substring(0, slug.Length <= 45 ? slug.Length : 45).Trim();
-            slug = Regex.Replace(slug, @"\s", "-"); // hyphens   
-            return slug;
+            ServiceClient.PutAsync(speaker, callback, (r, ex) =>
+                                    {
+                                        callback(null);
+                                    });
         }
 
-        public static string RemoveAccent(this string txt)
-        {
-            byte[] bytes = System.Text.Encoding.GetEncoding("Cyrillic").GetBytes(txt);
-            return System.Text.Encoding.ASCII.GetString(bytes);
-        }
     }
 }

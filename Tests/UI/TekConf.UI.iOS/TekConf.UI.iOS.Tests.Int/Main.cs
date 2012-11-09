@@ -5,7 +5,7 @@ using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 
-namespace ConferencesIO.UI.iOS.Tests.Int
+namespace TekConf.UI.iOS.Tests.Int
 {
 	public class Application
 	{

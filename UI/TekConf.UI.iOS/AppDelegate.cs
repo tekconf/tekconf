@@ -4,11 +4,12 @@ using System.Linq;
 
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
-using ConferencesIO.RemoteData.v1;
+using TekConf.RemoteData.v1;
 using ServiceStack.Text;
 using System.IO;
+using MonoTouch.Dialog;
 
-namespace ConferencesIO.UI.iOS
+namespace TekConf.UI.iOS
 {
 	// The UIApplicationDelegate for the application. This class is responsible for launching the 
 	// User Interface of the application, as well as listening (and optionally responding) to 
@@ -16,15 +17,13 @@ namespace ConferencesIO.UI.iOS
 	[Register ("AppDelegate")]
 	public partial class AppDelegate : UIApplicationDelegate
 	{
-		// class-level declarations
 		private RemoteDataRepository _client;
-		private string _baseUrl = "http://conferencesioapi.azurewebsites.net/v1/";
+		//private string _baseUrl = "http://conferencesioapi.azurewebsites.net/v1/";
+		private string _baseUrl = "http://api.tekconf.com";
 
-		public override UIWindow Window {
-			get;
-			set;
-		}
-		
+		//UIWindow window;
+		public override UIWindow Window { get; set; }
+
 		//
 		// This method is invoked when the application is about to move from active to inactive state.
 		//
@@ -58,14 +57,14 @@ namespace ConferencesIO.UI.iOS
 			bootStrapper.Initialize();
 
 			GetLatestFullConference();
-			// TODO: Implement - see: http://go-mono.com/docs/index.aspx?link=T%3aMonoTouch.Foundation.ModelAttribute
+
 			return true;
 		}
 
 		void GetLatestFullConference ()
 		{
 			_client = new RemoteDataRepository (_baseUrl);
-			_client.GetFullConference ("CodeMash-2012", conference => 
+			_client.GetFullConference ("thatconference-2013", conference => 
 			{ 
 
 				var x = conference;
@@ -94,5 +93,6 @@ namespace ConferencesIO.UI.iOS
 			UINavigationBar.Appearance.SetTitleTextAttributes(titleAttributes);
 		}
 	}
+
 }
 

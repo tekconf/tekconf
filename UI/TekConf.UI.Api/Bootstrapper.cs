@@ -10,17 +10,24 @@ namespace TekConf.UI.Api
     {
         public void BootstrapAutomapper()
         {
-            Mapper.CreateMap<ConferenceEntity, ConferencesDto>()
-                .ForMember(dest => dest.url, opt => opt.Ignore());
+            Mapper.AddFormatter<TrimmingFormatter>();
 
-            Mapper.CreateMap<ConferenceEntity, ConferenceEntity>();
+            Mapper.CreateMap<ConferenceEntity, ConferencesDto>()
+                .ForMember(dest => dest.url, opt => opt.Ignore())
+                .ForMember(dest => dest.imageUrl, opt => opt.ResolveUsing<ImageResolver>());
+
+            Mapper.CreateMap<ConferenceEntity, ConferenceEntity>()
+                .ForMember(c => c._id, opt => opt.Ignore())
+                .ForMember(dest => dest.imageUrl, opt => opt.ResolveUsing<ImageResolver>());
+
             Mapper.CreateMap<ConferenceEntity, ConferenceDto>()
                 .ForMember(dest => dest.url, opt => opt.Ignore())
                 .ForMember(dest => dest.sessionsUrl, opt => opt.Ignore())
                 .ForMember(dest => dest.speakersUrl, opt => opt.Ignore());
-
-            Mapper.CreateMap<ConferenceEntity, FullConferenceDto>();
-
+            
+            Mapper.CreateMap<ConferenceEntity, FullConferenceDto>()
+                .ForMember(dest => dest.imageUrl, opt => opt.ResolveUsing<ImageResolver>());
+            
             Mapper.CreateMap<SessionEntity, SessionsDto>()
                 .ForMember(dest => dest.url, opt => opt.Ignore());
 
@@ -35,20 +42,15 @@ namespace TekConf.UI.Api
 
             Mapper.CreateMap<AddSession, SessionEntity>()
                 .ForMember(s => s._id, opt => opt.UseValue(Guid.NewGuid()))
-                .ForMember(s => s.tags, opt => opt.UseValue(new List<string>()))
-                .ForMember(s => s.links, opt => opt.UseValue(new List<string>()))
-                .ForMember(s => s.prerequisites, opt => opt.UseValue(new List<string>()))
-                .ForMember(s => s.resources, opt => opt.UseValue(new List<string>()))
                 .ForMember(s => s.speakers, opt => opt.UseValue(new List<SpeakerEntity>()))
-                .ForMember(s => s.subjects, opt => opt.UseValue(new List<string>()))
                 ;
 
             Mapper.CreateMap<User, UserEntity>()
                 .ForMember(u => u._id, opt => opt.UseValue(Guid.NewGuid()));
 
             Mapper.CreateMap<CreateConference, ConferenceEntity>()
-                //.ForMember(c => c._id, opt => opt.UseValue(Guid.NewGuid()))
-                .ForMember(c => c.sessions, opt => opt.UseValue(new List<SessionEntity>()))
+                .ForMember(c => c._id, opt => opt.Ignore())
+                //.ForMember(c => c.sessions, opt => opt.UseValue(new List<SessionEntity>()))
                 ;
 
             Mapper.CreateMap<CreateSpeaker, SpeakerEntity>()
@@ -66,5 +68,43 @@ namespace TekConf.UI.Api
             Mapper.CreateMap<AddressEntity, AddressDto>();
         }
 
+    }
+    public class ImageResolver : ValueResolver<ConferenceEntity, string>
+    {
+        protected override string ResolveCore(ConferenceEntity source)
+        {
+            if (string.IsNullOrWhiteSpace(source.imageUrl))
+            {
+                return "/img/conferences/DefaultConference.png";
+            }
+            return source.imageUrl;
+        }
+    }
+    public class TrimmingFormatter : BaseFormatter<string>
+    {
+        protected override string FormatValueCore(string value)
+        {
+            return value.Trim();
+        }
+    }
+
+    public abstract class BaseFormatter<T> : IValueFormatter
+    {
+        public string FormatValue(ResolutionContext context)
+        {
+            if (context.SourceValue == null)
+            {
+                return null;
+            }
+
+            if (!(context.SourceValue is T))
+            {
+                return context.SourceValue == null ? String.Empty : context.SourceValue.ToString();
+            }
+
+            return FormatValueCore((T)context.SourceValue);
+        }
+
+        protected abstract string FormatValueCore(T value);
     }
 }

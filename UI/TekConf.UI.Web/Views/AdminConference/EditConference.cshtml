@@ -1,6 +1,6 @@
 ﻿@using System.Globalization
 @using System.Web.Optimization
-@model TekConf.UI.Api.Services.Requests.v1.CreateSpeaker
+@model TekConf.UI.Api.Services.Requests.v1.CreateConference
 @{
     Layout = null;
 }
@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8">
 
-    <title>Add Speaker - tekconf</title>
+    <title>Edit Conference - tekconf</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -32,7 +32,7 @@
     <div id="subheader">
         <div class="inner">
             <div class="container">
-                <h1>Add Speaker</h1>
+                <h1>Edit Conference</h1>
             </div>
             <!-- /.container -->
         </div>
@@ -42,30 +42,57 @@
 
     <div id="subpage">
         <div class="container">
-            @using (Html.BeginForm("CreateSpeaker", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            @using (Html.BeginForm("EditConf", "AdminConference", FormMethod.Post, new { enctype = "multipart/form-data" }))
             {
                 <div class="row">
                     <legend>Main Information</legend>
 
                     <div class="span4">
+                        @Html.HiddenFor(c => c.slug)
+                        @Html.HiddenFor(c => c.imageUrl)
 
-                        <label>First Name</label>
-                        @Html.TextBoxFor(c => c.firstName)
+                        <label>Conference Name</label>
+                        @Html.TextBoxFor(c => c.name)
+                        <span class="help-block">Example block-level help text here.</span>
 
-                        <label>Last Name</label>
-                        @Html.TextBoxFor(c => c.lastName)
+                        <label>Start Date/Time</label>
+                        @Html.TextBoxFor(c => c.start, new { type = "datetime"})
 
-                        <label>Is Featured?</label>
-                        @Html.TextBoxFor(c => c.isFeatured)
+                        <label>End Date/Time</label>
+                        @Html.TextBoxFor(c => c.end, new { type = "datetime"})
+
+                        <label>Location</label>
+                        @Html.TextBoxFor(c => c.location)
+                        
+                        <label>Tagline</label>
+                        @Html.TextBoxFor(c => c.tagline)
+                        
+                        <label>Call for Speakers Opens</label>
+                        @Html.TextBoxFor(c => c.callForSpeakersOpens)
+                        
+                        <label>Call for Speakers Closes</label>
+                        @Html.TextBoxFor(c => c.callForSpeakersCloses)                        
+                        
+                        <label>Registration Opens</label>
+                        @Html.TextBoxFor(c => c.registrationOpens)                        
+                        
+                         <label>Registration Closes</label>
+                        @Html.TextBoxFor(c => c.registrationCloses)                         
 
                         <label>Image</label>
                         <input type="file" name="file" id="file" />
+                        
+                        <label>Live on tekconf.com?</label>
+                        @Html.CheckBoxFor(c => c.isLive)
                     </div>
-                    <div class="span8">
+                    <div class="span4">
                         <label>Description</label>
-                        @Html.TextAreaFor(c => c.description, 10, 40, null)
+                        @Html.TextAreaFor(c => c.description, 30, 150, null)
                     </div>
-                    
+                    <div class="span4">
+                        <label>Address</label>
+                        @Html.EditorFor(c => c.address)
+                    </div>
                 </div>
                 <div class="row">
                     <legend>Optional Information</legend>
@@ -73,28 +100,26 @@
                     <div class="span4">
 
                         <label>Website</label>
-                        @Html.TextBoxFor(c => c.blogUrl)
-                        
-                        <label>Company</label>
-                        @Html.TextBoxFor(c => c.company)
+                        @Html.TextBoxFor(c => c.homepageUrl)
 
                         <label>Facebook</label>
                         @Html.TextBoxFor(c => c.facebookUrl)
 
                         <label>Twitter Name</label>
                         @Html.TextBoxFor(c => c.twitterName)
-                        
-                        <label>Google+</label>
-                        @Html.TextBoxFor(c => c.googlePlusUrl)                        
 
-                        <label>Email</label>
-                        @Html.TextBoxFor(c => c.emailAddress)
+                        <label>Twitter Hash Tag</label>
+                        @Html.TextBoxFor(c => c.twitterHashTag)
 
-                        <label>Phone Number</label>
-                        @Html.TextBoxFor(c => c.phoneNumber)
+                        <label>Lanyrd</label>
+                        @Html.TextBoxFor(c => c.lanyrdUrl)
                     </div>
                     <div class="span4">
+                        <label>Meetup</label>
+                        @Html.TextBoxFor(c => c.meetupUrl)
 
+                        <label>Google+</label>
+                        @Html.TextBoxFor(c => c.googlePlusUrl)
 
                         <label>Vimeo</label>
                         @Html.TextBoxFor(c => c.vimeoUrl)
@@ -104,21 +129,9 @@
 
                         <label>GitHub</label>
                         @Html.TextBoxFor(c => c.githubUrl)
-                        
-                        <label>BitBucket</label>
-                        @Html.TextBoxFor(c => c.bitbucketUrl)
-                        
-                        <label>CodePlex</label>
-                        @Html.TextBoxFor(c => c.codeplexUrl)
 
                         <label>LinkedIn</label>
                         @Html.TextBoxFor(c => c.linkedInUrl)
-
-                        <label>CoderWall</label>
-                        @Html.TextBoxFor(c => c.coderWallUrl)
-
-                        <label>StackOverflow</label>
-                        @Html.TextBoxFor(c => c.stackoverflowUrl)
                     </div>
 
                 </div>
