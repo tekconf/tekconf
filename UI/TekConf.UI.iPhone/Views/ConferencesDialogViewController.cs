@@ -27,8 +27,9 @@ namespace TekConf.UI.iPhone
 			}
 		}
 
-		public ConferencesDialogViewController () : base(new RootElement("Conferences"))
+		public ConferencesDialogViewController () : base(UITableViewStyle.Plain, new RootElement("Conferences"), false)
 		{
+
 			if (UIDevice.CurrentDevice.CheckSystemVersion (6,0)) {
 				// UIRefreshControl iOS6
 				RefreshControl = new UIRefreshControl();
@@ -42,7 +43,16 @@ namespace TekConf.UI.iPhone
 			Refresh();
 		}
 
+		public override void LoadView ()
+		{
+			base.LoadView ();
 
+			this.View = this.TableView;
+			if (ParentViewController != null && ParentViewController.View != null)
+			{
+				ParentViewController.View.BackgroundColor = UIColor.Red;
+			}
+		}
 
 		public void Refresh()
 		{
@@ -76,6 +86,15 @@ namespace TekConf.UI.iPhone
 			base.ViewWillAppear (animated);
 			var frame = this.View.Frame;
 			TableView.Frame = frame;
+
+			if (NavigationController != null)
+			{
+				NavigationController.NavigationBar.TintColor = UIColor.FromRGBA(red:0.506f, 
+				                                                                green:0.6f, 
+				                                                                blue:0.302f,
+				                                                                alpha:1f);
+				
+			}
 
 		}
 		public override void ViewDidAppear (bool animated)

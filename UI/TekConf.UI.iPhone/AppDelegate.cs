@@ -67,7 +67,7 @@ namespace TekConf.UI.iPhone
 			var font = UIFont.FromName("OpenSans", 14f);
 			
 			Root.Add(new Section() {
-				new StyledStringElement("Conferences", () => { NavigationController.PushViewController(new ConferencesListViewController(), true); }) { Font = font },
+				new StyledStringElement("Conferences", () => { NavigationController.PushViewController(new ConferencesDialogViewController(), true); }) { Font = font },
 
 				new StyledStringElement("CodeMash 2013", () => { NavigationController.PushViewController(new ConferenceDetailTabBarController("codemash-2013"), true); }) { Font = font },
 				new StyledStringElement("Build 2013", () => { NavigationController.PushViewController(new ConferenceDetailTabBarController("build-2013"), true); }) { Font = font },
