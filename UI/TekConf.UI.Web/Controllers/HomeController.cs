@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using TekConf.RemoteData.Dtos.v1;
@@ -14,7 +15,9 @@ namespace TekConf.UI.Web.Controllers
 
         public HomeController()
         {
-            _repository = new RemoteDataRepositoryAsync();
+            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
+
+            _repository = new RemoteDataRepositoryAsync(baseUrl);
         }
 
         [CompressFilter]

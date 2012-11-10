@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Configuration;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Linq;
 using TekConf.UI.Web.App_Start;
@@ -11,7 +12,9 @@ namespace TekConf.UI.Web.Controllers
 
         public ConferencesController()
         {
-            _repository = new RemoteDataRepositoryAsync();
+            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
+
+            _repository = new RemoteDataRepositoryAsync(baseUrl);
         }
 
         [CompressFilter]

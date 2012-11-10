@@ -31,6 +31,16 @@ namespace TekConf.RemoteData.v1
 
         public void GetConferences(Action<IList<ConferencesDto>> callback, string sortBy = "end", bool? showPastConferences = false, string search = null)
         {
+            if (sortBy == null)
+            {
+                sortBy = "end";
+            }
+
+            if (!showPastConferences.HasValue)
+            {
+                showPastConferences = false;
+            }
+
             var conferences = new Conferences() { sortBy = sortBy, showPastConferences = showPastConferences, search = search, showOnlyFeatured = false };
             ServiceClient.GetAsync(conferences, callback, (r, ex) => { callback(null); });
         }

@@ -35,8 +35,8 @@ namespace TekConf.UI.Api.v1
           {
             var schedule = this.RemoteDatabase.GetCollection<ScheduleEntity>("schedules")
               .AsQueryable()
-              .Where(s => s.ConferenceSlug == request.conferenceSlug)
-              .SingleOrDefault(s => s.UserSlug == request.userSlug);
+              .Where(s => s.ConferenceSlug.ToLower() == request.conferenceSlug.ToLower())
+              .SingleOrDefault(s => s.UserSlug.ToLower() == request.userSlug.ToLower());
 
             var scheduleDto = Mapper.Map<ScheduleEntity, ScheduleDto>(schedule);
             var resolver = new ScheduleUrlResolver(request.conferenceSlug, request.userSlug);

@@ -11,10 +11,12 @@ namespace TekConf.UI.Web.Controllers
 {
     public class RemoteDataRepositoryAsync
     {
+        private readonly string _baseUrl;
         private RemoteDataRepository _repository;
-        public RemoteDataRepositoryAsync()
+        public RemoteDataRepositoryAsync(string baseUrl)
         {
-            _repository = new RemoteDataRepository();
+            _baseUrl = baseUrl;
+            _repository = new RemoteDataRepository(_baseUrl);
         }
 
         public Task<IList<ConferencesDto>> GetConferences(string sortBy, bool? showPastConferences, string search)

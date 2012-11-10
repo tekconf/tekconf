@@ -27,7 +27,7 @@ namespace TekConf.UI.Api.Services.v1
                 var user3 = Membership.FindUsersByName(request.userName);
                 return null;
                 //var collection = this.RemoteDatabase.GetCollection<UserEntity>("ASPNETDB");
-                //var user = collection.AsQueryable().FirstOrDefault(u => u.userName == request.userName);
+                //var user = collection.AsQueryable().FirstOrDefault(u => u.userName.ToLower() == request.userName.ToLower());
                 //if (user == null)
                 //{
                 //    return new HttpError() {StatusCode = HttpStatusCode.BadRequest, StatusDescription = "User not found"};
@@ -43,7 +43,7 @@ namespace TekConf.UI.Api.Services.v1
         {
             var collection = this.RemoteDatabase.GetCollection<UserEntity>("users");
             var userExists = collection
-                .AsQueryable().Any(u => u.userName == request.userName);
+                .AsQueryable().Any(u => u.userName.ToLower() == request.userName.ToLower());
             
             if (userExists)
             {
