@@ -20,8 +20,6 @@ namespace MvcApplication1.Controllers
     //[InitializeSimpleMembership]
     public class AccountController : Controller
     {
-        //
-        // GET: /Account/Login
         [AllowAnonymous]
         public void Login()
         {
@@ -52,8 +50,7 @@ namespace MvcApplication1.Controllers
                 // dictionary of values from identity provider
                 var userDataFromProvider = result.ExtraData;
                 var email = userDataFromProvider["email"];
-
-                var baseUrl = ConfigurationManager.AppSettings["BaseUrl"]; // TODO : IOC
+                var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
 
                 var repository = new RemoteDataRepository(baseUrl);
                 AsyncManager.OutstandingOperations.Increment();
@@ -74,7 +71,7 @@ namespace MvcApplication1.Controllers
 
         public ActionResult AuthenticationCallbackCompleted(UserDto user)
         {
-            return RedirectToAction("Index", "Home");            
+            return RedirectToAction("Index", "Home");
         }
 
 

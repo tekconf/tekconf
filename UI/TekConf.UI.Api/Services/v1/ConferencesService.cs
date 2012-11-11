@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text.RegularExpressions;
 using AutoMapper;
 using MongoDB.Driver.Builders;
 using TekConf.RemoteData.Dtos.v1;
@@ -69,9 +71,10 @@ namespace TekConf.UI.Api.Services.v1
             string showPastConferencesCacheKey = request.showPastConferences.ToString() ?? string.Empty;
 
             var cacheKey = "GetAllConferences-" + searchCacheKey + "-" + sortByCacheKey + "-" + showPastConferencesCacheKey;
-            var expireInTimespan = new TimeSpan(0, 0, 20);
-
-            return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
+            var expireInTimespan = new TimeSpan(0, 0, 120);
+            Stopwatch sw = new Stopwatch();
+            sw.Start();
+            var result = base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
             {
                 var orderByFunc = GetOrderByFunc(request.sortBy);
                 var search = GetSearch(request.search);
@@ -91,11 +94,11 @@ namespace TekConf.UI.Api.Services.v1
                     query = query.Where(showPastConferences);
                 }
 
-                List<FullConferenceDto> conferencesDtos = null;
+                List<ConferencesDto> conferencesDtos = null;
                 List<ConferenceEntity> conferences = null;
                 try
                 {
-                    query = query.Where(c => c.isLive);
+                    //TODO : query = query.Where(c => c.isLive);
                     if (request.sortBy == "dateAdded")
                     {
                         query = query.OrderByDescending(orderByFunc).ThenBy(c => c.start).AsQueryable();
@@ -106,19 +109,20 @@ namespace TekConf.UI.Api.Services.v1
                     }
 
                     conferences = query
-                        //.Select(c => new ConferencesDto()
-                        //{
-                        //    name = c.name,
-                        //    start = c.start,
-                        //    end = c.end,
-                        //    location = c.location,
-                        //    //url = c.url,
-                        //    slug = c.slug,
-                        //    description = c.description,
-                        //    imageUrl = c.imageUrl
-                        //})
+                        .Select(c => new ConferenceEntity()
+                        {
+                            name = c.name,
+                            start = c.start,
+                            end = c.end,
+                            registrationCloses = c.registrationCloses,
+                            registrationOpens = c.registrationOpens,
+                            location = c.location,
+                            address = c.address,
+                            description = c.description,
+                            imageUrl = c.imageUrl,
+                        })
                       .ToList();
-                    conferencesDtos = Mapper.Map<List<FullConferenceDto>>(conferences);
+                    conferencesDtos = Mapper.Map<List<ConferencesDto>>(conferences);
                 }
                 catch (Exception ex)
                 {
@@ -126,20 +130,17 @@ namespace TekConf.UI.Api.Services.v1
                     throw;
                 }
 
-                //var resolver = new ConferencesUrlResolver();
-                //foreach (var conferencesDto in conferencesDtos)
-                //{
-                //    conferencesDto.url = resolver.ResolveUrl(conferencesDto.slug);
-                //}
-
                 return conferencesDtos.ToList();
             });
+            sw.Stop();
+            var x = sw.ElapsedMilliseconds;
+            return result;
         }
 
         private object GetFeaturedConferences(Conferences request)
         {
             var cacheKey = "GetFeaturedConferences";
-            var expireInTimespan = new TimeSpan(0, 0, 20);
+            var expireInTimespan = new TimeSpan(0, 0, 120);
 
             return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
             {
@@ -185,15 +186,17 @@ namespace TekConf.UI.Api.Services.v1
         private Expression<Func<ConferenceEntity, bool>> GetSearch(string search)
         {
             Expression<Func<ConferenceEntity, bool>> searchBy = null;
-
+            
             if (!string.IsNullOrWhiteSpace(search))
             {
-                searchBy = c => c.name.Contains(search)
-                    || c.description.Contains(search)
-                    || c.address.City.Contains(search)
-                    || c.address.Country.Contains(search)
-                    || c.sessions.Any(s => s.description.Contains(search))
-                    || c.sessions.Any(s => s.title.Contains(search))
+                var regex = new Regex(search, RegexOptions.IgnoreCase);
+                
+                searchBy = c => Regex.IsMatch(c.name, search, RegexOptions.IgnoreCase)
+                    || Regex.IsMatch(c.description, search, RegexOptions.IgnoreCase)
+                    || Regex.IsMatch(c.address.City, search, RegexOptions.IgnoreCase)
+                    || Regex.IsMatch(c.address.Country, search, RegexOptions.IgnoreCase)
+                    || c.sessions.Any(s => Regex.IsMatch(s.description, search, RegexOptions.IgnoreCase))
+                    || c.sessions.Any(s => Regex.IsMatch(s.title, search, RegexOptions.IgnoreCase))
                     //|| c.sessions.Any(s => s.tags.Any(t => t.Contains(search)))
                     //|| c.sessions.Any(session => session.speakers.Any(s => s.firstName.Contains(search)))
                     //|| c.sessions.Any(session => session.speakers.Any(s => s.lastName.Contains(search)))

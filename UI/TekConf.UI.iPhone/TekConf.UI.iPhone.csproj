@@ -24,7 +24,7 @@
     <MtouchDebug>True</MtouchDebug>
     <MtouchProfiling>True</MtouchProfiling>
     <MtouchLink>None</MtouchLink>
-    <MtouchI18n />
+    <MtouchI18n>other</MtouchI18n>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>
@@ -58,7 +58,7 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>False</ConsolePause>
     <CodesignKey>iPhone Distribution: Artek Software</CodesignKey>
-    <CodesignProvision>E377DD6E-1EF2-49E7-850F-0C8DE1F998DB</CodesignProvision>
+    <CodesignProvision>C296BBE1-5C48-464F-9D3D-A89A20C3BC7B</CodesignProvision>
     <MtouchI18n />
     <BuildIpa>True</BuildIpa>
     <IpaPackageName />
@@ -73,7 +73,7 @@
     <ConsolePause>False</ConsolePause>
     <BuildIpa>True</BuildIpa>
     <CodesignKey>iPhone Distribution: Artek Software</CodesignKey>
-    <CodesignProvision>B281B13B-EF60-4233-949D-B0566546B35B</CodesignProvision>
+    <CodesignProvision>C296BBE1-5C48-464F-9D3D-A89A20C3BC7B</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|iPhone' ">
     <DebugType>none</DebugType>
@@ -141,6 +141,7 @@
     <Compile Include="Views\SessionDetailAboutViewController.designer.cs">
       <DependentUpon>SessionDetailAboutViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\ConferencesDialogViewController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

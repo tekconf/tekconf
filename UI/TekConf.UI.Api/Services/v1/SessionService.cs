@@ -47,8 +47,8 @@ namespace TekConf.UI.Api.Services.v1
             var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
             var conference = collection
                 .AsQueryable()
-                .Where(c => c.isLive)
-                .FirstOrDefault(x => x.slug == request.conferenceSlug);
+                //.Where(c => c.isLive)
+                .FirstOrDefault(x => x.slug.ToLower() == request.conferenceSlug.ToLower());
 
             if (conference == null)
             {
@@ -68,9 +68,9 @@ namespace TekConf.UI.Api.Services.v1
         public object Put(AddSession request)
         {
             var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
-            var conference = collection.AsQueryable().FirstOrDefault(c => c.slug == request.conferenceSlug);
+            var conference = collection.AsQueryable().FirstOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
             conference.Hub = _hub;
-            var session = conference.sessions.FirstOrDefault(s => s.slug == request.slug);
+            var session = conference.sessions.FirstOrDefault(s => s.slug.ToLower() == request.slug.ToLower());
             Mapper.Map<AddSession, SessionEntity>(request, session);
 
             conference.Save(collection);
@@ -99,14 +99,14 @@ namespace TekConf.UI.Api.Services.v1
                     throw SessionNotFound;
                 }
             }
-            var expireInTimespan = new TimeSpan(0, 0, 20);
+            var expireInTimespan = new TimeSpan(0, 0, 120);
             return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
                     {
                         var conference = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
                             .AsQueryable()
-                            //.Where(s => s.slug == request.sessionSlug)
-                            .Where(c => c.isLive)
-                            .SingleOrDefault(c => c.slug == request.conferenceSlug);
+                            //.Where(s => s.slug.ToLower() == request.sessionSlug.ToLower())
+                            //.Where(c => c.isLive)
+                            .SingleOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
 
                         if (conference == null)
                         {
@@ -127,7 +127,7 @@ namespace TekConf.UI.Api.Services.v1
                             throw SessionNotFound;
                         }
 
-                        var session = conference.sessions.FirstOrDefault(s => s.slug == request.sessionSlug);
+                        var session = conference.sessions.FirstOrDefault(s => s.slug.ToLower() == request.sessionSlug.ToLower());
 
                         if (session != null)
                         {

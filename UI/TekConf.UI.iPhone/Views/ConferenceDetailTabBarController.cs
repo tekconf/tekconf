@@ -13,19 +13,25 @@ namespace TekConf.UI.iPhone
 			{ 
 				InvokeOnMainThread (() => 
 				{ 
-					SetTabs(conference);
+					if (conference != null)
+					{
+					
+						SetTabs(conference);
+					}
 				});
 			});
 		}
 
-		public ConferenceDetailTabBarController (FullConferenceDto conference)
-		{
-			SetTabs(conference);
-		}
+//		public ConferenceDetailTabBarController (ConferencesDto conference)
+//		{
+//			SetTabs(conference);
+//		}
 
-		public void SetTabs(FullConferenceDto conference)
+		public void SetTabs (FullConferenceDto conference)
 		{
-			this.Title = conference.name;
+			if (conference != null) {
+				this.Title = conference.name;
+			}
 			aboutTab = new ConferenceDetailAboutViewController(conference);
 			aboutTab.Title = "About";
 			

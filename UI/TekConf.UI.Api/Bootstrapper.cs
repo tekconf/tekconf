@@ -13,17 +13,21 @@ namespace TekConf.UI.Api
             Mapper.AddFormatter<TrimmingFormatter>();
 
             Mapper.CreateMap<ConferenceEntity, ConferencesDto>()
-                .ForMember(dest => dest.url, opt => opt.Ignore());
+                .ForMember(dest => dest.url, opt => opt.Ignore())
+                .ForMember(dest => dest.imageUrl, opt => opt.ResolveUsing<ImageResolver>());
 
-            Mapper.CreateMap<ConferenceEntity, ConferenceEntity>().ForMember(c => c._id, opt => opt.Ignore());
+            Mapper.CreateMap<ConferenceEntity, ConferenceEntity>()
+                .ForMember(c => c._id, opt => opt.Ignore())
+                .ForMember(dest => dest.imageUrl, opt => opt.ResolveUsing<ImageResolver>());
 
             Mapper.CreateMap<ConferenceEntity, ConferenceDto>()
                 .ForMember(dest => dest.url, opt => opt.Ignore())
                 .ForMember(dest => dest.sessionsUrl, opt => opt.Ignore())
                 .ForMember(dest => dest.speakersUrl, opt => opt.Ignore());
-
-            Mapper.CreateMap<ConferenceEntity, FullConferenceDto>();
-
+            
+            Mapper.CreateMap<ConferenceEntity, FullConferenceDto>()
+                .ForMember(dest => dest.imageUrl, opt => opt.ResolveUsing<ImageResolver>());
+            
             Mapper.CreateMap<SessionEntity, SessionsDto>()
                 .ForMember(dest => dest.url, opt => opt.Ignore());
 
@@ -65,7 +69,17 @@ namespace TekConf.UI.Api
         }
 
     }
-
+    public class ImageResolver : ValueResolver<ConferenceEntity, string>
+    {
+        protected override string ResolveCore(ConferenceEntity source)
+        {
+            if (string.IsNullOrWhiteSpace(source.imageUrl))
+            {
+                return "/img/conferences/DefaultConference.png";
+            }
+            return source.imageUrl;
+        }
+    }
     public class TrimmingFormatter : BaseFormatter<string>
     {
         protected override string FormatValueCore(string value)

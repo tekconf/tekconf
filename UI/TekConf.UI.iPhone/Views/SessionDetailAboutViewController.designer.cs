@@ -43,6 +43,12 @@ namespace TekConf.UI.iPhone
 
 		[Outlet]
 		MonoTouch.UIKit.UILabel linksLabel { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel separatorBelowTitle { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel separatorBelowRoom { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -99,6 +105,16 @@ namespace TekConf.UI.iPhone
 			if (linksLabel != null) {
 				linksLabel.Dispose ();
 				linksLabel = null;
+			}
+
+			if (separatorBelowTitle != null) {
+				separatorBelowTitle.Dispose ();
+				separatorBelowTitle = null;
+			}
+
+			if (separatorBelowRoom != null) {
+				separatorBelowRoom.Dispose ();
+				separatorBelowRoom = null;
 			}
 		}
 	}

@@ -53,14 +53,14 @@ namespace TekConf.UI.Api.Services.v1
                 }
             }
 
-            var expireInTimespan = new TimeSpan(0, 0, 20);
+            var expireInTimespan = new TimeSpan(0, 0, 120);
             return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
                 {
                     var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
                     var conference = collection
                         .AsQueryable()
-                        .Where(c => c.isLive)
-                        .SingleOrDefault(c => c.slug == request.conferenceSlug);
+                        //.Where(c => c.isLive)
+                        .SingleOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
 
                     if (conference == null)
                     {
@@ -80,7 +80,7 @@ namespace TekConf.UI.Api.Services.v1
                         {
                             foreach (var speakerEntity in session.speakers)
                             {
-                                if (!speakersList.Any(s => s.slug == speakerEntity.slug))
+                                if (!speakersList.Any(s => s.slug.ToLower() == speakerEntity.slug.ToLower()))
                                 {
                                     speakersList.Add(speakerEntity);
                                 }
@@ -89,7 +89,7 @@ namespace TekConf.UI.Api.Services.v1
                     }
                     var speakers = speakersList.ToList();
 
-                    var speaker = speakers.FirstOrDefault(s => s.slug == request.speakerSlug);
+                    var speaker = speakers.FirstOrDefault(s => s.slug.ToLower() == request.speakerSlug.ToLower());
 
                     if (speaker == null)
                     {

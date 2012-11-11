@@ -1,0 +1,62 @@
+﻿using System.Configuration;
+using System.Threading.Tasks;
+using System.Web.Mvc;
+using System.Linq;
+using TekConf.UI.Web.App_Start;
+
+namespace TekConf.UI.Web.Controllers
+{
+    public class ConferencesController : Controller
+    {
+<<<<<<< HEAD
+        public void IndexAsync(string sortBy, bool? showPastConferences, string search)
+        {
+            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"]; // TODO : IOC
+
+            var repository = new RemoteDataRepository(baseUrl);
+=======
+        private RemoteDataRepositoryAsync _repository;
+>>>>>>> 6bd8dc78e95eb38fecdb025139ca3579f3bf0005
+
+        public ConferencesController()
+        {
+            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
+
+            _repository = new RemoteDataRepositoryAsync(baseUrl);
+        }
+
+        [CompressFilter]
+        public async Task<ActionResult> Index(string sortBy, bool? showPastConferences, string search)
+        {
+            var conferencesTask = _repository.GetConferences(sortBy, showPastConferences, search);
+
+<<<<<<< HEAD
+        public void DetailAsync(string conferenceSlug)
+        {
+            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"]; // TODO : IOC
+
+            var repository = new RemoteDataRepository(baseUrl);
+=======
+            await conferencesTask;
+
+            return View(conferencesTask.Result.ToList());
+>>>>>>> 6bd8dc78e95eb38fecdb025139ca3579f3bf0005
+
+        }
+
+        [CompressFilter]
+        public async Task<ActionResult> Detail(string conferenceSlug)
+        {
+            var conferenceTask = _repository.GetFullConference(conferenceSlug);
+
+            await conferenceTask;
+
+            if (conferenceTask.Result == null)
+            {
+                return RedirectToAction("NotFound", "Error");
+            }
+
+            return View(conferenceTask.Result);
+        }
+    }
+}

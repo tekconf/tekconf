@@ -31,13 +31,13 @@ namespace TekConf.UI.Api.Services.v1
     private object GetSingleSessionPrerequisites(SessionPrerequisites request)
     {
       var cacheKey = "GetSingleSessionPrerequisites-" + request.conferenceSlug + "-" + request.sessionSlug;
-      var expireInTimespan = new TimeSpan(0, 0, 20);
+      var expireInTimespan = new TimeSpan(0, 0, 120);
       return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan,  () =>
       {
         var conference = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
           .AsQueryable()
-          .Where(c => c.isLive)
-          .SingleOrDefault(c => c.slug == request.conferenceSlug);
+          //.Where(c => c.isLive)
+          .SingleOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
 
         if (conference == null)
         {
@@ -45,7 +45,7 @@ namespace TekConf.UI.Api.Services.v1
         }
 
 
-        var session = conference.sessions.FirstOrDefault(s => s.slug == request.sessionSlug);
+        var session = conference.sessions.FirstOrDefault(s => s.slug.ToLower() == request.sessionSlug.ToLower());
         if (session == null)
         {
           throw new HttpError() { StatusCode = HttpStatusCode.NotFound };

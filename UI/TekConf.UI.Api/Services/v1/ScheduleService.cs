@@ -30,13 +30,13 @@ namespace TekConf.UI.Api.v1
     private object GetSingleSchedule(Schedule request)
     {
       var cacheKey = "GetSingleSchedule-" + request.conferenceSlug + "-" + request.userSlug;
-      var expireInTimespan = new TimeSpan(0, 0, 20);
+      var expireInTimespan = new TimeSpan(0, 0, 120);
       return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
           {
             var schedule = this.RemoteDatabase.GetCollection<ScheduleEntity>("schedules")
               .AsQueryable()
-              .Where(s => s.ConferenceSlug == request.conferenceSlug)
-              .SingleOrDefault(s => s.UserSlug == request.userSlug);
+              .Where(s => s.ConferenceSlug.ToLower() == request.conferenceSlug.ToLower())
+              .SingleOrDefault(s => s.UserSlug.ToLower() == request.userSlug.ToLower());
 
             var scheduleDto = Mapper.Map<ScheduleEntity, ScheduleDto>(schedule);
             var resolver = new ScheduleUrlResolver(request.conferenceSlug, request.userSlug);

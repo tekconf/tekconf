@@ -9,6 +9,11 @@ namespace TekConf.RemoteData.v1
 {
     public class RemoteDataRepository
     {
+		private string _baseUrl;
+		public RemoteDataRepository (string baseUrl)
+		{
+			_baseUrl = baseUrl;
+		}
         private JsonServiceClient _restClient;
         private JsonServiceClient ServiceClient
         {
@@ -16,27 +21,33 @@ namespace TekConf.RemoteData.v1
             {
                 if (_restClient == null)
                 {
-                    _restClient = new JsonServiceClient(_baseUrl);
-					_restClient.Timeout = new TimeSpan(0,0,0,20,0);
+                    _restClient = new JsonServiceClient(_baseUrl)
+                                      {
+                                          Timeout = new TimeSpan(0, 0, 0, 60, 0)
+                                      };
                 }
 
                 return _restClient;
             }
         }
 
-		private string _baseUrl;
-		public RemoteDataRepository (string baseUrl)
-		{
-			_baseUrl = baseUrl;
-		}
-
-        public void GetConferences(Action<IList<FullConferenceDto>> callback, string sortBy = "end", bool? showPastConferences = false, string search = null)
+        public void GetConferences(Action<IList<ConferencesDto>> callback, string sortBy = "end", bool? showPastConferences = false, string search = null)
         {
+            if (sortBy == null)
+            {
+                sortBy = "end";
+            }
+
+            if (!showPastConferences.HasValue)
+            {
+                showPastConferences = false;
+            }
+
             var conferences = new Conferences() { sortBy = sortBy, showPastConferences = showPastConferences, search = search, showOnlyFeatured = false };
             ServiceClient.GetAsync(conferences, callback, (r, ex) => { callback(null); });
         }
 
-        public void GetFeaturedConferences(Action<IList<FullConferenceDto>> callback)
+        public void GetFeaturedConferences(Action<IList<ConferencesDto>> callback)
         {
             var featured = new Conferences() { showOnlyFeatured = true };
             ServiceClient.GetAsync(featured, callback, (r, ex) => { callback(null); });
@@ -80,10 +91,7 @@ namespace TekConf.RemoteData.v1
 
         public void GetSessions(string conferenceSlug, Action<IList<SessionsDto>> callback)
         {
-            ServiceClient.GetAsync(new Sessions() { conferenceSlug = conferenceSlug }, callback, (r, ex) => { 
-				var x = r;
-				throw ex; 
-			});
+            ServiceClient.GetAsync(new Sessions() { conferenceSlug = conferenceSlug }, callback, (r, ex) => { callback(null); });
         }
 
         public void GetSession(string conferenceSlug, string slug, Action<SessionDto> callback)

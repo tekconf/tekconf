@@ -1,0 +1,72 @@
+<<<<<<< HEAD
+﻿using System.Collections.Generic;
+using System.Configuration;
+=======
+﻿using System.Configuration;
+using System.Threading.Tasks;
+>>>>>>> 6bd8dc78e95eb38fecdb025139ca3579f3bf0005
+using System.Web.Mvc;
+using TekConf.UI.Web.App_Start;
+
+namespace TekConf.UI.Web.Controllers
+{
+    public class SessionController : Controller
+    {
+        private RemoteDataRepositoryAsync _repository;
+
+        public SessionController()
+        {
+<<<<<<< HEAD
+            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"]; // TODO : IOC
+            var remoteData = new RemoteDataRepository(baseUrl);
+            AsyncManager.OutstandingOperations.Increment();
+            remoteData.GetSessions(conferenceSlug, sessions =>
+            {
+                AsyncManager.Parameters["sessions"] = sessions;
+                AsyncManager.OutstandingOperations.Decrement();
+            });
+=======
+            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
+>>>>>>> 6bd8dc78e95eb38fecdb025139ca3579f3bf0005
+
+            _repository = new RemoteDataRepositoryAsync(baseUrl);
+        }
+
+        [CompressFilter]
+        public async Task<ActionResult> Index(string conferenceSlug)
+        {
+            var sessionsTask = _repository.GetSessions(conferenceSlug);
+            await sessionsTask;
+            return View(sessionsTask.Result);
+        }
+
+        [CompressFilter]
+        public async Task<ActionResult> Detail(string conferenceSlug, string sessionSlug)
+        {
+<<<<<<< HEAD
+            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"]; // TODO : IOC
+
+            var remoteData = new RemoteDataRepository(baseUrl);
+            AsyncManager.OutstandingOperations.Increment();
+            remoteData.GetSession(conferenceSlug, sessionSlug, session =>
+            {
+                session.conferenceSlug = conferenceSlug;
+                AsyncManager.Parameters["session"] = session;
+                AsyncManager.OutstandingOperations.Decrement();
+            });
+        }
+=======
+            var sessionDetailTask = _repository.GetSessionDetail(conferenceSlug, sessionSlug);
+            
+            await sessionDetailTask;
+>>>>>>> 6bd8dc78e95eb38fecdb025139ca3579f3bf0005
+
+            if (sessionDetailTask.Result == null)
+            {
+                return RedirectToAction("NotFound", "Error");
+            }
+
+            return View(sessionDetailTask.Result);
+        }
+    }
+}

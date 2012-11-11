@@ -1,101 +1,94 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using TekConf.RemoteData.Dtos.v1;
-using TekConf.RemoteData.v1;
+using TekConf.UI.Web.App_Start;
 
 namespace TekConf.UI.Web.Controllers
 {
-  public class SpeakerController : AsyncController
-  {
-    public void IndexAsync(string conferenceSlug, string sessionSlug)
+    public class SpeakerController : Controller
     {
-        var baseUrl = ConfigurationManager.AppSettings["BaseUrl"]; // TODO : IOC
+        private RemoteDataRepositoryAsync _repository;
 
-      var remoteData = new RemoteDataRepository(baseUrl);
-      AsyncManager.OutstandingOperations.Increment();
-      remoteData.GetSessionSpeakers(conferenceSlug, sessionSlug, sessions =>
-      {
-        AsyncManager.Parameters["sessions"] = sessions;
-        AsyncManager.OutstandingOperations.Decrement();
-      });
-    }
-
-    public ActionResult IndexCompleted(List<SpeakersDto> speakers)
-    {
-      return View(speakers);
-    }
-
-
-    public void DetailAsync(string conferenceSlug, string sessionSlug, string speakerSlug)
-    {
-        var baseUrl = ConfigurationManager.AppSettings["BaseUrl"]; // TODO : IOC
-
-        var remoteData = new RemoteDataRepository(baseUrl);
-        AsyncManager.OutstandingOperations.Increment(2);
-
-        remoteData.GetSpeaker(conferenceSlug, speakerSlug, speaker =>
+        public SpeakerController()
         {
-            AsyncManager.Parameters["speaker"] = speaker;
-            AsyncManager.OutstandingOperations.Decrement();
-        });
+            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
 
-        remoteData.GetFullConference(conferenceSlug, conference =>
-        {
-            AsyncManager.Parameters["conference"] = conference;
-            AsyncManager.OutstandingOperations.Decrement();
-        });
-    }
-
-    public ActionResult DetailCompleted(FullSpeakerDto speaker, FullConferenceDto conference)
-    {
-        if (speaker == null || conference == null)
-        {
-            return RedirectToAction("NotFound", "Error");
+            _repository = new RemoteDataRepositoryAsync(baseUrl);
         }
 
-        var conferenceDto = new ConferencesDto()
-                                {
-                                    description = conference.description,
-                                    end = conference.end,
-                                    imageUrl = conference.imageUrl,
-                                    location = conference.location,
-                                    name = conference.name,
-                                    slug = conference.slug,
-                                    start = conference.start
-                                };
+        [CompressFilter]
+        public async Task<ActionResult> Index(string conferenceSlug, string sessionSlug)
+        {
+            var sessionSpeakersTask = _repository.GetSessionSpeakers(conferenceSlug, sessionSlug);
 
-        var sessions = from s in conference.sessions
-                       from sp in s.speakers
-                       where sp.slug == speaker.slug
-                       select new SessionsDto()
-                                  {
-                                      conferenceSlug = conference.slug,
-                                      description = s.description,
-                                      difficulty = s.difficulty,
-                                      end = s.end,
-                                      links = s.links,
-                                      prerequisites = s.prerequisites,
-                                      room = s.room,
-                                      sessionType = s.sessionType,
-                                      slug = s.slug,
-                                      start = s.start,
-                                      subjects = s.subjects,
-                                      tags = s.tags,
-                                      title = s.title,
-                                      twitterHashTag = s.twitterHashTag,
-                                  };
+            await sessionSpeakersTask;
 
-        var viewModel = new SpeakerDetailViewModel()
-                     {
-                         Conference = conferenceDto,
-                         Speaker = speaker,
-                         Sessions = sessions.ToList(),
-                     };
+            return View(sessionSpeakersTask.Result);
+        }
 
-        return View(viewModel);
+
+
+        [CompressFilter]
+        public async Task<ActionResult> Detail(string conferenceSlug, string sessionSlug, string speakerSlug)
+        {
+            var speakerTask = _repository.GetSpeaker(conferenceSlug, speakerSlug);
+
+            var conferenceTask = _repository.GetFullConference(conferenceSlug);
+
+            await Task.WhenAll(speakerTask, conferenceTask);
+
+            if (speakerTask.Result == null || conferenceTask.Result == null)
+            {
+                return RedirectToAction("NotFound", "Error");
+            }
+
+            var conference = conferenceTask.Result;
+            var speaker = speakerTask.Result;
+
+            var conferenceDto = new ConferencesDto()
+            {
+                description = conference.description,
+                end = conference.end,
+                imageUrl = conference.imageUrl,
+                location = conference.location,
+                name = conference.name,
+                start = conference.start
+            };
+
+            var sessions = from s in conference.sessions
+                           from sp in s.speakers
+                           where sp.slug == speaker.slug
+                           select new SessionsDto()
+                           {
+                               conferenceSlug = conference.slug,
+                               description = s.description,
+                               difficulty = s.difficulty,
+                               end = s.end,
+                               links = s.links,
+                               prerequisites = s.prerequisites,
+                               room = s.room,
+                               sessionType = s.sessionType,
+                               slug = s.slug,
+                               start = s.start,
+                               subjects = s.subjects,
+                               tags = s.tags,
+                               title = s.title,
+                               twitterHashTag = s.twitterHashTag,
+                           };
+
+            var viewModel = new SpeakerDetailViewModel()
+            {
+                Conference = conferenceDto,
+                Speaker = speaker,
+                Sessions = sessions.ToList(),
+            };
+
+            return View(viewModel);
+        }
+
+
+
     }
-  }
 }

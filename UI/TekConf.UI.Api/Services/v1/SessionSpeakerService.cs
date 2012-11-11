@@ -30,15 +30,15 @@ namespace TekConf.UI.Api.Services.v1
 
             var conference = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
                 .AsQueryable()
-                .Where(c => c.isLive)
-                .SingleOrDefault(c => c.slug == request.conferenceSlug);
+                //.Where(c => c.isLive)
+                .SingleOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
 
             if (conference == null)
             {
                 throw new HttpError() { StatusCode = HttpStatusCode.NotFound };
             }
 
-            var session = conference.sessions.SingleOrDefault(s => s.slug == request.sessionSlug);
+            var session = conference.sessions.SingleOrDefault(s => s.slug.ToLower() == request.sessionSlug.ToLower());
 
             if (session == null)
             {
@@ -51,10 +51,10 @@ namespace TekConf.UI.Api.Services.v1
         private object GetSingleSpeaker(SessionSpeaker request, SessionEntity session)
         {
             var cacheKey = "GetSingleSpeaker-" + request.conferenceSlug + "-" + request.sessionSlug + "-" + request.speakerSlug;
-            var expireInTimespan = new TimeSpan(0, 0, 20);
+            var expireInTimespan = new TimeSpan(0, 0, 120);
             return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
                                                                                                                      {
-                                                                                                                         var speaker = session.speakers.FirstOrDefault(s => s.slug == request.speakerSlug);
+                                                                                                                         var speaker = session.speakers.FirstOrDefault(s => s.slug.ToLower() == request.speakerSlug.ToLower());
 
                                                                                                                          var speakerDto = Mapper.Map<SpeakerEntity, SpeakerDto>(speaker);
                                                                                                                          var resolver = new SpeakerUrlResolver(request.conferenceSlug, request.sessionSlug, speakerDto.url);

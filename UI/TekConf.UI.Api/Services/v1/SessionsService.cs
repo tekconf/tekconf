@@ -43,14 +43,14 @@ namespace TekConf.UI.Api.Services.v1
                     throw ConferenceNotFound;
                 }
             }
-            var expireInTimespan = new TimeSpan(0, 0, 20);
+            var expireInTimespan = new TimeSpan(0, 0, 120);
             return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
             {
                 var conference =
                 this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
                 .AsQueryable()
-                .Where(c => c.isLive)
-                .SingleOrDefault(c => c.slug == request.conferenceSlug);
+                //.Where(c => c.isLive)
+                .SingleOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
 
                 if (conference == null)
                 {
