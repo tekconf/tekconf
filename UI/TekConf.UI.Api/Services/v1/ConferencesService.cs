@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using AutoMapper;
+using MongoDB.Driver.Builders;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.RemoteData.v1;
 using TekConf.UI.Api.Services.Requests.v1;
@@ -46,10 +47,13 @@ namespace TekConf.UI.Api.Services.v1
                 var confs = collection.AsQueryable()
                     .ToList();
 
-                foreach (var conf in confs)
+                var toDelete = confs.Where(x => x.slug.ToLower().StartsWith("temp")).ToList();
+
+                foreach (var conf in toDelete)
                 {
-                    conf.Save(collection);
+                    collection.Remove(Query.EQ("_id", conf._id));
                 }
+                
             }
             catch (Exception ex)
             {

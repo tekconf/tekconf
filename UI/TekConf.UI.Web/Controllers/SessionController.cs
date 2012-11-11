@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Configuration;
 using System.Web.Mvc;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.RemoteData.v1;
@@ -9,7 +10,8 @@ namespace TekConf.UI.Web.Controllers
     {
         public void IndexAsync(string conferenceSlug)
         {
-            var remoteData = new RemoteDataRepository();
+            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"]; // TODO : IOC
+            var remoteData = new RemoteDataRepository(baseUrl);
             AsyncManager.OutstandingOperations.Increment();
             remoteData.GetSessions(conferenceSlug, sessions =>
             {
@@ -26,7 +28,9 @@ namespace TekConf.UI.Web.Controllers
 
         public void DetailAsync(string conferenceSlug, string sessionSlug)
         {
-            var remoteData = new RemoteDataRepository();
+            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"]; // TODO : IOC
+
+            var remoteData = new RemoteDataRepository(baseUrl);
             AsyncManager.OutstandingOperations.Increment();
             remoteData.GetSession(conferenceSlug, sessionSlug, session =>
             {

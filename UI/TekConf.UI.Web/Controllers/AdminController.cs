@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Threading;
 using System.Web;
@@ -31,7 +32,9 @@ namespace TekConf.UI.Web.Controllers
         [HttpPost]
         public void CreateConferenceAsync(CreateConference conference, HttpPostedFileBase file)
         {
-            var repository = new RemoteDataRepository();
+            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"]; // TODO : IOC
+
+            var repository = new RemoteDataRepository(baseUrl);
 
             if (file != null)
             {
@@ -76,7 +79,9 @@ namespace TekConf.UI.Web.Controllers
         [HttpGet]
         public void EditConferenceAsync(string conferenceSlug)
         {
-            var repository = new RemoteDataRepository();
+            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"]; // TODO : IOC
+
+            var repository = new RemoteDataRepository(baseUrl);
 
             AsyncManager.OutstandingOperations.Increment();
             repository.GetFullConference(conferenceSlug, conference =>
@@ -95,7 +100,9 @@ namespace TekConf.UI.Web.Controllers
         [HttpPost]
         public void EditConfAsync(CreateConference conference, HttpPostedFileBase file)
         {
-            var repository = new RemoteDataRepository();
+            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"]; // TODO : IOC
+
+            var repository = new RemoteDataRepository(baseUrl);
 
             if (file != null)
             {
@@ -138,7 +145,9 @@ namespace TekConf.UI.Web.Controllers
 
         public void AddSessionAsync(string conferenceSlug)
         {
-            var repository = new RemoteDataRepository();
+            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"]; // TODO : IOC
+
+            var repository = new RemoteDataRepository(baseUrl);
 
             AsyncManager.OutstandingOperations.Increment();
             repository.GetFullConference(conferenceSlug, conference =>
@@ -160,7 +169,9 @@ namespace TekConf.UI.Web.Controllers
         [HttpPost]
         public void AddSessionToConferenceAsync(AddSession session)
         {
-            var repository = new RemoteDataRepository();
+            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"]; // TODO : IOC
+
+            var repository = new RemoteDataRepository(baseUrl);
 
             AsyncManager.OutstandingOperations.Increment();
 
@@ -182,7 +193,9 @@ namespace TekConf.UI.Web.Controllers
 
         public void EditSessionAsync(string conferenceSlug, string sessionSlug)
         {
-            var repository = new RemoteDataRepository();
+            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"]; // TODO : IOC
+
+            var repository = new RemoteDataRepository(baseUrl);
 
             AsyncManager.OutstandingOperations.Increment();
             repository.GetFullConference(conferenceSlug, conference =>
@@ -203,7 +216,9 @@ namespace TekConf.UI.Web.Controllers
         [HttpPost]
         public void EditSessionInConferenceAsync(AddSession session)
         {
-            var repository = new RemoteDataRepository();
+            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"]; // TODO : IOC
+
+            var repository = new RemoteDataRepository(baseUrl);
 
             AsyncManager.OutstandingOperations.Increment();
 
@@ -232,7 +247,9 @@ namespace TekConf.UI.Web.Controllers
         [HttpPost]
         public void CreateSpeakerAsync(CreateSpeaker speaker, HttpPostedFileBase file)
         {
-            var repository = new RemoteDataRepository();
+            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"]; // TODO : IOC
+
+            var repository = new RemoteDataRepository(baseUrl);
 
             if (file != null)
             {
@@ -279,7 +296,9 @@ namespace TekConf.UI.Web.Controllers
         [HttpGet]
         public void EditSpeakerAsync(string conferenceSlug, string speakerSlug)
         {
-            var remoteData = new RemoteDataRepository();
+            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"]; // TODO : IOC
+
+            var remoteData = new RemoteDataRepository(baseUrl);
             AsyncManager.OutstandingOperations.Increment();
 
             remoteData.GetSpeaker(conferenceSlug, speakerSlug, speaker =>
@@ -298,7 +317,9 @@ namespace TekConf.UI.Web.Controllers
         [HttpPost]
         public void EditSpeakerInConferenceAsync(CreateSpeaker speaker, HttpPostedFileBase file)
         {
-            var repository = new RemoteDataRepository();
+            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"]; // TODO : IOC
+
+            var repository = new RemoteDataRepository(baseUrl);
 
             if (file != null)
             {
@@ -341,7 +362,9 @@ namespace TekConf.UI.Web.Controllers
 
         public void EditConferencesIndexAsync(string sortBy, bool? showPastConferences, string search)
         {
-            var repository = new RemoteDataRepository();
+            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"]; // TODO : IOC
+
+            var repository = new RemoteDataRepository(baseUrl);
 
             AsyncManager.OutstandingOperations.Increment();
 

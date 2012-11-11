@@ -53,7 +53,9 @@ namespace MvcApplication1.Controllers
                 var userDataFromProvider = result.ExtraData;
                 var email = userDataFromProvider["email"];
 
-                var repository = new RemoteDataRepository();
+                var baseUrl = ConfigurationManager.AppSettings["BaseUrl"]; // TODO : IOC
+
+                var repository = new RemoteDataRepository(baseUrl);
                 AsyncManager.OutstandingOperations.Increment();
                 MembershipCreateStatus status;
                 Membership.Provider.CreateUser(email, string.Empty, email, "", "", true, Guid.NewGuid(), out status);

@@ -12,7 +12,9 @@ namespace TekConf.UI.Web.Controllers
     {
         public void IndexAsync(string sortBy, bool? showPastConferences, string search)
         {
-            var repository = new RemoteDataRepository();
+            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"]; // TODO : IOC
+
+            var repository = new RemoteDataRepository(baseUrl);
 
             AsyncManager.OutstandingOperations.Increment();
 
@@ -30,7 +32,9 @@ namespace TekConf.UI.Web.Controllers
 
         public void DetailAsync(string conferenceSlug)
         {
-            var repository = new RemoteDataRepository();
+            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"]; // TODO : IOC
+
+            var repository = new RemoteDataRepository(baseUrl);
 
             AsyncManager.OutstandingOperations.Increment();
             repository.GetFullConference(conferenceSlug, conference =>

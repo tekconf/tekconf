@@ -44,7 +44,9 @@ namespace TekConf.UI.Web.Controllers
         {
             return Task.Run(() =>
             {
-                var repository = new RemoteDataRepository();
+                var baseUrl = ConfigurationManager.AppSettings["BaseUrl"]; // TODO : IOC
+
+                var repository = new RemoteDataRepository(baseUrl);
 
                 var t = new TaskCompletionSource<IList<FullConferenceDto>>();
 
@@ -58,7 +60,9 @@ namespace TekConf.UI.Web.Controllers
         {
             return Task.Run(() =>
             {
-                var repository = new RemoteDataRepository();
+                var baseUrl = ConfigurationManager.AppSettings["BaseUrl"]; // TODO : IOC
+
+                var repository = new RemoteDataRepository(baseUrl);
 
                 var t = new TaskCompletionSource<IList<FullSpeakerDto>>();
 
