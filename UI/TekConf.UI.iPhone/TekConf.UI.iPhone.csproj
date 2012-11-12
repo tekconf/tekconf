@@ -98,6 +98,12 @@
     <Reference Include="System.Core" />
     <Reference Include="monotouch" />
     <Reference Include="MonoTouch.Dialog-1" />
+    <Reference Include="GoogleAnalytics">
+      <HintPath>..\..\..\monotouch-bindings\GoogleAnalytics\binding\GoogleAnalytics.dll</HintPath>
+    </Reference>
+    <Reference Include="FlurryAnalytics">
+      <HintPath>..\..\libs\FlurryAnalytics\FlurryAnalytics.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -111,14 +117,13 @@
     <None Include="fonts\OpenSans-Regular.ttf" />
     <None Include="fonts\OpenSans-Semibold.ttf" />
     <None Include="fonts\OpenSans-SemiboldItalic.ttf" />
+    <None Include="..\..\libs\GoogleAnalytics\GoogleAnalytics.dll">
+      <Link>GoogleAnalytics.dll</Link>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="Views\ConferencesListViewController.cs" />
-    <Compile Include="Views\ConferencesListViewController.designer.cs">
-      <DependentUpon>ConferencesListViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\ConferenceDetailViewController.cs" />
     <Compile Include="Views\ConferenceDetailViewController.designer.cs">
       <DependentUpon>ConferenceDetailViewController.cs</DependentUpon>
@@ -149,6 +154,7 @@
       <DependentUpon>SessionDetailAboutViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\ConferencesDialogViewController.cs" />
+    <Compile Include="ExtensionMethods.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -177,7 +183,6 @@
     <Folder Include="Views\" />
   </ItemGroup>
   <ItemGroup>
-    <InterfaceDefinition Include="Views\ConferencesListViewController.xib" />
     <InterfaceDefinition Include="Views\ConferenceDetailViewController.xib" />
     <InterfaceDefinition Include="Views\ConferenceDetailAboutViewController.xib" />
     <InterfaceDefinition Include="Views\ConferenceDetailSpeakersViewController.xib" />
@@ -206,5 +211,9 @@
     <Content Include="artekLogo114.png" />
     <Content Include="artekLogo57.png" />
     <Content Include="artekLogo72.png" />
+    <Content Include="images\DefaultConference.png" />
+    <Content Include="images\twitter-16x16.png" />
+    <Content Include="images\website-16x16.png" />
+    <Content Include="images\facebook-16x16.png" />
   </ItemGroup>
 </Project>

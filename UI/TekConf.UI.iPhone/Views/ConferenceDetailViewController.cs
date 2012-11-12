@@ -52,6 +52,12 @@ namespace TekConf.UI.iPhone
 					UITableViewScrollPosition.Middle
 				);
 			}
+
+			if (_conference != null)
+			{
+				NSError error;
+				var success = GoogleAnalytics.GANTracker.SharedTracker.TrackPageView("ConferenceDetailViewController-" + _conference.slug, out error);
+			}
 		}
 
 		[Obsolete]

@@ -31,7 +31,12 @@ namespace TekConf.UI.iPhone
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-			
+
+			if (_speaker != null)
+			{
+				NSError error;
+				var success = GoogleAnalytics.GANTracker.SharedTracker.TrackPageView("SpeakerDetailSessionsViewController-" + _speaker.slug, out error);
+			}
 			// Perform any additional setup after loading the view, typically from a nib.
 		}
 		

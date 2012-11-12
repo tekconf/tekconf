@@ -65,7 +65,7 @@ namespace TekConf.UI.iPhone
 			indicator.StartAnimating (); 
 			loading.AddSubview (indicator);
 
-			Repository.GetConferences (sortBy: "", showPastConferences: true, search: "", callback: conferences => 
+			Repository.GetConferences (sortBy: "", showPastConferences: false, search: "", callback: conferences => 
 			{ 
 				InvokeOnMainThread (() => 
 				{ 
@@ -79,6 +79,10 @@ namespace TekConf.UI.iPhone
 
 				});
 			});
+
+
+			NSError error;
+			var success = GoogleAnalytics.GANTracker.SharedTracker.TrackPageView("ConferencesDialogViewController", out error);
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -120,6 +124,7 @@ namespace TekConf.UI.iPhone
 
 		private class ConferencesTableViewSource : UITableViewSource, IImageUpdated
 		{ 
+			private UIImage _defaultImage;
 			private readonly IList<ConferencesDto> _conferences;
 			private const string ConferenceCell = "ConferenceCell";
 			private ConferencesDialogViewController _rootViewController;
@@ -127,13 +132,22 @@ namespace TekConf.UI.iPhone
 			
 			public ConferencesTableViewSource (ConferencesDialogViewController controller, IList<ConferencesDto> conferences)
 			{ 
+
 				_rootViewController = controller;
-				_conferences = conferences; 
+				_conferences = conferences;
+				_defaultImage = UIImage.FromBundle(@"images/DefaultConference.png");
 			}
 			
 			public override int RowsInSection (UITableView tableView, int section)
 			{ 
-				return _conferences.Count; 
+				if (_conferences == null)
+				{
+					return 0;
+				}
+				else
+				{
+					return _conferences.Count; 
+				}
 			}
 			
 			public override float GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
@@ -154,7 +168,7 @@ namespace TekConf.UI.iPhone
 				if (!string.IsNullOrWhiteSpace (conference.imageUrl)) {
 					var logo = ImageLoader.DefaultRequestImage (new Uri ("http://www.tekconf.com" + conference.imageUrl), this);
 					if (logo == null) {
-						//logoImage.Image = DefaultImage;
+						cell.ImageView.Image = _defaultImage;
 					} else {
 						cell.ImageView.Image = logo;
 					}
@@ -164,24 +178,25 @@ namespace TekConf.UI.iPhone
 				cell.DetailTextLabel.Text = conference.CalculateConferenceDates (conference); 
 				return cell; 
 			}
+
 			protected static bool UserInterfaceIdiomIsPhone {
 				get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone; }
 			}
+
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 			{ 
-				var selectedConference = _conferences [indexPath.Row]; 
-				//new UIAlertView ("View Conference", selectedConference.name, null, "Ok", null).Show (); 
+				var selectedConference = _conferences [indexPath.Row];  
 				
 				if (UserInterfaceIdiomIsPhone) {
 					_conferenceDetailViewController = new ConferenceDetailTabBarController (selectedConference.slug);
 					_rootViewController.NavigationController.PushViewController (
 						_conferenceDetailViewController,
-						true
+						false
 						);
 				} else {
 					// Navigation logic may go here -- for example, create and push another view controller.
 				}
-				
+
 			} 
 			
 			#region IImageUpdated implementation
@@ -191,19 +206,16 @@ namespace TekConf.UI.iPhone
 				//logoImage.Image = ImageLoader.DefaultRequestImage(uri, this);
 			}
 			
-#endregion
+			#endregion
 		}
 		
 		private class DataSource : UITableViewSource
 		{
-			//RootViewController controller;
 			
 			public DataSource ()
 			{
-				//this.controller = controller;
 			}
-			
-			// Customize the number of sections in the table view.
+
 			public override int NumberOfSections (UITableView tableView)
 			{
 				return 1;
@@ -213,8 +225,7 @@ namespace TekConf.UI.iPhone
 			{
 				return 1;
 			}
-			
-			// Customize the appearance of table view cells.
+
 			public override UITableViewCell GetCell (UITableView tableView, MonoTouch.Foundation.NSIndexPath indexPath)
 			{
 				string cellIdentifier = "Cell";
@@ -228,67 +239,15 @@ namespace TekConf.UI.iPhone
 				var font = UIFont.FromName ("OpenSans", 12f);
 				cell.TextLabel.Font = font;
 				cell.DetailTextLabel.Font = font;
-				// Configure the cell.
-				//cell.TextLabel.Text = NSBundle.MainBundle.LocalizedString (
-				//	"Detail",
-				//	"Detail"
-				//);
+
 				return cell;
 			}
-			
-			/*
-			// Override to support conditional editing of the table view.
-			public override bool CanEditRow (UITableView tableView, MonoTouch.Foundation.NSIndexPath indexPath)
-			{
-				// Return false if you do not want the specified item to be editable.
-				return true;
-			}
-			*/
-			
-			/*
-			// Override to support editing the table view.
-			public override void CommitEditingStyle (UITableView tableView, UITableViewCellEditingStyle editingStyle, NSIndexPath indexPath)
-			{
-				if (editingStyle == UITableViewCellEditingStyle.Delete) {
-					// Delete the row from the data source.
-					controller.conferencesTableView.DeleteRows (new NSIndexPath[] { indexPath }, UITableViewRowAnimation.Fade);
-				} else if (editingStyle == UITableViewCellEditingStyle.Insert) {
-					// Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
-				}
-			}
-			*/
-			
-			/*
-			// Override to support rearranging the table view.
-			public override void MoveRow (UITableView tableView, NSIndexPath sourceIndexPath, NSIndexPath destinationIndexPath)
-			{
-			}
-			*/
-			
-			/*
-			// Override to support conditional rearranging of the table view.
-			public override bool CanMoveRow (UITableView tableView, NSIndexPath indexPath)
-			{
-				// Return false if you do not want the item to be re-orderable.
-				return true;
-			}
-			*/
+
 			protected static bool UserInterfaceIdiomIsPhone {
 				get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone; }
 			}
-			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
-			{
-				if (UserInterfaceIdiomIsPhone) {
-					//					var DetailViewController = new ConferenceDetailViewController ();
-					//					// Pass the selected object to the new view controller.
-					//					controller.NavigationController.PushViewController (
-					//						DetailViewController,
-					//						true
-					//						);
-				} else {
-					// Navigation logic may go here -- for example, create and push another view controller.
-				}
-			}
+
+
 		}
 
 	}

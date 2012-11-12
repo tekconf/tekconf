@@ -6,6 +6,7 @@ using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using MonoTouch.SlideoutNavigation;
 using MonoTouch.Dialog;
+using FA=FlurryAnalytics;
 
 namespace TekConf.UI.iPhone
 {
@@ -19,7 +20,7 @@ namespace TekConf.UI.iPhone
 		UIWindow window;
         public SlideoutNavigationController Menu { get; private set; }
 
-
+		const string account = "UA-20184526-3";
 
 		//
 		// This method is invoked when the application has loaded and is ready to run. In this 
@@ -29,6 +30,10 @@ namespace TekConf.UI.iPhone
 		//
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
+			GoogleAnalytics.GANTracker.SharedTracker.StartTracker(account, 10, null);
+			FA.FlurryAnalytics.StartSession("J57HPDDQQ8J8MVGKBKF7");
+
+			FA.FlurryAnalytics.SetSessionReportsOnPause(true);
 			var font = UIFont.FromName("OpenSans-Light", 14f);
 			var headerFont = UIFont.FromName("OpenSans", 16f);
 			
@@ -47,7 +52,8 @@ namespace TekConf.UI.iPhone
 			
 			window.RootViewController = Menu;
 			window.MakeKeyAndVisible ();
-			
+			NSError error;
+			var success = GoogleAnalytics.GANTracker.SharedTracker.TrackEvent("App events","App Finished Launching", "", 1, out error);
 			return true;
 		}
 	}

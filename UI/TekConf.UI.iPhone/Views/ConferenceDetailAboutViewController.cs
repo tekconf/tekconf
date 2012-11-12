@@ -6,7 +6,7 @@ using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using TekConf.RemoteData.Dtos.v1;
 using MonoTouch.Dialog.Utilities;
-
+using FA= FlurryAnalytics;
 namespace TekConf.UI.iPhone
 {
 	public partial class ConferenceDetailAboutViewController : BaseUIViewController, IImageUpdated
@@ -38,6 +38,11 @@ namespace TekConf.UI.iPhone
 			this.contentScrollView.ContentInset = new UIEdgeInsets(top:-30, left:0, bottom:900, right:0);
 		}
 
+		public override void LoadView ()
+		{
+			base.LoadView ();
+			FA.FlurryAnalytics.LogAllPageViews(this);
+		}
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
@@ -58,7 +63,7 @@ namespace TekConf.UI.iPhone
 					var logo = ImageLoader.DefaultRequestImage(new Uri("http://www.tekconf.com" + _conference.imageUrl), this);
 					if(logo == null)
 					{
-						//logoImage.Image = DefaultImage;
+						logoImage.Image = UIImage.FromBundle(@"images/DefaultConference");
 					}
 					else 
 					{
@@ -74,6 +79,20 @@ namespace TekConf.UI.iPhone
 
 				loading.DismissWithClickedButtonIndex (0, true); 
 			});
+
+			if (_conference != null)
+			{
+				FA.FlurryAnalytics.LogEvent("ConferenceDetailAboutViewController-" + _conference.slug);
+
+
+				NSError error;
+				var success = GoogleAnalytics.GANTracker.SharedTracker.TrackPageView("ConferenceDetailAboutViewController-" + _conference.slug, out error);
+			
+				var tracker = new UIAlertView ("Tracked", success.ToString(), null, "Cancel", null);
+				
+				tracker.Show ();
+			
+			}
 
 		}
 
@@ -120,7 +139,12 @@ namespace TekConf.UI.iPhone
 
 		void SetDetailsContainer ()
 		{
-			if (string.IsNullOrWhiteSpace (_conference.twitterHashTag) && string.IsNullOrWhiteSpace (_conference.twitterName)) {
+			if (string.IsNullOrWhiteSpace (_conference.twitterHashTag) 
+			    && string.IsNullOrWhiteSpace (_conference.twitterName)
+			    && string.IsNullOrWhiteSpace (_conference.homepageUrl)
+			    && string.IsNullOrWhiteSpace (_conference.facebookUrl)
+			    
+			    ) {
 				this.detailsContainerView.Hidden = true;
 			} else {
 				this.detailsSlashesLabel.TextColor = UIColor.FromRGBA(red:0.506f, 
@@ -138,9 +162,63 @@ namespace TekConf.UI.iPhone
 				frame.Y = this.descriptionLabel.Frame.Location.Y + this.descriptionLabel.Frame.Height + 10;
 				this.detailsContainerView.Frame = frame;
 				this.detailsContainerView.BackgroundColor = UIColor.FromRGBA (red: 0.933f, green: 0.933f, blue: 0.933f, alpha: 1f);
-				
-				this.twitterHashTagLabel.Text = _conference.twitterHashTag;
-				this.twitterNameLabel.Text = _conference.twitterName;
+
+				if (string.IsNullOrWhiteSpace(_conference.twitterHashTag))
+				{
+					this.twitterHashTagImage.Hidden = true;
+					this.twitterHashTagLabel.Hidden = true;
+				}
+				else
+				{
+					this.twitterHashTagImage.Hidden = false;
+					this.twitterHashTagLabel.Hidden = false;
+					this.twitterHashTagImage.Image = UIImage.FromBundle(@"images/twitter-16x16");
+					this.twitterHashTagLabel.Text = _conference.twitterHashTag;
+				}
+
+				if (string.IsNullOrWhiteSpace(_conference.twitterName))
+				{
+					this.twitterNameImage.Hidden = true;
+					this.twitterNameLabel.Hidden = true;
+				}
+				else
+				{
+					this.twitterNameImage.Hidden = false;
+					this.twitterNameLabel.Hidden = false;
+
+					this.twitterNameImage.Image = UIImage.FromBundle(@"images/twitter-16x16");
+					this.twitterNameLabel.Text = _conference.twitterName;
+				}
+
+				if (string.IsNullOrWhiteSpace(_conference.homepageUrl))
+				{
+					this.websiteImage.Hidden = true;
+					this.websiteLabel.Hidden = true;
+				}
+				else
+				{
+					this.websiteImage.Hidden = false;
+					this.websiteLabel.Hidden = false;
+					this.websiteImage.Image = UIImage.FromBundle(@"images/website-16x16");
+					this.websiteLabel.Text = _conference.homepageUrl.SafeReplace ("http://", "").SafeReplace("https://", "");
+				}
+
+				if (string.IsNullOrWhiteSpace(_conference.facebookUrl))
+				{
+					this.facebookImage.Hidden = true;
+					this.facebookLabel.Hidden = true;
+				}
+				else
+				{
+					this.facebookImage.Hidden = false;
+					this.facebookLabel.Hidden = false;
+					this.facebookImage.Image = UIImage.FromBundle(@"images/facebook-16x16");
+					this.facebookLabel.Text = _conference.facebookUrl.SafeReplace ("http://", "").SafeReplace("https://", "");
+					this.facebookLabel.LineBreakMode = UILineBreakMode.CharacterWrap;
+					this.facebookLabel.Lines = 0;
+				}
+
+
 			}
 
 		}
