@@ -31,7 +31,11 @@ namespace TekConf.UI.iPhone
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-			
+
+			if (_speaker != null)
+			{
+				TrackAnalyticsEvent("SpeakerDetailSessionsViewController-" + _speaker.slug);
+			}
 			// Perform any additional setup after loading the view, typically from a nib.
 		}
 		

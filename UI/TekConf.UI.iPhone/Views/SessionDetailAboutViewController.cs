@@ -107,12 +107,19 @@ namespace TekConf.UI.iPhone
 
 		void SetDescription ()
 		{
-			this.descriptionLabel.Text = _session.description;
+			this.descriptionLabel.Text = _session.description.Trim();
 			this.descriptionLabel.Lines = 0;
 			this.descriptionLabel.SizeToFit ();
 
 			var frame = this.descriptionLabel.Frame;
-			frame.Y  = this.separatorBelowRoom.Frame.Y + this.separatorBelowRoom.Frame.Height + 5;
+			if (this.titleLabel.Frame.Height > 40)
+			{
+				frame.Y  = this.separatorBelowRoom.Frame.Y + this.separatorBelowRoom.Frame.Height - 50;
+			}
+			else
+			{
+				frame.Y  = this.separatorBelowRoom.Frame.Y + this.separatorBelowRoom.Frame.Height + 5;
+			}
 			this.descriptionLabel.Frame = frame;
 		}
 
@@ -120,13 +127,26 @@ namespace TekConf.UI.iPhone
 		{
 			this.moreInformationView.BackgroundColor = UIColor.FromRGBA(red: 0.933f, green: 0.933f, blue: 0.933f, alpha: 1f);
 			var frame = this.moreInformationView.Frame;
-			frame.Y = this.descriptionLabel.Frame.Y + this.descriptionLabel.Frame.Height + 20;
+
+			if (this.titleLabel.Frame.Height > 40)
+			{
+				frame.Y = this.descriptionLabel.Frame.Y + this.descriptionLabel.Frame.Height - 25;
+			}
+			else
+			{
+				frame.Y = this.descriptionLabel.Frame.Y + this.descriptionLabel.Frame.Height + 10;
+			}
 			this.moreInformationView.Frame = frame;
 		}
 
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
+
+			if (_session != null)
+			{
+				TrackAnalyticsEvent("SessionDetailAboutViewController-" + _session.slug);
+			}
 		}
 		
 		public override void ViewDidUnload ()

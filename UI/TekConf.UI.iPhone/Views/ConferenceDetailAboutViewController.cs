@@ -6,84 +6,100 @@ using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using TekConf.RemoteData.Dtos.v1;
 using MonoTouch.Dialog.Utilities;
+using FA= FlurryAnalytics;
 
 namespace TekConf.UI.iPhone
 {
 	public partial class ConferenceDetailAboutViewController : BaseUIViewController, IImageUpdated
 	{
-		private FullConferenceDto _conference;
-
-		public ConferenceDetailAboutViewController (FullConferenceDto conference) : base ("ConferenceDetailAboutViewController", null)
+		public ConferenceDetailAboutViewController () : base ("ConferenceDetailAboutViewController", null)
 		{
-			_conference = conference;
-			if (_conference != null) {
-				Title = _conference.name;
-			}
 		}
 		
 		public override void DidReceiveMemoryWarning ()
 		{
-			// Releases the view if it doesn't have a superview.
 			base.DidReceiveMemoryWarning ();
-			
-			// Release any cached data, images, etc that aren't in use.
 		}
 
 		public override void ViewWillAppear (bool animated)
 		{
 			base.ViewWillAppear (animated);
-			this.contentScrollView.ContentSize = new SizeF(width:this.View.Frame.Width, height:600);
+			this.contentScrollView.ContentSize = new SizeF (width: this.View.Frame.Width, height: 600);
 			this.contentScrollView.ScrollEnabled = true;
 			this.contentScrollView.ClipsToBounds = true;
-			this.contentScrollView.ContentInset = new UIEdgeInsets(top:-30, left:0, bottom:900, right:0);
+			this.contentScrollView.ContentInset = new UIEdgeInsets (top: -30, left: 0, bottom: 900, right: 0);
+		}
+
+		public override void LoadView ()
+		{
+			base.LoadView ();
+			FA.FlurryAnalytics.LogAllPageViews (this);
+		}
+
+		private void LoadConference ()
+		{
+			if (this.IsReachable ()) {
+				var loading = new UIAlertView (" Downloading Conference", "Please wait...", null, null, null);
+				
+				loading.Show ();
+				
+				var indicator = new UIActivityIndicatorView (UIActivityIndicatorViewStyle.WhiteLarge); 
+				indicator.Center = new System.Drawing.PointF (loading.Bounds.Width / 2, loading.Bounds.Size.Height - 40); 
+				indicator.StartAnimating (); 
+				loading.AddSubview (indicator);
+
+				var conferenceSlug = NavigationItems.ConferenceSlug;
+				Repository.GetConference (conferenceSlug, conference => 
+				{ 
+					NavigationItems.Conference = conference;
+					InvokeOnMainThread (() => 
+					{ 
+						if (conference != null) {
+							if (!string.IsNullOrWhiteSpace (conference.imageUrl)) {
+								var logo = ImageLoader.DefaultRequestImage (new Uri ("http://www.tekconf.com" + conference.imageUrl), this);
+								if (logo == null) {
+									logoImage.Image = UIImage.FromBundle (@"images/DefaultConference");
+								} else {
+									logoImage.Image = logo;
+								}
+							}
+						
+							SetTagLine (conference);
+							SetStartLabel (conference);
+							SetDescriptionLabel (conference);
+							SetDetailsContainer (conference);
+						}
+						else
+						{
+							var notFound = new UIAlertView("Not found", "Conference not found", null, "OK", null);
+							notFound.Show();
+						}
+						
+						loading.DismissWithClickedButtonIndex (0, true); 
+					});
+
+					if (conference != null) {
+						TrackAnalyticsEvent ("ConferenceDetailAboutViewController-" + conference.slug);
+					}
+				});
+			} else {
+				UnreachableAlert ().Show ();
+			}
 		}
 
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-			
-			var loading = new UIAlertView (" Downloading Conference", "Please wait...", null, null, null);
-
-			loading.Show ();
-			
-			var indicator = new UIActivityIndicatorView (UIActivityIndicatorViewStyle.WhiteLarge); 
-			indicator.Center = new System.Drawing.PointF (loading.Bounds.Width / 2, loading.Bounds.Size.Height - 40); 
-			indicator.StartAnimating (); 
-			loading.AddSubview (indicator);
-
-			InvokeOnMainThread (() => 
-			{ 
-				if (!string.IsNullOrWhiteSpace(_conference.imageUrl))
-				{
-					var logo = ImageLoader.DefaultRequestImage(new Uri("http://www.tekconf.com" + _conference.imageUrl), this);
-					if(logo == null)
-					{
-						//logoImage.Image = DefaultImage;
-					}
-					else 
-					{
-						logoImage.Image = logo;
-					}
-				}
-
-				SetTagLine ();
-				SetStartLabel ();
-				SetDescriptionLabel ();
-				SetDetailsContainer ();
-
-
-				loading.DismissWithClickedButtonIndex (0, true); 
-			});
-
+			LoadConference ();
 		}
 
-		void SetTagLine ()
+		void SetTagLine (FullConferenceDto conference)
 		{
 			var font = UIFont.FromName ("OpenSans", 15f);
 			this.taglineLabel.Font = font;
 
-			if (!string.IsNullOrWhiteSpace (_conference.tagline)) {
-				this.taglineLabel.Text = _conference.tagline;
+			if (!string.IsNullOrWhiteSpace (conference.tagline)) {
+				this.taglineLabel.Text = conference.tagline;
 
 				this.taglineLabel.Hidden = false;
 				this.tagLineSeparatorBottom.Hidden = false;
@@ -96,9 +112,9 @@ namespace TekConf.UI.iPhone
 			}
 		}
 
-		void SetStartLabel ()
+		void SetStartLabel (FullConferenceDto conference)
 		{
-			this.startLabel.Text = _conference.CalculateConferenceDates (_conference);
+			this.startLabel.Text = conference.CalculateConferenceDates (conference);
 			var frame = this.startLabel.Frame;
 			if (this.tagLineSeparatorBottom.Hidden) {
 				frame.Y = this.tagLineSeparatorTop.Frame.Y + 30;
@@ -108,27 +124,32 @@ namespace TekConf.UI.iPhone
 			this.startLabel.Frame = frame;
 		}
 
-		void SetDescriptionLabel ()
+		void SetDescriptionLabel (FullConferenceDto conference)
 		{
-			this.descriptionLabel.Text = _conference.description;
+			this.descriptionLabel.Text = conference.description;
 			this.descriptionLabel.Lines = 0;
 			this.descriptionLabel.SizeToFit ();
 			var frame = this.descriptionLabel.Frame;
-			frame.Y = this.startLabel.Frame.Y + 10;
+			frame.Y = this.startLabel.Frame.Y + 30;
 			this.descriptionLabel.Frame = frame;
 		}
 
-		void SetDetailsContainer ()
+		void SetDetailsContainer (FullConferenceDto conference)
 		{
-			if (string.IsNullOrWhiteSpace (_conference.twitterHashTag) && string.IsNullOrWhiteSpace (_conference.twitterName)) {
+			if (string.IsNullOrWhiteSpace (conference.twitterHashTag) 
+				&& string.IsNullOrWhiteSpace (conference.twitterName)
+				&& string.IsNullOrWhiteSpace (conference.homepageUrl)
+				&& string.IsNullOrWhiteSpace (conference.facebookUrl)
+			    
+			    ) {
 				this.detailsContainerView.Hidden = true;
 			} else {
-				this.detailsSlashesLabel.TextColor = UIColor.FromRGBA(red:0.506f, 
-				                                                      green:0.6f, 
-				                                                      blue:0.302f, 
-				                                                      alpha:1f);
+				this.detailsSlashesLabel.TextColor = UIColor.FromRGBA (red: 0.506f, 
+				                                                      green: 0.6f, 
+				                                                      blue: 0.302f, 
+				                                                      alpha: 1f);
 
-				var font = UIFont.FromName("OpenSans-Bold", 14f);
+				var font = UIFont.FromName ("OpenSans-Bold", 14f);
 				this.detailsSlashesLabel.Font = font;
 				//this.moreInformationLabel.Font = font;
 
@@ -138,9 +159,51 @@ namespace TekConf.UI.iPhone
 				frame.Y = this.descriptionLabel.Frame.Location.Y + this.descriptionLabel.Frame.Height + 10;
 				this.detailsContainerView.Frame = frame;
 				this.detailsContainerView.BackgroundColor = UIColor.FromRGBA (red: 0.933f, green: 0.933f, blue: 0.933f, alpha: 1f);
-				
-				this.twitterHashTagLabel.Text = _conference.twitterHashTag;
-				this.twitterNameLabel.Text = _conference.twitterName;
+
+				if (string.IsNullOrWhiteSpace (conference.twitterHashTag)) {
+					this.twitterHashTagImage.Hidden = true;
+					this.twitterHashTagLabel.Hidden = true;
+				} else {
+					this.twitterHashTagImage.Hidden = false;
+					this.twitterHashTagLabel.Hidden = false;
+					this.twitterHashTagImage.Image = UIImage.FromBundle (@"images/twitter-16x16");
+					this.twitterHashTagLabel.Text = conference.twitterHashTag;
+				}
+
+				if (string.IsNullOrWhiteSpace (conference.twitterName)) {
+					this.twitterNameImage.Hidden = true;
+					this.twitterNameLabel.Hidden = true;
+				} else {
+					this.twitterNameImage.Hidden = false;
+					this.twitterNameLabel.Hidden = false;
+
+					this.twitterNameImage.Image = UIImage.FromBundle (@"images/twitter-16x16");
+					this.twitterNameLabel.Text = conference.twitterName;
+				}
+
+				if (string.IsNullOrWhiteSpace (conference.homepageUrl)) {
+					this.websiteImage.Hidden = true;
+					this.websiteLabel.Hidden = true;
+				} else {
+					this.websiteImage.Hidden = false;
+					this.websiteLabel.Hidden = false;
+					this.websiteImage.Image = UIImage.FromBundle (@"images/website-16x16");
+					this.websiteLabel.Text = conference.homepageUrl.SafeReplace ("http://", "").SafeReplace ("https://", "");
+				}
+
+				if (string.IsNullOrWhiteSpace (conference.facebookUrl)) {
+					this.facebookImage.Hidden = true;
+					this.facebookLabel.Hidden = true;
+				} else {
+					this.facebookImage.Hidden = false;
+					this.facebookLabel.Hidden = false;
+					this.facebookImage.Image = UIImage.FromBundle (@"images/facebook-16x16");
+					this.facebookLabel.Text = conference.facebookUrl.SafeReplace ("http://", "").SafeReplace ("https://", "");
+					this.facebookLabel.LineBreakMode = UILineBreakMode.CharacterWrap;
+					this.facebookLabel.Lines = 0;
+				}
+
+
 			}
 
 		}
@@ -149,7 +212,7 @@ namespace TekConf.UI.iPhone
 
 		public void UpdatedImage (Uri uri)
 		{
-			logoImage.Image = ImageLoader.DefaultRequestImage(uri, this);
+			logoImage.Image = ImageLoader.DefaultRequestImage (uri, this);
 		}
 
 		#endregion

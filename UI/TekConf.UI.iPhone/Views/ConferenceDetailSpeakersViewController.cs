@@ -9,51 +9,56 @@ namespace TekConf.UI.iPhone
 {
 	public partial class ConferenceDetailSpeakersViewController : BaseUIViewController
 	{
-		private FullConferenceDto _conference;
-
-		public ConferenceDetailSpeakersViewController (FullConferenceDto conference) : base ("ConferenceDetailSpeakersViewController", null)
+		public ConferenceDetailSpeakersViewController () : base ("ConferenceDetailSpeakersViewController", null)
 		{
-			_conference = conference;
-			Title = _conference.name;
 		}
 		
 		public override void DidReceiveMemoryWarning ()
 		{
-			// Releases the view if it doesn't have a superview.
 			base.DidReceiveMemoryWarning ();
-			
-			// Release any cached data, images, etc that aren't in use.
 		}
 		
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
 			
-			var loading = new UIAlertView (" Downloading Speakers", "Please wait...", null, null, null);
-			
-			loading.Show ();
-			
-			var indicator = new UIActivityIndicatorView (UIActivityIndicatorViewStyle.WhiteLarge); 
-			indicator.Center = new System.Drawing.PointF (loading.Bounds.Width / 2, loading.Bounds.Size.Height - 40); 
-			indicator.StartAnimating (); 
-			loading.AddSubview (indicator);
-			
-			Repository.GetSpeakers (_conference.slug, speakers => 
-			{ 
-				InvokeOnMainThread (() => 
+			if (this.IsReachable())
+			{
+				var loading = new UIAlertView (" Downloading Speakers", "Please wait...", null, null, null);
+				
+				loading.Show ();
+				
+				var indicator = new UIActivityIndicatorView (UIActivityIndicatorViewStyle.WhiteLarge); 
+				indicator.Center = new System.Drawing.PointF (loading.Bounds.Width / 2, loading.Bounds.Size.Height - 40); 
+				indicator.StartAnimating (); 
+				loading.AddSubview (indicator);
+
+				Repository.GetSpeakers (NavigationItems.Conference.slug, speakers => 
 				{ 
-					speakersTableView.Source = new SpeakersTableViewSource (this, speakers); 
-					speakersTableView.ReloadData (); 
-					loading.DismissWithClickedButtonIndex (0, true); 
+					InvokeOnMainThread (() => 
+					{ 
+						speakersTableView.Source = new SpeakersTableViewSource (this, speakers); 
+						speakersTableView.ReloadData (); 
+						loading.DismissWithClickedButtonIndex (0, true); 
+					});
 				});
-			});
-			
-			if (!UserInterfaceIdiomIsPhone) {
-				this.speakersTableView.SelectRow (
-					NSIndexPath.FromRowSection (0, 0),
-					false,
-					UITableViewScrollPosition.Middle
-				);
+				
+				if (!UserInterfaceIdiomIsPhone) {
+					this.speakersTableView.SelectRow (
+						NSIndexPath.FromRowSection (0, 0),
+						false,
+						UITableViewScrollPosition.Middle
+					);
+				}
+			}
+			else
+			{
+				UnreachableAlert().Show();
+			}
+
+			if (NavigationItems.Conference != null)
+			{
+				TrackAnalyticsEvent("ConferenceDetailSpeakersViewController-" + NavigationItems.Conference.slug);
 			}
 		}
 

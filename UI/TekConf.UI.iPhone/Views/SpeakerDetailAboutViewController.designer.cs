@@ -37,6 +37,9 @@ namespace TekConf.UI.iPhone
 
 		[Outlet]
 		MonoTouch.UIKit.UIView moreInformationView { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel separatorBelowName { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -83,6 +86,11 @@ namespace TekConf.UI.iPhone
 			if (moreInformationView != null) {
 				moreInformationView.Dispose ();
 				moreInformationView = null;
+			}
+
+			if (separatorBelowName != null) {
+				separatorBelowName.Dispose ();
+				separatorBelowName = null;
 			}
 		}
 	}

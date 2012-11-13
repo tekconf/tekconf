@@ -6,12 +6,10 @@ using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using MonoTouch.SlideoutNavigation;
 using MonoTouch.Dialog;
+using FA=FlurryAnalytics;
 
 namespace TekConf.UI.iPhone
 {
-	// The UIApplicationDelegate for the application. This class is responsible for launching the 
-	// User Interface of the application, as well as listening (and optionally responding) to 
-	// application events from iOS.
 	[Register ("AppDelegate")]
 	public partial class AppDelegate : UIApplicationDelegate
 	{
@@ -19,7 +17,7 @@ namespace TekConf.UI.iPhone
 		UIWindow window;
         public SlideoutNavigationController Menu { get; private set; }
 
-
+		const string account = "UA-20184526-3";
 
 		//
 		// This method is invoked when the application has loaded and is ready to run. In this 
@@ -29,6 +27,11 @@ namespace TekConf.UI.iPhone
 		//
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
+			GoogleAnalytics.GANTracker.SharedTracker.StartTracker(account, 10, null);
+
+			FA.FlurryAnalytics.StartSession("J57HPDDQQ8J8MVGKBKF7");
+			FA.FlurryAnalytics.SetSessionReportsOnPause(true);
+
 			var font = UIFont.FromName("OpenSans-Light", 14f);
 			var headerFont = UIFont.FromName("OpenSans", 16f);
 			
@@ -47,7 +50,9 @@ namespace TekConf.UI.iPhone
 			
 			window.RootViewController = Menu;
 			window.MakeKeyAndVisible ();
-			
+			NSError error;
+
+			var success = GoogleAnalytics.GANTracker.SharedTracker.TrackEvent("App events","App Finished Launching", "", 1, out error);
 			return true;
 		}
 	}
@@ -67,12 +72,12 @@ namespace TekConf.UI.iPhone
 			var font = UIFont.FromName("OpenSans", 14f);
 			
 			Root.Add(new Section() {
-				new StyledStringElement("Conferences", () => { NavigationController.PushViewController(new ConferencesListViewController(), true); }) { Font = font },
+				new StyledStringElement("Conferences", () => { NavigationController.PushViewController(new ConferencesDialogViewController(), true); }) { Font = font },
 
-				new StyledStringElement("CodeMash 2013", () => { NavigationController.PushViewController(new ConferenceDetailTabBarController("codemash-2013"), true); }) { Font = font },
-				new StyledStringElement("Build 2013", () => { NavigationController.PushViewController(new ConferenceDetailTabBarController("build-2013"), true); }) { Font = font },
-				new StyledStringElement("Settings", () => { NavigationController.PushViewController(new ConferenceDetailTabBarController("codemash-2013"), true); }) { Font = font },
-				new StyledStringElement("Login", () => { NavigationController.PushViewController(new ConferenceDetailTabBarController("codemash-2013"), true); }) { Font = font },
+				new StyledStringElement("CodeMash 2013", () => { NavigationItems.ConferenceSlug = "codemash-2013"; NavigationController.PushViewController(new ConferenceDetailTabBarController(), true); }) { Font = font },
+				new StyledStringElement("Build 2013", () => { NavigationItems.ConferenceSlug = "build-2012"; NavigationController.PushViewController(new ConferenceDetailTabBarController(), true); }) { Font = font },
+				new StyledStringElement("Settings", () => { NavigationItems.ConferenceSlug = "codemash-2013"; NavigationController.PushViewController(new ConferenceDetailTabBarController(), true); }) { Font = font },
+				new StyledStringElement("Login", () => { NavigationItems.ConferenceSlug = "codemash-2013"; NavigationController.PushViewController(new ConferenceDetailTabBarController(), true); }) { Font = font },
 				
 				//new StyledStringElement("Stuff", () => { NavigationController.PushViewController(new StuffViewController(), true); }),
 				//new StyledStringElement("Full Screen", () => { NavigationController.PushViewController(new FullscreenViewController(), true); })

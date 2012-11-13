@@ -1,21 +1,25 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="UI/TekConf.UI.iPhone/Views/ConferenceDetailTabBarController.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|iPhone" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="UI/TekConf.UI.iPhone/AppDelegate.cs">
     <Files>
-      <File FileName="UI/TekConf.UI.iPhone/AppDelegate.cs" Line="42" Column="55" />
-      <File FileName="UI/TekConf.UI.iPhone/Views/ConferencesListViewController.cs" Line="36" Column="24" />
-      <File FileName="UI/TekConf.UI.iPhone/Views/ConferencesDialogViewController.cs" Line="82" Column="4" />
-      <File FileName="UI/TekConf.UI.iPhone/Views/ConferenceDetailTabBarController.cs" Line="41" Column="4" />
-      <File FileName="UI/TekConf.UI.iPhone/Views/ConferenceDetailAboutViewController.cs" Line="20" Column="30" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/SpeakerDetailAboutViewController.cs" Line="56" Column="1" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/SessionDetailAboutViewController.cs" Line="146" Column="1" />
+      <File FileName="UI/TekConf.UI.iPhone/AppDelegate.cs" Line="45" Column="31" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/ConferenceDetailAboutViewController.cs" Line="71" Column="28" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/ConferenceDetailSpeakersViewController.cs" Line="58" Column="4" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/ConferenceDetailViewController.cs" Line="56" Column="1" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/ConferencesDialogViewController.cs" Line="80" Column="8" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/SpeakerDetailSessionsViewController.cs" Line="30" Column="3" />
+      <File FileName="UI/TekConf.UI.iOS/SessionDetailViewController.cs" Line="39" Column="20" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Option id="ShowAllFiles" value="True" />
+          <Node name="TekConf.RemoteData.iOS" expanded="True" />
+          <Node name="TekConf.UI.iOS" expanded="True" />
           <Node name="TekConf.UI.iPhone" expanded="True">
-            <Node name="Views" expanded="True">
-              <Node name="ConferenceDetailTabBarController.cs" selected="True" />
-            </Node>
+            <Node name="References" expanded="True" selected="True" />
+            <Node name="Views" expanded="True" />
           </Node>
         </State>
       </Pad>
@@ -29,6 +33,8 @@
       <Breakpoint file="/Users/Rob/dev/tekconf/UI/TekConf.UI.iOS/SessionsListRootViewController.cs" line="80" />
       <Breakpoint file="/Users/Rob/dev/tekconf/UI/TekConf.UI.iOS/SessionsListRootViewController.cs" line="76" />
       <Breakpoint file="/Users/Rob/dev/tekconf/UI/TekConf.UI.iPhone/Views/ConferenceDetailViewController.cs" line="93" />
+      <Breakpoint file="/Users/rgibbens/dev/tekconf/UI/TekConf.UI.iPhone/Views/ConferencesDialogViewController.cs" line="287" />
+      <Breakpoint file="/Users/rgibbens/dev/tekconf/UI/TekConf.UI.iPhone/Views/SpeakerDetailAboutViewController.cs" line="56" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>
@@ -36,14 +42,14 @@
     <Watch file="UI/TekConf.UI.iPhone/Views/SpeakerDetailAboutViewController.cs" line="16" offsetX="343" offsetY="270" expression="speaker" liveUpdate="False" />
     <Watch file="UI/TekConf.UI.iPhone/Views/ConferenceDetailViewController.cs" line="136" offsetX="957" offsetY="2096" expression="indexPath.Section" liveUpdate="False" />
     <Watch file="UI/TekConf.UI.iPhone/Views/ConferenceDetailViewController.cs" line="138" offsetX="958" offsetY="2131" expression="indexPath.Row" liveUpdate="False" />
-    <Watch file="UI/TekConf.UI.iPhone/Views/ConferenceDetailAboutViewController.cs" line="71" offsetX="727" offsetY="1118" expression="this.detailsContainerView.Frame" liveUpdate="False" />
+    <Watch file="UI/TekConf.UI.iPhone/Views/ConferenceDetailAboutViewController.cs" line="71" offsetX="797" offsetY="1381" expression="this.detailsContainerView.Frame" liveUpdate="False" />
     <Watch file="UI/TekConf.UI.iPhone/Views/ConferenceDetailAboutViewController.cs" line="71" offsetX="1189" offsetY="1116" expression="this.detailsContainerView.Frame.Location" liveUpdate="False" />
-    <Watch file="UI/TekConf.UI.iPhone/Views/ConferenceDetailAboutViewController.cs" line="71" offsetX="727" offsetY="1084" expression="this.descriptionLabel.Frame" liveUpdate="True" />
+    <Watch file="UI/TekConf.UI.iPhone/Views/ConferenceDetailAboutViewController.cs" line="71" offsetX="750" offsetY="1235" expression="this.descriptionLabel.Frame" liveUpdate="True" />
     <Watch file="UI/TekConf.UI.iPhone/Views/ConferenceDetailAboutViewController.cs" line="71" offsetX="1192" offsetY="1083" expression="this.descriptionLabel.Frame.Location" liveUpdate="False" />
     <Watch file="UI/TekConf.UI.iPhone/Views/ConferenceDetailTabBarController.cs" line="16" offsetX="419" offsetY="270" expression="conference" liveUpdate="False" />
   </MonoDevelop.Ide.DebuggingService.PinnedWatches>
   <MonoDevelop.Ide.ItemProperties.TekConf.UI.iPhone>
-    <IPhoneTestFlightSettings_27CRelease ApiToken="28ea2cf46ef75d633a2bce49d2adbfb7_NzYwOA" TeamToken="19a8eedfedeed47cf1f6d74fd7ab561c_MTkxNDIwMTEtMDktMjkgMjE6MTc6MTAuNjM0NTAw" ReleaseNotes="Fixed Session About screen layout&#xA;&#xA;Track issues here : https://trello.com/board/tekconf/50747c7b7dfbc8a32f0417b7" NotifyTeamMembers="False" ReplaceBinaries="False" DistributionLists="TekConf" />
+    <IPhoneTestFlightSettings_27CRelease ApiToken="28ea2cf46ef75d633a2bce49d2adbfb7_NzYwOA" TeamToken="19a8eedfedeed47cf1f6d74fd7ab561c_MTkxNDIwMTEtMDktMjkgMjE6MTc6MTAuNjM0NTAw" ReleaseNotes="Working on Session About screen&#xA;&#xA;Track issues here : https://trello.com/board/tekconf/50747c7b7dfbc8a32f0417b7" NotifyTeamMembers="False" ReplaceBinaries="False" DistributionLists="TekConf" />
     <IPhoneTestFlightSettings_27CAd-Hoc ApiToken="28ea2cf46ef75d633a2bce49d2adbfb7_NzYwOA" TeamToken="19a8eedfedeed47cf1f6d74fd7ab561c_MTkxNDIwMTEtMDktMjkgMjE6MTc6MTAuNjM0NTAw" ReleaseNotes="Updated UI" NotifyTeamMembers="True" ReplaceBinaries="False" DistributionLists="TekConf" />
   </MonoDevelop.Ide.ItemProperties.TekConf.UI.iPhone>
 </Properties>

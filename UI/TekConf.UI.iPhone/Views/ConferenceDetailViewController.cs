@@ -10,26 +10,24 @@ namespace TekConf.UI.iPhone
 {
 	public partial class ConferenceDetailViewController : BaseUIViewController
 	{
-		private FullConferenceDto _conference;
-
-		public ConferenceDetailViewController (FullConferenceDto conference) : base ("ConferenceDetailViewController", null)
+		public ConferenceDetailViewController () : base ("ConferenceDetailViewController", null)
 		{
-			_conference = conference;
-			Title = _conference.name;
 		}
 		
 		public override void DidReceiveMemoryWarning ()
 		{
-			// Releases the view if it doesn't have a superview.
 			base.DidReceiveMemoryWarning ();
-			
-			// Release any cached data, images, etc that aren't in use.
 		}
+
+		private void LoadConference()
+		{
 		
+		}
+
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-
+			LoadConference();
 			var loading = new UIAlertView (" Downloading Sessions", "Please wait...", null, null, null);
 			
 			loading.Show ();
@@ -39,11 +37,10 @@ namespace TekConf.UI.iPhone
 			indicator.StartAnimating (); 
 			loading.AddSubview (indicator);
 
-
-			sessionsTableView.Source = new SessionsTableViewSource (this, _conference.sessions); 
+			sessionsTableView.Source = new SessionsTableViewSource (this, NavigationItems.Conference.sessions); 
 			sessionsTableView.ReloadData (); 
 			loading.DismissWithClickedButtonIndex (0, true); 
-			//}
+		
 
 			if (!UserInterfaceIdiomIsPhone) {
 				this.sessionsTableView.SelectRow (
@@ -51,6 +48,11 @@ namespace TekConf.UI.iPhone
 					false,
 					UITableViewScrollPosition.Middle
 				);
+			}
+
+			if (NavigationItems.Conference != null)
+			{
+				TrackAnalyticsEvent("ConferenceDetailViewController-" + NavigationItems.Conference.slug);
 			}
 		}
 

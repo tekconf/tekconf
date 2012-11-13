@@ -46,6 +46,24 @@ namespace TekConf.UI.iPhone
 
 		[Outlet]
 		MonoTouch.UIKit.UILabel moreInformationLabel { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel websiteLabel { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel facebookLabel { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIImageView twitterNameImage { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIImageView twitterHashTagImage { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIImageView websiteImage { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIImageView facebookImage { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -107,6 +125,36 @@ namespace TekConf.UI.iPhone
 			if (moreInformationLabel != null) {
 				moreInformationLabel.Dispose ();
 				moreInformationLabel = null;
+			}
+
+			if (websiteLabel != null) {
+				websiteLabel.Dispose ();
+				websiteLabel = null;
+			}
+
+			if (facebookLabel != null) {
+				facebookLabel.Dispose ();
+				facebookLabel = null;
+			}
+
+			if (twitterNameImage != null) {
+				twitterNameImage.Dispose ();
+				twitterNameImage = null;
+			}
+
+			if (twitterHashTagImage != null) {
+				twitterHashTagImage.Dispose ();
+				twitterHashTagImage = null;
+			}
+
+			if (websiteImage != null) {
+				websiteImage.Dispose ();
+				websiteImage = null;
+			}
+
+			if (facebookImage != null) {
+				facebookImage.Dispose ();
+				facebookImage = null;
 			}
 		}
 	}
