@@ -158,6 +158,14 @@
     <Compile Include="Classes\Reachability.cs" />
     <Compile Include="Views\BaseDialogViewController.cs" />
     <Compile Include="Classes\NavigationItems.cs" />
+    <Compile Include="Views\SettingsViewController.cs" />
+    <Compile Include="Views\SettingsViewController.designer.cs">
+      <DependentUpon>SettingsViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LoginViewController.cs" />
+    <Compile Include="Views\LoginViewController.designer.cs">
+      <DependentUpon>LoginViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -193,6 +201,8 @@
     <InterfaceDefinition Include="Views\SpeakerDetailAboutViewController.xib" />
     <InterfaceDefinition Include="Views\SpeakerDetailSessionsViewController.xib" />
     <InterfaceDefinition Include="Views\SessionDetailAboutViewController.xib" />
+    <InterfaceDefinition Include="Views\SettingsViewController.xib" />
+    <InterfaceDefinition Include="Views\LoginViewController.xib" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Default-Landscape.png" />
@@ -222,5 +232,8 @@
     <Content Include="images\glyphicons_061_keynote%402x.png" />
     <Content Include="images\glyphicons_042_group.png" />
     <Content Include="images\glyphicons_088_address_book.png" />
+    <Content Include="DefaultConference114.png" />
+    <Content Include="DefaultConference57.png" />
+    <Content Include="DefaultConference72.png" />
   </ItemGroup>
 </Project>
