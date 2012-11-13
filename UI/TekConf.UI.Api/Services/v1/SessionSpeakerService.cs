@@ -51,7 +51,7 @@ namespace TekConf.UI.Api.Services.v1
         private object GetSingleSpeaker(SessionSpeaker request, SessionEntity session)
         {
             var cacheKey = "GetSingleSpeaker-" + request.conferenceSlug + "-" + request.sessionSlug + "-" + request.speakerSlug;
-            var expireInTimespan = new TimeSpan(0, 0, 20);
+            var expireInTimespan = new TimeSpan(0, 0, 120);
             return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
                                                                                                                      {
                                                                                                                          var speaker = session.speakers.FirstOrDefault(s => s.slug.ToLower() == request.speakerSlug.ToLower());

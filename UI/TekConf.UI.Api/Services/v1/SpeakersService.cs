@@ -43,7 +43,7 @@ namespace TekConf.UI.Api.Services.v1
             }
 
             var cacheKey = "GetAllSpeakers-" + request.conferenceSlug;
-            var expireInTimespan = new TimeSpan(0, 0, 20);
+            var expireInTimespan = new TimeSpan(0, 0, 120);
             return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
             {
                 var conference = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")

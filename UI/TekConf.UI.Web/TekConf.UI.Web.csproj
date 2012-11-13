@@ -42,44 +42,48 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.3.1.7705, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\WebGrease.1.3.0\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="AutoMapper">
       <HintPath>..\..\packages\AutoMapper.2.2.0\lib\net40\AutoMapper.dll</HintPath>
     </Reference>
     <Reference Include="CommonCore.Base, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\CommonCore.1.0.0.4\lib\net35\CommonCore.Base.dll</HintPath>
+      <HintPath>..\..\packages\CommonCore.1.0.0.7\lib\net35\CommonCore.Base.dll</HintPath>
     </Reference>
-    <Reference Include="CommonCore.Cache, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="CommonCore.Cache, Version=1.0.0.4, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\CommonCore.1.0.0.4\lib\net35\CommonCore.Cache.dll</HintPath>
+      <HintPath>..\..\packages\CommonCore.1.0.0.7\lib\net35\CommonCore.Cache.dll</HintPath>
     </Reference>
     <Reference Include="CommonCore.Collections, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\CommonCore.1.0.0.4\lib\net35\CommonCore.Collections.dll</HintPath>
+      <HintPath>..\..\packages\CommonCore.1.0.0.7\lib\net35\CommonCore.Collections.dll</HintPath>
     </Reference>
     <Reference Include="DotNetOpenAuth.AspNet, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\DotNetOpenAuth.AspNet.4.1.2.12274\lib\net40-full\DotNetOpenAuth.AspNet.dll</HintPath>
+      <HintPath>..\..\packages\DotNetOpenAuth.AspNet.4.1.3.12303\lib\net45-full\DotNetOpenAuth.AspNet.dll</HintPath>
     </Reference>
     <Reference Include="DotNetOpenAuth.Core, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\DotNetOpenAuth.Core.4.1.2.12274\lib\net40-full\DotNetOpenAuth.Core.dll</HintPath>
+      <HintPath>..\..\packages\DotNetOpenAuth.Core.4.1.3.12303\lib\net45-full\DotNetOpenAuth.Core.dll</HintPath>
     </Reference>
     <Reference Include="DotNetOpenAuth.OAuth, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\DotNetOpenAuth.OAuth.Core.4.1.2.12274\lib\net40-full\DotNetOpenAuth.OAuth.dll</HintPath>
+      <HintPath>..\..\packages\DotNetOpenAuth.OAuth.Core.4.1.3.12303\lib\net45-full\DotNetOpenAuth.OAuth.dll</HintPath>
     </Reference>
     <Reference Include="DotNetOpenAuth.OAuth.Consumer, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\DotNetOpenAuth.OAuth.Consumer.4.1.2.12274\lib\net40-full\DotNetOpenAuth.OAuth.Consumer.dll</HintPath>
+      <HintPath>..\..\packages\DotNetOpenAuth.OAuth.Consumer.4.1.3.12303\lib\net45-full\DotNetOpenAuth.OAuth.Consumer.dll</HintPath>
     </Reference>
     <Reference Include="DotNetOpenAuth.OpenId, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\DotNetOpenAuth.OpenId.Core.4.1.2.12274\lib\net40-full\DotNetOpenAuth.OpenId.dll</HintPath>
+      <HintPath>..\..\packages\DotNetOpenAuth.OpenId.Core.4.1.3.12303\lib\net45-full\DotNetOpenAuth.OpenId.dll</HintPath>
     </Reference>
     <Reference Include="DotNetOpenAuth.OpenId.RelyingParty, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\DotNetOpenAuth.OpenId.RelyingParty.4.1.2.12274\lib\net40-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
+      <HintPath>..\..\packages\DotNetOpenAuth.OpenId.RelyingParty.4.1.3.12303\lib\net45-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
     </Reference>
     <Reference Include="Elmah">
       <HintPath>..\..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
@@ -97,51 +101,61 @@
       <HintPath>..\..\packages\Glimpse.Mvc3.0.87\lib\net40\Glimpse.Mvc3.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="MongoDB.Bson">
-      <HintPath>..\..\packages\mongocsharpdriver.1.6\lib\net35\MongoDB.Bson.dll</HintPath>
+    <Reference Include="MongoDB.Bson, Version=1.6.1.4678, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\mongocsharpdriver.1.6.1\lib\net35\MongoDB.Bson.dll</HintPath>
     </Reference>
-    <Reference Include="MongoDB.Driver">
-      <HintPath>..\..\packages\mongocsharpdriver.1.6\lib\net35\MongoDB.Driver.dll</HintPath>
+    <Reference Include="MongoDB.Driver, Version=1.6.1.4678, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\mongocsharpdriver.1.6.1\lib\net35\MongoDB.Driver.dll</HintPath>
     </Reference>
     <Reference Include="MongoDB.Web, Version=1.5.0.8, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\MongoDB.Web2.1.5.0.11\lib\net35\MongoDB.Web.dll</HintPath>
     </Reference>
+    <Reference Include="Mono.Math, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\DotNetOpenAuth.OpenId.Core.4.1.3.12303\lib\net45-full\Mono.Math.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Newtonsoft.Json.4.5.10\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack, Version=3.9.24.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Org.Mentalis.Security.Cryptography, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\ServiceStack.3.9.24\lib\net35\ServiceStack.dll</HintPath>
+      <HintPath>..\..\packages\DotNetOpenAuth.OpenId.Core.4.1.3.12303\lib\net45-full\Org.Mentalis.Security.Cryptography.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Common, Version=3.9.24.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack, Version=3.9.25.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\ServiceStack.Common.3.9.24\lib\net35\ServiceStack.Common.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.3.9.25\lib\net35\ServiceStack.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Interfaces, Version=3.9.24.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Common, Version=3.9.25.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\ServiceStack.Common.3.9.24\lib\net35\ServiceStack.Interfaces.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.Common.3.9.25\lib\net35\ServiceStack.Common.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.OrmLite, Version=3.9.24.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Interfaces, Version=3.9.25.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\ServiceStack.OrmLite.SqlServer.3.9.24\lib\ServiceStack.OrmLite.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.Common.3.9.25\lib\net35\ServiceStack.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.OrmLite, Version=3.9.26.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\ServiceStack.OrmLite.SqlServer.3.9.26\lib\ServiceStack.OrmLite.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.OrmLite.SqlServer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\ServiceStack.OrmLite.SqlServer.3.9.24\lib\ServiceStack.OrmLite.SqlServer.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.OrmLite.SqlServer.3.9.26\lib\ServiceStack.OrmLite.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Redis, Version=3.9.24.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Redis, Version=3.9.25.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\ServiceStack.Redis.3.9.24\lib\net35\ServiceStack.Redis.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.Redis.3.9.25\lib\net35\ServiceStack.Redis.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.ServiceInterface, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\ServiceStack.3.9.24\lib\net35\ServiceStack.ServiceInterface.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.3.9.25\lib\net35\ServiceStack.ServiceInterface.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Text, Version=3.9.24.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Text, Version=3.9.27.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\ServiceStack.Text.3.9.24\lib\net35\ServiceStack.Text.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.Text.3.9.27\lib\net35\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -155,6 +169,10 @@
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\packages\Microsoft.AspNet.Razor.2.0.20715.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
@@ -193,10 +211,6 @@
     <Reference Include="System.Web.Optimization">
       <HintPath>..\..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
-    </Reference>
     <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
@@ -210,6 +224,10 @@
       <HintPath>..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\WebGrease.1.3.0\lib\WebGrease.dll</HintPath>
+    </Reference>
     <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\..\packages\Microsoft.AspNet.WebPages.Data.2.0.20710.0\lib\net40\WebMatrix.Data.dll</HintPath>
@@ -221,14 +239,6 @@
     <Reference Include="WebMatrix.WebData, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\..\packages\Microsoft.AspNet.WebPages.WebData.2.0.20710.0\lib\net40\WebMatrix.WebData.dll</HintPath>
-    </Reference>
-    <Reference Include="WebGrease">
-      <Private>True</Private>
-      <HintPath>..\..\packages\WebGrease.1.1.0\lib\WebGrease.dll</HintPath>
-    </Reference>
-    <Reference Include="Antlr3.Runtime">
-      <Private>True</Private>
-      <HintPath>..\..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -494,28 +504,85 @@
     <Content Include="font\fontawesome-webfont.svgz" />
     <Content Include="font\fontawesome-webfont.ttf" />
     <Content Include="font\fontawesome-webfont.woff" />
+    <Content Include="img\conferences\360-idev-2012.png" />
     <Content Include="img\conferences\AlohaRubyConf.png" />
     <Content Include="img\conferences\aspConf.png" />
     <Content Include="img\conferences\BackboneConf.png" />
     <Content Include="img\conferences\big-omaha-2012.png" />
     <Content Include="img\conferences\big-sky-devcon-2012.png" />
+    <Content Include="img\conferences\cascadiajs-2012.png" />
+    <Content Include="img\conferences\central-ohio-day-of-net-2012.png" />
     <Content Include="img\conferences\chicago-web-conf-2012.png" />
+    <Content Include="img\conferences\cincinnati-day-of-agile-2012.png" />
     <Content Include="img\conferences\cloud-develop-2012.png" />
+    <Content Include="img\conferences\cmap-code-camp-2012.png" />
     <Content Include="img\conferences\cocoaconf-portland-2012.png" />
+    <Content Include="img\conferences\codeconnexx-2012.png" />
+    <Content Include="img\conferences\codemash-2013.png" />
     <Content Include="img\conferences\CodeStock.png" />
+    <Content Include="img\conferences\confoo-2013.png" />
+    <Content Include="img\conferences\connections-2012.png" />
+    <Content Include="img\conferences\dddx-2012.png" />
     <Content Include="img\conferences\DefaultConference.png" />
     <Content Include="img\conferences\devconnections-2012.png" />
     <Content Include="img\conferences\Devlink.png" />
+    <Content Include="img\conferences\devops-down-under-2012.png" />
+    <Content Include="img\conferences\devoxx-2012.png" />
+    <Content Include="img\conferences\devreach-2012.png" />
+    <Content Include="img\conferences\devsum-2012.png" />
+    <Content Include="img\conferences\dog-food-conference-2012.png" />
+    <Content Include="img\conferences\fluentconf-2013.png" />
+    <Content Include="img\conferences\game-developers-conference-2012.png" />
+    <Content Include="img\conferences\glue-conference-2012.png" />
+    <Content Include="img\conferences\goto-2013.png" />
+    <Content Include="img\conferences\html5-dev-conf-2012.png" />
     <Content Include="img\conferences\iowa-code-camp-2012.png" />
     <Content Include="img\conferences\javaone-2012.png" />
+    <Content Include="img\conferences\jaxconf-2012.png" />
+    <Content Include="img\conferences\js-conf-downunder-2012.png" />
+    <Content Include="img\conferences\jsconf-2013.png" />
     <Content Include="img\conferences\KalamazooX.png" />
+    <Content Include="img\conferences\leon-is-awesome.png" />
     <Content Include="img\conferences\m3-conference-2012.png" />
+    <Content Include="img\conferences\mactech-2012.png" />
+    <Content Include="img\conferences\madexpo-2012.png" />
+    <Content Include="img\conferences\mdevcon-2013.png" />
+    <Content Include="img\conferences\microsoft-patterns-and-practices-symposium-20.png" />
+    <Content Include="img\conferences\microsoft-teched-2013.png" />
     <Content Include="img\conferences\MidwestPHP.png" />
+    <Content Include="img\conferences\mountainjs-2013.png" />
+    <Content Include="img\conferences\ndc-2013.png" />
+    <Content Include="img\conferences\nosql-now-2012.png" />
+    <Content Include="img\conferences\objective-cologne-2012.png" />
+    <Content Include="img\conferences\one-more-thing-2012.png" />
     <Content Include="img\conferences\OneDevDayDetroit.png" />
     <Content Include="img\conferences\oredev-2012.png" />
+    <Content Include="img\conferences\pittsburgh-techfest-2012.png" />
+    <Content Include="img\conferences\polyglot-2012.png" />
+    <Content Include="img\conferences\prairie-it-pro-dev-conference-2012.png" />
+    <Content Include="img\conferences\qcmerge-2012.png" />
+    <Content Include="img\conferences\qconsf-2012.png" />
     <Content Include="img\conferences\RailsConf.png" />
+    <Content Include="img\conferences\rebuild-2012.png" />
+    <Content Include="img\conferences\restfest-2012.png" />
+    <Content Include="img\conferences\share-conference-2013.png" />
+    <Content Include="img\conferences\silicon-valley-code-camp-2012.png" />
+    <Content Include="img\conferences\software-craftsmanship-north-america-2012.png" />
+    <Content Include="img\conferences\software-passion-summit-2012.png" />
+    <Content Include="img\conferences\st-louis-day-of-net-2012.png" />
+    <Content Include="img\conferences\strangeloop-2013.png" />
+    <Content Include="img\conferences\swipe-2012.png" />
+    <Content Include="img\conferences\sxsw-2012.png" />
+    <Content Include="img\conferences\takeoff-conference-2013.png" />
+    <Content Include="img\conferences\tech-mesh-2012.png" />
+    <Content Include="img\conferences\tetsaetsad.png" />
+    <Content Include="img\conferences\userconf-2012.png" />
+    <Content Include="img\conferences\voices-that-matter-2012.png" />
     <Content Include="img\conferences\Webstock.png" />
+    <Content Include="img\conferences\windows-azure-conference-2012.png" />
+    <Content Include="img\conferences\wpdevcon-2013.png" />
     <Content Include="img\conferences\wwdc-2012.png" />
+    <Content Include="img\conferences\xamarin-evolve-2013.png" />
     <Content Include="img\OnSale.png" />
     <Content Include="img\social\500px-16x16.png" />
     <Content Include="img\social\500px-24x24.png" />
@@ -953,8 +1020,8 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\knockout-2.1.0.debug.js" />
-    <Content Include="Scripts\knockout-2.1.0.js" />
+    <Content Include="Scripts\knockout-2.2.0.debug.js" />
+    <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\jquery-ui-sliderAccess.js" />
     <Content Include="Web.config">

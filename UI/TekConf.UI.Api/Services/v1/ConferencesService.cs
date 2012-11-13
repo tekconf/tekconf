@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using AutoMapper;
+using MongoDB.Driver.Builders;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.RemoteData.v1;
 using TekConf.UI.Api.Services.Requests.v1;
@@ -47,10 +49,13 @@ namespace TekConf.UI.Api.Services.v1
                 var confs = collection.AsQueryable()
                     .ToList();
 
-                foreach (var conf in confs)
+                var toDelete = confs.Where(x => x.slug.ToLower().StartsWith("temp")).ToList();
+
+                foreach (var conf in toDelete)
                 {
-                    conf.Save(collection);
+                    collection.Remove(Query.EQ("_id", conf._id));
                 }
+                
             }
             catch (Exception ex)
             {
@@ -66,9 +71,9 @@ namespace TekConf.UI.Api.Services.v1
             string showPastConferencesCacheKey = request.showPastConferences.ToString() ?? string.Empty;
 
             var cacheKey = "GetAllConferences-" + searchCacheKey + "-" + sortByCacheKey + "-" + showPastConferencesCacheKey;
-            var expireInTimespan = new TimeSpan(0, 0, 2);
+            var expireInTimespan = new TimeSpan(0, 0, 120);
 
-            return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
+            var result = base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
             {
                 var orderByFunc = GetOrderByFunc(request.sortBy);
                 var search = GetSearch(request.search);
@@ -126,12 +131,14 @@ namespace TekConf.UI.Api.Services.v1
 
                 return conferencesDtos.ToList();
             });
+
+            return result;
         }
 
         private object GetFeaturedConferences(Conferences request)
         {
             var cacheKey = "GetFeaturedConferences";
-            var expireInTimespan = new TimeSpan(0, 0, 20);
+            var expireInTimespan = new TimeSpan(0, 0, 120);
 
             return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
             {

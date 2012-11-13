@@ -54,7 +54,7 @@ namespace TekConf.UI.Api.Services.v1
         private object GetAllSpeakers(SessionSpeakers request, SessionEntity session)
         {
             var cacheKey = "GetAllSpeakers-" + request.conferenceSlug + "-" + request.sessionSlug;
-            var expireInTimespan = new TimeSpan(0, 0, 20);
+            var expireInTimespan = new TimeSpan(0, 0, 120);
             return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
             {
                 var speakersDtos = Mapper.Map<List<SpeakerEntity>, List<SpeakersDto>>(session.speakers);

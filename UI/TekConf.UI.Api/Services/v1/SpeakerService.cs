@@ -53,7 +53,7 @@ namespace TekConf.UI.Api.Services.v1
                 }
             }
 
-            var expireInTimespan = new TimeSpan(0, 0, 20);
+            var expireInTimespan = new TimeSpan(0, 0, 120);
             return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
                 {
                     var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");

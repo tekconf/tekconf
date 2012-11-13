@@ -64,7 +64,7 @@
 @media (max-width: 480px) {
     .searchBox {
         text-align: left;
-        padding-bottom: 5px;
+        /*padding-bottom: 5px;*/
     }
     .sortBy {
         padding-bottom: 5px;

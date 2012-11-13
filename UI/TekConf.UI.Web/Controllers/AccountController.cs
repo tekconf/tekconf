@@ -71,7 +71,7 @@ namespace MvcApplication1.Controllers
 
         public ActionResult AuthenticationCallbackCompleted(UserDto user)
         {
-            return RedirectToAction("Index", "Home");            
+            return RedirectToAction("Index", "Home");
         }
 
 

@@ -56,13 +56,13 @@ namespace TekConf.UI.Web.Controllers
         public Task SaveConferenceImage(string url, HttpPostedFileBase file)
         {
             return Task.Factory.StartNew(() =>
-                                             {
-                                                 if (file != null)
-                                                 {
-                                                     var filename = Server.MapPath(url);
-                                                     file.SaveAs(filename);
-                                                 }
-                                             });
+            {
+                if (file != null)
+                {
+                    var filename = Server.MapPath(url);
+                    file.SaveAs(filename);
+                }
+            });
         }
 
         #endregion

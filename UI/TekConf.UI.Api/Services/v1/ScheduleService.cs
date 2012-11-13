@@ -30,7 +30,7 @@ namespace TekConf.UI.Api.v1
     private object GetSingleSchedule(Schedule request)
     {
       var cacheKey = "GetSingleSchedule-" + request.conferenceSlug + "-" + request.userSlug;
-      var expireInTimespan = new TimeSpan(0, 0, 20);
+      var expireInTimespan = new TimeSpan(0, 0, 120);
       return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
           {
             var schedule = this.RemoteDatabase.GetCollection<ScheduleEntity>("schedules")

@@ -182,7 +182,7 @@ namespace TekConf.UI.Api.Services.v1
         private object GetFullSingleConference(Conference request)
         {
             var cacheKey = "GetFullSingleConference-" + request.conferenceSlug;
-            var expireInTimespan = new TimeSpan(0, 0, 20);
+            var expireInTimespan = new TimeSpan(0, 0, 120);
             
             return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
                                     {

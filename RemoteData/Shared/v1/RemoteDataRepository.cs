@@ -42,10 +42,7 @@ namespace TekConf.RemoteData.v1
             }
 
             var conferences = new Conferences() { sortBy = sortBy, showPastConferences = showPastConferences, search = search, showOnlyFeatured = false };
-            ServiceClient.GetAsync(conferences, callback, (r, ex) => { 
-				var x = ex;
-				callback(null); 
-			});
+            ServiceClient.GetAsync(conferences, callback, (r, ex) => { callback(null); });
         }
 
         public void GetFeaturedConferences(Action<IList<ConferencesDto>> callback)
