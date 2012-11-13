@@ -34,8 +34,12 @@ namespace TekConf.UI.iPhone
 
 			var font = UIFont.FromName("OpenSans-Light", 14f);
 			var headerFont = UIFont.FromName("OpenSans", 16f);
+			var detailFont = UIFont.FromName ("OpenSans", 12f);
+
+			UITextAttributes buttonAttributes = new UITextAttributes() { Font = detailFont };
 			
-			UITextAttributes attributes = new UITextAttributes() { Font = headerFont } ;
+			UIBarButtonItem.Appearance.SetTitleTextAttributes(buttonAttributes, UIControlState.Normal);
+			UITextAttributes attributes = new UITextAttributes() { Font = headerFont };
 			UINavigationBar.Appearance.SetTitleTextAttributes(attributes);
 			UILabel.Appearance.Font = font;
 		
@@ -76,8 +80,8 @@ namespace TekConf.UI.iPhone
 
 				new StyledStringElement("CodeMash 2013", () => { NavigationItems.ConferenceSlug = "codemash-2013"; NavigationController.PushViewController(new ConferenceDetailTabBarController(), true); }) { Font = font },
 				new StyledStringElement("Build 2013", () => { NavigationItems.ConferenceSlug = "build-2012"; NavigationController.PushViewController(new ConferenceDetailTabBarController(), true); }) { Font = font },
-				new StyledStringElement("Settings", () => { NavigationItems.ConferenceSlug = "codemash-2013"; NavigationController.PushViewController(new ConferenceDetailTabBarController(), true); }) { Font = font },
-				new StyledStringElement("Login", () => { NavigationItems.ConferenceSlug = "codemash-2013"; NavigationController.PushViewController(new ConferenceDetailTabBarController(), true); }) { Font = font },
+				new StyledStringElement("Settings", () => { NavigationController.PushViewController(new SettingsViewController(), true); }) { Font = font },
+				new StyledStringElement("Login", () => { NavigationController.PushViewController(new LoginViewController(), true); }) { Font = font },
 				
 				//new StyledStringElement("Stuff", () => { NavigationController.PushViewController(new StuffViewController(), true); }),
 				//new StyledStringElement("Full Screen", () => { NavigationController.PushViewController(new FullscreenViewController(), true); })

@@ -13,9 +13,21 @@ namespace TekConf.UI.iPhone
 
 	public class ConferencesDialogViewController : BaseDialogViewController
 	{
-
+		private bool _showPastConferences =false;
 		public ConferencesDialogViewController () : base(UITableViewStyle.Plain, new RootElement("Conferences"), false)
 		{
+			if (NavigationItem != null)
+			{
+
+				var pastButton = new UIBarButtonItem() { Title = "Past" };
+
+				pastButton.Clicked += (sender, e) => {
+					_showPastConferences = !_showPastConferences; 
+					Refresh ();
+					NavigationItem.RightBarButtonItem.Title = "Current";
+				};
+				NavigationItem.SetRightBarButtonItem( pastButton, false);
+			}
 
 			if (UIDevice.CurrentDevice.CheckSystemVersion (6,0)) {
 				// UIRefreshControl iOS6
@@ -53,7 +65,7 @@ namespace TekConf.UI.iPhone
 				indicator.Center = new System.Drawing.PointF (loading.Bounds.Width / 2, loading.Bounds.Size.Height - 40); 
 				indicator.StartAnimating (); 
 				loading.AddSubview (indicator);
-				Repository.GetConferences (sortBy: "", showPastConferences: false, search: "", callback: conferences => 
+				Repository.GetConferences (sortBy: "", showPastConferences: _showPastConferences, search: "", callback: conferences => 
 				{ 
 					InvokeOnMainThread (() => 
 					                    { 
