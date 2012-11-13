@@ -30,10 +30,15 @@ namespace TekConf.UI.iPhone
 		//
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
-			GoogleAnalytics.GANTracker.SharedTracker.StartTracker(account, 10, null);
-			FA.FlurryAnalytics.StartSession("J57HPDDQQ8J8MVGKBKF7");
+			var remoteHostStatus = Reachability.RemoteHostStatus ();
+			var internetStatus = Reachability.InternetConnectionStatus ();
+			var localWifiStatus = Reachability.LocalWifiConnectionStatus ();
 
+			GoogleAnalytics.GANTracker.SharedTracker.StartTracker(account, 10, null);
+
+			FA.FlurryAnalytics.StartSession("J57HPDDQQ8J8MVGKBKF7");
 			FA.FlurryAnalytics.SetSessionReportsOnPause(true);
+
 			var font = UIFont.FromName("OpenSans-Light", 14f);
 			var headerFont = UIFont.FromName("OpenSans", 16f);
 			

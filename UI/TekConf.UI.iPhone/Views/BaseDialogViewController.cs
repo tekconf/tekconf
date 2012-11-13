@@ -5,28 +5,16 @@ using MonoTouch.UIKit;
 using TekConf.RemoteData.v1;
 using System.Collections.Generic;
 using TekConf.RemoteData.Dtos.v1;
-//using Microsoft.WindowsAzure.MobileServices;
-using System.Threading.Tasks;
+using MonoTouch.Dialog.Utilities;
+using MonoTouch.Dialog;
+
 namespace TekConf.UI.iPhone
 {
-	public class BaseUIViewController : UIViewController
+	public class BaseDialogViewController : DialogViewController
 	{
-		//private static readonly MobileServiceClient MobileService = new MobileServiceClient ("https://tekconf.azure-mobile.net/");
-		public BaseUIViewController (string nibName, NSBundle bundle) : base(nibName, bundle)
+		public BaseDialogViewController (UITableViewStyle style, RootElement root, bool pushing) : base(style, root, pushing)
 		{
-
-		}
-
-		protected void TrackAnalyticsEvent(string eventName)
-		{
-			FlurryAnalytics.FlurryAnalytics.LogEvent(eventName);
-			NSError error;
-			var success = GoogleAnalytics.GANTracker.SharedTracker.TrackPageView(eventName, out error);
-		}
-
-		protected bool IsReachable()
-		{
-			return Reachability.IsHostReachable("api.tekconf.com");
+			
 		}
 
 		private string _baseUrl = "http://api.tekconf.com";
@@ -39,37 +27,60 @@ namespace TekConf.UI.iPhone
 				{
 					this._client = new RemoteDataRepository(_baseUrl);
 				}
-
+				
 				return this._client;
 			}
+		}
+
+		protected void TrackAnalyticsEvent(string eventName)
+		{
+			FlurryAnalytics.FlurryAnalytics.LogEvent(eventName);
+			NSError error;
+			var success = GoogleAnalytics.GANTracker.SharedTracker.TrackPageView(eventName, out error);
 		}
 
 		protected UIAlertView UnreachableAlert()
 		{
 			return new UIAlertView("Unreachable", "Can not access TekConf.com. Check internet connection.", null, "OK", null);
 		}
-
+		
 		protected static bool UserInterfaceIdiomIsPhone {
 			get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone; }
 		}
-
+		
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad();
-
-			//Task<MobileServiceUser> login = MobileService.LoginAsync("17351920-ZX9KsONzhX2uIGP54DEkY1D00Gu58fgTSzFLpgJ0");
-
-
+			
 			if (NavigationController != null)
 			{
-				//UIColor colorWithRed:0.506 green:0.6 blue:0.302 alpha:1
 				NavigationController.NavigationBar.TintColor = UIColor.FromRGBA(red:0.506f, 
 				                                                                green:0.6f, 
 				                                                                blue:0.302f,
 				                                                                alpha:1f);
-
+				
 			}
+			
+		}
 
+		public override void ViewWillAppear (bool animated)
+		{
+			base.ViewWillAppear (animated);
+			
+			if (NavigationController != null)
+			{
+				NavigationController.NavigationBar.TintColor = UIColor.FromRGBA(red:0.506f, 
+				                                                                green:0.6f, 
+				                                                                blue:0.302f,
+				                                                                alpha:1f);
+				
+			}
+			
+		}
+
+		protected bool IsReachable()
+		{
+			return Reachability.IsHostReachable("api.tekconf.com");
 		}
 	}
 	

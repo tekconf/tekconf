@@ -29,37 +29,45 @@ namespace TekConf.UI.iPhone
 		{
 			base.ViewDidLoad ();
 			
-			var loading = new UIAlertView (" Downloading Speakers", "Please wait...", null, null, null);
-			
-			loading.Show ();
-			
-			var indicator = new UIActivityIndicatorView (UIActivityIndicatorViewStyle.WhiteLarge); 
-			indicator.Center = new System.Drawing.PointF (loading.Bounds.Width / 2, loading.Bounds.Size.Height - 40); 
-			indicator.StartAnimating (); 
-			loading.AddSubview (indicator);
-			
-			Repository.GetSpeakers (_conference.slug, speakers => 
-			{ 
-				InvokeOnMainThread (() => 
+
+
+			if (this.IsReachable())
+			{
+				var loading = new UIAlertView (" Downloading Speakers", "Please wait...", null, null, null);
+				
+				loading.Show ();
+				
+				var indicator = new UIActivityIndicatorView (UIActivityIndicatorViewStyle.WhiteLarge); 
+				indicator.Center = new System.Drawing.PointF (loading.Bounds.Width / 2, loading.Bounds.Size.Height - 40); 
+				indicator.StartAnimating (); 
+				loading.AddSubview (indicator);
+
+				Repository.GetSpeakers (_conference.slug, speakers => 
 				{ 
-					speakersTableView.Source = new SpeakersTableViewSource (this, speakers); 
-					speakersTableView.ReloadData (); 
-					loading.DismissWithClickedButtonIndex (0, true); 
+					InvokeOnMainThread (() => 
+					{ 
+						speakersTableView.Source = new SpeakersTableViewSource (this, speakers); 
+						speakersTableView.ReloadData (); 
+						loading.DismissWithClickedButtonIndex (0, true); 
+					});
 				});
-			});
-			
-			if (!UserInterfaceIdiomIsPhone) {
-				this.speakersTableView.SelectRow (
-					NSIndexPath.FromRowSection (0, 0),
-					false,
-					UITableViewScrollPosition.Middle
-				);
+				
+				if (!UserInterfaceIdiomIsPhone) {
+					this.speakersTableView.SelectRow (
+						NSIndexPath.FromRowSection (0, 0),
+						false,
+						UITableViewScrollPosition.Middle
+					);
+				}
+			}
+			else
+			{
+				UnreachableAlert().Show();
 			}
 
 			if (_conference != null)
 			{
-				NSError error;
-				var success = GoogleAnalytics.GANTracker.SharedTracker.TrackPageView("ConferenceDetailSpeakersViewController-" + _conference.slug, out error);
+				TrackAnalyticsEvent("ConferenceDetailSpeakersViewController-" + _conference.slug);
 			}
 		}
 

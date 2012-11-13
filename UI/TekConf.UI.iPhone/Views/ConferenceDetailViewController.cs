@@ -55,8 +55,7 @@ namespace TekConf.UI.iPhone
 
 			if (_conference != null)
 			{
-				NSError error;
-				var success = GoogleAnalytics.GANTracker.SharedTracker.TrackPageView("ConferenceDetailViewController-" + _conference.slug, out error);
+				TrackAnalyticsEvent("ConferenceDetailViewController-" + _conference.slug);
 			}
 		}
 

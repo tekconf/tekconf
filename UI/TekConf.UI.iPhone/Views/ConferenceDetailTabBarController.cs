@@ -9,17 +9,24 @@ namespace TekConf.UI.iPhone
 		UIViewController aboutTab, sessionsTab, speakersTab;
 		public ConferenceDetailTabBarController (string conferenceSlug)
 		{
-			Repository.GetConference (conferenceSlug, conference => 
-			{ 
-				InvokeOnMainThread (() => 
+			if (this.IsReachable())
+			{
+				Repository.GetConference (conferenceSlug, conference => 
 				{ 
-					if (conference != null)
-					{
-					
-						SetTabs(conference);
-					}
+					InvokeOnMainThread (() => 
+					{ 
+						if (conference != null)
+						{
+						
+							SetTabs(conference);
+						}
+					});
 				});
-			});
+			}
+			else
+			{
+				UnreachableAlert().Show();
+			}
 		}
 
 //		public ConferenceDetailTabBarController (ConferencesDto conference)

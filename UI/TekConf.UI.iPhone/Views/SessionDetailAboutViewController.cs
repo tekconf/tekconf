@@ -145,8 +145,7 @@ namespace TekConf.UI.iPhone
 
 			if (_session != null)
 			{
-				NSError error;
-				var success = GoogleAnalytics.GANTracker.SharedTracker.TrackPageView("SessionDetailAboutViewController-" + _session.slug, out error);
+				TrackAnalyticsEvent("SessionDetailAboutViewController-" + _session.slug);
 			}
 		}
 		

@@ -7,6 +7,16 @@ namespace TekConf.UI.iPhone
 	public class BaseUITabBarController : UITabBarController
 	{
 	
+		protected UIAlertView UnreachableAlert()
+		{
+			return new UIAlertView("Unreachable", "Can not access TekConf.com. Check internet connection.", null, "OK", null);
+		}
+
+		protected bool IsReachable()
+		{
+			return Reachability.IsHostReachable("api.tekconf.com");
+		}
+
 		public override void ViewWillAppear (bool animated)
 		{
 			base.ViewWillAppear (animated);

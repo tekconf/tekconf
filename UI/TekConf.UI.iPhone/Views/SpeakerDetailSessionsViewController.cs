@@ -34,8 +34,7 @@ namespace TekConf.UI.iPhone
 
 			if (_speaker != null)
 			{
-				NSError error;
-				var success = GoogleAnalytics.GANTracker.SharedTracker.TrackPageView("SpeakerDetailSessionsViewController-" + _speaker.slug, out error);
+				TrackAnalyticsEvent("SpeakerDetailSessionsViewController-" + _speaker.slug);
 			}
 			// Perform any additional setup after loading the view, typically from a nib.
 		}

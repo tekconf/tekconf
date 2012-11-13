@@ -82,16 +82,7 @@ namespace TekConf.UI.iPhone
 
 			if (_conference != null)
 			{
-				FA.FlurryAnalytics.LogEvent("ConferenceDetailAboutViewController-" + _conference.slug);
-
-
-				NSError error;
-				var success = GoogleAnalytics.GANTracker.SharedTracker.TrackPageView("ConferenceDetailAboutViewController-" + _conference.slug, out error);
-			
-				var tracker = new UIAlertView ("Tracked", success.ToString(), null, "Cancel", null);
-				
-				tracker.Show ();
-			
+				TrackAnalyticsEvent("ConferenceDetailAboutViewController-" + _conference.slug);
 			}
 
 		}

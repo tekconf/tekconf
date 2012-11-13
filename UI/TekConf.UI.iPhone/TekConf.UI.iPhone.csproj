@@ -155,6 +155,8 @@
     </Compile>
     <Compile Include="Views\ConferencesDialogViewController.cs" />
     <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="Classes\Reachability.cs" />
+    <Compile Include="Views\BaseDialogViewController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -181,6 +183,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\" />
+    <Folder Include="Classes\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Views\ConferenceDetailViewController.xib" />

@@ -10,22 +10,9 @@ using MonoTouch.Dialog;
 
 namespace TekConf.UI.iPhone
 {
-	public class ConferencesDialogViewController : DialogViewController
+
+	public class ConferencesDialogViewController : BaseDialogViewController
 	{
-		private string _baseUrl = "http://api.tekconf.com";
-		private RemoteDataRepository _client;
-		protected RemoteDataRepository Repository
-		{
-			get
-			{
-				if (this._client == null)
-				{
-					this._client = new RemoteDataRepository(_baseUrl);
-				}
-				
-				return this._client;
-			}
-		}
 
 		public ConferencesDialogViewController () : base(UITableViewStyle.Plain, new RootElement("Conferences"), false)
 		{
@@ -56,71 +43,42 @@ namespace TekConf.UI.iPhone
 
 		public void Refresh()
 		{
-			var loading = new UIAlertView (" Downloading Conferences", "Please wait...", null, null, null);
-			
-			loading.Show ();
-			
-			var indicator = new UIActivityIndicatorView (UIActivityIndicatorViewStyle.WhiteLarge); 
-			indicator.Center = new System.Drawing.PointF (loading.Bounds.Width / 2, loading.Bounds.Size.Height - 40); 
-			indicator.StartAnimating (); 
-			loading.AddSubview (indicator);
+			if (this.IsReachable())
+			{
+				var loading = new UIAlertView (" Downloading Conferences", "Please wait...", null, null, null);
+				
+				loading.Show ();
+				
+				var indicator = new UIActivityIndicatorView (UIActivityIndicatorViewStyle.WhiteLarge); 
+				indicator.Center = new System.Drawing.PointF (loading.Bounds.Width / 2, loading.Bounds.Size.Height - 40); 
+				indicator.StartAnimating (); 
+				loading.AddSubview (indicator);
 
-			Repository.GetConferences (sortBy: "", showPastConferences: false, search: "", callback: conferences => 
-			{ 
-				InvokeOnMainThread (() => 
+				Repository.GetConferences (sortBy: "", showPastConferences: false, search: "", callback: conferences => 
 				{ 
-					TableView.Source = new ConferencesTableViewSource (this, conferences); 
-					TableView.ReloadData (); 
-					loading.DismissWithClickedButtonIndex (0, true);
+					InvokeOnMainThread (() => 
+					{ 
+						TableView.Source = new ConferencesTableViewSource (this, conferences); 
+						TableView.ReloadData (); 
+						loading.DismissWithClickedButtonIndex (0, true);
 
-					if (UIDevice.CurrentDevice.CheckSystemVersion (6,0)) {
-						RefreshControl.EndRefreshing();
-					}
+						if (UIDevice.CurrentDevice.CheckSystemVersion (6,0)) {
+							RefreshControl.EndRefreshing();
+						}
 
+					});
 				});
-			});
-
-
-			NSError error;
-			var success = GoogleAnalytics.GANTracker.SharedTracker.TrackPageView("ConferencesDialogViewController", out error);
-		}
-
-		public override void ViewWillAppear (bool animated)
-		{
-			base.ViewWillAppear (animated);
-			var frame = this.View.Frame;
-			TableView.Frame = frame;
-
-			if (NavigationController != null)
+			}
+			else
 			{
-				NavigationController.NavigationBar.TintColor = UIColor.FromRGBA(red:0.506f, 
-				                                                                green:0.6f, 
-				                                                                blue:0.302f,
-				                                                                alpha:1f);
-				
+				UnreachableAlert().Show();
 			}
 
+			TrackAnalyticsEvent("ConferencesDialogViewController");
 		}
-		public override void ViewDidAppear (bool animated)
-		{
-			base.ViewDidAppear (animated);
-			var frame = this.View.Frame;
-			TableView.Frame = frame;
+	
+	
 
-		}
-		public override void ViewDidLoad ()
-		{
-			base.ViewDidLoad ();
-
-			if (NavigationController != null)
-			{
-				NavigationController.NavigationBar.TintColor = UIColor.FromRGBA(red:0.506f, 
-				                                                                green:0.6f, 
-				                                                                blue:0.302f,
-				                                                                alpha:1f);
-				
-			}
-		}
 
 		private class ConferencesTableViewSource : UITableViewSource, IImageUpdated
 		{ 
