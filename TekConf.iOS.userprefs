@@ -1,10 +1,12 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="UI/TekConf.UI.iPhone/Views/ConferenceDetailTabBarController.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|iPhone" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="UI/TekConf.UI.iPhone/Views/ConferencesDialogViewController.cs">
     <Files>
-      <File FileName="UI/TekConf.UI.iPhone/Views/ConferencesDialogViewController.cs" Line="165" Column="22" />
-      <File FileName="UI/TekConf.UI.iPhone/AppDelegate.cs" Line="70" Column="24" />
-      <File FileName="UI/TekConf.UI.iPhone/Views/ConferenceDetailTabBarController.cs" Line="25" Column="4" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/SettingsViewController.cs" Line="10" Column="68" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/LoginViewController.cs" Line="23" Column="3" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/ConferencesDialogViewController.cs" Line="107" Column="3" />
+      <File FileName="UI/TekConf.UI.iPhone/AppDelegate.cs" Line="47" Column="39" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/BaseDialogViewController.cs" Line="57" Column="52" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -14,10 +16,11 @@
             <Node name="ServiceClient.Web" expanded="True" />
           </Node>
           <Node name="TekConf.RemoteData.iOS" expanded="True" />
-          <Node name="TekConf.UI.iOS" expanded="True" />
-          <Node name="TekConf.UI.iPhone" expanded="True" selected="True">
+          <Node name="TekConf.UI.iPhone" expanded="True">
             <Node name="Classes" expanded="True" />
-            <Node name="Views" expanded="True" />
+            <Node name="Views" expanded="True">
+              <Node name="ConferencesDialogViewController.cs" selected="True" />
+            </Node>
           </Node>
         </State>
       </Pad>
@@ -31,8 +34,6 @@
       <Breakpoint file="/Users/Rob/dev/tekconf/UI/TekConf.UI.iOS/SessionsListRootViewController.cs" line="80" />
       <Breakpoint file="/Users/Rob/dev/tekconf/UI/TekConf.UI.iOS/SessionsListRootViewController.cs" line="76" />
       <Breakpoint file="/Users/Rob/dev/tekconf/UI/TekConf.UI.iPhone/Views/ConferenceDetailViewController.cs" line="93" />
-      <Breakpoint file="/Users/rgibbens/dev/tekconf/UI/TekConf.UI.iPhone/Views/ConferencesDialogViewController.cs" line="249" />
-      <Breakpoint file="/Users/rgibbens/dev/tekconf/UI/TekConf.UI.iPhone/Views/ConferencesDialogViewController.cs" line="165" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>
@@ -47,7 +48,7 @@
     <Watch file="UI/TekConf.UI.iPhone/Views/ConferenceDetailTabBarController.cs" line="16" offsetX="419" offsetY="270" expression="conference" liveUpdate="False" />
   </MonoDevelop.Ide.DebuggingService.PinnedWatches>
   <MonoDevelop.Ide.ItemProperties.TekConf.UI.iPhone>
-    <IPhoneTestFlightSettings_27CRelease ApiToken="28ea2cf46ef75d633a2bce49d2adbfb7_NzYwOA" TeamToken="19a8eedfedeed47cf1f6d74fd7ab561c_MTkxNDIwMTEtMDktMjkgMjE6MTc6MTAuNjM0NTAw" ReleaseNotes="Fixed flashing when conference is selected. Checking network connection. Not failing if conference doesn't exist. Added Analytics.&#xA;&#xA;Track issues here : https://trello.com/board/tekconf/50747c7b7dfbc8a32f0417b7" NotifyTeamMembers="True" ReplaceBinaries="False" DistributionLists="TekConf" />
+    <IPhoneTestFlightSettings_27CRelease ApiToken="28ea2cf46ef75d633a2bce49d2adbfb7_NzYwOA" TeamToken="19a8eedfedeed47cf1f6d74fd7ab561c_MTkxNDIwMTEtMDktMjkgMjE6MTc6MTAuNjM0NTAw" ReleaseNotes="Changed icon. Added blank settings and login pages. Ability to show Past/Current conferences.&#xA;&#xA;Track issues here : https://trello.com/board/tekconf/50747c7b7dfbc8a32f0417b7" NotifyTeamMembers="True" ReplaceBinaries="False" DistributionLists="TekConf" />
     <IPhoneTestFlightSettings_27CAd-Hoc ApiToken="28ea2cf46ef75d633a2bce49d2adbfb7_NzYwOA" TeamToken="19a8eedfedeed47cf1f6d74fd7ab561c_MTkxNDIwMTEtMDktMjkgMjE6MTc6MTAuNjM0NTAw" ReleaseNotes="Updated UI" NotifyTeamMembers="True" ReplaceBinaries="False" DistributionLists="TekConf" />
   </MonoDevelop.Ide.ItemProperties.TekConf.UI.iPhone>
 </Properties>

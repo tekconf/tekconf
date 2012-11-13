@@ -36,6 +36,17 @@ namespace TekConf.UI.iPhone
 			var headerFont = UIFont.FromName("OpenSans", 16f);
 			var detailFont = UIFont.FromName ("OpenSans", 12f);
 
+
+			UISearchBar.Appearance.TintColor = UIColor.FromRGBA(red:0.506f, 
+			                                                    green:0.6f, 
+			                                                    blue:0.302f,
+			                                                    alpha:1f);
+				UISearchBar.Appearance.BackgroundColor = UIColor.FromRGBA(red:0.506f, 
+				                                                          green:0.6f, 
+				                                                          blue:0.302f,
+			                                                          alpha:1f);
+
+
 			UITextAttributes buttonAttributes = new UITextAttributes() { Font = detailFont };
 			
 			UIBarButtonItem.Appearance.SetTitleTextAttributes(buttonAttributes, UIControlState.Normal);

@@ -10,36 +10,44 @@ using MonoTouch.Dialog;
 
 namespace TekConf.UI.iPhone
 {
-
 	public class ConferencesDialogViewController : BaseDialogViewController
 	{
-		private bool _showPastConferences =false;
+		private bool _showPastConferences = false;
+
+		public string SearchString { get; set; }
+
 		public ConferencesDialogViewController () : base(UITableViewStyle.Plain, new RootElement("Conferences"), false)
 		{
-			if (NavigationItem != null)
-			{
+			this.EnableSearch = true;
+		
+			if (NavigationItem != null) {
 
-				var pastButton = new UIBarButtonItem() { Title = "Past" };
+				var pastButton = new UIBarButtonItem () { Title = "Past" };
 
 				pastButton.Clicked += (sender, e) => {
 					_showPastConferences = !_showPastConferences; 
 					Refresh ();
-					NavigationItem.RightBarButtonItem.Title = "Current";
+					if (_showPastConferences) {
+						NavigationItem.RightBarButtonItem.Title = "Current";
+					} else {
+						NavigationItem.RightBarButtonItem.Title = "Past";
+					}
 				};
-				NavigationItem.SetRightBarButtonItem( pastButton, false);
+				NavigationItem.SetRightBarButtonItem (pastButton, false);
 			}
 
-			if (UIDevice.CurrentDevice.CheckSystemVersion (6,0)) {
-				// UIRefreshControl iOS6
-				RefreshControl = new UIRefreshControl();
-				RefreshControl.ValueChanged += (sender, e) => { Refresh(); };
+			if (UIDevice.CurrentDevice.CheckSystemVersion (6, 0)) {
+				RefreshControl = new UIRefreshControl ();
+				RefreshControl.ValueChanged += (sender, e) => {
+					Refresh (); };
 			} else {
 				// old style refresh button
 				NavigationItem.SetRightBarButtonItem (new UIBarButtonItem (UIBarButtonSystemItem.Refresh), false);
-				NavigationItem.RightBarButtonItem.Clicked += (sender, e) => { Refresh(); };
+				NavigationItem.RightBarButtonItem.Clicked += (sender, e) => {
+					Refresh (); };
 			}
 
-			Refresh();
+			Refresh ();
 		}
 
 		public override void LoadView ()
@@ -47,16 +55,14 @@ namespace TekConf.UI.iPhone
 			base.LoadView ();
 
 			this.View = this.TableView;
-			if (ParentViewController != null && ParentViewController.View != null)
-			{
+			if (ParentViewController != null && ParentViewController.View != null) {
 				ParentViewController.View.BackgroundColor = UIColor.Red;
 			}
 		}
 
-		public void Refresh()
+		public void Refresh ()
 		{
-			if (this.IsReachable())
-			{
+			if (this.IsReachable ()) {
 				var loading = new UIAlertView (" Downloading Conferences", "Please wait...", null, null, null);
 				
 				loading.Show ();
@@ -65,159 +71,62 @@ namespace TekConf.UI.iPhone
 				indicator.Center = new System.Drawing.PointF (loading.Bounds.Width / 2, loading.Bounds.Size.Height - 40); 
 				indicator.StartAnimating (); 
 				loading.AddSubview (indicator);
+
 				Repository.GetConferences (sortBy: "", showPastConferences: _showPastConferences, search: "", callback: conferences => 
 				{ 
-					InvokeOnMainThread (() => 
-					                    { 
-						TableView.Source = new ConferencesTableViewSource (this, conferences); 
-						TableView.ReloadData (); 
-						loading.DismissWithClickedButtonIndex (0, true);
-						
-						if (UIDevice.CurrentDevice.CheckSystemVersion (6,0)) {
-							RefreshControl.EndRefreshing();
+					if (conferences != null) {
+						var rootElement = new RootElement ("Conferences"){ new Section() };
+	
+						UIImage defaultImage = UIImage.FromBundle (@"images/DefaultConference.png");
+
+						foreach (var conference in conferences) {
+							rootElement [0].Add (new ConferenceElement (conference, defaultImage));
 						}
-						
-					});
+
+						InvokeOnMainThread (() => 
+						{ 
+							Root = rootElement;
+							this.ReloadData ();
+							loading.DismissWithClickedButtonIndex (0, true);
+							
+							if (UIDevice.CurrentDevice.CheckSystemVersion (6, 0)) {
+								RefreshControl.EndRefreshing ();
+							}
+							
+						});					
+					
+					}
+
 				});
-			}
-			else
-			{
-				UnreachableAlert().Show();
+			} else {
+				UnreachableAlert ().Show ();
 			}
 
-			TrackAnalyticsEvent("ConferencesDialogViewController");
+			TrackAnalyticsEvent ("ConferencesDialogViewController");
 		}
-	
-	
 
-
-		private class ConferencesTableViewSource : UITableViewSource, IImageUpdated
-		{ 
-			private UIImage _defaultImage;
-			private readonly IList<ConferencesDto> _conferences;
-			private const string ConferenceCell = "ConferenceCell";
-			private ConferencesDialogViewController _rootViewController;
-			private ConferenceDetailTabBarController _conferenceDetailViewController;
-			
-			public ConferencesTableViewSource (ConferencesDialogViewController controller, IList<ConferencesDto> conferences)
-			{ 
-
-				_rootViewController = controller;
-				_conferences = conferences;
-				_defaultImage = UIImage.FromBundle(@"images/DefaultConference.png");
-			}
-			
-			public override int RowsInSection (UITableView tableView, int section)
-			{ 
-				if (_conferences == null)
-				{
-					return 0;
-				}
-				else
-				{
-					return _conferences.Count; 
-				}
-			}
-			
-			public override float GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
-			{ 
-				return 60; 
-			}
-			
-			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
-			{ 
-				var cell = tableView.DequeueReusableCell (ConferenceCell) ?? new UITableViewCell (UITableViewCellStyle.Subtitle, ConferenceCell); 
-				var conference = _conferences [indexPath.Row]; 
-				
-				var mainFont = UIFont.FromName ("OpenSans", 14f);
-				var detailFont = UIFont.FromName ("OpenSans", 12f);
-				cell.TextLabel.Font = mainFont;
-				cell.DetailTextLabel.Font = detailFont;
-				
-				if (!string.IsNullOrWhiteSpace (conference.imageUrl)) {
-					var logo = ImageLoader.DefaultRequestImage (new Uri ("http://www.tekconf.com" + conference.imageUrl), this);
-					if (logo == null) {
-						cell.ImageView.Image = _defaultImage;
-					} else {
-						cell.ImageView.Image = logo;
-					}
-				}
-				
-				cell.TextLabel.Text = conference.name; 
-				cell.DetailTextLabel.Text = conference.CalculateConferenceDates (conference); 
-				return cell; 
-			}
-
-			protected static bool UserInterfaceIdiomIsPhone {
-				get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone; }
-			}
-
-			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
-			{ 
-				var selectedConference = _conferences [indexPath.Row];  
-				
-				if (UserInterfaceIdiomIsPhone) {
-					NavigationItems.ConferenceSlug = selectedConference.slug;
-
-					_conferenceDetailViewController = new ConferenceDetailTabBarController ();
-					_rootViewController.NavigationController.PushViewController (
-						_conferenceDetailViewController,
-						false
-						);
-				} else {
-					// Navigation logic may go here -- for example, create and push another view controller.
-				}
-
-			} 
-			
-			#region IImageUpdated implementation
-			
-			public void UpdatedImage (Uri uri)
-			{
-				//var cell = tableView.DequeueReusableCell (ConferenceCell) ?? new UITableViewCell (UITableViewCellStyle.Subtitle, ConferenceCell); 
-				
-				//logoImage.Image = ImageLoader.DefaultRequestImage(uri, this);
-			}
-			
-			#endregion
-		}
-		
-		private class DataSource : UITableViewSource
+		public override void ViewWillAppear (bool animated)
 		{
-			
-			public DataSource ()
-			{
-			}
+			base.ViewWillAppear (animated);
 
-			public override int NumberOfSections (UITableView tableView)
-			{
-				return 1;
-			}
-			
-			public override int RowsInSection (UITableView tableview, int section)
-			{
-				return 1;
-			}
-
-			public override UITableViewCell GetCell (UITableView tableView, MonoTouch.Foundation.NSIndexPath indexPath)
-			{
-				string cellIdentifier = "Cell";
-				var cell = tableView.DequeueReusableCell (cellIdentifier);
-				if (cell == null) {
-					cell = new UITableViewCell (UITableViewCellStyle.Default, cellIdentifier);
-					if (UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone) {
-						cell.Accessory = UITableViewCellAccessory.DisclosureIndicator;
-					}
-				}
-				var font = UIFont.FromName ("OpenSans", 12f);
-				cell.TextLabel.Font = font;
-				cell.DetailTextLabel.Font = font;
-
-				return cell;
+			if (!string.IsNullOrEmpty (SearchString)) {
+				this.PerformFilter (SearchString);
 			}
 
 		}
 
+		public override void FinishSearch ()
+		{
+			base.FinishSearch ();
+		}
+
+		public override void OnSearchTextChanged (string text)
+		{
+			base.OnSearchTextChanged (text);
+			SearchString = text;
+			TableView.SetNeedsDisplay ();
+		}
 	}
+
 	
 }
