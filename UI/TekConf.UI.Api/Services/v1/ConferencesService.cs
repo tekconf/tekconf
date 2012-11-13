@@ -72,8 +72,7 @@ namespace TekConf.UI.Api.Services.v1
 
             var cacheKey = "GetAllConferences-" + searchCacheKey + "-" + sortByCacheKey + "-" + showPastConferencesCacheKey;
             var expireInTimespan = new TimeSpan(0, 0, 120);
-            Stopwatch sw = new Stopwatch();
-            sw.Start();
+
             var result = base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
             {
                 var orderByFunc = GetOrderByFunc(request.sortBy);
@@ -132,8 +131,7 @@ namespace TekConf.UI.Api.Services.v1
 
                 return conferencesDtos.ToList();
             });
-            sw.Stop();
-            var x = sw.ElapsedMilliseconds;
+
             return result;
         }
 
