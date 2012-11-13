@@ -209,7 +209,6 @@
     <Content Include="OpenSans-Regular.ttf" />
     <Content Include="OpenSans-Semibold.ttf" />
     <Content Include="OpenSans-SemiboldItalic.ttf" />
-    <Content Include="images\glyphicons_042_group.png" />
     <Content Include="images\glyphicons_061_keynote.png" />
     <Content Include="images\three_lines.png" />
     <Content Include="artekLogo114.png" />
@@ -219,5 +218,9 @@
     <Content Include="images\twitter-16x16.png" />
     <Content Include="images\website-16x16.png" />
     <Content Include="images\facebook-16x16.png" />
+    <Content Include="images\glyphicons_042_group%402x.png" />
+    <Content Include="images\glyphicons_061_keynote%402x.png" />
+    <Content Include="images\glyphicons_042_group.png" />
+    <Content Include="images\glyphicons_088_address_book.png" />
   </ItemGroup>
 </Project>

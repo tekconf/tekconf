@@ -53,19 +53,18 @@ namespace TekConf.UI.iPhone
 				indicator.Center = new System.Drawing.PointF (loading.Bounds.Width / 2, loading.Bounds.Size.Height - 40); 
 				indicator.StartAnimating (); 
 				loading.AddSubview (indicator);
-
 				Repository.GetConferences (sortBy: "", showPastConferences: false, search: "", callback: conferences => 
 				{ 
 					InvokeOnMainThread (() => 
-					{ 
+					                    { 
 						TableView.Source = new ConferencesTableViewSource (this, conferences); 
 						TableView.ReloadData (); 
 						loading.DismissWithClickedButtonIndex (0, true);
-
+						
 						if (UIDevice.CurrentDevice.CheckSystemVersion (6,0)) {
 							RefreshControl.EndRefreshing();
 						}
-
+						
 					});
 				});
 			}
@@ -163,6 +162,8 @@ namespace TekConf.UI.iPhone
 			
 			public void UpdatedImage (Uri uri)
 			{
+				//var cell = tableView.DequeueReusableCell (ConferenceCell) ?? new UITableViewCell (UITableViewCellStyle.Subtitle, ConferenceCell); 
+				
 				//logoImage.Image = ImageLoader.DefaultRequestImage(uri, this);
 			}
 			

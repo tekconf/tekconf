@@ -21,6 +21,7 @@ namespace TekConf.UI.iPhone
 		{
 			aboutTab = new ConferenceDetailAboutViewController();
 			aboutTab.Title = "About";
+			aboutTab.TabBarItem.Image = UIImage.FromBundle("images/glyphicons_088_address_book");
 			
 			sessionsTab = new ConferenceDetailViewController();
 			sessionsTab.Title = "Sessions";

@@ -75,7 +75,7 @@ namespace TekConf.UI.iPhone
 				new StyledStringElement("Conferences", () => { NavigationController.PushViewController(new ConferencesDialogViewController(), true); }) { Font = font },
 
 				new StyledStringElement("CodeMash 2013", () => { NavigationItems.ConferenceSlug = "codemash-2013"; NavigationController.PushViewController(new ConferenceDetailTabBarController(), true); }) { Font = font },
-				new StyledStringElement("Build 2013", () => { NavigationItems.ConferenceSlug = "build-2013"; NavigationController.PushViewController(new ConferenceDetailTabBarController(), true); }) { Font = font },
+				new StyledStringElement("Build 2013", () => { NavigationItems.ConferenceSlug = "build-2012"; NavigationController.PushViewController(new ConferenceDetailTabBarController(), true); }) { Font = font },
 				new StyledStringElement("Settings", () => { NavigationItems.ConferenceSlug = "codemash-2013"; NavigationController.PushViewController(new ConferenceDetailTabBarController(), true); }) { Font = font },
 				new StyledStringElement("Login", () => { NavigationItems.ConferenceSlug = "codemash-2013"; NavigationController.PushViewController(new ConferenceDetailTabBarController(), true); }) { Font = font },
 				
