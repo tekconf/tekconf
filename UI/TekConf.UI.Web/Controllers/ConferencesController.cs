@@ -1,7 +1,9 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Linq;
+using Elmah;
 using TekConf.UI.Web.App_Start;
 
 namespace TekConf.UI.Web.Controllers
@@ -37,6 +39,7 @@ namespace TekConf.UI.Web.Controllers
 
             if (conferenceTask.Result == null)
             {
+                Elmah.ErrorLog.GetDefault(System.Web.HttpContext.Current).Log(new Error(new Exception("Conference " + conferenceSlug + " not found")));
                 return RedirectToAction("NotFound", "Error");
             }
 
