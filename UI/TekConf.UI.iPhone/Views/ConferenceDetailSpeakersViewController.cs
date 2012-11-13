@@ -9,28 +9,19 @@ namespace TekConf.UI.iPhone
 {
 	public partial class ConferenceDetailSpeakersViewController : BaseUIViewController
 	{
-		private FullConferenceDto _conference;
-
-		public ConferenceDetailSpeakersViewController (FullConferenceDto conference) : base ("ConferenceDetailSpeakersViewController", null)
+		public ConferenceDetailSpeakersViewController () : base ("ConferenceDetailSpeakersViewController", null)
 		{
-			_conference = conference;
-			Title = _conference.name;
 		}
 		
 		public override void DidReceiveMemoryWarning ()
 		{
-			// Releases the view if it doesn't have a superview.
 			base.DidReceiveMemoryWarning ();
-			
-			// Release any cached data, images, etc that aren't in use.
 		}
 		
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
 			
-
-
 			if (this.IsReachable())
 			{
 				var loading = new UIAlertView (" Downloading Speakers", "Please wait...", null, null, null);
@@ -42,7 +33,7 @@ namespace TekConf.UI.iPhone
 				indicator.StartAnimating (); 
 				loading.AddSubview (indicator);
 
-				Repository.GetSpeakers (_conference.slug, speakers => 
+				Repository.GetSpeakers (NavigationItems.Conference.slug, speakers => 
 				{ 
 					InvokeOnMainThread (() => 
 					{ 
@@ -65,9 +56,9 @@ namespace TekConf.UI.iPhone
 				UnreachableAlert().Show();
 			}
 
-			if (_conference != null)
+			if (NavigationItems.Conference != null)
 			{
-				TrackAnalyticsEvent("ConferenceDetailSpeakersViewController-" + _conference.slug);
+				TrackAnalyticsEvent("ConferenceDetailSpeakersViewController-" + NavigationItems.Conference.slug);
 			}
 		}
 

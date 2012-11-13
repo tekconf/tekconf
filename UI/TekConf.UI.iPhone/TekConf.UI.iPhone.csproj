@@ -157,6 +157,7 @@
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Classes\Reachability.cs" />
     <Compile Include="Views\BaseDialogViewController.cs" />
+    <Compile Include="Classes\NavigationItems.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

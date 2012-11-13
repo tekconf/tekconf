@@ -146,7 +146,9 @@ namespace TekConf.UI.iPhone
 				var selectedConference = _conferences [indexPath.Row];  
 				
 				if (UserInterfaceIdiomIsPhone) {
-					_conferenceDetailViewController = new ConferenceDetailTabBarController (selectedConference.slug);
+					NavigationItems.ConferenceSlug = selectedConference.slug;
+
+					_conferenceDetailViewController = new ConferenceDetailTabBarController ();
 					_rootViewController.NavigationController.PushViewController (
 						_conferenceDetailViewController,
 						false
@@ -200,11 +202,6 @@ namespace TekConf.UI.iPhone
 
 				return cell;
 			}
-
-			protected static bool UserInterfaceIdiomIsPhone {
-				get { return UIDevice.CurrentDevice.UserInterfaceIdiom == UIUserInterfaceIdiom.Phone; }
-			}
-
 
 		}
 
