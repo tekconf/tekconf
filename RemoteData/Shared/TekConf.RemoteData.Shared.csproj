@@ -83,6 +83,7 @@
     </Compile>
     <Compile Include="v1\Dtos\UserDto.cs" />
     <Compile Include="v1\Requests\Address.cs" />
+    <Compile Include="v1\Requests\AddSessionToSchedule.cs" />
     <Compile Include="v1\Requests\Conferences.cs" />
     <Compile Include="v1\Requests\FeaturedSpeakers.cs" />
     <Compile Include="v1\Requests\Schedule.cs" />

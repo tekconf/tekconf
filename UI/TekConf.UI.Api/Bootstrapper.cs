@@ -57,6 +57,7 @@ namespace TekConf.UI.Api
                 .ForMember(c => c._id, opt => opt.UseValue(Guid.NewGuid()))
                 ;
 
+            //Mapper.CreateMap<AddSessionToSchedule, Sch>()
             Mapper.CreateMap<SpeakerEntity, SpeakerDto>();
 
             Mapper.CreateMap<SpeakerEntity, FullSpeakerDto>();
