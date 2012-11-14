@@ -8,6 +8,8 @@ namespace TekConf.UI.Web
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.IgnoreRoute("{*favicon}", new { favicon = @"(.*/)?favicon.ico(/.*)?" });
+            routes.IgnoreRoute("{resource}.png/{*pathInfo}");
 
             routes.MapRoute(name: "Detail", url: "conferences/{conferenceSlug}",
                 defaults: new { controller = "conferences", action = "Detail" });
