@@ -15,7 +15,7 @@ namespace TekConf.UI.iPhone
 	{
 		private ConferencesDto _conference;
 		private UIImage _defaultImage;
-		
+		private UITableViewCell _cell;
 		public ConferenceElement (ConferencesDto conference, UIImage defaultImage) : base(string.Empty)
 		{
 			_conference = conference;
@@ -31,31 +31,32 @@ namespace TekConf.UI.iPhone
 		
 		public override UITableViewCell GetCell (UITableView tv)
 		{
-			var cell = tv.DequeueReusableCell (CellKey) ?? new UITableViewCell (UITableViewCellStyle.Subtitle, CellKey); 
+			_cell = tv.DequeueReusableCell (CellKey) ?? new UITableViewCell (UITableViewCellStyle.Subtitle, CellKey); 
 			
 			var mainFont = UIFont.FromName ("OpenSans", 14f);
 			var detailFont = UIFont.FromName ("OpenSans", 12f);
-			cell.TextLabel.Font = mainFont;
-			cell.DetailTextLabel.Font = detailFont;
+			_cell.TextLabel.Font = mainFont;
+			_cell.DetailTextLabel.Font = detailFont;
 			
 			if (!string.IsNullOrWhiteSpace (_conference.imageUrl)) {
 				var logo = ImageLoader.DefaultRequestImage (new Uri ("http://www.tekconf.com" + _conference.imageUrl), this);
 				if (logo == null) {
-					cell.ImageView.Image = _defaultImage;
+					_cell.ImageView.Image = _defaultImage;
 				} else {
-					cell.ImageView.Image = logo;
+					_cell.ImageView.Image = logo;
 				}
 			}
 			
-			cell.TextLabel.Text = _conference.name; 
-			cell.DetailTextLabel.Text = _conference.CalculateConferenceDates (_conference); 
-			return cell; 
+			_cell.TextLabel.Text = _conference.name; 
+			_cell.DetailTextLabel.Text = _conference.CalculateConferenceDates (_conference); 
+			return _cell; 
 
 			//return base.GetCell (tv);
 		}
 
 		public void UpdatedImage (Uri uri)
 		{
+			_cell.ImageView.Image = ImageLoader.DefaultRequestImage (uri, this);
 			//var cell = tableView.DequeueReusableCell (ConferenceCell) ?? new UITableViewCell (UITableViewCellStyle.Subtitle, ConferenceCell); 
 			
 			//logoImage.Image = ImageLoader.DefaultRequestImage(uri, this);

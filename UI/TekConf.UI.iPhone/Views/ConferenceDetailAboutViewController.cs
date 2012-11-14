@@ -97,11 +97,14 @@ namespace TekConf.UI.iPhone
 		{
 			var font = UIFont.FromName ("OpenSans", 15f);
 			this.taglineLabel.Font = font;
-
+				this.tagLineSeparatorBottom.Text = "........................................................................";
+				this.tagLineSeparatorTop.Text = "........................................................................";
+			
 			if (!string.IsNullOrWhiteSpace (conference.tagline)) {
 				this.taglineLabel.Text = conference.tagline;
-
 				this.taglineLabel.Hidden = false;
+				
+
 				this.tagLineSeparatorBottom.Hidden = false;
 				this.tagLineSeparatorTop.Hidden = false;
 

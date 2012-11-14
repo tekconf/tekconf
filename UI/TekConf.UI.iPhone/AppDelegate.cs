@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using MonoTouch.SlideoutNavigation;
@@ -93,6 +92,7 @@ namespace TekConf.UI.iPhone
 				new StyledStringElement("Build 2013", () => { NavigationItems.ConferenceSlug = "build-2012"; NavigationController.PushViewController(new ConferenceDetailTabBarController(), true); }) { Font = font },
 				new StyledStringElement("Settings", () => { NavigationController.PushViewController(new SettingsViewController(), true); }) { Font = font },
 				new StyledStringElement("Login", () => { NavigationController.PushViewController(new LoginViewController(), true); }) { Font = font },
+				new StyledStringElement("Test", () => { NavigationController.PushViewController(new TestController(), true); }) { Font = font },
 				
 				//new StyledStringElement("Stuff", () => { NavigationController.PushViewController(new StuffViewController(), true); }),
 				//new StyledStringElement("Full Screen", () => { NavigationController.PushViewController(new FullscreenViewController(), true); })

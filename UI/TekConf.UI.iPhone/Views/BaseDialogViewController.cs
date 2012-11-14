@@ -66,7 +66,7 @@ namespace TekConf.UI.iPhone
 		public override void ViewWillAppear (bool animated)
 		{
 			base.ViewWillAppear (animated);
-			
+
 			if (NavigationController != null)
 			{
 				NavigationController.NavigationBar.TintColor = UIColor.FromRGBA(red:0.506f, 

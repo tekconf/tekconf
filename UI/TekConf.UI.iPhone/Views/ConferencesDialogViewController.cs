@@ -19,7 +19,7 @@ namespace TekConf.UI.iPhone
 		public ConferencesDialogViewController () : base(UITableViewStyle.Plain, new RootElement("Conferences"), false)
 		{
 			this.EnableSearch = true;
-		
+
 			if (NavigationItem != null) {
 
 				var pastButton = new UIBarButtonItem () { Title = "Past" };
@@ -87,6 +87,8 @@ namespace TekConf.UI.iPhone
 						{ 
 							Root = rootElement;
 							this.ReloadData ();
+							this.TableView.ScrollsToTop = true;
+							
 							loading.DismissWithClickedButtonIndex (0, true);
 							
 							if (UIDevice.CurrentDevice.CheckSystemVersion (6, 0)) {
