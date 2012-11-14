@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
+using FluentMongo.Linq;
 using TekConf.RemoteData.Dtos.v1;
+using TekConf.UI.Api.Services;
 using TekConf.UI.Api.Services.Requests.v1;
 
 namespace TekConf.UI.Api
@@ -62,13 +65,40 @@ namespace TekConf.UI.Api
 
             Mapper.CreateMap<SpeakerEntity, FullSpeakerDto>();
 
-            Mapper.CreateMap<ScheduleEntity, ScheduleDto>();
+            Mapper.CreateMap<ScheduleEntity, ScheduleDto>()
+                .ForMember(dto => dto.conferenceSlug, opt=> opt.MapFrom(entity => entity.ConferenceSlug))
+                .ForMember(dto => dto.sessions, opt => opt.ResolveUsing<ScheduleSessionResolver>())
+                ;
 
             Mapper.CreateMap<AddressEntity, Address>();
             Mapper.CreateMap<Address, AddressEntity>();
             Mapper.CreateMap<AddressEntity, AddressDto>();
         }
 
+    }
+
+
+    public class ScheduleSessionResolver : ValueResolver<ScheduleEntity, List<FullSessionDto>>
+    {
+        protected override List<FullSessionDto> ResolveCore(ScheduleEntity source)
+        {
+            var sessions = new List<FullSessionDto>();
+      
+            var mongo = new MongoServiceBase();
+
+            var conference = mongo.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
+                            .AsQueryable()
+                            .SingleOrDefault(c => c.slug.ToLower() == source.ConferenceSlug.ToLower());
+
+            foreach (var sessionSlug in source.SessionSlugs)
+            {
+                var session = conference.sessions.Where(c => c.slug == sessionSlug).SingleOrDefault();
+                var sessionDto = Mapper.Map<FullSessionDto>(session);
+                sessions.Add(sessionDto);
+            }
+
+            return sessions;
+        }
     }
     public class ImageResolver : ValueResolver<ConferenceEntity, string>
     {

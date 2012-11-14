@@ -73,22 +73,33 @@ namespace TekConf.UI.Api.v1
 
         private object GetSingleSchedule(Schedule request)
         {
-
             var cacheKey = "GetSingleSchedule-" + request.conferenceSlug + "-" + request.authenticationMethod + "-" + request.authenticationToken;
             var expireInTimespan = new TimeSpan(0, 0, 120);
-            return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
+            if (base.RequestContext != null && this.CacheClient != null)
+            {
+                return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
                 {
-                    var schedule = this.RemoteDatabase.GetCollection<ScheduleEntity>("schedules")
-                      .AsQueryable()
-                      .Where(s => s.ConferenceSlug.ToLower() == request.conferenceSlug.ToLower())
-                      .Where(s => s.AuthenticationMethod.ToLower() == request.authenticationMethod.ToLower())
-                      .SingleOrDefault(s => s.AuthenticationToken.ToLower() == request.authenticationToken.ToLower());
-
-                    var scheduleDto = Mapper.Map<ScheduleEntity, ScheduleDto>(schedule);
-                    var resolver = new ScheduleUrlResolver(request.conferenceSlug, request.userSlug);
-                    scheduleDto.url = resolver.ResolveUrl();
-                    return scheduleDto;
+                    return GetSchedule(request);
                 });
+            }
+            else
+            {
+                return GetSchedule(request);
+            }
+
+        }
+
+        private ScheduleDto GetSchedule(Schedule request)
+        {
+            var schedule = this.RemoteDatabase.GetCollection<ScheduleEntity>("schedules")
+                               .AsQueryable()
+                               .Where(s => s.ConferenceSlug.ToLower() == request.conferenceSlug.ToLower())
+                               .Where(s => s.AuthenticationMethod.ToLower() == request.authenticationMethod.ToLower())
+                               .SingleOrDefault(s => s.AuthenticationToken.ToLower() == request.authenticationToken.ToLower());
+
+            var scheduleDto = Mapper.Map<ScheduleEntity, ScheduleDto>(schedule);
+
+            return scheduleDto;
         }
     }
 }
