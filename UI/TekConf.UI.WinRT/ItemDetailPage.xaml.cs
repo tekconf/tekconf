@@ -1,4 +1,5 @@
-﻿using TekConf.UI.WinRT.Data;
+﻿using TekConf.UI.WinRT.Common;
+using TekConf.UI.WinRT.Data;
 
 using System;
 using System.Collections.Generic;
@@ -47,9 +48,10 @@ namespace TekConf.UI.WinRT
             }
 
             // TODO: Create an appropriate data model for your problem domain to replace the sample data
-            var item = SampleDataSource.GetItem((String)navigationParameter);
-            this.DefaultViewModel["Group"] = item.Group;
-            this.DefaultViewModel["Items"] = item.Group.Items;
+            var item = App.ViewModel.GroupedItems
+                .SingleOrDefault(g => g.Conferences.Any(c => c.slug == (string)navigationParameter));
+            this.DefaultViewModel["Group"] = item.GroupMonthName;
+            this.DefaultViewModel["Items"] = item.Conferences;
             this.flipView.SelectedItem = item;
         }
 
@@ -61,8 +63,8 @@ namespace TekConf.UI.WinRT
         /// <param name="pageState">An empty dictionary to be populated with serializable state.</param>
         protected override void SaveState(Dictionary<String, Object> pageState)
         {
-            var selectedItem = (SampleDataItem)this.flipView.SelectedItem;
-            pageState["SelectedItem"] = selectedItem.UniqueId;
+            var selectedItem = (ConferencesDto)this.flipView.SelectedItem;
+            pageState["SelectedItem"] = selectedItem.slug;
         }
     }
 }

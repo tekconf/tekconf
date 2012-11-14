@@ -44,7 +44,7 @@ namespace TekConf.UI.Api.v1
                                    AuthenticationMethod = request.authenticationMethod,
                                    AuthenticationToken = request.authenticationToken,
                                    ConferenceSlug = request.conferenceSlug,
-                                   Sessions = new List<SessionEntity>(),
+                                   SessionSlugs = new List<string>(),
                                };
             }
             var conferenceCollection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
@@ -55,12 +55,12 @@ namespace TekConf.UI.Api.v1
 
             if (conference != null)
             {
-                if (!schedule.Sessions.Any(s => s.slug == request.sessionSlug))
+                if (!schedule.SessionSlugs.Any(s => s == request.sessionSlug))
                 {
-                    var sessionEntity = conference.sessions
-                                                  .FirstOrDefault(s => s.slug == request.sessionSlug);
+                    //var sessionEntity = conference.sessions
+                    //                              .FirstOrDefault(s => s.slug == request.sessionSlug);
 
-                    schedule.Sessions.Add(sessionEntity);
+                    schedule.SessionSlugs.Add(request.sessionSlug);
                 }
             }
 
