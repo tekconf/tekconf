@@ -7,6 +7,6 @@ namespace TekConf.RemoteData.Dtos.v1
     public string userSlug { get; set; }
     public string conferenceSlug { get; set; }
     public string url { get; set; }
-    public List<string> sessions { get; set; }
+    public List<FullSessionDto> sessions { get; set; }
   }
 }

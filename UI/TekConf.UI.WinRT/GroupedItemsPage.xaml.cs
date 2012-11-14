@@ -18,6 +18,12 @@ using Windows.UI.Xaml.Navigation;
 
 namespace TekConf.UI.WinRT
 {
+    public class SomeShit
+    {
+        public string GroupMonthName { get; set; }
+        public List<ConferencesDto> Conferences { get; set; } 
+    }
+
     /// <summary>
     /// A page that displays a grouped collection of items.
     /// </summary>
@@ -41,7 +47,12 @@ namespace TekConf.UI.WinRT
         {
             // TODO: Create an appropriate data model for your problem domain to replace the sample data
             var sampleDataGroups = SampleDataSource.GetGroups((String)navigationParameter);
-            this.DefaultViewModel["Groups"] = sampleDataGroups;
+            //this.DefaultViewModel["Groups"] = sampleDataGroups;
+            var groups = App.ViewModel.GroupedItems;
+                                    
+
+            this.DefaultViewModel["Groups"] = groups;
+
         }
 
         /// <summary>
@@ -56,7 +67,9 @@ namespace TekConf.UI.WinRT
 
             // Navigate to the appropriate destination page, configuring the new page
             // by passing required information as a navigation parameter
-            this.Frame.Navigate(typeof(GroupDetailPage), ((SampleDataGroup)group).UniqueId);
+            //this.Frame.Navigate(typeof(GroupDetailPage), ((SampleDataGroup)group).UniqueId);
+            this.Frame.Navigate(typeof(GroupDetailPage), ((ConferencesDto)group).slug);
+
         }
 
         /// <summary>
@@ -69,7 +82,7 @@ namespace TekConf.UI.WinRT
         {
             // Navigate to the appropriate destination page, configuring the new page
             // by passing required information as a navigation parameter
-            var itemId = ((SampleDataItem)e.ClickedItem).UniqueId;
+            var itemId = ((ConferencesDto)e.ClickedItem).slug;
             this.Frame.Navigate(typeof(ItemDetailPage), itemId);
         }
     }

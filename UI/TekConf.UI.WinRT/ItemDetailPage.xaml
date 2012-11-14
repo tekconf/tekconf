@@ -18,7 +18,7 @@
         <CollectionViewSource
             x:Name="itemsViewSource"
             Source="{Binding Items}"
-            d:Source="{Binding AllGroups[0].Items, Source={d:DesignInstance Type=data:SampleDataSource, IsDesignTimeCreatable=True}}"/>
+            d:Source="{Binding AllGroups[0].Items, Source={d:DesignInstance Type=data:App.ViewModel, IsDesignTimeCreatable=True}}"/>
     </Page.Resources>
 
     <!--
@@ -29,7 +29,7 @@
     <Grid
         Style="{StaticResource LayoutRootStyle}"
         DataContext="{Binding Group}"
-        d:DataContext="{Binding AllGroups[0], Source={d:DesignInstance Type=data:SampleDataSource, IsDesignTimeCreatable=True}}">
+        d:DataContext="{Binding AllGroups[0], Source={d:DesignInstance Type=data:App.ViewModel, IsDesignTimeCreatable=True}}">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="140"/>
@@ -43,7 +43,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
-            <TextBlock x:Name="pageTitle" Text="{Binding Title}" Style="{StaticResource PageHeaderTextStyle}" Grid.Column="1"/>
+            <TextBlock x:Name="pageTitle" Text="{Binding name}" Style="{StaticResource PageHeaderTextStyle}" Grid.Column="1"/>
         </Grid>
 
         <!--
@@ -74,10 +74,10 @@
                             <common:RichTextColumns x:Name="richTextColumns" Margin="117,0,117,47">
                                 <RichTextBlock x:Name="richTextBlock" Width="560" Style="{StaticResource ItemRichTextStyle}">
                                     <Paragraph>
-                                        <Run FontSize="26.667" FontWeight="Light" Text="{Binding Title}"/>
+                                        <Run FontSize="26.667" FontWeight="Light" Text="{Binding name}"/>
                                         <LineBreak/>
                                         <LineBreak/>
-                                        <Run FontWeight="SemiBold" Text="{Binding Subtitle}"/>
+                                        <Run FontWeight="SemiBold" Text="{Binding start}"/>
                                     </Paragraph>
                                     <Paragraph LineStackingStrategy="MaxHeight">
                                         <InlineUIContainer>

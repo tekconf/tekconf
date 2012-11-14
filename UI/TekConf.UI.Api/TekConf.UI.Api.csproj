@@ -62,6 +62,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\CommonCore.1.0.0.7\lib\net35\CommonCore.Collections.dll</HintPath>
     </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId">
+      <HintPath>..\TekConf.UI.Web\bin\DotNetOpenAuth.OpenId.dll</HintPath>
+    </Reference>
     <Reference Include="Elmah">
       <HintPath>..\..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
     </Reference>
