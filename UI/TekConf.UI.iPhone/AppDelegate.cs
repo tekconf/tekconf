@@ -27,8 +27,6 @@ namespace TekConf.UI.iPhone
 		//
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
-			GoogleAnalytics.GANTracker.SharedTracker.StartTracker (account, 10, null);
-
 			FA.FlurryAnalytics.StartSession ("J57HPDDQQ8J8MVGKBKF7");
 			FA.FlurryAnalytics.SetSessionReportsOnPause (true);
 
@@ -68,7 +66,6 @@ namespace TekConf.UI.iPhone
 			window.MakeKeyAndVisible ();
 			NSError error;
 
-			var success = GoogleAnalytics.GANTracker.SharedTracker.TrackEvent ("App events", "App Finished Launching", "", 1, out error);
 			return true;
 		}
 	}

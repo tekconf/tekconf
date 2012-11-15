@@ -47,8 +47,7 @@ namespace TekConf.UI.iPhone
 		{
 			FlurryAnalytics.FlurryAnalytics.LogEvent(eventName);
 			NSError error;
-			var success = GoogleAnalytics.GANTracker.SharedTracker.TrackPageView(eventName, out error);
-		}
+			}
 
 		protected bool IsReachable()
 		{
