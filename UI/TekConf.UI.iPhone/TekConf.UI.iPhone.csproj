@@ -238,5 +238,6 @@
     <Content Include="images\ImAttendingButtonBackground.png" />
     <Content Include="images\glyphicons_003_user.png" />
     <Content Include="images\glyphicons_003_user%402x.png" />
+    <Content Include="images\DefaultUser.png" />
   </ItemGroup>
 </Project>

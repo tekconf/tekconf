@@ -10,13 +10,16 @@ using MonoTouch.Dialog;
 
 namespace TekConf.UI.iPhone
 {
-	public class SpeakerElement : Element, IElementSizing
+	public class SpeakerElement : Element, IImageUpdated, IElementSizing
 	{
 		private FullSpeakerDto _speaker;
+		private UIImage _defaultImage;
+		private UITableViewCell _cell;
 		
-		public SpeakerElement (FullSpeakerDto speaker) : base(string.Empty)
+		public SpeakerElement (FullSpeakerDto speaker, UIImage defaultImage) : base(string.Empty)
 		{
 			_speaker = speaker;
+			_defaultImage = defaultImage;
 		}
 		
 		static NSString MyKey = new NSString ("SessionCell");
@@ -28,25 +31,43 @@ namespace TekConf.UI.iPhone
 		
 		public override UITableViewCell GetCell (UITableView tv)
 		{
-			var cell = tv.DequeueReusableCell (CellKey) ?? new UITableViewCell (UITableViewCellStyle.Subtitle, CellKey); 
+			_cell = tv.DequeueReusableCell (CellKey) ?? new UITableViewCell (UITableViewCellStyle.Subtitle, CellKey); 
 			
-			cell.TextLabel.Font = BaseUIViewController.TitleFont;
-			cell.DetailTextLabel.Font = BaseUIViewController.DescriptionFont;
+			_cell.TextLabel.Font = BaseUIViewController.TitleFont;
+			_cell.DetailTextLabel.Font = BaseUIViewController.DescriptionFont;
 			
-			cell.TextLabel.Text = _speaker.fullName;
-			cell.TextLabel.LineBreakMode = UILineBreakMode.WordWrap;
-			cell.TextLabel.Lines = 0;
-			cell.TextLabel.SizeToFit();
-			cell.SizeToFit();
+			_cell.TextLabel.Text = _speaker.fullName;
+			_cell.TextLabel.LineBreakMode = UILineBreakMode.WordWrap;
+			_cell.TextLabel.Lines = 0;
+			_cell.TextLabel.SizeToFit();
+			_cell.SizeToFit();
 			
 			if (!string.IsNullOrEmpty(_speaker.twitterName))
 			{
-				cell.DetailTextLabel.Text = _speaker.twitterName;
+				_cell.DetailTextLabel.Text = _speaker.twitterName;
+			}
+
+			if (!string.IsNullOrWhiteSpace (_speaker.profileImageUrl) && !_speaker.profileImageUrl.Contains("DefaultUser.png")) {
+				var logo = ImageLoader.DefaultRequestImage (new Uri ("http://www.tekconf.com" + _speaker.profileImageUrl), this);
+				if (logo == null) {
+					_cell.ImageView.Image = _defaultImage;
+				} else {
+					_cell.ImageView.Image = logo;
+				}
+			}
+			else
+			{
+				_cell.ImageView.Image = _defaultImage;
 			}
 			
-			return cell; 
+			return _cell; 
 		}
-		
+
+		public void UpdatedImage (Uri uri)
+		{
+			_cell.ImageView.Image = ImageLoader.DefaultRequestImage (uri, this);
+		}
+
 		protected override void Dispose (bool disposing)
 		{
 			base.Dispose (disposing);

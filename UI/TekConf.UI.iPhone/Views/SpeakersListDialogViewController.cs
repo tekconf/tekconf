@@ -47,14 +47,14 @@ namespace TekConf.UI.iPhone
 				
 				Repository.GetSpeakers(NavigationItems.ConferenceSlug, speakers =>
 				{
+					UIImage defaultImage = UIImage.FromBundle (@"images/DefaultUser.png");
+
 					if (speakers != null) {
 						speakers = speakers.OrderBy(s => s.lastName).ToList();
-						var rootElement = new RootElement ("Speakers"){ new Section() };
+						var rootElement = new RootElement ("Speakers") { new Section() };
 
 						foreach (var speaker in speakers) {
-							rootElement [0].Add (new SpeakerElement (speaker));
-							//rootElement [0].Add (new StringElement (speaker.fullName));
-						
+							rootElement [0].Add (new SpeakerElement (speaker, defaultImage));
 						}
 						
 						InvokeOnMainThread (() => 
