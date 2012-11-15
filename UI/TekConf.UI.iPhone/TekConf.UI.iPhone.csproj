@@ -232,5 +232,9 @@
     <Content Include="DefaultConference72.png" />
     <Content Include="images\glyphicons_057_calendar.png" />
     <Content Include="images\glyphicons_057_calendar%402x.png" />
+    <Content Include="images\facebook-48x48.png" />
+    <Content Include="images\twitter-48x48.png" />
+    <Content Include="images\Add.png" />
+    <Content Include="images\ImAttendingButtonBackground.png" />
   </ItemGroup>
 </Project>

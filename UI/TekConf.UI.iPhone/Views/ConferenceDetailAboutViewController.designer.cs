@@ -63,7 +63,16 @@ namespace TekConf.UI.iPhone
 		MonoTouch.UIKit.UIImageView websiteImage { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UIButton facebookButton { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UIImageView facebookImage { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIButton attendingButton { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIButton twitterButton { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -152,9 +161,24 @@ namespace TekConf.UI.iPhone
 				websiteImage = null;
 			}
 
+			if (facebookButton != null) {
+				facebookButton.Dispose ();
+				facebookButton = null;
+			}
+
 			if (facebookImage != null) {
 				facebookImage.Dispose ();
 				facebookImage = null;
+			}
+
+			if (attendingButton != null) {
+				attendingButton.Dispose ();
+				attendingButton = null;
+			}
+
+			if (twitterButton != null) {
+				twitterButton.Dispose ();
+				twitterButton = null;
 			}
 		}
 	}

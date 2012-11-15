@@ -46,8 +46,8 @@ namespace TekConf.UI.iPhone
 		protected void TrackAnalyticsEvent(string eventName)
 		{
 			FlurryAnalytics.FlurryAnalytics.LogEvent(eventName);
-			NSError error;
-			}
+
+		}
 
 		protected bool IsReachable()
 		{
