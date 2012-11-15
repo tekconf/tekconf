@@ -144,5 +144,8 @@
     <Compile Include="..\Shared\v1\Requests\Users.cs">
       <Link>v1\Requests\Users.cs</Link>
     </Compile>
+    <Compile Include="..\Shared\v1\Requests\AddSessionToSchedule.cs">
+      <Link>v1\Requests\AddSessionToSchedule.cs</Link>
+    </Compile>
   </ItemGroup>
 </Project>

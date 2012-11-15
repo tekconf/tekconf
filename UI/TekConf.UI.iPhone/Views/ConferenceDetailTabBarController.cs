@@ -7,7 +7,7 @@ namespace TekConf.UI.iPhone
 
 	public class ConferenceDetailTabBarController : BaseUITabBarController {
 		
-		UIViewController aboutTab, sessionsTab, speakersTab;
+		UIViewController aboutTab, scheduleTab, sessionsTab, speakersTab;
 
 
 		public override void ViewDidLoad ()
@@ -22,7 +22,11 @@ namespace TekConf.UI.iPhone
 			aboutTab = new ConferenceDetailAboutViewController();
 			aboutTab.Title = "About";
 			aboutTab.TabBarItem.Image = UIImage.FromBundle("images/glyphicons_088_address_book");
-			
+
+			scheduleTab = new ConferenceScheduleViewController();
+			scheduleTab.Title = "My Schedule";
+			scheduleTab.TabBarItem.Image = UIImage.FromBundle("images/glyphicons_057_calendar");
+
 			sessionsTab = new ConferenceDetailViewController();
 			sessionsTab.Title = "Sessions";
 			sessionsTab.TabBarItem.Image = UIImage.FromBundle("images/glyphicons_061_keynote");
@@ -32,7 +36,7 @@ namespace TekConf.UI.iPhone
 			speakersTab.TabBarItem.Image = UIImage.FromBundle("images/glyphicons_042_group");
 			
 			var tabs = new UIViewController[] {
-				aboutTab, sessionsTab, speakersTab
+				aboutTab, scheduleTab, sessionsTab, speakersTab
 			};
 			
 			ViewControllers = tabs;

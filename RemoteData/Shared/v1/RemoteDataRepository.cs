@@ -29,6 +29,16 @@ namespace TekConf.RemoteData.v1
             }
         }
 
+		public void GetSchedule(string conferenceSlug, string authenticationMethod, string authenticationToken, Action<ScheduleDto> callback)
+		{
+			var schedule = new Schedule() { authenticationMethod = authenticationMethod, authenticationToken = authenticationToken, conferenceSlug = conferenceSlug };
+			ServiceClient.GetAsync(schedule, callback, (r, ex) => 
+			                       { 
+										var x = ex;
+										callback(null); 
+			});
+		}
+
         public void GetConferences(Action<IList<ConferencesDto>> callback, string sortBy = "end", bool? showPastConferences = false, string search = null)
         {
             if (sortBy == null)
