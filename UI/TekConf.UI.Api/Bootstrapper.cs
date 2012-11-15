@@ -70,6 +70,11 @@ namespace TekConf.UI.Api
                 .ForMember(dto => dto.sessions, opt => opt.ResolveUsing<ScheduleSessionResolver>())
                 ;
 
+            Mapper.CreateMap<ScheduleEntity, SchedulesDto>()
+                .ForMember(dto => dto.conferenceSlug, opt => opt.MapFrom(entity => entity.ConferenceSlug))
+                .ForMember(dto => dto.conferenceName, opt => opt.ResolveUsing<ConferenceResolver>())
+                ;
+
             Mapper.CreateMap<AddressEntity, Address>();
             Mapper.CreateMap<Address, AddressEntity>();
             Mapper.CreateMap<AddressEntity, AddressDto>();
@@ -77,7 +82,25 @@ namespace TekConf.UI.Api
 
     }
 
+    public class ConferenceResolver : ValueResolver<ScheduleEntity, string>
+    {
+        protected override string ResolveCore(ScheduleEntity source)
+        {
+            var conferenceName = string.Empty;
 
+            var mongo = new MongoServiceBase();
+
+            var conference = mongo.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
+                            .AsQueryable()
+                            .SingleOrDefault(c => c.slug.ToLower() == source.ConferenceSlug.ToLower());
+            if (conference != null)
+            {
+                conferenceName = conference.name;
+            }
+
+            return conferenceName;
+        }
+    }
     public class ScheduleSessionResolver : ValueResolver<ScheduleEntity, List<FullSessionDto>>
     {
         protected override List<FullSessionDto> ResolveCore(ScheduleEntity source)
@@ -100,6 +123,7 @@ namespace TekConf.UI.Api
             return sessions;
         }
     }
+
     public class ImageResolver : ValueResolver<ConferenceEntity, string>
     {
         protected override string ResolveCore(ConferenceEntity source)

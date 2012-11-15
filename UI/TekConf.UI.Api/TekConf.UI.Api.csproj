@@ -158,6 +158,7 @@
     <Compile Include="Services\v1\FeaturedSpeakersService.cs" />
     <Compile Include="Services\v1\GravatarImage.cs" />
     <Compile Include="Services\v1\MongoServiceBase.cs" />
+    <Compile Include="Services\v1\SchedulesService.cs" />
     <Compile Include="Services\v1\SessionService.cs" />
     <Compile Include="Services\v1\SessionSpeakerService.cs" />
     <Compile Include="Services\v1\SpeakerService.cs" />
