@@ -236,5 +236,7 @@
     <Content Include="images\twitter-48x48.png" />
     <Content Include="images\Add.png" />
     <Content Include="images\ImAttendingButtonBackground.png" />
+    <Content Include="images\glyphicons_003_user.png" />
+    <Content Include="images\glyphicons_003_user%402x.png" />
   </ItemGroup>
 </Project>

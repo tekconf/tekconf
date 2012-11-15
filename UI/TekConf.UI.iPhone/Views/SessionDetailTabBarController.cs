@@ -14,6 +14,7 @@ namespace TekConf.UI.iPhone
 
 			aboutTab = new SessionDetailAboutViewController(slug);
 			aboutTab.Title = "About";
+			aboutTab.TabBarItem.Image = UIImage.FromBundle("images/glyphicons_061_keynote");
 
 			var tabs = new UIViewController[] {
 				aboutTab

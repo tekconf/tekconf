@@ -51,7 +51,13 @@ namespace TekConf.UI.iPhone
 		MonoTouch.UIKit.UILabel separatorBelowRoom { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIButton addRemoveSessionFromSchedule { get; set; }
+		MonoTouch.UIKit.UIButton imAttendingButton { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIButton twitterButton { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIButton facebookButton { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -120,9 +126,19 @@ namespace TekConf.UI.iPhone
 				separatorBelowRoom = null;
 			}
 
-			if (addRemoveSessionFromSchedule != null) {
-				addRemoveSessionFromSchedule.Dispose ();
-				addRemoveSessionFromSchedule = null;
+			if (imAttendingButton != null) {
+				imAttendingButton.Dispose ();
+				imAttendingButton = null;
+			}
+
+			if (twitterButton != null) {
+				twitterButton.Dispose ();
+				twitterButton = null;
+			}
+
+			if (facebookButton != null) {
+				facebookButton.Dispose ();
+				facebookButton = null;
 			}
 		}
 	}
