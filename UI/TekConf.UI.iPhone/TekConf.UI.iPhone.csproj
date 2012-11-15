@@ -98,9 +98,6 @@
     <Reference Include="System.Core" />
     <Reference Include="monotouch" />
     <Reference Include="MonoTouch.Dialog-1" />
-    <Reference Include="GoogleAnalytics">
-      <HintPath>..\..\..\monotouch-bindings\GoogleAnalytics\binding\GoogleAnalytics.dll</HintPath>
-    </Reference>
     <Reference Include="FlurryAnalytics">
       <HintPath>..\..\libs\FlurryAnalytics\FlurryAnalytics.dll</HintPath>
     </Reference>
@@ -117,26 +114,15 @@
     <None Include="fonts\OpenSans-Regular.ttf" />
     <None Include="fonts\OpenSans-Semibold.ttf" />
     <None Include="fonts\OpenSans-SemiboldItalic.ttf" />
-    <None Include="..\..\libs\GoogleAnalytics\GoogleAnalytics.dll">
-      <Link>GoogleAnalytics.dll</Link>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="Views\ConferenceDetailViewController.cs" />
-    <Compile Include="Views\ConferenceDetailViewController.designer.cs">
-      <DependentUpon>ConferenceDetailViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\BaseUIViewController.cs" />
     <Compile Include="Views\ConferenceDetailTabBarController.cs" />
     <Compile Include="Views\ConferenceDetailAboutViewController.cs" />
     <Compile Include="Views\ConferenceDetailAboutViewController.designer.cs">
       <DependentUpon>ConferenceDetailAboutViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ConferenceDetailSpeakersViewController.cs" />
-    <Compile Include="Views\ConferenceDetailSpeakersViewController.designer.cs">
-      <DependentUpon>ConferenceDetailSpeakersViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\SpeakerDetailTabBarController.cs" />
     <Compile Include="Views\SpeakerDetailAboutViewController.cs" />
@@ -166,14 +152,15 @@
     <Compile Include="Views\LoginViewController.designer.cs">
       <DependentUpon>LoginViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\ConferenceElement.cs" />
-    <Compile Include="Views\TestController.cs" />
     <Compile Include="Views\ConferenceScheduleViewController.cs" />
     <Compile Include="Views\ConferenceScheduleViewController.designer.cs">
       <DependentUpon>ConferenceScheduleViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\SessionElement.cs" />
     <Compile Include="Views\SessionsListDialogViewController.cs" />
+    <Compile Include="Views\SpeakersListDialogViewController.cs" />
+    <Compile Include="Elements\ConferenceElement.cs" />
+    <Compile Include="Elements\SessionElement.cs" />
+    <Compile Include="Elements\SpeakerElement.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -201,11 +188,10 @@
   <ItemGroup>
     <Folder Include="Views\" />
     <Folder Include="Classes\" />
+    <Folder Include="Elements\" />
   </ItemGroup>
   <ItemGroup>
-    <InterfaceDefinition Include="Views\ConferenceDetailViewController.xib" />
     <InterfaceDefinition Include="Views\ConferenceDetailAboutViewController.xib" />
-    <InterfaceDefinition Include="Views\ConferenceDetailSpeakersViewController.xib" />
     <InterfaceDefinition Include="Views\SpeakerDetailAboutViewController.xib" />
     <InterfaceDefinition Include="Views\SpeakerDetailSessionsViewController.xib" />
     <InterfaceDefinition Include="Views\SessionDetailAboutViewController.xib" />

@@ -27,7 +27,7 @@ namespace TekConf.UI.iPhone
 			sessionsTab.Title = "Sessions";
 			sessionsTab.TabBarItem.Image = UIImage.FromBundle("images/glyphicons_061_keynote");
 			
-			speakersTab = new ConferenceDetailSpeakersViewController();
+			speakersTab = new SpeakersListDialogViewController();
 			speakersTab.Title = "Speakers";
 			speakersTab.TabBarItem.Image = UIImage.FromBundle("images/glyphicons_042_group");
 

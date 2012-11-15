@@ -7,36 +7,36 @@ using System.Collections.Generic;
 using TekConf.RemoteData.Dtos.v1;
 using MonoTouch.Dialog.Utilities;
 using MonoTouch.Dialog;
+using System.Linq;
 
 namespace TekConf.UI.iPhone
 {
-	public class SessionsListDialogViewController : BaseDialogViewController
+	public class SpeakersListDialogViewController : BaseDialogViewController
 	{
 		public string SearchString { get; set; }
 		
-		public SessionsListDialogViewController () : base(UITableViewStyle.Plain, new RootElement("Sessions"), false)
+		public SpeakersListDialogViewController () : base(UITableViewStyle.Plain, new RootElement("Speakers"), false)
 		{
 			this.EnableSearch = true;
-
+			
 			if (UIDevice.CurrentDevice.CheckSystemVersion (6, 0)) {
 				RefreshControl = new UIRefreshControl ();
 				RefreshControl.ValueChanged += (sender, e) => {
 					Refresh (); 
 				};
 			} else {
-				// old style refresh button
 				NavigationItem.SetRightBarButtonItem (new UIBarButtonItem (UIBarButtonSystemItem.Refresh), false);
 				NavigationItem.RightBarButtonItem.Clicked += (sender, e) => {
 					Refresh (); 
 				};
 			}
-
+			
 		}
 		
 		public void Refresh ()
 		{
 			if (this.IsReachable ()) {
-				var loading = new UIAlertView (" Downloading Sessions", "Please wait...", null, null, null);
+				var loading = new UIAlertView (" Downloading Speakers", "Please wait...", null, null, null);
 				
 				loading.Show ();
 				
@@ -44,14 +44,17 @@ namespace TekConf.UI.iPhone
 				indicator.Center = new System.Drawing.PointF (loading.Bounds.Width / 2, loading.Bounds.Size.Height - 40); 
 				indicator.StartAnimating (); 
 				loading.AddSubview (indicator);
-
-				Repository.GetSessions(NavigationItems.ConferenceSlug, sessions =>
+				
+				Repository.GetSpeakers(NavigationItems.ConferenceSlug, speakers =>
 				{
-					if (sessions != null) {
-						var rootElement = new RootElement ("Sessions"){ new Section() };
+					if (speakers != null) {
+						speakers = speakers.OrderBy(s => s.lastName).ToList();
+						var rootElement = new RootElement ("Speakers"){ new Section() };
 
-						foreach (SessionsDto session in sessions) {
-							rootElement [0].Add (new SessionElement (session));
+						foreach (var speaker in speakers) {
+							rootElement [0].Add (new SpeakerElement (speaker));
+							//rootElement [0].Add (new StringElement (speaker.fullName));
+						
 						}
 						
 						InvokeOnMainThread (() => 
@@ -73,13 +76,13 @@ namespace TekConf.UI.iPhone
 				UnreachableAlert ().Show ();
 			}
 			
-			TrackAnalyticsEvent ("SessionsListDialogViewController-" + NavigationItems.ConferenceSlug);
+			TrackAnalyticsEvent ("SpeakersListDialogViewController-" + NavigationItems.ConferenceSlug);
 		}
 		
 		public override void ViewWillAppear (bool animated)
 		{
 			base.ViewWillAppear (animated);
-
+			
 			Refresh ();
 			if (!string.IsNullOrEmpty (SearchString)) {
 				this.PerformFilter (SearchString);

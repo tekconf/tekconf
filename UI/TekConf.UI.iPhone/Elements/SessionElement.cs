@@ -11,6 +11,7 @@ using MonoTouch.Dialog;
 namespace TekConf.UI.iPhone
 {
 
+
 	public class SessionElement : Element, IElementSizing
 	{
 		private SessionsDto _session;

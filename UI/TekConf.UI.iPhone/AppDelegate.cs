@@ -14,7 +14,8 @@ namespace TekConf.UI.iPhone
 	{
 		// class-level declarations
 		UIWindow window;
-        public SlideoutNavigationController Menu { get; private set; }
+
+		public SlideoutNavigationController Menu { get; private set; }
 
 		const string account = "UA-20184526-3";
 
@@ -26,82 +27,79 @@ namespace TekConf.UI.iPhone
 		//
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
-			GoogleAnalytics.GANTracker.SharedTracker.StartTracker(account, 10, null);
+			GoogleAnalytics.GANTracker.SharedTracker.StartTracker (account, 10, null);
 
-			FA.FlurryAnalytics.StartSession("J57HPDDQQ8J8MVGKBKF7");
-			FA.FlurryAnalytics.SetSessionReportsOnPause(true);
+			FA.FlurryAnalytics.StartSession ("J57HPDDQQ8J8MVGKBKF7");
+			FA.FlurryAnalytics.SetSessionReportsOnPause (true);
 
-			var font = UIFont.FromName("OpenSans-Light", 14f);
-			var headerFont = UIFont.FromName("OpenSans", 16f);
+			var font = UIFont.FromName ("OpenSans-Light", 14f);
+			var headerFont = UIFont.FromName ("OpenSans", 16f);
 			var detailFont = UIFont.FromName ("OpenSans", 12f);
 
 
-			UISearchBar.Appearance.TintColor = UIColor.FromRGBA(red:0.506f, 
-			                                                    green:0.6f, 
-			                                                    blue:0.302f,
-			                                                    alpha:1f);
-				UISearchBar.Appearance.BackgroundColor = UIColor.FromRGBA(red:0.506f, 
-				                                                          green:0.6f, 
-				                                                          blue:0.302f,
-			                                                          alpha:1f);
+			UISearchBar.Appearance.TintColor = UIColor.FromRGBA (red: 0.506f, 
+			                                                    green: 0.6f, 
+			                                                    blue: 0.302f,
+			                                                    alpha: 1f);
+
+			UISearchBar.Appearance.BackgroundColor = UIColor.FromRGBA (red: 0.506f, 
+				                                                          green: 0.6f, 
+				                                                          blue: 0.302f,
+			                                                          alpha: 1f);
 
 
-			UITextAttributes buttonAttributes = new UITextAttributes() { Font = detailFont };
+			UITextAttributes buttonAttributes = new UITextAttributes () { Font = detailFont };
 			
-			UIBarButtonItem.Appearance.SetTitleTextAttributes(buttonAttributes, UIControlState.Normal);
-			UITextAttributes attributes = new UITextAttributes() { Font = headerFont };
-			UINavigationBar.Appearance.SetTitleTextAttributes(attributes);
+			UIBarButtonItem.Appearance.SetTitleTextAttributes (buttonAttributes, UIControlState.Normal);
+			UITextAttributes attributes = new UITextAttributes () { Font = headerFont };
+			UINavigationBar.Appearance.SetTitleTextAttributes (attributes);
 			UILabel.Appearance.Font = font;
 		
 			window = new UIWindow (UIScreen.MainScreen.Bounds);
-			Menu = new SlideoutNavigationController();
-			Console.WriteLine("AD1");
-			Menu.TopView = new ConferencesDialogViewController();
+			Menu = new SlideoutNavigationController ();
+			Console.WriteLine ("AD1");
+			Menu.TopView = new ConferencesDialogViewController ();
 			//Menu.TopView = new ConferencesListViewController();
-			Console.WriteLine("AD2");
+			Console.WriteLine ("AD2");
 			
-			Menu.MenuView = new SideListController();
+			Menu.MenuView = new SideListController ();
 			
 			window.RootViewController = Menu;
 			window.MakeKeyAndVisible ();
 			NSError error;
 
-			var success = GoogleAnalytics.GANTracker.SharedTracker.TrackEvent("App events","App Finished Launching", "", 1, out error);
+			var success = GoogleAnalytics.GANTracker.SharedTracker.TrackEvent ("App events", "App Finished Launching", "", 1, out error);
 			return true;
 		}
 	}
 
 	public class SideListController : DialogViewController
 	{
-		public SideListController() 
+		public SideListController () 
 			: base(UITableViewStyle.Plain, new RootElement(""))
 		{
 		}
-
 
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
 			
-			Root.Add(new Section() {
+			Root.Add (new Section () {
 				new StyledStringElement("Conferences", () => { NavigationController.PushViewController(new ConferencesDialogViewController(), true); }) { Font = BaseUIViewController.TitleFont },
 
 				new StyledStringElement("CodeMash 2013", () => { NavigationItems.ConferenceSlug = "codemash-2013"; NavigationController.PushViewController(new ConferenceDetailTabBarController(), true); }) { Font = BaseUIViewController.TitleFont },
 				new StyledStringElement("Build 2013", () => { NavigationItems.ConferenceSlug = "build-2012"; NavigationController.PushViewController(new ConferenceDetailTabBarController(), true); }) { Font = BaseUIViewController.TitleFont },
 				new StyledStringElement("Settings", () => { NavigationController.PushViewController(new SettingsViewController(), true); }) { Font = BaseUIViewController.TitleFont },
-				new StyledStringElement("Login", () => { NavigationController.PushViewController(new LoginViewController(), true); }) { Font = BaseUIViewController.TitleFont },
-				new StyledStringElement("Test", () => { NavigationController.PushViewController(new TestController(), true); }) { Font = BaseUIViewController.TitleFont },
-				
-				//new StyledStringElement("Stuff", () => { NavigationController.PushViewController(new StuffViewController(), true); }),
-				//new StyledStringElement("Full Screen", () => { NavigationController.PushViewController(new FullscreenViewController(), true); })
+				new StyledStringElement("Login", () => { NavigationController.PushViewController(new LoginViewController(), true); }) { Font = BaseUIViewController.TitleFont }
+
+
 			});
 
-			if (NavigationController != null)
-			{
-				NavigationController.NavigationBar.TintColor = UIColor.FromRGBA(red:0.506f, 
-				                                                                green:0.6f, 
-				                                                                blue:0.302f, 
-				                                                                alpha:1f);
+			if (NavigationController != null) {
+				NavigationController.NavigationBar.TintColor = UIColor.FromRGBA (red: 0.506f, 
+				                                                                green: 0.6f, 
+				                                                                blue: 0.302f, 
+				                                                                alpha: 1f);
 
 			}
 		}
