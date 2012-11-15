@@ -84,6 +84,7 @@ namespace TekConf.UI.iPhone
 			private SessionDetailTabBarController _sessionDetailTabBarViewController;
 			private List<DateTime> _sessionStartTimes;
 
+
 			public SessionsTableViewSource (ConferenceDetailViewController controller, IList<FullSessionDto> sessions)
 			{ 
 				_rootViewController = controller;
@@ -128,27 +129,54 @@ namespace TekConf.UI.iPhone
 			
 			public override float GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
 			{ 
-				return 60; 
+				var startTimeSection = _sessionStartTimes [indexPath.Section];
+				var filteredSessions = _sessions.Where (s => s.start == startTimeSection).OrderBy (o => o.title).ToArray ();
+				
+				var session = filteredSessions [indexPath.Row]; 
+
+
+				var titleSize = tableView.StringSize(session.title, BaseUIViewController.TitleFont, new SizeF(237.0f, 1000.0f), UILineBreakMode.WordWrap);
+				SizeF descriptionSize = new SizeF(0,0);
+				if (!string.IsNullOrWhiteSpace(session.room))
+				{
+					descriptionSize = tableView.StringSize(session.room, BaseUIViewController.DescriptionFont, new SizeF(237.0f, 1000.0f), UILineBreakMode.WordWrap);
+				}
+				var sizeTotal = new SizeF(237.0f, titleSize.Height + descriptionSize.Height + 20);
+				var cellSize = sizeTotal;
+				
+				//if (cellSize.Height < 108)
+				//	cellSize = new SizeF(cellSize.Width, 108);
+			
+				return cellSize.Height + 10; 
 			}
 			
 			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
 			{ 
+				var cell = tableView.DequeueReusableCell (SessionCell) ?? new UITableViewCell (UITableViewCellStyle.Subtitle, SessionCell); 
+				
 				var startTimeSection = _sessionStartTimes [indexPath.Section];
 				var filteredSessions = _sessions.Where (s => s.start == startTimeSection).OrderBy (o => o.title).ToArray ();
 
-				var cell = tableView.DequeueReusableCell (SessionCell) ?? new UITableViewCell (UITableViewCellStyle.Subtitle, SessionCell); 
 				var session = filteredSessions [indexPath.Row]; 
 
-				var font = UIFont.FromName ("OpenSans", 12f);
-				cell.TextLabel.Font = font;
+
+				cell.TextLabel.Font = BaseUIViewController.TitleFont;
 				cell.TextLabel.Text = session.title;
 				cell.TextLabel.LineBreakMode = UILineBreakMode.WordWrap;
 				cell.TextLabel.Lines = 0;
 				cell.TextLabel.SizeToFit();
 				cell.SizeToFit();
-				//cell.DetailTextLabel.Font = font;
+				cell.DetailTextLabel.Font = BaseUIViewController.DescriptionFont;
 
-				//cell.DetailTextLabel.Text = session.startDescription;
+				if (string.IsNullOrEmpty(session.room))
+				{
+					cell.DetailTextLabel.Text = "No room set";
+				}
+				else
+				{
+					cell.DetailTextLabel.Text = session.room;
+				}
+
 				return cell; 
 			}
 
@@ -164,7 +192,7 @@ namespace TekConf.UI.iPhone
 				//var selectedSession = _sessions [indexPath.Row]; 
 				
 				if (UserInterfaceIdiomIsPhone) {
-					_sessionDetailTabBarViewController = new SessionDetailTabBarController (selectedSession);
+					_sessionDetailTabBarViewController = new SessionDetailTabBarController (selectedSession.slug, selectedSession.title);
 					
 					_rootViewController.NavigationController.PushViewController (
 						_sessionDetailTabBarViewController,

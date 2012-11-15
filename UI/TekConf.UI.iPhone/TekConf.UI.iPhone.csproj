@@ -172,6 +172,8 @@
     <Compile Include="Views\ConferenceScheduleViewController.designer.cs">
       <DependentUpon>ConferenceScheduleViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\SessionElement.cs" />
+    <Compile Include="Views\SessionsListDialogViewController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

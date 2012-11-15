@@ -11,6 +11,32 @@ namespace TekConf.UI.iPhone
 {
 	public class BaseUIViewController : UIViewController
 	{
+		private static UIFont _titleFont;
+		public static UIFont TitleFont 
+		{
+			get
+			{
+				if (_titleFont == null)
+				{
+					_titleFont = UIFont.FromName ("OpenSans", 14f);
+				}
+				return _titleFont;
+			}
+		}
+
+		private static UIFont _descriptionFont;
+		public static UIFont DescriptionFont 
+		{
+			get
+			{
+				if (_descriptionFont == null)
+				{
+					_descriptionFont = UIFont.FromName ("OpenSans", 12f);
+				}
+				return _descriptionFont;
+			}
+		}
+
 		//private static readonly MobileServiceClient MobileService = new MobileServiceClient ("https://tekconf.azure-mobile.net/");
 		public BaseUIViewController (string nibName, NSBundle bundle) : base(nibName, bundle)
 		{

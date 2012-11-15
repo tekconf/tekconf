@@ -12,13 +12,14 @@ namespace TekConf.UI.iPhone
 {
 	public partial class SessionDetailAboutViewController : BaseUIViewController
 	{
-		private FullSessionDto _session;
+		private SessionDto _fullSession;
+		private string _sessionSlug;
 		private ACAccountStore _accountStore;
 		private string AppId = "417883241605228";
 
-		public SessionDetailAboutViewController (FullSessionDto session) : this()
+		public SessionDetailAboutViewController (string sessionSlug) : this()
 		{
-			_session = session;
+			_sessionSlug = sessionSlug;
 		}
 
 		void HandleTouchUpInside (object sender, EventArgs e)
@@ -55,7 +56,7 @@ namespace TekConf.UI.iPhone
 						});
 						
 						Repository.AddSessionToSchedule (conferenceSlug: NavigationItems.ConferenceSlug,
-						                                 sessionSlug : _session.slug,
+						                                 sessionSlug : _fullSession.slug,
 						                                 authenticationMethod: "Facebook", 
 						                                 authenticationToken: facebookAccount.Username, 
 						                                 callback: schedule => 
@@ -80,7 +81,7 @@ namespace TekConf.UI.iPhone
 				UnreachableAlert ().Show ();
 			}
 
-			TrackAnalyticsEvent ("AddSessionToSchedule-" + _session.slug);
+			TrackAnalyticsEvent ("AddSessionToSchedule-" + _fullSession.slug);
 			
 		}
 
@@ -90,10 +91,7 @@ namespace TekConf.UI.iPhone
 		
 		public override void DidReceiveMemoryWarning ()
 		{
-			// Releases the view if it doesn't have a superview.
 			base.DidReceiveMemoryWarning ();
-			
-			// Release any cached data, images, etc that aren't in use.
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -105,28 +103,13 @@ namespace TekConf.UI.iPhone
 			this.contentDetailScrollView.ClipsToBounds = true;
 			this.contentDetailScrollView.ContentInset = new UIEdgeInsets(top:0, left:0, bottom:900, right:0);
 			this.addRemoveSessionFromSchedule.TouchUpInside += HandleTouchUpInside;
-			
-
-			SetTitle ();
-
-			SetSeparatorBelowTitle ();
-			
-			SetStart ();
-			
-			SetRoom ();
-
-			SetSeparatorBelowRoom ();
-			
-			SetDescription ();
-			
-			SetMoreInformation();
 		}
 
 		void SetTitle ()
 		{
 			var font = UIFont.FromName("OpenSans-Light", 22f);
 			this.titleLabel.Font = font;
-			this.titleLabel.Text = _session.title;
+			this.titleLabel.Text = _fullSession.title;
 			this.titleLabel.Lines = 0;
 			this.titleLabel.SizeToFit ();
 		}
@@ -145,7 +128,7 @@ namespace TekConf.UI.iPhone
 
 		void SetStart ()
 		{
-			this.startLabel.Text = _session.startDescription;
+			this.startLabel.Text = _fullSession.startDescription;
 			var frame = this.startLabel.Frame;
 			frame.Y = this.separatorBelowTitle.Frame.Y + this.separatorBelowTitle.Frame.Height + 5;
 			this.startLabel.Frame = frame;
@@ -153,13 +136,13 @@ namespace TekConf.UI.iPhone
 
 		void SetRoom ()
 		{
-			if (string.IsNullOrEmpty(_session.room))
+			if (string.IsNullOrEmpty(_fullSession.room))
 			{
 				this.roomLabel.Text = "No room set";
 			}
 			else
 			{
-				this.roomLabel.Text = _session.room;
+				this.roomLabel.Text = _fullSession.room;
 			}
 
 			var frame = this.roomLabel.Frame;
@@ -176,7 +159,7 @@ namespace TekConf.UI.iPhone
 
 		void SetDescription ()
 		{
-			this.descriptionLabel.Text = _session.description.Trim();
+			this.descriptionLabel.Text = _fullSession.description.Trim();
 			this.descriptionLabel.Lines = 0;
 			this.descriptionLabel.SizeToFit ();
 
@@ -211,13 +194,60 @@ namespace TekConf.UI.iPhone
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
+			LoadSession();
 
-			if (_session != null)
+			if (_fullSession != null)
 			{
-				TrackAnalyticsEvent("SessionDetailAboutViewController-" + _session.slug);
+				TrackAnalyticsEvent("SessionDetailAboutViewController-" + _fullSession.slug);
 			}
 		}
-		
+
+		private void LoadSession()
+		{
+			if (this.IsReachable ()) {
+				var loading = new UIAlertView (" Downloading Session", "Please wait...", null, null, null);
+				
+				loading.Show ();
+				
+				var indicator = new UIActivityIndicatorView (UIActivityIndicatorViewStyle.WhiteLarge); 
+				indicator.Center = new System.Drawing.PointF (loading.Bounds.Width / 2, loading.Bounds.Size.Height - 40); 
+				indicator.StartAnimating (); 
+				loading.AddSubview (indicator);
+				
+				Repository.GetSession (NavigationItems.ConferenceSlug, _sessionSlug, session => 
+				{ 
+					InvokeOnMainThread (() => 
+					{ 
+						if (session != null) {
+							SetTitle ();
+							SetSeparatorBelowTitle ();
+							SetStart ();
+							SetRoom ();
+							SetSeparatorBelowRoom ();
+							SetDescription ();
+							SetMoreInformation();
+						}
+						else
+						{
+							var notFound = new UIAlertView("Not found", "Session not found", null, "OK", null);
+							notFound.Show();
+						}
+						
+						loading.DismissWithClickedButtonIndex (0, true); 
+					});
+					
+					if (session != null) {
+						TrackAnalyticsEvent ("SessionDetailAboutViewController-" + session.slug);
+					}
+				});
+			} else {
+				UnreachableAlert ().Show ();
+			}
+			
+			
+		}
+
+		[Obsolete]
 		public override void ViewDidUnload ()
 		{
 			base.ViewDidUnload ();
@@ -229,7 +259,8 @@ namespace TekConf.UI.iPhone
 			
 			ReleaseDesignerOutlets ();
 		}
-		
+
+		[Obsolete]
 		public override bool ShouldAutorotateToInterfaceOrientation (UIInterfaceOrientation toInterfaceOrientation)
 		{
 			// Return true for supported orientations

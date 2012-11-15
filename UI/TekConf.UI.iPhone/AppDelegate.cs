@@ -82,17 +82,15 @@ namespace TekConf.UI.iPhone
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-
-			var font = UIFont.FromName("OpenSans", 14f);
 			
 			Root.Add(new Section() {
-				new StyledStringElement("Conferences", () => { NavigationController.PushViewController(new ConferencesDialogViewController(), true); }) { Font = font },
+				new StyledStringElement("Conferences", () => { NavigationController.PushViewController(new ConferencesDialogViewController(), true); }) { Font = BaseUIViewController.TitleFont },
 
-				new StyledStringElement("CodeMash 2013", () => { NavigationItems.ConferenceSlug = "codemash-2013"; NavigationController.PushViewController(new ConferenceDetailTabBarController(), true); }) { Font = font },
-				new StyledStringElement("Build 2013", () => { NavigationItems.ConferenceSlug = "build-2012"; NavigationController.PushViewController(new ConferenceDetailTabBarController(), true); }) { Font = font },
-				new StyledStringElement("Settings", () => { NavigationController.PushViewController(new SettingsViewController(), true); }) { Font = font },
-				new StyledStringElement("Login", () => { NavigationController.PushViewController(new LoginViewController(), true); }) { Font = font },
-				new StyledStringElement("Test", () => { NavigationController.PushViewController(new TestController(), true); }) { Font = font },
+				new StyledStringElement("CodeMash 2013", () => { NavigationItems.ConferenceSlug = "codemash-2013"; NavigationController.PushViewController(new ConferenceDetailTabBarController(), true); }) { Font = BaseUIViewController.TitleFont },
+				new StyledStringElement("Build 2013", () => { NavigationItems.ConferenceSlug = "build-2012"; NavigationController.PushViewController(new ConferenceDetailTabBarController(), true); }) { Font = BaseUIViewController.TitleFont },
+				new StyledStringElement("Settings", () => { NavigationController.PushViewController(new SettingsViewController(), true); }) { Font = BaseUIViewController.TitleFont },
+				new StyledStringElement("Login", () => { NavigationController.PushViewController(new LoginViewController(), true); }) { Font = BaseUIViewController.TitleFont },
+				new StyledStringElement("Test", () => { NavigationController.PushViewController(new TestController(), true); }) { Font = BaseUIViewController.TitleFont },
 				
 				//new StyledStringElement("Stuff", () => { NavigationController.PushViewController(new StuffViewController(), true); }),
 				//new StyledStringElement("Full Screen", () => { NavigationController.PushViewController(new FullscreenViewController(), true); })

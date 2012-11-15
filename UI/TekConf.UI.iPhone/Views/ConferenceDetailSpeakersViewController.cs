@@ -111,9 +111,9 @@ namespace TekConf.UI.iPhone
 				var cell = tableView.DequeueReusableCell (SpeakerCell) ?? new UITableViewCell (UITableViewCellStyle.Subtitle, SpeakerCell); 
 				var speaker = _speakers [indexPath.Row]; 
 
-				var font = UIFont.FromName("OpenSans", 12f);
-				cell.TextLabel.Font = font;
-				cell.DetailTextLabel.Font = font;
+
+				cell.TextLabel.Font = BaseUIViewController.TitleFont;
+				cell.DetailTextLabel.Font = BaseUIViewController.DescriptionFont;
 				cell.TextLabel.Text = speaker.fullName; 
 				//cell.DetailTextLabel.Text = speaker.start.ToLocalTime ().ToString (); 
 				return cell; 
@@ -165,9 +165,9 @@ namespace TekConf.UI.iPhone
 						cell.Accessory = UITableViewCellAccessory.DisclosureIndicator;
 					}
 				}
-				var font = UIFont.FromName("OpenSans", 12f);
-				cell.TextLabel.Font = font;
-				cell.DetailTextLabel.Font = font;
+
+				cell.TextLabel.Font = BaseUIViewController.TitleFont;
+				cell.DetailTextLabel.Font = BaseUIViewController.DescriptionFont;
 				
 				// Configure the cell.
 				//cell.TextLabel.Text = NSBundle.MainBundle.LocalizedString (

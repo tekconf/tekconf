@@ -90,8 +90,7 @@ namespace TekConf.UI.iPhone
 								UIImage defaultImage = UIImage.FromBundle (@"images/DefaultConference.png");
 								
 								foreach (var session in schedule.sessions) {
-									rootElement [0].Add (new StringElement (session.title));
-									//rootElement [0].Add (new ConferenceElement (conference, defaultImage));
+									rootElement [0].Add (new SessionElement (session.title, session.room));
 								}
 								
 								InvokeOnMainThread (() => 

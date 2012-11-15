@@ -23,20 +23,20 @@ namespace TekConf.UI.iPhone
 			aboutTab.Title = "About";
 			aboutTab.TabBarItem.Image = UIImage.FromBundle("images/glyphicons_088_address_book");
 
-			scheduleTab = new ConferenceScheduleViewController();
-			scheduleTab.Title = "My Schedule";
-			scheduleTab.TabBarItem.Image = UIImage.FromBundle("images/glyphicons_057_calendar");
-
-			sessionsTab = new ConferenceDetailViewController();
+			sessionsTab = new SessionsListDialogViewController();
 			sessionsTab.Title = "Sessions";
 			sessionsTab.TabBarItem.Image = UIImage.FromBundle("images/glyphicons_061_keynote");
 			
 			speakersTab = new ConferenceDetailSpeakersViewController();
 			speakersTab.Title = "Speakers";
 			speakersTab.TabBarItem.Image = UIImage.FromBundle("images/glyphicons_042_group");
-			
+
+			scheduleTab = new ConferenceScheduleViewController();
+			scheduleTab.Title = "My Schedule";
+			scheduleTab.TabBarItem.Image = UIImage.FromBundle("images/glyphicons_057_calendar");
+
 			var tabs = new UIViewController[] {
-				aboutTab, scheduleTab, sessionsTab, speakersTab
+				aboutTab, sessionsTab, speakersTab, scheduleTab
 			};
 			
 			ViewControllers = tabs;

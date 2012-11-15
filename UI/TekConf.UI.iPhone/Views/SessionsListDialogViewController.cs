@@ -10,56 +10,30 @@ using MonoTouch.Dialog;
 
 namespace TekConf.UI.iPhone
 {
-	public class ConferencesDialogViewController : BaseDialogViewController
+	public class SessionsListDialogViewController : BaseDialogViewController
 	{
-		private bool _showPastConferences = false;
-
 		public string SearchString { get; set; }
-
-		public ConferencesDialogViewController () : base(UITableViewStyle.Plain, new RootElement("Conferences"), false)
+		
+		public SessionsListDialogViewController () : base(UITableViewStyle.Plain, new RootElement("Conferences"), false)
 		{
 			this.EnableSearch = true;
-
-			if (NavigationItem != null) {
-
-				var pastButton = new UIBarButtonItem () { Title = "Past" };
-
-				pastButton.Clicked += (sender, e) => {
-					_showPastConferences = !_showPastConferences; 
-					Refresh ();
-					if (_showPastConferences) {
-						NavigationItem.RightBarButtonItem.Title = "Current";
-					} else {
-						NavigationItem.RightBarButtonItem.Title = "Past";
-					}
-				};
-				NavigationItem.SetRightBarButtonItem (pastButton, false);
-			}
 
 			if (UIDevice.CurrentDevice.CheckSystemVersion (6, 0)) {
 				RefreshControl = new UIRefreshControl ();
 				RefreshControl.ValueChanged += (sender, e) => {
-					Refresh (); };
+					Refresh (); 
+				};
 			} else {
 				// old style refresh button
 				NavigationItem.SetRightBarButtonItem (new UIBarButtonItem (UIBarButtonSystemItem.Refresh), false);
 				NavigationItem.RightBarButtonItem.Clicked += (sender, e) => {
-					Refresh (); };
+					Refresh (); 
+				};
 			}
-
-			Refresh ();
+			
+			//Refresh ();
 		}
-
-		public override void LoadView ()
-		{
-			base.LoadView ();
-
-			this.View = this.TableView;
-			if (ParentViewController != null && ParentViewController.View != null) {
-				ParentViewController.View.BackgroundColor = UIColor.Red;
-			}
-		}
-
+		
 		public void Refresh ()
 		{
 			if (this.IsReachable ()) {
@@ -72,17 +46,15 @@ namespace TekConf.UI.iPhone
 				indicator.StartAnimating (); 
 				loading.AddSubview (indicator);
 
-				Repository.GetConferences (sortBy: "", showPastConferences: _showPastConferences, search: "", callback: conferences => 
-				{ 
-					if (conferences != null) {
-						var rootElement = new RootElement ("Conferences"){ new Section() };
-	
-						UIImage defaultImage = UIImage.FromBundle (@"images/DefaultConference.png");
+				Repository.GetSessions(NavigationItems.ConferenceSlug, sessions =>
+				{
+					if (sessions != null) {
+						var rootElement = new RootElement ("Sessions"){ new Section() };
 
-						foreach (var conference in conferences) {
-							rootElement [0].Add (new ConferenceElement (conference, defaultImage));
+						foreach (SessionsDto session in sessions) {
+							rootElement [0].Add (new SessionElement (session));
 						}
-
+						
 						InvokeOnMainThread (() => 
 						{ 
 							Root = rootElement;
@@ -95,33 +67,32 @@ namespace TekConf.UI.iPhone
 								RefreshControl.EndRefreshing ();
 							}
 							
-						});					
-					
+						});
 					}
-
 				});
 			} else {
 				UnreachableAlert ().Show ();
 			}
-
-			TrackAnalyticsEvent ("ConferencesDialogViewController");
+			
+			TrackAnalyticsEvent ("SessionsListDialogViewController" + NavigationItems.ConferenceSlug);
 		}
-
+		
 		public override void ViewWillAppear (bool animated)
 		{
 			base.ViewWillAppear (animated);
 
+			Refresh ();
 			if (!string.IsNullOrEmpty (SearchString)) {
 				this.PerformFilter (SearchString);
 			}
-
+			
 		}
-
+		
 		public override void FinishSearch ()
 		{
 			base.FinishSearch ();
 		}
-
+		
 		public override void OnSearchTextChanged (string text)
 		{
 			base.OnSearchTextChanged (text);
