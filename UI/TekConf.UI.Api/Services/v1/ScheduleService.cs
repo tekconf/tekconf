@@ -55,11 +55,8 @@ namespace TekConf.UI.Api.v1
 
             if (conference != null)
             {
-                if (!schedule.SessionSlugs.Any(s => s == request.sessionSlug))
+                if (!string.IsNullOrWhiteSpace(request.sessionSlug) && !schedule.SessionSlugs.Any(s => s == request.sessionSlug))
                 {
-                    //var sessionEntity = conference.sessions
-                    //                              .FirstOrDefault(s => s.slug == request.sessionSlug);
-
                     schedule.SessionSlugs.Add(request.sessionSlug);
                 }
             }
@@ -73,20 +70,7 @@ namespace TekConf.UI.Api.v1
 
         private object GetSingleSchedule(Schedule request)
         {
-            //var cacheKey = "GetSingleSchedule-" + request.conferenceSlug + "-" + request.authenticationMethod + "-" + request.authenticationToken;
-            //var expireInTimespan = new TimeSpan(0, 0, 2);
-            //if (base.RequestContext != null && this.CacheClient != null)
-            //{
-            //    return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
-            //    {
-            //        return GetSchedule(request);
-            //    });
-            //}
-            //else
-            //{
-                return GetSchedule(request);
-            //}
-
+            return GetSchedule(request);
         }
 
         private ScheduleDto GetSchedule(Schedule request)
