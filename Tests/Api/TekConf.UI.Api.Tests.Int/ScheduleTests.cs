@@ -14,7 +14,8 @@ namespace TekConf.UI.Api.Tests.Int
     {
         private IFixture _fixture;
         private string _authenticationMethod = "Facebook";
-        private string _authenticationToken = "AuthToken";
+        //private string _authenticationToken = "BAAF8EAYsaGwBAGmf61QFCcnaohTAUd2dDHlDUdyGKXaNEVPzl3837MvfN9HAZCP8uogLEejZAnPpeSuhUiZCZCCjRCDpFjZCAFEas1T1ZCowZBXw83FZC64XV9sJEdblnsNZBm1cpFLDHhU968WgHoWZBIzWIcZCmDp9nabZCkkDzECdUNKP0bxcZBaPlSpsWDy9RjWFdBg2uadlE0GxFweYdZCZA85tYrHJn7kTcnKPfCCeDrWaQZDZD";
+        private string _authenticationToken = "robgibbens@gmail.com";
         private string _conferenceSlug = "codemash-2013";
         private string _sessionSlug = "building-real-time-web-applications";
 

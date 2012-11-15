@@ -73,19 +73,19 @@ namespace TekConf.UI.Api.v1
 
         private object GetSingleSchedule(Schedule request)
         {
-            var cacheKey = "GetSingleSchedule-" + request.conferenceSlug + "-" + request.authenticationMethod + "-" + request.authenticationToken;
-            var expireInTimespan = new TimeSpan(0, 0, 120);
-            if (base.RequestContext != null && this.CacheClient != null)
-            {
-                return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
-                {
-                    return GetSchedule(request);
-                });
-            }
-            else
-            {
+            //var cacheKey = "GetSingleSchedule-" + request.conferenceSlug + "-" + request.authenticationMethod + "-" + request.authenticationToken;
+            //var expireInTimespan = new TimeSpan(0, 0, 2);
+            //if (base.RequestContext != null && this.CacheClient != null)
+            //{
+            //    return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
+            //    {
+            //        return GetSchedule(request);
+            //    });
+            //}
+            //else
+            //{
                 return GetSchedule(request);
-            }
+            //}
 
         }
 
