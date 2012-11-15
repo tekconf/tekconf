@@ -1,16 +1,21 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="UI/TekConf.UI.iPhone/AppDelegate.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|iPhone" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="UI/TekConf.UI.iPhone/Views/ConferenceScheduleViewController.cs">
     <Files>
-      <File FileName="UI/TekConf.UI.iPhone/Views/BaseDialogViewController.cs" Line="25" Column="5" />
-      <File FileName="UI/TekConf.UI.iPhone/Views/TestController.cs" Line="33" Column="19" />
-      <File FileName="UI/TekConf.UI.iPhone/AppDelegate.cs" Line="18" Column="3" />
-      <File FileName="RemoteData/Shared/v1/RemoteDataRepository.cs" Line="29" Column="14" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/SessionDetailAboutViewController.cs" Line="57" Column="6" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/ConferenceScheduleViewController.cs" Line="167" Column="4" />
+      <File FileName="RemoteData/Shared/v1/RemoteDataRepository.cs" Line="48" Column="30" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Option id="ShowAllFiles" value="True" />
+          <Node name="TekConf.RemoteData.iOS" expanded="True" />
+          <Node name="TekConf.UI.iPhone" expanded="True">
+            <Node name="Views" expanded="True">
+              <Node name="ConferenceScheduleViewController.cs" selected="True" />
+            </Node>
+          </Node>
         </State>
       </Pad>
       <Pad Id="ClassPad">
@@ -23,10 +28,10 @@
       <Breakpoint file="/Users/Rob/dev/tekconf/UI/TekConf.UI.iOS/SessionsListRootViewController.cs" line="80" />
       <Breakpoint file="/Users/Rob/dev/tekconf/UI/TekConf.UI.iOS/SessionsListRootViewController.cs" line="76" />
       <Breakpoint file="/Users/Rob/dev/tekconf/UI/TekConf.UI.iPhone/Views/ConferenceDetailViewController.cs" line="93" />
-      <Breakpoint file="/Users/rgibbens/dev/tekconf/UI/TekConf.UI.iPhone/Views/TestController.cs" line="22" />
       <Breakpoint file="/Users/rgibbens/dev/tekconf/UI/TekConf.UI.iPhone/Views/TestController.cs" line="35" />
-      <Breakpoint file="/Users/rgibbens/dev/tekconf/UI/TekConf.UI.iPhone/Views/TestController.cs" line="37" />
       <Breakpoint file="/Users/rgibbens/dev/tekconf/UI/TekConf.UI.iPhone/Views/TestController.cs" line="45" />
+      <Breakpoint file="/Users/rgibbens/dev/tekconf/UI/TekConf.UI.iPhone/Views/TestController.cs" line="42" />
+      <Breakpoint file="/Users/rgibbens/dev/tekconf/UI/TekConf.UI.iPhone/Views/ConferenceScheduleViewController.cs" line="155" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>
@@ -39,6 +44,7 @@
     <Watch file="UI/TekConf.UI.iPhone/Views/ConferenceDetailAboutViewController.cs" line="71" offsetX="750" offsetY="1235" expression="this.descriptionLabel.Frame" liveUpdate="True" />
     <Watch file="UI/TekConf.UI.iPhone/Views/ConferenceDetailAboutViewController.cs" line="71" offsetX="1192" offsetY="1083" expression="this.descriptionLabel.Frame.Location" liveUpdate="False" />
     <Watch file="UI/TekConf.UI.iPhone/Views/ConferenceDetailTabBarController.cs" line="16" offsetX="419" offsetY="270" expression="conference" liveUpdate="False" />
+    <Watch file="UI/TekConf.UI.iPhone/Views/ConferenceScheduleViewController.cs" line="80" offsetX="511" offsetY="1422" expression="schedule" liveUpdate="False" />
   </MonoDevelop.Ide.DebuggingService.PinnedWatches>
   <MonoDevelop.Ide.ItemProperties.TekConf.UI.iPhone>
     <IPhoneTestFlightSettings_27CRelease ApiToken="28ea2cf46ef75d633a2bce49d2adbfb7_NzYwOA" TeamToken="19a8eedfedeed47cf1f6d74fd7ab561c_MTkxNDIwMTEtMDktMjkgMjE6MTc6MTAuNjM0NTAw" ReleaseNotes="Changed icon. Added blank settings and login pages. Ability to show Past/Current conferences.&#xA;&#xA;Track issues here : https://trello.com/board/tekconf/50747c7b7dfbc8a32f0417b7" NotifyTeamMembers="True" ReplaceBinaries="False" DistributionLists="TekConf" />

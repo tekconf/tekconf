@@ -49,6 +49,9 @@ namespace TekConf.UI.iPhone
 
 		[Outlet]
 		MonoTouch.UIKit.UILabel separatorBelowRoom { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIButton addRemoveSessionFromSchedule { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -115,6 +118,11 @@ namespace TekConf.UI.iPhone
 			if (separatorBelowRoom != null) {
 				separatorBelowRoom.Dispose ();
 				separatorBelowRoom = null;
+			}
+
+			if (addRemoveSessionFromSchedule != null) {
+				addRemoveSessionFromSchedule.Dispose ();
+				addRemoveSessionFromSchedule = null;
 			}
 		}
 	}

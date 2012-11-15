@@ -5,15 +5,83 @@ using System.Drawing;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using TekConf.RemoteData.Dtos.v1;
+using MonoTouch.Accounts;
+using System.Linq;
 
 namespace TekConf.UI.iPhone
 {
 	public partial class SessionDetailAboutViewController : BaseUIViewController
 	{
 		private FullSessionDto _session;
+		private ACAccountStore _accountStore;
+		private string AppId = "417883241605228";
+
 		public SessionDetailAboutViewController (FullSessionDto session) : this()
 		{
 			_session = session;
+		}
+
+		void HandleTouchUpInside (object sender, EventArgs e)
+		{
+			if (this.IsReachable ()) {
+				
+				
+				if (_accountStore == null)
+					_accountStore = new ACAccountStore ();
+				
+				var options = new AccountStoreOptions () {
+					FacebookAppId = AppId
+				};
+
+				options.SetPermissions (ACFacebookAudience.OnlyMe, new string[]{ "email" });
+				var accountType = _accountStore.FindAccountType (ACAccountType.Facebook);
+				
+				_accountStore.RequestAccess (accountType, options, (granted, error) => {
+					if (granted) 
+					{
+						var facebookAccount = _accountStore.FindAccounts (accountType).First ();
+						var oAuthToken = facebookAccount.Credential.OAuthToken;
+						UIAlertView loading = null;
+						InvokeOnMainThread (() => 
+						{ 
+							loading = new UIAlertView (" Downloading Schedule", "Please wait...", null, null, null);
+							
+							loading.Show ();
+							
+							var indicator = new UIActivityIndicatorView (UIActivityIndicatorViewStyle.WhiteLarge); 
+							indicator.Center = new System.Drawing.PointF (loading.Bounds.Width / 2, loading.Bounds.Size.Height - 40); 
+							indicator.StartAnimating (); 
+							loading.AddSubview (indicator);
+						});
+						
+						Repository.AddSessionToSchedule (conferenceSlug: NavigationItems.ConferenceSlug,
+						                                 sessionSlug : _session.slug,
+						                                 authenticationMethod: "Facebook", 
+						                                 authenticationToken: facebookAccount.Username, 
+						                                 callback: schedule => 
+						{ 	
+							InvokeOnMainThread (() => 
+							{ 
+								loading.DismissWithClickedButtonIndex (0, true);
+							});
+						});
+
+						return;
+					} else {
+						InvokeOnMainThread (() => 
+						{ 
+
+							var notLoggedInAlertView = new UIAlertView("Not logged in", "You must go to Settings and login to Facebook or Twitter before saving your schedule.", null, "OK", null);
+							notLoggedInAlertView.Show();
+						});
+					}
+				});
+			} else {
+				UnreachableAlert ().Show ();
+			}
+
+			TrackAnalyticsEvent ("AddSessionToSchedule-" + _session.slug);
+			
 		}
 
 		public SessionDetailAboutViewController () : base ("SessionDetailAboutViewController", null)
@@ -36,7 +104,8 @@ namespace TekConf.UI.iPhone
 			this.contentDetailScrollView.ScrollEnabled = true;
 			this.contentDetailScrollView.ClipsToBounds = true;
 			this.contentDetailScrollView.ContentInset = new UIEdgeInsets(top:0, left:0, bottom:900, right:0);
-
+			this.addRemoveSessionFromSchedule.TouchUpInside += HandleTouchUpInside;
+			
 
 			SetTitle ();
 
