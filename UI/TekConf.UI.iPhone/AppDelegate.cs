@@ -6,6 +6,8 @@ using MonoTouch.UIKit;
 using MonoTouch.SlideoutNavigation;
 using MonoTouch.Dialog;
 using FA=FlurryAnalytics;
+using MonoTouch.Accounts;
+using TekConf.RemoteData.v1;
 
 namespace TekConf.UI.iPhone
 {
@@ -64,7 +66,10 @@ namespace TekConf.UI.iPhone
 			
 			window.RootViewController = Menu;
 			window.MakeKeyAndVisible ();
-			NSError error;
+
+
+
+
 
 			return true;
 		}
@@ -72,33 +77,132 @@ namespace TekConf.UI.iPhone
 
 	public class SideListController : DialogViewController
 	{
+		private ACAccountStore _accountStore;
+		private string AppId = "417883241605228";
+
+		private string _baseUrl = "http://api.tekconf.com";
+		private RemoteDataRepository _client;
+		private RemoteDataRepository Repository
+		{
+			get
+			{
+				if (this._client == null)
+				{
+					this._client = new RemoteDataRepository(_baseUrl);
+				}
+				
+				return this._client;
+			}
+		}
+
 		public SideListController () 
 			: base(UITableViewStyle.Plain, new RootElement(""))
 		{
 		}
 
+		protected bool IsReachable()
+		{
+			return Reachability.IsHostReachable("api.tekconf.com");
+		}
+
+		protected UIAlertView UnreachableAlert()
+		{
+			return new UIAlertView("Unreachable", "Can not access TekConf.com. Check internet connection.", null, "OK", null);
+		}
+
+		protected void TrackAnalyticsEvent(string eventName)
+		{
+			FlurryAnalytics.FlurryAnalytics.LogEvent(eventName);		
+		}
+
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-			
-			Root.Add (new Section () {
-				new StyledStringElement("Conferences", () => { NavigationController.PushViewController(new ConferencesDialogViewController(), true); }) { Font = BaseUIViewController.TitleFont },
-
-				new StyledStringElement("CodeMash 2013", () => { NavigationItems.ConferenceSlug = "codemash-2013"; NavigationController.PushViewController(new ConferenceDetailTabBarController(), true); }) { Font = BaseUIViewController.TitleFont },
-				new StyledStringElement("Build 2013", () => { NavigationItems.ConferenceSlug = "build-2012"; NavigationController.PushViewController(new ConferenceDetailTabBarController(), true); }) { Font = BaseUIViewController.TitleFont },
-				new StyledStringElement("Settings", () => { NavigationController.PushViewController(new SettingsViewController(), true); }) { Font = BaseUIViewController.TitleFont },
-				new StyledStringElement("Login", () => { NavigationController.PushViewController(new LoginViewController(), true); }) { Font = BaseUIViewController.TitleFont }
-
-
-			});
 
 			if (NavigationController != null) {
 				NavigationController.NavigationBar.TintColor = UIColor.FromRGBA (red: 0.506f, 
-				                                                                green: 0.6f, 
-				                                                                blue: 0.302f, 
-				                                                                alpha: 1f);
-
+				                                                                 green: 0.6f, 
+				                                                                 blue: 0.302f, 
+				                                                                 alpha: 1f);
+				
 			}
+
+			if (this.IsReachable ()) {
+				if (_accountStore == null) {
+					_accountStore = new ACAccountStore ();
+				}
+				
+				var options = new AccountStoreOptions () {
+					FacebookAppId = AppId
+				};
+				
+				options.SetPermissions (ACFacebookAudience.OnlyMe, new string[]{ "email" });
+				var accountType = _accountStore.FindAccountType (ACAccountType.Facebook);
+				
+				_accountStore.RequestAccess (accountType, options, (granted, error) => {
+					if (granted) {
+						var facebookAccount = _accountStore.FindAccounts (accountType).First ();
+						var oAuthToken = facebookAccount.Credential.OAuthToken;
+						UIAlertView loading = null;
+						InvokeOnMainThread (() => 
+						                    { 
+							loading = new UIAlertView (" Saving Schedule", "Please wait...", null, null, null);
+							
+							loading.Show ();
+							
+							var indicator = new UIActivityIndicatorView (UIActivityIndicatorViewStyle.WhiteLarge); 
+							indicator.Center = new System.Drawing.PointF (loading.Bounds.Width / 2, loading.Bounds.Size.Height - 40); 
+							indicator.StartAnimating (); 
+							loading.AddSubview (indicator);
+						});
+
+						InvokeOnMainThread (() => 
+						{ 
+							Root.Add (new Section () {
+								new StyledStringElement("Conferences", () => { NavigationController.PushViewController(new ConferencesDialogViewController(), true); }) { Font = BaseUIViewController.TitleFont },
+								new StyledStringElement("Settings", () => { NavigationController.PushViewController(new SettingsViewController(), true); }) { Font = BaseUIViewController.TitleFont },
+							});
+						});
+
+						Repository.GetSchedules (authenticationMethod: "Facebook", 
+						                                 authenticationToken: facebookAccount.Username, 
+						                                 callback: schedules => 
+						{ 	
+							InvokeOnMainThread (() => 
+							{ 
+								foreach (var schedule in schedules)
+								{
+									Root[0].Add(
+										new StyledStringElement(schedule.conferenceName, 
+									                        () => { 
+																	NavigationItems.ConferenceSlug = schedule.conferenceSlug; 
+																	NavigationController.PushViewController(new ConferenceDetailTabBarController(), true); 
+																  }
+															) 
+									{ Font = BaseUIViewController.TitleFont }
+									);
+								}
+
+								loading.DismissWithClickedButtonIndex (0, true);
+							});
+						});
+						
+						return;
+					} else {
+						InvokeOnMainThread (() => 
+						{ 	
+							var notLoggedInAlertView = new UIAlertView ("Not logged in", "You must go to Settings and login to Facebook or Twitter before saving your schedule.", null, "OK", null);
+							notLoggedInAlertView.Show ();
+						});
+					}
+				});
+			} else {
+				UnreachableAlert ().Show ();
+			}
+			
+			TrackAnalyticsEvent ("AppLaunched");
+
+
 		}
 	}
 }

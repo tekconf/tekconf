@@ -147,5 +147,11 @@
     <Compile Include="..\Shared\v1\Requests\AddSessionToSchedule.cs">
       <Link>v1\Requests\AddSessionToSchedule.cs</Link>
     </Compile>
+    <Compile Include="..\Shared\v1\Dtos\SchedulesDto.cs">
+      <Link>v1\Dtos\SchedulesDto.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Requests\Schedules.cs">
+      <Link>v1\Requests\Schedules.cs</Link>
+    </Compile>
   </ItemGroup>
 </Project>
