@@ -89,7 +89,7 @@ namespace TekConf.UI.iPhone
 						UIAlertView loading = null;
 						InvokeOnMainThread (() => 
 						                    { 
-							loading = new UIAlertView (" Downloading Schedule", "Please wait...", null, null, null);
+							loading = new UIAlertView (" Saving Schedule", "Please wait...", null, null, null);
 							
 							loading.Show ();
 							

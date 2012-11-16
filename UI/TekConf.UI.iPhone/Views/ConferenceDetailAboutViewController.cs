@@ -4,11 +4,17 @@ using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using TekConf.RemoteData.Dtos.v1;
 using MonoTouch.Dialog.Utilities;
+using MonoTouch.Accounts;
+using System.Linq;
+
 
 namespace TekConf.UI.iPhone
 {
 	public partial class ConferenceDetailAboutViewController : BaseUIViewController, IImageUpdated
 	{
+		private ACAccountStore _accountStore;
+		private string AppId = "417883241605228";
+
 		public ConferenceDetailAboutViewController () : base ("ConferenceDetailAboutViewController", null)
 		{
 		}
@@ -44,7 +50,6 @@ namespace TekConf.UI.iPhone
 
 		void TwitterTouched (object sender, EventArgs e)
 		{
-
 			TrackAnalyticsEvent("AttendingTweeted-" + NavigationItems.ConferenceSlug);
 		}
 
@@ -55,13 +60,69 @@ namespace TekConf.UI.iPhone
 
 		void ImAttendingTouched (object sender, EventArgs e)
 		{
-			TrackAnalyticsEvent("Attending-" + NavigationItems.ConferenceSlug);
+			if (this.IsReachable ()) {
+				
+				
+				if (_accountStore == null)
+					_accountStore = new ACAccountStore ();
+				
+				var options = new AccountStoreOptions () {
+					FacebookAppId = AppId
+				};
+				
+				options.SetPermissions (ACFacebookAudience.OnlyMe, new string[]{ "email" });
+				var accountType = _accountStore.FindAccountType (ACAccountType.Facebook);
+				
+				_accountStore.RequestAccess (accountType, options, (granted, error) => {
+					if (granted) {
+						var facebookAccount = _accountStore.FindAccounts (accountType).First ();
+						var oAuthToken = facebookAccount.Credential.OAuthToken;
+						UIAlertView loading = null;
+						InvokeOnMainThread (() => 
+						{ 
+							loading = new UIAlertView (" Saving Schedule", "Please wait...", null, null, null);
+							
+							loading.Show ();
+							
+							var indicator = new UIActivityIndicatorView (UIActivityIndicatorViewStyle.WhiteLarge); 
+							indicator.Center = new System.Drawing.PointF (loading.Bounds.Width / 2, loading.Bounds.Size.Height - 40); 
+							indicator.StartAnimating (); 
+							loading.AddSubview (indicator);
+						});
+						
+						Repository.AddSessionToSchedule (conferenceSlug: NavigationItems.ConferenceSlug,
+						                                 sessionSlug : string.Empty,
+						                                 authenticationMethod: "Facebook", 
+						                                 authenticationToken: facebookAccount.Username, 
+						                                 callback: schedule => 
+						{ 	
+							InvokeOnMainThread (() => 
+							{ 
+								loading.DismissWithClickedButtonIndex (0, true);
+							});
+						});
+						
+						return;
+					} else {
+						InvokeOnMainThread (() => 
+						                    { 
+							
+							var notLoggedInAlertView = new UIAlertView ("Not logged in", "You must go to Settings and login to Facebook or Twitter before saving your schedule.", null, "OK", null);
+							notLoggedInAlertView.Show ();
+						});
+					}
+				});
+			} else {
+				UnreachableAlert ().Show ();
+			}
+
+
+			TrackAnalyticsEvent("AttendingConference-" + NavigationItems.ConferenceSlug);
 		}
 
 		public override void LoadView ()
 		{
 			base.LoadView ();
-
 		}
 
 		private void LoadConference ()

@@ -1,20 +1,23 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|iPhone" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="UI/TekConf.UI.iPhone/Views/ConferenceElement.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="UI/TekConf.UI.iPhone/Views/ConferenceDetailAboutViewController.cs">
     <Files>
-      <File FileName="RemoteData/Shared/v1/RemoteDataRepository.cs" Line="48" Column="30" />
-      <File FileName="UI/TekConf.UI.iPhone/Views/ConferenceDetailViewController.cs" Line="150" Column="34" />
-      <File FileName="UI/TekConf.UI.iPhone/Views/ConferenceElement.cs" Line="44" Column="6" />
-      <File FileName="UI/TekConf.UI.iPhone/Views/SessionElement.cs" Line="42" Column="21" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/ConferenceDetailAboutViewController.cs" Line="101" Column="29" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/SessionDetailAboutViewController.cs" Line="90" Column="33" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Option id="ShowAllFiles" value="True" />
-          <Node name="TekConf.RemoteData.iOS" expanded="True" />
+          <Node name="TekConf.RemoteData.iOS" expanded="True">
+            <Node name="v1" expanded="True">
+              <Node name="Dtos" expanded="True" />
+            </Node>
+          </Node>
           <Node name="TekConf.UI.iPhone" expanded="True">
+            <Node name="Elements" expanded="True" />
             <Node name="Views" expanded="True">
-              <Node name="ConferenceElement.cs" selected="True" />
+              <Node name="ConferenceDetailAboutViewController.cs" selected="True" />
             </Node>
           </Node>
         </State>
@@ -32,6 +35,7 @@
       <Breakpoint file="/Users/rgibbens/dev/tekconf/UI/TekConf.UI.iPhone/Views/TestController.cs" line="35" />
       <Breakpoint file="/Users/rgibbens/dev/tekconf/UI/TekConf.UI.iPhone/Views/TestController.cs" line="45" />
       <Breakpoint file="/Users/rgibbens/dev/tekconf/UI/TekConf.UI.iPhone/Views/TestController.cs" line="42" />
+      <Breakpoint file="/Users/rgibbens/dev/tekconf/UI/TekConf.UI.iPhone/Views/ConferenceDetailAboutViewController.cs" line="93" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>
