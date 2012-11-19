@@ -1,22 +1,20 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="../ServiceStack/src/ServiceStack.Common/ServiceClient.Web/UrlExtensions.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|iPhone" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="UI/TekConf.UI.iPhone/AppDelegate.cs">
     <Files>
       <File FileName="UI/TekConf.UI.iPhone/Views/ConferenceDetailAboutViewController.cs" Line="92" Column="7" />
       <File FileName="UI/TekConf.UI.iPhone/Views/SessionDetailAboutViewController.cs" Line="13" Column="59" />
       <File FileName="RemoteData/Shared/v1/RemoteDataRepository.cs" Line="42" Column="33" />
-      <File FileName="UI/TekConf.UI.iPhone/AppDelegate.cs" Line="170" Column="10" />
+      <File FileName="UI/TekConf.UI.iPhone/AppDelegate.cs" Line="130" Column="18" />
       <File FileName="UI/TekConf.UI.iPhone/Views/BaseUIViewController.cs" Line="46" Column="1" />
-      <File FileName="../ServiceStack/src/ServiceStack.Common/ServiceClient.Web/UrlExtensions.cs" Line="58" Column="4" />
+      <File FileName="../ServiceStack/src/ServiceStack.Common/ServiceClient.Web/UrlExtensions.cs" Line="56" Column="30" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Option id="ShowAllFiles" value="True" />
           <Node name="ServiceStack.Common.MonoTouch" expanded="True">
-            <Node name="ServiceClient.Web" expanded="True">
-              <Node name="UrlExtensions.cs" selected="True" />
-            </Node>
+            <Node name="ServiceClient.Web" expanded="True" />
           </Node>
           <Node name="TekConf.RemoteData.iOS" expanded="True">
             <Node name="v1" expanded="True">
@@ -24,7 +22,7 @@
               <Node name="Requests" expanded="True" />
             </Node>
           </Node>
-          <Node name="TekConf.UI.iPhone" expanded="True">
+          <Node name="TekConf.UI.iPhone" expanded="True" selected="True">
             <Node name="Views" expanded="True" />
           </Node>
         </State>
@@ -43,8 +41,7 @@
       <Breakpoint file="/Users/rgibbens/dev/tekconf/UI/TekConf.UI.iPhone/Views/TestController.cs" line="45" />
       <Breakpoint file="/Users/rgibbens/dev/tekconf/UI/TekConf.UI.iPhone/Views/TestController.cs" line="42" />
       <Breakpoint file="/Users/rgibbens/dev/tekconf/UI/TekConf.UI.iPhone/Views/ConferenceDetailAboutViewController.cs" line="93" />
-      <Breakpoint file="/Users/rgibbens/dev/tekconf/UI/TekConf.UI.iPhone/AppDelegate.cs" line="173" />
-      <Breakpoint file="/Users/rgibbens/dev/tekconf/UI/TekConf.UI.iPhone/AppDelegate.cs" line="167" />
+      <Breakpoint file="/Users/rgibbens/dev/tekconf/UI/TekConf.UI.iPhone/AppDelegate.cs" line="122" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>
@@ -61,7 +58,7 @@
     <Watch file="UI/TekConf.UI.iPhone/Views/ConferenceElement.cs" line="57" offsetX="609" offsetY="955" expression="_conference.name" liveUpdate="False" />
   </MonoDevelop.Ide.DebuggingService.PinnedWatches>
   <MonoDevelop.Ide.ItemProperties.TekConf.UI.iPhone>
-    <IPhoneTestFlightSettings_27CRelease ApiToken="28ea2cf46ef75d633a2bce49d2adbfb7_NzYwOA" TeamToken="19a8eedfedeed47cf1f6d74fd7ab561c_MTkxNDIwMTEtMDktMjkgMjE6MTc6MTAuNjM0NTAw" ReleaseNotes="Schedule now syncs to the web (you can't see it yet)&#xA;&#xA;REQUIRES iOS 6 AND A FACEBOOK ACCOUNT&#xA;&#xA;Track issues here : https://trello.com/board/tekconf/50747c7b7dfbc8a32f0417b7" NotifyTeamMembers="True" ReplaceBinaries="False" DistributionLists="TekConf" />
+    <IPhoneTestFlightSettings_27CRelease ApiToken="28ea2cf46ef75d633a2bce49d2adbfb7_NzYwOA" TeamToken="19a8eedfedeed47cf1f6d74fd7ab561c_MTkxNDIwMTEtMDktMjkgMjE6MTc6MTAuNjM0NTAw" ReleaseNotes="Tons of updates.&#xA;&#xA;REQUIRES iOS 6 AND A FACEBOOK ACCOUNT&#xA;&#xA;Track issues here : https://trello.com/board/tekconf/50747c7b7dfbc8a32f0417b7" NotifyTeamMembers="True" ReplaceBinaries="False" DistributionLists="TekConf" />
     <IPhoneTestFlightSettings_27CAd-Hoc ApiToken="28ea2cf46ef75d633a2bce49d2adbfb7_NzYwOA" TeamToken="19a8eedfedeed47cf1f6d74fd7ab561c_MTkxNDIwMTEtMDktMjkgMjE6MTc6MTAuNjM0NTAw" ReleaseNotes="Updated UI" NotifyTeamMembers="True" ReplaceBinaries="False" DistributionLists="TekConf" />
   </MonoDevelop.Ide.ItemProperties.TekConf.UI.iPhone>
 </Properties>

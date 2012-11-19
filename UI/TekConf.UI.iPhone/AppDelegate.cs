@@ -119,6 +119,11 @@ namespace TekConf.UI.iPhone
 		{
 			base.ViewDidLoad ();
 
+			Root.Add (new Section () {
+				new StyledStringElement("Conferences", () => { NavigationController.PushViewController(new ConferencesDialogViewController(), true); }) { Font = BaseUIViewController.TitleFont },
+				new StyledStringElement("Settings", () => { NavigationController.PushViewController(new SettingsViewController(), true); }) { Font = BaseUIViewController.TitleFont },
+			});
+
 			if (NavigationController != null) {
 				NavigationController.NavigationBar.TintColor = UIColor.FromRGBA (red: 0.506f, 
 				                                                                 green: 0.6f, 
@@ -143,26 +148,6 @@ namespace TekConf.UI.iPhone
 					if (granted) {
 						var facebookAccount = _accountStore.FindAccounts (accountType).First ();
 						var oAuthToken = facebookAccount.Credential.OAuthToken;
-						UIAlertView loading = null;
-						InvokeOnMainThread (() => 
-						                    { 
-							loading = new UIAlertView (" Saving Schedule", "Please wait...", null, null, null);
-							
-							loading.Show ();
-							
-							var indicator = new UIActivityIndicatorView (UIActivityIndicatorViewStyle.WhiteLarge); 
-							indicator.Center = new System.Drawing.PointF (loading.Bounds.Width / 2, loading.Bounds.Size.Height - 40); 
-							indicator.StartAnimating (); 
-							loading.AddSubview (indicator);
-						});
-
-						InvokeOnMainThread (() => 
-						{ 
-							Root.Add (new Section () {
-								new StyledStringElement("Conferences", () => { NavigationController.PushViewController(new ConferencesDialogViewController(), true); }) { Font = BaseUIViewController.TitleFont },
-								new StyledStringElement("Settings", () => { NavigationController.PushViewController(new SettingsViewController(), true); }) { Font = BaseUIViewController.TitleFont },
-							});
-						});
 
 						Repository.GetSchedules (authenticationMethod: "Facebook", 
 						                                 authenticationToken: facebookAccount.Username, 
@@ -183,7 +168,7 @@ namespace TekConf.UI.iPhone
 									);
 								}
 
-								loading.DismissWithClickedButtonIndex (0, true);
+								//loading.DismissWithClickedButtonIndex (0, true);
 							});
 						});
 						
