@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using AutoMapper;
 using FluentMongo.Linq;
@@ -128,11 +129,13 @@ namespace TekConf.UI.Api
     {
         protected override string ResolveCore(ConferenceEntity source)
         {
+            var webUrl = ConfigurationManager.AppSettings["webUrl"];
+
             if (string.IsNullOrWhiteSpace(source.imageUrl))
             {
-                return "/img/conferences/DefaultConference.png";
+                return webUrl + "/img/conferences/DefaultConference.png";
             }
-            return source.imageUrl;
+            return webUrl + source.imageUrl;
         }
     }
     public class TrimmingFormatter : BaseFormatter<string>
