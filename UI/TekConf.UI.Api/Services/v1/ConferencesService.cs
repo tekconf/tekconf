@@ -176,7 +176,7 @@ namespace TekConf.UI.Api.Services.v1
 
             if (showPastConferences == null || !(bool)showPastConferences)
             {
-                searchBy = c => c.end > DateTime.Now;
+                searchBy = c => c.end > DateTime.Now.AddDays(1);
             }
 
             return searchBy;
