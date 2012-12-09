@@ -19,7 +19,11 @@
                     <li><a href="~/Api">Api </a></li>
                     <li><a href="~/Apps">Apps </a></li>
                     <li><a href="~/Account/LoginWithProvider">Login</a></li>
-                    <li><a href="~/Admin">Admin</a></li>
+                    
+                     @if (Request.QueryString["admin"] != null && Request.QueryString["admin"] == "true")
+                     {
+                        <li><a href="~/Admin">Admin</a></li>
+                     }
                 </ul>
             </div>
             <!--/.nav-collapse -->
