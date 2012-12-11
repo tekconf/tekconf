@@ -584,6 +584,8 @@
     <Content Include="img\conferences\wwdc-2012.png" />
     <Content Include="img\conferences\xamarin-evolve-2013.png" />
     <Content Include="img\OnSale.png" />
+    <Content Include="img\showTable.png" />
+    <Content Include="img\showThumbnails.png" />
     <Content Include="img\social\500px-16x16.png" />
     <Content Include="img\social\500px-24x24.png" />
     <Content Include="img\social\500px-32x32.png" />

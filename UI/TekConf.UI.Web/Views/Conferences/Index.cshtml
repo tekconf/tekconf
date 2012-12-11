@@ -45,40 +45,70 @@
 
                 @using (Html.BeginForm())
                 {
-                    var sorts = new List<SelectListItem>()
-                                    {
-                                        new SelectListItem() { Text = "Start Date", Value = "startDate"},
-                                        new SelectListItem() { Text = "Name", Value = "name" },
-                                        new SelectListItem() { Text = "Call for Speakers Opening", Value = "callForSpeakersOpeningDate"},
-                                        new SelectListItem() { Text = "Call for Speakers Closing", Value = "callForSpeakersClosingDate"},
-                                        new SelectListItem() { Text = "Tickets on Sale Date", Value = "registrationOpens"},
-                                        new SelectListItem() { Text = "Date Added", Value = "dateAdded"}
-                                    };
+                    var views = new List<SelectListItem>() {
+                                    new SelectListItem(){Text = "Thumbnails",Value = "thumbnails",Selected = !ViewBag.ShowTable},
+                                    new SelectListItem(){Text = "Table", Value = "table", Selected = ViewBag.ShowTable}
+                    };
+                    
+                    <div class="span2">
+                         @Html.DropDownList("viewAs", views, new { @onchange = "this.form.submit();", style = "width:120px;" })
+                    </div>
+                        var sorts = new List<SelectListItem>()
+                            {
+                                new SelectListItem() {Text = "Start Date", Value = "startDate"},
+                                new SelectListItem() {Text = "Name", Value = "name"},
+                                new SelectListItem() {Text = "Call for Speakers Opening", Value = "callForSpeakersOpeningDate"},
+                                new SelectListItem() {Text = "Call for Speakers Closing", Value = "callForSpeakersClosingDate"},
+                                new SelectListItem() {Text = "Tickets on Sale Date", Value = "registrationOpens"},
+                                new SelectListItem() {Text = "Date Added", Value = "dateAdded"}
+                            
+                    };
                     
                     <div class="span3 sortBy">
                         @Html.DropDownList("sortBy", sorts, new { @onchange = "this.form.submit();" })
                     </div>
-                    <div class="span3 showPastConferences">
-                        <text>&nbsp;&nbsp;</text>@Html.CheckBox("showPastConferences", new { @onchange = "this.form.submit();" })<text> Show Past Conferences?</text>                        
+                    <div class="span2 showPastConferences">
+                        <text>&nbsp;&nbsp;</text>@Html.CheckBox("showPastConferences", new { @onchange = "this.form.submit();" })<text> Show Past Conferences?</text>
                     </div>
                     
-                    <div class="span6 searchBox input-append"> 
-                        @Html.TextBox("search", null, new { @class = "span2 search-query"})
-                        <button class="btn" onclick="this.form.submit()" style="margin-right:30px;">Search</button>
+                    <div class="span5 searchBox input-append">
+                        @Html.TextBox("search", null, new { @class = "span2 search-query" })
+                        <button class="btn" onclick="this.form.submit()" style="margin-right: 30px;">Search</button>
                     </div>
                 }
             </div>
 
             <div class="row">
-                <ul class="thumbnails">
-                    
-                    @if (Model != null)
-                    {
-                        foreach (var conference in Model)
+                @if (ViewBag.ShowTable)
+                {
+                    <div class="span12">
+                        <table class="table">
+                            <tbody>
+                                @foreach (var conference in Model)
+                                {
+                                    <tr>
+                                        <td><a href="~/Conferences/@conference.slug" class="btn btn-primary btn-mini">View Conference</a></td>
+                                        <td>@conference.name</td>
+                                        <td>@HtmlHelpers.FormatDateRange(conference.start, conference.end)</td>
+                                        <td>@HtmlHelpers.FormatAddress(conference.address)</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <ul class="thumbnails">
+
+                        @if (Model != null)
                         {
+                            foreach (var conference in Model)
+                            {
+                            
                             <li class="span3">
-                                
-                                <div class="thumbnail" style="height: 575px;position:relative;">
+
+                                <div class="thumbnail" style="height: 575px; position: relative;">
                                     @if (conference.IsOnSale())
                                     {
                                         <img src="~/img/OnSale.png" class="overlay" />
@@ -96,9 +126,13 @@
                                     </div>
                                 </div>
                             </li>
+                            }
                         }
-                    }
-                </ul>
+                    </ul>
+                }
+
+
+
             </div>
 
         </div>

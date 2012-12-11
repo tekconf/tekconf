@@ -1,13 +1,14 @@
-﻿@helper SimpleLink(string url, string text)
+﻿@using TekConf.RemoteData.Dtos.v1
+@helper SimpleLink(string url, string text)
 {
     @: <a href="@url">@text</a>
 }
-        
+
 @helper PhoneLink(string phoneNumber)
 {
-    @: <a href="tel:@phoneNumber">@phoneNumber</a>    
+    @: <a href="tel:@phoneNumber">@phoneNumber</a>
 }
-        
+
 @helper TwitterUserLink(string twitterName)
 {
     
@@ -20,22 +21,55 @@
         }
 
         var url = "http://twitter.com/" + twitterUrlName;
-        @: @SimpleLink(url, twitterName)
+    @: @SimpleLink(url, twitterName)
+    }
+}
+
+@helper FormatAddress(AddressDto address)
+{
+    if (!string.IsNullOrWhiteSpace(address.City) && !string.IsNullOrWhiteSpace(address.State))
+    {
+        @: @address.City, @address.State
+    }
+    else if (!string.IsNullOrWhiteSpace(address.City) && !string.IsNullOrWhiteSpace(address.Country))
+    {
+        @: @address.City, @address.Country
+    }
+    else if (!string.IsNullOrWhiteSpace(address.City))
+    {
+        @: @address.City
+    }
+    else
+    {
+        @: No location set
     }
 }
 
 @helper FormatDateRange(DateTime startDate, DateTime endDate)
 {
-    if (startDate.Month == endDate.Month && startDate.Year == endDate.Year)
+    if (startDate == default(DateTime) || endDate == default(DateTime))
     {
-        @: @startDate.ToString("MMMM")<text> </text>@startDate.Day<text> - </text>@endDate.Day<text>, </text>@startDate.Year
+    @: No Date Set
+    }
+    else if (startDate.Month == endDate.Month && startDate.Year == endDate.Year)
+    {
+        // They begin and end in the same month
+        if (startDate.Date == endDate.Date)
+        {
+    @: @startDate.ToString("MMMM")<text> </text>@startDate.Day<text>, </text>@startDate.Year
+        }
+        else
+        {
+    @: @startDate.ToString("MMMM")<text> </text>@startDate.Day<text> - </text>@endDate.Day<text>, </text>@startDate.Year
+        }
     }
     else
     {
-        @: @startDate.ToShortDateString()<text> - </text>@endDate.ToShortDateString()<text>
+        // They begin and end in different months
+    @: @startDate.ToShortDateString()<text> - </text>@endDate.ToShortDateString()<text>
     }
 }
-            
+
 @helper FormatSessionTime(DateTime startDate, DateTime endDate)
 {    
     @: @startDate.ToString("MMMM")<text> </text>@startDate.Day @startDate.ToShortTimeString()<text> - </text>@endDate.ToShortTimeString()
