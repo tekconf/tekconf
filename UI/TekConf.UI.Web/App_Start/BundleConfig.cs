@@ -10,14 +10,14 @@ namespace TekConf.UI.Web
         {
             bundles.Add(new ScriptBundle("~/js/common")
                 .Include(
-                            "~/js/jquery-1.8.2.min.js",
+                            "~/Scripts/jquery-1.8.3.js",
                             "~/js/bootstrap.js"
                         )
             );
 
             bundles.Add(new ScriptBundle("~/js/commonLightbox")
                 .Include(
-                            "~/js/jquery-1.8.2.min.js",
+                            "~/Scripts/jquery-1.8.3.js",
                             "~/js/bootstrap.js",
                             "~/js/lightbox/jquery.lightbox.min.js"
                         )
@@ -25,15 +25,15 @@ namespace TekConf.UI.Web
 
             bundles.Add(new ScriptBundle("~/scripts/conferences/detail")
                 .Include(
-                            "~/Scripts/jquery-1.8.2.js",
-                            "~/Scripts/jquery-ui-1.9.0.js",
+                            "~/Scripts/jquery-1.8.3.js",
+                            "~/Scripts/jquery-ui-1.9.2.js",
                             "~/Scripts/jquery-ui-sliderAccess.js",
                             "~/Scripts/jquery-ui-timepicker-addon.js"
                         )
             );
             bundles.Add(new ScriptBundle("~/js/commonFaq")
                 .Include(
-                            "~/js/jquery-1.8.2.min.js",
+                            "~/Scripts/jquery-1.8.3.js",
                             "~/js/bootstrap.js",
                             "~/js/faq.js"
                         )
