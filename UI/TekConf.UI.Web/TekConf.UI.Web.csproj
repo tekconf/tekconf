@@ -1006,6 +1006,7 @@
     <Content Include="js\lightbox\themes\white-green\jquery.lightbox.css" />
     <Content Include="js\lightbox\themes\white-green\jquery.lightbox.ie6.css" />
     <Content Include="pricing.html" />
+    <Content Include="Scripts\Analytics.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="App_Code\HtmlHelpers.cshtml" />

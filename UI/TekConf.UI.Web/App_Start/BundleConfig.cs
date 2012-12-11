@@ -12,6 +12,7 @@ namespace TekConf.UI.Web
                 .Include(
                             "~/Scripts/jquery-1.8.3.js",
                             "~/js/bootstrap.js"
+                            
                         )
             );
 
