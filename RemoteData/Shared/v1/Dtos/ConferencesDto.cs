@@ -15,6 +15,7 @@ namespace TekConf.RemoteData.Dtos.v1
         public string imageUrl { get; set; }
         public DateTime registrationOpens { get; set; }
         public DateTime registrationCloses { get; set; }
+        public int numberOfSessions { get; set; }
         public string slug
         {
             get { return name.GenerateSlug(); }

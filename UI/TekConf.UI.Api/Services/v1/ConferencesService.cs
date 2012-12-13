@@ -119,6 +119,7 @@ namespace TekConf.UI.Api.Services.v1
                             address = c.address,
                             description = c.description,
                             imageUrl = c.imageUrl,
+                            sessions = c.sessions
                         })
                       .ToList();
                     conferencesDtos = Mapper.Map<List<ConferencesDto>>(conferences);

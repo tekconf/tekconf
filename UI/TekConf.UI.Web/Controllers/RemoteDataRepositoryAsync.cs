@@ -25,7 +25,10 @@ namespace TekConf.UI.Web.Controllers
             {
                 var t = new TaskCompletionSource<IList<ConferencesDto>>();
 
-                _repository.GetConferences(sortBy: sortBy, showPastConferences: showPastConferences, search: search, callback: c => t.TrySetResult(c));
+                _repository.GetConferences(sortBy: sortBy, 
+                                    showPastConferences: showPastConferences, 
+                                    search: search, 
+                                    callback: c => t.TrySetResult(c));
 
                 return t.Task;
             });

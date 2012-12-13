@@ -75,7 +75,7 @@ namespace TekConf.UI.Api
         public IEnumerable<SessionEntity> sessions
         {
             get { return _sessions.AsEnumerable(); }
-            private set 
+            set 
             { 
                 if (value == null)
                 {

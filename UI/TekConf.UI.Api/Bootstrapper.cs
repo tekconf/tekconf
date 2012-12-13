@@ -19,7 +19,8 @@ namespace TekConf.UI.Api
 
             Mapper.CreateMap<ConferenceEntity, ConferencesDto>()
                 .ForMember(dest => dest.url, opt => opt.Ignore())
-                .ForMember(dest => dest.imageUrl, opt => opt.ResolveUsing<ImageResolver>());
+                .ForMember(dest => dest.imageUrl, opt => opt.ResolveUsing<ImageResolver>())
+                .ForMember(dest => dest.numberOfSessions, opt => opt.ResolveUsing<SessionsCounterResolver>());
 
             Mapper.CreateMap<ConferenceEntity, ConferenceEntity>()
                 .ForMember(c => c._id, opt => opt.Ignore())
@@ -82,6 +83,14 @@ namespace TekConf.UI.Api
             Mapper.CreateMap<AddressEntity, AddressDto>();
         }
 
+    }
+
+    public class SessionsCounterResolver : ValueResolver<ConferenceEntity, int>
+    {
+        protected override int ResolveCore(ConferenceEntity source)
+        {            
+            return source.sessions.Count();
+        }
     }
 
     public class ConferenceResolver : ValueResolver<ScheduleEntity, string>
