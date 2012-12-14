@@ -248,7 +248,9 @@
     <Compile Include="Controllers\AdminSessionController.cs" />
     <Compile Include="Controllers\AdminSpeakerController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
+    <Compile Include="Controllers\OrganizersController.cs" />
     <Compile Include="Controllers\RemoteDataRepositoryAsync.cs" />
+    <Compile Include="Controllers\SpeakersController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="ViewModels\GravatarImage.cs" />
@@ -1087,6 +1089,8 @@
     <Content Include="Views\AdminSession\EditSession.cshtml" />
     <Content Include="Views\AdminSpeaker\EditSpeaker.cshtml" />
     <Content Include="Views\AdminConference\EditConferencesIndex.cshtml" />
+    <Content Include="Views\Speakers\Index.cshtml" />
+    <Content Include="Views\Organizers\Index.cshtml" />
     <None Include="Views\Web.Debug.config" />
     <None Include="Views\Web.Release.config" />
   </ItemGroup>
