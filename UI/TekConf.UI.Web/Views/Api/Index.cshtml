@@ -33,6 +33,7 @@
         <div class="inner">
             <div class="container">
                 <h1>Api Documentation</h1>
+                
             </div>
             <!-- /.container -->
         </div>
@@ -55,14 +56,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var documentation in Model)
+                            @*@foreach (var documentation in Model)
                             {
                                 <tr>
                                     <td>@Html.ActionLink(documentation.HttpMethod + documentation.Resource, "Detail")</td>
                                     <td>@documentation.Description</td>
                                 </tr>
                 
-                            }
+                            }*@
                         </tbody>
                     </table>
                 </div>
@@ -72,9 +73,8 @@
                     <div class="sidebar">
                         <h3><span class="slash">//</span> More Information</h3>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-              exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                           TekConf has a full api to its data.  This will be fully documented in the future. In the meantime, you 
+                may visit <a href="http://api.tekconf.com">http://api.tekconf.com</a> to explore the api.
                         </p>
                     </div>
                     <!-- /sidebar -->
@@ -97,18 +97,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>GET v1/conferences/
-                                </td>
-                                <td>Returns a list of all conferences
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>GET v1/conferences/&lt;conference_slug&gt;
-                                </td>
-                                <td>Returns a list of a single conference
-                                </td>
-                            </tr>
+                            
                         </tbody>
                     </table>
                 </div>
@@ -129,18 +118,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>GET v1/conferences/
-                                </td>
-                                <td>Returns a list of all conferences
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>GET v1/conferences/&lt;conference_slug&gt;
-                                </td>
-                                <td>Returns a list of a single conference
-                                </td>
-                            </tr>
+
                         </tbody>
                     </table>
                 </div>
