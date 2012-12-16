@@ -40,22 +40,22 @@ namespace UberImporter.Importers.CodeMash2013
                     conference = new ConferenceEntity()
                                          {
                                              //_id = Guid.NewGuid(),
+                                             start = new DateTime(2013, 1, 8),
+                                             end = new DateTime(2013, 1, 11),
                                              description =
                                                  @"CodeMash is a unique event that will educate developers on current practices, methodologies, and technology trends in a variety of platforms and development languages such as Java, .Net, Ruby, Python and PHP.",
-                                             end = new DateTime(2013, 1, 11),
                                              facebookUrl = "",
-                                             homepageUrl = "http://codestock.org",
-                                             imageUrl = "/img/conferences/CodeStock.png",
+                                             homepageUrl = "http://codemash.org",
+                                             imageUrl = "/img/conferences/CodeMash-2013.png",
                                              lanyrdUrl = "",
-                                             location = "Knoxville, TN",
+                                             location = "Sandusky, OH",
                                              meetupUrl = "",
-                                             name = "CodeStock",
+                                             name = "CodeMash 2013",
                                              //sessions = new List<SessionEntity>(),
                                              //slug = "CodeStock-2012",
-                                             start = new DateTime(2013, 1, 8),
-                                             tagLine = "Gathered together from the cosmic reaches of the universe...",
-                                             twitterHashTag = "#codeStock",
-                                             twitterName = "@codeStock",
+                                             tagLine = "Get Your Gears On",
+                                             twitterHashTag = "#codemash",
+                                             twitterName = "@codemash",
 
                                          };
                 }
@@ -71,10 +71,10 @@ namespace UberImporter.Importers.CodeMash2013
                     {
                         _id = Guid.NewGuid(),
                         description = session.Abstract,
-                        start = DateTime.MinValue, //session.StartTime,
-                        end = DateTime.MinValue, //session.EndTime,
+                        start = session.Start == default(DateTime) ? conference.start : session.Start.AddHours(-5),
+                        end = session.End == default(DateTime) ? session.Start.AddHours(1) : session.End.AddHours(-5),
                         title = session.Title,
-                        room = "", //session.Room,
+                        room = session.Room,
                         slug = session.Title.GenerateSlug(),
                         twitterHashTag = "#ms-" + session.Title.ToLower().Trim().Replace(" ", "-").SafeSubstring(0, 10),
                         subjects = new List<string>() { },
@@ -153,8 +153,10 @@ namespace UberImporter.Importers.CodeMash2013
         public string EventType { get; set; }
         public string SessionLookupId { get; set; }
         public string SpeakerURI { get; set; }
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
 
-
+        public string Room { get; set; }
     }
 
     public class speakersRoot
