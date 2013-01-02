@@ -101,8 +101,8 @@ namespace TekConf.UI.iPhone
 						
 						Repository.AddSessionToSchedule (conferenceSlug: NavigationItems.ConferenceSlug,
 						                                 sessionSlug : _sessionSlug,
-						                                 authenticationMethod: "Facebook", 
-						                                 authenticationToken: facebookAccount.Username, 
+						                                 password: "password", 
+						                                 userName: facebookAccount.Username, 
 						                                 callback: schedule => 
 						                                 { 	
 							InvokeOnMainThread (() => 

@@ -82,7 +82,12 @@ namespace TekConf.UI.iPhone
 							loading.AddSubview (indicator);
 						});
 
-						Repository.GetSchedule (conferenceSlug: NavigationItems.ConferenceSlug, authenticationMethod: "Facebook", authenticationToken: facebookAccount.Username, callback: schedule => 
+						Repository.GetSchedule (conferenceSlug: NavigationItems.ConferenceSlug, 
+						                        authenticationMethod: "Facebook", 
+						                        authenticationToken: facebookAccount.Username, 
+						                        userName:facebookAccount.Username,
+						                        password:"password",
+						                        callback: schedule => 
 						{ 
 							if (schedule != null) {
 								var rootElement = new RootElement ("Schedule"){ new Section() };

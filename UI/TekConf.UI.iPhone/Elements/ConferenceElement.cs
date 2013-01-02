@@ -39,7 +39,7 @@ namespace TekConf.UI.iPhone
 			_cell.DetailTextLabel.Font = BaseUIViewController.DescriptionFont;
 
 			if (!string.IsNullOrWhiteSpace (_conference.imageUrl) && !_conference.imageUrl.Contains("DefaultConference.png")) {
-				var logo = ImageLoader.DefaultRequestImage (new Uri ("http://www.tekconf.com" + _conference.imageUrl), this);
+				var logo = ImageLoader.DefaultRequestImage (new Uri (_conference.imageUrl), this);
 				if (logo == null) {
 
 					_cell.ImageView.Image = _defaultImage;

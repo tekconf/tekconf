@@ -92,8 +92,8 @@ namespace TekConf.UI.iPhone
 						
 						Repository.AddSessionToSchedule (conferenceSlug: NavigationItems.ConferenceSlug,
 						                                 sessionSlug : string.Empty,
-						                                 authenticationMethod: "Facebook", 
-						                                 authenticationToken: facebookAccount.Username, 
+						                                 userName: facebookAccount.Username, 
+						                                 password: "password",
 						                                 callback: schedule => 
 						{ 	
 							InvokeOnMainThread (() => 
@@ -145,7 +145,7 @@ namespace TekConf.UI.iPhone
 					{ 
 						if (conference != null) {
 							if (!string.IsNullOrWhiteSpace (conference.imageUrl)) {
-								var logo = ImageLoader.DefaultRequestImage (new Uri ("http://www.tekconf.com" + conference.imageUrl), this);
+								var logo = ImageLoader.DefaultRequestImage (new Uri (conference.imageUrl), this);
 								if (logo == null) {
 									logoImage.Image = UIImage.FromBundle (@"images/DefaultConference");
 								} else {

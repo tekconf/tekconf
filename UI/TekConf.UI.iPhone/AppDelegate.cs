@@ -80,7 +80,8 @@ namespace TekConf.UI.iPhone
 		private ACAccountStore _accountStore;
 		private string AppId = "417883241605228";
 
-		private string _baseUrl = "http://api.tekconf.com";
+		//private string _baseUrl = "http://api.tekconf.com";
+		private string _baseUrl = "http://192.168.1.116/TekConf.UI.Api";
 		private RemoteDataRepository _client;
 		private RemoteDataRepository Repository
 		{
@@ -149,8 +150,13 @@ namespace TekConf.UI.iPhone
 						var facebookAccount = _accountStore.FindAccounts (accountType).First ();
 						var oAuthToken = facebookAccount.Credential.OAuthToken;
 
+						//TODO : Don't hardcode password
+						Repository.Register("Facebook", facebookAccount.Username, facebookAccount.Identifier, "password", facebookAccount.Username);
+
 						Repository.GetSchedules (authenticationMethod: "Facebook", 
 						                                 authenticationToken: facebookAccount.Username, 
+						                         		userName:facebookAccount.Username,
+					                         			password:"password",
 						                                 callback: schedules => 
 						{ 	
 							InvokeOnMainThread (() => 
