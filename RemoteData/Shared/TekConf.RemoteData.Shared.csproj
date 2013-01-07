@@ -38,6 +38,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\ServiceStack.Common.3.9.28\lib\net35\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
+    <Reference Include="ServiceStack.ServiceInterface">
+      <HintPath>..\..\packages\ServiceStack.3.9.28\lib\net35\ServiceStack.ServiceInterface.dll</HintPath>
+    </Reference>
     <Reference Include="ServiceStack.Text, Version=3.9.28.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\ServiceStack.Text.3.9.29\lib\net35\ServiceStack.Text.dll</HintPath>

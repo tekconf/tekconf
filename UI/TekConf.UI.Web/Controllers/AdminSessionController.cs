@@ -2,6 +2,7 @@ using System.Configuration;
 using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
+using ServiceStack.ServiceInterface;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.RemoteData.v1;
 using TekConf.UI.Api.Services.Requests.v1;
@@ -51,8 +52,8 @@ namespace TekConf.UI.Web.Controllers
             var repository = new RemoteDataRepository(baseUrl);
 
             AsyncManager.OutstandingOperations.Increment();
-
-            repository.AddSessionToConference(session, c =>
+					
+            repository.AddSessionToConference(session, "user", "password", c =>
                                                            {
                                                                AsyncManager.Parameters["session"] = c;
                                                                AsyncManager.OutstandingOperations.Decrement();
@@ -99,7 +100,7 @@ namespace TekConf.UI.Web.Controllers
 
             AsyncManager.OutstandingOperations.Increment();
 
-            repository.EditSessionInConference(session, c =>
+						repository.EditSessionInConference(session, "user", "password", c =>
                                                             {
                                                                 AsyncManager.Parameters["session"] = c;
                                                                 AsyncManager.OutstandingOperations.Decrement();
