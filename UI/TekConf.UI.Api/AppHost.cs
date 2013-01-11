@@ -92,7 +92,7 @@ namespace TekConf.UI.Api
 
 			var serverSettings = new MongoServerSettings()
 				{
-					Server = new MongoServerAddress("localhost"),
+					Server = new MongoServerAddress("tekconfdb.cloudapp.net"), //TODO
 				};
 			var server = new MongoServer(serverSettings);
 			var databaseSettings = new MongoDatabaseSettings(server, "tekconf");
