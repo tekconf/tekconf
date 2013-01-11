@@ -118,7 +118,7 @@
     </Reference>
     <Reference Include="ServiceStack.Authentication.MongoDB, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\ServiceStack.Contrib\src\ServiceStack.Authentication.MongoDB\bin\Release\ServiceStack.Authentication.MongoDB.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.Authentication.MongoDB.local\ServiceStack.Authentication.MongoDB.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Common, Version=3.9.33.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
