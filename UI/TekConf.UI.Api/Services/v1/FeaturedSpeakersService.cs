@@ -10,40 +10,39 @@ using ServiceStack.ServiceHost;
 
 namespace TekConf.UI.Api.Services.v1
 {
-    public class FeaturedSpeakersService : MongoServiceBase
-    {
-        public ICacheClient CacheClient { get; set; }
+	public class FeaturedSpeakersService : MongoServiceBase
+	{
+		public ICacheClient CacheClient { get; set; }
 
-        public object Get(FeaturedSpeakers request)
-        {
-            return GetFeaturedSpeakers(request);
-        }
+		public object Get(FeaturedSpeakers request)
+		{
+			return GetFeaturedSpeakers(request);
+		}
 
-        private object GetFeaturedSpeakers(FeaturedSpeakers request)
-        {
-            var cacheKey = "GetFeaturedSpeakers";
-            var expireInTimespan = new TimeSpan(0, 0, 120);
-            return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
-            {
-                var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
+		private object GetFeaturedSpeakers(FeaturedSpeakers request)
+		{
+			var cacheKey = "GetFeaturedSpeakers";
+			var expireInTimespan = new TimeSpan(0, 0, 120);
+			return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
+			{
+				var repository = new ConferenceRepository(new Configuration());
+				var featuredSpeakers = repository
+																.AsQueryable()
+																.Where(c => c.isLive)
+																.ToList()
+																.Where(c => c.sessions != null)
+																.SelectMany(c => c.sessions)
+																.Where(s => s.speakers != null)
+																.SelectMany(s => s.speakers)
+																.Where(s => s.isFeatured)
+																.Where(s => !string.IsNullOrWhiteSpace(s.description))
+																.Distinct()
+																.Take(3);
 
-                var featuredSpeakers = collection
-                                        .AsQueryable()
-                                        .Where(c => c.isLive)
-                                        .ToList()
-                                        .Where(c => c.sessions != null)
-                                        .SelectMany(c => c.sessions)
-                                        .Where(s => s.speakers != null)
-                                        .SelectMany(s => s.speakers)
-                                        .Where(s => s.isFeatured)
-                                        .Where(s => !string.IsNullOrWhiteSpace(s.description))
-                                        .Distinct()
-                                        .Take(3);
+				var speakersDto = Mapper.Map<List<FullSpeakerDto>>(featuredSpeakers);
+				return speakersDto.ToList();
+			});
 
-                var speakersDto = Mapper.Map<List<FullSpeakerDto>>(featuredSpeakers);
-                return speakersDto.ToList();
-            });
-
-        }
-    }
+		}
+	}
 }

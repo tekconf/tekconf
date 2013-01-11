@@ -3,176 +3,183 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using AutoMapper;
-using FluentMongo.Linq;
+using MongoDB.Bson.Serialization;
 using TekConf.RemoteData.Dtos.v1;
-using TekConf.UI.Api.Services;
 using TekConf.UI.Api.Services.Requests.v1;
+using TinyMessenger;
 
 namespace TekConf.UI.Api
 {
-    public class Bootstrapper
-    {
-        public void BootstrapAutomapper()
-        {
-            Mapper.AddFormatter<TrimmingFormatter>();
+	public class Bootstrapper
+	{
+		public void BootstrapMongoDb(Funq.Container container)
+		{
+			var hub = container.Resolve<ITinyMessengerHub>();
+
+			var repository = new ConferenceRepository(new Configuration());
+			BsonClassMap.RegisterClassMap<ConferenceEntity>()
+				.SetCreator(() => new ConferenceEntity(hub, repository));
+		}
+
+		public void BootstrapAutomapper()
+		{
+			Mapper.AddFormatter<TrimmingFormatter>();
 
 
-            Mapper.CreateMap<ConferenceEntity, ConferencesDto>()
-                .ForMember(dest => dest.url, opt => opt.Ignore())
-                .ForMember(dest => dest.imageUrl, opt => opt.ResolveUsing<ImageResolver>())
-                .ForMember(dest => dest.numberOfSessions, opt => opt.ResolveUsing<SessionsCounterResolver>());
+			Mapper.CreateMap<ConferenceEntity, ConferencesDto>()
+					.ForMember(dest => dest.url, opt => opt.Ignore())
+					.ForMember(dest => dest.imageUrl, opt => opt.ResolveUsing<ImageResolver>())
+					.ForMember(dest => dest.numberOfSessions, opt => opt.ResolveUsing<SessionsCounterResolver>());
 
-            Mapper.CreateMap<ConferenceEntity, ConferenceEntity>()
-                .ForMember(c => c._id, opt => opt.Ignore())
-                .ForMember(dest => dest.imageUrl, opt => opt.ResolveUsing<ImageResolver>());
+			Mapper.CreateMap<ConferenceEntity, ConferenceEntity>()
+					.ForMember(c => c._id, opt => opt.Ignore())
+					.ForMember(dest => dest.imageUrl, opt => opt.ResolveUsing<ImageResolver>());
 
-            Mapper.CreateMap<ConferenceEntity, ConferenceDto>()
-                .ForMember(dest => dest.url, opt => opt.Ignore())
-                .ForMember(dest => dest.sessionsUrl, opt => opt.Ignore())
-                .ForMember(dest => dest.speakersUrl, opt => opt.Ignore());
-            
-            Mapper.CreateMap<ConferenceEntity, FullConferenceDto>()
-                .ForMember(dest => dest.imageUrl, opt => opt.ResolveUsing<ImageResolver>());
-            
-            Mapper.CreateMap<SessionEntity, SessionsDto>()
-                .ForMember(dest => dest.url, opt => opt.Ignore());
+			Mapper.CreateMap<ConferenceEntity, ConferenceDto>()
+					.ForMember(dest => dest.url, opt => opt.Ignore())
+					.ForMember(dest => dest.sessionsUrl, opt => opt.Ignore())
+					.ForMember(dest => dest.speakersUrl, opt => opt.Ignore());
 
-            Mapper.CreateMap<SessionEntity, SessionDto>()
-                .ForMember(dest => dest.url, opt => opt.Ignore())
-                .ForMember(dest => dest.speakersUrl, opt => opt.Ignore());
+			Mapper.CreateMap<ConferenceEntity, FullConferenceDto>()
+					.ForMember(dest => dest.imageUrl, opt => opt.ResolveUsing<ImageResolver>());
 
-            Mapper.CreateMap<SessionEntity, FullSessionDto>();
+			Mapper.CreateMap<SessionEntity, SessionsDto>()
+					.ForMember(dest => dest.url, opt => opt.Ignore());
 
-            Mapper.CreateMap<SpeakerEntity, SpeakersDto>()
-                .ForMember(dest => dest.url, opt => opt.Ignore());
+			Mapper.CreateMap<SessionEntity, SessionDto>()
+					.ForMember(dest => dest.url, opt => opt.Ignore())
+					.ForMember(dest => dest.speakersUrl, opt => opt.Ignore());
 
-            Mapper.CreateMap<AddSession, SessionEntity>()
-                .ForMember(s => s._id, opt => opt.UseValue(Guid.NewGuid()))
-                .ForMember(s => s.speakers, opt => opt.UseValue(new List<SpeakerEntity>()))
-                ;
+			Mapper.CreateMap<SessionEntity, FullSessionDto>();
 
-            Mapper.CreateMap<User, UserEntity>()
-                .ForMember(u => u._id, opt => opt.UseValue(Guid.NewGuid()));
+			Mapper.CreateMap<SpeakerEntity, SpeakersDto>()
+					.ForMember(dest => dest.url, opt => opt.Ignore());
 
-            Mapper.CreateMap<CreateConference, ConferenceEntity>()
-                .ForMember(c => c._id, opt => opt.Ignore())
-                //.ForMember(c => c.sessions, opt => opt.UseValue(new List<SessionEntity>()))
-                ;
+			Mapper.CreateMap<AddSession, SessionEntity>()
+					.ForMember(s => s._id, opt => opt.UseValue(Guid.NewGuid()))
+					.ForMember(s => s.speakers, opt => opt.UseValue(new List<SpeakerEntity>()))
+					;
 
-            Mapper.CreateMap<CreateSpeaker, SpeakerEntity>()
-                .ForMember(c => c._id, opt => opt.UseValue(Guid.NewGuid()))
-                ;
+			Mapper.CreateMap<User, UserEntity>()
+					.ForMember(u => u._id, opt => opt.UseValue(Guid.NewGuid()));
 
-            //Mapper.CreateMap<AddSessionToSchedule, Sch>()
-            Mapper.CreateMap<SpeakerEntity, SpeakerDto>();
+			Mapper.CreateMap<CreateConference, ConferenceEntity>()
+					.ForMember(c => c._id, opt => opt.Ignore())
+				//.ForMember(c => c.sessions, opt => opt.UseValue(new List<SessionEntity>()))
+					;
 
-            Mapper.CreateMap<SpeakerEntity, FullSpeakerDto>();
+			Mapper.CreateMap<CreateSpeaker, SpeakerEntity>()
+					.ForMember(c => c._id, opt => opt.UseValue(Guid.NewGuid()))
+					;
 
-            Mapper.CreateMap<ScheduleEntity, ScheduleDto>()
-                .ForMember(dto => dto.conferenceSlug, opt=> opt.MapFrom(entity => entity.ConferenceSlug))
-                .ForMember(dto => dto.sessions, opt => opt.ResolveUsing<ScheduleSessionResolver>())
-                ;
 
-            Mapper.CreateMap<ScheduleEntity, SchedulesDto>()
-                .ForMember(dto => dto.conferenceSlug, opt => opt.MapFrom(entity => entity.ConferenceSlug))
-                .ForMember(dto => dto.conferenceName, opt => opt.ResolveUsing<ConferenceResolver>())
-                ;
+			Mapper.CreateMap<SpeakerEntity, SpeakerDto>();
 
-            Mapper.CreateMap<AddressEntity, Address>();
-            Mapper.CreateMap<Address, AddressEntity>();
-            Mapper.CreateMap<AddressEntity, AddressDto>();
-        }
+			Mapper.CreateMap<SpeakerEntity, FullSpeakerDto>();
 
-    }
+			Mapper.CreateMap<ScheduleEntity, ScheduleDto>()
+					.ForMember(dto => dto.conferenceSlug, opt => opt.MapFrom(entity => entity.ConferenceSlug))
+					.ForMember(dto => dto.sessions, opt => opt.ResolveUsing<ScheduleSessionResolver>())
+					;
 
-    public class SessionsCounterResolver : ValueResolver<ConferenceEntity, int>
-    {
-        protected override int ResolveCore(ConferenceEntity source)
-        {            
-            return source.sessions.Count();
-        }
-    }
+			Mapper.CreateMap<ScheduleEntity, SchedulesDto>()
+					.ForMember(dto => dto.conferenceSlug, opt => opt.MapFrom(entity => entity.ConferenceSlug))
+					.ForMember(dto => dto.conferenceName, opt => opt.ResolveUsing<ConferenceResolver>())
+					;
 
-    public class ConferenceResolver : ValueResolver<ScheduleEntity, string>
-    {
-        protected override string ResolveCore(ScheduleEntity source)
-        {
-            var conferenceName = string.Empty;
+			Mapper.CreateMap<AddressEntity, Address>();
+			Mapper.CreateMap<Address, AddressEntity>();
+			Mapper.CreateMap<AddressEntity, AddressDto>();
+		}
 
-            var mongo = new MongoServiceBase();
+	}
 
-            var conference = mongo.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
-                            .AsQueryable()
-                            .SingleOrDefault(c => c.slug.ToLower() == source.ConferenceSlug.ToLower());
-            if (conference != null)
-            {
-                conferenceName = conference.name;
-            }
+	public class SessionsCounterResolver : ValueResolver<ConferenceEntity, int>
+	{
+		protected override int ResolveCore(ConferenceEntity source)
+		{
+			return source.sessions.Count();
+		}
+	}
 
-            return conferenceName;
-        }
-    }
-    public class ScheduleSessionResolver : ValueResolver<ScheduleEntity, List<FullSessionDto>>
-    {
-        protected override List<FullSessionDto> ResolveCore(ScheduleEntity source)
-        {
-            var sessions = new List<FullSessionDto>();
-      
-            var mongo = new MongoServiceBase();
+	public class ConferenceResolver : ValueResolver<ScheduleEntity, string>
+	{
+		protected override string ResolveCore(ScheduleEntity source)
+		{
+			var conferenceName = string.Empty;
 
-            var conference = mongo.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
-                            .AsQueryable()
-                            .SingleOrDefault(c => c.slug.ToLower() == source.ConferenceSlug.ToLower());
+			var repository = new ConferenceRepository(new Configuration());
+			var conference = repository
+											.AsQueryable()
+											.SingleOrDefault(c => c.slug.ToLower() == source.ConferenceSlug.ToLower());
+			if (conference != null)
+			{
+				conferenceName = conference.name;
+			}
 
-            foreach (var sessionSlug in source.SessionSlugs)
-            {
-                var session = conference.sessions.Where(c => c.slug == sessionSlug).SingleOrDefault();
-                var sessionDto = Mapper.Map<FullSessionDto>(session);
-                sessions.Add(sessionDto);
-            }
+			return conferenceName;
+		}
+	}
+	public class ScheduleSessionResolver : ValueResolver<ScheduleEntity, List<FullSessionDto>>
+	{
+		protected override List<FullSessionDto> ResolveCore(ScheduleEntity source)
+		{
+			var sessions = new List<FullSessionDto>();
 
-            return sessions;
-        }
-    }
+			var repository = new ConferenceRepository(new Configuration());
+			var conference = repository
+											.AsQueryable()
+											.SingleOrDefault(c => c.slug.ToLower() == source.ConferenceSlug.ToLower());
 
-    public class ImageResolver : ValueResolver<ConferenceEntity, string>
-    {
-        protected override string ResolveCore(ConferenceEntity source)
-        {
-            var webUrl = ConfigurationManager.AppSettings["webUrl"];
+			foreach (var sessionSlug in source.SessionSlugs)
+			{
+				var session = conference.sessions.Where(c => c.slug == sessionSlug).SingleOrDefault();
+				var sessionDto = Mapper.Map<FullSessionDto>(session);
+				sessions.Add(sessionDto);
+			}
 
-            if (string.IsNullOrWhiteSpace(source.imageUrl))
-            {
-                return webUrl + "/img/conferences/DefaultConference.png";
-            }
-            return webUrl + source.imageUrl;
-        }
-    }
-    public class TrimmingFormatter : BaseFormatter<string>
-    {
-        protected override string FormatValueCore(string value)
-        {
-            return value.Trim();
-        }
-    }
+			return sessions;
+		}
+	}
 
-    public abstract class BaseFormatter<T> : IValueFormatter
-    {
-        public string FormatValue(ResolutionContext context)
-        {
-            if (context.SourceValue == null)
-            {
-                return null;
-            }
+	public class ImageResolver : ValueResolver<ConferenceEntity, string>
+	{
+		protected override string ResolveCore(ConferenceEntity source)
+		{
+			var webUrl = ConfigurationManager.AppSettings["webUrl"];
 
-            if (!(context.SourceValue is T))
-            {
-                return context.SourceValue == null ? String.Empty : context.SourceValue.ToString();
-            }
+			if (string.IsNullOrWhiteSpace(source.imageUrl))
+			{
+				return webUrl + "/img/conferences/DefaultConference.png";
+			}
+			return webUrl + source.imageUrl;
+		}
+	}
+	public class TrimmingFormatter : BaseFormatter<string>
+	{
+		protected override string FormatValueCore(string value)
+		{
+			return value.Trim();
+		}
+	}
 
-            return FormatValueCore((T)context.SourceValue);
-        }
+	public abstract class BaseFormatter<T> : IValueFormatter
+	{
+		public string FormatValue(ResolutionContext context)
+		{
+			if (context.SourceValue == null)
+			{
+				return null;
+			}
 
-        protected abstract string FormatValueCore(T value);
-    }
+			if (!(context.SourceValue is T))
+			{
+				return context.SourceValue == null ? String.Empty : context.SourceValue.ToString();
+			}
+
+			return FormatValueCore((T)context.SourceValue);
+		}
+
+		protected abstract string FormatValueCore(T value);
+	}
 }

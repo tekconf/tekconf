@@ -47,10 +47,9 @@ namespace TekConf.UI.Api.v1
                                    SessionSlugs = new List<string>(),
                                };
             }
-            var conferenceCollection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
-
+						var repository = new ConferenceRepository(new Configuration());
             var conference =
-                conferenceCollection.AsQueryable()
+                repository.AsQueryable()
                 .SingleOrDefault(c => c.slug == request.conferenceSlug);
 
             if (conference != null)

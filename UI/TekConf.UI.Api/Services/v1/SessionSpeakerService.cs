@@ -12,59 +12,59 @@ using ServiceStack.ServiceHost;
 
 namespace TekConf.UI.Api.Services.v1
 {
-    public class SessionSpeakerService : MongoServiceBase
-    {
-        public ICacheClient CacheClient { get; set; }
+	public class SessionSpeakerService : MongoServiceBase
+	{
+		public ICacheClient CacheClient { get; set; }
 
-        public object Get(SessionSpeaker request)
-        {
-            if (request.conferenceSlug == default(string))
-            {
-                throw new HttpError() { StatusCode = HttpStatusCode.BadRequest };
-            }
+		public object Get(SessionSpeaker request)
+		{
+			if (request.conferenceSlug == default(string))
+			{
+				throw new HttpError() { StatusCode = HttpStatusCode.BadRequest };
+			}
 
-            if (request.sessionSlug == default(string))
-            {
-                throw new HttpError() { StatusCode = HttpStatusCode.BadRequest };
-            }
+			if (request.sessionSlug == default(string))
+			{
+				throw new HttpError() { StatusCode = HttpStatusCode.BadRequest };
+			}
+			var repository = new ConferenceRepository(new Configuration());
+			var conference = repository
+					.AsQueryable()
+				//.Where(c => c.isLive)
+					.SingleOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
 
-            var conference = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
-                .AsQueryable()
-                //.Where(c => c.isLive)
-                .SingleOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
+			if (conference == null)
+			{
+				throw new HttpError() { StatusCode = HttpStatusCode.NotFound };
+			}
 
-            if (conference == null)
-            {
-                throw new HttpError() { StatusCode = HttpStatusCode.NotFound };
-            }
+			var session = conference.sessions.SingleOrDefault(s => s.slug.ToLower() == request.sessionSlug.ToLower());
 
-            var session = conference.sessions.SingleOrDefault(s => s.slug.ToLower() == request.sessionSlug.ToLower());
+			if (session == null)
+			{
+				throw new HttpError() { StatusCode = HttpStatusCode.NotFound };
+			}
 
-            if (session == null)
-            {
-                throw new HttpError() { StatusCode = HttpStatusCode.NotFound };
-            }
+			return GetSingleSpeaker(request, session);
+		}
 
-            return GetSingleSpeaker(request, session);
-        }
+		private object GetSingleSpeaker(SessionSpeaker request, SessionEntity session)
+		{
+			var cacheKey = "GetSingleSpeaker-" + request.conferenceSlug + "-" + request.sessionSlug + "-" + request.speakerSlug;
+			var expireInTimespan = new TimeSpan(0, 0, 120);
+			return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
+																																																							 {
+																																																								 var speaker = session.speakers.FirstOrDefault(s => s.slug.ToLower() == request.speakerSlug.ToLower());
 
-        private object GetSingleSpeaker(SessionSpeaker request, SessionEntity session)
-        {
-            var cacheKey = "GetSingleSpeaker-" + request.conferenceSlug + "-" + request.sessionSlug + "-" + request.speakerSlug;
-            var expireInTimespan = new TimeSpan(0, 0, 120);
-            return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
-                                                                                                                     {
-                                                                                                                         var speaker = session.speakers.FirstOrDefault(s => s.slug.ToLower() == request.speakerSlug.ToLower());
-
-                                                                                                                         var speakerDto = Mapper.Map<SpeakerEntity, SpeakerDto>(speaker);
-                                                                                                                         var resolver = new SpeakerUrlResolver(request.conferenceSlug, request.sessionSlug, speakerDto.url);
-                                                                                                                         speakerDto.url = resolver.ResolveUrl();
-                                                                                                                         return speakerDto;
-                                                                                                                     });
-
-
-        }
+																																																								 var speakerDto = Mapper.Map<SpeakerEntity, SpeakerDto>(speaker);
+																																																								 var resolver = new SpeakerUrlResolver(request.conferenceSlug, request.sessionSlug, speakerDto.url);
+																																																								 speakerDto.url = resolver.ResolveUrl();
+																																																								 return speakerDto;
+																																																							 });
 
 
-    }
+		}
+
+
+	}
 }

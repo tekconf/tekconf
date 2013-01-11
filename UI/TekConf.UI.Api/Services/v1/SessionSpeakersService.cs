@@ -13,59 +13,59 @@ using ServiceStack.ServiceHost;
 
 namespace TekConf.UI.Api.Services.v1
 {
-    public class SessionSpeakersService : MongoServiceBase
-    {
-        public ICacheClient CacheClient { get; set; }
+	public class SessionSpeakersService : MongoServiceBase
+	{
+		public ICacheClient CacheClient { get; set; }
 
-        public object Get(SessionSpeakers request)
-        {
-            if (request.conferenceSlug == default(string))
-            {
-                throw new HttpError() { StatusCode = HttpStatusCode.BadRequest };
-            }
+		public object Get(SessionSpeakers request)
+		{
+			if (request.conferenceSlug == default(string))
+			{
+				throw new HttpError() { StatusCode = HttpStatusCode.BadRequest };
+			}
 
-            if (request.sessionSlug == default(string))
-            {
-                throw new HttpError() { StatusCode = HttpStatusCode.BadRequest };
-            }
+			if (request.sessionSlug == default(string))
+			{
+				throw new HttpError() { StatusCode = HttpStatusCode.BadRequest };
+			}
+			var repository = new ConferenceRepository(new Configuration());
+			var conference = repository
+				.AsQueryable()
+				//.Where(c => c.isLive)
+				.SingleOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
 
-            var conference = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
-              .AsQueryable()
-              //.Where(c => c.isLive)
-              .SingleOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
+			if (conference == null)
+			{
+				throw new HttpError() { StatusCode = HttpStatusCode.NotFound };
+			}
 
-            if (conference == null)
-            {
-                throw new HttpError() { StatusCode = HttpStatusCode.NotFound };
-            }
+			var session = conference.sessions.SingleOrDefault(s => s.slug.ToLower() == request.sessionSlug.ToLower());
 
-            var session = conference.sessions.SingleOrDefault(s => s.slug.ToLower() == request.sessionSlug.ToLower());
-
-            if (session == null)
-            {
-                throw new HttpError() { StatusCode = HttpStatusCode.NotFound };
-            }
+			if (session == null)
+			{
+				throw new HttpError() { StatusCode = HttpStatusCode.NotFound };
+			}
 
 
-            return GetAllSpeakers(request, session);
+			return GetAllSpeakers(request, session);
 
-        }
+		}
 
-        private object GetAllSpeakers(SessionSpeakers request, SessionEntity session)
-        {
-            var cacheKey = "GetAllSpeakers-" + request.conferenceSlug + "-" + request.sessionSlug;
-            var expireInTimespan = new TimeSpan(0, 0, 120);
-            return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
-            {
-                var speakersDtos = Mapper.Map<List<SpeakerEntity>, List<SpeakersDto>>(session.speakers);
-                var resolver = new SpeakersUrlResolver(request.conferenceSlug, request.sessionSlug);
-                foreach (var speakersDto in speakersDtos)
-                {
-                    speakersDto.url = resolver.ResolveUrl(speakersDto.slug);
-                }
-                return speakersDtos.ToList();
-            });
+		private object GetAllSpeakers(SessionSpeakers request, SessionEntity session)
+		{
+			var cacheKey = "GetAllSpeakers-" + request.conferenceSlug + "-" + request.sessionSlug;
+			var expireInTimespan = new TimeSpan(0, 0, 120);
+			return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
+			{
+				var speakersDtos = Mapper.Map<IEnumerable<SpeakerEntity>, IEnumerable<SpeakersDto>>(session.speakers);
+				var resolver = new SpeakersUrlResolver(request.conferenceSlug, request.sessionSlug);
+				foreach (var speakersDto in speakersDtos)
+				{
+					speakersDto.url = resolver.ResolveUrl(speakersDto.slug);
+				}
+				return speakersDtos.ToList();
+			});
 
-        }
-    }
+		}
+	}
 }

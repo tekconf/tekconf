@@ -3,98 +3,192 @@ using System.Collections.Generic;
 using System.Linq;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.IdGenerators;
-using MongoDB.Driver;
 using TekConf.Common.Entities;
 using TinyMessenger;
 
 namespace TekConf.UI.Api
 {
-    public class ConferenceEntity
-    {
-        [BsonIgnore]
-        public ITinyMessengerHub Hub { get; set; }
+	public class ConferenceEntity
+	{
+		private readonly ITinyMessengerHub _hub;
+		private readonly IRepository<ConferenceEntity> _repository;
 
-        private IList<SessionEntity> _sessions = new List<SessionEntity>();
-        
-        public void Publish()
-        {
-            this.datePublished = DateTime.Now;
-            this.isLive = true;
+		public ConferenceEntity(ITinyMessengerHub hub, IRepository<ConferenceEntity> repository)
+		{
+			_hub = hub;
+			_repository = repository;
+		}
 
-            this.Hub.Publish(new ConferencePublished());
-        }
 
-        public void AddSession(SessionEntity session)
-        {
-            if (_sessions == null)
-            {
-                _sessions = new List<SessionEntity>();
-            }
-            this.Hub.Publish(new SessionAdded());
-            _sessions.Add(session);
-        }
+		public void Save()
+		{
+			if (!this.isSaved)
+			{
+				if (_id == default(Guid))
+				{
+					_id = Guid.NewGuid();
+				}
+				slug = name.GenerateSlug();
+				dateAdded = DateTime.Now;
+				isSaved = true;
+			}
+			_repository.Save(this);
+			_hub.Publish(new ConferenceSavedMessage() { ConferenceSlug = this.slug });
+		}
 
-        public void Save(MongoCollection<ConferenceEntity> collection)
-        {
-            if (!this.isSaved)
-            {
-                if (_id == default(Guid))
-                {
-                    _id = Guid.NewGuid();                    
-                }
-                slug = name.GenerateSlug();
-                dateAdded = DateTime.Now;
-                isSaved = true;
-            }
-            collection.Save(this);
-        }
+		public void Publish()
+		{
+			this.datePublished = DateTime.Now;
+			this.isLive = true;
 
-        [BsonId(IdGenerator = typeof(CombGuidGenerator))]
-        public Guid _id { get; private set; }
-        public bool isLive { get; private set; }
-        public string slug { get; set; }
-        public DateTime datePublished { get; private set; }
-        public bool isSaved { get; private set; }
+			_hub.Publish(new ConferencePublishedMessage());
+		}
 
-        public string name { get; set; }
-        public DateTime start { get; set; }
-        public DateTime end { get; set; }
-        public DateTime callForSpeakersOpens { get; set; }
-        public DateTime callForSpeakersCloses { get; set; }
-        public DateTime registrationOpens { get; set; }
-        public DateTime registrationCloses { get; set; }
-        public DateTime dateAdded { get; set; }
+		public void AddSession(SessionEntity session)
+		{
+			if (_sessions == null)
+			{
+				_sessions = new List<SessionEntity>();
+			}
 
-        public string location { get; set; }
-        public AddressEntity address { get; set; }
-        public string description { get; set; }
+			session.RoomChanged += SessionRoomChangedHandler;
 
-        public string imageUrl { get; set; }
-        public string tagLine { get; set; }
+			_sessions.Add(session);
+			_hub.Publish(new SessionAddedMessage());
+		}
 
-        public IEnumerable<SessionEntity> sessions
-        {
-            get { return _sessions.AsEnumerable(); }
-            set 
-            { 
-                if (value == null)
-                {
-                    value = new List<SessionEntity>();
-                }
-                _sessions = value.ToList(); 
-            }
-        }
+		public void RemoveSession(SessionEntity session)
+		{
+			if (_sessions == null)
+			{
+				_sessions = new List<SessionEntity>();
+			}
+			_sessions.Remove(session);
+			_hub.Publish(new SessionRemovedMessage());
+		}
 
-        public string facebookUrl { get; set; }
-        public string homepageUrl { get; set; }
-        public string lanyrdUrl { get; set; }
-        public string twitterHashTag { get; set; }
-        public string twitterName { get; set; }
-        public string meetupUrl { get; set; }
-        public string googlePlusUrl { get; set; }
-        public string vimeoUrl { get; set; }
-        public string youtubeUrl { get; set; }
-        public string githubUrl { get; set; }
-        public string linkedInUrl { get; set; }
-    }
+		public void AddSpeakerToSession(string sessionSlug, SpeakerEntity speaker)
+		{
+			if (this.sessions == null)
+				throw new ArgumentException("Cannot add speaker to session. Conference " + slug + " has no sessions.");
+
+			var session = this.sessions.SingleOrDefault(s => s.slug == sessionSlug);
+
+			if (session == null)
+				throw new ArgumentException("Cannot add speaker to session. Conference : " + slug + " Session:" + sessionSlug);
+
+			session.AddSpeaker(speaker);
+
+			_hub.Publish(new SpeakerAddedMessage() { SessionSlug = sessionSlug, SpeakerSlug = speaker.slug });
+		}
+
+		public void RemoveSpeakerFromSession(string sessionSlug, SpeakerEntity speaker)
+		{
+			if (this.sessions == null)
+				return;
+
+			var session = this.sessions.SingleOrDefault(s => s.slug == sessionSlug);
+
+			if (session == null)
+				return;
+
+			session.RemoveSpeaker(speaker);
+
+			_hub.Publish(new SpeakerRemovedMessage() { SessionSlug = sessionSlug, SpeakerSlug = speaker.slug });
+		}
+
+
+		[BsonId(IdGenerator = typeof(CombGuidGenerator))]
+		public Guid _id { get; private set; }
+		public bool isLive { get; private set; }
+		public string slug { get; set; }
+		public DateTime datePublished { get; private set; }
+		public bool isSaved { get; private set; }
+		public string name { get; set; }
+		private DateTime? _start;
+		public DateTime? start
+		{
+			get { return _start; }
+			set
+			{
+				if (_start != value)
+				{
+					_hub.Publish(new ConferenceStartDateChangedMessage() { ConferenceSlug = this.slug, OldValue = _start, NewValue = value });
+				}
+
+				_start = value;
+			}
+		}
+
+		private DateTime? _end;
+		public DateTime? end
+		{
+			get { return _end; }
+			set
+			{
+				if (_end != value)
+					_hub.Publish(new ConferenceEndDateChangedMessage() { ConferenceSlug = this.slug, OldValue = _end, NewValue = value });
+
+				_end = value;
+			}
+		}
+
+		public DateTime callForSpeakersOpens { get; set; }
+		public DateTime callForSpeakersCloses { get; set; }
+		public DateTime registrationOpens { get; set; }
+		public DateTime registrationCloses { get; set; }
+		public DateTime dateAdded { get; set; }
+		private string _location;
+		public string location
+		{
+			get { return _location; }
+			set
+			{
+				if (_location != value)
+					_hub.Publish(new ConferenceLocationChangedMessage() { ConferenceSlug = this.slug, OldValue = _location, NewValue = value });
+
+				_location = value;
+			}
+		}
+
+		public AddressEntity address { get; set; }
+		public string description { get; set; }
+		public string imageUrl { get; set; }
+		public string tagLine { get; set; }
+		public string facebookUrl { get; set; }
+		public string homepageUrl { get; set; }
+		public string lanyrdUrl { get; set; }
+		public string twitterHashTag { get; set; }
+		public string twitterName { get; set; }
+		public string meetupUrl { get; set; }
+		public string googlePlusUrl { get; set; }
+		public string vimeoUrl { get; set; }
+		public string youtubeUrl { get; set; }
+		public string githubUrl { get; set; }
+		public string linkedInUrl { get; set; }
+
+		private IList<SessionEntity> _sessions = new List<SessionEntity>();
+
+		public IEnumerable<SessionEntity> sessions
+		{
+			get { return _sessions.AsEnumerable(); }
+			set
+			{
+				if (value == null)
+					value = new List<SessionEntity>();
+
+				_sessions = value.ToList();
+				foreach (var session in _sessions)
+				{
+						session.RoomChanged += new SessionEntity.RoomChangedHandler(SessionRoomChangedHandler);
+				}
+			}
+		}
+
+		private void SessionRoomChangedHandler(SessionEntity sessionEntity, RoomChanged e)
+		{
+			_hub.Publish(new SessionRoomChangedMessage() { ConferenceSlug = this.slug, SessionSlug = e.SessionSlug, OldValue = e.OldValue, NewValue = e.NewValue });
+		}
+
+	}
 }

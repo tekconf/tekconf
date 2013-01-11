@@ -1,5 +1,5 @@
-using TekConf.RemoteData.v1;
-using TekConf.UI.Api.Services.Requests.v1;
+using MongoDB.Driver;
+using ServiceStack.Configuration;
 using TekConf.UI.Api.Services.v1;
 using ServiceStack.CacheAccess;
 using ServiceStack.CacheAccess.Providers;
@@ -10,83 +10,104 @@ using TinyMessenger;
 
 namespace TekConf.UI.Api
 {
-    //A customizeable typed UserSession that can be extended with your own properties
-    //To access ServiceStack's Session, Cache, etc from MVC Controllers inherit from ControllerBase<CustomUserSession>
-    public class CustomUserSession : AuthUserSession
-    {
-        public string CustomProperty { get; set; }
-    }
+	public class CustomUserSession : AuthUserSession
+	{
+		public string CustomProperty { get; set; }
+	}
 
-    public class AppHost : AppHostBase
-    {
-        public AppHost() //Tell ServiceStack the name and where to find your web services
-            : base("TekConf", typeof(ConferencesService).Assembly) { }
+	public class AppHost : AppHostBase
+	{
+		public AppHost()
+			: base("TekConf", typeof(ConferencesService).Assembly) { }
 
-        public override void Configure(Funq.Container container)
-        {
-            //Set JSON web services to return idiomatic JSON camelCase properties
-            ServiceStack.Text.JsConfig.EmitCamelCaseNames = true;
+		public override void Configure(Funq.Container container)
+		{
+			var bootstrapper = new Bootstrapper();
+			bootstrapper.BootstrapAutomapper();
 
-            //Change the default ServiceStack configuration
-            //SetConfig(new EndpointHostConfig {
-            //    DebugMode = true, //Show StackTraces in responses in development
-            //});
-
-            //Enable Authentication
-            //ConfigureAuth(container);
-
-            //Register all your dependencies
-            //container.Register(new Repository());
-
-            //Register In-Memory Cache provider. 
-            //For Distributed Cache Providers Use: PooledRedisClientManager, BasicRedisClientManager or see: https://github.com/ServiceStack/ServiceStack/wiki/Caching
-            container.Register<ICacheClient>(new MemoryCacheClient());
-            var hub = new TinyMessengerHub();
-            container.Register<ITinyMessengerHub>(hub);
-            
-            var subscriptions = new HubSubscriptions(hub);
+			ServiceStack.Text.JsConfig.EmitCamelCaseNames = true;
 
 
-            //container.Register<ICacheClient>(new AzureCacheClient());
+			//Enable Authentication
+			ConfigureAuth(container);
+			IConfiguration configuration = new Configuration();
+			container.Register<IConfiguration>(configuration);
+			container.Register<IRepository<ConferenceEntity>>(new ConferenceRepository(configuration));
 
-            container.Register<ISessionFactory>(c =>
-                      new SessionFactory(c.Resolve<ICacheClient>()));
+			container.Register<IRepository<SessionRoomChangedMessage>>(new SessionRoomChangedRepository(configuration));
+			container.Register<IRepository<ConferenceLocationChangedMessage>>(new ConferenceLocationChangedRepository(configuration));
+			container.Register<IRepository<ConferenceEndDateChangedMessage>>(new ConferenceEndDateChangedRepository(configuration));
+			container.Register<IRepository<ConferencePublishedMessage>>(new ConferencePublishedRepository(configuration));
+			container.Register<IRepository<ConferenceSavedMessage>>(new ConferenceSavedRepository(configuration));
+			container.Register<IRepository<ConferenceStartDateChangedMessage>>(new ConferenceStartDateChangedRepository(configuration));
+			container.Register<IRepository<SessionAddedMessage>>(new SessionAddedRepository(configuration));
+			container.Register<IRepository<SessionRemovedMessage>>(new SessionRemovedRepository(configuration));
+			container.Register<IRepository<SpeakerAddedMessage>>(new SpeakerAddedRepository(configuration));
+			container.Register<IRepository<SpeakerRemovedMessage>>(new SpeakerRemovedRepository(configuration));
+		
+			container.Register<ICacheClient>(new MemoryCacheClient());
+			var hub = new TinyMessengerHub();
+			container.Register<ITinyMessengerHub>(hub);
 
-        }
+			var subscriptions = new HubSubscriptions(hub, 
+								container.Resolve<IRepository<SessionRoomChangedMessage>>(),
+								container.Resolve<IRepository<ConferenceLocationChangedMessage>>(),
+								container.Resolve<IRepository<ConferenceEndDateChangedMessage>>(),
+								container.Resolve<IRepository<ConferencePublishedMessage>>(),
+								container.Resolve<IRepository<ConferenceSavedMessage>>(),
+								container.Resolve<IRepository<ConferenceStartDateChangedMessage>>(),
+								container.Resolve<IRepository<SessionAddedMessage>>(),
+								container.Resolve<IRepository<SessionRemovedMessage>>(),
+								container.Resolve<IRepository<SpeakerAddedMessage>>(),
+								container.Resolve<IRepository<SpeakerRemovedMessage>>()
+				);
 
-        /* Uncomment to enable ServiceStack Authentication and CustomUserSession
-        private void ConfigureAuth(Funq.Container container)
-        {
-            var appSettings = new AppSettings();
+			container.Register<ISessionFactory>(c =>
+								new SessionFactory(c.Resolve<ICacheClient>()));
 
-            //Default route: /auth/{provider}
-            Plugins.Add(new AuthFeature(this, () => new CustomUserSession(),
-                new IAuthProvider[] {
-                    new CredentialsAuthProvider(appSettings), 
-                    new FacebookAuthProvider(appSettings), 
-                    new TwitterAuthProvider(appSettings), 
-                    new BasicAuthProvider(appSettings), 
-                })); 
+			bootstrapper.BootstrapMongoDb(container);
+		}
 
-            //Default route: /register
-            Plugins.Add(new RegistrationFeature()); 
+		//// Uncomment to enable ServiceStack Authentication and CustomUserSession
+		private void ConfigureAuth(Funq.Container container)
+		{
+			var appSettings = new AppSettings();
 
-            //Requires ConnectionString configured in Web.Config
-            var connectionString = ConfigurationManager.ConnectionStrings["AppDb"].ConnectionString;
-            container.Register<IDbConnectionFactory>(c =>
-                new OrmLiteConnectionFactory(connectionString, SqlServerOrmLiteDialectProvider.Instance));
+			//Default route: /auth/{provider}
+			Plugins.Add(new AuthFeature(() => new CustomUserSession(),
+					new IAuthProvider[] {
+										new CredentialsAuthProvider(), 
+										//new FacebookAuthProvider(appSettings), 
+										//new TwitterAuthProvider(appSettings), 
+										new BasicAuthProvider(appSettings), 
+								}));
 
-            container.Register<IUserAuthRepository>(c =>
-                new OrmLiteAuthRepository(c.Resolve<IDbConnectionFactory>()));
+			//Default route: /register
+			Plugins.Add(new RegistrationFeature());
 
-            var authRepo = (OrmLiteAuthRepository)container.Resolve<IUserAuthRepository>();
-            authRepo.CreateMissingTables();
-        }
-        */
+			//Requires ConnectionString configured in Web.Config
+			//var connectionString = ConfigurationManager.ConnectionStrings["AppDb"].ConnectionString;
+			//container.Register<IDbConnectionFactory>(c =>
+			//		new OrmLiteConnectionFactory(connectionString, SqlServerOrmLiteDialectProvider.Instance));
 
-        public static void Start()
-        {
-            new AppHost().Init();
-        }
-    }
+			var serverSettings = new MongoServerSettings()
+				{
+					Server = new MongoServerAddress("localhost"),
+				};
+			var server = new MongoServer(serverSettings);
+			var databaseSettings = new MongoDatabaseSettings(server, "tekconf");
+			var mongoDatabase = new MongoDatabase(server, databaseSettings);
+			container.Register<IUserAuthRepository>(c =>
+					new MongoDBAuthRepository(mongoDatabase, createMissingCollections: true));
+
+			var authRepo = (MongoDBAuthRepository)container.Resolve<IUserAuthRepository>();
+			authRepo.CreateMissingCollections();
+		}
+
+
+		public static void Start()
+		{
+			new AppHost().Init();
+		}
+	}
 }

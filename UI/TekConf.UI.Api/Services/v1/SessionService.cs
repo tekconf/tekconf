@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using AutoMapper;
@@ -44,8 +45,9 @@ namespace TekConf.UI.Api.Services.v1
 		{
 			var entity = Mapper.Map<SessionEntity>(request);
 
-			var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
-			var conference = collection
+			var repository = new ConferenceRepository(new Configuration());
+
+			var conference = repository
 					.AsQueryable()
 				//.Where(c => c.isLive)
 					.FirstOrDefault(x => x.slug.ToLower() == request.conferenceSlug.ToLower());
@@ -55,9 +57,8 @@ namespace TekConf.UI.Api.Services.v1
 				return new HttpError() { StatusCode = HttpStatusCode.BadRequest };
 			}
 
-			conference.Hub = _hub;
 			conference.AddSession(entity);
-			conference.Save(collection);
+			conference.Save();
 
 			var sessionDto = Mapper.Map<SessionEntity, SessionDto>(entity);
 			sessionDto.conferenceSlug = request.conferenceSlug;
@@ -67,13 +68,14 @@ namespace TekConf.UI.Api.Services.v1
 
 		public object Put(AddSession request)
 		{
-			var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
-			var conference = collection.AsQueryable().FirstOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
-			conference.Hub = _hub;
+			//TODO : Move to repository
+			var repository = new ConferenceRepository(new Configuration());
+			var conference = repository.AsQueryable().FirstOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
+
 			var session = conference.sessions.FirstOrDefault(s => s.slug.ToLower() == request.slug.ToLower());
 			Mapper.Map<AddSession, SessionEntity>(request, session);
 
-			conference.Save(collection);
+			conference.Save();
 			var sessionDto = Mapper.Map<SessionEntity, SessionDto>(session);
 			sessionDto.conferenceSlug = request.conferenceSlug;
 			sessionDto.conferenceName = conference.name;
@@ -102,7 +104,8 @@ namespace TekConf.UI.Api.Services.v1
 			var expireInTimespan = new TimeSpan(0, 0, 120);
 			return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
 							{
-								var conference = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
+								var repository = new ConferenceRepository(new Configuration());
+								var conference = repository
 										.AsQueryable()
 									//.Where(s => s.slug.ToLower() == request.sessionSlug.ToLower())
 									//.Where(c => c.isLive)

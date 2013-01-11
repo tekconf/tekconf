@@ -34,7 +34,8 @@ namespace TekConf.UI.Api.Services.v1
       var expireInTimespan = new TimeSpan(0, 0, 120);
       return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan,  () =>
       {
-        var conference = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
+				var repository = new ConferenceRepository(new Configuration());
+        var conference = repository
           .AsQueryable()
           //.Where(c => c.isLive)
           .SingleOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
