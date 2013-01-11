@@ -696,6 +696,7 @@
     <Content Include="img\social\github-24x24.png" />
     <Content Include="img\social\github-32x32.png" />
     <Content Include="img\social\github-48x48.png" />
+    <Content Include="img\social\github-octocat-48x48.png" />
     <Content Include="img\social\goodreads-16x16.png" />
     <Content Include="img\social\goodreads-24x24.png" />
     <Content Include="img\social\goodreads-32x32.png" />

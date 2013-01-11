@@ -11,6 +11,32 @@ namespace TekConf.UI.iPhone
 {
 	public class BaseUIViewController : UIViewController
 	{
+		private static UIFont _titleFont;
+		public static UIFont TitleFont 
+		{
+			get
+			{
+				if (_titleFont == null)
+				{
+					_titleFont = UIFont.FromName ("OpenSans", 14f);
+				}
+				return _titleFont;
+			}
+		}
+
+		private static UIFont _descriptionFont;
+		public static UIFont DescriptionFont 
+		{
+			get
+			{
+				if (_descriptionFont == null)
+				{
+					_descriptionFont = UIFont.FromName ("OpenSans", 12f);
+				}
+				return _descriptionFont;
+			}
+		}
+
 		//private static readonly MobileServiceClient MobileService = new MobileServiceClient ("https://tekconf.azure-mobile.net/");
 		public BaseUIViewController (string nibName, NSBundle bundle) : base(nibName, bundle)
 		{
@@ -20,8 +46,7 @@ namespace TekConf.UI.iPhone
 		protected void TrackAnalyticsEvent(string eventName)
 		{
 			FlurryAnalytics.FlurryAnalytics.LogEvent(eventName);
-			NSError error;
-			var success = GoogleAnalytics.GANTracker.SharedTracker.TrackPageView(eventName, out error);
+
 		}
 
 		protected bool IsReachable()
@@ -29,7 +54,8 @@ namespace TekConf.UI.iPhone
 			return Reachability.IsHostReachable("api.tekconf.com");
 		}
 
-		private string _baseUrl = "http://api.tekconf.com";
+		//private string _baseUrl = "http://api.tekconf.com";
+		private string _baseUrl = "http://192.168.1.116/TekConf.UI.Api";
 		private RemoteDataRepository _client;
 		protected RemoteDataRepository Repository
 		{

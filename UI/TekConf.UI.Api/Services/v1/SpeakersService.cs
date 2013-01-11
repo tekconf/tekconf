@@ -13,82 +13,83 @@ using ServiceStack.ServiceHost;
 
 namespace TekConf.UI.Api.Services.v1
 {
-    public class SpeakersService : MongoServiceBase
-    {
-        public ICacheClient CacheClient { get; set; }
-        static HttpError ConferenceNotFound = HttpError.NotFound("Conference not found") as HttpError;
-        static HashSet<string> NonExistingConferences = new HashSet<string>();
+	public class SpeakersService : MongoServiceBase
+	{
+		public ICacheClient CacheClient { get; set; }
+		static HttpError ConferenceNotFound = HttpError.NotFound("Conference not found") as HttpError;
+		static HashSet<string> NonExistingConferences = new HashSet<string>();
 
-        static HttpError SpeakerNotFound = HttpError.NotFound("Speaker not found") as HttpError;
-        static HashSet<string> NonExistingSpeakers = new HashSet<string>();
+		static HttpError SpeakerNotFound = HttpError.NotFound("Speaker not found") as HttpError;
+		static HashSet<string> NonExistingSpeakers = new HashSet<string>();
 
-        public object Get(Speakers request)
-        {
-            if (request.conferenceSlug == default(string))
-            {
-                throw new HttpError() { StatusCode = HttpStatusCode.BadRequest };
-            }
+		public object Get(Speakers request)
+		{
+			if (request.conferenceSlug == default(string))
+			{
+				throw new HttpError() { StatusCode = HttpStatusCode.BadRequest };
+			}
 
-            return GetAllSpeakers(request);
-        }
+			return GetAllSpeakers(request);
+		}
 
-        private object GetAllSpeakers(Speakers request)
-        {
-            lock (NonExistingConferences)
-            {
-                if (NonExistingConferences.Contains(request.conferenceSlug))
-                {
-                    throw ConferenceNotFound;
-                }
-            }
+		private object GetAllSpeakers(Speakers request)
+		{
+			lock (NonExistingConferences)
+			{
+				if (NonExistingConferences.Contains(request.conferenceSlug))
+				{
+					throw ConferenceNotFound;
+				}
+			}
 
-            var cacheKey = "GetAllSpeakers-" + request.conferenceSlug;
-            var expireInTimespan = new TimeSpan(0, 0, 120);
-            return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
-            {
-                var conference = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
-                .AsQueryable()
-                //.Where(c => c.isLive)
-                .SingleOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
+			var cacheKey = "GetAllSpeakers-" + request.conferenceSlug;
+			var expireInTimespan = new TimeSpan(0, 0, 120);
+			return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
+			{
+				var repository = new ConferenceRepository(new Configuration());
+				var conference = repository
+				.AsQueryable()
+					//.Where(c => c.isLive)
+				.SingleOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
 
-                if (conference == null)
-                {
-                    lock (NonExistingConferences)
-                    {
-                        NonExistingConferences.Add(request.conferenceSlug);
-                    }
-                    throw ConferenceNotFound;
-                }
+				if (conference == null)
+				{
+					lock (NonExistingConferences)
+					{
+						NonExistingConferences.Add(request.conferenceSlug);
+					}
+					throw ConferenceNotFound;
+				}
 
-                var speakersList = new List<SpeakerEntity>();
+				var speakersList = new List<SpeakerEntity>();
 
-                //TODO : Linq this
-                foreach (var session in conference.sessions)
-                {
-                    if (session.speakers != null)
-                    {
-                        foreach (var speakerEntity in session.speakers)
-                        {
-                            if (!speakersList.Any(s => s.slug.ToLower() == speakerEntity.slug.ToLower()))
-                            {
-                                speakersList.Add(speakerEntity);
-                            }
-                        }
-                    }
-                }
-                var speakers = speakersList.ToList();
+				//TODO : Linq this
+				foreach (var session in conference.sessions)
+				{
+					if (session.speakers != null)
+					{
+						foreach (var speakerEntity in session.speakers)
+						{
+							if (!speakersList.Any(s => s.slug.ToLower() == speakerEntity.slug.ToLower()))
+							{
+								speakersList.Add(speakerEntity);
+							}
+						}
+					}
+				}
+				var speakers = speakersList.ToList();
 
-                List<SpeakersDto> speakersDtos = Mapper.Map<List<SpeakerEntity>, List<SpeakersDto>>(speakers);
-                foreach (var speakersDto in speakersDtos)
-                {
-                    var resolver = new ConferencesSpeakersResolver(request.conferenceSlug, speakersDto.slug);
-                    speakersDto.url = resolver.ResolveUrl();
-                }
-                return speakersDtos.ToList();
-            });
+				List<SpeakersDto> speakersDtos = Mapper.Map<List<SpeakerEntity>, List<SpeakersDto>>(speakers);
+				foreach (var speakersDto in speakersDtos)
+				{
+					var resolver = new ConferencesSpeakersResolver(request.conferenceSlug, speakersDto.slug);
+					speakersDto.url = resolver.ResolveUrl();
+				}
+				return speakersDtos.ToList();
+			});
 
 
-        }
+		}
 
-    }
+	}
 }

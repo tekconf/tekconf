@@ -150,8 +150,10 @@
                                 <img src="~/img/social/codeplex.png" /> @HtmlHelpers.SimpleLink(Model.Speaker.codeplexUrl, "CodePlex")<br />
                             }
                         </p>
+                        @if (Request.QueryString["admin"] != null && Request.QueryString["admin"] == "true")
+                        {
                         @Html.RouteLink("Edit Speaker", "AdminEditSpeaker", new { conferenceSlug = Model.Conference.slug, speakerSlug = Model.Speaker.slug}, new { @class = "btn btn-info" })
-
+                        }
                     </div>
                     <!-- /sidebar -->
                 </div>

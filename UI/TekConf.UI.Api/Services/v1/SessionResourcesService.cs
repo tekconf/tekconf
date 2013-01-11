@@ -9,52 +9,53 @@ using ServiceStack.ServiceHost;
 
 namespace TekConf.UI.Api.Services.v1
 {
-    public class SessionResourcesService : MongoServiceBase
-    {
-        public ICacheClient CacheClient { get; set; }
+	public class SessionResourcesService : MongoServiceBase
+	{
+		public ICacheClient CacheClient { get; set; }
 
-        public object Get(SessionResources request)
-        {
-            if (request.conferenceSlug == default(string))
-            {
-                throw new HttpError() { StatusCode = HttpStatusCode.BadRequest };
-            }
+		public object Get(SessionResources request)
+		{
+			if (request.conferenceSlug == default(string))
+			{
+				throw new HttpError() { StatusCode = HttpStatusCode.BadRequest };
+			}
 
-            if (request.sessionSlug == default(string))
-            {
-                throw new HttpError() { StatusCode = HttpStatusCode.BadRequest };
-            }
+			if (request.sessionSlug == default(string))
+			{
+				throw new HttpError() { StatusCode = HttpStatusCode.BadRequest };
+			}
 
-            var conference = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
-                        .AsQueryable()
-                //.Where(c => c.isLive)
-                        .SingleOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
+			var repository = new ConferenceRepository(new Configuration());
+			var conference = repository
+									.AsQueryable()
+				//.Where(c => c.isLive)
+									.SingleOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
 
-            if (conference == null)
-            {
-                throw new HttpError() { StatusCode = HttpStatusCode.NotFound };
-            }
-
-
-            return GetSingleSessionResources(request, conference);
-        }
-
-        private object GetSingleSessionResources(SessionResources request, ConferenceEntity conference)
-        {
-            var cacheKey = "GetSingleSessionResources-" + request.conferenceSlug + "-" + request.sessionSlug;
-            var expireInTimespan = new TimeSpan(0, 0, 120);
-            return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
-            {
-                var session = conference.sessions.FirstOrDefault(s => s.slug.ToLower() == request.sessionSlug.ToLower());
-                if (session == null)
-                {
-                    throw new HttpError() { StatusCode = HttpStatusCode.NotFound };
-                }
-
-                return session.resources;
-            });
+			if (conference == null)
+			{
+				throw new HttpError() { StatusCode = HttpStatusCode.NotFound };
+			}
 
 
-        }
-    }
+			return GetSingleSessionResources(request, conference);
+		}
+
+		private object GetSingleSessionResources(SessionResources request, ConferenceEntity conference)
+		{
+			var cacheKey = "GetSingleSessionResources-" + request.conferenceSlug + "-" + request.sessionSlug;
+			var expireInTimespan = new TimeSpan(0, 0, 120);
+			return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
+			{
+				var session = conference.sessions.FirstOrDefault(s => s.slug.ToLower() == request.sessionSlug.ToLower());
+				if (session == null)
+				{
+					throw new HttpError() { StatusCode = HttpStatusCode.NotFound };
+				}
+
+				return session.resources;
+			});
+
+
+		}
+	}
 }

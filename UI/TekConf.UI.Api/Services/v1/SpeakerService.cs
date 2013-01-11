@@ -13,101 +13,101 @@ using ServiceStack.ServiceHost;
 
 namespace TekConf.UI.Api.Services.v1
 {
-    public class SpeakerService : MongoServiceBase
-    {
-        public ICacheClient CacheClient { get; set; }
-        static HttpError ConferenceNotFound = HttpError.NotFound("Conference not found") as HttpError;
-        static HashSet<string> NonExistingConferences = new HashSet<string>();
+	public class SpeakerService : MongoServiceBase
+	{
+		public ICacheClient CacheClient { get; set; }
+		static HttpError ConferenceNotFound = HttpError.NotFound("Conference not found") as HttpError;
+		static HashSet<string> NonExistingConferences = new HashSet<string>();
 
-        static HttpError SpeakerNotFound = HttpError.NotFound("Speaker not found") as HttpError;
-        static HashSet<string> NonExistingSpeakers = new HashSet<string>();
+		static HttpError SpeakerNotFound = HttpError.NotFound("Speaker not found") as HttpError;
+		static HashSet<string> NonExistingSpeakers = new HashSet<string>();
 
-        public object Get(Speaker request)
-        {
-            if (request.conferenceSlug == default(string))
-            {
-                throw new HttpError() { StatusCode = HttpStatusCode.BadRequest };
-            }
+		public object Get(Speaker request)
+		{
+			if (request.conferenceSlug == default(string))
+			{
+				throw new HttpError() { StatusCode = HttpStatusCode.BadRequest };
+			}
 
-            return GetSingleSpeaker(request);
+			return GetSingleSpeaker(request);
 
-        }
+		}
 
-        private object GetSingleSpeaker(Speaker request)
-        {
-            var cacheKey = "GetSingleSpeaker-" + request.conferenceSlug + "-" + request.speakerSlug;
+		private object GetSingleSpeaker(Speaker request)
+		{
+			var cacheKey = "GetSingleSpeaker-" + request.conferenceSlug + "-" + request.speakerSlug;
 
-            lock (NonExistingConferences)
-            {
-                if (NonExistingConferences.Contains(request.conferenceSlug))
-                {
-                    throw ConferenceNotFound;
-                }
-            }
+			lock (NonExistingConferences)
+			{
+				if (NonExistingConferences.Contains(request.conferenceSlug))
+				{
+					throw ConferenceNotFound;
+				}
+			}
 
-            lock (NonExistingSpeakers)
-            {
-                if (NonExistingSpeakers.Contains(request.conferenceSlug + "-" + request.speakerSlug))
-                {
-                    throw SpeakerNotFound;
-                }
-            }
+			lock (NonExistingSpeakers)
+			{
+				if (NonExistingSpeakers.Contains(request.conferenceSlug + "-" + request.speakerSlug))
+				{
+					throw SpeakerNotFound;
+				}
+			}
 
-            var expireInTimespan = new TimeSpan(0, 0, 120);
-            return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
-                {
-                    var collection = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences");
-                    var conference = collection
-                        .AsQueryable()
-                        //.Where(c => c.isLive)
-                        .SingleOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
+			var expireInTimespan = new TimeSpan(0, 0, 120);
+			return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
+					{
+						var repository = new ConferenceRepository(new Configuration());
+						var conference = repository
+								 .AsQueryable()
+							//.Where(c => c.isLive)
+								 .SingleOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
 
-                    if (conference == null)
-                    {
-                        lock (NonExistingConferences)
-                        {
-                            NonExistingConferences.Add(request.conferenceSlug);
-                        }
-                        throw ConferenceNotFound;
-                    }
+						if (conference == null)
+						{
+							lock (NonExistingConferences)
+							{
+								NonExistingConferences.Add(request.conferenceSlug);
+							}
+							throw ConferenceNotFound;
+						}
 
-                    var speakersList = new List<SpeakerEntity>();
+						var speakersList = new List<SpeakerEntity>();
 
-                    //TODO : Linq this
-                    foreach (var session in conference.sessions)
-                    {
-                        if (session.speakers != null)
-                        {
-                            foreach (var speakerEntity in session.speakers)
-                            {
-                                if (!speakersList.Any(s => s.slug.ToLower() == speakerEntity.slug.ToLower()))
-                                {
-                                    speakersList.Add(speakerEntity);
-                                }
-                            }
-                        }
-                    }
-                    var speakers = speakersList.ToList();
+						//TODO : Linq this
+						foreach (var session in conference.sessions)
+						{
+							if (session.speakers != null)
+							{
+								foreach (var speakerEntity in session.speakers)
+								{
+									if (!speakersList.Any(s => s.slug.ToLower() == speakerEntity.slug.ToLower()))
+									{
+										speakersList.Add(speakerEntity);
+									}
+								}
+							}
+						}
+						var speakers = speakersList.ToList();
 
-                    var speaker = speakers.FirstOrDefault(s => s.slug.ToLower() == request.speakerSlug.ToLower());
+						var speaker = speakers.FirstOrDefault(s => s.slug.ToLower() == request.speakerSlug.ToLower());
 
-                    if (speaker == null)
-                    {
-                        lock (NonExistingSpeakers)
-                        {
-                            NonExistingSpeakers.Add(request.conferenceSlug + "-" + request.speakerSlug);
-                        }
-                        throw SpeakerNotFound;
-                    }
+						if (speaker == null)
+						{
+							lock (NonExistingSpeakers)
+							{
+								NonExistingSpeakers.Add(request.conferenceSlug + "-" + request.speakerSlug);
+							}
+							throw SpeakerNotFound;
+						}
 
-                    var speakerDto = Mapper.Map<SpeakerEntity, FullSpeakerDto>(speaker);
-                    var resolver = new ConferencesSpeakerResolver(request.conferenceSlug, speakerDto.slug);
-                    speakerDto.url = resolver.ResolveUrl();
+						var speakerDto = Mapper.Map<SpeakerEntity, FullSpeakerDto>(speaker);
+						var resolver = new ConferencesSpeakerResolver(request.conferenceSlug, speakerDto.slug);
+						speakerDto.url = resolver.ResolveUrl();
 
-                    return speakerDto;
-                });
+						return speakerDto;
+					});
 
-        }
+		}
 
-    }
+	}
 }

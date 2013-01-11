@@ -82,7 +82,12 @@ namespace TekConf.UI.iPhone
 							loading.AddSubview (indicator);
 						});
 
-						Repository.GetSchedule (conferenceSlug: NavigationItems.ConferenceSlug, authenticationMethod: "Facebook", authenticationToken: facebookAccount.Username, callback: schedule => 
+						Repository.GetSchedule (conferenceSlug: NavigationItems.ConferenceSlug, 
+						                        authenticationMethod: "Facebook", 
+						                        authenticationToken: facebookAccount.Username, 
+						                        userName:facebookAccount.Username,
+						                        password:"password",
+						                        callback: schedule => 
 						{ 
 							if (schedule != null) {
 								var rootElement = new RootElement ("Schedule"){ new Section() };
@@ -90,8 +95,7 @@ namespace TekConf.UI.iPhone
 								UIImage defaultImage = UIImage.FromBundle (@"images/DefaultConference.png");
 								
 								foreach (var session in schedule.sessions) {
-									rootElement [0].Add (new StringElement (session.title));
-									//rootElement [0].Add (new ConferenceElement (conference, defaultImage));
+									rootElement [0].Add (new SessionElement (session.title, session.room));
 								}
 								
 								InvokeOnMainThread (() => 

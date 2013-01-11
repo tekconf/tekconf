@@ -8,9 +8,6 @@ namespace TekConf.UI.Api
 
         void Application_Start(object sender, EventArgs e)
         {
-            // Code that runs on application startup
-            var bootstrapper = new Bootstrapper();
-            bootstrapper.BootstrapAutomapper();
 
             new AppHost().Init();
 

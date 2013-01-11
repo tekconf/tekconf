@@ -14,6 +14,8 @@ namespace TekConf.UI.Api
     public string UserSlug { get; set; }
     public string AuthenticationToken { get; set; }
     public string AuthenticationMethod { get; set; }
+		public string UserName { get; set; }
+		public string Password { get; set; }
     public List<string> SessionSlugs { get; set; } 
   }
 }

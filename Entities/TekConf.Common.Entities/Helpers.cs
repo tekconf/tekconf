@@ -23,8 +23,15 @@ namespace TekConf.Common.Entities
 
         public static string RemoveAccent(this string txt)
         {
-            byte[] bytes = System.Text.Encoding.GetEncoding("Cyrillic").GetBytes(txt);
-            return System.Text.Encoding.ASCII.GetString(bytes);
+	        if (!string.IsNullOrWhiteSpace(txt))
+	        {
+		        byte[] bytes = Encoding.GetEncoding("Cyrillic").GetBytes(txt);
+		        return Encoding.ASCII.GetString(bytes);
+	        }
+	        else
+	        {
+		        return string.Empty;
+	        }
         }
     }
 }

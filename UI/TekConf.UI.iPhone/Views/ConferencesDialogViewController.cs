@@ -129,6 +129,5 @@ namespace TekConf.UI.iPhone
 			TableView.SetNeedsDisplay ();
 		}
 	}
-
 	
 }

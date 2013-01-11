@@ -119,7 +119,7 @@ namespace TekConf.UI.Web.Controllers
                 }, null);
             }
 
-            repository.EditConference(conference, c =>
+						repository.EditConference(conference, "user", "password", c =>
             {
                 AsyncManager.Parameters["conference"] = c;
                 AsyncManager.OutstandingOperations.Decrement();

@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using ServiceStack.ServiceClient.Web;
+using ServiceStack.ServiceInterface.Auth;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.UI.Api.Services.Requests.v1;
+using ServiceStack.Common.ServiceClient.Web;
 
 namespace TekConf.RemoteData.v1
 {
@@ -29,9 +31,22 @@ namespace TekConf.RemoteData.v1
             }
         }
 
-		public void GetSchedule(string conferenceSlug, string authenticationMethod, string authenticationToken, Action<ScheduleDto> callback)
+		public void Register (string authenticationMethod, string userName, string identifier, string password, string email)
+		{
+			Registration request = new Registration () { 
+				Email = email,
+				UserName = userName,
+				Password = password
+			};
+
+			var response = ServiceClient.Post<RegistrationResponse> ("/register", request);
+		}
+
+		public void GetSchedule(string conferenceSlug, string authenticationMethod, string authenticationToken, string userName, string password, Action<ScheduleDto> callback)
 		{
 			var schedule = new Schedule() { authenticationMethod = authenticationMethod, authenticationToken = authenticationToken, conferenceSlug = conferenceSlug };
+
+			ServiceClient.SetCredentials(userName, password);
 			ServiceClient.GetAsync(schedule, callback, (r, ex) => 
 			                       { 
 										var x = ex;
@@ -39,7 +54,7 @@ namespace TekConf.RemoteData.v1
 			});
 		}
 
-        public void GetSchedules(string authenticationMethod, string authenticationToken, Action<List<SchedulesDto>> callback)
+		public void GetSchedules(string authenticationMethod, string authenticationToken, string userName, string password, Action<List<SchedulesDto>> callback)
         {
             var schedules = new Schedules() 
             { 
@@ -47,6 +62,7 @@ namespace TekConf.RemoteData.v1
                 authenticationToken = authenticationToken 
             };
 
+			ServiceClient.SetCredentials(userName, password);
             ServiceClient.GetAsync(schedules, callback, (r, ex) =>
             {
                 var x = ex;
@@ -54,14 +70,14 @@ namespace TekConf.RemoteData.v1
             });
         }
 
-		public void AddSessionToSchedule(string conferenceSlug, string sessionSlug, string authenticationMethod, string authenticationToken, Action<ScheduleDto> callback)
+		public void AddSessionToSchedule(string conferenceSlug, string sessionSlug, string userName, string password, Action<ScheduleDto> callback)
 		{
 			var schedule = new AddSessionToSchedule() { 
-				authenticationMethod = authenticationMethod, 
-				authenticationToken = authenticationToken, 
 				conferenceSlug = conferenceSlug,
 				sessionSlug = sessionSlug,
 			};
+
+			ServiceClient.SetCredentials(userName, password);
 			ServiceClient.PostAsync(schedule, callback, (r, ex) => 
 			{ 
 				var x = ex;
@@ -140,51 +156,51 @@ namespace TekConf.RemoteData.v1
                                             });
         }
 
-        public void CreateConference(CreateConference conference, Action<FullConferenceDto> callback)
+        public void CreateConference(CreateConference conference, string userName, string password, Action<FullConferenceDto> callback)
         {
             conference.slug = conference.name.GenerateSlug();
+			ServiceClient.SetCredentials(userName, password);
             ServiceClient.PostAsync(conference, callback, (r, ex) => { callback(null); });
         }
 
-        public void EditConference(CreateConference conference, Action<FullConferenceDto> callback)
+		public void EditConference(CreateConference conference, string userName, string password, Action<FullConferenceDto> callback)
         {
+			ServiceClient.SetCredentials(userName, password);
             ServiceClient.PutAsync(conference, callback, (r, ex) => { callback(null); });
         }
 
-        public void CreateUser(string userName, Action<UserDto> callback)
-        {
-            //ServiceClient.PostAsync(new User() {userName = userName}, callback, (r, ex) => { callback(null); });
-            var user = new UserDto() { userName = userName };
-            callback(user);
-        }
 
         public void GetUser(string userName, Action<UserDto> callback)
         {
             ServiceClient.GetAsync(new User() { userName = userName }, callback, (r, ex) => { callback(null); });
         }
 
-        public void AddSessionToConference(AddSession session, Action<SessionDto> callback)
+		public void AddSessionToConference(AddSession session, string userName, string password, Action<SessionDto> callback)
         {
             session.slug = session.title.GenerateSlug();
+			ServiceClient.SetCredentials(userName, password);
             ServiceClient.PostAsync(session, callback, (r, ex) => { callback(null); });
         }
 
-        public void EditSessionInConference(AddSession session, Action<SessionDto> callback)
+        public void EditSessionInConference(AddSession session, string userName, string password, Action<SessionDto> callback)
         {
+			ServiceClient.SetCredentials(userName, password);
             ServiceClient.PutAsync(session, callback, (r, ex) => { callback(null); });
         }
 
-        public void AddSpeakerToSession(CreateSpeaker speaker, Action<FullSpeakerDto> callback)
+		public void AddSpeakerToSession(CreateSpeaker speaker, string userName, string password, Action<FullSpeakerDto> callback)
         {
             speaker.slug = (speaker.firstName.ToLower() + " " + speaker.lastName.ToLower()).GenerateSlug();
+			ServiceClient.SetCredentials(userName, password);
             ServiceClient.PostAsync(speaker, callback, (r, ex) =>
                                                            {
                                                                callback(null);
                                                            });
         }
 
-        public void EditSpeaker(CreateSpeaker speaker, Action<FullSpeakerDto> callback)
+		public void EditSpeaker(CreateSpeaker speaker, string userName, string password, Action<FullSpeakerDto> callback)
         {
+			ServiceClient.SetCredentials(userName, password);
             ServiceClient.PutAsync(speaker, callback, (r, ex) =>
                                     {
                                         callback(null);

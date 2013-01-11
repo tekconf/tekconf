@@ -1,17 +1,20 @@
-
 using System;
 using System.Drawing;
-
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using TekConf.RemoteData.Dtos.v1;
 using MonoTouch.Dialog.Utilities;
-using FA= FlurryAnalytics;
+using MonoTouch.Accounts;
+using System.Linq;
+
 
 namespace TekConf.UI.iPhone
 {
 	public partial class ConferenceDetailAboutViewController : BaseUIViewController, IImageUpdated
 	{
+		private ACAccountStore _accountStore;
+		private string AppId = "417883241605228";
+
 		public ConferenceDetailAboutViewController () : base ("ConferenceDetailAboutViewController", null)
 		{
 		}
@@ -24,16 +27,102 @@ namespace TekConf.UI.iPhone
 		public override void ViewWillAppear (bool animated)
 		{
 			base.ViewWillAppear (animated);
+
 			this.contentScrollView.ContentSize = new SizeF (width: this.View.Frame.Width, height: 600);
 			this.contentScrollView.ScrollEnabled = true;
 			this.contentScrollView.ClipsToBounds = true;
 			this.contentScrollView.ContentInset = new UIEdgeInsets (top: -30, left: 0, bottom: 900, right: 0);
+			this.attendingButton.TouchUpInside += ImAttendingTouched;
+			this.facebookButton.TouchUpInside += FacebookTouched;
+			this.twitterButton.TouchUpInside += TwitterTouched;
+
+			this.facebookButton.Hidden = true;
+			this.twitterButton.Hidden = true;
+			this.attendingButton.Hidden = true;
+
+			this.facebookButton.SetBackgroundImage(UIImage.FromBundle(@"images/facebook-48x48"), UIControlState.Normal);
+			this.twitterButton.SetBackgroundImage(UIImage.FromBundle(@"images/twitter-48x48"), UIControlState.Normal);
+			this.attendingButton.SetBackgroundImage(UIImage.FromBundle(@"images/ImAttendingButtonBackground"), UIControlState.Normal);
+			this.attendingButton.SetTitle("          I'm Attending", UIControlState.Normal);
+			this.attendingButton.SetTitleColor(UIColor.Black, UIControlState.Normal);
+			this.attendingButton.Font = UIFont.FromName("OpenSans", 14f);
+		}
+
+		void TwitterTouched (object sender, EventArgs e)
+		{
+			TrackAnalyticsEvent("AttendingTweeted-" + NavigationItems.ConferenceSlug);
+		}
+
+		void FacebookTouched (object sender, EventArgs e)
+		{
+			TrackAnalyticsEvent("AttendingPostedToFacebook-" + NavigationItems.ConferenceSlug);
+		}
+
+		void ImAttendingTouched (object sender, EventArgs e)
+		{
+			if (this.IsReachable ()) {
+				
+				
+				if (_accountStore == null)
+					_accountStore = new ACAccountStore ();
+				
+				var options = new AccountStoreOptions () {
+					FacebookAppId = AppId
+				};
+				
+				options.SetPermissions (ACFacebookAudience.OnlyMe, new string[]{ "email" });
+				var accountType = _accountStore.FindAccountType (ACAccountType.Facebook);
+				
+				_accountStore.RequestAccess (accountType, options, (granted, error) => {
+					if (granted) {
+						var facebookAccount = _accountStore.FindAccounts (accountType).First ();
+						var oAuthToken = facebookAccount.Credential.OAuthToken;
+						UIAlertView loading = null;
+						InvokeOnMainThread (() => 
+						{ 
+							loading = new UIAlertView (" Saving Schedule", "Please wait...", null, null, null);
+							
+							loading.Show ();
+							
+							var indicator = new UIActivityIndicatorView (UIActivityIndicatorViewStyle.WhiteLarge); 
+							indicator.Center = new System.Drawing.PointF (loading.Bounds.Width / 2, loading.Bounds.Size.Height - 40); 
+							indicator.StartAnimating (); 
+							loading.AddSubview (indicator);
+						});
+						
+						Repository.AddSessionToSchedule (conferenceSlug: NavigationItems.ConferenceSlug,
+						                                 sessionSlug : string.Empty,
+						                                 userName: facebookAccount.Username, 
+						                                 password: "password",
+						                                 callback: schedule => 
+						{ 	
+							InvokeOnMainThread (() => 
+							{ 
+								loading.DismissWithClickedButtonIndex (0, true);
+							});
+						});
+						
+						return;
+					} else {
+						InvokeOnMainThread (() => 
+						                    { 
+							
+							var notLoggedInAlertView = new UIAlertView ("Not logged in", "You must go to Settings and login to Facebook or Twitter before saving your schedule.", null, "OK", null);
+							notLoggedInAlertView.Show ();
+						});
+					}
+				});
+			} else {
+				UnreachableAlert ().Show ();
+			}
+
+
+			TrackAnalyticsEvent("AttendingConference-" + NavigationItems.ConferenceSlug);
 		}
 
 		public override void LoadView ()
 		{
 			base.LoadView ();
-			FA.FlurryAnalytics.LogAllPageViews (this);
 		}
 
 		private void LoadConference ()
@@ -56,7 +145,7 @@ namespace TekConf.UI.iPhone
 					{ 
 						if (conference != null) {
 							if (!string.IsNullOrWhiteSpace (conference.imageUrl)) {
-								var logo = ImageLoader.DefaultRequestImage (new Uri ("http://www.tekconf.com" + conference.imageUrl), this);
+								var logo = ImageLoader.DefaultRequestImage (new Uri (conference.imageUrl), this);
 								if (logo == null) {
 									logoImage.Image = UIImage.FromBundle (@"images/DefaultConference");
 								} else {
@@ -65,6 +154,7 @@ namespace TekConf.UI.iPhone
 							}
 						
 							SetTagLine (conference);
+							SetButtons ();
 							SetStartLabel (conference);
 							SetDescriptionLabel (conference);
 							SetDetailsContainer (conference);
@@ -115,15 +205,43 @@ namespace TekConf.UI.iPhone
 			}
 		}
 
+		void SetButtons()
+		{
+
+			this.facebookButton.Hidden = false;
+			this.twitterButton.Hidden = false;
+			this.attendingButton.Hidden = false;
+
+			this.facebookButton.SetBackgroundImage(UIImage.FromBundle(@"images/facebook-48x48"), UIControlState.Normal);
+			this.twitterButton.SetBackgroundImage(UIImage.FromBundle(@"images/twitter-48x48"), UIControlState.Normal);
+
+			var imAttendingFrame = this.attendingButton.Frame;
+			var facebookFrame = this.facebookButton.Frame;
+			var twitterFrame = this.twitterButton.Frame;
+
+			if (this.tagLineSeparatorBottom.Hidden) {
+				imAttendingFrame.Y = this.tagLineSeparatorTop.Frame.Y + 30;
+				facebookFrame.Y = this.tagLineSeparatorTop.Frame.Y + 30;
+				twitterFrame.Y = this.tagLineSeparatorTop.Frame.Y + 30;
+			} else {
+				imAttendingFrame.Y = this.tagLineSeparatorBottom.Frame.Y + 30;
+				facebookFrame.Y = this.tagLineSeparatorBottom.Frame.Y + 30;
+				twitterFrame.Y = this.tagLineSeparatorBottom.Frame.Y + 30;
+			}
+			
+			this.attendingButton.Frame = imAttendingFrame;
+			this.facebookButton.Frame = facebookFrame;
+			this.twitterButton.Frame = twitterFrame;
+
+		}
+
 		void SetStartLabel (FullConferenceDto conference)
 		{
 			this.startLabel.Text = conference.CalculateConferenceDates (conference);
 			var frame = this.startLabel.Frame;
-			if (this.tagLineSeparatorBottom.Hidden) {
-				frame.Y = this.tagLineSeparatorTop.Frame.Y + 30;
-			} else {
-				frame.Y = this.tagLineSeparatorBottom.Frame.Y + 30;
-			}
+
+			frame.Y = this.attendingButton.Frame.Y + this.attendingButton.Frame.Height + 15;
+
 			this.startLabel.Frame = frame;
 		}
 
