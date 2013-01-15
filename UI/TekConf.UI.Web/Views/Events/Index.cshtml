@@ -78,7 +78,7 @@
 	<script type="text/javascript">
 		$(function () {
 
-			$.connection.hub.url = 'http://localhost/TekConf.UI.Api/signalr';
+			$.connection.hub.url = 'http://api.tekconf.com/signalr';
 			var chat = $.connection.eventsHub;
 
 			chat.client.broadcastMessage = function (message) {
