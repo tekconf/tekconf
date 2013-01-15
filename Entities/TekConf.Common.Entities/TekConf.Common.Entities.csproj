@@ -53,10 +53,12 @@
   <ItemGroup>
     <Compile Include="AddressEntity.cs" />
     <Compile Include="ConferenceEntity.cs" />
+    <Compile Include="Messages\ConferenceCreatedMessage.cs" />
+    <Compile Include="Repositories\ConferenceCreatedRepository.cs" />
     <Compile Include="Repositories\SpeakerRemovedRepository.cs" />
     <Compile Include="Repositories\ConferenceEndDateChangedRepository.cs" />
     <Compile Include="Repositories\ConferencePublishedRepository.cs" />
-    <Compile Include="Repositories\ConferenceSavedRepository.cs" />
+    <Compile Include="Repositories\ConferenceUpdatedRepository.cs" />
     <Compile Include="Repositories\ConferenceStartDateChangedRepository.cs" />
     <Compile Include="Repositories\SessionAddedRepository.cs" />
     <Compile Include="Repositories\SessionRemovedRepository.cs" />
@@ -70,7 +72,7 @@
     <Compile Include="Messages\ConferenceLocationChangedMessage.cs" />
     <Compile Include="Messages\ConferencePublishedMessage.cs" />
     <Compile Include="Helpers.cs" />
-    <Compile Include="Messages\ConferenceSavedMessage.cs" />
+    <Compile Include="Messages\ConferenceUpdatedMessage.cs" />
     <Compile Include="Messages\ConferenceStartDateChangedMessage.cs" />
     <Compile Include="Messages\ITinyMessageBase.cs" />
     <Compile Include="Messages\SessionRemovedMessage.cs" />

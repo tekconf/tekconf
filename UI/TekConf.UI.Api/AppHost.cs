@@ -22,8 +22,7 @@ namespace TekConf.UI.Api
 
 		public override void Configure(Funq.Container container)
 		{
-			var bootstrapper = new Bootstrapper();
-			bootstrapper.BootstrapAutomapper();
+
 
 			ServiceStack.Text.JsConfig.EmitCamelCaseNames = true;
 
@@ -31,6 +30,7 @@ namespace TekConf.UI.Api
 			//Enable Authentication
 			ConfigureAuth(container);
 			IConfiguration configuration = new Configuration();
+
 			container.Register<IConfiguration>(configuration);
 			container.Register<IRepository<ConferenceEntity>>(new ConferenceRepository(configuration));
 
@@ -38,7 +38,8 @@ namespace TekConf.UI.Api
 			container.Register<IRepository<ConferenceLocationChangedMessage>>(new ConferenceLocationChangedRepository(configuration));
 			container.Register<IRepository<ConferenceEndDateChangedMessage>>(new ConferenceEndDateChangedRepository(configuration));
 			container.Register<IRepository<ConferencePublishedMessage>>(new ConferencePublishedRepository(configuration));
-			container.Register<IRepository<ConferenceSavedMessage>>(new ConferenceSavedRepository(configuration));
+			container.Register<IRepository<ConferenceUpdatedMessage>>(new ConferenceUpdatedRepository(configuration));
+			container.Register<IRepository<ConferenceCreatedMessage>>(new ConferenceCreatedRepository(configuration));
 			container.Register<IRepository<ConferenceStartDateChangedMessage>>(new ConferenceStartDateChangedRepository(configuration));
 			container.Register<IRepository<SessionAddedMessage>>(new SessionAddedRepository(configuration));
 			container.Register<IRepository<SessionRemovedMessage>>(new SessionRemovedRepository(configuration));
@@ -54,17 +55,20 @@ namespace TekConf.UI.Api
 								container.Resolve<IRepository<ConferenceLocationChangedMessage>>(),
 								container.Resolve<IRepository<ConferenceEndDateChangedMessage>>(),
 								container.Resolve<IRepository<ConferencePublishedMessage>>(),
-								container.Resolve<IRepository<ConferenceSavedMessage>>(),
+								container.Resolve<IRepository<ConferenceUpdatedMessage>>(),
 								container.Resolve<IRepository<ConferenceStartDateChangedMessage>>(),
 								container.Resolve<IRepository<SessionAddedMessage>>(),
 								container.Resolve<IRepository<SessionRemovedMessage>>(),
 								container.Resolve<IRepository<SpeakerAddedMessage>>(),
-								container.Resolve<IRepository<SpeakerRemovedMessage>>()
+								container.Resolve<IRepository<SpeakerRemovedMessage>>(),
+								container.Resolve<IRepository<ConferenceCreatedMessage>>()
+
 				);
 
 			container.Register<ISessionFactory>(c =>
 								new SessionFactory(c.Resolve<ICacheClient>()));
-
+			var bootstrapper = new Bootstrapper();
+			bootstrapper.BootstrapAutomapper(container);
 			bootstrapper.BootstrapMongoDb(container);
 		}
 

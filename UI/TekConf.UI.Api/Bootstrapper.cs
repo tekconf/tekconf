@@ -21,7 +21,7 @@ namespace TekConf.UI.Api
 				.SetCreator(() => new ConferenceEntity(hub, repository));
 		}
 
-		public void BootstrapAutomapper()
+		public void BootstrapAutomapper(Funq.Container container)
 		{
 			Mapper.AddFormatter<TrimmingFormatter>();
 
@@ -33,7 +33,8 @@ namespace TekConf.UI.Api
 
 			Mapper.CreateMap<ConferenceEntity, ConferenceEntity>()
 					.ForMember(c => c._id, opt => opt.Ignore())
-					.ForMember(dest => dest.imageUrl, opt => opt.ResolveUsing<ImageResolver>());
+					.ForMember(dest => dest.imageUrl, opt => opt.ResolveUsing<ImageResolver>())
+					.ConstructUsing((Func<ResolutionContext, ConferenceEntity>) (r => new ConferenceEntity(container.Resolve<ITinyMessengerHub>(), container.Resolve<IRepository<ConferenceEntity>>())));
 
 			Mapper.CreateMap<ConferenceEntity, ConferenceDto>()
 					.ForMember(dest => dest.url, opt => opt.Ignore())
@@ -65,8 +66,8 @@ namespace TekConf.UI.Api
 
 			Mapper.CreateMap<CreateConference, ConferenceEntity>()
 					.ForMember(c => c._id, opt => opt.Ignore())
-				//.ForMember(c => c.sessions, opt => opt.UseValue(new List<SessionEntity>()))
-					;
+					.ConstructUsing((Func<ResolutionContext, ConferenceEntity>)(r => new ConferenceEntity(container.Resolve<ITinyMessengerHub>(), container.Resolve<IRepository<ConferenceEntity>>())));
+
 
 			Mapper.CreateMap<CreateSpeaker, SpeakerEntity>()
 					.ForMember(c => c._id, opt => opt.UseValue(Guid.NewGuid()))

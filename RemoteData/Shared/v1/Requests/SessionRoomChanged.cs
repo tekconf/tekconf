@@ -29,11 +29,15 @@ namespace TekConf.RemoteData.Shared.v1.Requests
 	{
 	}
 
-	[Route("/v1/events/conferenceSaved", "GET")]
-	public class ConferenceSaved : IReturn<List<ConferenceSavedMessage>>
+	[Route("/v1/events/conferenceUpdated", "GET")]
+	public class ConferenceUpdated : IReturn<List<ConferenceUpdatedMessage>>
 	{
 	}
 
+	[Route("/v1/events/conferenceCreated", "GET")]
+	public class ConferenceCreated : IReturn<List<ConferenceCreatedMessage>>
+	{
+	}
 
 	[Route("/v1/events/conferenceStartDateChanged", "GET")]
 	public class ConferenceStartDateChanged : IReturn<List<ConferenceStartDateChangedMessage>>

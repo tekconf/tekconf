@@ -30,7 +30,7 @@ namespace TekConf.Common.Entities.Tests.Unit
 		{
 			_conference.Save();
 
-			_mockHub.Verify(x => x.Publish(It.IsAny<ConferenceSavedMessage>()), Times.Once());
+			_mockHub.Verify(x => x.Publish(It.IsAny<ConferenceUpdatedMessage>()), Times.Once());
 			_mockHub.VerifyAll();
 		}
 

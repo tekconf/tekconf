@@ -213,10 +213,11 @@
     <Compile Include="AppHost.cs" />
     <Compile Include="EventsHub.cs" />
     <Compile Include="HubSubscriptions.cs" />
+    <Compile Include="Services\v1\ConferenceCreatedService.cs" />
     <Compile Include="Services\v1\ConferenceEndDateChangedService.cs" />
     <Compile Include="Services\v1\ConferenceLocationChangedService.cs" />
     <Compile Include="Services\v1\ConferencePublishedService.cs" />
-    <Compile Include="Services\v1\ConferenceSavedService.cs" />
+    <Compile Include="Services\v1\ConferenceUpdatedService.cs" />
     <Compile Include="Services\v1\ConferenceService.cs" />
     <Compile Include="Services\v1\ConferenceStartDateChangedService.cs" />
     <Compile Include="Services\v1\FeaturedSpeakersService.cs" />

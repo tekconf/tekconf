@@ -6,22 +6,22 @@ using MongoDB.Driver.Builders;
 
 namespace TekConf.UI.Api
 {
-	public class ConferenceSavedRepository : IRepository<ConferenceSavedMessage>
+	public class ConferenceCreatedRepository : IRepository<ConferenceCreatedMessage>
 	{
 		private readonly IConfiguration _configuration;
 
-		public ConferenceSavedRepository(IConfiguration configuration)
+		public ConferenceCreatedRepository(IConfiguration configuration)
 		{
 			_configuration = configuration;
 		}
 
-		public void Save(ConferenceSavedMessage entity)
+		public void Save(ConferenceCreatedMessage entity)
 		{
 			var collection = MongoCollection();
 			collection.Save(entity);
 		}
 
-		public IQueryable<ConferenceSavedMessage> AsQueryable()
+		public IQueryable<ConferenceCreatedMessage> AsQueryable()
 		{
 			var collection = MongoCollection();
 			return collection.AsQueryable();
@@ -29,13 +29,13 @@ namespace TekConf.UI.Api
 
 		public void Remove(Guid id)
 		{
-			var collection = this.LocalDatabase.GetCollection<ConferenceSavedMessage>("conferenceSavedEvents");
+			var collection = this.LocalDatabase.GetCollection<ConferenceCreatedMessage>("conferenceCreatedEvents");
 			collection.Remove(Query.EQ("_id", id));
 		}
 
-		private MongoCollection<ConferenceSavedMessage> MongoCollection()
+		private MongoCollection<ConferenceCreatedMessage> MongoCollection()
 		{
-			var collection = this.LocalDatabase.GetCollection<ConferenceSavedMessage>("conferenceSavedEvents");
+			var collection = this.LocalDatabase.GetCollection<ConferenceCreatedMessage>("conferenceCreatedEvents");
 			return collection;
 		}
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.IdGenerators;
@@ -8,7 +9,7 @@ using TinyMessenger;
 
 namespace TekConf.UI.Api
 {
-	public class ConferenceEntity
+	public class ConferenceEntity : ISupportInitialize
 	{
 		private readonly ITinyMessengerHub _hub;
 		private readonly IRepository<ConferenceEntity> _repository;
@@ -22,6 +23,7 @@ namespace TekConf.UI.Api
 
 		public void Save()
 		{
+			bool isNew = false;
 			if (!this.isSaved)
 			{
 				if (_id == default(Guid))
@@ -31,9 +33,18 @@ namespace TekConf.UI.Api
 				slug = name.GenerateSlug();
 				dateAdded = DateTime.Now;
 				isSaved = true;
+				isNew = true;
 			}
 			_repository.Save(this);
-			_hub.Publish(new ConferenceSavedMessage() { ConferenceSlug = this.slug });
+
+			if (isNew)
+			{
+				_hub.Publish(new ConferenceCreatedMessage() { ConferenceSlug = this.slug, ConferenceName = this.name });
+			}
+			else
+			{
+				_hub.Publish(new ConferenceUpdatedMessage() { ConferenceSlug = this.slug });				
+			}
 		}
 
 		public void Publish()
@@ -54,7 +65,9 @@ namespace TekConf.UI.Api
 			session.RoomChanged += SessionRoomChangedHandler;
 
 			_sessions.Add(session);
-			_hub.Publish(new SessionAddedMessage());
+
+			if (!_isInitializingFromBson && isSaved)
+				_hub.Publish(new SessionAddedMessage());
 		}
 
 		public void RemoveSession(SessionEntity session)
@@ -64,7 +77,8 @@ namespace TekConf.UI.Api
 				_sessions = new List<SessionEntity>();
 			}
 			_sessions.Remove(session);
-			_hub.Publish(new SessionRemovedMessage());
+			if (!_isInitializingFromBson && isSaved)
+				_hub.Publish(new SessionRemovedMessage());
 		}
 
 		public void AddSpeakerToSession(string sessionSlug, SpeakerEntity speaker)
@@ -79,7 +93,8 @@ namespace TekConf.UI.Api
 
 			session.AddSpeaker(speaker);
 
-			_hub.Publish(new SpeakerAddedMessage() { SessionSlug = sessionSlug, SpeakerSlug = speaker.slug });
+			if (!_isInitializingFromBson && isSaved)
+				_hub.Publish(new SpeakerAddedMessage() { SessionSlug = sessionSlug, SpeakerSlug = speaker.slug });
 		}
 
 		public void RemoveSpeakerFromSession(string sessionSlug, SpeakerEntity speaker)
@@ -94,7 +109,8 @@ namespace TekConf.UI.Api
 
 			session.RemoveSpeaker(speaker);
 
-			_hub.Publish(new SpeakerRemovedMessage() { SessionSlug = sessionSlug, SpeakerSlug = speaker.slug });
+			if (!_isInitializingFromBson && isSaved)
+				_hub.Publish(new SpeakerRemovedMessage() { SessionSlug = sessionSlug, SpeakerSlug = speaker.slug });
 		}
 
 
@@ -111,10 +127,8 @@ namespace TekConf.UI.Api
 			get { return _start; }
 			set
 			{
-				if (_start != value)
-				{
+				if (!_isInitializingFromBson && isSaved && _start != value)
 					_hub.Publish(new ConferenceStartDateChangedMessage() { ConferenceSlug = this.slug, OldValue = _start, NewValue = value });
-				}
 
 				_start = value;
 			}
@@ -126,7 +140,7 @@ namespace TekConf.UI.Api
 			get { return _end; }
 			set
 			{
-				if (_end != value)
+				if (!_isInitializingFromBson && isSaved && _end != value)
 					_hub.Publish(new ConferenceEndDateChangedMessage() { ConferenceName = this.name, ConferenceSlug = this.slug, OldValue = _end, NewValue = value });
 
 				_end = value;
@@ -144,7 +158,7 @@ namespace TekConf.UI.Api
 			get { return _location; }
 			set
 			{
-				if (_location != value)
+				if (!_isInitializingFromBson && isSaved && _location != value)
 					_hub.Publish(new ConferenceLocationChangedMessage() { ConferenceSlug = this.slug, OldValue = _location, NewValue = value });
 
 				_location = value;
@@ -180,15 +194,26 @@ namespace TekConf.UI.Api
 				_sessions = value.ToList();
 				foreach (var session in _sessions)
 				{
-						session.RoomChanged += new SessionEntity.RoomChangedHandler(SessionRoomChangedHandler);
+					session.RoomChanged += SessionRoomChangedHandler;
 				}
 			}
 		}
 
 		private void SessionRoomChangedHandler(SessionEntity sessionEntity, RoomChanged e)
 		{
-			_hub.Publish(new SessionRoomChangedMessage() { ConferenceSlug = this.slug, SessionSlug = e.SessionSlug, OldValue = e.OldValue, NewValue = e.NewValue });
+			if (!_isInitializingFromBson && isSaved)
+				_hub.Publish(new SessionRoomChangedMessage() { ConferenceSlug = this.slug, SessionSlug = e.SessionSlug, OldValue = e.OldValue, NewValue = e.NewValue });
 		}
 
+		private bool _isInitializingFromBson;
+		public void BeginInit()
+		{
+			_isInitializingFromBson = true;
+		}
+
+		public void EndInit()
+		{
+			_isInitializingFromBson = false;
+		}
 	}
 }

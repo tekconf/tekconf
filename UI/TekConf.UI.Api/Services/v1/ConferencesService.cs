@@ -15,11 +15,13 @@ namespace TekConf.UI.Api.Services.v1
 	public class ConferencesService : MongoServiceBase
 	{
 		private readonly ITinyMessengerHub _hub;
+		private readonly IRepository<ConferenceEntity> _repository;
 		public ICacheClient CacheClient { get; set; }
 
-		public ConferencesService(ITinyMessengerHub hub)
+		public ConferencesService(ITinyMessengerHub hub, IRepository<ConferenceEntity> repository )
 		{
 			_hub = hub;
+			_repository = repository;
 
 			if (AppHost.Instance == null)
 			{
@@ -48,15 +50,14 @@ namespace TekConf.UI.Api.Services.v1
 		{
 			try
 			{
-				var repository = new ConferenceRepository(new Configuration());
-				var confs = repository.AsQueryable()
+				var confs = _repository.AsQueryable()
 						.ToList();
 
 				var toDelete = confs.Where(x => x.slug.ToLower().StartsWith("temp")).ToList();
 
 				foreach (var conf in toDelete)
 				{
-					repository.Remove(conf._id);
+					_repository.Remove(conf._id);
 				}
 
 			}
@@ -82,8 +83,7 @@ namespace TekConf.UI.Api.Services.v1
 				var search = GetSearch(request.search);
 				var showPastConferences = GetShowPastConferences(request.showPastConferences);
 
-				var repository = new ConferenceRepository(new Configuration());
-				var query = repository
+				var query = _repository
 					.AsQueryable();
 
 				if (search != null)
@@ -111,19 +111,6 @@ namespace TekConf.UI.Api.Services.v1
 					}
 				
 					conferences = query
-							.Select(c => new ConferenceEntity(_hub, repository)
-							{
-								name = c.name,
-								start = c.start,
-								end = c.end,
-								registrationCloses = c.registrationCloses,
-								registrationOpens = c.registrationOpens,
-								location = c.location,
-								address = c.address,
-								description = c.description,
-								imageUrl = c.imageUrl,
-								sessions = c.sessions
-							})
 						.ToList();
 					conferencesDtos = Mapper.Map<List<ConferencesDto>>(conferences);
 				}
@@ -146,11 +133,10 @@ namespace TekConf.UI.Api.Services.v1
 
 			return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
 			{
-				var repository = new ConferenceRepository(new Configuration());
 				List<ConferenceEntity> conferences;
 				try
 				{
-					conferences = repository
+					conferences = _repository
 							.AsQueryable()
 							.Where(c => c.end >= DateTime.Now.AddDays(-7))
 							.OrderBy(c => c.start)

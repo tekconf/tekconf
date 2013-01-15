@@ -6,19 +6,19 @@ using TekConf.RemoteData.Shared.v1.Requests;
 
 namespace TekConf.UI.Api.Services.v1
 {
-	public class ConferenceSavedService : MongoServiceBase
+	public class ConferenceUpdatedService : MongoServiceBase
 	{
-		private readonly IRepository<ConferenceSavedMessage> _repository;
+		private readonly IRepository<ConferenceUpdatedMessage> _repository;
 		public ICacheClient CacheClient { get; set; }
 
-		public ConferenceSavedService(IRepository<ConferenceSavedMessage> repository)
+		public ConferenceUpdatedService(IRepository<ConferenceUpdatedMessage> repository)
 		{
 			_repository = repository;
 		}
 
-		public object Get(ConferenceSaved request)
+		public object Get(ConferenceUpdated request)
 		{
-			var cacheKey = "GetConferenceSaved";
+			var cacheKey = "GetConferenceUpdated";
 			var expireInTimespan = new TimeSpan(0, 0, 120);
 
 			return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>

@@ -26,8 +26,26 @@ namespace TekConf.UI.Api.Services.v1
 
 		public object Get(Conference request)
 		{
-			var fullConferenceDto = GetFullSingleConference(request);
-			return fullConferenceDto;
+			var cacheKey = "GetFullSingleConference-" + request.conferenceSlug;
+			var expireInTimespan = new TimeSpan(0, 0, 120);
+
+			return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
+			{
+				
+				var conference = _repository
+						.AsQueryable()
+					//.Where(c => c.isLive)
+						.SingleOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
+
+				if (conference == null)
+				{
+					throw new HttpError(HttpStatusCode.NotFound, "Conference not found.");
+				}
+
+				var conferenceDto = Mapper.Map<ConferenceEntity, FullConferenceDto>(conference);
+
+				return conferenceDto;
+			});
 		}
 
 		public object Post(CreateSpeaker speaker)
@@ -181,29 +199,6 @@ namespace TekConf.UI.Api.Services.v1
 			return conferenceDto;
 		}
 
-		private object GetFullSingleConference(Conference request)
-		{
-			var cacheKey = "GetFullSingleConference-" + request.conferenceSlug;
-			var expireInTimespan = new TimeSpan(0, 0, 120);
-
-			return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
-															{
-																var repository = new ConferenceRepository(new Configuration());
-																var conference = repository
-																		.AsQueryable()
-																	//.Where(c => c.isLive)
-																		.SingleOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
-
-																if (conference == null)
-																{
-																	throw new HttpError(HttpStatusCode.NotFound, "Conference not found.");
-																}
-
-																var conferenceDto = Mapper.Map<ConferenceEntity, FullConferenceDto>(conference);
-
-																return conferenceDto;
-															});
-		}
 
 	}
 }
