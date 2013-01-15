@@ -78,7 +78,9 @@
 	<script type="text/javascript">
 		$(function () {
 
-			$.connection.hub.url = 'http://api.tekconf.com/signalr';
+			//$.connection.hub.url = 'http://api.tekconf.com/signalr';
+			$.connection.hub.url = 'http://localhost/TekConf.UI.Api/signalr';
+
 			var chat = $.connection.eventsHub;
 
 			chat.client.broadcastMessage = function (message) {
@@ -87,19 +89,8 @@
 				$('#discussion').append('<li>' + encodedMsg + '</li>');
 				$('#notificationBar').text(encodedMsg);
 				$('.notification.sticky').notify();
-
-				//$('#alert').fadeIn(function () {
-				//	setTimeout(function () {
-				//		$('#alert').fadeOut(function () {
-				//			//$('#alert').remove();
-				//		});
-				//	}, 5000);
-				//});
-
-				//$('#alert').fadeIn(200).delay(5000).fadeOut(200).remove();
 			};
 
-			// Start the connection.
 			$.connection.hub.start().done(function () {
 			});
 		});

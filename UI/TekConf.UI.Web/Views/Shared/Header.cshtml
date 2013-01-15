@@ -1,4 +1,5 @@
-﻿<div class="navbar navbar-fixed-top">
+﻿@using TekConf.UI.Web
+<div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -22,7 +23,7 @@
                     <li><a href="~/Organizers">For Organizers </a></li>
                     @*<li><a href="~/Account/LoginWithProvider">Login</a></li>*@
                     
-                     @if (Request.QueryString["admin"] != null && Request.QueryString["admin"] == "true")
+                     @if (Html.IsAdmin())
                      {
                         <li><a href="~/Admin">Admin</a></li>
                      }

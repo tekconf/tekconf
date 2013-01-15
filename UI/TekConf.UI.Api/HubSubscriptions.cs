@@ -71,7 +71,7 @@ namespace TekConf.UI.Api
 			{
 				_speakerRemovedRepository.Save(@event);
 				var context = GlobalHost.ConnectionManager.GetHubContext<EventsHub>();
-				var message = @event.SpeakerSlug + " has been removed.";
+				var message = @event.SpeakerName + " has been removed from " + @event.SessionTitle;
 				context.Clients.All.broadcastMessage(message);
 			});
 		}
@@ -82,7 +82,7 @@ namespace TekConf.UI.Api
 			{
 				_speakerAddedRepository.Save(@event);
 				var context = GlobalHost.ConnectionManager.GetHubContext<EventsHub>();
-				var message = @event.SpeakerSlug + " has been added.";
+				var message = @event.SpeakerName + " has been added to " + @event.SessionTitle;
 				context.Clients.All.broadcastMessage(message);
 			});
 		}
@@ -93,7 +93,7 @@ namespace TekConf.UI.Api
 			{
 				_sessionRemovedRepository.Save(@event);
 				var context = GlobalHost.ConnectionManager.GetHubContext<EventsHub>();
-				var message = @event.SessionSlug + " has been removed.";
+				var message = @event.SessionTitle + " has been removed from " + @event.ConferenceName;
 				context.Clients.All.broadcastMessage(message);
 
 			});
@@ -105,7 +105,7 @@ namespace TekConf.UI.Api
 			{
 				_conferenceStartDateChangedRepository.Save(@event);
 				var context = GlobalHost.ConnectionManager.GetHubContext<EventsHub>();
-				var message = @event.ConferenceSlug + " start date has changed from "
+				var message = @event.ConferenceName + " start date has changed from "
 																+ (@event.OldValue.HasValue ? @event.OldValue.Value.ToString() : "(not set)")
 																+ " to "
 																+ (@event.NewValue.HasValue ? @event.NewValue.Value.ToString() : "(not set)");
@@ -156,7 +156,7 @@ namespace TekConf.UI.Api
 			{
 				_conferenceLocationChangedRepository.Save(@event);
 				var context = GlobalHost.ConnectionManager.GetHubContext<EventsHub>();
-				var message = @event.ConferenceSlug + " location has changed from "
+				var message = @event.ConferenceName + " location has changed from "
 																+ (!string.IsNullOrWhiteSpace(@event.OldValue) ? @event.OldValue : "(not set)")
 																+ " to "
 																+ (!string.IsNullOrWhiteSpace(@event.NewValue) ? @event.NewValue : "(not set)");
@@ -171,7 +171,7 @@ namespace TekConf.UI.Api
 							{
 								_sessionRoomChangedRepository.Save(@event);
 								var context = GlobalHost.ConnectionManager.GetHubContext<EventsHub>();
-								var message = @event.ConferenceSlug + " room has changed from "
+								var message = @event.SessionTitle + " room has changed from "
 																				+ (!string.IsNullOrWhiteSpace(@event.OldValue) ? @event.OldValue : "(not set)")
 																				+ " to "
 																				+ (!string.IsNullOrWhiteSpace(@event.NewValue) ? @event.NewValue : "(not set)");
@@ -185,7 +185,7 @@ namespace TekConf.UI.Api
 																			 {
 																				 _sessionAddedRepository.Save(@event);
 																				 var context = GlobalHost.ConnectionManager.GetHubContext<EventsHub>();
-																				 var message = @event.SessionSlug + " has been added ";
+																				 var message = @event.SessionTitle + " has been added ";
 																				 context.Clients.All.broadcastMessage(message);
 																			 });
 		}
@@ -199,7 +199,7 @@ namespace TekConf.UI.Api
 																// Tweet
 																_conferencePublishedRepository.Save(@event);
 																var context = GlobalHost.ConnectionManager.GetHubContext<EventsHub>();
-																var message = @event.ConferenceSlug + " has been published. ";
+																var message = @event.ConferenceName + " has been published. ";
 																context.Clients.All.broadcastMessage(message);
 															});
 

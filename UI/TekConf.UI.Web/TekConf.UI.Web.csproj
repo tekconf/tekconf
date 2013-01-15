@@ -269,6 +269,7 @@
     <Compile Include="Controllers\SpeakersController.cs" />
     <Compile Include="EventsHub.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
+    <Compile Include="HtmlHelpers.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="ViewModels\GravatarImage.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />

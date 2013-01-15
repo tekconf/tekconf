@@ -1,5 +1,6 @@
 ﻿@using System.Globalization
 @using System.Web.Optimization
+@using TekConf.UI.Web
 @model TekConf.RemoteData.Dtos.v1.FullConferenceDto
 @{
     Layout = null;
@@ -186,7 +187,7 @@
                                 <img src="~/img/social/linkedin-16x16.png" /> @HtmlHelpers.SimpleLink(Model.linkedInUrl, "LinkedIn")<br />
                             }
                         </p>
-                        @if (Request.QueryString["admin"] != null && Request.QueryString["admin"] == "true")
+                        @if (Html.IsAdmin())
                         {
                             @Html.RouteLink("Edit Conference", "AdminEditConference", new { conferenceSlug = Model.slug}, new { @class = "btn btn-info" })	
                             @Html.RouteLink("Add Session", "AdminAddSession", new { conferenceSlug = Model.slug}, new { @class = "btn" })	

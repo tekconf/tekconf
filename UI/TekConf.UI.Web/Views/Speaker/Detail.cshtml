@@ -1,5 +1,6 @@
 ﻿@using System.Web.Optimization
 @using TekConf.RemoteData.Dtos.v1
+@using TekConf.UI.Web
 @model TekConf.UI.Web.Controllers.SpeakerDetailViewModel
 
 @{
@@ -150,7 +151,7 @@
                                 <img src="~/img/social/codeplex.png" /> @HtmlHelpers.SimpleLink(Model.Speaker.codeplexUrl, "CodePlex")<br />
                             }
                         </p>
-                        @if (Request.QueryString["admin"] != null && Request.QueryString["admin"] == "true")
+                        @if (Html.IsAdmin())
                         {
                         @Html.RouteLink("Edit Speaker", "AdminEditSpeaker", new { conferenceSlug = Model.Conference.slug, speakerSlug = Model.Speaker.slug}, new { @class = "btn btn-info" })
                         }
