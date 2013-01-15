@@ -1,3 +1,4 @@
+using Microsoft.AspNet.SignalR;
 using TinyMessenger;
 
 namespace TekConf.UI.Api
@@ -64,7 +65,7 @@ namespace TekConf.UI.Api
 		{
 			_hub.Subscribe<SpeakerRemovedMessage>((@event) =>
 			{
-				_speakerRemovedRepository.Save(@event);
+				//_speakerRemovedRepository.Save(@event);
 			});
 		}
 
@@ -72,7 +73,7 @@ namespace TekConf.UI.Api
 		{
 			_hub.Subscribe<SpeakerAddedMessage>((@event) =>
 			{
-				_speakerAddedRepository.Save(@event);
+				//_speakerAddedRepository.Save(@event);
 			});
 		}
 
@@ -80,7 +81,7 @@ namespace TekConf.UI.Api
 		{
 			_hub.Subscribe<SessionRemovedMessage>((@event) =>
 			{
-				_sessionRemovedRepository.Save(@event);
+				//_sessionRemovedRepository.Save(@event);
 			});
 		}
 
@@ -88,7 +89,7 @@ namespace TekConf.UI.Api
 		{
 			_hub.Subscribe<ConferenceStartDateChangedMessage>((@event) =>
 			{
-				_conferenceStartDateChangedRepository.Save(@event);
+				//_conferenceStartDateChangedRepository.Save(@event);
 			});
 		}
 
@@ -96,7 +97,7 @@ namespace TekConf.UI.Api
 		{
 			_hub.Subscribe<ConferenceSavedMessage>((@event) =>
 			{
-				_conferenceSavedRepository.Save(@event);
+				//_conferenceSavedRepository.Save(@event);
 			});
 		}
 
@@ -104,7 +105,15 @@ namespace TekConf.UI.Api
 		{
 			_hub.Subscribe<ConferenceEndDateChangedMessage>((@event) =>
 			{
-				_conferenceEndDateChangedRepository.Save(@event);
+				//_conferenceEndDateChangedRepository.Save(@event);
+				//Only send to people that have this conference saved to their schedule
+				var context = GlobalHost.ConnectionManager.GetHubContext<EventsHub>();
+				var message = @event.ConferenceName + " end date has changed from " 
+																+ (@event.OldValue.HasValue ? @event.OldValue.Value.ToString() : "(not set)") 
+																+ " to "
+																+ (@event.NewValue.HasValue ? @event.NewValue.Value.ToString() : "(not set)");
+
+				context.Clients.All.broadcastMessage(message);
 			});
 		}
 
@@ -112,7 +121,7 @@ namespace TekConf.UI.Api
 		{
 			_hub.Subscribe<ConferenceLocationChangedMessage>((@event) =>
 			{
-				_conferenceLocationChangedRepository.Save(@event);
+				//_conferenceLocationChangedRepository.Save(@event);
 			});
 		}
 
@@ -120,7 +129,7 @@ namespace TekConf.UI.Api
 		{
 			_hub.Subscribe<SessionRoomChangedMessage>((@event) =>
 							{
-								_sessionRoomChangedRepository.Save(@event);
+								//_sessionRoomChangedRepository.Save(@event);
 							});
 		}
 
@@ -128,7 +137,7 @@ namespace TekConf.UI.Api
 		{
 			_hub.Subscribe<SessionAddedMessage>((@event) =>
 																			 {
-																				 _sessionAddedRepository.Save(@event);
+																				 //_sessionAddedRepository.Save(@event);
 																			 });
 		}
 
@@ -139,7 +148,7 @@ namespace TekConf.UI.Api
 																// Add to community megaphone
 																// Add to rss feed
 																// Tweet
-																_conferencePublishedRepository.Save(@event);
+																//_conferencePublishedRepository.Save(@event);
 															});
 
 		}

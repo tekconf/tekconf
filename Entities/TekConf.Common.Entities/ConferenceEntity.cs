@@ -127,7 +127,7 @@ namespace TekConf.UI.Api
 			set
 			{
 				if (_end != value)
-					_hub.Publish(new ConferenceEndDateChangedMessage() { ConferenceSlug = this.slug, OldValue = _end, NewValue = value });
+					_hub.Publish(new ConferenceEndDateChangedMessage() { ConferenceName = this.name, ConferenceSlug = this.slug, OldValue = _end, NewValue = value });
 
 				_end = value;
 			}
