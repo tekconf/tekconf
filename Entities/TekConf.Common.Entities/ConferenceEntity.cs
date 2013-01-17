@@ -13,11 +13,13 @@ namespace TekConf.UI.Api
 	{
 		private readonly ITinyMessengerHub _hub;
 		private readonly IRepository<ConferenceEntity> _repository;
+		private List<TinyMessageBase> _messages;
 
 		public ConferenceEntity(ITinyMessengerHub hub, IRepository<ConferenceEntity> repository)
 		{
 			_hub = hub;
 			_repository = repository;
+			_messages = new List<TinyMessageBase>();
 		}
 
 
@@ -39,12 +41,17 @@ namespace TekConf.UI.Api
 
 			if (isNew)
 			{
-				_hub.Publish(new ConferenceCreatedMessage() { ConferenceSlug = this.slug, ConferenceName = this.name });
+				_messages.Add(new ConferenceCreatedMessage() { ConferenceSlug = this.slug, ConferenceName = this.name });
 			}
 			else
 			{
-				_hub.Publish(new ConferenceUpdatedMessage() { ConferenceSlug = this.slug });
+				_messages.Add(new ConferenceUpdatedMessage() { ConferenceSlug = this.slug });
 			}
+			foreach (var message in _messages)
+			{
+				_hub.Publish(message);
+			}
+			_messages.Clear();
 		}
 
 		public void Publish()
@@ -52,7 +59,7 @@ namespace TekConf.UI.Api
 			this.datePublished = DateTime.Now;
 			this.isLive = true;
 
-			_hub.Publish(new ConferencePublishedMessage() { ConferenceName = this.name, ConferenceSlug = this.slug });
+			_messages.Add(new ConferencePublishedMessage() { ConferenceName = this.name, ConferenceSlug = this.slug });
 		}
 
 		public void AddSession(SessionEntity session)
@@ -67,7 +74,7 @@ namespace TekConf.UI.Api
 			_sessions.Add(session);
 
 			if (!_isInitializingFromBson && isSaved)
-				_hub.Publish(new SessionAddedMessage() { SessionSlug = session.slug, SessionTitle = session.title });
+				_messages.Add(new SessionAddedMessage() { SessionSlug = session.slug, SessionTitle = session.title });
 		}
 
 		public void RemoveSession(SessionEntity session)
@@ -78,7 +85,7 @@ namespace TekConf.UI.Api
 			}
 			_sessions.Remove(session);
 			if (!_isInitializingFromBson && isSaved)
-				_hub.Publish(new SessionRemovedMessage() { ConferenceName = this.name, SessionSlug = session.slug, SessionTitle = session.title });
+				_messages.Add(new SessionRemovedMessage() { ConferenceName = this.name, SessionSlug = session.slug, SessionTitle = session.title });
 		}
 
 		public void AddSpeakerToSession(string sessionSlug, SpeakerEntity speaker)
@@ -94,7 +101,7 @@ namespace TekConf.UI.Api
 			session.AddSpeaker(speaker);
 
 			if (!_isInitializingFromBson && isSaved)
-				_hub.Publish(new SpeakerAddedMessage() { SessionSlug = sessionSlug, SessionTitle = session.title, SpeakerSlug = speaker.slug, SpeakerName = speaker.fullName });
+				_messages.Add(new SpeakerAddedMessage() { SessionSlug = sessionSlug, SessionTitle = session.title, SpeakerSlug = speaker.slug, SpeakerName = speaker.fullName });
 		}
 
 		public void RemoveSpeakerFromSession(string sessionSlug, SpeakerEntity speaker)
@@ -110,7 +117,7 @@ namespace TekConf.UI.Api
 			session.RemoveSpeaker(speaker);
 
 			if (!_isInitializingFromBson && isSaved)
-				_hub.Publish(new SpeakerRemovedMessage() { SessionSlug = sessionSlug, SessionTitle = session.title, SpeakerSlug = speaker.slug, SpeakerName = speaker.fullName });
+				_messages.Add(new SpeakerRemovedMessage() { SessionSlug = sessionSlug, SessionTitle = session.title, SpeakerSlug = speaker.slug, SpeakerName = speaker.fullName });
 		}
 
 
@@ -128,7 +135,7 @@ namespace TekConf.UI.Api
 			set
 			{
 				if (!_isInitializingFromBson && isSaved && _start != value)
-					_hub.Publish(new ConferenceStartDateChangedMessage() { ConferenceSlug = this.slug, ConferenceName = this.name, OldValue = _start, NewValue = value });
+					_messages.Add(new ConferenceStartDateChangedMessage() { ConferenceSlug = this.slug, ConferenceName = this.name, OldValue = _start, NewValue = value });
 
 				_start = value;
 			}
@@ -141,7 +148,7 @@ namespace TekConf.UI.Api
 			set
 			{
 				if (!_isInitializingFromBson && isSaved && _end != value)
-					_hub.Publish(new ConferenceEndDateChangedMessage() { ConferenceName = this.name, ConferenceSlug = this.slug, OldValue = _end, NewValue = value });
+					_messages.Add(new ConferenceEndDateChangedMessage() { ConferenceName = this.name, ConferenceSlug = this.slug, OldValue = _end, NewValue = value });
 
 				_end = value;
 			}
@@ -159,7 +166,7 @@ namespace TekConf.UI.Api
 			set
 			{
 				if (!_isInitializingFromBson && isSaved && _location != value)
-					_hub.Publish(new ConferenceLocationChangedMessage() { ConferenceSlug = this.slug, ConferenceName = this.name, OldValue = _location, NewValue = value });
+					_messages.Add(new ConferenceLocationChangedMessage() { ConferenceSlug = this.slug, ConferenceName = this.name, OldValue = _location, NewValue = value });
 
 				_location = value;
 			}
@@ -202,7 +209,7 @@ namespace TekConf.UI.Api
 		private void SessionRoomChangedHandler(SessionEntity sessionEntity, RoomChanged e)
 		{
 			if (!_isInitializingFromBson && isSaved)
-				_hub.Publish(new SessionRoomChangedMessage() { ConferenceSlug = this.slug, SessionSlug = e.SessionSlug, SessionTitle = sessionEntity.title, OldValue = e.OldValue, NewValue = e.NewValue });
+				_messages.Add(new SessionRoomChangedMessage() { ConferenceSlug = this.slug, SessionSlug = e.SessionSlug, SessionTitle = sessionEntity.title, OldValue = e.OldValue, NewValue = e.NewValue });
 		}
 
 		private bool _isInitializingFromBson;
