@@ -1,6 +1,4 @@
-﻿using System;
-using System.Web;
-using Microsoft.AspNet.SignalR.Hubs;
+﻿using Microsoft.AspNet.SignalR;
 
 public class EventsHub : Hub
 {

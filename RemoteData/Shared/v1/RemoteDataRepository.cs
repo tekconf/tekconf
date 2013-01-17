@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using ServiceStack.ServiceClient.Web;
-using ServiceStack.ServiceInterface.Auth;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.UI.Api.Services.Requests.v1;
 using ServiceStack.Common.ServiceClient.Web;

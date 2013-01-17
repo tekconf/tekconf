@@ -1,4 +1,5 @@
-﻿@using System.Web.Optimization
+﻿@using System.Configuration
+@using System.Web.Optimization
 @model dynamic
 
 @{
@@ -31,7 +32,7 @@
 	<div id="subheader">
 		<div class="inner">
 			<div class="container">
-				<h1>Api Documentation</h1>
+				<h1>Events</h1>
 
 			</div>
 			<!-- /.container -->
@@ -64,8 +65,8 @@
 	</div>
 
 
-	<script src="~/Scripts/jquery-1.8.3.min.js"></script>
-	<script src="~/Scripts/jquery.signalR-1.0.0-rc1.js"></script>
+	<script src="~/Scripts/jquery-1.9.0.min.js"></script>
+	<script src="~/Scripts/jquery.signalR-1.0.0-rc2.js"></script>
 	<script src="~/signalr/hubs"></script>
 	<script type="text/javascript" src="~/js/notification.js"></script>
 
@@ -78,12 +79,13 @@
 	<script type="text/javascript">
 		$(function () {
 
-			$.connection.hub.url = 'http://api.tekconf.com/signalr';
+			$.connection.hub.url = '@(ConfigurationManager.AppSettings["BaseUrl"] + "/signalr")';
 			//$.connection.hub.url = 'http://localhost/TekConf.UI.Api/signalr';
 
 			var chat = $.connection.eventsHub;
 
 			chat.client.broadcastMessage = function (message) {
+				alert('here');
 				var encodedMsg = $('<div />').text(message).html();
 
 				$('#discussion').append('<li>' + encodedMsg + '</li>');
