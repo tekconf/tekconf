@@ -153,7 +153,14 @@ namespace TekConf.UI.Api
 			{
 				return webUrl + "/img/conferences/DefaultConference.png";
 			}
-			return webUrl + source.imageUrl;
+			else if (!source.imageUrl.StartsWith("http"))
+			{
+				return webUrl + source.imageUrl;
+			}
+			else
+			{
+				return source.imageUrl;
+			}
 		}
 	}
 	public class TrimmingFormatter : BaseFormatter<string>

@@ -278,7 +278,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Requests\v1\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
