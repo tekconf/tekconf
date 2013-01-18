@@ -54,6 +54,7 @@
     <Compile Include="AddressEntity.cs" />
     <Compile Include="ConferenceEntity.cs" />
     <Compile Include="Messages\ConferenceCreatedMessage.cs" />
+    <Compile Include="PresentationEntity.cs" />
     <Compile Include="Repositories\ConferenceCreatedRepository.cs" />
     <Compile Include="Repositories\SpeakerRemovedRepository.cs" />
     <Compile Include="Repositories\ConferenceEndDateChangedRepository.cs" />

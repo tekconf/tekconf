@@ -2,83 +2,133 @@
 @model TekConf.UI.Web.ViewModels.SpeakersViewModel
 
 @{
-    Layout = null;
+	Layout = null;
 }
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+	<meta charset="utf-8">
 
-    <title>For Speakers - tekconf</title>
+	<title>For Speakers - tekconf</title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
 
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
 
-   @Styles.Render("~/css/api/index")
+	@Styles.Render("~/css/api/index")
 
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
+	<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
 <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
 </head>
 
 <body>
-    @Html.Partial("Header")
+	@Html.Partial("Header")
 
-    <div id="subheader">
-        <div class="inner">
-            <div class="container">
-                <h1>For Speakers</h1>
-            </div>
-            <!-- /.container -->
-        </div>
-        <!-- /inner -->
-    </div>
-    <!-- /subheader -->
+	<div id="subheader">
+		<div class="inner">
+			<div class="container">
+				<h1>For Speakers</h1>
+			</div>
+			<!-- /.container -->
+		</div>
+		<!-- /inner -->
+	</div>
+	<!-- /subheader -->
 
-    <div id="subpage">
-	    <div class="container">
-		    <div class="page-header">
-					<h3>Open Calls</h3>
-					
-                    <div class="span12">
-                        <table class="table">
-                            <tbody>
-                                @foreach (var conference in Model.OpenConferences)
-                                {
-                                    <tr>
-                                        <td><a href="~/Conferences/@conference.slug" class="btn btn-primary btn-mini">View Conference</a></td>
-                                        <td>@conference.name</td>
-                                        <td>@HtmlHelpers.FormatDateRange(conference.start, conference.end)</td>
-                                        <td>@HtmlHelpers.FormatAddress(conference.address)</td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>					
+	<div id="subpage">
+		<div class="container">
+			<div class="page-header">
+				<h3>Open Calls</h3>
+				</div>
+				<div class="span12">
+					<table class="table">
+						<tbody>
+							@foreach (var conference in Model.OpenConferences)
+							{
+								<tr>
+									<td>
+										<img src="@conference.imageUrl" style="height:80px;" /><br/><br/>
+										<a href="~/Conferences/@conference.slug" class="btn btn-primary btn-mini">View Conference</a>
+									</td>
+									<td>
+										@conference.name<br/>
+										Call for Speakers : @HtmlHelpers.FormatDateRange(conference.callForSpeakersOpens, conference.callForSpeakersCloses)<br/>
+										Conference : @HtmlHelpers.FormatDateRange(conference.start, conference.end)<br/>
+										Location : @HtmlHelpers.FormatAddress(conference.address)
+									</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+				</div>
 
-		    </div>
-		    <div class="page-header"><h3>My Conferences</h3></div>
-		    <div class="page-header"><h3>My Presentations</h3></div>
-				<div class="page-header"><h3>My Profile</h3></div>
-	    </div>
-        <!-- /container -->
-    </div>
-    <!-- /subpage -->
+			
+			<div class="page-header">
+				<h3>My Conferences</h3>
+				</div>
+								<div class="span12">
+					<table class="table">
+						<tbody>
+							@foreach (var conference in Model.MyConferences)
+			 {
+								<tr>
+									<td>
+										<img src="@conference.imageUrl" style="height: 80px;" /><br/><br/>
+										<a href="~/Conferences/@conference.slug" class="btn btn-primary btn-mini">View Conference</a>
+									</td>
+									<td>@conference.name</td>
+									<td>@HtmlHelpers.FormatDateRange(conference.start, conference.end)</td>
+									<td>@HtmlHelpers.FormatAddress(conference.address)</td>
+								</tr>
+			 }
+						</tbody>
+					</table>
+				</div>
+			
+			<div class="page-header">
+				<h3>My Presentations</h3>
+				</div>
+				<div class="span12">
+					<table class="table">
+						<tbody>
+							@foreach (var presentation in Model.Presentations)
+							{
+								<tr>
+									<td>
+										<img src="@presentation.ImagePath" style="height:80px;" /><br/><br/>
+										<a href="~/Presentations/@presentation.Slug" class="btn btn-primary btn-mini">View Presentation</a>
+									</td>
+									<td>@presentation.Title</td>
+									<td>@presentation.UploadedOn</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+				</div>
 
-    @Html.Partial("Extra")
+			
+			<div class="page-header">
+				<h3>My Profile</h3>
+			</div>
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /subpage -->
 
-    @Html.Partial("Footer")
+	@Html.Partial("Extra")
 
-    @Scripts.Render("~/js/commonFaq")
+	@Html.Partial("Footer")
 
-    <script>
-        $(function () {
-        });
-    </script>
+	@Scripts.Render("~/js/commonFaq")
+
+	<script>
+		$(function () {
+		});
+	</script>
 </body>
 </html>

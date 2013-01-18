@@ -146,6 +146,12 @@
     <Reference Include="Owin">
       <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
+    <Reference Include="Ploeh.AutoFixture">
+      <HintPath>..\..\packages\AutoFixture.2.16.1\lib\net35\Ploeh.AutoFixture.dll</HintPath>
+    </Reference>
+    <Reference Include="Ploeh.SemanticComparison">
+      <HintPath>..\..\packages\AutoFixture.2.16.1\lib\net35\Ploeh.SemanticComparison.dll</HintPath>
+    </Reference>
     <Reference Include="ServiceStack, Version=3.9.33.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\ServiceStack.3.9.33\lib\net35\ServiceStack.dll</HintPath>
@@ -629,6 +635,7 @@
     <Content Include="img\conferences\wwdc-2012.png" />
     <Content Include="img\conferences\xamarin-evolve-2013.png" />
     <Content Include="img\OnSale.png" />
+    <Content Include="img\Presentations\Sample\Sample.png" />
     <Content Include="img\showTable.png" />
     <Content Include="img\showThumbnails.png" />
     <Content Include="img\social\500px-16x16.png" />

@@ -1,6 +1,6 @@
 namespace TekConf.RemoteData.Dtos.v1
 {
-  public class SpeakerDto
+	public class SpeakerDto
   {
     public string slug { get; set; }
     public string firstName { get; set; }
