@@ -72,16 +72,18 @@ namespace TekConf.UI.Api.Services.v1
 		{
 			string searchCacheKey = request.search ?? string.Empty;
 			string sortByCacheKey = request.sortBy ?? string.Empty;
+			string openCallsCacheKey = request.showOnlyWithOpenCalls.ToString() ?? string.Empty;
 			string showPastConferencesCacheKey = request.showPastConferences.ToString() ?? string.Empty;
 
-			var cacheKey = "GetAllConferences-" + searchCacheKey + "-" + sortByCacheKey + "-" + showPastConferencesCacheKey;
-			var expireInTimespan = new TimeSpan(0, 0, 2); //TODO : Increase the cache timeout
+			var cacheKey = "GetAllConferences-" + searchCacheKey + "-" + sortByCacheKey + "-" + showPastConferencesCacheKey + "-" + openCallsCacheKey;
+			var expireInTimespan = new TimeSpan(0, 0, 120); //TODO : Increase the cache timeout
 
 			var result = base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
 			{
 				var orderByFunc = GetOrderByFunc(request.sortBy);
 				var search = GetSearch(request.search);
 				var showPastConferences = GetShowPastConferences(request.showPastConferences);
+				var showOnlyOpenCalls = GetShowOnlyOpenCalls(request.showOnlyWithOpenCalls);
 
 				var query = _repository
 					.AsQueryable();
@@ -94,6 +96,11 @@ namespace TekConf.UI.Api.Services.v1
 				if (showPastConferences != null)
 				{
 					query = query.Where(showPastConferences);
+				}
+
+				if (showOnlyOpenCalls != null)
+				{
+					query = query.Where(showOnlyOpenCalls);
 				}
 
 				List<ConferencesDto> conferencesDtos = null;
@@ -166,7 +173,19 @@ namespace TekConf.UI.Api.Services.v1
 			//Only show current conferences
 			if (showPastConferences == null || !(bool)showPastConferences)
 			{
-				searchBy = c => c.end >= DateTime.Now.AddDays(-7);
+				searchBy = c => c.end >= DateTime.Now.AddDays(-3);
+			}
+
+			return searchBy;
+		}
+
+		private Expression<Func<ConferenceEntity, bool>> GetShowOnlyOpenCalls(bool? showOnlyOpenCalls)
+		{
+			Expression<Func<ConferenceEntity, bool>> searchBy = null;
+
+			if (showOnlyOpenCalls.HasValue && showOnlyOpenCalls.Value)
+			{
+				searchBy = c => c.callForSpeakersOpens <= DateTime.Now && c.callForSpeakersCloses >= DateTime.Now;
 			}
 
 			return searchBy;

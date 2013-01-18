@@ -58,6 +58,18 @@ namespace TekConf.UI.Web.Controllers
 			});
 		}
 
+		public Task<IList<ConferencesDto>> GetConferencesWithOpenCalls()
+		{
+			return Task.Run(() =>
+			{
+				var t = new TaskCompletionSource<IList<ConferencesDto>>();
+
+				_repository.GetConferencesWithOpenCalls(c => t.TrySetResult(c));
+
+				return t.Task;
+			});
+		}
+
 		public Task<IList<FullSpeakerDto>> GetFeaturedSpeakers()
 		{
 			return Task.Run(() =>

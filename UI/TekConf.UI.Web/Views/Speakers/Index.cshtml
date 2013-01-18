@@ -1,5 +1,5 @@
 ﻿@using System.Web.Optimization
-@model dynamic
+@model TekConf.UI.Web.ViewModels.SpeakersViewModel
 
 @{
     Layout = null;
@@ -41,9 +41,31 @@
     <!-- /subheader -->
 
     <div id="subpage">
-        <div class="container">
-            This will contain open calls for speakers, etc.
-        </div>
+	    <div class="container">
+		    <div class="page-header">
+					<h3>Open Calls</h3>
+					
+                    <div class="span12">
+                        <table class="table">
+                            <tbody>
+                                @foreach (var conference in Model.OpenConferences)
+                                {
+                                    <tr>
+                                        <td><a href="~/Conferences/@conference.slug" class="btn btn-primary btn-mini">View Conference</a></td>
+                                        <td>@conference.name</td>
+                                        <td>@HtmlHelpers.FormatDateRange(conference.start, conference.end)</td>
+                                        <td>@HtmlHelpers.FormatAddress(conference.address)</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>					
+
+		    </div>
+		    <div class="page-header"><h3>My Conferences</h3></div>
+		    <div class="page-header"><h3>My Presentations</h3></div>
+				<div class="page-header"><h3>My Profile</h3></div>
+	    </div>
         <!-- /container -->
     </div>
     <!-- /subpage -->
