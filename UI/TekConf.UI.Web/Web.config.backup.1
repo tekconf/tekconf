@@ -19,8 +19,6 @@
       <section name="oauth" type="DotNetOpenAuth.Configuration.OAuthElement, DotNetOpenAuth.OAuth" requirePermission="false" allowLocation="true" />
       <section name="openid" type="DotNetOpenAuth.Configuration.OpenIdElement, DotNetOpenAuth.OpenId" requirePermission="false" allowLocation="true" />
     </sectionGroup>
-    <section name="system.identityModel" type="System.IdentityModel.Configuration.SystemIdentityModelSection, System.IdentityModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=B77A5C561934E089" />
-    <section name="system.identityModel.services" type="System.IdentityModel.Services.Configuration.SystemIdentityModelServicesSection, System.IdentityModel.Services, Version=4.0.0.0, Culture=neutral, PublicKeyToken=B77A5C561934E089" />
   </configSections>
   <connectionStrings>
     <clear />
@@ -38,9 +36,6 @@
     <!--<add key="BaseUrl" value="http://api.tekconf.com" />-->
     <add key="enableSimpleMembership" value="false" />
     <add key="autoFormsAuthentication" value="false" />
-    <add key="ida:FederationMetadataLocation" value="https://tekconf.accesscontrol.windows.net/FederationMetadata/2007-06/FederationMetadata.xml" />
-    <add key="ida:Issuer" value="https://tekconf.accesscontrol.windows.net/v2/wsfederation" />
-    <add key="ida:ProviderSelection" value="ACS" />
   </appSettings>
   <!--
     For a description of web.config changes for .NET 4.5 see http://go.microsoft.com/fwlink/?LinkId=235367.
@@ -50,21 +45,150 @@
         <httpRuntime targetFramework="4.5" />
       </system.Web>
   -->
-  <location path="FederationMetadata">
-    <system.web>
-      <authorization>
-        <allow users="*" />
-      </authorization>
-    </system.web>
-  </location>
   <system.web>
-    <authorization>
-      <deny users="?" />
-    </authorization>
-    <authentication mode="None" />
     <customErrors mode="Off" />
     <compilation debug="true" targetFramework="4.5" />
     <trace writeToDiagnosticsTrace="true" enabled="true" pageOutput="false" />
+    <!--<caching>
+      <outputCache defaultProvider="MongoDBOutputCache">
+        <providers>
+          <add name="MongoDBOutputCache" 
+               type="MongoDB.Web.Providers.MongoDBOutputCacheProvider" 
+               connectionString="mongodb://localhost" 
+               database="tekconf"
+               collection="ASPNETDBOutputCache" />
+        </providers>
+      </outputCache>
+    </caching>
+    <healthMonitoring enabled="true">
+      <providers>
+        <add name="MongoDBWebEventProvider" 
+             type="MongoDB.Web.Providers.MongoDBWebEventProvider" 
+             bufferMode="Notification" 
+             connectionString="mongodb://localhost" 
+             database="tekconf"
+             collection="ASPNETDBWebEvents" />
+      </providers>
+      <rules>
+        <add name="LogAllEvents" eventName="All Events" provider="MongoDBWebEventProvider" />
+      </rules>
+    </healthMonitoring>
+    <membership defaultProvider="MongoDBMembershipProvider">
+      <providers>
+        <clear />
+        <add name="MongoDBMembershipProvider" 
+             type="MongoDB.Web.Providers.MongoDBMembershipProvider" 
+             applicationName="/" 
+             connectionString="mongodb://localhost" 
+             collection="ASPNETDBUsers" 
+             enablePasswordRetrieval="false" 
+             enablePasswordReset="true" 
+             requiresQuestionAndAnswer="false" 
+             requiresUniqueEmail="false" 
+             maxInvalidPasswordAttempts="5" 
+             minRequiredPasswordLength="6" 
+             minRequiredNonalphanumericCharacters="0" 
+             passwordAttemptWindow="10" />
+      </providers>
+    </membership>
+    <profile defaultProvider="MongoDBProfileProvider" enabled="true">
+      <properties>
+        <add name="Age" type="Int32" />
+        <add name="Country" type="string" />
+        <add name="Gender" type="string" />
+      </properties>
+      <providers>
+        <clear />
+        <add name="MongoDBProfileProvider" 
+             type="MongoDB.Web.Providers.MongoDBProfileProvider" 
+             applicationName="/" 
+             connectionString="mongodb://localhost" 
+             database="tekconf"
+             collection="ASPNETDBProfiles" />
+      </providers>
+    </profile>
+    <roleManager enabled="false">
+      <providers>
+        <clear />
+        <add name="MongoDBRoleProvider" type="MongoDB.Web.Providers.MongoDBRoleProvider" 
+             applicationName="/" 
+             connectionString="mongodb://localhost" 
+             database="tekconf"
+             collection="ASPNETDBRoles" />
+      </providers>
+    </roleManager>-->
+    <!--<caching>
+      <outputCache defaultProvider="MongoDBOutputCache">
+        <providers>
+          <add name="MongoDBOutputCache"
+               type="MongoDB.Web.Providers.MongoDBOutputCacheProvider"
+               connectionString="mongodb://tekconf:tekconf1234@alex.mongohq.com:10035/?safe=true?safe=true"
+               database="tekconf"
+               collection="ASPNETDBOutputCache" />
+        </providers>
+      </outputCache>
+    </caching>
+    <healthMonitoring enabled="true">
+      <providers>
+        <add name="MongoDBWebEventProvider"
+             type="MongoDB.Web.Providers.MongoDBWebEventProvider"
+             bufferMode="Notification"
+             connectionString="mongodb://tekconf:tekconf1234@alex.mongohq.com:10035/?safe=true?safe=true"
+             database="tekconf"
+             collection="ASPNETDBWebEvents" />
+      </providers>
+      <rules>
+        <add name="LogAllEvents" eventName="All Events" provider="MongoDBWebEventProvider" />
+      </rules>
+    </healthMonitoring>
+    <membership defaultProvider="MongoDBMembershipProvider">
+      <providers>
+        <clear />
+        <add name="MongoDBMembershipProvider"
+             type="MongoDB.Web.Providers.MongoDBMembershipProvider"
+             applicationName="/"
+             connectionString="mongodb://tekconf:tekconf1234@alex.mongohq.com:10035/?safe=true?safe=true"
+             database="tekconf"
+             collection="ASPNETDBUsers"
+             enablePasswordRetrieval="false"
+             enablePasswordReset="true"
+             requiresQuestionAndAnswer="false"
+             requiresUniqueEmail="false"
+             maxInvalidPasswordAttempts="5"
+             minRequiredPasswordLength="6"
+             minRequiredNonalphanumericCharacters="0"
+             passwordAttemptWindow="10" />
+      </providers>
+    </membership>
+    <profile defaultProvider="MongoDBProfileProvider" enabled="true">
+      <properties>
+        <add name="Age" type="Int32" />
+        <add name="Country" type="string" />
+        <add name="Gender" type="string" />
+      </properties>
+      <providers>
+        <clear />
+        <add name="MongoDBProfileProvider"
+             type="MongoDB.Web.Providers.MongoDBProfileProvider"
+             applicationName="/"
+             connectionString="mongodb://tekconf:tekconf1234@alex.mongohq.com:10035/?safe=true?safe=true"
+             database="tekconf"
+             collection="ASPNETDBProfiles" />
+      </providers>
+    </profile>
+    <roleManager enabled="false">
+      <providers>
+        <clear />
+        <add name="MongoDBRoleProvider" type="MongoDB.Web.Providers.MongoDBRoleProvider"
+             applicationName="/"
+             connectionString="mongodb://tekconf:tekconf1234@alex.mongohq.com:10035/?safe=true?safe=true"
+             database="tekconf"
+             collection="ASPNETDBRoles" />
+      </providers>
+    </roleManager>-->
+    <authentication mode="Forms">
+      <forms loginUrl="~/Account/Login" timeout="2880" />
+    </authentication>
     <pages controlRenderingCompatibilityVersion="4.0">
       <namespaces>
         <add namespace="System.Web.Helpers" />
@@ -85,7 +209,6 @@
     <httpHandlers>
       <add path="glimpse.axd" verb="GET,POST" type="Glimpse.Core.Handler" />
     </httpHandlers>
-    <httpRuntime requestValidationMode="4.5" />
   </system.web>
   <system.webServer>
     <validation validateIntegratedModeConfiguration="false" />
@@ -95,9 +218,6 @@
       <add name="ErrorLog" type="Elmah.ErrorLogModule, Elmah" preCondition="managedHandler" />
       <add name="ErrorMail" type="Elmah.ErrorMailModule, Elmah" preCondition="managedHandler" />
       <add name="ErrorFilter" type="Elmah.ErrorFilterModule, Elmah" preCondition="managedHandler" />
-      <remove name="FormsAuthentication" />
-      <add name="WSFederationAuthenticationModule" type="System.IdentityModel.Services.WSFederationAuthenticationModule, System.IdentityModel.Services, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" preCondition="managedHandler" />
-      <add name="SessionAuthenticationModule" type="System.IdentityModel.Services.SessionAuthenticationModule, System.IdentityModel.Services, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" preCondition="managedHandler" />
     </modules>
     <handlers>
       <remove name="ExtensionlessUrlHandler-ISAPI-4.0_32bit" />
@@ -256,23 +376,4 @@
     <idn enabled="All" />
     <iriParsing enabled="true" />
   </uri>
-  <system.identityModel>
-    <identityConfiguration>
-      <audienceUris>
-        <add value="http://localhost/TekConf.UI.Web/" />
-      </audienceUris>
-      <issuerNameRegistry type="System.IdentityModel.Tokens.ConfigurationBasedIssuerNameRegistry, System.IdentityModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-        <trustedIssuers>
-          <add thumbprint="D4ACDA0A64A14E98A34BB0443C956651A428217E" name="https://tekconf.accesscontrol.windows.net/" />
-        </trustedIssuers>
-      </issuerNameRegistry>
-      <certificateValidation certificateValidationMode="None" />
-    </identityConfiguration>
-  </system.identityModel>
-  <system.identityModel.services>
-    <federationConfiguration>
-      <cookieHandler requireSsl="false" />
-      <wsFederation passiveRedirectEnabled="true" issuer="https://tekconf.accesscontrol.windows.net/v2/wsfederation" realm="http://localhost/TekConf.UI.Web/" requireHttps="false" />
-    </federationConfiguration>
-  </system.identityModel.services>
 </configuration>
