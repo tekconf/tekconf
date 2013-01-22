@@ -978,6 +978,7 @@
     <Content Include="img\social\_template-32x32.png" />
     <Content Include="img\social\_template-48x48.png" />
     <Content Include="img\Speakers\default.png" />
+    <Content Include="img\Windows8.png" />
     <Content Include="js\notification.js" />
     <Content Include="PostDeploy.ps1" />
     <Content Include="HOWTO.html" />
