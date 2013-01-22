@@ -98,6 +98,8 @@ namespace TekConf.UI.Api.Services.v1
 				conference.AddSpeakerToSession(session.slug, entity);
 				
 				conference.Save();
+				this.CacheClient.FlushAll();
+
 
 				speakerDto = Mapper.Map<SpeakerEntity, FullSpeakerDto>(entity);
 			}
@@ -107,6 +109,8 @@ namespace TekConf.UI.Api.Services.v1
 				throw;
 			}
 
+			
+			
 			return speakerDto;
 		}
 
@@ -158,6 +162,7 @@ namespace TekConf.UI.Api.Services.v1
 				}
 
 				entity.Save();
+				this.CacheClient.FlushAll();
 
 				conferenceDto = Mapper.Map<ConferenceEntity, FullConferenceDto>(entity);
 			}
@@ -187,6 +192,7 @@ namespace TekConf.UI.Api.Services.v1
 					existingConference.Publish();
 				}
 				existingConference.Save();
+				this.CacheClient.FlushAll();
 
 				conferenceDto = Mapper.Map<ConferenceEntity, FullConferenceDto>(existingConference);
 			}

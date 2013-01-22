@@ -14,75 +14,76 @@ using ServiceStack.ServiceHost;
 
 namespace TekConf.UI.Api.v1
 {
-    public class ScheduleService : MongoServiceBase
-    {
-        public ICacheClient CacheClient { get; set; }
+	public class ScheduleService : MongoServiceBase
+	{
+		public ICacheClient CacheClient { get; set; }
 
-        public object Get(Schedule request)
-        {
-            if (request.conferenceSlug == default(string) || request.authenticationMethod == default(string) || request.authenticationToken == default(string))
-            {
-                return new HttpError() { StatusCode = HttpStatusCode.BadRequest };
-            }
+		public object Get(Schedule request)
+		{
+			if (request.conferenceSlug == default(string) || request.authenticationMethod == default(string) || request.authenticationToken == default(string))
+			{
+				return new HttpError() { StatusCode = HttpStatusCode.BadRequest };
+			}
 
-            return GetSingleSchedule(request);
-        }
+			return GetSingleSchedule(request);
+		}
 
-        public object Post(AddSessionToSchedule request)
-        {
-            var scheduleCollection = this.RemoteDatabase.GetCollection<ScheduleEntity>("schedules");
-            ScheduleEntity schedule = scheduleCollection.AsQueryable()
-                .Where(s => s.ConferenceSlug.ToLower() == request.conferenceSlug.ToLower())
-                .Where(s => s.AuthenticationMethod.ToLower() == request.authenticationMethod.ToLower())
-                .SingleOrDefault(s => s.AuthenticationToken.ToLower() == request.authenticationToken.ToLower());
+		public object Post(AddSessionToSchedule request)
+		{
+			var scheduleCollection = this.RemoteDatabase.GetCollection<ScheduleEntity>("schedules");
+			ScheduleEntity schedule = scheduleCollection.AsQueryable()
+					.Where(s => s.ConferenceSlug.ToLower() == request.conferenceSlug.ToLower())
+					.Where(s => s.AuthenticationMethod.ToLower() == request.authenticationMethod.ToLower())
+					.SingleOrDefault(s => s.AuthenticationToken.ToLower() == request.authenticationToken.ToLower());
 
-            if (schedule == null)
-            {
-                schedule = new ScheduleEntity()
-                               {
-                                   _id = Guid.NewGuid(),
-                                   AuthenticationMethod = request.authenticationMethod,
-                                   AuthenticationToken = request.authenticationToken,
-                                   ConferenceSlug = request.conferenceSlug,
-                                   SessionSlugs = new List<string>(),
-                               };
-            }
-						var repository = new ConferenceRepository(new Configuration());
-            var conference =
-                repository.AsQueryable()
-                .SingleOrDefault(c => c.slug == request.conferenceSlug);
+			if (schedule == null)
+			{
+				schedule = new ScheduleEntity()
+											 {
+												 _id = Guid.NewGuid(),
+												 AuthenticationMethod = request.authenticationMethod,
+												 AuthenticationToken = request.authenticationToken,
+												 ConferenceSlug = request.conferenceSlug,
+												 SessionSlugs = new List<string>(),
+											 };
+			}
+			var repository = new ConferenceRepository(new Configuration());
+			var conference =
+					repository.AsQueryable()
+					.SingleOrDefault(c => c.slug == request.conferenceSlug);
 
-            if (conference != null)
-            {
-                if (!string.IsNullOrWhiteSpace(request.sessionSlug) && !schedule.SessionSlugs.Any(s => s == request.sessionSlug))
-                {
-                    schedule.SessionSlugs.Add(request.sessionSlug);
-                }
-            }
+			if (conference != null)
+			{
+				if (!string.IsNullOrWhiteSpace(request.sessionSlug) && !schedule.SessionSlugs.Any(s => s == request.sessionSlug))
+				{
+					schedule.SessionSlugs.Add(request.sessionSlug);
+				}
+			}
 
-            scheduleCollection.Save(schedule);
+			scheduleCollection.Save(schedule);
+			this.CacheClient.FlushAll();
 
-            var scheduleDto = Mapper.Map<ScheduleDto>(schedule);
+			var scheduleDto = Mapper.Map<ScheduleDto>(schedule);
 
-            return scheduleDto;
-        }
+			return scheduleDto;
+		}
 
-        private object GetSingleSchedule(Schedule request)
-        {
-            return GetSchedule(request);
-        }
+		private object GetSingleSchedule(Schedule request)
+		{
+			return GetSchedule(request);
+		}
 
-        private ScheduleDto GetSchedule(Schedule request)
-        {
-            var schedule = this.RemoteDatabase.GetCollection<ScheduleEntity>("schedules")
-                               .AsQueryable()
-                               .Where(s => s.ConferenceSlug.ToLower() == request.conferenceSlug.ToLower())
-                               .Where(s => s.AuthenticationMethod.ToLower() == request.authenticationMethod.ToLower())
-                               .SingleOrDefault(s => s.AuthenticationToken.ToLower() == request.authenticationToken.ToLower());
+		private ScheduleDto GetSchedule(Schedule request)
+		{
+			var schedule = this.RemoteDatabase.GetCollection<ScheduleEntity>("schedules")
+												 .AsQueryable()
+												 .Where(s => s.ConferenceSlug.ToLower() == request.conferenceSlug.ToLower())
+												 .Where(s => s.AuthenticationMethod.ToLower() == request.authenticationMethod.ToLower())
+												 .SingleOrDefault(s => s.AuthenticationToken.ToLower() == request.authenticationToken.ToLower());
 
-            var scheduleDto = Mapper.Map<ScheduleEntity, ScheduleDto>(schedule);
+			var scheduleDto = Mapper.Map<ScheduleEntity, ScheduleDto>(schedule);
 
-            return scheduleDto;
-        }
-    }
+			return scheduleDto;
+		}
+	}
 }

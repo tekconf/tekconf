@@ -21,8 +21,15 @@ namespace TekConf.UI.Web.Controllers
 		}
 
 		[CompressFilter]
+<<<<<<< HEAD
+		[Authorize]
 		public async Task<ActionResult> Index()
 		{
+			var x = User.Identity.Name;
+=======
+		public async Task<ActionResult> Index()
+		{
+>>>>>>> web
 			var conferencesTask = _repository.GetFeaturedConferences();
 			var speakersTask = _repository.GetFeaturedSpeakers();
 
@@ -31,6 +38,17 @@ namespace TekConf.UI.Web.Controllers
 			var featuredSpeakers = speakersTask.Result == null ? new List<FullSpeakerDto>() : speakersTask.Result.ToList();
 			var featuredConferences = conferencesTask.Result == null ? new List<ConferencesDto>() : conferencesTask.Result.ToList();
 
+<<<<<<< HEAD
+			var filteredConferences = featuredConferences
+																	.Where(c => c.start >= DateTime.Now.AddDays(-2))
+																	.OrderBy(c => c.start)
+																	.Take(4)
+																	.ToList();
+
+			var vm = new HomePageViewModel()
+			{
+				FeaturedConferences = filteredConferences,
+=======
 			//var filteredConferences = featuredConferences
 			//														.Where(c => c.start >= DateTime.Now.AddDays(-2))
 			//														.OrderBy(c => c.start)
@@ -40,6 +58,7 @@ namespace TekConf.UI.Web.Controllers
 			var vm = new HomePageViewModel()
 			{
 				FeaturedConferences = featuredConferences,
+>>>>>>> web
 				FeaturedSpeakers = featuredSpeakers
 			};
 
