@@ -103,11 +103,12 @@ namespace TekConf.UI.Api.Services.v1
 					query = query.Where(showOnlyOpenCalls);
 				}
 
+				query = query.Where(c => c.isLive);
+
 				List<ConferencesDto> conferencesDtos = null;
 				List<ConferenceEntity> conferences = null;
 				try
 				{
-					//TODO : query = query.Where(c => c.isLive);
 					if (request.sortBy == "dateAdded")
 					{
 						query = query.OrderByDescending(orderByFunc).ThenBy(c => c.start).AsQueryable();
@@ -146,6 +147,7 @@ namespace TekConf.UI.Api.Services.v1
 					conferences = _repository
 							.AsQueryable()
 							.Where(c => c.end >= DateTime.Now.AddDays(-7))
+							.Where(c => c.isLive)
 							.OrderBy(c => c.start)
 							.ToList()
 							.Where(c => !string.IsNullOrWhiteSpace(c.description))
