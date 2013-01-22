@@ -70,7 +70,7 @@ namespace TekConf.UI.Api.Services.v1
 
 		private object GetAllConferences(Conferences request)
 		{
-			string searchCacheKey = request.search ?? string.Empty;
+			string searchCacheKey = string.IsNullOrWhiteSpace(request.search) ? string.Empty : request.search.Trim();
 			string sortByCacheKey = request.sortBy ?? string.Empty;
 			string openCallsCacheKey = request.showOnlyWithOpenCalls.ToString() ?? string.Empty;
 			string showPastConferencesCacheKey = request.showPastConferences.ToString() ?? string.Empty;
@@ -198,6 +198,7 @@ namespace TekConf.UI.Api.Services.v1
 
 			if (!string.IsNullOrWhiteSpace(search))
 			{
+				search = search.Trim();
 				var regex = new Regex(search, RegexOptions.IgnoreCase);
 
 				searchBy = c => Regex.IsMatch(c.name, search, RegexOptions.IgnoreCase)
