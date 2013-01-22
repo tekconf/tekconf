@@ -59,6 +59,7 @@ namespace TekConf.UI.Api.Services.v1
 
 			conference.AddSession(entity);
 			conference.Save();
+			this.CacheClient.FlushAll();
 
 			var sessionDto = Mapper.Map<SessionEntity, SessionDto>(entity);
 			sessionDto.conferenceSlug = request.conferenceSlug;
@@ -76,6 +77,8 @@ namespace TekConf.UI.Api.Services.v1
 			Mapper.Map<AddSession, SessionEntity>(request, session);
 
 			conference.Save();
+			this.CacheClient.FlushAll();
+
 			var sessionDto = Mapper.Map<SessionEntity, SessionDto>(session);
 			sessionDto.conferenceSlug = request.conferenceSlug;
 			sessionDto.conferenceName = conference.name;
