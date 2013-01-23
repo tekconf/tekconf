@@ -86,9 +86,18 @@
     }
 }
 .overlay { 
-    background: url(~/img/OnSale.png);
     top: -10px;
     left: -20px;
     position: absolute; 
     z-index: 1; 
+}
+.overlay-onsale {
+    /*background: url(~/img/OnSale.png);*/
+}
+.overlay-opencall {
+    /*background: url(~/img/OpenCall.png);*/
+}
+.overlay-right {
+	left: auto;
+	right: -10px;	
 }

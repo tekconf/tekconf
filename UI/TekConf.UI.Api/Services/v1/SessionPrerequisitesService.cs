@@ -11,9 +11,15 @@ namespace TekConf.UI.Api.Services.v1
 {
   public class SessionPrerequisitesService : MongoServiceBase
   {
-    public ICacheClient CacheClient { get; set; }
+	  private readonly IConfiguration _configuration;
+	  public ICacheClient CacheClient { get; set; }
 
-    public object Get(SessionPrerequisites request)
+	  public SessionPrerequisitesService(IConfiguration configuration)
+	  {
+		  _configuration = configuration;
+	  }
+
+	  public object Get(SessionPrerequisites request)
     {
       if (request.conferenceSlug == default(string))
       {
@@ -31,7 +37,7 @@ namespace TekConf.UI.Api.Services.v1
     private object GetSingleSessionPrerequisites(SessionPrerequisites request)
     {
       var cacheKey = "GetSingleSessionPrerequisites-" + request.conferenceSlug + "-" + request.sessionSlug;
-      var expireInTimespan = new TimeSpan(0, 0, 120);
+			var expireInTimespan = new TimeSpan(0, 0, _configuration.cacheTimeout);
       return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan,  () =>
       {
 				var repository = new ConferenceRepository(new Configuration());

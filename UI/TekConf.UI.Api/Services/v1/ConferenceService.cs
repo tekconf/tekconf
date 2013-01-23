@@ -16,18 +16,20 @@ namespace TekConf.UI.Api.Services.v1
 	{
 		private readonly ITinyMessengerHub _hub;
 		private readonly IRepository<ConferenceEntity> _repository;
+		private readonly IConfiguration _configuration;
 		public ICacheClient CacheClient { get; set; }
 
-		public ConferenceService(ITinyMessengerHub hub, IRepository<ConferenceEntity> repository)
+		public ConferenceService(ITinyMessengerHub hub, IRepository<ConferenceEntity> repository, IConfiguration configuration)
 		{
 			_hub = hub;
 			_repository = repository;
+			_configuration = configuration;
 		}
 
 		public object Get(Conference request)
 		{
 			var cacheKey = "GetFullSingleConference-" + request.conferenceSlug;
-			var expireInTimespan = new TimeSpan(0, 0, 120);
+			var expireInTimespan = new TimeSpan(0, 0, _configuration.cacheTimeout);
 
 			return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
 			{

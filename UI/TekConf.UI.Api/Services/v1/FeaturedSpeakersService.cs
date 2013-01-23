@@ -12,7 +12,13 @@ namespace TekConf.UI.Api.Services.v1
 {
 	public class FeaturedSpeakersService : MongoServiceBase
 	{
+		private readonly IConfiguration _configuration;
 		public ICacheClient CacheClient { get; set; }
+
+		public FeaturedSpeakersService(IConfiguration configuration)
+		{
+			_configuration = configuration;
+		}
 
 		public object Get(FeaturedSpeakers request)
 		{
@@ -22,7 +28,7 @@ namespace TekConf.UI.Api.Services.v1
 		private object GetFeaturedSpeakers(FeaturedSpeakers request)
 		{
 			var cacheKey = "GetFeaturedSpeakers";
-			var expireInTimespan = new TimeSpan(0, 0, 120);
+			var expireInTimespan = new TimeSpan(0, 0, _configuration.cacheTimeout);
 			return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
 			{
 				var repository = new ConferenceRepository(new Configuration());

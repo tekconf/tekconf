@@ -11,7 +11,13 @@ namespace TekConf.UI.Api.Services.v1
 {
 	public class SessionLinksService : MongoServiceBase
 	{
+		private readonly IConfiguration _configuration;
 		public ICacheClient CacheClient { get; set; }
+
+		public SessionLinksService(IConfiguration configuration)
+		{
+			_configuration = configuration;
+		}
 
 		public object Get(SessionLinks request)
 		{
@@ -31,7 +37,7 @@ namespace TekConf.UI.Api.Services.v1
 		private object GetSingleSessionLinks(SessionLinks request)
 		{
 			var cacheKey = "GetSingleSessionLinks-" + request.conferenceSlug + "-" + request.sessionSlug;
-			var expireInTimespan = new TimeSpan(0, 0, 120);
+			var expireInTimespan = new TimeSpan(0, 0, _configuration.cacheTimeout);
 			return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
 			{
 				var repository = new ConferenceRepository(new Configuration());

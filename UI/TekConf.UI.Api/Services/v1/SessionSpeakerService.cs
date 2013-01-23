@@ -14,7 +14,13 @@ namespace TekConf.UI.Api.Services.v1
 {
 	public class SessionSpeakerService : MongoServiceBase
 	{
+		private readonly IConfiguration _configuration;
 		public ICacheClient CacheClient { get; set; }
+
+		public SessionSpeakerService(IConfiguration configuration)
+		{
+			_configuration = configuration;
+		}
 
 		public object Get(SessionSpeaker request)
 		{
@@ -51,16 +57,16 @@ namespace TekConf.UI.Api.Services.v1
 		private object GetSingleSpeaker(SessionSpeaker request, SessionEntity session)
 		{
 			var cacheKey = "GetSingleSpeaker-" + request.conferenceSlug + "-" + request.sessionSlug + "-" + request.speakerSlug;
-			var expireInTimespan = new TimeSpan(0, 0, 120);
+			var expireInTimespan = new TimeSpan(0, 0, _configuration.cacheTimeout);
 			return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
-																																																							 {
-																																																								 var speaker = session.speakers.FirstOrDefault(s => s.slug.ToLower() == request.speakerSlug.ToLower());
+																			{
+																				var speaker = session.speakers.FirstOrDefault(s => s.slug.ToLower() == request.speakerSlug.ToLower());
 
-																																																								 var speakerDto = Mapper.Map<SpeakerEntity, SpeakerDto>(speaker);
-																																																								 var resolver = new SpeakerUrlResolver(request.conferenceSlug, request.sessionSlug, speakerDto.url);
-																																																								 speakerDto.url = resolver.ResolveUrl();
-																																																								 return speakerDto;
-																																																							 });
+																				var speakerDto = Mapper.Map<SpeakerEntity, SpeakerDto>(speaker);
+																				var resolver = new SpeakerUrlResolver(request.conferenceSlug, request.sessionSlug, speakerDto.url);
+																				speakerDto.url = resolver.ResolveUrl();
+																				return speakerDto;
+																			});
 
 
 		}

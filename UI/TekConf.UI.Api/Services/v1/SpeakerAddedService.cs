@@ -9,17 +9,19 @@ namespace TekConf.UI.Api.Services.v1
 	public class SpeakerAddedService : MongoServiceBase
 	{
 		private readonly IRepository<SpeakerAddedMessage> _repository;
+		private readonly IConfiguration _configuration;
 		public ICacheClient CacheClient { get; set; }
 
-		public SpeakerAddedService(IRepository<SpeakerAddedMessage> repository)
+		public SpeakerAddedService(IRepository<SpeakerAddedMessage> repository, IConfiguration configuration)
 		{
 			_repository = repository;
+			_configuration = configuration;
 		}
 
 		public object Get(SpeakerAdded request)
 		{
 			var cacheKey = "GetSpeakerAdded";
-			var expireInTimespan = new TimeSpan(0, 0, 120);
+			var expireInTimespan = new TimeSpan(0, 0, _configuration.cacheTimeout);
 
 			return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
 				{

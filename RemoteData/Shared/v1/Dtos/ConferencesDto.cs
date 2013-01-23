@@ -14,6 +14,8 @@ namespace TekConf.RemoteData.Dtos.v1
 		public string name { get; set; }
 		public DateTime start { get; set; }
 		public DateTime end { get; set; }
+		public DateTime callForSpeakersOpens { get; set; }
+		public DateTime callForSpeakersCloses { get; set; }
 		public string location { get; set; }
 		public AddressDto address { get; set; }
 		public string url { get; set; }
@@ -26,6 +28,14 @@ namespace TekConf.RemoteData.Dtos.v1
 		{
 			get { return name.GenerateSlug(); }
 		}
+
+		public bool IsOpenCallForSpeakers()
+		{
+			bool isOpenCall = this.callForSpeakersOpens <= DateTime.Now && this.callForSpeakersCloses >= DateTime.Now;
+
+			return isOpenCall;
+		}
+
 		public bool IsOnSale()
 		{
 			bool isOnSale = this.registrationOpens <= DateTime.Now && this.registrationCloses >= DateTime.Now;

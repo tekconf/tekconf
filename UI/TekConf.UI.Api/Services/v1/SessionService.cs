@@ -19,6 +19,7 @@ namespace TekConf.UI.Api.Services.v1
 	{
 		public ICacheClient CacheClient { get; set; }
 		private ITinyMessengerHub _hub;
+		private readonly IConfiguration _configuration;
 
 		static HttpError ConferenceNotFound = HttpError.NotFound("Conference not found") as HttpError;
 		static HashSet<string> NonExistingConferences = new HashSet<string>();
@@ -26,9 +27,10 @@ namespace TekConf.UI.Api.Services.v1
 		static HttpError SessionNotFound = HttpError.NotFound("Session not found") as HttpError;
 		static HashSet<string> NonExistingSessions = new HashSet<string>();
 
-		public SessionService(ITinyMessengerHub hub)
+		public SessionService(ITinyMessengerHub hub, IConfiguration configuration)
 		{
 			_hub = hub;
+			_configuration = configuration;
 		}
 
 		public object Get(Session request)
@@ -104,7 +106,7 @@ namespace TekConf.UI.Api.Services.v1
 					throw SessionNotFound;
 				}
 			}
-			var expireInTimespan = new TimeSpan(0, 0, 120);
+			var expireInTimespan = new TimeSpan(0, 0, _configuration.cacheTimeout);
 			return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
 							{
 								var repository = new ConferenceRepository(new Configuration());
