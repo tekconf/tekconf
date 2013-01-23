@@ -1,4 +1,5 @@
-﻿@using System.Web.Optimization
+﻿@using System.Configuration
+@using System.Web.Optimization
 @model List<TekConf.RemoteData.Dtos.v1.ConferencesDto>
 
 @{
@@ -18,7 +19,13 @@
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
 
     @Styles.Render("~/css/conferences/index")
-
+	<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
+	<link href="~/Content/themes/base/jquery.ui.autocomplete.css" rel="stylesheet" />
+	<style>
+  .ui-autocomplete-loading {
+    background: white url('images/ui-anim_basic_16x16.gif') right center no-repeat;
+  }
+  </style>
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -73,10 +80,11 @@
                         <text>&nbsp;&nbsp;</text>@Html.CheckBox("showPastConferences", new { @onchange = "this.form.submit();" })<text> Show Past Conferences?</text>
                     </div>
                     
-                    <div class="span5 searchBox input-append">
-                        @Html.TextBox("search", null, new { @class = "span2 search-query" })
-                        <button class="btn" onclick="this.form.submit()" style="margin-right: 30px;">Search</button>
-                    </div>
+	                <div class="span5 searchBox input-append ui-widget">
+
+		                @Html.TextBox("search", null, new { @class = "span2 search-query" })
+		                <button class="btn" onclick="this.form.submit()" id="searchButton" style="margin-right: 30px;">Search</button>
+	                </div>
                 }
             </div>
 
@@ -150,10 +158,45 @@
 
     @Scripts.Render("~/js/common")
 
-    <script>
-        $(function () {
+	<script type="text/javascript" language="javascript">
+		$(function () {
+			
+			$("#search").autocomplete({
+				messages: {
+					noResults: null,
+					results: function() {}
+				},
+				source: function (request, response) {
+					$.ajax({
+						url: '@(ConfigurationManager.AppSettings["BaseUrl"])/v1/conferences/search?searchTerm=' + request.term + '&showPastConferences=' + $('#showPastConferences').is(':checked') + '&format=json',
+						dataType: "jsonp",
+						data:request,
+						success: function (data) {
+							response($.map(data, function (item) {
+								return {
+									label: item.label,
+									value: item.value
+								}
+							}));
+						}
+					});
+				},
+				minLength: 2,
+				select: function (event, ui) {
+					this.value = ui.item.value;
+					$('#searchButton').click();
+				},
+				open: function () {
+					$(this).removeClass("ui-corner-all").addClass("ui-corner-top");
+				},
+				close: function () {
+					$(this).removeClass("ui-corner-top").addClass("ui-corner-all");
+				}
+			});
+			
 
-        });
-    </script>
+
+		});
+	</script>
 </body>
 </html>

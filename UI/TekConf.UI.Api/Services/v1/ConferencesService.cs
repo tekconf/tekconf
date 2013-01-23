@@ -31,6 +31,28 @@ namespace TekConf.UI.Api.Services.v1
 			}
 
 		}
+		public object Get(Search request)
+		{
+			var searchTerm = request.searchTerm.ToLower();
+			var search = GetSearch(searchTerm);
+			var showPastConferences = GetShowPastConferences(request.showPastConferences);
+			var query = _repository.AsQueryable()
+								 .Where(search)
+								 .Where(c => c.isLive);
+
+			if (showPastConferences != null)
+			{
+				query = query.Where(showPastConferences);
+			}
+
+			var searchResults = query
+									.Select(c => new SearchResultDto() { label = c.name, value = c.slug })
+								 .ToList()
+								 .OrderBy(s => s.label)
+								 .ToList();
+
+			return searchResults;
+		}
 
 		public object Get(Conferences request)
 		{
@@ -192,6 +214,7 @@ namespace TekConf.UI.Api.Services.v1
 
 			return searchBy;
 		}
+
 		private Expression<Func<ConferenceEntity, bool>> GetSearch(string search)
 		{
 			Expression<Func<ConferenceEntity, bool>> searchBy = null;
@@ -202,6 +225,7 @@ namespace TekConf.UI.Api.Services.v1
 				var regex = new Regex(search, RegexOptions.IgnoreCase);
 
 				searchBy = c => Regex.IsMatch(c.name, search, RegexOptions.IgnoreCase)
+						|| Regex.IsMatch(c.slug, search, RegexOptions.IgnoreCase)
 						|| Regex.IsMatch(c.description, search, RegexOptions.IgnoreCase)
 						|| Regex.IsMatch(c.address.City, search, RegexOptions.IgnoreCase)
 						|| Regex.IsMatch(c.address.Country, search, RegexOptions.IgnoreCase)

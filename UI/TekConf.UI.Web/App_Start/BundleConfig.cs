@@ -11,7 +11,8 @@ namespace TekConf.UI.Web
             bundles.Add(new ScriptBundle("~/js/common")
                 .Include(
                             "~/Scripts/jquery-1.9.0.js",
-                            "~/js/bootstrap.js"
+														"~/Scripts/jquery-ui-1.9.2.js"
+                            //"~/js/bootstrap.js"
                             
                         )
             );
@@ -19,7 +20,7 @@ namespace TekConf.UI.Web
             bundles.Add(new ScriptBundle("~/js/commonLightbox")
                 .Include(
                             "~/Scripts/jquery-1.9.0.js",
-                            "~/js/bootstrap.js",
+                            //"~/js/bootstrap.js",
                             "~/js/lightbox/jquery.lightbox.min.js"
                         )
             );
