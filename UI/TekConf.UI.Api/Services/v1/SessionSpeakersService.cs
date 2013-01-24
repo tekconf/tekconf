@@ -15,7 +15,13 @@ namespace TekConf.UI.Api.Services.v1
 {
 	public class SessionSpeakersService : MongoServiceBase
 	{
+		private readonly IConfiguration _configuration;
 		public ICacheClient CacheClient { get; set; }
+
+		public SessionSpeakersService(IConfiguration configuration)
+		{
+			_configuration = configuration;
+		}
 
 		public object Get(SessionSpeakers request)
 		{
@@ -54,7 +60,7 @@ namespace TekConf.UI.Api.Services.v1
 		private object GetAllSpeakers(SessionSpeakers request, SessionEntity session)
 		{
 			var cacheKey = "GetAllSpeakers-" + request.conferenceSlug + "-" + request.sessionSlug;
-			var expireInTimespan = new TimeSpan(0, 0, 120);
+			var expireInTimespan = new TimeSpan(0, 0, _configuration.cacheTimeout);
 			return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
 			{
 				var speakersDtos = Mapper.Map<IEnumerable<SpeakerEntity>, IEnumerable<SpeakersDto>>(session.speakers);

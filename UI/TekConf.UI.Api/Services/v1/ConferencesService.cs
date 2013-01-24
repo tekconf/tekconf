@@ -16,12 +16,14 @@ namespace TekConf.UI.Api.Services.v1
 	{
 		private readonly ITinyMessengerHub _hub;
 		private readonly IRepository<ConferenceEntity> _repository;
+		private readonly IConfiguration _configuration;
 		public ICacheClient CacheClient { get; set; }
 
-		public ConferencesService(ITinyMessengerHub hub, IRepository<ConferenceEntity> repository )
+		public ConferencesService(ITinyMessengerHub hub, IRepository<ConferenceEntity> repository, IConfiguration configuration)
 		{
 			_hub = hub;
 			_repository = repository;
+			_configuration = configuration;
 
 			if (AppHost.Instance == null)
 			{
@@ -98,7 +100,7 @@ namespace TekConf.UI.Api.Services.v1
 			string showPastConferencesCacheKey = request.showPastConferences.ToString() ?? string.Empty;
 
 			var cacheKey = "GetAllConferences-" + searchCacheKey + "-" + sortByCacheKey + "-" + showPastConferencesCacheKey + "-" + openCallsCacheKey;
-			var expireInTimespan = new TimeSpan(0, 0, 120); //TODO : Increase the cache timeout
+			var expireInTimespan = new TimeSpan(0, 0, _configuration.cacheTimeout);
 
 			var result = base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
 			{
@@ -159,7 +161,7 @@ namespace TekConf.UI.Api.Services.v1
 		private object GetFeaturedConferences(Conferences request)
 		{
 			var cacheKey = "GetFeaturedConferences";
-			var expireInTimespan = new TimeSpan(0, 0, 120);
+			var expireInTimespan = new TimeSpan(0, 0, _configuration.cacheTimeout);
 
 			return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
 			{

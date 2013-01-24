@@ -15,12 +15,18 @@ namespace TekConf.UI.Api.Services.v1
 {
 	public class SpeakersService : MongoServiceBase
 	{
+		private readonly IConfiguration _configuration;
 		public ICacheClient CacheClient { get; set; }
 		static HttpError ConferenceNotFound = HttpError.NotFound("Conference not found") as HttpError;
 		static HashSet<string> NonExistingConferences = new HashSet<string>();
 
 		static HttpError SpeakerNotFound = HttpError.NotFound("Speaker not found") as HttpError;
 		static HashSet<string> NonExistingSpeakers = new HashSet<string>();
+
+		public SpeakersService(IConfiguration configuration)
+		{
+			_configuration = configuration;
+		}
 
 		public object Get(Speakers request)
 		{
@@ -43,7 +49,7 @@ namespace TekConf.UI.Api.Services.v1
 			}
 
 			var cacheKey = "GetAllSpeakers-" + request.conferenceSlug;
-			var expireInTimespan = new TimeSpan(0, 0, 120);
+			var expireInTimespan = new TimeSpan(0, 0, _configuration.cacheTimeout);
 			return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
 			{
 				var repository = new ConferenceRepository(new Configuration());

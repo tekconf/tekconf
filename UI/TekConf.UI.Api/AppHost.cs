@@ -61,7 +61,8 @@ namespace TekConf.UI.Api
 								container.Resolve<IRepository<SessionRemovedMessage>>(),
 								container.Resolve<IRepository<SpeakerAddedMessage>>(),
 								container.Resolve<IRepository<SpeakerRemovedMessage>>(),
-								container.Resolve<IRepository<ConferenceCreatedMessage>>()
+								container.Resolve<IRepository<ConferenceCreatedMessage>>(),
+								container.Resolve<IConfiguration>()
 
 				);
 
