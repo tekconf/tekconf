@@ -10,7 +10,7 @@ namespace TekConf.UI.Api
 			{
 				int timeout = 120;
 				if (ConfigurationManager.AppSettings["cacheTimeout"] != null)
-					int.TryParse(ConfigurationManager.AppSettings["cacheTimeout"].ToString(), out timeout);
+					int.TryParse(ConfigurationManager.AppSettings["cacheTimeout"], out timeout);
 				return timeout;
 			}
 		}
@@ -29,5 +29,35 @@ namespace TekConf.UI.Api
 				return ConfigurationManager.ConnectionStrings["MongoServer"].ConnectionString;
 			}
 		}
+
+		public string TwitterConsumerKey
+		{
+			get
+			{
+				return ConfigurationManager.AppSettings["TwitterConsumerKey"];
+			}
+		}
+		public string TwitterConsumerSecret
+		{
+			get
+			{
+				return ConfigurationManager.AppSettings["TwitterConsumerSecret"];
+			}
+		}
+		public string TwitterAccessToken
+		{
+			get
+			{
+				return ConfigurationManager.AppSettings["TwitterAccessToken"];
+			}
+		}
+		public string TwitterAccessTokenSecret
+		{
+			get
+			{
+				return ConfigurationManager.AppSettings["TwitterAccessTokenSecret"];
+			}
+		}
+
 	}
 }

@@ -1,5 +1,6 @@
 using Microsoft.AspNet.SignalR;
 using TinyMessenger;
+using Twitterizer;
 
 namespace TekConf.UI.Api
 {
@@ -17,6 +18,7 @@ namespace TekConf.UI.Api
 		private readonly IRepository<SpeakerAddedMessage> _speakerAddedRepository;
 		private readonly IRepository<SpeakerRemovedMessage> _speakerRemovedRepository;
 		private readonly IRepository<ConferenceCreatedMessage> _conferenceCreatedRepository;
+		private readonly IConfiguration _configuration;
 
 		public HubSubscriptions(ITinyMessengerHub hub,
 																IRepository<SessionRoomChangedMessage> sessionRoomChangedRepository,
@@ -29,7 +31,8 @@ namespace TekConf.UI.Api
 																IRepository<SessionRemovedMessage> sessionRemovedRepository,
 																IRepository<SpeakerAddedMessage> speakerAddedRepository,
 																IRepository<SpeakerRemovedMessage> speakerRemovedRepository,
-																IRepository<ConferenceCreatedMessage> conferenceCreatedRepository
+																IRepository<ConferenceCreatedMessage> conferenceCreatedRepository,
+																IConfiguration configuration
 														)
 		{
 			_hub = hub;
@@ -46,6 +49,7 @@ namespace TekConf.UI.Api
 			_speakerAddedRepository = speakerAddedRepository;
 			_speakerRemovedRepository = speakerRemovedRepository;
 			_conferenceCreatedRepository = conferenceCreatedRepository;
+			_configuration = configuration;
 
 			Subscribe();
 		}
