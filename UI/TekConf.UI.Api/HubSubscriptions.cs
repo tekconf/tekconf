@@ -1,6 +1,5 @@
 using Microsoft.AspNet.SignalR;
 using TinyMessenger;
-using Twitterizer;
 
 namespace TekConf.UI.Api
 {
