@@ -198,6 +198,8 @@
     <Content Include="clientaccesspolicy.xml" />
     <Content Include="Global.asax" />
     <Content Include="OctoPack-Readme.txt" />
+    <None Include="Properties\PublishProfiles\tekconf-api - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\tekconf-api - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.0.js" />
     <Content Include="Scripts\jquery-1.9.0.min.js" />
