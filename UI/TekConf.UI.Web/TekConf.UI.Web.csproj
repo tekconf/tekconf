@@ -1247,6 +1247,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\libs\TekConf.Azure\TekConf.Azure.csproj">
+      <Project>{3B882D71-EB35-4655-8425-E6952B3470DF}</Project>
+      <Name>TekConf.Azure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\RemoteData\Shared\TekConf.RemoteData.Shared.csproj">
       <Project>{1439b0ec-5c15-4b18-b4eb-8a2787abdfde}</Project>
       <Name>TekConf.RemoteData.Shared</Name>
