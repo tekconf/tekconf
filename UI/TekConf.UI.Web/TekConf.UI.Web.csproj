@@ -1154,6 +1154,8 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="App_Code\HtmlHelpers.cshtml" />
     <Content Include="Images\error_log" />
+    <None Include="Properties\PublishProfiles\tekconf-web - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\tekconf-web - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.0.js" />
     <Content Include="Scripts\jquery-1.9.0.min.js" />
