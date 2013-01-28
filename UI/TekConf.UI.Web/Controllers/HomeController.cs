@@ -25,22 +25,18 @@ namespace TekConf.UI.Web.Controllers
 		{
 			var conferencesTask = _repository.GetFeaturedConferences();
 			var speakersTask = _repository.GetFeaturedSpeakers();
-
-			await Task.WhenAll(conferencesTask, speakersTask);
+			var conferencesCountTask = _repository.GetConferencesCount(showPastConferences: false, search: null);
+			await Task.WhenAll(conferencesTask, speakersTask, conferencesCountTask);
 
 			var featuredSpeakers = speakersTask.Result == null ? new List<FullSpeakerDto>() : speakersTask.Result.ToList();
 			var featuredConferences = conferencesTask.Result == null ? new List<ConferencesDto>() : conferencesTask.Result.ToList();
-
-			//var filteredConferences = featuredConferences
-			//														.Where(c => c.start >= DateTime.Now.AddDays(-2))
-			//														.OrderBy(c => c.start)
-			//														.Take(4)
-			//														.ToList();
+			var totalCount = conferencesCountTask.Result;
 
 			var vm = new HomePageViewModel()
 			{
 				FeaturedConferences = featuredConferences,
-				FeaturedSpeakers = featuredSpeakers
+				FeaturedSpeakers = featuredSpeakers,
+				TotalCount = totalCount
 			};
 
 			return View(vm);

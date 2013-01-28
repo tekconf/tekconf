@@ -34,6 +34,21 @@ namespace TekConf.UI.Web.Controllers
 			});
 		}
 
+		public Task<int> GetConferencesCount(bool? showPastConferences, string search)
+		{
+				return Task.Run(() =>
+				{
+						var t = new TaskCompletionSource<int>();
+
+						_repository.GetConferencesCount(showPastConferences: showPastConferences,
+																search: search,
+																callback: c => t.TrySetResult(c));
+
+						return t.Task;
+				});
+		}
+
+
 		public Task<FullConferenceDto> GetFullConference(string conferenceSlug)
 		{
 			return Task.Run(() =>

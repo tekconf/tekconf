@@ -101,6 +101,17 @@ namespace TekConf.RemoteData.v1
 			ServiceClient.GetAsync(conferences, callback, (r, ex) => { callback(null); });
 		}
 
+		public void GetConferencesCount(Action<int> callback, bool? showPastConferences = false, string search = null)
+		{
+				if (!showPastConferences.HasValue)
+				{
+						showPastConferences = false;
+				}
+
+				var conferences = new ConferencesCount() { showPastConferences = showPastConferences, searchTerm = search };
+				ServiceClient.GetAsync(conferences, callback, (r, ex) => { callback(0); });
+		}
+
 		public void GetFeaturedConferences(Action<IList<ConferencesDto>> callback)
 		{
 			var featured = new Conferences() { showOnlyFeatured = true };
