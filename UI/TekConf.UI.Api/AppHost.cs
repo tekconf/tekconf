@@ -10,6 +10,9 @@ using TinyMessenger;
 
 namespace TekConf.UI.Api
 {
+	using ServiceStack.Api.Swagger;
+	using ServiceStack.ServiceInterface.Cors;
+
 	public class CustomUserSession : AuthUserSession
 	{
 		public string CustomProperty { get; set; }
@@ -22,10 +25,7 @@ namespace TekConf.UI.Api
 
 		public override void Configure(Funq.Container container)
 		{
-
-
 			ServiceStack.Text.JsConfig.EmitCamelCaseNames = true;
-
 
 			//Enable Authentication
 			ConfigureAuth(container);
