@@ -20,18 +20,7 @@ namespace TekConf.Azure
 
 			var blobStorage = storageAccount.CreateCloudBlobClient();
 			CloudBlobContainer container = blobStorage.GetContainerReference("images");
-			if (container.CreateIfNotExists())
-			{
-				// configure container for public access
-				var permissions = container.GetPermissions();
-				permissions.PublicAccess = BlobContainerPublicAccessType.Container;
-				container.SetPermissions(permissions);
-
-
-
-			} 
-			
-			string uniqueBlobName = string.Format("images/conferences/{0}", imageName);
+			string uniqueBlobName = string.Format("conferences/{0}", imageName);
 			CloudBlockBlob blob = container.GetBlockBlobReference(uniqueBlobName);
 			blob.Properties.ContentType = image.ContentType;
 			blob.UploadFromStream(image.InputStream);

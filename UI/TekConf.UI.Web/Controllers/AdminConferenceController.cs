@@ -56,19 +56,6 @@ namespace TekConf.UI.Web.Controllers
 
 		}
 
-		public Task SaveConferenceImage(string url, HttpPostedFileBase file)
-		{
-
-			return Task.Factory.StartNew(() =>
-			{
-				if (file != null)
-				{
-
-					var filename = Server.MapPath(url);
-					file.SaveAs(filename);
-				}
-			});
-		}
 
 		#endregion
 
@@ -113,16 +100,16 @@ namespace TekConf.UI.Web.Controllers
 
 			if (file != null)
 			{
-				var url = "img/conferences/" + conference.name.GenerateSlug() + Path.GetExtension(file.FileName); ;
-				var filename = Server.MapPath("~/" + url);
-				var root = FullyQualifiedApplicationPath;
-				conference.imageUrl = root + url;
+				IImageSaverConfiguration configuration = new ImageSaverConfiguration();
+				var imageName = conference.name.GenerateSlug() + Path.GetExtension(file.FileName);
+				conference.imageUrl = configuration.ImageUrl + imageName;
 
 				ThreadPool.QueueUserWorkItem(o =>
-				{
-					file.SaveAs(filename);
-					AsyncManager.OutstandingOperations.Decrement();
-				}, null);
+								{
+									IImageSaver imageSaver = new AzureImageSaver(configuration);
+									imageSaver.SaveImage(imageName, file);
+									AsyncManager.OutstandingOperations.Decrement();
+								}, null);
 			}
 
 			repository.EditConference(conference, "user", "password", c =>
@@ -184,17 +171,6 @@ namespace TekConf.UI.Web.Controllers
 		public ActionResult EditConferencesIndexCompleted(List<ConferencesDto> conferences)
 		{
 			return View(conferences.OrderBy(c => c.name).ToList());
-		}
-	}
-
-	public class ImageSaverConfiguration : IImageSaverConfiguration
-	{
-		public string ConnectionString
-		{
-			get
-			{
-				return ConfigurationManager.ConnectionStrings["StorageConnection"].ConnectionString;
-			}
 		}
 	}
 }
