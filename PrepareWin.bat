@@ -1,1 +1,0 @@
-ren TekConf.Win.sln.temp TekConf.Win.sln

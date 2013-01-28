@@ -172,8 +172,11 @@
     @Html.Partial("Extra")
 
     @Html.Partial("Footer")
-
-    @Scripts.Render("~/js/commonLightbox")
+	
+	    @Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/jqueryMigrate")
+	@Scripts.Render("~/js/common")
+	@Scripts.Render("~/js/commonLightbox")
 
 	<script>
 		$(function () {

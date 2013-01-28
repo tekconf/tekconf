@@ -21,7 +21,10 @@
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-
+		@Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/jqueryMigrate")
+	@Scripts.Render("~/js/common")
+	@Scripts.Render("~/bundles/jqueryUI")
     @Scripts.Render("~/scripts/conferences/detail")
 </head>
 
@@ -178,7 +181,10 @@
 
     @Html.Partial("Footer")
 
-    @Scripts.Render("~/js/common")
+    @Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/jqueryMigrate")
+	@Scripts.Render("~/js/common")
+	@Scripts.Render("~/bundles/jqueryUI")
 
     <script>
         $(function () {

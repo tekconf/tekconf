@@ -63,7 +63,10 @@
 
     @Html.Partial("Footer")
     
-    @Scripts.Render("~/js/commonFaq")
+	@Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/jqueryMigrate")
+	@Scripts.Render("~/js/common")
+	@Scripts.Render("~/js/commonFaq")
 
     <script>
         $(function () {

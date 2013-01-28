@@ -55,24 +55,34 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="v1\Dtos\AddressDto.cs" />
+    <Compile Include="v1\Dtos\AddressDto.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="v1\Dtos\ConferenceDto.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="v1\Dtos\ConferencesDto.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="v1\Dtos\FullConferenceDto.cs" />
-    <Compile Include="v1\Dtos\FullSessionDto.cs" />
-    <Compile Include="v1\Dtos\FullSpeakerDto.cs" />
-    <Compile Include="v1\Dtos\PresentationDto.cs" />
-    <Compile Include="v1\Dtos\PresentingSpeakerDto.cs" />
-    <Compile Include="v1\Dtos\SchedulesDto.cs" />
-    <Compile Include="v1\Helpers.cs" />
-    <Compile Include="v1\RemoteDataRepository.cs">
+    <Compile Include="v1\Dtos\FullConferenceDto.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="v1\Dtos\FullSessionDto.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="v1\Dtos\FullSpeakerDto.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="v1\Dtos\PresentationDto.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="v1\Dtos\PresentingSpeakerDto.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="v1\Dtos\ScheduleDto.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="v1\Dtos\SchedulesDto.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="v1\Dtos\SessionDto.cs">
@@ -87,24 +97,57 @@
     <Compile Include="v1\Dtos\SpeakersDto.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="v1\Dtos\UserDto.cs" />
-    <Compile Include="v1\Requests\Address.cs" />
-    <Compile Include="v1\Requests\AddSessionToSchedule.cs" />
-    <Compile Include="v1\Requests\Conferences.cs" />
-    <Compile Include="v1\Requests\FeaturedSpeakers.cs" />
-    <Compile Include="v1\Requests\Schedule.cs" />
-    <Compile Include="v1\Requests\Schedules.cs" />
-    <Compile Include="v1\Requests\SessionLinks.cs" />
-    <Compile Include="v1\Requests\SessionPrerequisites.cs" />
-    <Compile Include="v1\Requests\SessionResources.cs" />
-    <Compile Include="v1\Requests\SessionRoomChanged.cs" />
-    <Compile Include="v1\Requests\SessionSpeakers.cs" />
-    <Compile Include="v1\Requests\Sessions.cs" />
-    <Compile Include="v1\Requests\Speakers.cs" />
-    <Compile Include="v1\Requests\Users.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <Compile Include="v1\Dtos\UserDto.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="v1\Helpers.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="v1\RemoteDataRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="v1\Requests\Address.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="v1\Requests\AddSessionToSchedule.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="v1\Requests\Conferences.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="v1\Requests\FeaturedSpeakers.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="v1\Requests\Schedule.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="v1\Requests\Schedules.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="v1\Requests\SessionLinks.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="v1\Requests\SessionPrerequisites.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="v1\Requests\SessionResources.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="v1\Requests\SessionRoomChanged.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="v1\Requests\Sessions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="v1\Requests\SessionSpeakers.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="v1\Requests\Speakers.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="v1\Requests\Users.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Entities\TekConf.Common.Entities\TekConf.Common.Entities.csproj">
@@ -115,6 +158,9 @@
       <Project>{7c6925bc-f644-4d3e-9c66-f1593ecbf522}</Project>
       <Name>TinyMessenger</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

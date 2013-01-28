@@ -284,6 +284,9 @@
     <Compile Include="Controllers\SpeakersController.cs" />
     <Compile Include="EventsHub.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
+    <Compile Include="ga.ashx.cs">
+      <DependentUpon>ga.ashx</DependentUpon>
+    </Compile>
     <Compile Include="HtmlHelpers.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="ViewModels\GravatarImage.cs" />
@@ -317,6 +320,7 @@
     <Content Include="App_Readme\glimpse.elmah.readme.txt" />
     <Content Include="App_Readme\glimpse.mvc3.readme.txt" />
     <Content Include="App_Readme\glimpse.readme.txt" />
+    <Content Include="css\conferences\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="contact.html" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -383,6 +387,8 @@
     <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\font-awesome.css" />
+    <Content Include="css\font\fontawesome-webfont.svg" />
+    <Content Include="css\font\fontawesome-webfont.woff" />
     <Content Include="css\notification.css" />
     <Content Include="css\pages\about.css" />
     <Content Include="css\pages\faq.css" />
@@ -985,11 +991,17 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="App_Code\HtmlHelpers.cshtml" />
     <Content Include="Images\error_log" />
+    <Content Include="ga.ashx" />
+    <Content Include="css\font\fontawesome-webfont.eot" />
+    <Content Include="css\font\fontawesome-webfont.svgz" />
+    <Content Include="css\font\fontawesome-webfont.ttf" />
     <None Include="Properties\PublishProfiles\tekconf-web - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\tekconf-web - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.9.0.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.0.js" />
     <Content Include="Scripts\jquery-1.9.0.min.js" />
+    <Content Include="Scripts\jquery-migrate-1.0.0.js" />
+    <Content Include="Scripts\jquery-migrate-1.0.0.min.js" />
     <Content Include="Scripts\jquery-ui-1.9.2.js" />
     <Content Include="Scripts\jquery-ui-1.9.2.min.js" />
     <Content Include="Scripts\jquery-ui-timepicker-addon.js" />

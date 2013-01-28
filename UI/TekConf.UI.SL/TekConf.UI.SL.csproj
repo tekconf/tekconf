@@ -188,12 +188,6 @@
     <None Include="Properties\OutOfBrowserSettings.xml" />
     <Content Include="readme.txt" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\RemoteData\SL\TekConf.RemoteData.SL.csproj">
-      <Project>{974d59df-d954-439c-8870-306e9a2da570}</Project>
-      <Name>TekConf.RemoteData.SL</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Silverlight\$(SilverlightVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

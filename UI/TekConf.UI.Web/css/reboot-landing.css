@@ -370,7 +370,7 @@ textarea {
 	
 	line-height: 600px;
 	
-	background: url(../img/social/social-sprite.png) no-repeat 0 0;					
+	/*background: url(../img/social/social-sprite.png) no-repeat 0 0;*/					
 }
 
 .github-icon {
@@ -382,7 +382,7 @@ textarea {
 	line-height: 600px;*/
 	background-position: 0 -48px;	
 	/*background: url(../img/social/github-48x48.png) no-repeat;*/	
-    background: url(../img/social/github-octocat-48x48.png) no-repeat;				
+    /*background: url(../img/social/github-octocat-48x48.png) no-repeat;*/				
 }
 
 .social-icon-twitter {

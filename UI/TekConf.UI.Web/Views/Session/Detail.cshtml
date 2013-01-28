@@ -185,7 +185,10 @@
 
     @Html.Partial("Footer")
 
-    @Scripts.Render("~/js/common")
+    @Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/jqueryMigrate")
+	@Scripts.Render("~/js/common")
+	@Scripts.Render("~/bundles/jqueryUI")
 
     <script>
         $(function () {

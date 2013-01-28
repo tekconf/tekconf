@@ -22,6 +22,7 @@ namespace TekConf.Azure
 			CloudBlobContainer container = blobStorage.GetContainerReference("images");
 			string uniqueBlobName = string.Format("conferences/{0}", imageName);
 			CloudBlockBlob blob = container.GetBlockBlobReference(uniqueBlobName);
+
 			blob.Properties.ContentType = image.ContentType;
 			blob.UploadFromStream(image.InputStream);
 			uri = blob.Uri.ToString();

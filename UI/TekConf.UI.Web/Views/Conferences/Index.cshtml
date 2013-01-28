@@ -19,8 +19,6 @@
 	<link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
 
 	@Styles.Render("~/css/conferences/index")
-	<link href="~/Content/themes/base/jquery-ui.css" rel="stylesheet" />
-	<link href="~/Content/themes/base/jquery.ui.autocomplete.css" rel="stylesheet" />
 	<style>
 		.ui-autocomplete-loading {
 			background: white url('images/ui-anim_basic_16x16.gif') right center no-repeat;
@@ -160,7 +158,10 @@
 
 	@Html.Partial("Footer")
 
+    @Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/jqueryMigrate")
 	@Scripts.Render("~/js/common")
+	@Scripts.Render("~/bundles/jqueryUI")
 
 	<script type="text/javascript" language="javascript">
 		$(function () {
