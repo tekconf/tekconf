@@ -21,11 +21,11 @@
     <!--[if lt IE 9]>
 <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-		@Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/jquery")
 	@Scripts.Render("~/bundles/jqueryMigrate")
-	@Scripts.Render("~/js/common")
 	@Scripts.Render("~/bundles/jqueryUI")
-    @Scripts.Render("~/scripts/conferences/detail")
+	@Scripts.Render("~/js/common")
+	@Scripts.Render("~/scripts/conferences/detail")
 </head>
 
 <body>
@@ -164,18 +164,13 @@
 
     @Html.Partial("Footer")
 
-    @Scripts.Render("~/bundles/jquery")
-	@Scripts.Render("~/bundles/jqueryMigrate")
-	@Scripts.Render("~/js/common")
-	@Scripts.Render("~/bundles/jqueryUI")
-
     <script>
         $(function () {
-            $('#start').datetimepicker();
-            $('#end').datetimepicker();
+        	$('#start').datetimepicker();
+        	$('#end').datetimepicker();
         });
 
-        $('.addPrerequisite').live('click', function (e) {
+        $(document).on("click", ".addPrerequisite", function (e) {
             e.preventDefault();
 
             $(this).closest('tr').after('<tr><td><input type="text" id="prerequisite" /><span></span></td></tr>');
@@ -188,7 +183,7 @@
             });
         });
 
-        $('.addResource').live('click', function (e) {
+        $(document).on("click", ".addResource", function (e) {
             e.preventDefault();
 
             $(this).closest('tr').after('<tr><td><input type="text" /><span></span></td></tr>');
@@ -201,7 +196,7 @@
             });
         });
 
-        $('.addSubject').live('click', function (e) {
+        $(document).on("click", ".addSubject", function (e) {
             e.preventDefault();
 
             $(this).closest('tr').after('<tr><td><input type="text" /><span></span></td></tr>');
@@ -214,7 +209,7 @@
             });
         });
 
-        $('.addTag').live('click', function (e) {
+        $(document).on("click", ".addTag", function (e) {
             e.preventDefault();
 
             $(this).closest('tr').after('<tr><td><input type="text" /><span></span></td></tr>');
@@ -227,7 +222,7 @@
             });
         });
 
-        $('.addLink').live('click', function (e) {
+        $(document).on("click", ".addLink", function (e) {
             e.preventDefault();
 
             $(this).closest('tr').after('<tr><td><input type="text" /><span></span></td></tr>');
@@ -240,7 +235,7 @@
             });
         });
 
-        $('.addSpeaker').live('click', function (e) {
+        $(document).on("click", ".addSpeaker", function (e) {
             e.preventDefault();
 
             $(this).closest('tr').after('<tr><td><input type="text" /><span></span></td></tr>');
