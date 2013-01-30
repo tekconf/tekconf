@@ -45,7 +45,8 @@ namespace TekConf.UI.Api
 			container.Register<IRepository<SessionRemovedMessage>>(new SessionRemovedRepository(configuration));
 			container.Register<IRepository<SpeakerAddedMessage>>(new SpeakerAddedRepository(configuration));
 			container.Register<IRepository<SpeakerRemovedMessage>>(new SpeakerRemovedRepository(configuration));
-		
+
+			container.Register<IEmailSender>(new EmailSender(container.Resolve<IConfiguration>()));
 			container.Register<ICacheClient>(new MemoryCacheClient());
 			var hub = new TinyMessengerHub();
 			container.Register<ITinyMessengerHub>(hub);
@@ -62,6 +63,7 @@ namespace TekConf.UI.Api
 								container.Resolve<IRepository<SpeakerAddedMessage>>(),
 								container.Resolve<IRepository<SpeakerRemovedMessage>>(),
 								container.Resolve<IRepository<ConferenceCreatedMessage>>(),
+								container.Resolve<IEmailSender>(),
 								container.Resolve<IConfiguration>()
 
 				);

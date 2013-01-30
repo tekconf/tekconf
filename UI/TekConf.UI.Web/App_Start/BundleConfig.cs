@@ -8,8 +8,8 @@ namespace TekConf.UI.Web
 		// For more information on Bundling, visit http://go.microsoft.com/fwlink/?LinkId=254725
 		public static void RegisterBundles(BundleCollection bundles)
 		{
-			bundles.UseCdn = true;
-			BundleTable.EnableOptimizations = true;
+			bundles.UseCdn = false;
+			BundleTable.EnableOptimizations = false;
 
 
 			var jquery = new ScriptBundle("~/bundles/jquery", "https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js")
@@ -36,14 +36,15 @@ namespace TekConf.UI.Web
 
 			bundles.Add(new ScriptBundle("~/scripts/conferences/detail")
 					.Include(
-											"~/Scripts/jquery-ui-sliderAccess.js",
-											"~/Scripts/jquery-ui-timepicker-addon.js"
+											
 									)
 			);
 
 			bundles.Add(new ScriptBundle("~/js/common")
 					.Include(
-											"~/js/bootstrap.js"
+											"~/js/bootstrap.js",
+											"~/Scripts/jquery-ui-timepicker-addon.js",
+											"~/Scripts/jquery-ui-sliderAccess.js"
 									)
 			);
 			bundles.Add(new ScriptBundle("~/js/commonFaq")

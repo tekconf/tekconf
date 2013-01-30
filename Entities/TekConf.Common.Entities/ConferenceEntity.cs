@@ -67,7 +67,7 @@ namespace TekConf.UI.Api
 			}
 			else
 			{
-				_conferenceUpdatedMessages.Add(new ConferenceUpdatedMessage() { ConferenceSlug = this.slug });
+				_conferenceUpdatedMessages.Add(new ConferenceUpdatedMessage() { ConferenceSlug = this.slug, ConferenceName = this.name});
 			}
 
 			PublishEvents();

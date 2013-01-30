@@ -23,10 +23,9 @@
 	<![endif]-->
 		@Scripts.Render("~/bundles/jquery")
 	@Scripts.Render("~/bundles/jqueryMigrate")
-	@Scripts.Render("~/js/common")
 	@Scripts.Render("~/bundles/jqueryUI")
+	@Scripts.Render("~/js/common")
 	@Scripts.Render("~/scripts/conferences/detail")
-
 </head>
 
 <body>
@@ -156,12 +155,8 @@
 
 	@Html.Partial("Footer")
 
-	@Scripts.Render("~/bundles/jquery")
-	@Scripts.Render("~/bundles/jqueryMigrate")
-	@Scripts.Render("~/js/common")
-	@Scripts.Render("~/bundles/jqueryUI")
-
 	<script>
+
 		$(function () {
 			$('#start').datetimepicker();
 			$('#end').datetimepicker();
@@ -169,6 +164,7 @@
 			$('#callForSpeakersCloses').datetimepicker();
 			$('#registrationOpens').datetimepicker();
 			$('#registrationCloses').datetimepicker();
+
 		});
 	</script>
 </body>
