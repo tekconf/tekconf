@@ -118,8 +118,9 @@ namespace TekConf.UI.Api.Services.v1
 						string sortByCacheKey = request.sortBy ?? string.Empty;
 						string openCallsCacheKey = request.showOnlyWithOpenCalls.ToString() ?? string.Empty;
 						string showPastConferencesCacheKey = request.showPastConferences.ToString() ?? string.Empty;
+						string showOnlyOnSaleCacheKey = request.showOnlyOnSale.ToString() ?? string.Empty;
 
-						var cacheKey = "GetAllConferences-" + searchCacheKey + "-" + sortByCacheKey + "-" + showPastConferencesCacheKey + "-" + openCallsCacheKey;
+						var cacheKey = "GetAllConferences-" + searchCacheKey + "-" + sortByCacheKey + "-" + showPastConferencesCacheKey + "-" + showOnlyOnSaleCacheKey + "-" + openCallsCacheKey;
 						var expireInTimespan = new TimeSpan(0, 0, _configuration.cacheTimeout);
 
 						var result = base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
@@ -128,6 +129,7 @@ namespace TekConf.UI.Api.Services.v1
 								var search = GetSearch(request.search);
 								var showPastConferences = GetShowPastConferences(request.showPastConferences);
 								var showOnlyOpenCalls = GetShowOnlyOpenCalls(request.showOnlyWithOpenCalls);
+								var showOnlyOnSale = GetShowOnlyOnSale(request.showOnlyOnSale);
 
 								var query = _repository
 									.AsQueryable();
@@ -145,6 +147,11 @@ namespace TekConf.UI.Api.Services.v1
 								if (showOnlyOpenCalls != null)
 								{
 										query = query.Where(showOnlyOpenCalls);
+								}
+
+								if (showOnlyOnSale != null)
+								{
+										query = query.Where(showOnlyOnSale);
 								}
 
 								query = query.Where(c => c.isLive);
@@ -232,6 +239,18 @@ namespace TekConf.UI.Api.Services.v1
 						if (showOnlyOpenCalls.HasValue && showOnlyOpenCalls.Value)
 						{
 								searchBy = c => c.callForSpeakersOpens <= DateTime.Now && c.callForSpeakersCloses >= DateTime.Now;
+						}
+
+						return searchBy;
+				}
+
+				private Expression<Func<ConferenceEntity, bool>> GetShowOnlyOnSale(bool? showOnlyOnSale)
+				{
+						Expression<Func<ConferenceEntity, bool>> searchBy = null;
+
+						if (showOnlyOnSale.HasValue && showOnlyOnSale.Value)
+						{
+								searchBy = c => c.registrationOpens <= DateTime.Now && c.registrationCloses >= DateTime.Now;
 						}
 
 						return searchBy;

@@ -27,6 +27,7 @@ namespace TekConf.UI.Api.Services.Requests.v1
 				public string sortBy { get; set; }
 				public bool? showPastConferences { get; set; }
 				public bool? showOnlyWithOpenCalls { get; set; }
+				public bool? showOnlyOnSale { get; set; }
 		}
 
 		[Route("/v1/conferences/{conferenceSlug}", "GET")]

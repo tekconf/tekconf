@@ -20,7 +20,7 @@ namespace TekConf.UI.Web.Controllers
         }
 
         [CompressFilter]
-        public async Task<ActionResult> Index(string sortBy, bool? showPastConferences, string viewAs, string search)
+        public async Task<ActionResult> Index(string sortBy, bool? showPastConferences, bool? showOnlyOpenCalls, bool? showOnlyOnSale, string viewAs, string search)
         {
             if (!string.IsNullOrWhiteSpace(viewAs) && viewAs == "table")
             {
@@ -30,7 +30,7 @@ namespace TekConf.UI.Web.Controllers
             {
                 ViewBag.ShowTable = false;                
             }
-            var conferencesTask = _repository.GetConferences(sortBy, showPastConferences, search);
+						var conferencesTask = _repository.GetConferences(sortBy, showPastConferences, showOnlyOpenCalls, showOnlyOnSale, search);
 
             await conferencesTask;
 

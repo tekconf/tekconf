@@ -19,7 +19,7 @@ namespace TekConf.UI.Web.Controllers
 			_repository = new RemoteDataRepository(_baseUrl);
 		}
 
-		public Task<IList<ConferencesDto>> GetConferences(string sortBy, bool? showPastConferences, string search)
+		public Task<IList<ConferencesDto>> GetConferences(string sortBy, bool? showPastConferences, bool? showOnlyOpenCalls, bool? showOnlyOnSale, string search)
 		{
 			return Task.Run(() =>
 			{
@@ -27,6 +27,8 @@ namespace TekConf.UI.Web.Controllers
 
 				_repository.GetConferences(sortBy: sortBy,
 														showPastConferences: showPastConferences,
+														showOnlyOpenCalls:  showOnlyOpenCalls,
+														showOnlyOnSale : showOnlyOnSale,
 														search: search,
 														callback: c => t.TrySetResult(c));
 

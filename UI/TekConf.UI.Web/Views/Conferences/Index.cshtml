@@ -84,7 +84,9 @@
 					<div class="span3">
 						@Html.CheckBox("showPastConferences", new { @onchange = "this.form.submit();" })<text> Show Past Conferences?</text>
 						<br/>
-						@Html.CheckBox("showOnlyOpenCalls", new { @onchange = "this.form.submit();" })<text> Show Open Calls?</text>
+						@Html.CheckBox("showOnlyOpenCalls", new { @onchange = "this.form.submit();" })<text> Show Only Open Calls?</text>
+						<br/>
+						@Html.CheckBox("showOnlyOnSale", new { @onchange = "this.form.submit();" })<text> Show Only On Sale?</text>
 					</div>
 					<div class="span5 searchBox input-append ui-widget">
 						@Html.TextBox("search", null, new { @class = "span2 search-query" })

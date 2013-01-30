@@ -85,7 +85,7 @@ namespace TekConf.RemoteData.v1
 			});
 		}
 
-		public void GetConferences(Action<IList<ConferencesDto>> callback, string sortBy = "end", bool? showPastConferences = false, string search = null)
+		public void GetConferences(Action<IList<ConferencesDto>> callback, string sortBy = "end", bool? showPastConferences = false, bool? showOnlyOpenCalls = false, bool? showOnlyOnSale = false, string search = null)
 		{
 			if (sortBy == null)
 			{
@@ -97,7 +97,17 @@ namespace TekConf.RemoteData.v1
 				showPastConferences = false;
 			}
 
-			var conferences = new Conferences() { sortBy = sortBy, showPastConferences = showPastConferences, search = search, showOnlyFeatured = false };
+			if (!showOnlyOpenCalls.HasValue)
+			{
+				showOnlyOpenCalls = false;
+			}
+
+			if (!showOnlyOnSale.HasValue)
+			{
+					showOnlyOnSale = false;
+			}
+
+			var conferences = new Conferences() { sortBy = sortBy, showPastConferences = showPastConferences, showOnlyWithOpenCalls = showOnlyOpenCalls, showOnlyOnSale = showOnlyOnSale, search = search, showOnlyFeatured = false };
 			ServiceClient.GetAsync(conferences, callback, (r, ex) => { callback(null); });
 		}
 
