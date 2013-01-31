@@ -26,7 +26,7 @@ namespace TekConf.UI.Api
 		public override void Configure(Funq.Container container)
 		{
 			ServiceStack.Text.JsConfig.EmitCamelCaseNames = true;
-
+			Plugins.Add(new SwaggerFeature());
 			//Enable Authentication
 			ConfigureAuth(container);
 			IConfiguration configuration = new Configuration();
