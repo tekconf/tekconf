@@ -43,6 +43,7 @@ namespace TekConf.UI.Web
 			bundles.Add(new ScriptBundle("~/js/common")
 					.Include(
 											"~/js/bootstrap.js",
+											"~/Scripts/jquery.cookie.js",
 											"~/Scripts/jquery-ui-timepicker-addon.js",
 											"~/Scripts/jquery-ui-sliderAccess.js"
 									)

@@ -1,3 +1,4 @@
+using System.Configuration;
 using MongoDB.Driver;
 using ServiceStack.Configuration;
 using TekConf.UI.Api.Services.v1;
@@ -99,7 +100,9 @@ namespace TekConf.UI.Api
 
 			var serverSettings = new MongoServerSettings()
 				{
-					Server = new MongoServerAddress("tekconfdb.cloudapp.net"), //TODO
+					Server = new MongoServerAddress(ConfigurationManager.AppSettings["mongoServerAddress"]), //TODO
+
+					//Server = new MongoServerAddress("tekconfdb.cloudapp.net"), //TODO
 				};
 			var server = new MongoServer(serverSettings);
 			var databaseSettings = new MongoDatabaseSettings(server, "tekconf");

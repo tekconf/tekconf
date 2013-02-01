@@ -1,5 +1,6 @@
 ﻿@using System.Configuration
 @using System.Web.Optimization
+@using TekConf.UI.Web.Controllers
 @model List<TekConf.RemoteData.Dtos.v1.ConferencesDto>
 
 @{
@@ -56,14 +57,22 @@
 			<div class="row">
 				<a href="#" id="showFilter">Show/Hide Filter and Search</a>
 			</div>
-			<div class="row well" id="filter" style="padding-bottom: 10px;display: none;">
+			<div class="row well" id="filter" style="padding-bottom: 10px;">
 				@using (Html.BeginForm())
 				{
 					var views = new List<SelectListItem>() {
 						new SelectListItem(){Text = "Thumbnails",Value = "thumbnails",Selected = !ViewBag.ShowTable},
 						new SelectListItem(){Text = "Table", Value = "table", Selected = ViewBag.ShowTable}
 					};
-
+					ConferencesFilter filter;
+					if (ViewBag.Filter != null)
+					{
+						filter = ViewBag.Filter as ConferencesFilter ?? new ConferencesFilter();
+					}
+					else
+					{
+						filter = new ConferencesFilter();
+					}
 					var sorts = new List<SelectListItem>()
 						{
 							new SelectListItem() {Text = "Start Date", Value = "startDate"},
@@ -72,92 +81,105 @@
 							new SelectListItem() {Text = "Call for Speakers Closing", Value = "callForSpeakersClosingDate"},
 							new SelectListItem() {Text = "Tickets on Sale Date", Value = "registrationOpens"},
 							new SelectListItem() {Text = "Date Added", Value = "dateAdded"}
-
-						}; 
-						
-                    
-					<div class="span4">
-						View As : @Html.DropDownList("viewAs", views, new { @onchange = "this.form.submit();", style = "width:120px;" })
-						<br />
-						Sort By	: @Html.DropDownList("sortBy", sorts, new { @onchange = "this.form.submit();" })
-					</div>  
-					<div class="span3">
-						@Html.CheckBox("showPastConferences", new { @onchange = "this.form.submit();" })<text> Show Past Conferences?</text>
-						<br/>
-						@Html.CheckBox("showOnlyOpenCalls", new { @onchange = "this.form.submit();" })<text> Show Only Open Calls?</text>
-						<br/>
-						@Html.CheckBox("showOnlyOnSale", new { @onchange = "this.form.submit();" })<text> Show Only On Sale?</text>
+						};
+					var sortBy = sorts.FirstOrDefault(x => x.Value == filter.sortBy);
+					if (sortBy != null)
+					{
+						sortBy.Selected = true;
+					}
+					var viewAs = views.FirstOrDefault(x => x.Value == filter.viewAs);
+					if (viewAs != null)
+					{
+						viewAs.Selected = true;
+					}		  
+					<div class="row">
+						<div class="alert alert-success">
+							@Model.Count() Conferences shown
+						</div>
 					</div>
-					<div class="span5 searchBox input-append ui-widget">
-						@Html.TextBox("search", null, new { @class = "span2 search-query" })
-						<button class="btn" onclick="this.form.submit()" id="searchButton" style="margin-right: 30px;">Search</button>
+					<div class="row">     
+						<div class="span4">
+							View As : @Html.DropDownList("viewAs", views, new { @onchange = "this.form.submit();", style = "width:120px;" })
+							<br />
+							Sort By	: @Html.DropDownList("sortBy", sorts, new { @onchange = "this.form.submit();" })
+						</div>  
+						<div class="span3">
+							@Html.CheckBox("showPastConferences", filter.showPastConferences, new { @onchange = "this.form.submit();" })<text> Show Past Conferences?</text>
+							<br/>
+							@Html.CheckBox("showOnlyOpenCalls", filter.showOnlyOpenCalls, new { @onchange = "this.form.submit();" })<text> Show Only Open Calls?</text>
+							<br/>
+							@Html.CheckBox("showOnlyOnSale", filter.showOnlyOnSale, new { @onchange = "this.form.submit();" })<text> Show Only On Sale?</text>
+						</div>
+						<div class="span5 searchBox input-append ui-widget">
+							@Html.TextBox("search", filter.search, new { @class = "span2 search-query" })
+							<button class="btn" onclick="this.form.submit()" id="searchButton" style="margin-right: 30px;">Search</button>
+						</div>
 					</div>
 				}
+
 			</div>
 
+				<div class="row">
+					@if (ViewBag.ShowTable)
+		 {
+						<div class="span12">
+							<table class="table">
+								<tbody>
+									@foreach (var conference in Model)
+				 {
+										<tr>
+											<td><a href="~/Conferences/@conference.slug" class="btn btn-primary btn-mini">View Conference</a></td>
+											<td>@conference.name</td>
+											<td>@HtmlHelpers.FormatDateRange(conference.start, conference.end)</td>
+											<td>@HtmlHelpers.FormatAddress(conference.address)</td>
+										</tr>
+				 }
+								</tbody>
+							</table>
+						</div>
+		 }
+		 else
+		 {
+						<ul class="thumbnails">
 
-
-			<div class="row">
-				@if (ViewBag.ShowTable)
-		{
-					<div class="span12">
-						<table class="table">
-							<tbody>
-								@foreach (var conference in Model)
-				{
-									<tr>
-										<td><a href="~/Conferences/@conference.slug" class="btn btn-primary btn-mini">View Conference</a></td>
-										<td>@conference.name</td>
-										<td>@HtmlHelpers.FormatDateRange(conference.start, conference.end)</td>
-										<td>@HtmlHelpers.FormatAddress(conference.address)</td>
-									</tr>
-				}
-							</tbody>
-						</table>
-					</div>
-		}
-		else
-		{
-					<ul class="thumbnails">
-
-						@if (Model != null)
-			{
-				foreach (var conference in Model)
-				{
+							@if (Model != null)
+			 {
+				 foreach (var conference in Model)
+				 {
                             
-							<li class="span3">
+									<li class="span3">
 
-								<div class="thumbnail" style="height: 590px; position: relative;">
-									@if (conference.IsOnSale())
-				 {
-										<img src="~/img/OnSale.png" class="overlay overlay-onsale" />
-				 }
-									<img src="@conference.imageUrl" alt="@conference.name">
-									@if (conference.IsOpenCallForSpeakers())
-				 {
-										<img src="~/img/OpenCall.png" class="overlay overlay-opencall overlay-right" />
-				 }
-									<div class="caption">
-										<h3>@conference.name</h3>
-										<h4>@HtmlHelpers.FormatDateRange(conference.start, conference.end)<br />@conference.location</h4>
-										<p style="">
-											@conference.description
-										</p>
-										<p><strong>@conference.numberOfSessions Sessions</strong></p>
-										<div style="position: absolute; bottom: 10px;">
-											<a href="~/Conferences/@conference.slug" class="btn btn-primary">View Conference</a> <a href="#" class="btn">I'm Attending!</a>
+										<div class="thumbnail" style="height: 590px; position: relative;">
+											@if (conference.IsOnSale())
+					 {
+												<img src="~/img/OnSale.png" class="overlay overlay-onsale" />
+					 }
+											<img src="@conference.imageUrl" alt="@conference.name">
+											@if (conference.IsOpenCallForSpeakers())
+					 {
+												<img src="~/img/OpenCall.png" class="overlay overlay-opencall overlay-right" />
+					 }
+											<div class="caption">
+												<h3>@conference.name</h3>
+												<h4>@HtmlHelpers.FormatDateRange(conference.start, conference.end)<br />@conference.address.City<text> </text>@conference.address.State @conference.address.Country</h4>
+												<p style="">
+													@conference.description
+												</p>
+												<p><strong>@conference.numberOfSessions Sessions</strong></p>
+												<div style="position: absolute; bottom: 10px;">
+													<a href="~/Conferences/@conference.slug" class="btn btn-primary">View Conference</a> <a href="#" class="btn">I'm Attending!</a>
+												</div>
+											</div>
 										</div>
-									</div>
-								</div>
-							</li>
-				}
-			}
-					</ul>
-		}
+									</li>
+				 }
+			 }
+						</ul>
+		 }
 
 
 
-			</div>
+				</div>
 
 		</div>
 		<!-- /container -->
@@ -191,7 +213,11 @@
 				}
 
 				// run the effect
-				$("#filter").toggle(selectedEffect, options, 500);
+				$("#filter").toggle(selectedEffect, options, 500, function () {
+					var currentDisplay = $("#filter").css('display');
+					$.cookie('searchFilterToggle', currentDisplay, { expires: 7 });
+				});
+
 			};
 
 			// set effect from select menu value
@@ -200,10 +226,17 @@
 				runEffect();
 				return false;
 			});
+
 		});
 
 		$(function () {
+			var onLoadFilterDisplay = $.cookie('searchFilterToggle');
 
+			if (onLoadFilterDisplay === "none") {
+				$("#filter").hide();
+			} else {
+				$("#filter").show();
+			}
 			$("#search").autocomplete({
 				messages: {
 					noResults: null,
