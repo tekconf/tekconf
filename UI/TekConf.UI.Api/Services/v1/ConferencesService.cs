@@ -272,10 +272,10 @@ namespace TekConf.UI.Api.Services.v1
 										|| Regex.IsMatch(c.address.Country, search, RegexOptions.IgnoreCase)
 										|| c.sessions.Any(s => Regex.IsMatch(s.description, search, RegexOptions.IgnoreCase))
 										|| c.sessions.Any(s => Regex.IsMatch(s.title, search, RegexOptions.IgnoreCase))
-										//|| c.sessions.Any(s => s.tags.Any(t => t.Contains(search)))
-										//|| c.sessions.Any(session => session.speakers.Any(s => s.firstName.Contains(search)))
-										//|| c.sessions.Any(session => session.speakers.Any(s => s.lastName.Contains(search)))
-										//|| c.sessions.Any(session => session.speakers.Any(s => s.twitterName.Contains(search)))
+										//|| c.sessions.Any(s => s.tags.Any(t => Regex.IsMatch(t, search, RegexOptions.IgnoreCase)))
+										//|| c.sessions.Any(s => s.subjects.Any(t => Regex.IsMatch(t, search, RegexOptions.IgnoreCase)))
+										|| c.sessions.Any(s => s.speakers.Any(sp => Regex.IsMatch(sp.lastName, search, RegexOptions.IgnoreCase)))
+										|| c.sessions.Any(s => s.speakers.Any(sp => Regex.IsMatch(sp.twitterName, search, RegexOptions.IgnoreCase)))
 										;
 						}
 

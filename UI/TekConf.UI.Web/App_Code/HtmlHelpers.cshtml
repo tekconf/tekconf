@@ -67,7 +67,15 @@
     else
     {
         // They begin and end in different months
-    @: @startDate.ToShortDateString()<text> - </text>@endDate.ToShortDateString()<text>
+	    if (startDate.Year == endDate.Year)
+	    {
+		    @: @startDate.ToString("MMMM") @startDate.Day<text> - </text>@endDate.ToString("MMMM") @endDate.Day<text>, </text>@startDate.Year
+	    }
+	    else
+	    {
+		    @: @startDate.ToString("MMMM") @startDate.Day, @startDate.Year<text> - </text>@endDate.ToString("MMMM") @endDate.Day<text>, </text>@endDate.Year
+	    }
+
     }
 }
 
