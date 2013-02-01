@@ -4,6 +4,9 @@ using Microsoft.WindowsAzure.Storage.Blob;
 
 namespace TekConf.Azure
 {
+	using System.IO;
+
+
 	public class AzureImageSaver : IImageSaver
 	{
 		private readonly IImageSaverConfiguration _configuration;

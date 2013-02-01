@@ -272,6 +272,7 @@
     <Compile Include="Controllers\AdminSpeakerController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
+    <Compile Include="Controllers\FileSystemImageSaver.cs" />
     <Compile Include="Controllers\ImageSaverConfiguration.cs" />
     <Compile Include="Controllers\OrganizersController.cs" />
     <Compile Include="Controllers\RemoteDataRepositoryAsync.cs" />
