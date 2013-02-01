@@ -67,5 +67,9 @@ namespace TekConf.UI.Api.Services.Requests.v1
 				public string linkedInUrl { get; set; }
 				public string twitterHashTag { get; set; }
 				public string twitterName { get; set; }
+
+				public List<string> tags { get; set; }
+				public List<string> subjects { get; set; }
+
 		}
 }

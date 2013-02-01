@@ -272,6 +272,8 @@ namespace TekConf.UI.Api.Services.v1
 										|| Regex.IsMatch(c.address.Country, search, RegexOptions.IgnoreCase)
 										|| c.sessions.Any(s => Regex.IsMatch(s.description, search, RegexOptions.IgnoreCase))
 										|| c.sessions.Any(s => Regex.IsMatch(s.title, search, RegexOptions.IgnoreCase))
+										//|| c.tags.Contains(search)
+										//|| c.subjects.Contains(search)
 										//|| c.sessions.Any(s => s.tags.Any(t => Regex.IsMatch(t, search, RegexOptions.IgnoreCase)))
 										//|| c.sessions.Any(s => s.subjects.Any(t => Regex.IsMatch(t, search, RegexOptions.IgnoreCase)))
 										|| c.sessions.Any(s => s.speakers.Any(sp => Regex.IsMatch(sp.lastName, search, RegexOptions.IgnoreCase)))
