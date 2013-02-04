@@ -28,3 +28,8 @@
 	<script src="/ga.ashx" async="async" defer="defer"></script>	
 	
 }
+
+@using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+{
+		@Html.AntiForgeryToken()
+}

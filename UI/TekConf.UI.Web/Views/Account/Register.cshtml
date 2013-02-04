@@ -1,38 +1,95 @@
 ﻿@using System.Web.Optimization
-@model TekConf.UI.Web.Models.RegisterModel
+@model MvcApplication2.Models.RegisterModel
 @{
     ViewBag.Title = "Register";
 }
 
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-    <h2>Create a new account.</h2>
-</hgroup>
 
-@using (Html.BeginForm()) {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary()
+<!DOCTYPE html>
+<html lang="en">
+<head>
+		<meta charset="utf-8">
+		<link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico">
+		<title>Login - tekconf</title>
 
-    <fieldset>
-        <legend>Registration Form</legend>
-        <ol>
-            <li>
-                @Html.LabelFor(m => m.UserName)
-                @Html.TextBoxFor(m => m.UserName)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.Password)
-                @Html.PasswordFor(m => m.Password)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.ConfirmPassword)
-                @Html.PasswordFor(m => m.ConfirmPassword)
-            </li>
-        </ol>
-        <input type="submit" value="Register" />
-    </fieldset>
-}
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
+
+		@Styles.Render("~/css/api/index")
+
+		<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+		<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+
+</head>
+
+<body>
+		@Html.Partial("Header")
+
+		<div id="subheader">
+				<div class="inner">
+						<div class="container">
+								<h1>Register</h1>
+
+						</div>
+						<!-- /.container -->
+				</div>
+				<!-- /inner -->
+		</div>
+		<!-- /subheader -->
+
+		<div id="subpage">
+				<div class="container">
+						<div class="row">
+								<div class="span12">
+										<h3><span class="slash">//</span> Create a new account</h3>
+
+												@using (Html.BeginForm()) 
+										{
+														@Html.AntiForgeryToken()
+														@Html.ValidationSummary()
+
+																<ol>
+																		<li>
+																				@Html.LabelFor(m => m.UserName)
+																				@Html.TextBoxFor(m => m.UserName)
+																		</li>
+																		<li>
+																				@Html.LabelFor(m => m.Password)
+																				@Html.PasswordFor(m => m.Password)
+																		</li>
+																		<li>
+																				@Html.LabelFor(m => m.ConfirmPassword)
+																				@Html.PasswordFor(m => m.ConfirmPassword)
+																		</li>
+																</ol>
+																<input type="submit" value="Register" />
+												}
+								</div>
+								<!-- /span8 -->
+						</div>
+						<!-- /row -->
+
+				</div>
+				<!-- /container -->
+		</div>
+		<!-- /subpage -->
+
+		@Html.Partial("Extra")
+
+		@Html.Partial("Footer")
+
+		@Scripts.Render("~/bundles/jquery")
+		@Scripts.Render("~/bundles/jqueryMigrate")
+		@Scripts.Render("~/js/common")
+		@Scripts.Render("~/js/commonFaq")
+
+		<script>
+				$(function () {
+				});
+		</script>
+</body>
+</html>

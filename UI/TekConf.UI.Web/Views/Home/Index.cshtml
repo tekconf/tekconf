@@ -30,19 +30,22 @@
 				<div class="inner">
 						<div class="container">
 								<div class="row">
-										<div class="span4 landing-text">
+										<div class="span5 landing-text">
 												<h1>Meet, connect, learn.</h1>
 												<br />
 											<h2>
 												<span class="badge badge-warning" style="font-size:larger">@Model.TotalCount</span> Upcoming Conferences
 											</h2>
-												<h2>Find a conference near you</h2>
-												<p class="landing-actions">
-														<a href="javascript:;" class="btn btn-large btn-block btn-inverse">Sign up</a>
-												</p>
+											<h2>Find a conference near you</h2>
+												@if (!Request.IsAuthenticated)
+												{
+													<p class="landing-actions">
+														@Html.ActionLink("Sign Up", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", data_dialog_title = "Identification", @class = "btn btn-large btn-block btn-inverse" })
+													</p>
+												}
 										</div>
 										<!-- /landing-text -->
-										<div class="span8 landing-screenshot">
+										<div class="span7 landing-screenshot">
 												<img src="~/img/iPad1.png" class="screengrab" alt="Screenshot" />
 										</div>
 								</div>

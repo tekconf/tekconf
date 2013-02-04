@@ -50,18 +50,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\AutoMapper.2.2.1-ci9000\lib\net40\AutoMapper.dll</HintPath>
     </Reference>
-    <Reference Include="CommonCore.Base, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\CommonCore.1.0.0.7\lib\net35\CommonCore.Base.dll</HintPath>
-    </Reference>
-    <Reference Include="CommonCore.Cache, Version=1.0.0.4, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\CommonCore.1.0.0.7\lib\net35\CommonCore.Cache.dll</HintPath>
-    </Reference>
-    <Reference Include="CommonCore.Collections, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\CommonCore.1.0.0.7\lib\net35\CommonCore.Collections.dll</HintPath>
-    </Reference>
     <Reference Include="DotNetOpenAuth.AspNet, Version=4.2.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\DotNetOpenAuth.AspNet.4.2.1.13026\lib\net45-full\DotNetOpenAuth.AspNet.dll</HintPath>
@@ -92,6 +80,9 @@
     <Reference Include="Elmah.MongoDB, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\elmah.mongodb.1.7\lib\net35\Elmah.MongoDB.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Glimpse.Core">
       <HintPath>..\..\packages\Glimpse.0.87\lib\net40\Glimpse.Core.dll</HintPath>
@@ -126,13 +117,6 @@
     <Reference Include="MongoDB.Driver, Version=1.7.0.4714, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\mongocsharpdriver.1.7\lib\net35\MongoDB.Driver.dll</HintPath>
-    </Reference>
-    <Reference Include="MongoDB.Web, Version=1.5.0.8, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MongoDB.Web2.1.5.0.11\lib\net35\MongoDB.Web.dll</HintPath>
-    </Reference>
-    <Reference Include="NewRelic.Api.Agent">
-      <HintPath>..\..\packages\NewRelicWindowsAzure.1.0.0.29\lib\net40\NewRelic.Api.Agent.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -995,9 +979,6 @@
     <Content Include="css\font\fontawesome-webfont.eot" />
     <Content Include="css\font\fontawesome-webfont.svgz" />
     <Content Include="css\font\fontawesome-webfont.ttf" />
-    <Content Include="NewRelicAgent_x64_2.1.2.472.msi">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="newrelic.cmd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

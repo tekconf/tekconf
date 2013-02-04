@@ -15,6 +15,13 @@ namespace TekConf.UI.Web.Controllers
 
 				public HomeController()
 				{
+
+						if (System.Web.HttpContext.Current.User != null && System.Web.HttpContext.Current.User.Identity != null)
+						{
+								var x = System.Web.HttpContext.Current.User.Identity.AuthenticationType;
+								var y = System.Web.HttpContext.Current.User.Identity.Name;
+						}
+
 						var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
 
 						_repository = new RemoteDataRepositoryAsync(baseUrl);
