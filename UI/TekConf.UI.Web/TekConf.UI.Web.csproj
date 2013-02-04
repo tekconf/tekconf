@@ -546,7 +546,9 @@
     <Content Include="Images\spacer.gif" />
     <Content Include="Images\twitter.png" />
     <Content Include="Images\windowsLive.png" />
+    <Content Include="img\android-coming-soon.png" />
     <Content Include="img\conferences\DefaultConference.png" />
+    <Content Include="img\iOS-coming-soon.jpg" />
     <Content Include="img\OnSale.png" />
     <Content Include="img\OpenCall.png" />
     <Content Include="img\Presentations\Sample\Sample.png" />
@@ -892,6 +894,7 @@
     <Content Include="img\social\_template-32x32.png" />
     <Content Include="img\social\_template-48x48.png" />
     <Content Include="img\Speakers\default.png" />
+    <Content Include="img\Windows8-coming-soon.png" />
     <Content Include="img\Windows8.png" />
     <Content Include="js\notification.js" />
     <Content Include="PostDeploy.ps1" />
@@ -916,7 +919,6 @@
     <Content Include="img\screenshots\placeholder.gif" />
     <Content Include="img\social\social-sprite-30.png" />
     <Content Include="img\social\social-sprite.png" />
-    <Content Include="img\Win8.jpg" />
     <Content Include="index.html" />
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
