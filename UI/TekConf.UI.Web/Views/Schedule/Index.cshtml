@@ -1,4 +1,5 @@
 ﻿@using System.Web.Optimization
+@using TekConf.RemoteData.Dtos.v1
 @model TekConf.UI.Web.ViewModels.ScheduleViewModel
 
 @{
@@ -46,21 +47,21 @@
 			<div class="span12">
 					<table class="table">
 						<tbody>
-							@foreach (var conference in Model.Conferences)
-							 {
-									<tr>
-										<td>
-											<img src="@conference.imageUrl" style="height:80px;" /><br/><br/>
-											<a href="~/Conferences/@conference.slug" class="btn btn-primary btn-mini">View Conference</a>
-										</td>
-										<td>
-											@conference.name<br/>
-											Call for Speakers : @HtmlHelpers.FormatDateRange(conference.callForSpeakersOpens, conference.callForSpeakersCloses)<br/>
-											Conference : @HtmlHelpers.FormatDateRange(conference.start, conference.end)<br/>
-											Location : @HtmlHelpers.FormatAddress(conference.address)
-										</td>
-									</tr>
-							 }
+							@foreach (var conference in Model.Conferences ?? new List<FullConferenceDto>())
+							{
+								<tr>
+									<td>
+										<img src="@conference.imageUrl" style="height:80px;" /><br/><br/>
+										<a href="~/Conferences/@conference.slug" class="btn btn-primary btn-mini">View Conference</a>
+									</td>
+									<td>
+										@conference.name<br/>
+										Call for Speakers : @HtmlHelpers.FormatDateRange(conference.callForSpeakersOpens, conference.callForSpeakersCloses)<br/>
+										Conference : @HtmlHelpers.FormatDateRange(conference.start, conference.end)<br/>
+										Location : @HtmlHelpers.FormatAddress(conference.address)
+									</td>
+								</tr>
+							}
 						</tbody>
 					</table>
 				</div>						
