@@ -44,88 +44,13 @@
     <div id="subpage">
         <div class="container">
             <div class="row">
-                <div class="span8">
-                    <h3><span class="slash">//</span> Conferences</h3>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <td>Resource
-                                </td>
-                                <td>Description
-                                </td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @*@foreach (var documentation in Model)
-                            {
-                                <tr>
-                                    <td>@Html.ActionLink(documentation.HttpMethod + documentation.Resource, "Detail")</td>
-                                    <td>@documentation.Description</td>
-                                </tr>
-                
-                            }*@
-                        </tbody>
-                    </table>
+                <div class="span12">
+                    TekConf has a full api to its data. Documentation is constantly in progress. Please visit <a href="http://api.tekconf.com">http://api.tekconf.com</a> to explore the api.
                 </div>
                 <!-- /span8 -->
 
-                <div class="span4">
-                    <div class="sidebar">
-                        <h3><span class="slash">//</span> More Information</h3>
-                        <p>
-                           TekConf has a full api to its data.  This will be fully documented in the future. In the meantime, you 
-                may visit <a href="http://api.tekconf.com">http://api.tekconf.com</a> to explore the api.
-                        </p>
-                    </div>
-                    <!-- /sidebar -->
-
-                </div>
-                <!-- /span4 -->
             </div>
             <!-- /row -->
-
-            <div class="row">
-                <div class="span8">
-                    <h3><span class="slash">//</span> Sessions</h3>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <td>Resource
-                                </td>
-                                <td>Description
-                                </td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            
-                        </tbody>
-                    </table>
-                </div>
-                <!-- /span8 -->
-            </div>
-            <!-- /row -->
-
-            <div class="row">
-                <div class="span8">
-                    <h3><span class="slash">//</span> Speakers</h3>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <td>Resource
-                                </td>
-                                <td>Description
-                                </td>
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                        </tbody>
-                    </table>
-                </div>
-                <!-- /span8 -->
-            </div>
-            <!-- /row -->
-
 
         </div>
         <!-- /container -->

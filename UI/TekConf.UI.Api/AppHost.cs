@@ -26,6 +26,11 @@ namespace TekConf.UI.Api
 
 		public override void Configure(Funq.Container container)
 		{
+				SetConfig(new EndpointHostConfig
+				{
+						MetadataPageBodyHtml = "<script>window.location = 'swagger-ui/index.html';</script>",
+				});
+
 			ServiceStack.Text.JsConfig.EmitCamelCaseNames = true;
 			Plugins.Add(new SwaggerFeature());
 			//Enable Authentication

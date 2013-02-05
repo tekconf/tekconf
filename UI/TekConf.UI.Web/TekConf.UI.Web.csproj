@@ -992,6 +992,7 @@
     <Content Include="Scripts\jquery-ui-1.10.0.min.js" />
     <Content Include="Scripts\jquery-ui-timepicker-addon.js" />
     <Content Include="Scripts\jquery.cookie.js" />
+    <Content Include="Scripts\jquery.cookie2.js" />
     <Content Include="Scripts\jquery.signalR-1.0.0-rc2.js" />
     <Content Include="Scripts\jquery.signalR-1.0.0-rc2.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
@@ -1087,6 +1088,9 @@
       <Project>{1439b0ec-5c15-4b18-b4eb-8a2787abdfde}</Project>
       <Name>TekConf.RemoteData.Shared</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

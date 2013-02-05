@@ -53,29 +53,6 @@ namespace TekConf.UI.Api.Services.v1
 						return count;
 				}
 
-				public object Get(Search request)
-				{
-						var searchTerm = request.searchTerm.ToLower();
-						var search = GetSearch(searchTerm);
-						var showPastConferences = GetShowPastConferences(request.showPastConferences);
-						var query = _repository.AsQueryable()
-											 .Where(search)
-											 .Where(c => c.isLive);
-
-						if (showPastConferences != null)
-						{
-								query = query.Where(showPastConferences);
-						}
-
-						var searchResults = query
-												.Select(c => new SearchResultDto() { label = c.name, value = c.slug })
-											 .ToList()
-											 .OrderBy(s => s.label)
-											 .ToList();
-
-						return searchResults;
-				}
-
 				public object Get(Conferences request)
 				{
 						//Prerun();

@@ -5,34 +5,37 @@ using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.UI.Api.Services.Requests.v1
 {
-		[Route("/v1/conferences/count", "GET")]
+		[ServiceStack.ServiceHost.Api("Conferences Service Description")]
+		[Route("/v1/conferences/count", "GET", Summary = "Gets the total count of conferences returned.")]
 		public class ConferencesCount : IReturn<int>
 		{
+				[ApiMember(Name = "showPastConferences", Description = "Set to true to show conferences which occurred in the past.", ParameterType = "query", DataType = "boolean", IsRequired = false)]
 				public bool? showPastConferences { get; set; }
-				public string searchTerm { get; set; }
-		}
-
-		[Route("/v1/conferences/search", "GET")]
-		public class Search : IReturn<List<SearchResultDto>>
-		{
-				public bool? showPastConferences { get; set; }
+				[ApiMember(Name = "searchTerm", Description = "Search conference name, description, city, country, session title, session description, speaker name, or speaker twitter handle.", ParameterType = "query", DataType = "string", IsRequired = false)]
 				public string searchTerm { get; set; }
 		}
 
 		[Route("/v1/conferences", "GET")]
 		public class Conferences : IReturn<List<ConferencesDto>>
 		{
-				public bool showOnlyFeatured { get; set; }
+				[ApiMember(Name = "search", Description = "Search conference name, description, city, country, session title, session description, speaker name, or speaker twitter handle.", ParameterType = "query", DataType = "string", IsRequired = false)]
 				public string search { get; set; }
+				[ApiMember(Name = "sortBy", Description = "Search conference name, description, city, country, session title, session description, speaker name, or speaker twitter handle.", ParameterType = "query", DataType = "string", IsRequired = false)]
 				public string sortBy { get; set; }
+				[ApiMember(Name = "showPastConferences", Description = "Sort results by start date, name, call for speakers opening date, call for speakers closing date, registration opens date, or date added.", ParameterType = "query", DataType = "boolean", IsRequired = false)]
 				public bool? showPastConferences { get; set; }
+				[ApiMember(Name = "showOnlyWithOpenCalls", Description = "Set to true to show conferences which have an open call for speakers.", ParameterType = "query", DataType = "boolean", IsRequired = false)]
 				public bool? showOnlyWithOpenCalls { get; set; }
+				[ApiMember(Name = "showOnlyOnSale", Description = "Set to true to show conferences which are currently on sale.", ParameterType = "query", DataType = "boolean", IsRequired = false)]
 				public bool? showOnlyOnSale { get; set; }
+				[ApiMember(Name = "showOnlyFeatured", Description = "Set to true to show conferences which are featured.", ParameterType = "query", DataType = "boolean", IsRequired = false)]
+				public bool showOnlyFeatured { get; set; }
 		}
 
 		[Route("/v1/conferences/{conferenceSlug}", "GET")]
 		public class Conference : IReturn<FullConferenceDto>
 		{
+				[ApiMember(Name = "conferenceSlug", Description = "The unique slug to identify the conference.", ParameterType = "query", DataType = "string", IsRequired = true)]
 				public string conferenceSlug { get; set; }
 		}
 
