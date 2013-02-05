@@ -1,8 +1,8 @@
 ﻿@using System.Web.Optimization
-@model dynamic
+@model TekConf.UI.Web.ViewModels.ScheduleViewModel
 
 @{
-    Layout = null;
+	Layout = null;
 }
 
 <!DOCTYPE html>
@@ -41,18 +41,31 @@
 
     <div id="subpage">
         <div class="container">
-            <div class="row">
-                <div class="span8">
-                    <h3><span class="slash">//</span> Conferences</h3>
-                    Once implemented, you will be able to see the conferences and sessions that you are attending.
-                </div>
-                <!-- /span8 -->
+	        <div class="row">
+		        
+			<div class="span12">
+					<table class="table">
+						<tbody>
+							@foreach (var conference in Model.Conferences)
+							 {
+									<tr>
+										<td>
+											<img src="@conference.imageUrl" style="height:80px;" /><br/><br/>
+											<a href="~/Conferences/@conference.slug" class="btn btn-primary btn-mini">View Conference</a>
+										</td>
+										<td>
+											@conference.name<br/>
+											Call for Speakers : @HtmlHelpers.FormatDateRange(conference.callForSpeakersOpens, conference.callForSpeakersCloses)<br/>
+											Conference : @HtmlHelpers.FormatDateRange(conference.start, conference.end)<br/>
+											Location : @HtmlHelpers.FormatAddress(conference.address)
+										</td>
+									</tr>
+							 }
+						</tbody>
+					</table>
+				</div>						
 
-                <!-- /span4 -->
-            </div>
-            <!-- /row -->
-
-
+	        </div>
 
         </div>
         <!-- /container -->
@@ -69,8 +82,8 @@
 	@Scripts.Render("~/js/commonFaq")
 
     <script>
-        $(function () {
-        });
+    	$(function () {
+    	});
     </script>
 </body>
 </html>

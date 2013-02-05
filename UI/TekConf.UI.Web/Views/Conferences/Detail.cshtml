@@ -97,18 +97,32 @@
                                         foreach (var session in sessionTime.Sessions.OrderBy(s => s.start.TimeOfDay))
                                         {
                                 
-                                        <tr>
-                                            <td style="width:84px;"><a href="#" class="btn btn-mini btn-inverse">Add to Schedule</a></td>
-                                            <td>
-                                                @Html.RouteLink(session.title, "SessionDetail", new { conferenceSlug = Model.slug, sessionSlug = session.slug }, null)
-                                            </td>
-                                            <td>
-                                                @foreach (var speaker in session.speakers)
-                                                {
-                                                    @Html.RouteLink(speaker.fullName, "SessionSpeakerDetail", new { conferenceSlug = Model.slug, speakerSlug = speaker.slug }, null)<br />
-                                                }
-                                            </td>
-                                        </tr>                                
+	                                        <tr>
+																							@if (Request.IsAuthenticated)
+																							{
+																								using (Html.BeginForm("Index", "Schedule", FormMethod.Post, new { id = session.slug + "-form" }))
+																								 {
+																									 Html.AntiForgeryToken();
+																									 var formName = session.slug + "-form";
+																									 @Html.Hidden("conferenceSlug", Model.slug)
+																										@Html.Hidden("sessionSlug", session.slug)
+																									 <td style="width:84px;"><a href="javascript:document.getElementById('@formName').submit()" class="btn btn-mini btn-inverse">Add to Schedule</a></td>
+																								 }
+																							}		                                        
+																						
+																						
+
+		                                        
+		                                        <td>
+			                                        @Html.RouteLink(session.title, "SessionDetail", new { conferenceSlug = Model.slug, sessionSlug = session.slug }, null)
+		                                        </td>
+		                                        <td>
+			                                        @foreach (var speaker in session.speakers)
+			                                        {
+				                                        @Html.RouteLink(speaker.fullName, "SessionSpeakerDetail", new { conferenceSlug = Model.slug, speakerSlug = speaker.slug }, null)<br />
+			                                        }
+		                                        </td>
+	                                        </tr>                                
                                         }
                                     }
                                 </tbody>

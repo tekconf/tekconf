@@ -6,11 +6,9 @@ using AutoMapper;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.UI.Api.Services;
 using TekConf.UI.Api.Services.Requests.v1;
-using TekConf.UI.Api.UrlResolvers.v1;
 using FluentMongo.Linq;
 using ServiceStack.CacheAccess;
 using ServiceStack.Common.Web;
-using ServiceStack.ServiceHost;
 
 namespace TekConf.UI.Api.v1
 {
@@ -20,7 +18,7 @@ namespace TekConf.UI.Api.v1
 
 		public object Get(Schedule request)
 		{
-			if (request.conferenceSlug == default(string) || request.authenticationMethod == default(string) || request.authenticationToken == default(string))
+			if (request.conferenceSlug == default(string))
 			{
 				return new HttpError() { StatusCode = HttpStatusCode.BadRequest };
 			}
@@ -32,21 +30,20 @@ namespace TekConf.UI.Api.v1
 		{
 			var scheduleCollection = this.RemoteDatabase.GetCollection<ScheduleEntity>("schedules");
 			ScheduleEntity schedule = scheduleCollection.AsQueryable()
-					.Where(s => s.ConferenceSlug.ToLower() == request.conferenceSlug.ToLower())
-					.Where(s => s.AuthenticationMethod.ToLower() == request.authenticationMethod.ToLower())
-					.SingleOrDefault(s => s.AuthenticationToken.ToLower() == request.authenticationToken.ToLower());
+				.Where(x => x.UserName == request.userName)
+					.SingleOrDefault(s => s.ConferenceSlug.ToLower() == request.conferenceSlug.ToLower());
 
 			if (schedule == null)
 			{
 				schedule = new ScheduleEntity()
 											 {
 												 _id = Guid.NewGuid(),
-												 AuthenticationMethod = request.authenticationMethod,
-												 AuthenticationToken = request.authenticationToken,
 												 ConferenceSlug = request.conferenceSlug,
+												 UserName = request.userName,
 												 SessionSlugs = new List<string>(),
 											 };
 			}
+
 			var repository = new ConferenceRepository(new Configuration());
 			var conference =
 					repository.AsQueryable()
@@ -78,8 +75,7 @@ namespace TekConf.UI.Api.v1
 			var schedule = this.RemoteDatabase.GetCollection<ScheduleEntity>("schedules")
 												 .AsQueryable()
 												 .Where(s => s.ConferenceSlug.ToLower() == request.conferenceSlug.ToLower())
-												 .Where(s => s.AuthenticationMethod.ToLower() == request.authenticationMethod.ToLower())
-												 .SingleOrDefault(s => s.AuthenticationToken.ToLower() == request.authenticationToken.ToLower());
+												 .SingleOrDefault(s => s.UserName.ToLower() == request.userName.ToLower());
 
 			var scheduleDto = Mapper.Map<ScheduleEntity, ScheduleDto>(schedule);
 

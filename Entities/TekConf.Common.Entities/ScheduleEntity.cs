@@ -11,11 +11,7 @@ namespace TekConf.UI.Api
     public Guid _id { get; set; }
 
     public string ConferenceSlug { get; set; }
-    public string UserSlug { get; set; }
-    public string AuthenticationToken { get; set; }
-    public string AuthenticationMethod { get; set; }
 		public string UserName { get; set; }
-		public string Password { get; set; }
     public List<string> SessionSlugs { get; set; } 
   }
 }

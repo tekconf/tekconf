@@ -41,11 +41,10 @@ namespace TekConf.RemoteData.v1
 			var response = ServiceClient.Post<RegistrationResponse>("/register", request);
 		}
 
-		public void GetSchedule(string conferenceSlug, string authenticationMethod, string authenticationToken, string userName, string password, Action<ScheduleDto> callback)
+		public void GetSchedule(string conferenceSlug, string userName, Action<ScheduleDto> callback)
 		{
-			var schedule = new Schedule() { authenticationMethod = authenticationMethod, authenticationToken = authenticationToken, conferenceSlug = conferenceSlug };
+			var schedule = new Schedule() { conferenceSlug = conferenceSlug, userName = userName };
 
-			ServiceClient.SetCredentials(userName, password);
 			ServiceClient.GetAsync(schedule, callback, (r, ex) =>
 														 {
 															 var x = ex;
@@ -53,15 +52,13 @@ namespace TekConf.RemoteData.v1
 														 });
 		}
 
-		public void GetSchedules(string authenticationMethod, string authenticationToken, string userName, string password, Action<List<SchedulesDto>> callback)
+		public void GetSchedules(string userName, Action<List<FullConferenceDto>> callback)
 		{
 			var schedules = new Schedules()
 			{
-				authenticationMethod = authenticationMethod,
-				authenticationToken = authenticationToken
+				userName = userName
 			};
 
-			ServiceClient.SetCredentials(userName, password);
 			ServiceClient.GetAsync(schedules, callback, (r, ex) =>
 			{
 				var x = ex;
@@ -73,11 +70,11 @@ namespace TekConf.RemoteData.v1
 		{
 			var schedule = new AddSessionToSchedule()
 			{
+				userName = userName,
 				conferenceSlug = conferenceSlug,
 				sessionSlug = sessionSlug,
 			};
 
-			ServiceClient.SetCredentials(userName, password);
 			ServiceClient.PostAsync(schedule, callback, (r, ex) =>
 			{
 				var x = ex;
@@ -104,7 +101,7 @@ namespace TekConf.RemoteData.v1
 
 			if (!showOnlyOnSale.HasValue)
 			{
-					showOnlyOnSale = false;
+				showOnlyOnSale = false;
 			}
 
 			var conferences = new Conferences() { sortBy = sortBy, showPastConferences = showPastConferences, showOnlyWithOpenCalls = showOnlyOpenCalls, showOnlyOnSale = showOnlyOnSale, search = search, showOnlyFeatured = false };
@@ -113,13 +110,13 @@ namespace TekConf.RemoteData.v1
 
 		public void GetConferencesCount(Action<int> callback, bool? showPastConferences = false, string search = null)
 		{
-				if (!showPastConferences.HasValue)
-				{
-						showPastConferences = false;
-				}
+			if (!showPastConferences.HasValue)
+			{
+				showPastConferences = false;
+			}
 
-				var conferences = new ConferencesCount() { showPastConferences = showPastConferences, searchTerm = search };
-				ServiceClient.GetAsync(conferences, callback, (r, ex) => { callback(0); });
+			var conferences = new ConferencesCount() { showPastConferences = showPastConferences, searchTerm = search };
+			ServiceClient.GetAsync(conferences, callback, (r, ex) => { callback(0); });
 		}
 
 		public void GetFeaturedConferences(Action<IList<ConferencesDto>> callback)

@@ -13,6 +13,7 @@ namespace TekConf.UI.Web.Controllers
 	{
 		private readonly string _baseUrl;
 		private RemoteDataRepository _repository;
+
 		public RemoteDataRepositoryAsync(string baseUrl)
 		{
 			_baseUrl = baseUrl;
@@ -50,6 +51,29 @@ namespace TekConf.UI.Web.Controllers
 				});
 		}
 
+		public Task<ScheduleDto> GetSchedule(string conferenceSlug, string userName)
+		{
+			return Task.Run(() =>
+			{
+				var t = new TaskCompletionSource<ScheduleDto>();
+
+				_repository.GetSchedule(conferenceSlug, userName, c => t.TrySetResult(c));
+
+				return t.Task;
+			});
+		}
+
+		public Task<List<FullConferenceDto>> GetSchedules(string userName)
+		{
+			return Task.Run(() =>
+			{
+				var t = new TaskCompletionSource<List<FullConferenceDto>>();
+
+				_repository.GetSchedules(userName, c => t.TrySetResult(c));
+
+				return t.Task;
+			});
+		}
 
 		public Task<FullConferenceDto> GetFullConference(string conferenceSlug)
 		{
@@ -160,6 +184,17 @@ namespace TekConf.UI.Web.Controllers
 			});
 		}
 
+		public Task<ScheduleDto> AddSessionToSchedule(string conferenceSlug, string sessionSlug, string userName, string password)
+		{
+			return Task.Run(() =>
+			{
+				var t = new TaskCompletionSource<ScheduleDto>();
+
+				_repository.AddSessionToSchedule(conferenceSlug, sessionSlug, userName, password, s => t.TrySetResult(s));
+
+				return t.Task;
+			});
+		}
 		public Task<FullSpeakerDto> AddSpeakerToSession(CreateSpeaker speaker)
 		{
 			return Task.Run(() =>

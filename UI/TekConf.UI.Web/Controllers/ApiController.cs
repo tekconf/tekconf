@@ -7,25 +7,25 @@ using TekConf.UI.Web.Models;
 
 namespace TekConf.UI.Web.Controllers
 {
-    public class ApiController : Controller
-    {
-        [CompressFilter]
-        public async Task<ActionResult> Index()
-        {
-            var documentationTask = GetDocumentation();
-            
-            await documentationTask;
+	public class ApiController : Controller
+	{
+		[CompressFilter]
+		public async Task<ActionResult> Index()
+		{
+			var documentationTask = GetDocumentation();
 
-            return View(documentationTask.Result);
-        }
+			await documentationTask;
 
-        private Task<List<ApiDocumentation>> GetDocumentation()
-        {
-            return Task.Run(() =>
-            {
-                var t = new TaskCompletionSource<List<ApiDocumentation>>();
+			return View(documentationTask.Result);
+		}
 
-                var documentation = new List<ApiDocumentation>()
+		private Task<List<ApiDocumentation>> GetDocumentation()
+		{
+			return Task.Run(() =>
+			{
+				var t = new TaskCompletionSource<List<ApiDocumentation>>();
+
+				var documentation = new List<ApiDocumentation>()
                     {
                       new ApiDocumentation()
                         {
@@ -57,16 +57,16 @@ namespace TekConf.UI.Web.Controllers
               
                         }
                     };
-                t.TrySetResult(documentation);
+				t.TrySetResult(documentation);
 
-                return t.Task;
-            });
-        }
+				return t.Task;
+			});
+		}
 
-        [CompressFilter]
-        public ActionResult Detail()
-        {
-            throw new NotImplementedException();
-        }
-    }
+		[CompressFilter]
+		public ActionResult Detail()
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

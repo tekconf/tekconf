@@ -83,11 +83,6 @@ namespace TekConf.UI.Api
 					.ForMember(dto => dto.sessions, opt => opt.ResolveUsing<ScheduleSessionResolver>())
 					;
 
-			Mapper.CreateMap<ScheduleEntity, SchedulesDto>()
-					.ForMember(dto => dto.conferenceSlug, opt => opt.MapFrom(entity => entity.ConferenceSlug))
-					.ForMember(dto => dto.conferenceName, opt => opt.ResolveUsing<ConferenceResolver>())
-					;
-
 			Mapper.CreateMap<AddressEntity, Address>();
 			Mapper.CreateMap<Address, AddressEntity>();
 			Mapper.CreateMap<AddressEntity, AddressDto>();

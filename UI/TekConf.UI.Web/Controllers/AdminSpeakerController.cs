@@ -10,94 +10,95 @@ using TekConf.UI.Api.Services.Requests.v1;
 
 namespace TekConf.UI.Web.Controllers
 {
-    public class AdminSpeakerController : Controller
-    {
-        private readonly RemoteDataRepositoryAsync _repository;
-        public AdminSpeakerController()
-        {
-            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
+	[Authorize]
+	public class AdminSpeakerController : Controller
+	{
+		private readonly RemoteDataRepositoryAsync _repository;
+		public AdminSpeakerController()
+		{
+			var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
 
-            _repository = new RemoteDataRepositoryAsync(baseUrl);
-        }
+			_repository = new RemoteDataRepositoryAsync(baseUrl);
+		}
 
-        [HttpGet]
-        public ActionResult CreateSpeaker()
-        {
-            return View();
-        }
+		[HttpGet]
+		public ActionResult CreateSpeaker()
+		{
+			return View();
+		}
 
-        [HttpPost]
-        public async Task<ActionResult> CreateSpeaker(CreateSpeaker speaker, HttpPostedFileBase file)
-        {
-            string url = string.Empty;
+		[HttpPost]
+		public async Task<ActionResult> CreateSpeaker(CreateSpeaker speaker, HttpPostedFileBase file)
+		{
+			string url = string.Empty;
 
-            if (file != null)
-            {
-                url = "/img/speakers/" + (speaker.firstName + " " + speaker.lastName).GenerateSlug() + Path.GetExtension(file.FileName);
-                speaker.profileImageUrl = url;
-            }
+			if (file != null)
+			{
+				url = "/img/speakers/" + (speaker.firstName + " " + speaker.lastName).GenerateSlug() + Path.GetExtension(file.FileName);
+				speaker.profileImageUrl = url;
+			}
 
-            var imageTask = SaveSpeakerImage(url, file);
+			var imageTask = SaveSpeakerImage(url, file);
 
-            if (file != null)
-            {
-                var filename = Server.MapPath(url);
+			if (file != null)
+			{
+				var filename = Server.MapPath(url);
 
-                ThreadPool.QueueUserWorkItem(o =>
-                                                 {
-                                                     file.SaveAs(filename);
-                                                     AsyncManager.OutstandingOperations.Decrement();
-                                                 }, null);
-            }
+				ThreadPool.QueueUserWorkItem(o =>
+																				 {
+																					 file.SaveAs(filename);
+																					 AsyncManager.OutstandingOperations.Decrement();
+																				 }, null);
+			}
 
-            var addSpeakerTask = _repository.AddSpeakerToSession(speaker);
+			var addSpeakerTask = _repository.AddSpeakerToSession(speaker);
 
-            await Task.WhenAll(addSpeakerTask, imageTask);
+			await Task.WhenAll(addSpeakerTask, imageTask);
 
-            return RedirectToAction("Detail", "Session", new { conferenceSlug = speaker.conferenceSlug, sessionSlug = speaker.sessionSlug });
-        }
+			return RedirectToAction("Detail", "Session", new { conferenceSlug = speaker.conferenceSlug, sessionSlug = speaker.sessionSlug });
+		}
 
-        public Task SaveSpeakerImage(string url, HttpPostedFileBase file)
-        {
-            return Task.Factory.StartNew(() =>
-            {
-                if (file != null)
-                {
-                    var filename = Server.MapPath(url);
-                    file.SaveAs(filename);
-                }
-            });
-        }
+		public Task SaveSpeakerImage(string url, HttpPostedFileBase file)
+		{
+			return Task.Factory.StartNew(() =>
+			{
+				if (file != null)
+				{
+					var filename = Server.MapPath(url);
+					file.SaveAs(filename);
+				}
+			});
+		}
 
-        [HttpGet]
-        public async Task<ActionResult> EditSpeaker(string conferenceSlug, string speakerSlug)
-        {
-            var speakerTask = _repository.GetSpeaker(conferenceSlug, speakerSlug);
-            await speakerTask;
+		[HttpGet]
+		public async Task<ActionResult> EditSpeaker(string conferenceSlug, string speakerSlug)
+		{
+			var speakerTask = _repository.GetSpeaker(conferenceSlug, speakerSlug);
+			await speakerTask;
 
-            var createSpeaker = Mapper.Map<CreateSpeaker>(speakerTask.Result);
-            return View(createSpeaker);
-        }
+			var createSpeaker = Mapper.Map<CreateSpeaker>(speakerTask.Result);
+			return View(createSpeaker);
+		}
 
-        [HttpPost]
-        public async Task<ActionResult> EditSpeakerInConference(CreateSpeaker speaker, HttpPostedFileBase file)
-        {
-            string url = string.Empty;
+		[HttpPost]
+		public async Task<ActionResult> EditSpeakerInConference(CreateSpeaker speaker, HttpPostedFileBase file)
+		{
+			string url = string.Empty;
 
-            if (file != null)
-            {
-                url = "/img/speakers/" + (speaker.firstName + " " + speaker.lastName).GenerateSlug() + Path.GetExtension(file.FileName); ;
-                speaker.profileImageUrl = url;
-            }
+			if (file != null)
+			{
+				url = "/img/speakers/" + (speaker.firstName + " " + speaker.lastName).GenerateSlug() + Path.GetExtension(file.FileName); ;
+				speaker.profileImageUrl = url;
+			}
 
-            var imageTask = SaveSpeakerImage(url, file);
-            var speakerTask = _repository.EditSpeaker(speaker);
+			var imageTask = SaveSpeakerImage(url, file);
+			var speakerTask = _repository.EditSpeaker(speaker);
 
-            await Task.WhenAll(imageTask, speakerTask);
+			await Task.WhenAll(imageTask, speakerTask);
 
-            return RedirectToRoute("SessionSpeakerDetail", new { conferenceSlug = speaker.conferenceSlug, speakerSlug = speaker.slug });
+			return RedirectToRoute("SessionSpeakerDetail", new { conferenceSlug = speaker.conferenceSlug, speakerSlug = speaker.slug });
 
-        }
+		}
 
-    }
+	}
 }
