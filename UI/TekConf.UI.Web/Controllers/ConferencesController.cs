@@ -64,7 +64,14 @@ namespace TekConf.UI.Web.Controllers
 		[CompressFilter]
 		public async Task<ActionResult> Detail(string conferenceSlug)
 		{
-			var conferenceTask = _repository.GetFullConference(conferenceSlug);
+
+			string userName = string.Empty;
+			if (Request.IsAuthenticated)
+			{
+				userName = System.Web.HttpContext.Current.User.Identity.Name;
+			}
+
+			var conferenceTask = _repository.GetFullConference(conferenceSlug, userName);
 
 			await conferenceTask;
 

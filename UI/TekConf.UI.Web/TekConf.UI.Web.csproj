@@ -367,7 +367,9 @@
     <Content Include="css\bootstrap-responsive.min.css" />
     <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\font-awesome-ie7.min.css" />
     <Content Include="css\font-awesome.css" />
+    <Content Include="css\font-awesome.min.css" />
     <Content Include="css\font\fontawesome-webfont.svg" />
     <Content Include="css\font\fontawesome-webfont.woff" />
     <Content Include="css\notification.css" />

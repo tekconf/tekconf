@@ -26,9 +26,14 @@ namespace TekConf.UI.Web.Controllers
 			var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
 
 			var repository = new RemoteDataRepository(baseUrl);
+			string userName = string.Empty;
+			if (Request.IsAuthenticated)
+			{
+					userName = System.Web.HttpContext.Current.User.Identity.Name;
+			}
 
 			AsyncManager.OutstandingOperations.Increment();
-			repository.GetFullConference(conferenceSlug, conference =>
+			repository.GetFullConference(conferenceSlug, userName, conference =>
 																											 {
 																												 AsyncManager.Parameters["conference"] = conference;
 																												 AsyncManager.OutstandingOperations.Decrement();
@@ -74,9 +79,14 @@ namespace TekConf.UI.Web.Controllers
 			var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
 
 			var repository = new RemoteDataRepository(baseUrl);
+			string userName = string.Empty;
+			if (Request.IsAuthenticated)
+			{
+					userName = System.Web.HttpContext.Current.User.Identity.Name;
+			}
 
 			AsyncManager.OutstandingOperations.Increment();
-			repository.GetFullConference(conferenceSlug, conference =>
+			repository.GetFullConference(conferenceSlug, userName, conference =>
 																											 {
 																												 var session = conference.sessions.FirstOrDefault(s => s.slug == sessionSlug);
 																												 AsyncManager.Parameters["session"] = session;

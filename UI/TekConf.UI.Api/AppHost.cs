@@ -14,6 +14,8 @@ namespace TekConf.UI.Api
 	using ServiceStack.Api.Swagger;
 	using ServiceStack.ServiceInterface.Cors;
 
+	using TekConf.Common.Entities.Repositories;
+
 	public class CustomUserSession : AuthUserSession
 	{
 		public string CustomProperty { get; set; }
@@ -39,6 +41,7 @@ namespace TekConf.UI.Api
 
 			container.Register<IConfiguration>(configuration);
 			container.Register<IRepository<ConferenceEntity>>(new ConferenceRepository(configuration));
+			container.Register<IRepository<ScheduleEntity>>(new ScheduleRepository(configuration));
 
 			container.Register<IRepository<SessionRoomChangedMessage>>(new SessionRoomChangedRepository(configuration));
 			container.Register<IRepository<ConferenceLocationChangedMessage>>(new ConferenceLocationChangedRepository(configuration));

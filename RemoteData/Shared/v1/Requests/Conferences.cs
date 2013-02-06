@@ -37,6 +37,8 @@ namespace TekConf.UI.Api.Services.Requests.v1
 		{
 				[ApiMember(Name = "conferenceSlug", Description = "The unique slug to identify the conference.", ParameterType = "query", DataType = "string", IsRequired = true)]
 				public string conferenceSlug { get; set; }
+				[ApiMember(Name = "userName", Description = "The requesting user's login name. This is used to determine which sessions are on their schedule.", ParameterType = "query", DataType = "string", IsRequired = false)]
+				public string userName { get; set; }
 		}
 
 		[Route("/v1/conferences/{slug}", "POST")]

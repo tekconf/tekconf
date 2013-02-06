@@ -6,6 +6,7 @@ using MongoDB.Driver.Builders;
 
 namespace TekConf.UI.Api
 {
+
 	public class ConferenceRepository : IRepository<ConferenceEntity>
 	{
 		private readonly IConfiguration _configuration;

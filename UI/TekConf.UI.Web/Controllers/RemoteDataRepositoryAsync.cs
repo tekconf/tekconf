@@ -75,13 +75,13 @@ namespace TekConf.UI.Web.Controllers
 			});
 		}
 
-		public Task<FullConferenceDto> GetFullConference(string conferenceSlug)
+		public Task<FullConferenceDto> GetFullConference(string conferenceSlug, string userName)
 		{
 			return Task.Run(() =>
 			{
 				var t = new TaskCompletionSource<FullConferenceDto>();
 
-				_repository.GetFullConference(conferenceSlug, c => t.TrySetResult(c));
+				_repository.GetFullConference(conferenceSlug, userName, c => t.TrySetResult(c));
 
 				return t.Task;
 			});

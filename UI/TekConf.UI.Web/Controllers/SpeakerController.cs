@@ -34,8 +34,12 @@ namespace TekConf.UI.Web.Controllers
 		public async Task<ActionResult> Detail(string conferenceSlug, string sessionSlug, string speakerSlug)
 		{
 			var speakerTask = _repository.GetSpeaker(conferenceSlug, speakerSlug);
-
-			var conferenceTask = _repository.GetFullConference(conferenceSlug);
+			string userName = string.Empty;
+			if (Request.IsAuthenticated)
+			{
+					userName = System.Web.HttpContext.Current.User.Identity.Name;
+			}
+			var conferenceTask = _repository.GetFullConference(conferenceSlug, userName);
 
 			await Task.WhenAll(speakerTask, conferenceTask);
 

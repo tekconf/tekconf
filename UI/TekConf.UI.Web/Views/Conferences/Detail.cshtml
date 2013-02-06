@@ -100,14 +100,23 @@
 	                                        <tr>
 																							@if (Request.IsAuthenticated)
 																							{
-																								using (Html.BeginForm("Index", "Schedule", FormMethod.Post, new { id = session.slug + "-form" }))
-																								 {
-																									 Html.AntiForgeryToken();
-																									 var formName = session.slug + "-form";
-																									 @Html.Hidden("conferenceSlug", Model.slug)
-																										@Html.Hidden("sessionSlug", session.slug)
-																									 <td style="width:84px;"><a href="javascript:document.getElementById('@formName').submit()" class="btn btn-mini btn-inverse">Add to Schedule</a></td>
-																								 }
+																									if (session.isAddedToSchedule.HasValue && session.isAddedToSchedule.Value)
+																									{
+																										<td style="width:44px;"><i class="icon-star icon-2x" style="color:#81994D"></i></td>
+																									}
+																									else
+																									{
+																											using (Html.BeginForm("Index", "Schedule", FormMethod.Post, new { id = session.slug + "-form" }))
+																											{
+																													Html.AntiForgeryToken();
+																													var formName = session.slug + "-form";
+																											 @Html.Hidden("conferenceSlug", Model.slug)
+																												@Html.Hidden("sessionSlug", session.slug)
+																												<td style="width:44px;">
+																													<i class="icon-star-empty icon-2x" onclick="javascript:document.getElementById('@formName').submit()"></i>
+																												</td>
+																											}
+																									}
 																							}		                                        
 																						
 																						
@@ -118,18 +127,18 @@
 		                                        </td>
 		                                        <td>
 			                                        @foreach (var speaker in session.speakers)
-			                                        {
+																					 {
 				                                        @Html.RouteLink(speaker.fullName, "SessionSpeakerDetail", new { conferenceSlug = Model.slug, speakerSlug = speaker.slug }, null)<br />
-			                                        }
+																					 }
 		                                        </td>
 	                                        </tr>                                
-                                        }
-                                    }
+																				}
+																		}
                                 </tbody>
                             </table>
                         </div>
 
-                    }
+										}
                 </div>
                 <!-- /span6 -->
 
@@ -139,74 +148,74 @@
                         <p>
                             @HtmlHelpers.FormatDateRange(Model.start, Model.end)<br />
                             @if (!string.IsNullOrWhiteSpace(Model.location))
-                            {
+														{
                                 @Model.location<br />
-                            }
+														}
                             
                             @if (Model.callForSpeakersOpens != default(DateTime))
-                            {
+														{
                                 <text>Call for Speakers : </text>@Model.callForSpeakersOpens<text>-</text>@Model.callForSpeakersCloses
-                            }
+														}
                             <h4><span class="slash">//</span> Connect</h4>
                             @if (!string.IsNullOrWhiteSpace(Model.homepageUrl))
-                            {
+														{
                                 <img src="~/img/social/website-16x16.png" /> @HtmlHelpers.SimpleLink(Model.homepageUrl, Model.homepageUrl.Replace("http://", ""))<br />
-                            }                            
+														}                            
 
                             @if (!string.IsNullOrWhiteSpace(Model.twitterName))
-                            {
+														{
                                 <img src="~/img/social/twitter-16x16.png" /> @HtmlHelpers.TwitterUserLink(Model.twitterName)<br />
-                            }
+														}
                             @if (!string.IsNullOrWhiteSpace(Model.twitterHashTag))
-                            {
+														{
                                 <img src="~/img/social/twitter-16x16.png" /> @HtmlHelpers.SimpleLink("https://twitter.com/#!/search/" + Model.twitterHashTag.Replace("#", "%23"), Model.twitterHashTag)<br />
-                            }
+														}
 
                             @if (!string.IsNullOrWhiteSpace(Model.facebookUrl))
-                            {
+														{
                                 <img src="~/img/social/facebook-16x16.png" /> @HtmlHelpers.SimpleLink(Model.facebookUrl, "Facebook")<br />
-                            }
+														}
 
                             @if (!string.IsNullOrWhiteSpace(Model.lanyrdUrl))
-                            {
+														{
                                 <img src="~/img/social/lanyrd-16x16.png" /> @HtmlHelpers.SimpleLink(Model.lanyrdUrl, "Lanyrd")<br />
-                            }
+														}
 
                             @if (!string.IsNullOrWhiteSpace(Model.meetupUrl))
-                            {
+														{
                                 <img src="~/img/social/meetup-16x16.png" /> @HtmlHelpers.SimpleLink(Model.meetupUrl, "Meetup")<br />
-                            }
+														}
 
                             @if (!string.IsNullOrWhiteSpace(Model.googlePlusUrl))
-                            {
+														{
                                 <img src="~/img/social/googlePlus-16x16.png" /> @HtmlHelpers.SimpleLink(Model.googlePlusUrl, "Google+")<br />
-                            }
+														}
 
                             @if (!string.IsNullOrWhiteSpace(Model.vimeoUrl))
-                            {
+														{
                                 <img src="~/img/social/vimeo-16x16.png" /> @HtmlHelpers.SimpleLink(Model.vimeoUrl, "Vimeo")<br />
-                            }
+														}
 
                             @if (!string.IsNullOrWhiteSpace(Model.youtubeUrl))
-                            {
+														{
                                 <img src="~/img/social/youtube-16x16.png" /> @HtmlHelpers.SimpleLink(Model.youtubeUrl, "YouTube")<br />
-                            }
+														}
 
                             @if (!string.IsNullOrWhiteSpace(Model.githubUrl))
-                            {
+														{
                                 <img src="~/img/social/github-16x16.png" /> @HtmlHelpers.SimpleLink(Model.googlePlusUrl, "Github")<br />
-                            }
+														}
 
                             @if (!string.IsNullOrWhiteSpace(Model.linkedInUrl))
-                            {
+														{
                                 <img src="~/img/social/linkedin-16x16.png" /> @HtmlHelpers.SimpleLink(Model.linkedInUrl, "LinkedIn")<br />
-                            }
+														}
                         </p>
                         @if (Html.IsAdmin())
-                        {
-                            @Html.RouteLink("Edit Conference", "AdminEditConference", new { conferenceSlug = Model.slug}, new { @class = "btn btn-info" })	
-                            @Html.RouteLink("Add Session", "AdminAddSession", new { conferenceSlug = Model.slug}, new { @class = "btn" })	
-                        }
+												{
+                            @Html.RouteLink("Edit Conference", "AdminEditConference", new { conferenceSlug = Model.slug }, new { @class = "btn btn-info" })	
+                            @Html.RouteLink("Add Session", "AdminAddSession", new { conferenceSlug = Model.slug }, new { @class = "btn" })	
+												}
                         <br/>
                     </div>
                     <!-- /sidebar -->
