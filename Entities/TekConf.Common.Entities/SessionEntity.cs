@@ -80,7 +80,11 @@ namespace TekConf.UI.Api
 		private IList<SpeakerEntity> _speakers = new List<SpeakerEntity>();
 		public IEnumerable<SpeakerEntity> speakers
 		{
-			get { return _speakers.AsEnumerable(); }
+			get
+			{
+					if (_speakers == null) _speakers = new List<SpeakerEntity>();
+				return _speakers.AsEnumerable();
+			}
 			set
 			{
 				if (value == null)

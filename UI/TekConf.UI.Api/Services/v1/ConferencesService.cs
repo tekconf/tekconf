@@ -25,14 +25,6 @@ namespace TekConf.UI.Api.Services.v1
 						_hub = hub;
 						_repository = repository;
 						_configuration = configuration;
-
-						if (AppHost.Instance == null)
-						{
-								var appHost = new AppHost();
-								appHost.Init();
-
-						}
-
 				}
 
 				public object Get(ConferencesCount request)
@@ -41,6 +33,16 @@ namespace TekConf.UI.Api.Services.v1
 						var showPastConferences = GetShowPastConferences(request.showPastConferences);
 						var query = _repository.AsQueryable()
 											 .Where(c => c.isLive);
+
+						if (!string.IsNullOrWhiteSpace(request.searchTerm))
+						{
+								var searchTerm = request.searchTerm.ToLower();
+								var search = GetSearch(searchTerm);
+								if (search != null)
+								{
+										query = query.Where(search);
+								}
+						}
 
 						if (showPastConferences != null)
 						{
@@ -53,41 +55,62 @@ namespace TekConf.UI.Api.Services.v1
 						return count;
 				}
 
+				public object Get(Search request)
+				{
+						var searchTerm = request.searchTerm.ToLower();
+						var search = GetSearch(searchTerm);
+
+						var showPastConferences = GetShowPastConferences(request.showPastConferences);
+
+						var query = _repository.AsQueryable()
+											 .Where(search)
+											 .Where(c => c.isLive);
+
+						if (showPastConferences != null)
+						{
+								query = query.Where(showPastConferences);
+						}
+
+						var searchResults = query
+												.Select(c => new SearchResultDto() { label = c.name, value = c.slug })
+											 .ToList()
+											 .OrderBy(s => s.label)
+											 .ToList();
+
+						return searchResults;
+				}
+
 				public object Get(Conferences request)
 				{
 						//Prerun();
 
 						if (request.showOnlyFeatured)
-						{
 								return GetFeaturedConferences(request);
-						}
-						else
-						{
-								return GetAllConferences(request);
-						}
+
+						return GetAllConferences(request);
 				}
 
-				private void Prerun()
-				{
-						try
-						{
-								var confs = _repository.AsQueryable()
-										.ToList();
+				//private void Prerun()
+				//{
+				//		try
+				//		{
+				//				var confs = _repository.AsQueryable()
+				//						.ToList();
 
-								var toDelete = confs.Where(x => x.slug.ToLower().StartsWith("temp")).ToList();
+				//				var toDelete = confs.Where(x => x.slug.ToLower().StartsWith("temp")).ToList();
 
-								foreach (var conf in toDelete)
-								{
-										_repository.Remove(conf._id);
-								}
+				//				foreach (var conf in toDelete)
+				//				{
+				//						_repository.Remove(conf._id);
+				//				}
 
-						}
-						catch (Exception ex)
-						{
-								throw;
-						}
+				//		}
+				//		catch (Exception ex)
+				//		{
+				//				throw;
+				//		}
 
-				}
+				//}
 
 				private object GetAllConferences(Conferences request)
 				{
@@ -249,10 +272,6 @@ namespace TekConf.UI.Api.Services.v1
 										|| Regex.IsMatch(c.address.Country, search, RegexOptions.IgnoreCase)
 										|| c.sessions.Any(s => Regex.IsMatch(s.description, search, RegexOptions.IgnoreCase))
 										|| c.sessions.Any(s => Regex.IsMatch(s.title, search, RegexOptions.IgnoreCase))
-										//|| c.tags.Contains(search)
-										//|| c.subjects.Contains(search)
-										//|| c.sessions.Any(s => s.tags.Any(t => Regex.IsMatch(t, search, RegexOptions.IgnoreCase)))
-										//|| c.sessions.Any(s => s.subjects.Any(t => Regex.IsMatch(t, search, RegexOptions.IgnoreCase)))
 										|| c.sessions.Any(s => s.speakers.Any(sp => Regex.IsMatch(sp.lastName, search, RegexOptions.IgnoreCase)))
 										|| c.sessions.Any(s => s.speakers.Any(sp => Regex.IsMatch(sp.twitterName, search, RegexOptions.IgnoreCase)))
 										;

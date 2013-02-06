@@ -44,8 +44,8 @@ namespace RemoteData.Shared.Tests.Int
     public void GetConference()
     {
       RemoteDataRepository remoteData = new RemoteDataRepository(_baseUrl);
-      ConferenceDto conference = null;
-      string slug = "CodeMash-2013";
+      FullConferenceDto conference = null;
+      string slug = "codeMash-2013";
       remoteData.GetConference(slug, c =>
       {
         conference = c;

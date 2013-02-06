@@ -14,7 +14,17 @@ namespace TekConf.UI.Api.v1
 {
 	public class ScheduleService : MongoServiceBase
 	{
+		private readonly IRepository<ScheduleEntity> _scheduleRepository;
+
+		private readonly IRepository<ConferenceEntity> _conferenceRepository;
+
 		public ICacheClient CacheClient { get; set; }
+
+		public ScheduleService(IRepository<ScheduleEntity> scheduleRepository, IRepository<ConferenceEntity> conferenceRepository)
+		{
+			_scheduleRepository = scheduleRepository;
+			_conferenceRepository = conferenceRepository;
+		}
 
 		public object Get(Schedule request)
 		{
@@ -28,8 +38,7 @@ namespace TekConf.UI.Api.v1
 
 		public object Post(AddSessionToSchedule request)
 		{
-			var scheduleCollection = this.RemoteDatabase.GetCollection<ScheduleEntity>("schedules");
-			ScheduleEntity schedule = scheduleCollection.AsQueryable()
+				ScheduleEntity schedule = _scheduleRepository.AsQueryable()
 				.Where(x => x.UserName == request.userName)
 					.SingleOrDefault(s => s.ConferenceSlug.ToLower() == request.conferenceSlug.ToLower());
 
@@ -44,9 +53,8 @@ namespace TekConf.UI.Api.v1
 											 };
 			}
 
-			var repository = new ConferenceRepository(new Configuration());
 			var conference =
-					repository.AsQueryable()
+					_conferenceRepository.AsQueryable()
 					.SingleOrDefault(c => c.slug == request.conferenceSlug);
 
 			if (conference != null)
@@ -57,7 +65,7 @@ namespace TekConf.UI.Api.v1
 				}
 			}
 
-			scheduleCollection.Save(schedule);
+			_scheduleRepository.Save(schedule);
 			this.CacheClient.FlushAll();
 
 			var scheduleDto = Mapper.Map<ScheduleDto>(schedule);
@@ -72,7 +80,7 @@ namespace TekConf.UI.Api.v1
 
 		private ScheduleDto GetSchedule(Schedule request)
 		{
-			var schedule = this.RemoteDatabase.GetCollection<ScheduleEntity>("schedules")
+			var schedule = _scheduleRepository
 												 .AsQueryable()
 												 .Where(s => s.ConferenceSlug.ToLower() == request.conferenceSlug.ToLower())
 												 .SingleOrDefault(s => s.UserName.ToLower() == request.userName.ToLower());

@@ -20,7 +20,7 @@ namespace RemoteData.Shared.Tests.Int
       var slug = "Speaker-Slug2";
       var conferenceSlug = "CodeMash-2013";
       RemoteDataRepository remoteData = new RemoteDataRepository(_baseUrl);
-      IList<SpeakersDto> speakers = null;
+      IList<FullSpeakerDto> speakers = null;
       remoteData.GetSpeakers(conferenceSlug, s =>
                                                {
                                                  speakers = s;

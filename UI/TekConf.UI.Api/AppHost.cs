@@ -42,6 +42,7 @@ namespace TekConf.UI.Api
 			container.Register<IConfiguration>(configuration);
 			container.Register<IRepository<ConferenceEntity>>(new ConferenceRepository(configuration));
 			container.Register<IRepository<ScheduleEntity>>(new ScheduleRepository(configuration));
+			container.Register<IRepository<UserEntity>>(new UserRepository(configuration));
 
 			container.Register<IRepository<SessionRoomChangedMessage>>(new SessionRoomChangedRepository(configuration));
 			container.Register<IRepository<ConferenceLocationChangedMessage>>(new ConferenceLocationChangedRepository(configuration));

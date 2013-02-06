@@ -929,7 +929,7 @@ templates['resource'] = template(function (Handlebars,depth0,helpers,partials,da
     };
 
     SwaggerUi.prototype.render = function() {
-      var _this = this;
+    		var _this = this;
       this.showMessage('Finished Loading Resource Information. Rendering Swagger UI...');
       this.mainView = new MainView({
         model: this.api,

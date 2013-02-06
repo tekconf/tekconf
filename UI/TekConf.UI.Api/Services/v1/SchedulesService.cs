@@ -1,49 +1,46 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
-using FluentMongo.Linq;
 using ServiceStack.CacheAccess;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.UI.Api.Services;
 using TekConf.UI.Api.Services.Requests.v1;
-using TekConf.UI.Api.Services.v1;
 
 namespace TekConf.UI.Api.v1
 {
-	public class SchedulesService : MongoServiceBase
-	{
-		public ICacheClient CacheClient { get; set; }
-
-		public object Get(Schedules request)
+		public class SchedulesService : MongoServiceBase
 		{
-			List<ScheduleEntity> schedules = null;
-			List<FullConferenceDto> conferences = new List<FullConferenceDto>();
-			
-			try
-			{
-				schedules = this.RemoteDatabase.GetCollection<ScheduleEntity>("schedules")
-				                .AsQueryable()
-				                .Where(s => s.UserName.ToLower() == request.userName.ToLower())
-				                .ToList();
+			private readonly IRepository<ScheduleEntity> _scheduleRepository;
+			private readonly IRepository<ConferenceEntity> _conferenceRepository;
 
-				foreach (var schedule in schedules)
+			public ICacheClient CacheClient { get; set; }
+
+			public SchedulesService(IRepository<ScheduleEntity> scheduleRepository, IRepository<ConferenceEntity> conferenceRepository)
+			{
+				_scheduleRepository = scheduleRepository;
+				this._conferenceRepository = conferenceRepository;
+			}
+
+			public object Get(Schedules request)
 				{
-					var conference = this.RemoteDatabase.GetCollection<ConferenceEntity>("conferences")
-					                     .AsQueryable()
-					                     .SingleOrDefault(c => c.slug == schedule.ConferenceSlug);
-					var conferenceDto = Mapper.Map<ConferenceEntity, FullConferenceDto>(conference);
-					conferences.Add(conferenceDto);
-				}
-			}
-			catch (Exception ex)
-			{
-				throw;
-			}
-			
-			//var schedulesDto = Mapper.Map<List<ScheduleEntity>, List<SchedulesDto>>(schedules);
+						List<ScheduleEntity> schedules = null;
+						List<FullConferenceDto> conferences = new List<FullConferenceDto>();
 
-			return conferences;
+						schedules = _scheduleRepository
+														.AsQueryable()
+														.Where(s => s.UserName.ToLower() == request.userName.ToLower())
+														.ToList();
+
+						foreach (var schedule in schedules)
+						{
+								var conference = _conferenceRepository
+																		 .AsQueryable()
+																		 .SingleOrDefault(c => c.slug == schedule.ConferenceSlug);
+								var conferenceDto = Mapper.Map<ConferenceEntity, FullConferenceDto>(conference);
+								conferences.Add(conferenceDto);
+						}
+
+						return conferences;
+				}
 		}
-	}
 }

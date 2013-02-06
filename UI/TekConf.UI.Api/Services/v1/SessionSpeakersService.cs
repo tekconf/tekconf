@@ -16,11 +16,15 @@ namespace TekConf.UI.Api.Services.v1
 	public class SessionSpeakersService : MongoServiceBase
 	{
 		private readonly IConfiguration _configuration;
+
+		private readonly IRepository<ConferenceEntity> _conferenceRepository;
+
 		public ICacheClient CacheClient { get; set; }
 
-		public SessionSpeakersService(IConfiguration configuration)
+		public SessionSpeakersService(IConfiguration configuration, IRepository<ConferenceEntity> conferenceRepository)
 		{
 			_configuration = configuration;
+			_conferenceRepository = conferenceRepository;
 		}
 
 		public object Get(SessionSpeakers request)
@@ -34,8 +38,7 @@ namespace TekConf.UI.Api.Services.v1
 			{
 				throw new HttpError() { StatusCode = HttpStatusCode.BadRequest };
 			}
-			var repository = new ConferenceRepository(new Configuration());
-			var conference = repository
+			var conference = _conferenceRepository
 				.AsQueryable()
 				//.Where(c => c.isLive)
 				.SingleOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());

@@ -281,7 +281,11 @@ namespace TekConf.UI.Api
 				private IList<SessionEntity> _sessions = new List<SessionEntity>();
 				public IEnumerable<SessionEntity> sessions
 				{
-						get { return _sessions.AsEnumerable(); }
+						get
+						{
+								if (_sessions == null) _sessions = new List<SessionEntity>();
+								return _sessions.AsEnumerable();
+						}
 						set
 						{
 								if (value == null)
@@ -298,7 +302,10 @@ namespace TekConf.UI.Api
 				private IList<string> _tags = new List<string>();
 				public IEnumerable<string> tags
 				{
-						get { return _tags.AsEnumerable(); }
+						get
+						{
+								return _tags.AsEnumerable();
+						}
 						set
 						{
 								if (value == null)

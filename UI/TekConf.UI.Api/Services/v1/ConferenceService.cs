@@ -202,8 +202,7 @@ namespace TekConf.UI.Api.Services.v1
 						FullConferenceDto conferenceDto = null;
 						try
 						{
-								var repository = new ConferenceRepository(new Configuration());
-								var existingConference = repository.AsQueryable()
+								var existingConference = _conferenceRepository.AsQueryable()
 																			.FirstOrDefault(c => c.slug.ToLower() == conference.slug.ToLower());
 
 								bool existingConferenceIsLive = existingConference.isLive;

@@ -265,6 +265,9 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Scripts\jquery-1.9.0.min.map" />
+    <Content Include="swagger-ui\swagger-ui.min.js.map">
+      <DependentUpon>swagger-ui.js</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppHost.cs" />

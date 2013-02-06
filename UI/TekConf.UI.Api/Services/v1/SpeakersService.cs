@@ -16,6 +16,9 @@ namespace TekConf.UI.Api.Services.v1
 	public class SpeakersService : MongoServiceBase
 	{
 		private readonly IConfiguration _configuration;
+
+		private readonly IRepository<ConferenceEntity> _conferenceRepository;
+
 		public ICacheClient CacheClient { get; set; }
 		static HttpError ConferenceNotFound = HttpError.NotFound("Conference not found") as HttpError;
 		static HashSet<string> NonExistingConferences = new HashSet<string>();
@@ -23,9 +26,10 @@ namespace TekConf.UI.Api.Services.v1
 		static HttpError SpeakerNotFound = HttpError.NotFound("Speaker not found") as HttpError;
 		static HashSet<string> NonExistingSpeakers = new HashSet<string>();
 
-		public SpeakersService(IConfiguration configuration)
+		public SpeakersService(IConfiguration configuration, IRepository<ConferenceEntity> conferenceRepository)
 		{
 			_configuration = configuration;
+			_conferenceRepository = conferenceRepository;
 		}
 
 		public object Get(Speakers request)
@@ -52,8 +56,7 @@ namespace TekConf.UI.Api.Services.v1
 			var expireInTimespan = new TimeSpan(0, 0, _configuration.cacheTimeout);
 			return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
 			{
-				var repository = new ConferenceRepository(new Configuration());
-				var conference = repository
+				var conference = _conferenceRepository
 				.AsQueryable()
 					//.Where(c => c.isLive)
 				.SingleOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());

@@ -21,16 +21,19 @@ namespace TekConf.UI.Api.Services.v1
 		private ITinyMessengerHub _hub;
 		private readonly IConfiguration _configuration;
 
+		private readonly IRepository<ConferenceEntity> _conferenceRepository;
+
 		static HttpError ConferenceNotFound = HttpError.NotFound("Conference not found") as HttpError;
 		static HashSet<string> NonExistingConferences = new HashSet<string>();
 
 		static HttpError SessionNotFound = HttpError.NotFound("Session not found") as HttpError;
 		static HashSet<string> NonExistingSessions = new HashSet<string>();
 
-		public SessionService(ITinyMessengerHub hub, IConfiguration configuration)
+		public SessionService(ITinyMessengerHub hub, IConfiguration configuration, IRepository<ConferenceEntity> conferenceRepository)
 		{
 			_hub = hub;
 			_configuration = configuration;
+			_conferenceRepository = conferenceRepository;
 		}
 
 		public object Get(Session request)
@@ -47,9 +50,7 @@ namespace TekConf.UI.Api.Services.v1
 		{
 			var entity = Mapper.Map<SessionEntity>(request);
 
-			var repository = new ConferenceRepository(new Configuration());
-
-			var conference = repository
+			var conference = _conferenceRepository
 					.AsQueryable()
 				//.Where(c => c.isLive)
 					.FirstOrDefault(x => x.slug.ToLower() == request.conferenceSlug.ToLower());
@@ -71,9 +72,7 @@ namespace TekConf.UI.Api.Services.v1
 
 		public object Put(AddSession request)
 		{
-			//TODO : Move to repository
-			var repository = new ConferenceRepository(new Configuration());
-			var conference = repository.AsQueryable().FirstOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
+			var conference = _conferenceRepository.AsQueryable().FirstOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
 
 			var session = conference.sessions.FirstOrDefault(s => s.slug.ToLower() == request.slug.ToLower());
 			Mapper.Map<AddSession, SessionEntity>(request, session);
@@ -109,8 +108,8 @@ namespace TekConf.UI.Api.Services.v1
 			var expireInTimespan = new TimeSpan(0, 0, _configuration.cacheTimeout);
 			return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
 							{
-								var repository = new ConferenceRepository(new Configuration());
-								var conference = repository
+
+								var conference = _conferenceRepository
 										.AsQueryable()
 									//.Where(s => s.slug.ToLower() == request.sessionSlug.ToLower())
 									//.Where(c => c.isLive)
