@@ -81,7 +81,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="TekConf.Common.Entities\ConferenceEntityTests.cs" />
+    <Compile Include="TekConf.RemoteData.Shared\Class1.cs" />
+    <Compile Include="TekConf.UI.Api\ConferencesCountServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

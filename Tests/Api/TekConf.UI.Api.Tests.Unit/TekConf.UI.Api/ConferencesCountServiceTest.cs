@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
 using Moq;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
@@ -9,15 +8,14 @@ using TekConf.UI.Api.Services.v1;
 using TinyMessenger;
 using Should;
 using TekConf.UI.Api.Services.Requests.v1;
+using Ploeh.AutoFixture.AutoMoq;
 
 namespace TekConf.UI.Api.Tests.Unit
 {
-		using Ploeh.AutoFixture.AutoMoq;
 
 		[TestFixture]
-		public class ConferencesServiceTest
+		public class ConferencesCountServiceTest
 		{
-
 				private IFixture _fixture;
 
 				[TestFixtureSetUp]
