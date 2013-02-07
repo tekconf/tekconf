@@ -546,6 +546,11 @@
     <Content Include="Images\twitter.png" />
     <Content Include="Images\windowsLive.png" />
     <Content Include="img\android-coming-soon.png" />
+    <Content Include="img\Apps\Android-coming-soon.png" />
+    <Content Include="img\Apps\Apple-coming-soon.png" />
+    <Content Include="img\Apps\OSX-coming-soon.png" />
+    <Content Include="img\Apps\Windows-coming-soon.png" />
+    <Content Include="img\Apps\WindowsPhone-coming-soon.png" />
     <Content Include="img\conferences\DefaultConference.png" />
     <Content Include="img\iOS-coming-soon.jpg" />
     <Content Include="img\OnSale.png" />
