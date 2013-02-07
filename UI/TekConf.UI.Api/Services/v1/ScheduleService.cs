@@ -38,9 +38,9 @@ namespace TekConf.UI.Api.v1
 
 		public object Post(AddSessionToSchedule request)
 		{
-				ScheduleEntity schedule = _scheduleRepository.AsQueryable()
-				.Where(x => x.UserName == request.userName)
-					.SingleOrDefault(s => s.ConferenceSlug.ToLower() == request.conferenceSlug.ToLower());
+			ScheduleEntity schedule = _scheduleRepository.AsQueryable()
+			.Where(x => x.UserName == request.userName)
+				.SingleOrDefault(s => s.ConferenceSlug.ToLower() == request.conferenceSlug.ToLower());
 
 			if (schedule == null)
 			{
@@ -64,6 +64,28 @@ namespace TekConf.UI.Api.v1
 					schedule.SessionSlugs.Add(request.sessionSlug);
 				}
 			}
+
+			_scheduleRepository.Save(schedule);
+			this.CacheClient.FlushAll();
+
+			var scheduleDto = Mapper.Map<ScheduleDto>(schedule);
+
+			return scheduleDto;
+		}
+
+		public object Delete(RemoveSessionFromSchedule request)
+		{
+			if (string.IsNullOrWhiteSpace(request.userName) || string.IsNullOrWhiteSpace(request.sessionSlug))
+				return new HttpResult(HttpStatusCode.NotFound);
+				
+			var schedule = _scheduleRepository.AsQueryable()
+												.Where(x => x.UserName == request.userName)
+												.SingleOrDefault(s => s.ConferenceSlug.ToLower() == request.conferenceSlug.ToLower());
+
+			if (schedule == null || schedule.SessionSlugs == null || !schedule.SessionSlugs.Any(s => s == request.sessionSlug))
+				return new HttpResult(HttpStatusCode.NotFound);
+
+			schedule.SessionSlugs.Remove(request.sessionSlug);
 
 			_scheduleRepository.Save(schedule);
 			this.CacheClient.FlushAll();

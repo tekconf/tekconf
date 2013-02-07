@@ -41,6 +41,9 @@
 	border-bottom: 1px solid #111;	
 }
 
+.icon-selected {
+	color: #81994D;
+}
 .navbar .brand {
 	
 	/* 	

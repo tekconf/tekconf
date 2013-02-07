@@ -189,12 +189,25 @@ namespace TekConf.UI.Web.Controllers
 			return Task.Run(() =>
 			{
 				var t = new TaskCompletionSource<ScheduleDto>();
-
-				_repository.AddSessionToSchedule(conferenceSlug, sessionSlug, userName, password, s => t.TrySetResult(s));
+				
+				_repository.AddSessionToSchedule(conferenceSlug, sessionSlug, userName, s => t.TrySetResult(s));
 
 				return t.Task;
 			});
 		}
+
+		public Task<ScheduleDto> RemoveSessionFromSchedule(string conferenceSlug, string sessionSlug, string userName, string password)
+		{
+			return Task.Run(() =>
+			{
+				var t = new TaskCompletionSource<ScheduleDto>();
+
+				_repository.RemoveSessionFromSchedule(conferenceSlug, sessionSlug, userName, s => t.TrySetResult(s));
+
+				return t.Task;
+			});
+		}
+
 		public Task<FullSpeakerDto> AddSpeakerToSession(CreateSpeaker speaker)
 		{
 			return Task.Run(() =>

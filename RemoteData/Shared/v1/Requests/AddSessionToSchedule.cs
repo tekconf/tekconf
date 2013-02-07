@@ -10,4 +10,12 @@ namespace TekConf.UI.Api.Services.Requests.v1
 		public string userName { get; set; }
 		public string sessionSlug { get; set; }
 	}
+
+	[Route("/v1/conferences/{conferenceSlug}/schedule", "DELETE")]
+	public class RemoveSessionFromSchedule : IReturn<ScheduleDto>
+	{
+		public string conferenceSlug { get; set; }
+		public string userName { get; set; }
+		public string sessionSlug { get; set; }
+	}
 }

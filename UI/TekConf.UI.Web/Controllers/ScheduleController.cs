@@ -40,7 +40,22 @@ namespace TekConf.UI.Web.Controllers
 
 		[HttpPost]
 		[Authorize]
-		public async Task<ActionResult> Index(string conferenceSlug, string sessionSlug)
+		public async Task<ActionResult> Delete(string conferenceSlug, string sessionSlug)
+		{
+			if (Request.IsAuthenticated)
+			{
+				if (System.Web.HttpContext.Current.User != null && System.Web.HttpContext.Current.User.Identity != null)
+				{
+					await _repository.RemoveSessionFromSchedule(conferenceSlug, sessionSlug, System.Web.HttpContext.Current.User.Identity.Name, "");
+				}
+			}
+
+			return RedirectToAction("Index");
+		}
+
+		[HttpPost]
+		[Authorize]
+		public async Task<ActionResult> Add(string conferenceSlug, string sessionSlug)
 		{
 			if (Request.IsAuthenticated)
 			{

@@ -66,7 +66,7 @@ namespace TekConf.RemoteData.v1
 			});
 		}
 
-		public void AddSessionToSchedule(string conferenceSlug, string sessionSlug, string userName, string password, Action<ScheduleDto> callback)
+		public void AddSessionToSchedule(string conferenceSlug, string sessionSlug, string userName, Action<ScheduleDto> callback)
 		{
 			var schedule = new AddSessionToSchedule()
 			{
@@ -76,6 +76,22 @@ namespace TekConf.RemoteData.v1
 			};
 
 			ServiceClient.PostAsync(schedule, callback, (r, ex) =>
+			{
+				var x = ex;
+				callback(null);
+			});
+		}
+
+		public void RemoveSessionFromSchedule(string conferenceSlug, string sessionSlug, string userName, Action<ScheduleDto> callback)
+		{
+			var schedule = new RemoveSessionFromSchedule()
+			{
+				userName = userName,
+				conferenceSlug = conferenceSlug,
+				sessionSlug = sessionSlug,
+			};
+
+			ServiceClient.DeleteAsync(schedule, callback, (r, ex) =>
 			{
 				var x = ex;
 				callback(null);
