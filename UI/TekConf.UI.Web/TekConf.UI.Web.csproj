@@ -988,6 +988,7 @@
     <Content Include="newrelic.cmd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="font\FontAwesome.otf" />
     <None Include="Properties\PublishProfiles\tekconf-web - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\tekconf-web - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.9.0.intellisense.js" />

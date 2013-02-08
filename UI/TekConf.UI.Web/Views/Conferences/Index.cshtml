@@ -170,7 +170,7 @@
 											<a href="~/Conferences/@conference.slug" class="btn btn-primary">View Conference</a>
 											@if (Request.IsAuthenticated)
 											{
-												using (Html.BeginForm("Index", "Schedule", FormMethod.Post, new {id = conference.slug + "-form"}))
+												using (Html.BeginForm("Add", "Schedule", FormMethod.Post, new {id = conference.slug + "-form"}))
 												 {
 													 Html.AntiForgeryToken();
 													 var formName = conference.slug + "-form";

@@ -65,7 +65,7 @@ namespace TekConf.UI.Web.Controllers
 				}
 			}
 
-			return RedirectToAction("Index");
+			return RedirectToAction("Detail", "Conferences", new { conferenceSlug });
 		}
 	}
 }
