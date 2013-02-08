@@ -16,7 +16,5 @@ namespace TekConf.UI.Api
         public string GoverningDistrict { get; set; }
         public string PostalArea { get; set; }
         public string Country { get; set; }
-        public string Latitude { get; set; }
-        public string Longitude { get; set; }
     }
 }

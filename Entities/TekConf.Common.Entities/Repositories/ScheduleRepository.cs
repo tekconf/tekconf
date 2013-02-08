@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Linq;
+using MongoDB.Driver.Linq;
 
 namespace TekConf.Common.Entities.Repositories
 {
-	using FluentMongo.Linq;
+	
 
 	using MongoDB.Driver;
 	using MongoDB.Driver.Builders;

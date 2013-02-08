@@ -1,6 +1,7 @@
 using System.Configuration;
 using MongoDB.Driver;
 using ServiceStack.Configuration;
+using TekConf.Common.Entities;
 using TekConf.UI.Api.Services.v1;
 using ServiceStack.CacheAccess;
 using ServiceStack.CacheAccess.Providers;
@@ -43,6 +44,7 @@ namespace TekConf.UI.Api
 			container.Register<IRepository<ConferenceEntity>>(new ConferenceRepository(configuration));
 			container.Register<IRepository<ScheduleEntity>>(new ScheduleRepository(configuration));
 			container.Register<IRepository<UserEntity>>(new UserRepository(configuration));
+			container.Register<IRepository<GeoLocationEntity>>(new GeoLocationRepository(configuration));
 
 			container.Register<IRepository<SessionRoomChangedMessage>>(new SessionRoomChangedRepository(configuration));
 			container.Register<IRepository<ConferenceLocationChangedMessage>>(new ConferenceLocationChangedRepository(configuration));

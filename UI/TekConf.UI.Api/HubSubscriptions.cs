@@ -36,7 +36,7 @@ namespace TekConf.UI.Api
 
 			myMessage.AddTo(recipients);
 
-			myMessage.Subject = "Testing the SendGrid Library";
+			myMessage.Subject = "TekConf updates";
 
 			myMessage.Html = string.Format("<p>{0}</p>", message);
 			myMessage.Text = string.Format("{0}", message);

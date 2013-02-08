@@ -45,11 +45,5 @@ namespace TekConf.UI.Api.Services.Requests.v1
 
         //[Display(Name = "Country")]
         public string Country { get; set; }
-
-        //[Display(Name = "Latitude")]
-        public string Latitude { get; set; }
-
-        //[Display(Name = "Longitude")]
-        public string Longitude { get; set; }
     }
 }
