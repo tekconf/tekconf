@@ -28,7 +28,7 @@ namespace TekConf.UI.Web.Controllers
 		public async Task<ActionResult> Index()
 		{
 			//var openCallsConferencesTask = _repository.GetConferencesWithOpenCalls();
-			var openCallsConferencesTask = _repository.GetConferences(sortBy: string.Empty, showPastConferences: false, showOnlyOnSale: false, showOnlyOpenCalls: true, search: string.Empty);
+			var openCallsConferencesTask = _repository.GetConferences(showOnlyOpenCalls: true);
 
 			await Task.WhenAll(openCallsConferencesTask);
 

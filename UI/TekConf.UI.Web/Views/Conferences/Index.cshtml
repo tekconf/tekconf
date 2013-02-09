@@ -55,10 +55,10 @@
 	<div id="subpage">
 		<div class="container">
 			<div class="row">
-				<i class="icon-search"></i><a href="#" id="showFilter">Show/Hide Filter and Search</a>
+				<i class="icon-search"></i> <a href="#" id="showFilter">Show/Hide Filter and Search</a>
 			</div>
 			<div class="row well" id="filter" style="padding-bottom: 10px;">
-				@using (Html.BeginForm())
+				@using (Html.BeginForm("Index", "Conferences", FormMethod.Post, new { @class = "form-horizontal" }))
 		{
 			var views = new List<SelectListItem>() {
 						new SelectListItem(){Text = "Thumbnails",Value = "thumbnails",Selected = !ViewBag.ShowTable},
@@ -94,26 +94,84 @@
 			}		  
 					<div class="row">
 						<div class="alert alert-success">
-							@Model.Count() Conferences shown
+							<span class="badge badge-info">@Model.Count()</span> Conferences shown
 						</div>
 					</div>
 					<div class="row">
+						<div class="span2">
+							<div class="control-group">
+								<label class="control-label" for="viewAs">View As</label>
+								<div class="controls">
+									@Html.DropDownList("viewAs", views, new { @onchange = "this.form.submit();", style = "width:120px;" })
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="sortBy">Sort By</label>
+								<div class="controls">
+									@Html.DropDownList("sortBy", sorts, new { @onchange = "this.form.submit();", style = "width:100px;" })
+								</div>
+							</div>
+
+
+						</div>
 						<div class="span4">
-							View As : @Html.DropDownList("viewAs", views, new { @onchange = "this.form.submit();", style = "width:120px;" })
-							<br />
-							Sort By	: @Html.DropDownList("sortBy", sorts, new { @onchange = "this.form.submit();" })
+							<div class="control-group">
+								<label class="control-label" for="city">City</label>
+								<div class="controls">
+									@Html.TextBox("city", filter.city, new { placeholder = "City"})
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="state">State</label>
+								<div class="controls">
+									@Html.TextBox("state", filter.state,  new { placeholder = "2 Letter State"})
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="country">Country</label>
+								<div class="controls">
+									@Html.TextBox("country", filter.country, new { placeholder = "Country"})
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="distance">Distance</label>
+								<div class="controls">
+									@Html.TextBox("distance", filter.distance,new { placeholder = "Distance (in miles). Default: 25"})
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="latitude">Latitude</label>
+								<div class="controls">
+									@Html.TextBox("latitude", filter.latitude,new { placeholder = "Latitude"})
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="longitude">Longitude</label>
+								<div class="controls">
+									@Html.TextBox("longitude", filter.longitude,new { placeholder = "Longitude"})
+								</div>
+							</div>
 						</div>
-						<div class="span3">
-							@Html.CheckBox("showPastConferences", filter.showPastConferences, new { @onchange = "this.form.submit();" })<text> Show Past Conferences?</text>
-							<br />
-							@Html.CheckBox("showOnlyOpenCalls", filter.showOnlyOpenCalls, new { @onchange = "this.form.submit();" })<text> Show Only Open Calls?</text>
-							<br />
-							@Html.CheckBox("showOnlyOnSale", filter.showOnlyOnSale, new { @onchange = "this.form.submit();" })<text> Show Only On Sale?</text>
+						<div class="span5">
+							@Html.TextBox("search", filter.search, new { @class = "span3", placeholder = "Search text" })
+							<br/><br />
+							<label class="checkbox">
+								@Html.CheckBox("showPastConferences", filter.showPastConferences, new { @onchange = "this.form.submit();" }) Show Past Conferences?
+							</label>
+							<label class="checkbox">
+								@Html.CheckBox("showOnlyOpenCalls", filter.showOnlyOpenCalls, new { @onchange = "this.form.submit();" }) Show Only Open Calls?
+							</label>
+							<label class="checkbox">
+								@Html.CheckBox("showOnlyOnSale", filter.showOnlyOnSale, new { @onchange = "this.form.submit();" }) Show Only On Sale?
+							</label>
 						</div>
-						<div class="span5 searchBox input-append ui-widget">
-							@Html.TextBox("search", filter.search, new { @class = "span2 search-query" })
-							<button class="btn" onclick="this.form.submit()" id="searchButton" style="margin-right: 30px;">Search</button>
+					</div>
+					<div class="row">
+
+						<div class="span10 pull-right" style="text-align: right">
+							<button class="btn btn-primary btn-large" onclick="this.form.submit()" id="searchButton">Search</button>
 						</div>
+
 					</div>
 		}
 
@@ -169,15 +227,15 @@
 										<div style="position: absolute; bottom: 10px;">
 											<a href="~/Conferences/@conference.slug" class="btn btn-primary">View Conference</a>
 											@if (Request.IsAuthenticated)
-											{
-												using (Html.BeginForm("Add", "Schedule", FormMethod.Post, new {id = conference.slug + "-form"}))
-												 {
-													 Html.AntiForgeryToken();
-													 var formName = conference.slug + "-form";
-													 @Html.Hidden("conferenceSlug", conference.slug)
-													 <a href="javascript:document.getElementById('@formName').submit()" class="btn">I'm Attending!</a>
-												 }
-											}
+					 {
+						 using (Html.BeginForm("Add", "Schedule", FormMethod.Post, new { id = conference.slug + "-form" }))
+						 {
+							 Html.AntiForgeryToken();
+							 var formName = conference.slug + "-form";
+												@Html.Hidden("conferenceSlug", conference.slug)
+												<a href="javascript:document.getElementById('@formName').submit()" class="btn">I'm Attending!</a>
+						 }
+					 }
 										</div>
 									</div>
 								</div>

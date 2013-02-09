@@ -48,16 +48,39 @@ namespace TekConf.UI.Api.Services.Requests.v1
 	{
 		[ApiMember(Name = "search", Description = "Search conference name, description, city, country, session title, session description, speaker name, or speaker twitter handle.", ParameterType = "query", DataType = "string", IsRequired = false)]
 		public string search { get; set; }
+		
 		[ApiMember(Name = "sortBy", Description = "Search conference name, description, city, country, session title, session description, speaker name, or speaker twitter handle.", ParameterType = "query", DataType = "string", IsRequired = false)]
 		public string sortBy { get; set; }
+		
 		[ApiMember(Name = "showPastConferences", Description = "Sort results by start date, name, call for speakers opening date, call for speakers closing date, registration opens date, or date added.", ParameterType = "query", DataType = "boolean", IsRequired = false)]
 		public bool? showPastConferences { get; set; }
+		
 		[ApiMember(Name = "showOnlyWithOpenCalls", Description = "Set to true to show conferences which have an open call for speakers.", ParameterType = "query", DataType = "boolean", IsRequired = false)]
 		public bool? showOnlyWithOpenCalls { get; set; }
+		
 		[ApiMember(Name = "showOnlyOnSale", Description = "Set to true to show conferences which are currently on sale.", ParameterType = "query", DataType = "boolean", IsRequired = false)]
 		public bool? showOnlyOnSale { get; set; }
+		
 		[ApiMember(Name = "showOnlyFeatured", Description = "Set to true to show conferences which are featured.", ParameterType = "query", DataType = "boolean", IsRequired = false)]
 		public bool showOnlyFeatured { get; set; }
+
+		[ApiMember(Name = "longitude", Description = "Search for conferences near a lat/long pair.", ParameterType = "query", DataType = "double", IsRequired = false)]
+		public double? longitude { get; set; }
+
+		[ApiMember(Name = "latitude", Description = "Search for conferences near a lat/long pair.", ParameterType = "query", DataType = "double", IsRequired = false)]
+		public double? latitude { get; set; }
+
+		[ApiMember(Name = "distance", Description = "Search for conferences in a distance (miles) radius near a lat/long pair or city/state/country.", ParameterType = "query", DataType = "double", IsRequired = false)]
+		public double? distance { get; set; }
+
+		[ApiMember(Name = "city", Description = "Search for conferences near a city/state/country.", ParameterType = "query", DataType = "string", IsRequired = false)]
+		public string city { get; set; }
+
+		[ApiMember(Name = "state", Description = "Search for conferences near a city/state/country.", ParameterType = "query", DataType = "string", IsRequired = false)]
+		public string state { get; set; }
+
+		[ApiMember(Name = "country", Description = "Search for conferences near a city/state/country. Defaults distance to 100 miles.", ParameterType = "query", DataType = "string", IsRequired = false)]
+		public string country { get; set; }
 	}
 
 	[Route("/v1/conferences/{conferenceSlug}", "GET")]

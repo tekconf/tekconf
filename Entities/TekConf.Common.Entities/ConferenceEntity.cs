@@ -271,7 +271,18 @@ namespace TekConf.UI.Api
 		public string homepageUrl { get; set; }
 		public string lanyrdUrl { get; set; }
 		public string twitterHashTag { get; set; }
-		public string twitterName { get; set; }
+		public string twitterName
+		{
+			get { return _twitterName; }
+			set
+			{
+				if (!string.IsNullOrWhiteSpace(value) && !value.StartsWith("@"))
+					value = "@" + value;
+
+				_twitterName = value;
+			}
+		}
+
 		public string meetupUrl { get; set; }
 		public string googlePlusUrl { get; set; }
 		public string vimeoUrl { get; set; }
@@ -319,6 +330,8 @@ namespace TekConf.UI.Api
 		}
 
 		private IList<string> _subjects = new List<string>();
+		private string _twitterName;
+
 		public IEnumerable<string> subjects
 		{
 			get { return _subjects.AsEnumerable(); }

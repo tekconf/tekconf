@@ -16,6 +16,14 @@ namespace TekConf.UI.Web.Controllers
 		public bool showOnlyOnSale { get; set; }
 		public string viewAs { get; set; }
 		public string search { get; set; }
+
+		public string city { get; set; }
+		public string state { get; set; }
+		public string country { get; set; }
+		public double? latitude { get; set; }
+		public double? longitude { get; set; }
+		public double? distance { get; set; }
+
 	}
 
 	public class ConferencesController : Controller
@@ -31,7 +39,7 @@ namespace TekConf.UI.Web.Controllers
 
 		[CompressFilter]
 		public async Task<ActionResult> Index(string sortBy, bool? showPastConferences, bool? showOnlyOpenCalls, bool? showOnlyOnSale,
-												string viewAs, string search)
+												string viewAs, string search, string city, string state, string country, double? latitude, double? longitude, double? distance)
 		{
 			if (!string.IsNullOrWhiteSpace(viewAs) && viewAs == "table")
 			{
@@ -41,7 +49,7 @@ namespace TekConf.UI.Web.Controllers
 			{
 				ViewBag.ShowTable = false;
 			}
-			var conferencesTask = _repository.GetConferences(sortBy, showPastConferences, showOnlyOpenCalls, showOnlyOnSale, search);
+			var conferencesTask = _repository.GetConferences(sortBy, showPastConferences, showOnlyOpenCalls, showOnlyOnSale, search, city, state, country, latitude, longitude, distance);
 
 			await conferencesTask;
 
@@ -52,7 +60,13 @@ namespace TekConf.UI.Web.Controllers
 					showPastConferences = showPastConferences.HasValue && showPastConferences.Value,
 					search = search,
 					viewAs = viewAs,
-					sortBy = sortBy
+					sortBy = sortBy,
+					city = city,
+					state = state,
+					country = country,
+					distance = distance,
+					latitude = latitude,
+					longitude = longitude
 				};
 
 			ViewBag.Filter = filter;

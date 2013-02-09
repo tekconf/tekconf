@@ -105,9 +105,14 @@
 
 												<label>Facebook</label>
 												@Html.TextBoxFor(c => c.facebookUrl)
-
+											
+											<div class="input-prepend">
 												<label>Twitter Name</label>
+												<span class="add-on">@@</span>
 												@Html.TextBoxFor(c => c.twitterName)
+											</div>
+											
+												
 
 												<label>Twitter Hash Tag</label>
 												@Html.TextBoxFor(c => c.twitterHashTag)
@@ -176,44 +181,44 @@
 		@Html.Partial("Footer")
 
 		<script>
-				$(function () {
+			$(function () {
 
-						$('#start').datetimepicker();
-						$('#end').datetimepicker();
-						$('#callForSpeakersOpens').datetimepicker();
-						$('#callForSpeakersCloses').datetimepicker();
-						$('#registrationOpens').datetimepicker();
-						$('#registrationCloses').datetimepicker();
-					
-
-						$(document).on("click", ".addSubject", function (e) {
-								e.preventDefault();
-
-								$(this).closest('tr').after('<tr><td><input type="text" /><span></span></td></tr>');
-
-								$('#subjectsTable td').each(function (index, el) {
-										var element = index - 1;
-										$('input', this).attr('id', 'subjects[' + element + ']');
-										$('input', this).attr('name', 'subjects[' + element + ']');
-
-								});
-						});
-
-						$(document).on("click", ".addTag", function (e) {
-								e.preventDefault();
-
-								$(this).closest('tr').after('<tr><td><input type="text" /><span></span></td></tr>');
-
-								$('#tagsTable td').each(function (index, el) {
-										var element = index - 1;
-										$('input', this).attr('id', 'tags[' + element + ']');
-										$('input', this).attr('name', 'tags[' + element + ']');
-
-								});
-						});
+				$('#start').datetimepicker();
+				$('#end').datetimepicker();
+				$('#callForSpeakersOpens').datetimepicker();
+				$('#callForSpeakersCloses').datetimepicker();
+				$('#registrationOpens').datetimepicker();
+				$('#registrationCloses').datetimepicker();
 
 
+				$(document).on("click", ".addSubject", function (e) {
+					e.preventDefault();
+
+					$(this).closest('tr').after('<tr><td><input type="text" /><span></span></td></tr>');
+
+					$('#subjectsTable td').each(function (index, el) {
+						var element = index - 1;
+						$('input', this).attr('id', 'subjects[' + element + ']');
+						$('input', this).attr('name', 'subjects[' + element + ']');
+
+					});
 				});
+
+				$(document).on("click", ".addTag", function (e) {
+					e.preventDefault();
+
+					$(this).closest('tr').after('<tr><td><input type="text" /><span></span></td></tr>');
+
+					$('#tagsTable td').each(function (index, el) {
+						var element = index - 1;
+						$('input', this).attr('id', 'tags[' + element + ']');
+						$('input', this).attr('name', 'tags[' + element + ']');
+
+					});
+				});
+
+
+			});
 		</script>
 </body>
 </html>
