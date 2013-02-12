@@ -58,7 +58,7 @@
 				<i class="icon-search"></i> <a href="#" id="showFilter">Show/Hide Filter and Search</a>
 			</div>
 			<div class="row well" id="filter" style="padding-bottom: 10px;">
-				@using (Html.BeginForm("Index", "Conferences", FormMethod.Post, new { @class = "form-horizontal" }))
+				@using (Html.BeginForm("Index", "Conferences", FormMethod.Get, new { @class = "form-horizontal" }))
 		{
 			var views = new List<SelectListItem>() {
 						new SelectListItem(){Text = "Thumbnails",Value = "thumbnails",Selected = !ViewBag.ShowTable},
@@ -300,7 +300,7 @@
 		$(function () {
 			var onLoadFilterDisplay = $.cookie('searchFilterToggle');
 
-			if (onLoadFilterDisplay === "none") {
+			if (onLoadFilterDisplay != "block") {
 				$("#filter").hide();
 			} else {
 				$("#filter").show();
