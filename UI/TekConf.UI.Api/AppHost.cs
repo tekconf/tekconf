@@ -2,6 +2,7 @@ using System.Configuration;
 using MongoDB.Driver;
 using ServiceStack.Configuration;
 using TekConf.Common.Entities;
+using TekConf.Common.Entities.Messages;
 using TekConf.UI.Api.Services.v1;
 using ServiceStack.CacheAccess;
 using ServiceStack.CacheAccess.Providers;
@@ -46,17 +47,20 @@ namespace TekConf.UI.Api
 			container.Register<IRepository<UserEntity>>(new UserRepository(configuration));
 			container.Register<IRepository<GeoLocationEntity>>(new GeoLocationRepository(configuration));
 
-			container.Register<IRepository<SessionRoomChangedMessage>>(new SessionRoomChangedRepository(configuration));
-			container.Register<IRepository<ConferenceLocationChangedMessage>>(new ConferenceLocationChangedRepository(configuration));
-			container.Register<IRepository<ConferenceEndDateChangedMessage>>(new ConferenceEndDateChangedRepository(configuration));
-			container.Register<IRepository<ConferencePublishedMessage>>(new ConferencePublishedRepository(configuration));
-			container.Register<IRepository<ConferenceUpdatedMessage>>(new ConferenceUpdatedRepository(configuration));
-			container.Register<IRepository<ConferenceCreatedMessage>>(new ConferenceCreatedRepository(configuration));
-			container.Register<IRepository<ConferenceStartDateChangedMessage>>(new ConferenceStartDateChangedRepository(configuration));
-			container.Register<IRepository<SessionAddedMessage>>(new SessionAddedRepository(configuration));
-			container.Register<IRepository<SessionRemovedMessage>>(new SessionRemovedRepository(configuration));
-			container.Register<IRepository<SpeakerAddedMessage>>(new SpeakerAddedRepository(configuration));
-			container.Register<IRepository<SpeakerRemovedMessage>>(new SpeakerRemovedRepository(configuration));
+			container.Register<IRepository<SessionRoomChangedMessage>>(new GenericRepository<SessionRoomChangedMessage>(configuration));
+			container.Register<IRepository<ConferenceLocationChangedMessage>>(new GenericRepository<ConferenceLocationChangedMessage>(configuration));
+			container.Register<IRepository<ConferenceEndDateChangedMessage>>(new GenericRepository<ConferenceEndDateChangedMessage>(configuration));
+			container.Register<IRepository<ConferencePublishedMessage>>(new GenericRepository<ConferencePublishedMessage>(configuration));
+			container.Register<IRepository<ConferenceUpdatedMessage>>(new GenericRepository<ConferenceUpdatedMessage>(configuration));
+			container.Register<IRepository<ConferenceCreatedMessage>>(new GenericRepository<ConferenceCreatedMessage>(configuration));
+			container.Register<IRepository<ConferenceStartDateChangedMessage>>(new GenericRepository<ConferenceStartDateChangedMessage>(configuration));
+			container.Register<IRepository<SessionAddedMessage>>(new GenericRepository<SessionAddedMessage>(configuration));
+			container.Register<IRepository<SessionRemovedMessage>>(new GenericRepository<SessionRemovedMessage>(configuration));
+			container.Register<IRepository<SpeakerAddedMessage>>(new GenericRepository<SpeakerAddedMessage>(configuration));
+			container.Register<IRepository<SpeakerRemovedMessage>>(new GenericRepository<SpeakerRemovedMessage>(configuration));
+			container.Register<IRepository<ScheduleCreatedMessage>>(new GenericRepository<ScheduleCreatedMessage>(configuration));
+			container.Register<IRepository<SessionAddedToScheduleMessage>>(new GenericRepository<SessionAddedToScheduleMessage>(configuration));
+
 
 			container.Register<IEmailSender>(new EmailSender(container.Resolve<IConfiguration>()));
 			container.Register<ICacheClient>(new MemoryCacheClient());
@@ -75,6 +79,8 @@ namespace TekConf.UI.Api
 								container.Resolve<IRepository<SpeakerAddedMessage>>(),
 								container.Resolve<IRepository<SpeakerRemovedMessage>>(),
 								container.Resolve<IRepository<ConferenceCreatedMessage>>(),
+								container.Resolve<IRepository<ScheduleCreatedMessage>>(),
+								container.Resolve<IRepository<SessionAddedToScheduleMessage>>(),
 								container.Resolve<IEmailSender>(),
 								container.Resolve<IConfiguration>()
 

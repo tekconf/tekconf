@@ -36,7 +36,7 @@ namespace TekConf.UI.Web.Controllers
 		
 			var vm = new SpeakersViewModel()
 			{
-				OpenConferences = openCallConferences,
+				OpenConferences = openCallConferences.OrderBy(x => x.callForSpeakersCloses).ToList(),
 				Presentations = new List<PresentationDto>(),
 				MyConferences = new List<ConferencesDto>(),
 			};

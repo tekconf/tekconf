@@ -5,6 +5,7 @@ using System.Net.Mail;
 using Microsoft.AspNet.SignalR;
 using SendGridMail;
 using SendGridMail.Transport;
+using TekConf.Common.Entities.Messages;
 using TinyMessenger;
 
 namespace TekConf.UI.Api
@@ -66,6 +67,8 @@ namespace TekConf.UI.Api
 		private readonly IRepository<SpeakerAddedMessage> _speakerAddedRepository;
 		private readonly IRepository<SpeakerRemovedMessage> _speakerRemovedRepository;
 		private readonly IRepository<ConferenceCreatedMessage> _conferenceCreatedRepository;
+		private readonly IRepository<ScheduleCreatedMessage> _scheduleCreatedRepository;
+		private readonly IRepository<SessionAddedToScheduleMessage> _sessionAddedToScheduleRepository;
 		private readonly IEmailSender _emailSender;
 		private readonly IConfiguration _configuration;
 
@@ -81,6 +84,8 @@ namespace TekConf.UI.Api
 																IRepository<SpeakerAddedMessage> speakerAddedRepository,
 																IRepository<SpeakerRemovedMessage> speakerRemovedRepository,
 																IRepository<ConferenceCreatedMessage> conferenceCreatedRepository,
+																IRepository<ScheduleCreatedMessage> scheduleCreatedRepository,
+																IRepository<SessionAddedToScheduleMessage> sessionAddedToScheduleRepository,
 																IEmailSender emailSender,
 																IConfiguration configuration
 														)
@@ -99,6 +104,8 @@ namespace TekConf.UI.Api
 			_speakerAddedRepository = speakerAddedRepository;
 			_speakerRemovedRepository = speakerRemovedRepository;
 			_conferenceCreatedRepository = conferenceCreatedRepository;
+			_scheduleCreatedRepository = scheduleCreatedRepository;
+			_sessionAddedToScheduleRepository = sessionAddedToScheduleRepository;
 			_emailSender = emailSender;
 			_configuration = configuration;
 
@@ -118,6 +125,34 @@ namespace TekConf.UI.Api
 			SubscribeToSpeakerAdded();
 			SubscribeToSpeakerRemoved();
 			SubscribeToConferenceCreated();
+			SubscribeToScheduleCreated();
+			SubscribeToSessionAddedToSchedule();
+		}
+
+		public void SubscribeToScheduleCreated()
+		{
+			_hub.Subscribe<ScheduleCreatedMessage>((@event) =>
+			{
+				_scheduleCreatedRepository.Save(@event);
+				var context = GlobalHost.ConnectionManager.GetHubContext<EventsHub>();
+				var message = @event.UserName + " created a schedule for " + @event.ConferenceSlug;
+				context.Clients.All.broadcastMessage(message);
+
+				_emailSender.Send(message);
+			});
+		}
+
+		public void SubscribeToSessionAddedToSchedule()
+		{
+			_hub.Subscribe<SessionAddedToScheduleMessage>((@event) =>
+			{
+				_sessionAddedToScheduleRepository.Save(@event);
+				var context = GlobalHost.ConnectionManager.GetHubContext<EventsHub>();
+				var message = @event.UserName + " added " + @event.SessionSlug + " to their schedule for " + @event.ConferenceSlug;
+				context.Clients.All.broadcastMessage(message);
+
+				_emailSender.Send(message);
+			});
 		}
 
 		private void SubscribeToSpeakerRemoved()

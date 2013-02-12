@@ -50,11 +50,16 @@
   <ItemGroup>
     <Compile Include="AddressEntity.cs" />
     <Compile Include="ConferenceEntity.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="GeoLocationEntity.cs" />
     <Compile Include="Messages\ConferenceCreatedMessage.cs" />
+    <Compile Include="Messages\ScheduleCreatedMessage.cs" />
+    <Compile Include="Messages\SessionAddedToScheduleMessage.cs" />
     <Compile Include="PresentationEntity.cs" />
     <Compile Include="Repositories\ConferenceCreatedRepository.cs" />
+    <Compile Include="Repositories\GenericRepository.cs" />
     <Compile Include="Repositories\GeoLocationRepository.cs" />
+    <Compile Include="Repositories\ScheduleCreatedRepository.cs" />
     <Compile Include="Repositories\ScheduleRepository.cs" />
     <Compile Include="Repositories\SpeakerRemovedRepository.cs" />
     <Compile Include="Repositories\ConferenceEndDateChangedRepository.cs" />

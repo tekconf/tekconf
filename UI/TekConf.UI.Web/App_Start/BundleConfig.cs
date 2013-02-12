@@ -45,7 +45,8 @@ namespace TekConf.UI.Web
 											"~/js/bootstrap.js",
 											"~/Scripts/jquery.cookie.js",
 											"~/Scripts/jquery-ui-timepicker-addon.js",
-											"~/Scripts/jquery-ui-sliderAccess.js"
+											"~/Scripts/jquery-ui-sliderAccess.js",
+											"~/Scripts/common.js"
 									)
 			);
 			bundles.Add(new ScriptBundle("~/js/commonFaq")

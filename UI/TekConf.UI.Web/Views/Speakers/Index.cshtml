@@ -44,41 +44,44 @@
 		<div class="container">
 			<div class="page-header">
 				<h3>Open Calls</h3>
+			</div>
+			<div class="span12">
+				<table class="table">
+					<tbody>
+						@foreach (var conference in Model.OpenConferences)
+			{
+							<tr>
+								<td width="120">
+									<img src="@conference.imageUrl" style="height:80px;" /><br />
+									<br />
+									<a href="~/Conferences/@conference.slug" class="btn btn-primary btn-mini">View Conference</a>
+								</td>
+								<td>
+									<h3>@conference.name</h3>
+									Call for Speakers : @HtmlHelpers.FormatDateRange(conference.callForSpeakersOpens, conference.callForSpeakersCloses)<br />
+									Conference : @HtmlHelpers.FormatDateRange(conference.start, conference.end)<br />
+									Location : @HtmlHelpers.FormatAddress(conference.address)
+								</td>
+							</tr>
+			}
+					</tbody>
+				</table>
+			</div>
+
+			@if (Request.IsAuthenticated)
+	 {
+				<div class="page-header">
+					<h3>My Conferences</h3>
 				</div>
 				<div class="span12">
-					<table class="table">
-						<tbody>
-							@foreach (var conference in Model.OpenConferences)
-							{
-								<tr>
-									<td>
-										<img src="@conference.imageUrl" style="height:80px;" /><br/><br/>
-										<a href="~/Conferences/@conference.slug" class="btn btn-primary btn-mini">View Conference</a>
-									</td>
-									<td>
-										@conference.name<br/>
-										Call for Speakers : @HtmlHelpers.FormatDateRange(conference.callForSpeakersOpens, conference.callForSpeakersCloses)<br/>
-										Conference : @HtmlHelpers.FormatDateRange(conference.start, conference.end)<br/>
-										Location : @HtmlHelpers.FormatAddress(conference.address)
-									</td>
-								</tr>
-							}
-						</tbody>
-					</table>
-				</div>
-
-			
-			<div class="page-header">
-				<h3>My Conferences</h3>
-				</div>
-								<div class="span12">
 					<table class="table">
 						<tbody>
 							@foreach (var conference in Model.MyConferences)
 			 {
 								<tr>
 									<td>
-										<img src="@conference.imageUrl" style="height: 80px;" /><br/><br/>
+										<img src="@conference.imageUrl" style="height: 80px;" /><br />
+										<br />
 										<a href="~/Conferences/@conference.slug" class="btn btn-primary btn-mini">View Conference</a>
 									</td>
 									<td>@conference.name</td>
@@ -89,32 +92,34 @@
 						</tbody>
 					</table>
 				</div>
-			
-			<div class="page-header">
-				<h3>My Presentations</h3>
+
+				<div class="page-header">
+					<h3>My Presentations</h3>
 				</div>
 				<div class="span12">
 					<table class="table">
 						<tbody>
 							@foreach (var presentation in Model.Presentations)
-							{
+			 {
 								<tr>
 									<td>
-										<img src="@presentation.ImagePath" style="height:80px;" /><br/><br/>
+										<img src="@presentation.ImagePath" style="height: 80px;" /><br />
+										<br />
 										<a href="~/Presentations/@presentation.Slug" class="btn btn-primary btn-mini">View Presentation</a>
 									</td>
 									<td>@presentation.Title</td>
 									<td>@presentation.UploadedOn</td>
 								</tr>
-							}
+			 }
 						</tbody>
 					</table>
 				</div>
 
-			
-			<div class="page-header">
-				<h3>My Profile</h3>
-			</div>
+
+				<div class="page-header">
+					<h3>My Profile</h3>
+				</div>
+	 }
 		</div>
 		<!-- /container -->
 	</div>
@@ -123,7 +128,7 @@
 	@Html.Partial("Extra")
 
 	@Html.Partial("Footer")
-	
+
 	@Scripts.Render("~/bundles/jquery")
 	@Scripts.Render("~/bundles/jqueryMigrate")
 	@Scripts.Render("~/js/common")
