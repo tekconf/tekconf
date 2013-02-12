@@ -69,6 +69,11 @@ namespace TekConf.UI.Web.Controllers
 
 			return image;
 		}
+
+		public ActionResult AddPresentation()
+		{
+			return View();
+		}
 	}
 
 	public static class Extensions

@@ -1079,6 +1079,7 @@
     <Content Include="Views\Speakers\Index.cshtml" />
     <Content Include="Views\Organizers\Index.cshtml" />
     <Content Include="Views\Events\Index.cshtml" />
+    <Content Include="Views\Speakers\AddPresentation.cshtml" />
     <None Include="Views\Web.Debug.config" />
     <None Include="Views\Web.Release.config" />
   </ItemGroup>
