@@ -1,5 +1,5 @@
 ﻿@using System.Web.Optimization
-@model dynamic
+@model TekConf.UI.Web.ViewModels.AddPresentationViewModel
 
 @{
 		Layout = null;
@@ -45,7 +45,7 @@
 
 						@if (Request.IsAuthenticated)
 			{
-
+				@Html.EditorForModel()
 			}
 				</div>
 				<!-- /container -->
