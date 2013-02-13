@@ -554,6 +554,7 @@
     <Content Include="img\Apps\WindowsPhone-coming-soon.png" />
     <Content Include="img\conferences\DefaultConference.png" />
     <Content Include="img\iOS-coming-soon.jpg" />
+    <Content Include="img\LiveTile.png" />
     <Content Include="img\OnSale.png" />
     <Content Include="img\OpenCall.png" />
     <Content Include="img\Presentations\Sample\Sample.png" />
