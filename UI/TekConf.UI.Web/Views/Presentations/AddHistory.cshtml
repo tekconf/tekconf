@@ -1,0 +1,126 @@
+﻿@using System.Web.Optimization
+@model TekConf.UI.Web.ViewModels.AddPresentationHistoryViewModel
+
+@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+
+	<title>Add Presentation History - tekconf</title>
+	<link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
+
+	@Styles.Render("~/css/api/index")
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+</head>
+
+<body>
+	@Html.Partial("Header")
+
+	<div id="subheader">
+		<div class="inner">
+			<div class="container">
+				<h1>Add Presentation History</h1>
+			</div>
+			<!-- /.container -->
+		</div>
+		<!-- /inner -->
+	</div>
+	<!-- /subheader -->
+
+	<div id="subpage">
+		<div class="container">
+			<div class="row">
+				@if (Request.IsAuthenticated)
+		{
+			using (Html.BeginForm("AddHistory", "Presentations", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal" }))
+			{
+					<div class="row">
+						<div class="span4">
+							<div class="control-group">
+								@Html.LabelFor(m => m.ConferenceName, new { @class = "control-label" })
+								<div class="controls">
+									@Html.TextBoxFor(m => m.ConferenceName, new { placeholder = "Conference Name" })
+								</div>
+							</div>
+							<div class="control-group">
+								@Html.LabelFor(m => m.DatePresented, new { @class = "control-label" })
+								<div class="controls">
+									@Html.TextBoxFor(m => m.DatePresented, new { placeholder = "Date Presented" })
+								</div>
+							</div>
+							<div class="control-group">
+								@Html.LabelFor(m => m.Notes, new { @class = "control-label" })
+								<div class="controls">
+									@Html.TextAreaFor(m => m.Notes, 10, 20, new { placeholder = "Notes" })
+								</div>
+							</div>
+						</div>
+						<div class="span4">
+							<div class="control-group">
+								<table class="table table-bordered table-condensed table-striped" id="linksTable">
+									<tbody>
+										<tr>
+											<td><i class="icon-plus-sign" /> <a href="#" class="addLink">Add Link</a></td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+
+					</div>
+					<div class="form-actions">
+						<input type="submit" class="btn btn-large btn-success" value="Add Presentation" />
+					</div>
+			}
+		}
+			</div>
+		</div>
+
+
+		<!-- /container -->
+	</div>
+	<!-- /subpage -->
+
+	@Html.Partial("Extra")
+
+	@Html.Partial("Footer")
+
+	@Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/jqueryMigrate")
+	@Scripts.Render("~/js/common")
+	@Scripts.Render("~/js/commonFaq")
+
+	<script>
+		$(function () {
+
+			$(document).on("click", ".addLink", function (e) {
+				e.preventDefault();
+				//<div class="control-group"><label class="control-label" for="inputEmail">Date</label><div class="controls"><input type="text" id="inputEmail" placeholder="Date"></div></div>
+
+				$(this).closest('tr').after('<tr><td><input type="text" /><span></span></td></tr>');
+
+				$('#linksTable td').each(function (index, el) {
+					var element = index - 1;
+					$('input', this).attr('id', 'links[' + element + ']');
+					$('input', this).attr('name', 'links[' + element + ']');
+
+				});
+			});
+
+		});
+	</script>
+</body>
+</html>

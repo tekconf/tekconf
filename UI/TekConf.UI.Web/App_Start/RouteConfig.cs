@@ -22,11 +22,21 @@ namespace TekConf.UI.Web
 			routes.MapRoute(name: "SessionSpeakerDetail", url: "conferences/{conferenceSlug}/speakers/{speakerSlug}",
 					defaults: new { controller = "Speaker", action = "Detail" });
 
+		
+			routes.MapRoute(name: "Presentations", url: "profile/presentations",
+				defaults: new { controller = "Presentations", action = "Index" });
+
 			routes.MapRoute(name: "AddPresentation", url: "profile/presentations/add",
 				defaults: new { controller = "Presentations", action = "Add" });
 
-			routes.MapRoute(name: "Presentations", url: "profile/presentations",
-				defaults: new { controller = "Presentations", action = "Index" });
+			routes.MapRoute(name: "PresentationHistory", url: "profile/presentations/{slug}/history",
+				defaults: new { controller = "Presentations", action = "Detail" });
+
+			routes.MapRoute(name: "AddPresentationHistory", url: "profile/presentations/{slug}/history/add",
+				defaults: new { controller = "Presentations", action = "AddHistory" });
+
+			routes.MapRoute(name: "PresentationDetail", url: "profile/presentations/{slug}",
+				defaults: new { controller = "Presentations", action = "Detail" });
 
 			routes.MapRoute(name: "AdminCreateConference", url: "admin/conferences/create",
 					defaults: new { controller = "AdminConference", action = "CreateConference" });
