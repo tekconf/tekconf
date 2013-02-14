@@ -185,7 +185,7 @@
                             <h4>@Html.RouteLink(session.title, "SessionDetail", new { conferenceSlug = Model.Conference.slug, sessionSlug = session.slug }, null)</h4>
 
                             @HtmlHelpers.FormatSessionTime(session.start, session.end)<br />@session.room<br />
-                            <a href="#" class="btn btn-small btn-primary btn-inverse">Add to Schedule</a><br />
+                            <a href="#" class="btn btn-small btn-success btn-inverse">Add to Schedule</a><br />
                             <br />
                             <p>@session.description</p>
                         </div>

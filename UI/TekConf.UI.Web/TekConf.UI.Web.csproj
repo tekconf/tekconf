@@ -260,6 +260,8 @@
     <Compile Include="Controllers\FileSystemImageSaver.cs" />
     <Compile Include="Controllers\ImageSaverConfiguration.cs" />
     <Compile Include="Controllers\OrganizersController.cs" />
+    <Compile Include="Controllers\PresentationsController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\RemoteDataRepositoryAsync.cs" />
     <Compile Include="Controllers\SpeakersController.cs" />
     <Compile Include="EventsHub.cs" />
@@ -1081,7 +1083,9 @@
     <Content Include="Views\Speakers\Index.cshtml" />
     <Content Include="Views\Organizers\Index.cshtml" />
     <Content Include="Views\Events\Index.cshtml" />
-    <Content Include="Views\Speakers\AddPresentation.cshtml" />
+    <Content Include="Views\Presentations\Add.cshtml" />
+    <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\Presentations\Index.cshtml" />
     <None Include="Views\Web.Debug.config" />
     <None Include="Views\Web.Release.config" />
   </ItemGroup>

@@ -164,7 +164,7 @@ namespace TekConf.UI.Api
 				var message = @event.SpeakerName + " has been removed from " + @event.SessionTitle;
 				context.Clients.All.broadcastMessage(message);
 
-				_emailSender.Send(message);
+				//_emailSender.Send(message);
 			});
 		}
 
@@ -177,7 +177,7 @@ namespace TekConf.UI.Api
 				var message = @event.SpeakerName + " has been added to " + @event.SessionTitle;
 				context.Clients.All.broadcastMessage(message);
 
-				_emailSender.Send(message);
+				//_emailSender.Send(message);
 			});
 		}
 
@@ -190,7 +190,7 @@ namespace TekConf.UI.Api
 				var message = @event.SessionTitle + " has been removed from " + @event.ConferenceName;
 				context.Clients.All.broadcastMessage(message);
 
-				_emailSender.Send(message);
+				//_emailSender.Send(message);
 			});
 		}
 
@@ -206,7 +206,7 @@ namespace TekConf.UI.Api
 																+ (@event.NewValue.HasValue ? @event.NewValue.Value.ToString() : "(not set)");
 				context.Clients.All.broadcastMessage(message);
 
-				_emailSender.Send(message);
+				//_emailSender.Send(message);
 			});
 		}
 
@@ -220,7 +220,7 @@ namespace TekConf.UI.Api
 				var message = @event.ConferenceName + " has been updated.";
 				context.Clients.All.broadcastMessage(message);
 
-				_emailSender.Send(message);
+				//_emailSender.Send(message);
 			});
 		}
 
@@ -252,7 +252,7 @@ namespace TekConf.UI.Api
 
 				context.Clients.All.broadcastMessage(message);
 
-				_emailSender.Send(message);
+				//_emailSender.Send(message);
 			});
 		}
 
@@ -268,7 +268,7 @@ namespace TekConf.UI.Api
 																+ (!string.IsNullOrWhiteSpace(@event.NewValue) ? @event.NewValue : "(not set)");
 				context.Clients.All.broadcastMessage(message);
 
-				_emailSender.Send(message);
+				//_emailSender.Send(message);
 			});
 		}
 
@@ -284,7 +284,7 @@ namespace TekConf.UI.Api
 																				+ (!string.IsNullOrWhiteSpace(@event.NewValue) ? @event.NewValue : "(not set)");
 								context.Clients.All.broadcastMessage(message);
 
-								_emailSender.Send(message);
+								//_emailSender.Send(message);
 			});
 		}
 
@@ -298,7 +298,7 @@ namespace TekConf.UI.Api
 									var message = @event.SessionTitle + " has been added ";
 									context.Clients.All.broadcastMessage(message);
 
-									_emailSender.Send(message);
+									//_emailSender.Send(message);
 								});
 		}
 
@@ -314,7 +314,7 @@ namespace TekConf.UI.Api
 								var message = @event.ConferenceName + " has been published. ";
 								context.Clients.All.broadcastMessage(message);
 
-								_emailSender.Send(message);
+								//_emailSender.Send(message);
 							});
 
 		}

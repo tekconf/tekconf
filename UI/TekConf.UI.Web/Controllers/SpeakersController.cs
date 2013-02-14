@@ -24,6 +24,7 @@ namespace TekConf.UI.Web.Controllers
 			_repository = new RemoteDataRepositoryAsync(baseUrl);
 		}
 
+
 		[CompressFilter]
 		public async Task<ActionResult> Index()
 		{
@@ -70,10 +71,6 @@ namespace TekConf.UI.Web.Controllers
 			return image;
 		}
 
-		public ActionResult AddPresentation()
-		{
-			return View();
-		}
 	}
 
 	public static class Extensions
