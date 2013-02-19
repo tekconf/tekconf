@@ -62,9 +62,6 @@
 												<label>End Date/Time</label>
 												@Html.TextBoxFor(c => c.end, new { type = "datetime" })
 
-												<label>Location</label>
-												@Html.TextBoxFor(c => c.location)
-
 												<label>Tagline</label>
 												@Html.TextBoxFor(c => c.tagline)
 
@@ -91,8 +88,17 @@
 												@Html.TextAreaFor(c => c.description, 30, 150, null)
 										</div>
 										<div class="span4">
-												<label>Address</label>
+												<label>Location</label>
+												@Html.TextBoxFor(c => c.location)
+
+    										    <label>Address</label>
 												@Html.EditorFor(c => c.address)
+                                            
+												<label>Latitude</label>
+												@Html.TextBoxFor(c => c.latitude)
+
+												<label>Longitude</label>
+												@Html.TextBoxFor(c => c.longitude)
 										</div>
 								</div>
 								<div class="row">

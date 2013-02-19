@@ -2,7 +2,7 @@
 @using System.Web.Optimization
 @model TekConf.UI.Api.Services.Requests.v1.CreateConference
 @{
-	Layout = null;
+    Layout = null;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -46,7 +46,7 @@
 	<div id="subpage">
 		<div class="container">
 			@using (Html.BeginForm("EditConf", "AdminConference", FormMethod.Post, new { enctype = "multipart/form-data" }))
-	 {
+   {
 				<div class="row">
 					<legend>Main Information</legend>
 
@@ -63,9 +63,6 @@
 
 						<label>End Date/Time</label>
 						@Html.TextBoxFor(c => c.end, new { type = "datetime" })
-
-						<label>Location</label>
-						@Html.TextBoxFor(c => c.location)
 
 						<label>Tagline</label>
 						@Html.TextBoxFor(c => c.tagline)
@@ -92,10 +89,19 @@
 						<label>Description</label>
 						@Html.TextAreaFor(c => c.description, 30, 150, null)
 					</div>
-					<div class="span4">
-						<label>Address</label>
-						@Html.EditorFor(c => c.address)
-					</div>
+				    <div class="span4">
+                        <label>Location</label>
+						@Html.TextBoxFor(c => c.location)
+                        				        
+				        <label>Address</label>
+				        @Html.EditorFor(c => c.address)
+				        
+                        <label>Latitude</label>
+				        @Html.TextBoxFor(c => c.latitude)
+
+				        <label>Longitude</label>
+				        @Html.TextBoxFor(c => c.longitude)
+				    </div>
 				</div>
 				<div class="row">
 					<legend>Optional Information</legend>
@@ -142,7 +148,7 @@
 				<div class="row">
 					<input type="submit" class="btn-large btn btn-success" value="Save Conference" />
 				</div>      
-	 }
+   }
 
 
 		</div>
@@ -157,15 +163,15 @@
 
 	<script>
 
-		$(function () {
-			$('#start').datetimepicker();
-			$('#end').datetimepicker();
-			$('#callForSpeakersOpens').datetimepicker();
-			$('#callForSpeakersCloses').datetimepicker();
-			$('#registrationOpens').datetimepicker();
-			$('#registrationCloses').datetimepicker();
+	    $(function () {
+	        $('#start').datetimepicker();
+	        $('#end').datetimepicker();
+	        $('#callForSpeakersOpens').datetimepicker();
+	        $('#callForSpeakersCloses').datetimepicker();
+	        $('#registrationOpens').datetimepicker();
+	        $('#registrationCloses').datetimepicker();
 
-		});
+	    });
 	</script>
 </body>
 </html>

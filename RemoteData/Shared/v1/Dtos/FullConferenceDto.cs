@@ -31,7 +31,8 @@ namespace TekConf.RemoteData.Dtos.v1
         public string linkedInUrl { get; set; }
         public string twitterHashTag { get; set; }
         public string twitterName { get; set; }
-        
+        public double[] position { get; set; }
+
         public List<FullSessionDto> sessions { get; set; }
 
         public bool IsOnSale()
