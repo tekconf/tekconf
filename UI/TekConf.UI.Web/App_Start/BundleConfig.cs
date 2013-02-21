@@ -36,7 +36,7 @@ namespace TekConf.UI.Web
 
 			bundles.Add(new ScriptBundle("~/scripts/conferences/detail")
 					.Include(
-											
+											//"~/js/typeahead.js"
 									)
 			);
 
@@ -69,6 +69,10 @@ namespace TekConf.UI.Web
 									)
 					);
 
+			bundles.Add(new ScriptBundle("~/js/conferences/index")
+				.Include(
+								//"~/js/typeahead.js"
+				));
 			bundles.Add(new StyleBundle("~/css/conferences/index")
 					.Include(
 											"~/css/bootstrap.css",
@@ -80,6 +84,7 @@ namespace TekConf.UI.Web
 											"~/css/pages/features.css",
 											"~/Content/themes/base/jquery-ui.css",
 											"~/Content/themes/base/jquery.ui.autocomplete.css"
+											//"~/css/typeahead.css"
 									)
 					);
 
@@ -94,6 +99,7 @@ namespace TekConf.UI.Web
 											"~/css/pages/about.css",
 											"~/Content/themes/base/jquery-ui.css",
 											"~/css/jquery-ui-timepicker-addon.css"
+											//"~/css/typeahead.css"
 									)
 					);
 

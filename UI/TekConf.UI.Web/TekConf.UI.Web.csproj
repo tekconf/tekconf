@@ -387,6 +387,8 @@
     <Content Include="css\themes\green\img\header-bg.png" />
     <Content Include="css\themes\green\theme.css" />
     <Content Include="css\jquery-ui-timepicker-addon.css" />
+    <Content Include="css\typeahead.css" />
+    <Content Include="css\typeahead.min.css" />
     <Content Include="docs\assets\blueprint-css\ie.css" />
     <Content Include="docs\assets\blueprint-css\plugins\buttons\icons\cross.png" />
     <Content Include="docs\assets\blueprint-css\plugins\buttons\icons\key.png" />
@@ -906,6 +908,10 @@
     <Content Include="img\Windows8-coming-soon.png" />
     <Content Include="img\Windows8.png" />
     <Content Include="js\notification.js" />
+    <Content Include="js\typeahead.css" />
+    <Content Include="js\typeahead.js" />
+    <Content Include="js\typeahead.min.css" />
+    <Content Include="js\typeahead.min.js" />
     <Content Include="PostDeploy.ps1" />
     <Content Include="HOWTO.html" />
     <Content Include="img\android.png" />
@@ -994,6 +1000,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="font\FontAwesome.otf" />
+    <Content Include="data\repos.json" />
     <None Include="Properties\PublishProfiles\tekconf-web - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\tekconf-web - Web Deploy.pubxml" />
     <Content Include="Scripts\common.js" />

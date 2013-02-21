@@ -55,7 +55,7 @@
 	<div id="subpage">
 		<div class="container">
 			<div class="row">
-				<i class="icon-search"></i> <a href="#" id="showFilter">Show/Hide Filter and Search</a>
+				<i class="icon-search"></i><a href="#" id="showFilter">Show/Hide Filter and Search</a>
 			</div>
 			<div class="row well" id="filter" style="padding-bottom: 10px;">
 				@using (Html.BeginForm("Index", "Conferences", FormMethod.Get, new { @class = "form-horizontal" }))
@@ -118,43 +118,44 @@
 							<div class="control-group">
 								<label class="control-label" for="city">City</label>
 								<div class="controls">
-									@Html.TextBox("city", filter.city, new { placeholder = "City"})
+									@Html.TextBox("city", filter.city, new { placeholder = "City" })
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="state">State</label>
 								<div class="controls">
-									@Html.TextBox("state", filter.state,  new { placeholder = "2 Letter State"})
+									@Html.TextBox("state", filter.state, new { placeholder = "2 Letter State" })
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="country">Country</label>
 								<div class="controls">
-									@Html.TextBox("country", filter.country, new { placeholder = "Country"})
+									@Html.TextBox("country", filter.country, new { placeholder = "Country" })
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="distance">Distance</label>
 								<div class="controls">
-									@Html.TextBox("distance", filter.distance,new { placeholder = "Distance (in miles). Default: 25"})
+									@Html.TextBox("distance", filter.distance, new { placeholder = "Distance (in miles). Default: 25" })
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="latitude">Latitude</label>
 								<div class="controls">
-									@Html.TextBox("latitude", filter.latitude,new { placeholder = "Latitude"})
+									@Html.TextBox("latitude", filter.latitude, new { placeholder = "Latitude" })
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="longitude">Longitude</label>
 								<div class="controls">
-									@Html.TextBox("longitude", filter.longitude,new { placeholder = "Longitude"})
+									@Html.TextBox("longitude", filter.longitude, new { placeholder = "Longitude" })
 								</div>
 							</div>
 						</div>
 						<div class="span5">
 							@Html.TextBox("search", filter.search, new { @class = "span3", placeholder = "Search text" })
-							<br/><br />
+							<br />
+							<br />
 							<label class="checkbox">
 								@Html.CheckBox("showPastConferences", filter.showPastConferences, new { @onchange = "this.form.submit();" }) Show Past Conferences?
 							</label>
@@ -252,6 +253,7 @@
 		</div>
 		<!-- /container -->
 
+
 	</div>
 	<!-- /subpage -->
 
@@ -263,6 +265,7 @@
 	@Scripts.Render("~/bundles/jqueryMigrate")
 	@Scripts.Render("~/js/common")
 	@Scripts.Render("~/bundles/jqueryUI")
+	@Scripts.Render("~/js/conferences/index")
 
 	<script type="text/javascript" language="javascript">
 		$(function () {
@@ -305,6 +308,7 @@
 			} else {
 				$("#filter").show();
 			}
+
 			$("#search").autocomplete({
 				messages: {
 					noResults: null,
@@ -339,7 +343,12 @@
 			});
 
 
-
+			$('#search').typeahead([
+					{
+						name: 'planets',
+						local: ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"]
+					}
+			]);
 		});
 	</script>
 </body>

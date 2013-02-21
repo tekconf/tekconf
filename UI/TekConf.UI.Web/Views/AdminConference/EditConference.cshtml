@@ -2,7 +2,7 @@
 @using System.Web.Optimization
 @model TekConf.UI.Api.Services.Requests.v1.CreateConference
 @{
-    Layout = null;
+	Layout = null;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -26,6 +26,8 @@
 	@Scripts.Render("~/bundles/jqueryUI")
 	@Scripts.Render("~/js/common")
 	@Scripts.Render("~/scripts/conferences/detail")
+
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 </head>
 
 <body>
@@ -46,7 +48,7 @@
 	<div id="subpage">
 		<div class="container">
 			@using (Html.BeginForm("EditConf", "AdminConference", FormMethod.Post, new { enctype = "multipart/form-data" }))
-   {
+	 {
 				<div class="row">
 					<legend>Main Information</legend>
 
@@ -90,13 +92,14 @@
 						@Html.TextAreaFor(c => c.description, 30, 150, null)
 					</div>
 				    <div class="span4">
-                        <label>Location</label>
-						@Html.TextBoxFor(c => c.location)
+              <label>Location</label>
+							@Html.TextBoxFor(c => c.location)
                         				        
 				        <label>Address</label>
 				        @Html.EditorFor(c => c.address)
 				        
-                        <label>Latitude</label>
+							<a href="#" id="geolocate">Find Lat/Long</a>
+					    <label>Latitude</label>
 				        @Html.TextBoxFor(c => c.latitude)
 
 				        <label>Longitude</label>
@@ -148,7 +151,7 @@
 				<div class="row">
 					<input type="submit" class="btn-large btn btn-success" value="Save Conference" />
 				</div>      
-   }
+	 }
 
 
 		</div>
@@ -162,16 +165,58 @@
 	@Html.Partial("Footer")
 
 	<script>
+		var geocoder;
+		var map;
 
-	    $(function () {
-	        $('#start').datetimepicker();
-	        $('#end').datetimepicker();
-	        $('#callForSpeakersOpens').datetimepicker();
-	        $('#callForSpeakersCloses').datetimepicker();
-	        $('#registrationOpens').datetimepicker();
-	        $('#registrationCloses').datetimepicker();
+		function codeAddress(streetNumber, streetName, city, state, postalArea, country) {
+			//var address = document.getElementById('address').value;
+			var address = "";
+			if (streetNumber.length != 0 && streetName.length != 0 && city.length != 0 && state.length != 0) {
+				address = streetNumber + " " + streetName + ",+" + city + ",+" + state;
+			} else if (city.length != 0 && state.length != 0) {
+				address = city + ",+" + state;
+			} else if (city.length != 0 && country.length != 0) {
+				address = city + ",+" + country;
+			}
 
-	    });
+			//address = encodeURIComponent(address);
+			//address = address.replace(" ", "+");
+			//alert(address);
+			geocoder.geocode({ 'address': address }, function (results, status) {
+				if (status == google.maps.GeocoderStatus.OK) {
+					$('#latitude').val(results[0].geometry.location.lat());
+					$('#longitude').val(results[0].geometry.location.lng());
+
+				} else {
+					alert('Geocode was not successful for the following reason: ' + status);
+				}
+			});
+		}
+
+		$(function () {
+			geocoder = new google.maps.Geocoder();
+
+			$('#start').datetimepicker();
+			$('#end').datetimepicker();
+			$('#callForSpeakersOpens').datetimepicker();
+			$('#callForSpeakersCloses').datetimepicker();
+			$('#registrationOpens').datetimepicker();
+			$('#registrationCloses').datetimepicker();
+
+			$(document).on("click", "#geolocate", function (e) {
+				e.preventDefault();
+				
+				var streetNumber = $('#address_StreetNumber').val();
+				var streetName = $('#address_StreetName').val();
+				var city = $('#address_City').val();
+				var state = $('#address_State').val();
+				var postalArea = $('#address_PostalArea').val();
+				var country = $('#address_Country').val();
+
+				codeAddress(streetNumber, streetName, city, state, postalArea, country);
+			});
+
+		});
 	</script>
 </body>
 </html>

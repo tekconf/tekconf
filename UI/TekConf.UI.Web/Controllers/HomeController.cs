@@ -77,8 +77,8 @@ namespace TekConf.UI.Web.Controllers
 
 			var vm = new HomePageViewModel()
 			{
-				FeaturedConferences = featuredConferences.ToList(),
-				FeaturedSpeakers = featuredSpeakers,
+				FeaturedConferences = featuredConferences == null ? new List<ConferencesDto>() : featuredConferences.ToList(),
+				FeaturedSpeakers = featuredSpeakers ?? new List<FullSpeakerDto>(),
 				TotalCount = totalCount
 			};
 
