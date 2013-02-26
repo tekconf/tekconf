@@ -25,7 +25,7 @@ namespace TekConf.UI.Web
             {
                 if (source != null && source.position != null && source.position.Length == 2)
                 {
-                    return source.position[0];
+                    return source.position[1];
                 }
                 else
                 {
@@ -40,7 +40,7 @@ namespace TekConf.UI.Web
             {
                 if (source != null && source.position != null && source.position.Length == 2)
                 {
-                    return source.position[1];
+                    return source.position[0];
                 }
                 else
                 {

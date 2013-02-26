@@ -95,7 +95,7 @@ namespace TekConf.UI.Api
     {
         protected override double[] ResolveCore(CreateConference source)
         {
-            return new double[] { source.latitude, source.longitude };
+					return new double[] { source.longitude, source.latitude };
         }
     }
 
