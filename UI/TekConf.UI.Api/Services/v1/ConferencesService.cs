@@ -354,7 +354,7 @@ namespace TekConf.UI.Api.Services.v1
 
 			if (showOnlyOpenCalls.HasValue && showOnlyOpenCalls.Value)
 			{
-				searchBy = c => c.callForSpeakersOpens <= DateTime.Now && c.callForSpeakersCloses >= DateTime.Now;
+				searchBy = c => c.callForSpeakersOpens <= DateTime.Now.AddMonths(1) && c.callForSpeakersCloses >= DateTime.Now;
 			}
 
 			return searchBy;
