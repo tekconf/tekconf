@@ -155,13 +155,14 @@
 																							@Model.address.StreetName<br/>
 															 }
 														
-															@Model.address.City<text> </text>@Model.address.State<text> </text>@Model.address.Country
+															@Model.address.City<text> </text>@Model.address.State<text> </text>@Model.address.Country<br/><br/>
 														 }
   
                             
                             @if (Model.callForSpeakersOpens != default(DateTime))
 														{
-                                <text>Call for Speakers : </text>@Model.callForSpeakersOpens<text>-</text>@Model.callForSpeakersCloses
+															<text>Call for Speakers : </text><br/>
+															@HtmlHelpers.FormatDateRange(Model.callForSpeakersOpens, Model.callForSpeakersCloses)
 														}
                             <h4><span class="slash">//</span> Connect</h4>
                             @if (!string.IsNullOrWhiteSpace(Model.homepageUrl))
