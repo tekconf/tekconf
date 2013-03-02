@@ -3,7 +3,7 @@
 @using TekConf.UI.Web
 @model TekConf.RemoteData.Dtos.v1.FullConferenceDto
 @{
-		Layout = null;
+	Layout = null;
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -61,17 +61,17 @@
                 
                 <div class="span8">
                     @{
-												var sessionGroup = Model.sessions
-														.GroupBy(s => new { s.start.Year, s.start.Month, s.start.Day })
-														.Select(s => new { DateKey = s.Key, Sessions = s })
-														.ToList();
+											var sessionGroup = Model.sessions
+													.GroupBy(s => new { s.start.Year, s.start.Month, s.start.Day })
+													.Select(s => new { DateKey = s.Key, Sessions = s })
+													.ToList();
                     }
 
                     @foreach (var dayGroup in sessionGroup.OrderBy(s => s.DateKey.Year).ThenBy(s => s.DateKey.Month).ThenBy(s => s.DateKey.Day))
 										{
-												var date = DateTime.Parse(dayGroup.DateKey.Month + "/" + dayGroup.DateKey.Day + "/" + dayGroup.DateKey.Year);
-												var tabName = date.ToString("dddd, MMMM d", CultureInfo.CreateSpecificCulture("en-US")).Replace(" ", "").Replace(",", "");
-												var dateString = date.ToString("dddd, MMMM d", CultureInfo.CreateSpecificCulture("en-US"));
+											var date = DateTime.Parse(dayGroup.DateKey.Month + "/" + dayGroup.DateKey.Day + "/" + dayGroup.DateKey.Year);
+											var tabName = date.ToString("dddd, MMMM d", CultureInfo.CreateSpecificCulture("en-US")).Replace(" ", "").Replace(",", "");
+											var dateString = date.ToString("dddd, MMMM d", CultureInfo.CreateSpecificCulture("en-US"));
 
                         <div class="row">
                             <div class="span12">
@@ -84,35 +84,35 @@
                             <table class="table">
                                 <tbody>
                                     @{
-												var sessionTimes = dayGroup.Sessions
-														.GroupBy(s => new { s.start })
-														.Select(s => new { DateKey = s.Key, Sessions = s })
-														.OrderBy(s => s.DateKey.start)
-														.ToList();
+											var sessionTimes = dayGroup.Sessions
+													.GroupBy(s => new { s.start })
+													.Select(s => new { DateKey = s.Key, Sessions = s })
+													.OrderBy(s => s.DateKey.start)
+													.ToList();
                                     }
                                     @foreach (var sessionTime in sessionTimes)
 																		{
                                         <tr>
                                             <td colspan="3">@sessionTime.DateKey.start.ToShortTimeString()</td>
                                         </tr>
-																				foreach (var session in sessionTime.Sessions.OrderBy(s => s.start.TimeOfDay))
-																				{
+																			foreach (var session in sessionTime.Sessions.OrderBy(s => s.start.TimeOfDay))
+																			{
                                 
 	                                        <tr>
 																							@if (Request.IsAuthenticated)
 											 {
-													 if (session.isAddedToSchedule.HasValue && session.isAddedToSchedule.Value)
-													 {
+												 if (session.isAddedToSchedule.HasValue && session.isAddedToSchedule.Value)
+												 {
 																												<td style="width:20px;">
 																													<i class="icon-star icon-2x icon-selected" id="remove-@session.slug" onclick="javascript:toggleSessionOnSchedule('@Model.slug', '@session.slug', '#remove-@session.slug')"></i>
 																												</td>
-													 }
-													 else
-													 {
+												 }
+												 else
+												 {
 																												<td style="width:20px;">
 																													<i class="icon-star-empty icon-2x" id="add-@session.slug" onclick="javascript:toggleSessionOnSchedule('@Model.slug', '@session.slug', '#add-@session.slug')"></i>
 																												</td>																										
-													 }
+												 }
 											 }		                                        
 
 		                                        <td>
@@ -125,7 +125,7 @@
 																					 }
 		                                        </td>
 	                                        </tr>                                
-																				}
+																			}
 																		}
                                 </tbody>
                             </table>
@@ -139,11 +139,25 @@
                     <div class="sidebar">
                         <h4><span class="slash">//</span> More Information</h4>
                         <p>
-                            @HtmlHelpers.FormatDateRange(Model.start, Model.end)<br />
-                            @if (!string.IsNullOrWhiteSpace(Model.location))
-														{
+	                        @HtmlHelpers.FormatDateRange(Model.start, Model.end)<br /><br />
+													   @if (!string.IsNullOrWhiteSpace(Model.location))
+														 {
                                 @Model.location<br />
-														}
+														 }
+													@if (Model.address != null)
+														 {
+															 if (Model.address.StreetNumber != 0)
+															 {
+																							@Model.address.StreetNumber<text> </text>
+															 }
+															 if (!string.IsNullOrWhiteSpace(Model.address.StreetName))
+															 {
+																							@Model.address.StreetName<br/>
+															 }
+														
+															@Model.address.City<text> </text>@Model.address.State<text> </text>@Model.address.Country
+														 }
+  
                             
                             @if (Model.callForSpeakersOpens != default(DateTime))
 														{
@@ -242,39 +256,39 @@
 	@Scripts.Render("~/bundles/jqueryUI")
 	
     <script>
-    		function toggleSessionOnSchedule(conferenceSlug, sessionSlug, element) {
-    				if ($(element).hasClass("icon-star")) {
-    					removeSessionFromSchedule(conferenceSlug, sessionSlug, element);
-    				} else if ($(element).hasClass("icon-star-empty")) {
-    					addSessionToSchedule(conferenceSlug, sessionSlug, element);
-    				}
-				}
+    	function toggleSessionOnSchedule(conferenceSlug, sessionSlug, element) {
+    		if ($(element).hasClass("icon-star")) {
+    			removeSessionFromSchedule(conferenceSlug, sessionSlug, element);
+    		} else if ($(element).hasClass("icon-star-empty")) {
+    			addSessionToSchedule(conferenceSlug, sessionSlug, element);
+    		}
+    	}
 
-    		function removeSessionFromSchedule(conferenceSlug, sessionSlug, element) {
-    				$(element).removeClass("icon-star").removeClass("icon-selected").addClass("icon-exchange");
-    				var jqxhr = $.post("@Url.Action("Delete", "Schedule")", { conferenceSlug: conferenceSlug, sessionSlug: sessionSlug }, function () {
+    	function removeSessionFromSchedule(conferenceSlug, sessionSlug, element) {
+    		$(element).removeClass("icon-star").removeClass("icon-selected").addClass("icon-exchange");
+    		var jqxhr = $.post("@Url.Action("Delete", "Schedule")", { conferenceSlug: conferenceSlug, sessionSlug: sessionSlug }, function () {
     				})
 						.done(function () {
-								$(element).removeClass("icon-star").removeClass("icon-selected").removeClass("icon-exchange").addClass("icon-star-empty");
+							$(element).removeClass("icon-star").removeClass("icon-selected").removeClass("icon-exchange").addClass("icon-star-empty");
 						})
 						.fail(function () { alert("error"); })
 						.always(function () {
-								$(element).removeClass("icon-exchange");
+							$(element).removeClass("icon-exchange");
 						});
-				}
+					}
 
-				function addSessionToSchedule(conferenceSlug, sessionSlug, element) {
+					function addSessionToSchedule(conferenceSlug, sessionSlug, element) {
 						$(element).removeClass("icon-star-empty").addClass("icon-exchange");
 						var jqxhr = $.post("@Url.Action("Add", "Schedule")", { conferenceSlug: conferenceSlug, sessionSlug: sessionSlug }, function () {
-    				})
+						})
 						.done(function () {
-								$(element).removeClass("icon-star-empty").removeClass("icon-exchange").addClass("icon-star").addClass("icon-selected");
+							$(element).removeClass("icon-star-empty").removeClass("icon-exchange").addClass("icon-star").addClass("icon-selected");
 						})
 						.fail(function () { alert("error"); })
 						.always(function () {
-								$(element).removeClass("icon-exchange");
+							$(element).removeClass("icon-exchange");
 						});
-				}
+					}
     </script>
 </body>
 </html>
