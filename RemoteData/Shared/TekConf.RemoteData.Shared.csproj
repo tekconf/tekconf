@@ -115,6 +115,7 @@
     <Compile Include="v1\Requests\Conferences.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="v1\Requests\CreatePresentation.cs" />
     <Compile Include="v1\Requests\FeaturedSpeakers.cs">
       <SubType>Code</SubType>
     </Compile>

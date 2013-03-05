@@ -6,6 +6,7 @@ using AutoMapper;
 using FluentMongo.Linq;
 using ServiceStack.CacheAccess;
 using ServiceStack.Common.Web;
+using TekConf.Common.Entities;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.UI.Api.Services.Requests.v1;
 using TekConf.UI.Api.UrlResolvers.v1;
@@ -116,6 +117,26 @@ namespace TekConf.UI.Api.Services.v1
 						return speakerDto;
 					});
 
+		}
+
+		public object Post(CreatePresentation presentation)
+		{
+			var dto = new PresentationDto()
+				{
+					Title = presentation.Title,
+					Slug = presentation.Title.GenerateSlug(),
+					Tags = presentation.Tags,
+					Description = presentation.Description
+				};
+
+			return dto;
+		}
+
+		public object Put(CreatePresentation presentation)
+		{
+			var x = presentation.Title;
+
+			return null;
 		}
 
 	}

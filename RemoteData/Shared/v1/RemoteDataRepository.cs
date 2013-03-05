@@ -212,6 +212,15 @@ namespace TekConf.RemoteData.v1
 																			});
 		}
 
+		public void CreatePresentation(CreatePresentation presentation, string userName, string password, Action<PresentationDto> callback)
+		{
+			presentation.Slug = presentation.Title.GenerateSlug();
+			presentation.UserName = userName;
+
+			ServiceClient.SetCredentials(userName, password);
+			ServiceClient.PostAsync(presentation, callback, (r, ex) => { callback(null); });
+		}
+
 		public void CreateConference(CreateConference conference, string userName, string password, Action<FullConferenceDto> callback)
 		{
 			conference.slug = conference.name.GenerateSlug();

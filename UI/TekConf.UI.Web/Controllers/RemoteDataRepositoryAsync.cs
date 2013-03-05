@@ -185,6 +185,18 @@ namespace TekConf.UI.Web.Controllers
 			});
 		}
 
+		public Task<PresentationDto> CreatePresentation(CreatePresentation presentation)
+		{
+			return Task.Run(() =>
+			{
+				var t = new TaskCompletionSource<PresentationDto>();
+
+				_repository.CreatePresentation(presentation, presentation.UserName, "password", c => t.TrySetResult(c));
+
+				return t.Task;
+			});
+		}
+
 		public Task<FullConferenceDto> CreateConference(CreateConference conference)
 		{
 			return Task.Run(() =>
