@@ -72,7 +72,7 @@ namespace TekConf.UI.Api.Tests.Unit
 		[Test]
 		public void Count_should_return_correct_value_for_filter()
 		{
-			var searchTerm = _fixture.CreateAnonymous<string>();
+			var searchTerm = _fixture.Create<string>();
 			ITinyMessengerHub hub = new Mock<ITinyMessengerHub>().Object;
 			var conferencesRepositoryMock = new Mock<IRepository<ConferenceEntity>>();
 

@@ -42,7 +42,7 @@
       <HintPath>..\..\packages\mongocsharpdriver.1.7.1\lib\net35\MongoDB.Driver.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.Text">
-      <HintPath>..\..\packages\ServiceStack.Text.3.9.37\lib\net35\ServiceStack.Text.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.Text.3.9.38\lib\net35\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
