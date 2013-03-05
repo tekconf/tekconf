@@ -40,7 +40,7 @@ namespace TekConf.UI.Web.Controllers
 		[HttpPost]
 		public async Task<ActionResult> AddHistory(AddPresentationHistoryViewModel addPresentationHistoryViewModel)
 		{
-			return RedirectToRoute("PresentationDetail", new { slug = ""});
+			return RedirectToRoute("PresentationDetail", new { slug = "test"});
 		}
 
 
