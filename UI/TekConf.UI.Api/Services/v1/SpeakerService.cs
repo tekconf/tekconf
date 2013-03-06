@@ -19,7 +19,8 @@ namespace TekConf.UI.Api.Services.v1
 		private readonly IConfiguration _configuration;
 
 		private readonly IRepository<ConferenceEntity> _conferenceRepository;
-
+		private readonly IRepository<PresentationEntity> _presentationRepository;
+ 
 		public ICacheClient CacheClient { get; set; }
 		static HttpError ConferenceNotFound = HttpError.NotFound("Conference not found") as HttpError;
 		static HashSet<string> NonExistingConferences = new HashSet<string>();
@@ -27,10 +28,11 @@ namespace TekConf.UI.Api.Services.v1
 		static HttpError SpeakerNotFound = HttpError.NotFound("Speaker not found") as HttpError;
 		static HashSet<string> NonExistingSpeakers = new HashSet<string>();
 
-		public SpeakerService(IConfiguration configuration, IRepository<ConferenceEntity> conferenceRepository)
+		public SpeakerService(IConfiguration configuration, IRepository<ConferenceEntity> conferenceRepository, IRepository<PresentationEntity> presentationRepository)
 		{
 			_configuration = configuration;
 			_conferenceRepository = conferenceRepository;
+			_presentationRepository = presentationRepository;
 		}
 
 		public object Get(Speaker request)
@@ -121,13 +123,11 @@ namespace TekConf.UI.Api.Services.v1
 
 		public object Post(CreatePresentation presentation)
 		{
-			var dto = new PresentationDto()
-				{
-					Title = presentation.Title,
-					Slug = presentation.Title.GenerateSlug(),
-					Tags = presentation.Tags,
-					Description = presentation.Description
-				};
+			var entity = Mapper.Map<CreatePresentation, PresentationEntity>(presentation);
+			
+			_presentationRepository.Save(entity);
+
+			var dto = Mapper.Map<PresentationEntity, PresentationDto>(entity);
 
 			return dto;
 		}

@@ -8,11 +8,11 @@ namespace TekConf.UI.Api.Services.Requests.v1
 	[Route("/v1/{speakerSlug}/presentations/{slug}", "PUT")]
 	public class CreatePresentation : IReturn<PresentationDto>
 	{
-		public string Slug { get; set; }
-		public string SpeakerSlug { get; set; }
-		public string UserName { get; set; }
-		public string Title { get; set; }
-		public string Description { get; set; }
-		public List<string> Tags { get; set; }
+		public virtual string Slug { get; set; }
+		public virtual string SpeakerSlug { get; set; }
+		public virtual string UserName { get; set; }
+		public virtual string Title { get; set; }
+		public virtual string Description { get; set; }
+		public virtual List<string> Tags { get; set; }
 	}
 }

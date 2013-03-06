@@ -13,7 +13,6 @@ using Ploeh.AutoFixture.AutoMoq;
 
 namespace TekConf.UI.Api.Tests.Unit
 {
-
 	[TestFixture]
 	public class ConferencesCountServiceTest
 	{
