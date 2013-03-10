@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Configuration;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using TekConf.UI.Api.Services.Requests.v1;
 using TekConf.UI.Web.ViewModels;
@@ -9,7 +10,13 @@ namespace TekConf.UI.Web.Controllers
 	public class PresentationsController : Controller
 	{
 	    private readonly IRemoteDataRepositoryAsync _repository;
-	   
+
+	    public PresentationsController()
+	    {
+            var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
+
+            _repository = new RemoteDataRepositoryAsync(baseUrl);
+	    }
 		public PresentationsController(IRemoteDataRepositoryAsync repository)
 		{
 		    _repository = repository;
@@ -49,11 +56,11 @@ namespace TekConf.UI.Web.Controllers
 
 			await Task.WhenAll(presentationTask);
 
-			return RedirectToAction("AddHistory", new { presentationSlug = presentation.Slug });
+			return RedirectToAction("AddHistory", new { speakerSlug = presentation.SpeakerSlug, presentationSlug = presentation.Slug });
 		}
 
 
-		public ActionResult AddHistory(string slug)
+		public ActionResult AddHistory(string speakerSlug, string presentationSlug)
 		{
 			return View();
 		}
