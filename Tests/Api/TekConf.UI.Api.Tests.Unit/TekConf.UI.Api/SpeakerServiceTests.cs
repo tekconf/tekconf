@@ -17,11 +17,9 @@ namespace TekConf.UI.Api.Tests.Unit
 			var bootstrapper = new Bootstrapper();
 			bootstrapper.BootstrapAutomapper(container);
 		}
-		[Fact]
-		public void ncrunch()
-		{
-			true.ShouldBeTrue();
-		}
+        
+        [Fact]
+		public void ncrunch() { true.ShouldBeTrue(); }
 
 		[Theory, AutoFakeData]
 		public void will_create_new_presentation([Frozen]Fake<IConfiguration> configuration, 
@@ -32,8 +30,7 @@ namespace TekConf.UI.Api.Tests.Unit
 			var service = new SpeakerService(configuration.FakedObject, conferenceRepository.FakedObject, presentationRepository);
 			var dto = service.Post(presentation.FakedObject) as PresentationDto;
 
-			A.CallTo(() => presentationRepository.Save(A<PresentationEntity>.Ignored))
-											.MustHaveHappened(Repeated.Exactly.Once);
+			A.CallTo(() => presentationRepository.Save(A<PresentationEntity>.Ignored)).MustHaveHappened(Repeated.Exactly.Once);
 		}
 
 		[Theory, AutoFakeData]
