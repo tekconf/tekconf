@@ -1,21 +1,25 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="RemoteData/Shared/v1/RemoteDataRepository.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPhone.6.1" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="UI/TekConf.UI.iPhone/Elements/ConferenceElement.cs">
     <Files>
-      <File FileName="RemoteData/Shared/v1/RemoteDataRepository.cs" Line="38" Column="16" />
-      <File FileName="UI/TekConf.UI.iPhone/AppDelegate.cs" Line="156" Column="40" />
-      <File FileName="../ServiceStack/src/ServiceStack.Common/ServiceClient.Web/ServiceClientBase.cs" Line="512" Column="1" />
-      <File FileName="UI/TekConf.UI.iPhone/Views/ConferenceDetailAboutViewController.cs" Line="96" Column="49" />
-      <File FileName="UI/TekConf.UI.iPhone/Views/SessionDetailAboutViewController.cs" Line="101" Column="7" />
-      <File FileName="UI/TekConf.UI.iPhone/Views/ConferenceScheduleViewController.cs" Line="73" Column="33" />
+      <File FileName="UI/TekConf.UI.iPhone/AppDelegate.cs" Line="99" Column="3" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/ConferenceDetailAboutViewController.cs" Line="95" Column="75" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/SessionDetailAboutViewController.cs" Line="103" Column="67" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/ConferenceScheduleViewController.cs" Line="88" Column="9" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/ConferencesDialogViewController.cs" Line="88" Column="1" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/BaseDialogViewController.cs" Line="25" Column="7" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/BaseUIViewController.cs" Line="57" Column="3" />
+      <File FileName="UI/TekConf.UI.iPhone/Views/BaseUITabBarController.cs" Line="46" Column="3" />
+      <File FileName="UI/TekConf.UI.iPhone/Elements/ConferenceElement.cs" Line="127" Column="17" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="TekConf.RemoteData.iOS" expanded="True">
-            <Node name="RemoteDataRepository.cs" selected="True" />
-          </Node>
           <Node name="TekConf.UI.iPhone" expanded="True">
+            <Node name="ComponentReferenceFolder" expanded="True" />
+            <Node name="Elements" expanded="True">
+              <Node name="ConferenceElement.cs" selected="True" />
+            </Node>
             <Node name="Views" expanded="True" />
           </Node>
         </State>
@@ -27,14 +31,17 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/Users/Rob/dev/tekconf/UI/TekConf.UI.iOS/SessionsListRootViewController.cs" line="80" />
-      <Breakpoint file="/Users/Rob/dev/tekconf/UI/TekConf.UI.iOS/SessionsListRootViewController.cs" line="76" />
-      <Breakpoint file="/Users/Rob/dev/tekconf/UI/TekConf.UI.iPhone/Views/ConferenceDetailViewController.cs" line="93" />
-      <Breakpoint file="/Users/rgibbens/dev/tekconf/UI/TekConf.UI.iPhone/Views/TestController.cs" line="35" />
-      <Breakpoint file="/Users/rgibbens/dev/tekconf/UI/TekConf.UI.iPhone/Views/TestController.cs" line="45" />
-      <Breakpoint file="/Users/rgibbens/dev/tekconf/UI/TekConf.UI.iPhone/Views/TestController.cs" line="42" />
-      <Breakpoint file="/Users/rgibbens/dev/tekconf/UI/TekConf.UI.iPhone/Views/ConferenceDetailAboutViewController.cs" line="93" />
-      <Breakpoint file="/Users/rgibbens/dev/tekconf/UI/TekConf.UI.iPhone/AppDelegate.cs" line="122" />
+      <Breakpoint file="/Users/Rob/dev/tekconf/UI/TekConf.UI.iOS/SessionsListRootViewController.cs" line="80" column="1" />
+      <Breakpoint file="/Users/Rob/dev/tekconf/UI/TekConf.UI.iOS/SessionsListRootViewController.cs" line="76" column="1" />
+      <Breakpoint file="/Users/Rob/dev/tekconf/UI/TekConf.UI.iPhone/Views/ConferenceDetailViewController.cs" line="93" column="1" />
+      <Breakpoint file="/Users/rgibbens/dev/tekconf/UI/TekConf.UI.iPhone/Views/TestController.cs" line="35" column="1" />
+      <Breakpoint file="/Users/rgibbens/dev/tekconf/UI/TekConf.UI.iPhone/Views/TestController.cs" line="45" column="1" />
+      <Breakpoint file="/Users/rgibbens/dev/tekconf/UI/TekConf.UI.iPhone/Views/TestController.cs" line="42" column="1" />
+      <Breakpoint file="/Users/rgibbens/dev/tekconf/UI/TekConf.UI.iPhone/Views/ConferenceDetailAboutViewController.cs" line="93" column="1" />
+      <Breakpoint file="/Users/rgibbens/dev/tekconf/UI/TekConf.UI.iPhone/AppDelegate.cs" line="122" column="1" />
+      <Breakpoint file="/Users/rob/dev/tekconf/UI/TekConf.UI.iPhone/Views/ConferencesDialogViewController.cs" line="65" column="1" />
+      <Breakpoint file="/Users/rob/dev/tekconf/UI/TekConf.UI.iPhone/Views/ConferencesDialogViewController.cs" line="77" column="1" />
+      <Breakpoint file="/Users/rob/dev/tekconf/UI/TekConf.UI.iPhone/Views/ConferencesDialogViewController.cs" line="88" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches>

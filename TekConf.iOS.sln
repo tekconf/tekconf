@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceStack.Interfaces.Mon
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceStack.Common.MonoTouch", "..\ServiceStack\src\ServiceStack.MonoTouch\ServiceStack.Common.MonoTouch\ServiceStack.Common.MonoTouch.csproj", "{105AD659-A41C-4063-A57B-E3EB31026445}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoTouch.SlideoutNavigation", "..\monotouch.slideoutnavigation\MonoTouch.SlideoutNavigation\MonoTouch.SlideoutNavigation.csproj", "{6D7B9B53-CFEF-46BE-A608-14A4A1381CF6}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TekConf.UI.iPhone", "UI\TekConf.UI.iPhone\TekConf.UI.iPhone.csproj", "{B0B8941A-8FCE-4253-9A89-E070B7C78E5D}"
 EndProject
 Global
@@ -70,20 +68,6 @@ Global
 		{4E0544B6-8D34-45D2-AB27-605F51BF4C55}.Release|iPhone.Build.0 = Release|Any CPU
 		{4E0544B6-8D34-45D2-AB27-605F51BF4C55}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{4E0544B6-8D34-45D2-AB27-605F51BF4C55}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
-		{6D7B9B53-CFEF-46BE-A608-14A4A1381CF6}.Ad-Hoc|iPhone.ActiveCfg = Debug|Any CPU
-		{6D7B9B53-CFEF-46BE-A608-14A4A1381CF6}.Ad-Hoc|iPhone.Build.0 = Debug|Any CPU
-		{6D7B9B53-CFEF-46BE-A608-14A4A1381CF6}.AppStore|iPhone.ActiveCfg = Debug|Any CPU
-		{6D7B9B53-CFEF-46BE-A608-14A4A1381CF6}.AppStore|iPhone.Build.0 = Debug|Any CPU
-		{6D7B9B53-CFEF-46BE-A608-14A4A1381CF6}.AppStore|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{6D7B9B53-CFEF-46BE-A608-14A4A1381CF6}.AppStore|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{6D7B9B53-CFEF-46BE-A608-14A4A1381CF6}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{6D7B9B53-CFEF-46BE-A608-14A4A1381CF6}.Debug|iPhone.Build.0 = Debug|Any CPU
-		{6D7B9B53-CFEF-46BE-A608-14A4A1381CF6}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{6D7B9B53-CFEF-46BE-A608-14A4A1381CF6}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{6D7B9B53-CFEF-46BE-A608-14A4A1381CF6}.Release|iPhone.ActiveCfg = Release|Any CPU
-		{6D7B9B53-CFEF-46BE-A608-14A4A1381CF6}.Release|iPhone.Build.0 = Release|Any CPU
-		{6D7B9B53-CFEF-46BE-A608-14A4A1381CF6}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{6D7B9B53-CFEF-46BE-A608-14A4A1381CF6}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{8D10D14B-3B39-42B3-9767-1C6AAA44A79D}.Ad-Hoc|iPhone.ActiveCfg = Debug|Any CPU
 		{8D10D14B-3B39-42B3-9767-1C6AAA44A79D}.Ad-Hoc|iPhone.Build.0 = Debug|Any CPU
 		{8D10D14B-3B39-42B3-9767-1C6AAA44A79D}.AppStore|iPhone.ActiveCfg = Debug|Any CPU
