@@ -3,8 +3,31 @@ using System.Collections.Generic;
 using ServiceStack.ServiceHost;
 using TekConf.RemoteData.Dtos.v1;
 
+namespace ServiceStack.ServiceHost
+{
+	public class Api : Attribute
+	{
+		public Api (string description)
+		{
+			
+		}
+	}
+	public class ApiMember : Attribute
+	{
+		public ApiMember ()
+		{
+			
+		}
+		public string Name {get;set;}
+		public string Description {get;set;}
+		public string ParameterType {get;set;}
+		public string DataType {get;set;}
+		public bool IsRequired {get;set;}
+	}
+}
 namespace TekConf.UI.Api.Services.Requests.v1
 {
+
 	[ServiceStack.ServiceHost.Api("Conferences Service Description")]
 	[Route("/v1/conferences/count", "GET", Summary = "Gets the total count of conferences returned.")]
 	public class ConferencesCount : IReturn<int>

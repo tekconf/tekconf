@@ -83,10 +83,7 @@ namespace TekConf.UI.iPhone
 						});
 
 						Repository.GetSchedule (conferenceSlug: NavigationItems.ConferenceSlug, 
-						                        authenticationMethod: "Facebook", 
-						                        authenticationToken: facebookAccount.Username, 
 						                        userName:facebookAccount.Username,
-						                        password:"password",
 						                        callback: schedule => 
 						{ 
 							if (schedule != null) {

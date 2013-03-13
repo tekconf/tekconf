@@ -101,6 +101,9 @@
     <Reference Include="FlurryAnalytics">
       <HintPath>..\..\libs\FlurryAnalytics\FlurryAnalytics.dll</HintPath>
     </Reference>
+    <Reference Include="FlyoutNavigation">
+      <HintPath>..\..\Components\flyoutnavigation-1.1\lib\ios\FlyoutNavigation.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -164,10 +167,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\..\..\monotouch.slideoutnavigation\MonoTouch.SlideoutNavigation\MonoTouch.SlideoutNavigation.csproj">
-      <Project>{6D7B9B53-CFEF-46BE-A608-14A4A1381CF6}</Project>
-      <Name>MonoTouch.SlideoutNavigation</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\ServiceStack\src\ServiceStack.MonoTouch\ServiceStack.Common.MonoTouch\ServiceStack.Common.MonoTouch.csproj">
       <Project>{105AD659-A41C-4063-A57B-E3EB31026445}</Project>
       <Name>ServiceStack.Common.MonoTouch</Name>
@@ -239,5 +238,12 @@
     <Content Include="images\glyphicons_003_user.png" />
     <Content Include="images\glyphicons_003_user%402x.png" />
     <Content Include="images\DefaultUser.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <XamarinComponentReference Include="flyoutnavigation">
+      <InstallationInProgress>False</InstallationInProgress>
+      <Version>1.1</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
   </ItemGroup>
 </Project>
