@@ -3,28 +3,29 @@ using System.Collections.Generic;
 using ServiceStack.ServiceHost;
 using TekConf.RemoteData.Dtos.v1;
 
+#if (MONOTOUCH)
 namespace ServiceStack.ServiceHost
 {
 	public class Api : Attribute
 	{
-		public Api (string description)
-		{
-			
-		}
+public Api (string description)
+	{
+
 	}
+	}
+
 	public class ApiMember : Attribute
 	{
-		public ApiMember ()
-		{
-			
-		}
-		public string Name {get;set;}
-		public string Description {get;set;}
-		public string ParameterType {get;set;}
-		public string DataType {get;set;}
-		public bool IsRequired {get;set;}
+public string Name {get;set;}
+public string Description {get;set;}
+public string ParameterType {get;set;}
+public string DataType {get;set;}
+public bool IsRequired {get;set;}
 	}
+
 }
+#endif
+
 namespace TekConf.UI.Api.Services.Requests.v1
 {
 
@@ -43,7 +44,7 @@ namespace TekConf.UI.Api.Services.Requests.v1
 	{
 		[ApiMember(Name = "showPastConferences", Description = "Set to true to show conferences which occurred in the past.", ParameterType = "query", DataType = "boolean", IsRequired = false)]
 		public bool? showPastConferences { get; set; }
-		
+
 		[ApiMember(Name = "searchTerm", Description = "Search conference name, description, city, country, session title, session description, speaker name, or speaker twitter handle.", ParameterType = "query", DataType = "string", IsRequired = false)]
 		public string searchTerm { get; set; }
 
@@ -71,19 +72,19 @@ namespace TekConf.UI.Api.Services.Requests.v1
 	{
 		[ApiMember(Name = "search", Description = "Search conference name, description, city, country, session title, session description, speaker name, or speaker twitter handle.", ParameterType = "query", DataType = "string", IsRequired = false)]
 		public string search { get; set; }
-		
+
 		[ApiMember(Name = "sortBy", Description = "Search conference name, description, city, country, session title, session description, speaker name, or speaker twitter handle.", ParameterType = "query", DataType = "string", IsRequired = false)]
 		public string sortBy { get; set; }
-		
+
 		[ApiMember(Name = "showPastConferences", Description = "Sort results by start date, name, call for speakers opening date, call for speakers closing date, registration opens date, or date added.", ParameterType = "query", DataType = "boolean", IsRequired = false)]
 		public bool? showPastConferences { get; set; }
-		
+
 		[ApiMember(Name = "showOnlyWithOpenCalls", Description = "Set to true to show conferences which have an open call for speakers.", ParameterType = "query", DataType = "boolean", IsRequired = false)]
 		public bool? showOnlyWithOpenCalls { get; set; }
-		
+
 		[ApiMember(Name = "showOnlyOnSale", Description = "Set to true to show conferences which are currently on sale.", ParameterType = "query", DataType = "boolean", IsRequired = false)]
 		public bool? showOnlyOnSale { get; set; }
-		
+
 		[ApiMember(Name = "showOnlyFeatured", Description = "Set to true to show conferences which are featured.", ParameterType = "query", DataType = "boolean", IsRequired = false)]
 		public bool showOnlyFeatured { get; set; }
 
@@ -134,8 +135,8 @@ namespace TekConf.UI.Api.Services.Requests.v1
 		public string tagline { get; set; }
 		public string imageUrl { get; set; }
 		public bool isLive { get; set; }
-        public double latitude { get; set; }
-        public double longitude { get; set; }
+		public double latitude { get; set; }
+		public double longitude { get; set; }
 
 		public string facebookUrl { get; set; }
 		public string homepageUrl { get; set; }
