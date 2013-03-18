@@ -52,6 +52,7 @@
     <Compile Include="ConferenceEntity.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="GeoLocationEntity.cs" />
+    <Compile Include="HistoryEntity.cs" />
     <Compile Include="Messages\ConferenceCreatedMessage.cs" />
     <Compile Include="Messages\ScheduleCreatedMessage.cs" />
     <Compile Include="Messages\SessionAddedToScheduleMessage.cs" />

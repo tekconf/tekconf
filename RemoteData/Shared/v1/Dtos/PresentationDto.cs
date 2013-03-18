@@ -19,5 +19,6 @@ namespace TekConf.RemoteData.Dtos.v1
 		public string ImagePath { get; set; }
 		public List<string> DownloadPaths { get; set; }
 		public int ExpectedNumberOfMinutes { get; set; }
+		public List<HistoryDto> History { get; set; } 
 	}
 }

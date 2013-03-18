@@ -9,38 +9,8 @@ using TekConf.UI.Api.Services.Requests.v1;
 
 namespace TekConf.UI.Web.Controllers
 {
-    public interface IRemoteDataRepositoryAsync
-    {
-        Task<IList<ConferencesDto>> GetConferences(
-            string sortBy = null, 
-            bool? showPastConferences = false,
-            bool? showOnlyOpenCalls = false, 
-            bool? showOnlyOnSale = false,
-            string search = null,
-            string city = null, string state = null, string country = null,
-            double? latitude = null, double? longitude = null, double? distance = null);
-
-        Task<int> GetConferencesCount(bool? showPastConferences, string search);
-        Task<ScheduleDto> GetSchedule(string conferenceSlug, string userName);
-        Task<List<FullConferenceDto>> GetSchedules(string userName);
-        Task<FullConferenceDto> GetFullConference(string conferenceSlug, string userName);
-        Task<IList<ConferencesDto>> GetFeaturedConferences();
-        Task<IList<ConferencesDto>> GetConferencesWithOpenCalls();
-        Task<IList<FullSpeakerDto>> GetFeaturedSpeakers();
-        Task<IList<SessionsDto>> GetSessions(string conferenceSlug);
-        Task<SessionDto> GetSessionDetail(string conferenceSlug, string sessionSlug);
-        Task<FullSpeakerDto> GetSpeaker(string conferenceSlug, string speakerSlug);
-        Task<IList<SpeakersDto>> GetSessionSpeakers(string conferenceSlug, string sessionSlug);
-        Task<PresentationDto> CreatePresentation(CreatePresentation presentation);
-        Task<FullConferenceDto> CreateConference(CreateConference conference);
-        Task<ScheduleDto> AddSessionToSchedule(string conferenceSlug, string sessionSlug, string userName, string password);
-        Task<ScheduleDto> RemoveSessionFromSchedule(string conferenceSlug, string sessionSlug, string userName, string password);
-        Task<FullSpeakerDto> AddSpeakerToSession(CreateSpeaker speaker);
-        Task<FullSpeakerDto> EditSpeaker(CreateSpeaker speaker);
-    }
-
-    public class RemoteDataRepositoryAsync : IRemoteDataRepositoryAsync
-    {
+	public class RemoteDataRepositoryAsync : IRemoteDataRepositoryAsync
+	{
 		private readonly string _baseUrl;
 		private RemoteDataRepository _repository;
 
@@ -50,10 +20,22 @@ namespace TekConf.UI.Web.Controllers
 			_repository = new RemoteDataRepository(_baseUrl);
 		}
 
+		public Task<PresentationDto> GetPresentation(string slug, string userName)
+		{
+			return Task.Run(() =>
+			{
+				var t = new TaskCompletionSource<PresentationDto>();
+
+				_repository.GetPresentation(slug, userName,
+														callback: c => t.TrySetResult(c));
+
+				return t.Task;
+			});
+		}
 		public Task<IList<ConferencesDto>> GetConferences(
-														string sortBy = null, 
+														string sortBy = null,
 														bool? showPastConferences = false,
-														bool? showOnlyOpenCalls = false, 
+														bool? showOnlyOpenCalls = false,
 														bool? showOnlyOnSale = false,
 														string search = null,
 														string city = null, string state = null, string country = null,
@@ -65,15 +47,15 @@ namespace TekConf.UI.Web.Controllers
 
 				_repository.GetConferences(sortBy: sortBy,
 														showPastConferences: showPastConferences,
-														showOnlyOpenCalls:  showOnlyOpenCalls,
-														showOnlyOnSale : showOnlyOnSale,
+														showOnlyOpenCalls: showOnlyOpenCalls,
+														showOnlyOnSale: showOnlyOnSale,
 														search: search,
 														city: city,
-														state : state,
-														country : country,
-														latitude : latitude,
+														state: state,
+														country: country,
+														latitude: latitude,
 														longitude: longitude,
-														distance : distance,
+														distance: distance,
 														callback: c => t.TrySetResult(c));
 
 				return t.Task;
@@ -82,16 +64,16 @@ namespace TekConf.UI.Web.Controllers
 
 		public Task<int> GetConferencesCount(bool? showPastConferences, string search)
 		{
-				return Task.Run(() =>
-				{
-						var t = new TaskCompletionSource<int>();
+			return Task.Run(() =>
+			{
+				var t = new TaskCompletionSource<int>();
 
-						_repository.GetConferencesCount(showPastConferences: showPastConferences,
-																search: search,
-																callback: c => t.TrySetResult(c));
+				_repository.GetConferencesCount(showPastConferences: showPastConferences,
+														search: search,
+														callback: c => t.TrySetResult(c));
 
-						return t.Task;
-				});
+				return t.Task;
+			});
 		}
 
 		public Task<ScheduleDto> GetSchedule(string conferenceSlug, string userName)
@@ -227,6 +209,18 @@ namespace TekConf.UI.Web.Controllers
 			});
 		}
 
+		public Task<PresentationDto> CreatePresentationHistory(CreatePresentationHistory history)
+		{
+			return Task.Run(() =>
+			{
+				var t = new TaskCompletionSource<PresentationDto>();
+
+				_repository.CreatePresentationHistory(history, history.UserName, "password", c => t.TrySetResult(c));
+
+				return t.Task;
+			});
+		}
+
 		public Task<FullConferenceDto> CreateConference(CreateConference conference)
 		{
 			return Task.Run(() =>
@@ -244,7 +238,7 @@ namespace TekConf.UI.Web.Controllers
 			return Task.Run(() =>
 			{
 				var t = new TaskCompletionSource<ScheduleDto>();
-				
+
 				_repository.AddSessionToSchedule(conferenceSlug, sessionSlug, userName, s => t.TrySetResult(s));
 
 				return t.Task;

@@ -20,7 +20,7 @@ namespace TekConf.UI.Api.Services.v1
 
 		private readonly IRepository<ConferenceEntity> _conferenceRepository;
 		private readonly IRepository<PresentationEntity> _presentationRepository;
- 
+
 		public ICacheClient CacheClient { get; set; }
 		static HttpError ConferenceNotFound = HttpError.NotFound("Conference not found") as HttpError;
 		static HashSet<string> NonExistingConferences = new HashSet<string>();
@@ -35,6 +35,29 @@ namespace TekConf.UI.Api.Services.v1
 			_presentationRepository = presentationRepository;
 		}
 
+		public object Get(Presentation request)
+		{
+			if (request.slug == default(string) || request.speakerSlug == default(string))
+			{
+				throw new HttpError() { StatusCode = HttpStatusCode.BadRequest };
+			}
+
+			var cacheKey = "GetPresentation-" + request.speakerSlug + "-" + request.slug;
+			var expireInTimespan = new TimeSpan(0, 0, _configuration.cacheTimeout);
+			
+			return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
+				{
+					var presentation = _presentationRepository
+						.AsQueryable()
+						.Where(p => p.SpeakerSlug == request.speakerSlug)
+						.SingleOrDefault(p => p.slug.ToLower() == request.slug.ToLower());
+
+					var presentationDto = Mapper.Map<PresentationEntity, PresentationDto>(presentation);
+
+					return presentationDto;
+				});
+		}
+
 		public object Get(Speaker request)
 		{
 			if (request.conferenceSlug == default(string))
@@ -42,12 +65,6 @@ namespace TekConf.UI.Api.Services.v1
 				throw new HttpError() { StatusCode = HttpStatusCode.BadRequest };
 			}
 
-			return GetSingleSpeaker(request);
-
-		}
-
-		private object GetSingleSpeaker(Speaker request)
-		{
 			var cacheKey = "GetSingleSpeaker-" + request.conferenceSlug + "-" + request.speakerSlug;
 
 			lock (NonExistingConferences)
@@ -68,63 +85,65 @@ namespace TekConf.UI.Api.Services.v1
 
 			var expireInTimespan = new TimeSpan(0, 0, _configuration.cacheTimeout);
 			return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
+			{
+				var conference = _conferenceRepository
+						 .AsQueryable()
+					//.Where(c => c.isLive)
+						 .SingleOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
+
+				if (conference == null)
+				{
+					lock (NonExistingConferences)
 					{
-						var conference = _conferenceRepository
-								 .AsQueryable()
-							//.Where(c => c.isLive)
-								 .SingleOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
+						NonExistingConferences.Add(request.conferenceSlug);
+					}
+					throw ConferenceNotFound;
+				}
 
-						if (conference == null)
+				var speakersList = new List<SpeakerEntity>();
+
+				//TODO : Linq this
+				foreach (var session in conference.sessions)
+				{
+					if (session.speakers != null)
+					{
+						foreach (var speakerEntity in session.speakers)
 						{
-							lock (NonExistingConferences)
+							if (!speakersList.Any(s => s.slug.ToLower() == speakerEntity.slug.ToLower()))
 							{
-								NonExistingConferences.Add(request.conferenceSlug);
-							}
-							throw ConferenceNotFound;
-						}
-
-						var speakersList = new List<SpeakerEntity>();
-
-						//TODO : Linq this
-						foreach (var session in conference.sessions)
-						{
-							if (session.speakers != null)
-							{
-								foreach (var speakerEntity in session.speakers)
-								{
-									if (!speakersList.Any(s => s.slug.ToLower() == speakerEntity.slug.ToLower()))
-									{
-										speakersList.Add(speakerEntity);
-									}
-								}
+								speakersList.Add(speakerEntity);
 							}
 						}
-						var speakers = speakersList.ToList();
+					}
+				}
+				var speakers = speakersList.ToList();
 
-						var speaker = speakers.FirstOrDefault(s => s.slug.ToLower() == request.speakerSlug.ToLower());
+				var speaker = speakers.FirstOrDefault(s => s.slug.ToLower() == request.speakerSlug.ToLower());
 
-						if (speaker == null)
-						{
-							lock (NonExistingSpeakers)
-							{
-								NonExistingSpeakers.Add(request.conferenceSlug + "-" + request.speakerSlug);
-							}
-							throw SpeakerNotFound;
-						}
+				if (speaker == null)
+				{
+					lock (NonExistingSpeakers)
+					{
+						NonExistingSpeakers.Add(request.conferenceSlug + "-" + request.speakerSlug);
+					}
+					throw SpeakerNotFound;
+				}
 
-						var speakerDto = Mapper.Map<SpeakerEntity, FullSpeakerDto>(speaker);
-						var resolver = new ConferencesSpeakerResolver(request.conferenceSlug, speakerDto.slug);
-						speakerDto.url = resolver.ResolveUrl();
+				var speakerDto = Mapper.Map<SpeakerEntity, FullSpeakerDto>(speaker);
+				var resolver = new ConferencesSpeakerResolver(request.conferenceSlug, speakerDto.slug);
+				speakerDto.url = resolver.ResolveUrl();
 
-						return speakerDto;
-					});
-
+				return speakerDto;
+			});
 		}
+
+		
 
 		public object Post(CreatePresentation presentation)
 		{
 			var entity = Mapper.Map<CreatePresentation, PresentationEntity>(presentation);
-			
+			entity.UploadedOn = DateTime.Now;
+
 			_presentationRepository.Save(entity);
 
 			var dto = Mapper.Map<PresentationEntity, PresentationDto>(entity);
@@ -137,6 +156,36 @@ namespace TekConf.UI.Api.Services.v1
 			var x = presentation.Title;
 
 			return null;
+		}
+
+		//public object Post(CreatePresentationHistory history)
+		//{
+		//	var entity = Mapper.Map<CreatePresentation, PresentationEntity>(history);
+
+		//	_presentationRepository.Save(entity);
+
+		//	var dto = Mapper.Map<PresentationEntity, PresentationDto>(entity);
+
+		//	return dto;
+		//}
+
+		public object Put(CreatePresentationHistory history)
+		{
+			var presentation = _presentationRepository.AsQueryable()
+				.Where(x => x.slug == history.PresentationSlug)
+				.FirstOrDefault(x => x.SpeakerSlug == history.SpeakerSlug);
+
+			if (presentation != null)
+			{
+				var historyEntity = Mapper.Map<CreatePresentationHistory, HistoryEntity>(history);
+				presentation.History.Add(historyEntity);
+				_presentationRepository.Save(presentation);
+				var dto = Mapper.Map<PresentationEntity, PresentationDto>(presentation);
+				
+				return dto;
+			}
+
+			return new HttpResult(HttpStatusCode.NotFound);
 		}
 
 	}

@@ -18,6 +18,7 @@ namespace TekConf.UI.Api
 			var hub = container.Resolve<ITinyMessengerHub>();
 
 			var repository = new ConferenceRepository(new Configuration());
+			
 			BsonClassMap.RegisterClassMap<ConferenceEntity>()
 					.SetCreator(() => new ConferenceEntity(hub, repository));
 		}
@@ -66,7 +67,11 @@ namespace TekConf.UI.Api
 						.ForMember(p => p._id, opt => opt.UseValue(Guid.NewGuid()))
 						.ForMember(p => p.slug, opt => opt.ResolveUsing<PresentationSlugResolver>());
 
+			Mapper.CreateMap<CreatePresentationHistory, HistoryEntity>();
+			Mapper.CreateMap<HistoryEntity, HistoryDto>();
+
 			Mapper.CreateMap<PresentationEntity, PresentationDto>();
+
 
 			Mapper.CreateMap<User, UserEntity>()
 							.ForMember(u => u._id, opt => opt.UseValue(Guid.NewGuid()));
