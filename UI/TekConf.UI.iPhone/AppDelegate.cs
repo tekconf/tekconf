@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
-using MonoTouch.SlideoutNavigation;
 using MonoTouch.Dialog;
-using FA=FlurryAnalytics;
+//using FA=FlurryAnalytics;
 using MonoTouch.Accounts;
 using TekConf.RemoteData.v1;
+using FlyoutNavigation;
 
 namespace TekConf.UI.iPhone
 {
@@ -17,7 +17,7 @@ namespace TekConf.UI.iPhone
 		// class-level declarations
 		UIWindow window;
 
-		public SlideoutNavigationController Menu { get; private set; }
+		public FlyoutNavigationController Menu { get; private set; }
 
 		const string account = "UA-20184526-3";
 
@@ -29,8 +29,8 @@ namespace TekConf.UI.iPhone
 		//
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
-			FA.FlurryAnalytics.StartSession ("J57HPDDQQ8J8MVGKBKF7");
-			FA.FlurryAnalytics.SetSessionReportsOnPause (true);
+			//FA.FlurryAnalytics.StartSession ("J57HPDDQQ8J8MVGKBKF7");
+			//FA.FlurryAnalytics.SetSessionReportsOnPause (true);
 
 			var font = UIFont.FromName ("OpenSans-Light", 14f);
 			var headerFont = UIFont.FromName ("OpenSans", 16f);
@@ -56,13 +56,29 @@ namespace TekConf.UI.iPhone
 			UILabel.Appearance.Font = font;
 		
 			window = new UIWindow (UIScreen.MainScreen.Bounds);
-			Menu = new SlideoutNavigationController ();
+
+				Menu = new FlyoutNavigationController ()
+			{
+				NavigationRoot = new RootElement ("Navigation") {
+					new Section ("Pages") {
+						new StringElement ("Animals"),
+						new StringElement ("Vegetables"),
+						new StringElement ("Minerals"),
+					}
+				},
+				// Supply view controllers corresponding to menu items:
+				ViewControllers = new [] {
+					new ConferencesDialogViewController(),
+					new UIViewController { View = new UILabel { Text = "Vegetables (drag right)" } },
+					new UIViewController { View = new UILabel { Text = "Minerals (drag right)" } },
+				},
+			};
 			Console.WriteLine ("AD1");
-			Menu.TopView = new ConferencesDialogViewController ();
+
 			//Menu.TopView = new ConferencesListViewController();
 			Console.WriteLine ("AD2");
 			
-			Menu.MenuView = new SideListController ();
+
 			
 			window.RootViewController = Menu;
 			window.MakeKeyAndVisible ();
@@ -80,8 +96,8 @@ namespace TekConf.UI.iPhone
 		private ACAccountStore _accountStore;
 		private string AppId = "417883241605228";
 
-		//private string _baseUrl = "http://api.tekconf.com";
-		private string _baseUrl = "http://192.168.1.116/TekConf.UI.Api";
+		private string _baseUrl = "http://api.tekconf.com";
+		//private string _baseUrl = "http://192.168.1.116/TekConf.UI.Api";
 		private RemoteDataRepository _client;
 		private RemoteDataRepository Repository
 		{
@@ -113,7 +129,7 @@ namespace TekConf.UI.iPhone
 
 		protected void TrackAnalyticsEvent(string eventName)
 		{
-			FlurryAnalytics.FlurryAnalytics.LogEvent(eventName);		
+			//FlurryAnalytics.FlurryAnalytics.LogEvent(eventName);		
 		}
 
 		public override void ViewDidLoad ()
@@ -153,10 +169,7 @@ namespace TekConf.UI.iPhone
 						//TODO : Don't hardcode password
 						Repository.Register("Facebook", facebookAccount.Username, facebookAccount.Identifier, "password", facebookAccount.Username);
 
-						Repository.GetSchedules (authenticationMethod: "Facebook", 
-						                                 authenticationToken: facebookAccount.Username, 
-						                         		userName:facebookAccount.Username,
-					                         			password:"password",
+						Repository.GetSchedules (userName:facebookAccount.Username,
 						                                 callback: schedules => 
 						{ 	
 							InvokeOnMainThread (() => 
@@ -164,9 +177,9 @@ namespace TekConf.UI.iPhone
 								foreach (var schedule in schedules)
 								{
 									Root[0].Add(
-										new StyledStringElement(schedule.conferenceName, 
+										new StyledStringElement(schedule.name, 
 									                        () => { 
-																	NavigationItems.ConferenceSlug = schedule.conferenceSlug; 
+																	NavigationItems.ConferenceSlug = schedule.slug; 
 																	NavigationController.PushViewController(new ConferenceDetailTabBarController(), true); 
 																  }
 															) 

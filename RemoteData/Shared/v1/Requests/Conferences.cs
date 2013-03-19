@@ -3,6 +3,29 @@ using System.Collections.Generic;
 using ServiceStack.ServiceHost;
 using TekConf.RemoteData.Dtos.v1;
 
+#if (MONOTOUCH)
+namespace ServiceStack.ServiceHost
+{
+	public class Api : Attribute
+	{
+public Api (string description)
+	{
+
+	}
+	}
+
+	public class ApiMember : Attribute
+	{
+public string Name {get;set;}
+public string Description {get;set;}
+public string ParameterType {get;set;}
+public string DataType {get;set;}
+public bool IsRequired {get;set;}
+	}
+
+}
+#endif
+
 namespace TekConf.UI.Api.Services.Requests.v1
 {
 	[ServiceStack.ServiceHost.Api("Conferences Service Description")]

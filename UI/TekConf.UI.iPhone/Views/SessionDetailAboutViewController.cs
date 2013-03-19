@@ -100,8 +100,7 @@ namespace TekConf.UI.iPhone
 						});
 						
 						Repository.AddSessionToSchedule (conferenceSlug: NavigationItems.ConferenceSlug,
-						                                 sessionSlug : _sessionSlug,
-						                                 password: "password", 
+						                                 sessionSlug : _sessionSlug, 
 						                                 userName: facebookAccount.Username, 
 						                                 callback: schedule => 
 						                                 { 	

@@ -229,7 +229,7 @@
 										</p>
 										
 										<div style="position: absolute; bottom: 10px;">
-											<a href="~/Conferences/@conference.slug" class="btn btn-primary">View Conference</a>
+											<a href="~/Conferences/@conference.slug" class="btn btn-primary btn-block">View Conference</a>
 											@if (Request.IsAuthenticated)
 					 {
 						 using (Html.BeginForm("Add", "Schedule", FormMethod.Post, new { id = conference.slug + "-form" }))
@@ -237,7 +237,7 @@
 							 Html.AntiForgeryToken();
 							 var formName = conference.slug + "-form";
 												@Html.Hidden("conferenceSlug", conference.slug)
-												<a href="javascript:document.getElementById('@formName').submit()" class="btn">I'm Attending!</a>
+												<a href="javascript:document.getElementById('@formName').submit()" class="btn btn-block">I'm Attending!</a>
 						 }
 					 }
 										</div>

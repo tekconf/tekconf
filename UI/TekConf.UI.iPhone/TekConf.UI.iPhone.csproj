@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -93,13 +93,16 @@
     <MtouchArch>ARMv7</MtouchArch>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="monotouch" />
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
-    <Reference Include="monotouch" />
     <Reference Include="MonoTouch.Dialog-1" />
     <Reference Include="FlurryAnalytics">
       <HintPath>..\..\libs\FlurryAnalytics\FlurryAnalytics.dll</HintPath>
+    </Reference>
+    <Reference Include="FlyoutNavigation">
+      <HintPath>..\..\Components\flyoutnavigation-1.1\lib\ios\FlyoutNavigation.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -162,11 +165,11 @@
     <Compile Include="Elements\SessionElement.cs" />
     <Compile Include="Elements\SpeakerElement.cs" />
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\..\..\monotouch.slideoutnavigation\MonoTouch.SlideoutNavigation\MonoTouch.SlideoutNavigation.csproj">
-      <Project>{6D7B9B53-CFEF-46BE-A608-14A4A1381CF6}</Project>
-      <Name>MonoTouch.SlideoutNavigation</Name>
+    <ProjectReference Include="..\..\..\ServiceStack.Text\src\ServiceStack.Text.MonoTouch\ServiceStack.Text.MonoTouch\ServiceStack.Text.MonoTouch.csproj">
+      <Project>{1137b5ac-2259-413c-a473-93721d2a7551}</Project>
+      <Name>ServiceStack.Text.MonoTouch</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\ServiceStack\src\ServiceStack.MonoTouch\ServiceStack.Common.MonoTouch\ServiceStack.Common.MonoTouch.csproj">
       <Project>{105AD659-A41C-4063-A57B-E3EB31026445}</Project>
@@ -176,20 +179,12 @@
       <Project>{4E0544B6-8D34-45D2-AB27-605F51BF4C55}</Project>
       <Name>ServiceStack.Interfaces.MonoTouch</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\ServiceStack.Text\src\ServiceStack.Text.MonoTouch\ServiceStack.Text.MonoTouch\ServiceStack.Text.MonoTouch.csproj">
-      <Project>{1137B5AC-2259-413C-A473-93721D2A7551}</Project>
-      <Name>ServiceStack.Text.MonoTouch</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\RemoteData\iOS\TekConf.RemoteData.iOS.csproj">
-      <Project>{CF44A2C3-42DF-4970-9618-E6AE3AF31603}</Project>
+      <Project>{cf44a2c3-42df-4970-9618-e6ae3af31603}</Project>
       <Name>TekConf.RemoteData.iOS</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\" />
-    <Folder Include="Classes\" />
-    <Folder Include="Elements\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <InterfaceDefinition Include="Views\ConferenceDetailAboutViewController.xib" />
     <InterfaceDefinition Include="Views\SpeakerDetailAboutViewController.xib" />
@@ -239,5 +234,12 @@
     <Content Include="images\glyphicons_003_user.png" />
     <Content Include="images\glyphicons_003_user%402x.png" />
     <Content Include="images\DefaultUser.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <XamarinComponentReference Include="flyoutnavigation">
+      <InstallationInProgress>False</InstallationInProgress>
+      <Version>1.1</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
   </ItemGroup>
 </Project>

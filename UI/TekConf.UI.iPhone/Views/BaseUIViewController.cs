@@ -45,7 +45,7 @@ namespace TekConf.UI.iPhone
 
 		protected void TrackAnalyticsEvent(string eventName)
 		{
-			FlurryAnalytics.FlurryAnalytics.LogEvent(eventName);
+			//FlurryAnalytics.FlurryAnalytics.LogEvent(eventName);
 
 		}
 
@@ -54,8 +54,8 @@ namespace TekConf.UI.iPhone
 			return Reachability.IsHostReachable("api.tekconf.com");
 		}
 
-		//private string _baseUrl = "http://api.tekconf.com";
-		private string _baseUrl = "http://192.168.1.116/TekConf.UI.Api";
+		private string _baseUrl = "http://api.tekconf.com";
+		//private string _baseUrl = "http://192.168.1.116/TekConf.UI.Api";
 		private RemoteDataRepository _client;
 		protected RemoteDataRepository Repository
 		{
