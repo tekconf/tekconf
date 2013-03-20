@@ -6,6 +6,9 @@ namespace TekConf.RemoteData.v1
     {
         public static string GenerateSlug(this string phrase)
         {
+            if (string.IsNullOrWhiteSpace(phrase))
+                return string.Empty;
+
             string slug = phrase.RemoveAccent().ToLower();
             // invalid chars           
             slug = Regex.Replace(slug, @"[^a-z0-9\s-]", "");

@@ -7,12 +7,19 @@ namespace TekConf.UI.Api
 {
 	public class PresentationEntity
 	{
+		public PresentationEntity()
+		{
+			this.Tags = new List<string>();
+			this.Subjects = new List<string>();
+			this.DownloadPaths = new List<string>();
+			this.History = new List<HistoryEntity>();
+		}
+
 		[BsonId(IdGenerator = typeof(CombGuidGenerator))]
 		public Guid _id { get; set; }
 		public string slug { get; set; }
 		public DateTime UploadedOn { get; set; }
 		public int NumberOfViews { get; set; }
-		public List<string> GivenAtConferences { get; set; }
 		public List<string> Tags { get; set; }
 		public List<string> Subjects { get; set; }
 		public string Description { get; set; }
@@ -22,5 +29,8 @@ namespace TekConf.UI.Api
 		public string ImagePath { get; set; }
 		public List<string> DownloadPaths { get; set; }
 		public int ExpectedNumberOfMinutes { get; set; }
+		public string SpeakerSlug { get; set; }
+		public List<HistoryEntity> History { get; set; } 
+
 	}
 }

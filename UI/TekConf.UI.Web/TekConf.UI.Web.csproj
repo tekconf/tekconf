@@ -15,7 +15,7 @@
     <AssemblyName>TekConf.UI.Web</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -261,6 +261,7 @@
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\FileSystemImageSaver.cs" />
     <Compile Include="Controllers\ImageSaverConfiguration.cs" />
+    <Compile Include="Controllers\IRemoteDataRepositoryAsync.cs" />
     <Compile Include="Controllers\OrganizersController.cs" />
     <Compile Include="Controllers\PresentationsController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
@@ -274,6 +275,7 @@
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="HtmlHelpers.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="ViewModels\AddPresentationHistoryViewModel.cs" />
     <Compile Include="ViewModels\AddPresentationViewModel.cs" />
     <Compile Include="ViewModels\GravatarImage.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
@@ -1136,7 +1138,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>2118</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/TekConf.UI.Web</IISUrl>
+          <IISUrl>http://localhost:2118/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

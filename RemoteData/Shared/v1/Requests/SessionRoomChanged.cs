@@ -50,7 +50,7 @@ namespace TekConf.RemoteData.Shared.v1.Requests
 	}
 
 
-	[Route("/v1/events/cessionRemoved", "GET")]
+	[Route("/v1/events/sessionRemoved", "GET")]
 	public class SessionRemoved : IReturn<List<SessionRemovedMessage>>
 	{
 	}

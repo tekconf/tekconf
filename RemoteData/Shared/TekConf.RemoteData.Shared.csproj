@@ -73,6 +73,7 @@
     <Compile Include="v1\Dtos\FullSpeakerDto.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="v1\Dtos\HistoryDto.cs" />
     <Compile Include="v1\Dtos\PresentationDto.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -115,9 +116,12 @@
     <Compile Include="v1\Requests\Conferences.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="v1\Requests\CreatePresentation.cs" />
+    <Compile Include="v1\Requests\CreatePresentationHistory.cs" />
     <Compile Include="v1\Requests\FeaturedSpeakers.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="v1\Requests\Presentation.cs" />
     <Compile Include="v1\Requests\Schedule.cs">
       <SubType>Code</SubType>
     </Compile>

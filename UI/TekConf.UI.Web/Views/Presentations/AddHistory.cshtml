@@ -50,6 +50,8 @@
 					<div class="row">
 						<div class="span4">
 							<div class="control-group">
+								@Html.HiddenFor(c => c.SpeakerSlug)
+								@Html.HiddenFor(c => c.PresentationSlug)
 								@Html.LabelFor(m => m.ConferenceName, new { @class = "control-label" })
 								<div class="controls">
 									@Html.TextBoxFor(m => m.ConferenceName, new { placeholder = "Conference Name" })
