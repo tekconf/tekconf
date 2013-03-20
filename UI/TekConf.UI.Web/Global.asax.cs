@@ -4,20 +4,25 @@ using System.Web.Routing;
 
 namespace TekConf.UI.Web
 {
-    public class MvcApplication : System.Web.HttpApplication
-    {
-        protected void Application_Start()
-        {
-            //AreaRegistration.RegisterAllAreas();
-            RouteTable.Routes.MapHubs();
-            //WebApiConfig.Register(GlobalConfiguration.Configuration);
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
-            AuthConfig.RegisterAuth();
+	public class MvcApplication : System.Web.HttpApplication
+	{
+		protected void Application_Start()
+		{
+			ViewEngines.Engines.Clear();
+			ViewEngines.Engines.Add(new RazorViewEngine());
 
-            var bootstrapper = new Bootstrapper();
-            bootstrapper.BootstrapAutomapper();
-        }
-    }
+			//AreaRegistration.RegisterAllAreas();
+			RouteTable.Routes.MapHubs();
+			//WebApiConfig.Register(GlobalConfiguration.Configuration);
+			FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+			RouteConfig.RegisterRoutes(RouteTable.Routes);
+			BundleConfig.RegisterBundles(BundleTable.Bundles);
+			AuthConfig.RegisterAuth();
+
+
+
+			var bootstrapper = new Bootstrapper();
+			bootstrapper.BootstrapAutomapper();
+		}
+	}
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Glimpse.MiniProfiler</id>
+    <version>1.2.2</version>
+    <title>MiniProfiler Plugin for Glimpse</title>
+    <authors>Marc Climent</authors>
+    <owners>Marc Climent</owners>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+    <projectUrl>https://github.com/mcliment/miniprofiler-glimpse-plugin</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>This package contains a plugin for Glimpse to show detailed MiniProfiler information in a tab.</description>
+    <releaseNotes>Glimpse Updated to v1.0.1 and MiniProfiler to v2.1.0</releaseNotes>
+    <copyright />
+    <language>en-US</language>
+    <tags>miniprofiler profiler glimpse</tags>
+    <dependencies>
+      <dependency id="Glimpse" version="1.0.1" />
+      <dependency id="MiniProfiler" version="2.1.0" />
+    </dependencies>
+    <references>
+      <reference file="Glimpse.MiniProfiler.dll" />
+    </references>
+  </metadata>
+</package>
