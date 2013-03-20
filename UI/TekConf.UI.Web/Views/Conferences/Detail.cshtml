@@ -60,6 +60,15 @@
             <div class="row">
                 
                 <div class="span8">
+		            @if (Model.sessions == null || !Model.sessions.Any())
+		            {
+								
+								<div class="alert alert-block">
+									No sessions to display. Either sessions have not been released, or sessions have not been added to TekConf.
+								</div>
+
+		            }
+
                     @{
 											var sessionGroup = Model.sessions
 													.GroupBy(s => new { s.start.Year, s.start.Month, s.start.Day })
