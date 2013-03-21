@@ -1,5 +1,6 @@
 @using System.Web.Optimization
 @using TekConf.RemoteData.Dtos.v1
+@using TekConf.UI.Web.Controllers
 @model TekConf.UI.Web.Controllers.HomePageViewModel
 <!DOCTYPE html>
 <html lang="en">
@@ -23,194 +24,194 @@
 
 </head>
 
-<body>
-	@Html.Partial("Header")
+	<body>
+		@Html.Partial("Header")
 
-	<div id="landing">
-		<div class="inner">
-			<div class="container">
-				<div class="row">
-					<div class="span5 landing-text">
-						<h1>Meet, connect, learn.</h1>
-						<br />
-						<h2>
-							<span class="badge badge-warning" style="font-size: larger">@Model.TotalCount</span> Upcoming Conferences
-						</h2>
-						<h2>Find a conference near you</h2>
-						@if (!Request.IsAuthenticated)
-			{
-							<p class="landing-actions">
-								@Html.ActionLink("Sign Up", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", data_dialog_title = "Identification", @class = "btn btn-large btn-block btn-inverse" })
-							</p>
-			}
+		<div id="landing">
+			<div class="inner">
+				<div class="container">
+					<div class="row">
+						<div class="span5 landing-text">
+							<h1>Meet, connect, learn.</h1>
+							<br />
+							<h2>
+								<span class="badge badge-warning" style="font-size: larger">@Model.TotalCount</span> Upcoming Conferences
+							</h2>
+							<h2>Find a conference near you</h2>
+							@if (!Request.IsAuthenticated)
+							{
+								<p class="landing-actions">
+									@Html.ActionLink("Sign Up", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", data_dialog_title = "Identification", @class = "btn btn-large btn-block btn-inverse" })
+								</p>
+							}
+						</div>
+						<!-- /landing-text -->
+						<div class="span7 landing-screenshot">
+							<img src="~/img/iPad1.png" class="screengrab" alt="Screenshot" />
+						</div>
 					</div>
-					<!-- /landing-text -->
-					<div class="span7 landing-screenshot">
-						<img src="~/img/iPad1.png" class="screengrab" alt="Screenshot" />
-					</div>
+					<!-- .row -->
 				</div>
-				<!-- .row -->
+				<!-- /container -->
 			</div>
-			<!-- /container -->
+			<!-- /inner -->
 		</div>
-		<!-- /inner -->
-	</div>
-	<!-- /landing -->
+		<!-- /landing -->
 
-	<div id="content">
-		<div class="inner">
-			<div class="container">
-				<div class="row">
-					@{
+		<div id="content">
+			<div class="inner">
+				<div class="container">
+					<div class="row">
+						@{
 
-						var spanClass = "span8";
-						if (Model.FeaturedSpeakers == null || Model.FeaturedSpeakers.Count == 0)
-						{
-							spanClass = "span12";
+							var spanClass = "span8";
+							if (Model.FeaturedSpeakers == null || Model.FeaturedSpeakers.Count == 0)
+							{
+								spanClass = "span12";
+							}
 						}
-					}
-					<div class="@spanClass">
-						<h3><span class="slash">//</span> Upcoming Conferences</h3>
-						<ul class="features-list">
-							@foreach (var featuredConference in Model.FeaturedConferences ?? new List<ConferencesDto>())
-			 {
-								<li class="feature">
-									<div class="feature-thumbnail">
-										<div class="circle-icon">
-											<div>
-												<i class="icon-list-alt"></i>
+						<div class="@spanClass">
+							<h3><span class="slash">//</span> Upcoming Conferences</h3>
+							<ul class="features-list">
+								@foreach (var featuredConference in Model.FeaturedConferences ?? new List<ConferencesDto>())
+								{
+									<li class="feature">
+										<div class="feature-thumbnail">
+											<div class="circle-icon">
+												<div>
+													<i class="icon-list-alt"></i>
+												</div>
 											</div>
+											<!-- /circle-icon -->
 										</div>
-										<!-- /circle-icon -->
-									</div>
 
-									<div class="feature-content">
-										<h3>@Html.ActionLink(featuredConference.name, "Detail", "Conferences", new { conferenceSlug = featuredConference.slug }, null)</h3>
-										<h3>@featuredConference.start.ToString("MMMM dd, yyyy")</h3>
-										<p>@featuredConference.description</p>
-									</div>
-								</li>
-			 }
-
-
-						</ul>
-						<!-- /features-list -->
-
-						<!-- /features-list -->
-					</div>
-					<!-- /span8 -->
-
-					@if (Model.FeaturedSpeakers != null && Model.FeaturedSpeakers.Count > 0)
-		 {
-						<div class="span4">
-							<h3><span class="slash">//</span> Featured Speakers</h3>
-							<ul class="testimonials-list">
-								@foreach (var featuredSpeaker in Model.FeaturedSpeakers ?? new List<FullSpeakerDto>())
-				{
-									<li>
-										<div class="testimonial-avatar">
-											<div class="img">
-												<img src="~/img/avatar.png" alt="Thumbnail" />
-											</div>
+										<div class="feature-content">
+											<h3>@Html.ActionLink(featuredConference.name, "Detail", "Conferences", new { conferenceSlug = featuredConference.slug }, null)</h3>
+											<h3>@featuredConference.start.ToString("MMMM dd, yyyy")</h3>
+											<p>@featuredConference.description</p>
 										</div>
-										<!-- /testimonial-avatar -->
-
-										<div class="testimonial-text">
-											<p>
-												<span class="testimonial-author">@featuredSpeaker.fullName</span>
-												@featuredSpeaker.description
-											</p>
-										</div>
-										<!-- /testimonial-text -->
 									</li>
-				}
+								}
+
 
 							</ul>
+							<!-- /features-list -->
+
+							<!-- /features-list -->
 						</div>
-		 }
-					<!-- /span4 -->
+						<!-- /span8 -->
+
+						@if (Model.FeaturedSpeakers != null && Model.FeaturedSpeakers.Count > 0)
+						{
+							<div class="span4">
+								<h3><span class="slash">//</span> Featured Speakers</h3>
+								<ul class="testimonials-list">
+									@foreach (var featuredSpeaker in Model.FeaturedSpeakers ?? new List<FullSpeakerDto>())
+									{
+										<li>
+											<div class="testimonial-avatar">
+												<div class="img">
+													<img src="~/img/avatar.png" alt="Thumbnail" />
+												</div>
+											</div>
+											<!-- /testimonial-avatar -->
+
+											<div class="testimonial-text">
+												<p>
+													<span class="testimonial-author">@featuredSpeaker.fullName</span>
+													@featuredSpeaker.description
+												</p>
+											</div>
+											<!-- /testimonial-text -->
+										</li>
+									}
+
+								</ul>
+							</div>
+						}
+						<!-- /span4 -->
+					</div>
+					<!-- /row -->
 				</div>
-				<!-- /row -->
+				<!-- /container -->
 			</div>
-			<!-- /container -->
+			<!-- /inner -->
+
 		</div>
-		<!-- /inner -->
+		<!-- /content -->
 
-	</div>
-	<!-- /content -->
-
-	<div id="screenshots">
-		<div class="inner">
-			<div class="container">
-				<div class="row">
-					<div class="span4">
-						<h3>iOS</h3>
-						<a href="~/Apps" class="screenshot">
-							<img src="~/img/iOS-coming-soon.jpg" alt="iOS Screenshot" class="thumbnail" />
-							@*<span class="screenshot-zoom"></span>*@
-						</a>
+		<div id="screenshots">
+			<div class="inner">
+				<div class="container">
+					<div class="row">
+						<div class="span4">
+							<h3>iOS</h3>
+							<a href="~/Apps" class="screenshot">
+								<img src="~/img/iOS-coming-soon.jpg" alt="iOS Screenshot" class="thumbnail" />
+								@*<span class="screenshot-zoom"></span>*@
+							</a>
+						</div>
+						<!-- /span4 -->
+						<div class="span4">
+							<h3>Android</h3>
+							<a href="~/Apps" class="screenshot">
+								<img src="~/img/android-coming-soon.png" alt="Android Screenshot" class="thumbnail" />
+								@* <span class="screenshot-zoom"></span>*@
+							</a>
+						</div>
+						<!-- /span4 -->
+						<div class="span4">
+							<h3>Windows 8</h3>
+							<a href="~/Apps" class="screenshot">
+								<img src="~/img/Windows8-coming-soon.png" alt="Windows 8 Screenshot" class="thumbnail" />
+								@*<span class="screenshot-zoom"></span>*@
+							</a>
+						</div>
+						<!-- /span4 -->
 					</div>
-					<!-- /span4 -->
-					<div class="span4">
-						<h3>Android</h3>
-						<a href="~/Apps" class="screenshot">
-							<img src="~/img/android-coming-soon.png" alt="Android Screenshot" class="thumbnail" />
-							@* <span class="screenshot-zoom"></span>*@
-						</a>
-					</div>
-					<!-- /span4 -->
-					<div class="span4">
-						<h3>Windows 8</h3>
-						<a href="~/Apps" class="screenshot">
-							<img src="~/img/Windows8-coming-soon.png" alt="Windows 8 Screenshot" class="thumbnail" />
-							@*<span class="screenshot-zoom"></span>*@
-						</a>
-					</div>
-					<!-- /span4 -->
+					<!-- /row -->
 				</div>
-				<!-- /row -->
+				<!-- /container -->
 			</div>
-			<!-- /container -->
+			<!-- /inner -->
 		</div>
-		<!-- /inner -->
-	</div>
-	<!-- /screenshots -->
+		<!-- /screenshots -->
 
-	<div id="TileOverlay" onclick="ToggleTileOverlay()"
-		style='background-color: white; height: 100%; width: 100%; top: 0px; left: 0px; position: fixed; color: black; visibility: hidden'>
-		<img src="~/img/LiveTile.png" width="320" height="320" />
-		<div style='margin-top: 40px'>
-			Pin to Start Menu
+		<div id="TileOverlay" onclick="ToggleTileOverlay()"
+		     style='background-color: white; height: 100%; width: 100%; top: 0px; left: 0px; position: fixed; color: black; visibility: hidden'>
+			<img src="~/img/LiveTile.png" width="320" height="320" />
+			<div style='margin-top: 40px'>
+				Pin to Start Menu
+			</div>
 		</div>
-	</div>
 	
-	<script>
-		var ua = navigator.userAgent.toLowerCase();
-		if (ua.indexOf("windows phone") != -1) {
-			document.write('<a href="javascript:ToggleTileOverlay()">Pin this site to your start screen</a>');
-		}
-	</script>
+		<script>
+			var ua = navigator.userAgent.toLowerCase();
+			if (ua.indexOf("windows phone") != -1) {
+				document.write('<a href="javascript:ToggleTileOverlay()">Pin this site to your start screen</a>');
+			}
+		</script>
 
 
-	@Html.Partial("Extra")
+		@Html.Partial("Extra")
 
-	@Html.Partial("Footer")
+		@Html.Partial("Footer")
 
-	@Scripts.Render("~/bundles/jquery")
-	@Scripts.Render("~/bundles/jqueryMigrate")
-	@Scripts.Render("~/js/common")
-	@Scripts.Render("~/js/commonLightbox")
+		@Scripts.Render("~/bundles/jquery")
+		@Scripts.Render("~/bundles/jqueryMigrate")
+		@Scripts.Render("~/js/common")
+		@Scripts.Render("~/js/commonLightbox")
 
-	<script>
-		$(function () {
+		<script>
+			$(function () {
 
-		});
+			});
 
-		function ToggleTileOverlay() {
-			var newVisibility = (document.getElementById('TileOverlay').style.visibility == 'visible') ? 'hidden' : 'visible';
-			document.getElementById('TileOverlay').style.visibility = newVisibility;
-		}
+			function ToggleTileOverlay() {
+				var newVisibility = (document.getElementById('TileOverlay').style.visibility == 'visible') ? 'hidden' : 'visible';
+				document.getElementById('TileOverlay').style.visibility = newVisibility;
+			}
 
-	</script>
-</body>
+		</script>
+	</body>
 </html>

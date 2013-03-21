@@ -20,6 +20,18 @@ namespace TekConf.UI.Web.Controllers
 			_repository = new RemoteDataRepository(_baseUrl);
 		}
 
+		public Task<List<PresentationDto>>  GetPresentations(string userName)
+		{
+			return Task.Run(() =>
+			{
+				var t = new TaskCompletionSource<List<PresentationDto>>();
+
+				_repository.GetPresentations(userName, callback: c => t.TrySetResult(c));
+
+				return t.Task;
+			});
+		}
+
 		public Task<PresentationDto> GetPresentation(string slug, string userName)
 		{
 			return Task.Run(() =>
@@ -280,6 +292,7 @@ namespace TekConf.UI.Web.Controllers
 				return t.Task;
 			});
 		}
+
 
 
 	}

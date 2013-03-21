@@ -1,85 +1,89 @@
 ﻿@using TekConf.RemoteData.Dtos.v1
 @helper SimpleLink(string url, string text)
 {
-    @: <a href="@url" target="_blank">@text</a>
+	@: <a href="@url" target="_blank">@text</a>
 }
 
 
 @helper PhoneLink(string phoneNumber)
 {
-    @: <a href="tel:@phoneNumber">@phoneNumber</a>
+	@: <a href="tel:@phoneNumber">@phoneNumber</a>
 }
 
 @helper TwitterUserLink(string twitterName)
 {
     
-    if (!string.IsNullOrWhiteSpace(twitterName))
-    {
-        string twitterUrlName = twitterName;
-        if (twitterName.StartsWith("@"))
-        {
-            twitterUrlName = twitterName.Remove(0, 1);
-        }
+	if (!string.IsNullOrWhiteSpace(twitterName))
+	{
+		string twitterUrlName = twitterName;
+		if (twitterName.StartsWith("@"))
+		{
+			twitterUrlName = twitterName.Remove(0, 1);
+		}
 
-        var url = "http://twitter.com/" + twitterUrlName;
-    @: @SimpleLink(url, twitterName)
+		var url = "http://twitter.com/" + twitterUrlName;
+	@: @SimpleLink(url, twitterName)
     }
 }
 
 @helper FormatAddress(AddressDto address)
 {
-    if (!string.IsNullOrWhiteSpace(address.City) && !string.IsNullOrWhiteSpace(address.State))
-    {
-        @: @address.City, @address.State
+	if (address == null)
+	{
+	@: No location set
+	}
+	else if (!string.IsNullOrWhiteSpace(address.City) && !string.IsNullOrWhiteSpace(address.State))
+	{
+	@: @address.City, @address.State
     }
-    else if (!string.IsNullOrWhiteSpace(address.City) && !string.IsNullOrWhiteSpace(address.Country))
-    {
-        @: @address.City, @address.Country
+	else if (!string.IsNullOrWhiteSpace(address.City) && !string.IsNullOrWhiteSpace(address.Country))
+	{
+	@: @address.City, @address.Country
     }
-    else if (!string.IsNullOrWhiteSpace(address.City))
-    {
-        @: @address.City
+	else if (!string.IsNullOrWhiteSpace(address.City))
+	{
+	@: @address.City
     }
-    else
-    {
-        @: No location set
+	else
+	{
+	@: No location set
     }
 }
 
 @helper FormatDateRange(DateTime startDate, DateTime endDate)
 {
-    if (startDate == default(DateTime) || endDate == default(DateTime))
-    {
-    @: No Date Set
+	if (startDate == default(DateTime) || endDate == default(DateTime))
+	{
+	@: No Date Set
     }
-    else if (startDate.Month == endDate.Month && startDate.Year == endDate.Year)
-    {
-        // They begin and end in the same month
-        if (startDate.Date == endDate.Date)
-        {
-    @: @startDate.ToString("MMMM")<text> </text>@startDate.Day<text>, </text>@startDate.Year
+	else if (startDate.Month == endDate.Month && startDate.Year == endDate.Year)
+	{
+		// They begin and end in the same month
+		if (startDate.Date == endDate.Date)
+		{
+	@: @startDate.ToString("MMMM")<text> </text>@startDate.Day<text>, </text>@startDate.Year
         }
-        else
-        {
-    @: @startDate.ToString("MMMM")<text> </text>@startDate.Day<text> - </text>@endDate.Day<text>, </text>@startDate.Year
+		else
+		{
+	@: @startDate.ToString("MMMM")<text> </text>@startDate.Day<text> - </text>@endDate.Day<text>, </text>@startDate.Year
         }
-    }
-    else
-    {
-        // They begin and end in different months
-	    if (startDate.Year == endDate.Year)
-	    {
-		    @: @startDate.ToString("MMMM") @startDate.Day<text> - </text>@endDate.ToString("MMMM") @endDate.Day<text>, </text>@startDate.Year
+	}
+	else
+	{
+		// They begin and end in different months
+		if (startDate.Year == endDate.Year)
+		{
+	@: @startDate.ToString("MMMM") @startDate.Day<text> - </text>@endDate.ToString("MMMM") @endDate.Day<text>, </text>@startDate.Year
 	    }
-	    else
-	    {
-		    @: @startDate.ToString("MMMM") @startDate.Day, @startDate.Year<text> - </text>@endDate.ToString("MMMM") @endDate.Day<text>, </text>@endDate.Year
+		else
+		{
+	@: @startDate.ToString("MMMM") @startDate.Day, @startDate.Year<text> - </text>@endDate.ToString("MMMM") @endDate.Day<text>, </text>@endDate.Year
 	    }
 
-    }
+	}
 }
 
 @helper FormatSessionTime(DateTime startDate, DateTime endDate)
 {    
-    @: @startDate.ToString("MMMM")<text> </text>@startDate.Day @startDate.ToShortTimeString()<text> - </text>@endDate.ToShortTimeString()
+	@: @startDate.ToString("MMMM")<text> </text>@startDate.Day @startDate.ToShortTimeString()<text> - </text>@endDate.ToShortTimeString()
 }

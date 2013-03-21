@@ -51,7 +51,7 @@
 				</div>
 				<div class="span6">
 					<div class="big-intro">
-<iframe width="422" height="316" src="http://www.youtube.com/embed/P2AH2JBUUIk" frameborder="0" allowfullscreen></iframe>
+						<iframe width="422" height="316" src="http://www.youtube.com/embed/P2AH2JBUUIk" frameborder="0" allowfullscreen></iframe>
 					</div>
 				</div>
 				<!-- /span12 -->
@@ -67,18 +67,6 @@
 					<br />
 
 					@Model.Comments
-					<br />
-
-					@Model.Subjects
-					<br />
-					@Model.Tags
-					<br />
-
-					@Model.DownloadPaths
-					<br />
-					@Model.History
-					<br />
-
 				</div>
 				<!-- /span6 -->
 
@@ -86,15 +74,59 @@
 					<div class="sidebar">
 						<h4><span class="slash">//</span> More Information</h4>
 						<p>
-							Level/Difficulty : @Model.Level
+							<b>Level/Difficulty :</b> @Model.Level
 							<br />
-							Expected Length : @Model.ExpectedNumberOfMinutes
+							<b>Expected Length :</b> @Model.ExpectedNumberOfMinutes
 							<br />
-							Uploaded : @Model.UploadedOn
+							<b>Uploaded :</b> @Model.UploadedOn
 							<br />
-							Number of Views : @Model.NumberOfViews
+							<b>Number of Views :</b> @Model.NumberOfViews
 							<br />
 						</p>
+						
+						@if (Model.Subjects != null && Model.Subjects.Any())
+						{
+							<b>Subjects</b>
+							<p>
+								@foreach (var subject in Model.Subjects)
+								{
+									@subject
+								}
+							</p>
+						}
+						
+						@if (Model.Tags != null && Model.Tags.Any())
+						{
+							<b>Tags</b>
+							<p>
+								@foreach (var tag in Model.Tags)
+								{
+									@tag
+								}
+							</p>
+						}
+						
+						@if (Model.DownloadPaths != null && Model.DownloadPaths.Any())
+						{
+							<b>Download Paths</b>
+							<p>
+								@foreach (var downloadPath in Model.DownloadPaths)
+								{
+									@downloadPath
+								}
+							</p>
+						}
+						
+						@if (Model.History != null && Model.History.Any())
+						{
+							<b>History</b>
+							<p>
+								@foreach (var history in Model.History)
+								{
+									@history.ConferenceName
+								}
+							</p>
+						}
 
 						<br />
 					</div>

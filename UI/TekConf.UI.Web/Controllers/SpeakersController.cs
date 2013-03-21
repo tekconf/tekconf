@@ -28,16 +28,36 @@ namespace TekConf.UI.Web.Controllers
 		{
 			//var openCallsConferencesTask = _repository.GetConferencesWithOpenCalls();
 			var openCallsConferencesTask = _repository.GetConferences(showOnlyOpenCalls: true);
+			List<PresentationDto> presentations;
+			List<FullConferenceDto> myConferences;
 
-			await Task.WhenAll(openCallsConferencesTask);
+			if (Request.IsAuthenticated)
+			{
+				var userName = User.Identity.Name;
+				var presentationsTask = _repository.GetPresentations(userName);
+				var conferencesTask = _repository.GetSchedules(userName);
+
+				await Task.WhenAll(openCallsConferencesTask, presentationsTask, conferencesTask);
+
+				presentations = presentationsTask.Result;
+				myConferences = conferencesTask.Result;
+			}
+			else
+			{
+				await Task.WhenAll(openCallsConferencesTask);
+
+				presentations = new List<PresentationDto>();
+				myConferences = new List<FullConferenceDto>();
+			}
+			
 
 			var openCallConferences = openCallsConferencesTask.Result == null ? new List<ConferencesDto>() : openCallsConferencesTask.Result.ToList();
 		
 			var vm = new SpeakersViewModel()
 			{
 				OpenConferences = openCallConferences.OrderBy(x => x.callForSpeakersCloses).ToList(),
-				Presentations = new List<PresentationDto>(),
-				MyConferences = new List<ConferencesDto>(),
+				Presentations = presentations,
+				MyConferences = myConferences,
 			};
 
 			return View(vm);

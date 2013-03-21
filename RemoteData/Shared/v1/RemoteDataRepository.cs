@@ -66,6 +66,20 @@ namespace TekConf.RemoteData.v1
 			});
 		}
 
+		public void GetPresentations(string userName, Action<List<PresentationDto>> callback)
+		{
+			var presentation = new Presentations()
+			{
+				speakerSlug = userName
+			};
+
+			ServiceClient.GetAsync(presentation, callback, (r, ex) =>
+			{
+				var x = ex;
+				callback(null);
+			});
+		}
+
 		public void GetPresentation(string slug, string userName, Action<PresentationDto> callback)
 		{
 			var presentation = new Presentation()
@@ -300,6 +314,7 @@ namespace TekConf.RemoteData.v1
 																callback(null);
 															});
 		}
+
 
 	}
 }

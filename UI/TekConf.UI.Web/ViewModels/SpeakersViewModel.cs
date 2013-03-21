@@ -13,6 +13,6 @@ namespace TekConf.UI.Web.ViewModels
 		public List<ConferencesDto> OpenConferences { get; set; }
 		public List<PresentationDto> Presentations { get; set; }
 
-		public List<ConferencesDto> MyConferences { get; set; }
+		public List<FullConferenceDto> MyConferences { get; set; }
 	}
 }

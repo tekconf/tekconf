@@ -35,6 +35,29 @@ namespace TekConf.UI.Api.Services.v1
 			_presentationRepository = presentationRepository;
 		}
 
+		public object Get(Presentations request)
+		{
+			if (request.speakerSlug == default(string))
+			{
+				throw new HttpError() { StatusCode = HttpStatusCode.BadRequest };
+			}
+
+			var cacheKey = "GetPresentations-" + request.speakerSlug;
+			var expireInTimespan = new TimeSpan(0, 0, _configuration.cacheTimeout);
+
+			return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
+			{
+				var presentations = _presentationRepository
+					.AsQueryable()
+					.Where(p => p.SpeakerSlug == request.speakerSlug)
+					.ToList();
+
+				var presentationDto = Mapper.Map<List<PresentationEntity>, List<PresentationDto>>(presentations);
+
+				return presentationDto;
+			});
+		}
+
 		public object Get(Presentation request)
 		{
 			if (request.slug == default(string) || request.speakerSlug == default(string))

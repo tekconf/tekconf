@@ -122,6 +122,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="v1\Requests\Presentation.cs" />
+    <Compile Include="v1\Requests\Presentations.cs" />
     <Compile Include="v1\Requests\Schedule.cs">
       <SubType>Code</SubType>
     </Compile>
