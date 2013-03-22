@@ -3,24 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.IdGenerators;
+using TekConf.Common.Entities;
 using TinyMessenger;
 
 namespace TekConf.UI.Api
 {
-	public class RoomChanged : EventArgs
-	{
-		public RoomChanged(string sessionSlug, string oldValue, string newValue)
-		{
-			this.SessionSlug = sessionSlug;
-			this.OldValue = oldValue;
-			this.NewValue = newValue;
-		}
-
-		public string SessionSlug { get; private set; }
-		public string OldValue { get; private set; }
-		public string NewValue { get; private set; }
-	}
-
 	public class SessionEntity
 	{
 		public event RoomChangedHandler RoomChanged;
@@ -29,7 +16,12 @@ namespace TekConf.UI.Api
 		[BsonId(IdGenerator = typeof(CombGuidGenerator))]
 		public Guid _id { get; set; }
 		public string slug { get; set; }
-		public string title { get; set; }
+		public string title
+		{
+			get { return _title; }
+			set { _title = value.IsNullOrWhiteSpace() ? value : value.Trim(); ; }
+		}
+
 		public DateTime start { get; set; }
 		public DateTime end { get; set; }
 		private string _room;
@@ -47,14 +39,34 @@ namespace TekConf.UI.Api
 						RoomChanged(this, roomChanged);
 					}
 				}
-				_room = value;
+				_room = value.IsNullOrWhiteSpace() ? value : value.Trim(); ;
 			}
 		}
 
-		public string difficulty { get; set; }
-		public string description { get; set; }
-		public string twitterHashTag { get; set; }
-		public string sessionType { get; set; }
+		public string difficulty
+		{
+			get { return _difficulty; }
+			set { _difficulty = value.IsNullOrWhiteSpace() ? value : value.Trim(); ; }
+		}
+
+		public string description
+		{
+			get { return _description; }
+			set { _description = value.IsNullOrWhiteSpace() ? value : value.Trim(); ; }
+		}
+
+		public string twitterHashTag
+		{
+			get { return _twitterHashTag; }
+			set { _twitterHashTag = value.IsNullOrWhiteSpace() ? value : value.Trim(); ; }
+		}
+
+		public string sessionType
+		{
+			get { return _sessionType; }
+			set { _sessionType = value.IsNullOrWhiteSpace() ? value : value.Trim(); ; }
+		}
+
 		public List<string> links { get; set; }
 		public List<string> tags { get; set; }
 		public List<string> subjects { get; set; }
@@ -78,6 +90,12 @@ namespace TekConf.UI.Api
 		}
 
 		private IList<SpeakerEntity> _speakers = new List<SpeakerEntity>();
+		private string _title;
+		private string _difficulty;
+		private string _description;
+		private string _twitterHashTag;
+		private string _sessionType;
+
 		public IEnumerable<SpeakerEntity> speakers
 		{
 			get

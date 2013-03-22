@@ -216,7 +216,12 @@ namespace TekConf.UI.Api
 		public string slug { get; set; }
 		public DateTime datePublished { get; private set; }
 		public bool isSaved { get; private set; }
-		public string name { get; set; }
+		public string name
+		{
+			get { return _name; }
+			set { _name = value.IsNullOrWhiteSpace() ? value : value.Trim(); }
+		}
+
 		private DateTime? _start;
 		public DateTime? start
 		{
@@ -259,18 +264,53 @@ namespace TekConf.UI.Api
 				if (!_isInitializingFromBson && isSaved && _location != value)
 					_conferenceLocationChangedMessages.Add(new ConferenceLocationChangedMessage() { ConferenceSlug = this.slug, ConferenceName = this.name, OldValue = _location, NewValue = value });
 
-				_location = value;
+				_location = value.IsNullOrWhiteSpace() ? value : value.Trim(); ;
 			}
 		}
 
 		public AddressEntity address { get; set; }
-		public string description { get; set; }
-		public string imageUrl { get; set; }
-		public string tagLine { get; set; }
-		public string facebookUrl { get; set; }
-		public string homepageUrl { get; set; }
-		public string lanyrdUrl { get; set; }
-		public string twitterHashTag { get; set; }
+		public string description
+		{
+			get { return _description; }
+			set { _description = value.IsNullOrWhiteSpace() ? value : value.Trim(); ; }
+		}
+
+		public string imageUrl
+		{
+			get { return _imageUrl; }
+			set { _imageUrl = value.IsNullOrWhiteSpace() ? value : value.Trim(); ; }
+		}
+
+		public string tagLine
+		{
+			get { return _tagLine; }
+			set { _tagLine = value.IsNullOrWhiteSpace() ? value : value.Trim(); ; }
+		}
+
+		public string facebookUrl
+		{
+			get { return _facebookUrl; }
+			set { _facebookUrl = value.IsNullOrWhiteSpace() ? value : value.Trim(); ; }
+		}
+
+		public string homepageUrl
+		{
+			get { return _homepageUrl; }
+			set { _homepageUrl = value.IsNullOrWhiteSpace() ? value : value.Trim(); ; }
+		}
+
+		public string lanyrdUrl
+		{
+			get { return _lanyrdUrl; }
+			set { _lanyrdUrl = value.IsNullOrWhiteSpace() ? value : value.Trim(); ; }
+		}
+
+		public string twitterHashTag
+		{
+			get { return _twitterHashTag; }
+			set { _twitterHashTag = value.IsNullOrWhiteSpace() ? value : value.Trim(); ; }
+		}
+
 		public string twitterName
 		{
 			get { return _twitterName; }
@@ -279,16 +319,45 @@ namespace TekConf.UI.Api
 				if (!string.IsNullOrWhiteSpace(value) && !value.StartsWith("@"))
 					value = "@" + value;
 
-				_twitterName = value;
+				_twitterName = value.IsNullOrWhiteSpace() ? value : value.Trim(); ;
 			}
 		}
 
-		public string meetupUrl { get; set; }
-		public string googlePlusUrl { get; set; }
-		public string vimeoUrl { get; set; }
-		public string youtubeUrl { get; set; }
-		public string githubUrl { get; set; }
-		public string linkedInUrl { get; set; }
+		public string meetupUrl
+		{
+			get { return _meetupUrl; }
+			set { _meetupUrl = value.IsNullOrWhiteSpace() ? value : value.Trim(); ; }
+		}
+
+		public string googlePlusUrl
+		{
+			get { return _googlePlusUrl; }
+			set { _googlePlusUrl = value.IsNullOrWhiteSpace() ? value : value.Trim(); ; }
+		}
+
+		public string vimeoUrl
+		{
+			get { return _vimeoUrl; }
+			set { _vimeoUrl = value.IsNullOrWhiteSpace() ? value : value.Trim(); ; }
+		}
+
+		public string youtubeUrl
+		{
+			get { return _youtubeUrl; }
+			set { _youtubeUrl = value.IsNullOrWhiteSpace() ? value : value.Trim(); ; }
+		}
+
+		public string githubUrl
+		{
+			get { return _githubUrl; }
+			set { _githubUrl = value.IsNullOrWhiteSpace() ? value : value.Trim(); ; }
+		}
+
+		public string linkedInUrl
+		{
+			get { return _linkedInUrl; }
+			set { _linkedInUrl = value.IsNullOrWhiteSpace() ? value : value.Trim(); ; }
+		}
 
 		[BsonIgnore]
 		public double distance { get; set; }
@@ -331,6 +400,20 @@ namespace TekConf.UI.Api
 
 		private IList<string> _subjects = new List<string>();
 		private string _twitterName;
+		private string _name;
+		private string _description;
+		private string _imageUrl;
+		private string _tagLine;
+		private string _facebookUrl;
+		private string _homepageUrl;
+		private string _lanyrdUrl;
+		private string _twitterHashTag;
+		private string _meetupUrl;
+		private string _googlePlusUrl;
+		private string _vimeoUrl;
+		private string _youtubeUrl;
+		private string _githubUrl;
+		private string _linkedInUrl;
 
 		public IEnumerable<string> subjects
 		{

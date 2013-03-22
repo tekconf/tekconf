@@ -43,33 +43,36 @@
 
 	<div id="subpage">
 		<div class="container">
-			<div class="page-header">
-				<h3>My Presentations</h3>
-			</div>
-			<div class="span12">
-				@Html.ActionLink("Add Presentation", "Add", new { controller = "Presentations" }, new { @class = "btn btn-large btn-success " })
-				<br /><br/>
-				<table class="table table-hover">
-					<tbody>
-						@foreach (var presentation in Model.Presentations ?? new List<PresentationDto>())
-			{
-							<tr>
-								<td style="width: 125px">
-									<img src="@presentation.ImagePath" style="height: 80px;" /><br />
-									<br />
-									@Html.RouteLink("View Presentation", "PresentationDetail", new { slug = presentation.Slug }, new { @class = "btn btn-primary btn-mini" })
-								</td>
-								<td>
-									<h3>@presentation.Title</h3>
-									Uploaded : @presentation.UploadedOn<br /><br />
-									@presentation.Description
-								</td>
-							</tr>
-			}
-					</tbody>
-				</table>
-			</div>
-
+			
+					@if (Request.IsAuthenticated)
+					{
+						<div class="page-header">
+							<h3>My Presentations</h3>
+						</div>
+						<div class="span12">
+							@Html.ActionLink("Add Presentation", "Add", new {controller = "Presentations"}, new {@class = "btn btn-large btn-success "})
+							<br /><br/>
+							<table class="table table-hover">
+								<tbody>
+									@foreach (var presentation in Model.Presentations ?? new List<PresentationDto>())
+									{
+										<tr>
+											<td style="width: 125px">
+												<img src="@presentation.ImagePath" style="height: 80px;" /><br />
+												<br />
+												@Html.RouteLink("View Presentation", "PresentationDetail", new {slug = presentation.Slug}, new {@class = "btn btn-primary btn-mini"})
+											</td>
+											<td>
+												<h3>@presentation.Title</h3>
+												Uploaded : @presentation.UploadedOn<br /><br />
+												@presentation.Description
+											</td>
+										</tr>
+									}
+								</tbody>
+							</table>
+						</div>
+					}
 
 			<div class="page-header">
 				<h3>Open Calls</h3>
@@ -78,7 +81,7 @@
 				<table class="table table-hover">
 					<tbody>
 						@foreach (var conference in Model.OpenConferences ?? new List<ConferencesDto>())
-			{
+						{
 							<tr>
 								<td style="width: 125px">
 									<img src="@conference.imageUrl" style="height:80px;" /><br />
@@ -92,13 +95,13 @@
 									Location : @HtmlHelpers.FormatAddress(conference.address)
 								</td>
 							</tr>
-			}
+						}
 					</tbody>
 				</table>
 			</div>
 
 			@if (Request.IsAuthenticated)
-	 {
+			{
 				<div class="page-header">
 					<h3>My Conferences</h3>
 				</div>
@@ -106,7 +109,7 @@
 					<table class="table table-hover">
 						<tbody>
 							@foreach (var conference in Model.MyConferences ?? new List<FullConferenceDto>())
-			 {
+							{
 								<tr>
 									<td style="width: 125px">
 										<img src="@conference.imageUrl" style="height: 80px;" /><br />
@@ -118,7 +121,7 @@
 										Date : @HtmlHelpers.FormatDateRange(conference.start, conference.end)
 									</td>
 								</tr>
-			 }
+							}
 						</tbody>
 					</table>
 				</div>
@@ -129,7 +132,7 @@
 				<div class="page-header">
 					<h3>My Profile</h3>
 				</div>
-	 }
+			}
 		</div>
 		<!-- /container -->
 	</div>

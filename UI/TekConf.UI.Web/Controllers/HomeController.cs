@@ -33,56 +33,71 @@ namespace TekConf.UI.Web.Controllers
 		[CompressFilter]
 		public ActionResult Index()
 		{
-			AutoResetEvent stopWaitHandle = new AutoResetEvent(false);
-			//AsyncManager.OutstandingOperations.Increment();
-			//AsyncManager.OutstandingOperations.Increment();
-			//AsyncManager.OutstandingOperations.Increment();
-
-			List<FullSpeakerDto> featuredSpeakers = null;
-			_repository.GetFeaturedSpeakers(callback: speakers =>
+			try
 			{
-				featuredSpeakers = speakers;
-				stopWaitHandle.Set();
-				//AsyncManager.OutstandingOperations.Decrement();
-			});
-			stopWaitHandle.WaitOne();
+				AutoResetEvent stopWaitHandle = new AutoResetEvent(false);
+				//AsyncManager.OutstandingOperations.Increment();
+				//AsyncManager.OutstandingOperations.Increment();
+				//AsyncManager.OutstandingOperations.Increment();
 
-			IList<ConferencesDto> featuredConferences = null;
-			_repository.GetFeaturedConferences(callback: conferences =>
-			{
-				featuredConferences = conferences;
-				stopWaitHandle.Set();
-				//AsyncManager.OutstandingOperations.Decrement();
-			});
-			stopWaitHandle.WaitOne();
+				List<FullSpeakerDto> featuredSpeakers = null;
+				_repository.GetFeaturedSpeakers(callback: speakers =>
+				{
+					featuredSpeakers = speakers;
+					stopWaitHandle.Set();
+					//AsyncManager.OutstandingOperations.Decrement();
+				});
+				stopWaitHandle.WaitOne();
 
-			int totalCount = 0;
-			_repository.GetConferencesCount(showPastConferences: false, search: null, callback: count =>
+				IList<ConferencesDto> featuredConferences = null;
+				_repository.GetFeaturedConferences(callback: conferences =>
+				{
+					featuredConferences = conferences;
+					stopWaitHandle.Set();
+					//AsyncManager.OutstandingOperations.Decrement();
+				});
+				stopWaitHandle.WaitOne();
+
+				int totalCount = 0;
+				_repository.GetConferencesCount(showPastConferences: false, search: null, callback: count =>
 				{
 					totalCount = count;
 					stopWaitHandle.Set();
 					//AsyncManager.OutstandingOperations.Decrement();
 				});
-			stopWaitHandle.WaitOne();
+				stopWaitHandle.WaitOne();
 
-			//var conferencesTask = _asyncRepository.GetFeaturedConferences();
-			//var speakersTask = _asyncRepository.GetFeaturedSpeakers();
-			//var conferencesCountTask = _asyncRepository.GetConferencesCount(showPastConferences: false, search: null);
+				//var conferencesTask = _asyncRepository.GetFeaturedConferences();
+				//var speakersTask = _asyncRepository.GetFeaturedSpeakers();
+				//var conferencesCountTask = _asyncRepository.GetConferencesCount(showPastConferences: false, search: null);
 
-			//await Task.WhenAll(conferencesTask, speakersTask, conferencesCountTask);
+				//await Task.WhenAll(conferencesTask, speakersTask, conferencesCountTask);
 
-			//var featuredSpeakers = speakersTask.Result == null ? new List<FullSpeakerDto>() : speakersTask.Result.ToList();
-			//var featuredConferences = conferencesTask.Result == null ? new List<ConferencesDto>() : conferencesTask.Result.ToList();
-			//var totalCount = conferencesCountTask.Result;
+				//var featuredSpeakers = speakersTask.Result == null ? new List<FullSpeakerDto>() : speakersTask.Result.ToList();
+				//var featuredConferences = conferencesTask.Result == null ? new List<ConferencesDto>() : conferencesTask.Result.ToList();
+				//var totalCount = conferencesCountTask.Result;
 
-			var vm = new HomePageViewModel()
+				var vm = new HomePageViewModel()
+				{
+					FeaturedConferences = featuredConferences == null ? new List<ConferencesDto>() : featuredConferences.ToList(),
+					FeaturedSpeakers = featuredSpeakers ?? new List<FullSpeakerDto>(),
+					TotalCount = totalCount
+				};
+
+				return View(vm);
+			}
+			catch (Exception ex)
 			{
-				FeaturedConferences = featuredConferences == null ? new List<ConferencesDto>() : featuredConferences.ToList(),
-				FeaturedSpeakers = featuredSpeakers ?? new List<FullSpeakerDto>(),
-				TotalCount = totalCount
-			};
-
-			return View(vm);
+	
+				return
+					View(new HomePageViewModel()
+						{
+							FeaturedConferences = new List<ConferencesDto>() { new ConferencesDto() { name = ex.Message }},
+							FeaturedSpeakers = new List<FullSpeakerDto>(),
+							TotalCount = 0
+						});
+			}
+			
 		}
 	}
 }
