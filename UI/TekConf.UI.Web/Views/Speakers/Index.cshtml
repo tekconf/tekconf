@@ -15,8 +15,10 @@
 	<link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="description" content="Conferences Technical Programming Presentations Speakers" />
 
 	<link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
+		<link rel="search" type="application/opensearchdescription+xml" href="http://www.tekconf.com/TekConf.xml" title="TekConf Search" /> 
 
 	@Styles.Render("~/css/api/index")
 
@@ -58,7 +60,7 @@
 									{
 										<tr>
 											<td style="width: 125px">
-												<img src="@presentation.ImagePath" style="height: 80px;" /><br />
+												<img src="@presentation.ImagePath" style="height: 80px;" alt="@presentation.Title" /><br />
 												<br />
 												@Html.RouteLink("View Presentation", "PresentationDetail", new {slug = presentation.Slug}, new {@class = "btn btn-primary btn-mini"})
 											</td>
@@ -84,9 +86,9 @@
 						{
 							<tr>
 								<td style="width: 125px">
-									<img src="@conference.imageUrl" style="height:80px;" /><br />
+									<img src="@conference.imageUrl" style="height:80px;" alt="@conference.name" /><br />
 									<br />
-									<a href="~/Conferences/@conference.slug" class="btn btn-primary btn-mini">View Conference</a>
+									<a href="~/conferences/@conference.slug" class="btn btn-primary btn-mini">View Conference</a>
 								</td>
 								<td>
 									<h3>@conference.name</h3>
@@ -112,9 +114,9 @@
 							{
 								<tr>
 									<td style="width: 125px">
-										<img src="@conference.imageUrl" style="height: 80px;" /><br />
+										<img src="@conference.imageUrl" style="height: 80px;" alt="@conference.name" /><br />
 										<br />
-										<a href="~/Conferences/@conference.slug" class="btn btn-primary btn-mini">View Conference</a>
+										<a href="~/conferences/@conference.slug" class="btn btn-primary btn-mini">View Conference</a>
 									</td>
 									<td>
 										<h3>@conference.name</h3>

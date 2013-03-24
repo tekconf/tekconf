@@ -89,14 +89,19 @@ namespace TekConf.UI.Api.Services.v1
 			}
 			else
 			{
-				var searchTerm = request.searchTerm.ToLower();
+				var searchTerm = request.searchTerm.IsNullOrWhiteSpace() ? "" : request.searchTerm.ToLower();
 				var searchTermSearch = GetSearchTermSearchForMongo(searchTerm);
 
 				var showPastConferences = GetShowPastConferences(request.showPastConferences);
 
 				var query = _conferenceRepository.AsQueryable()
-									 .Where(searchTermSearch)
-									 .Where(c => c.isLive);
+											.Where(c => c.isLive)
+											;
+
+				if (searchTermSearch != null)
+				{
+					query = query.Where(searchTermSearch);
+				}
 
 				if (showPastConferences != null)
 				{

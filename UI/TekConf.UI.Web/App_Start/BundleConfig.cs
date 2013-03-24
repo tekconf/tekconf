@@ -30,7 +30,7 @@ namespace TekConf.UI.Web
 		
 			bundles.Add(new ScriptBundle("~/js/commonLightbox")
 					.Include(
-											"~/js/lightbox/jquery.lightbox.min.js"
+											//"~/js/lightbox/jquery.lightbox.min.js"
 									)
 			);
 

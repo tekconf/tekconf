@@ -7,8 +7,11 @@
                             <span class="slash">//</span> Quick Links</h3>
                         <ul class="footer-links clearfix">
                             <li><a href="~/">Home</a></li>
-                            <li><a href="~/Conferences">Conferences</a></li>
-                            <li><a href="~/Schedule">My Schedule</a></li>
+	                        <li><a href="~/Conferences">Conferences</a></li>
+													@if (Request.IsAuthenticated)
+													{
+														<li><a href="~/Schedule">My Schedule</a></li>
+													}
                         </ul>
                         <ul class="footer-links clearfix">
                             <li><a href="~/Api">Api</a></li>
