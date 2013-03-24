@@ -119,6 +119,11 @@ namespace TekConf.UI.Api.Services.Requests.v1
 	[Route("/v1/conferences/{slug}", "PUT")]
 	public class CreateConference : IReturn<FullConferenceDto>
 	{
+		public CreateConference()
+		{
+			if (this.defaultTalkLength == default(int))
+				defaultTalkLength = 60;
+		}
 		[ApiMember(Name = "slug", Description = "XXXX", ParameterType = "query", DataType = "string", IsRequired = false)]
 		public string slug { get; set; }
 

@@ -42,7 +42,7 @@ namespace TekConf.UI.Web.Controllers
 
 		public ActionResult AddSessionCompleted(FullConferenceDto conference)
 		{
-			var session = new AddSession() { conferenceSlug = conference.slug, start = conference.start, end = conference.end };
+			var session = new AddSession() { conferenceSlug = conference.slug, start = conference.start, end = conference.end, defaultTalkLength = conference.defaultTalkLength};
 			session.start = conference.start;
 			session.end = conference.end;
 

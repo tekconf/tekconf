@@ -172,6 +172,35 @@
         	$('#end').datetimepicker();
         });
 
+
+        function addMinutes(date, minutes) {
+        	return new Date(date.getTime() + minutes * 60000);
+        }
+        
+        function formatAMPM(date) {
+        	var hours = date.getHours();
+        	var minutes = date.getMinutes();
+        	var ampm = hours >= 12 ? 'PM' : 'AM';
+        	hours = hours % 12;
+        	hours = hours ? hours : 12; // the hour '0' should be '12'
+        	minutes = minutes < 10 ? '0' + minutes : minutes;
+        	var strTime = hours + ':' + minutes + ' ' + ampm;
+        	return strTime;
+        }
+
+
+        $('#start').change(function () {
+        	var startDate = new Date($('#start').val());
+        	var endDate = addMinutes(startDate, '@Model.defaultTalkLength');
+	        
+        	var endDateMonth = endDate.getMonth() + 1;
+        	var endDateDay = endDate.getDate();
+        	var endDateYear = endDate.getFullYear();
+        	var endDateTime = formatAMPM(endDate);
+	        
+	        $('#end').val(endDateMonth + '/' + endDateDay + '/' + endDateYear + ' ' + endDateTime);
+        });
+
         $(document).on("click", ".addPrerequisite", function (e) {
             e.preventDefault();
 
