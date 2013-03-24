@@ -5,7 +5,7 @@ using MongoDB.Bson.Serialization.IdGenerators;
 
 namespace TekConf.UI.Api
 {
-	public class PresentationEntity
+	public class PresentationEntity : IEntity
 	{
 		public PresentationEntity()
 		{

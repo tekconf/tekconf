@@ -38,10 +38,10 @@ namespace TekConf.UI.Api
 							.ForMember(dest => dest.imageUrl, opt => opt.ResolveUsing<ImageResolver>())
 							.ConstructUsing((Func<ResolutionContext, ConferenceEntity>)(r => new ConferenceEntity(container.Resolve<ITinyMessengerHub>(), container.Resolve<IRepository<ConferenceEntity>>())));
 
-			Mapper.CreateMap<ConferenceEntity, ConferenceDto>()
-							.ForMember(dest => dest.url, opt => opt.Ignore())
-							.ForMember(dest => dest.sessionsUrl, opt => opt.Ignore())
-							.ForMember(dest => dest.speakersUrl, opt => opt.Ignore());
+			//Mapper.CreateMap<ConferenceEntity, ConferenceDto>()
+			//				.ForMember(dest => dest.url, opt => opt.Ignore())
+			//				.ForMember(dest => dest.sessionsUrl, opt => opt.Ignore())
+			//				.ForMember(dest => dest.speakersUrl, opt => opt.Ignore());
 
 			Mapper.CreateMap<ConferenceEntity, FullConferenceDto>()
 							.ForMember(dest => dest.imageUrl, opt => opt.ResolveUsing<ImageResolver>());

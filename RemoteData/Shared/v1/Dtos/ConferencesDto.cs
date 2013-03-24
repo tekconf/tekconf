@@ -3,13 +3,7 @@ using TekConf.RemoteData.v1;
 
 namespace TekConf.RemoteData.Dtos.v1
 {
-		public class SearchResultDto
-		{
-				public string label { get; set; }
-				public string value { get; set; }
-		}
-
-		public class ConferencesDto
+	public class ConferencesDto
 		{
 				public string name { get; set; }
 				public DateTime start { get; set; }

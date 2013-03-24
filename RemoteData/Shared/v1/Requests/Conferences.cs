@@ -153,6 +153,10 @@ namespace TekConf.UI.Api.Services.Requests.v1
 		[ApiMember(Name = "longitude", Description = "XXXX", ParameterType = "query", DataType = "double", IsRequired = false)]
 		public double longitude { get; set; }
 
+		[ApiMember(Name = "defaultTalkLength", Description = "XXXX", ParameterType = "query", DataType = "int", IsRequired = false)]
+		public int defaultTalkLength { get; set; }
+
+
 		[ApiMember(Name = "facebookUrl", Description = "XXXX", ParameterType = "query", DataType = "string", IsRequired = false)]
 		public string facebookUrl { get; set; }
 		[ApiMember(Name = "homepageUrl", Description = "XXXX", ParameterType = "query", DataType = "string", IsRequired = false)]

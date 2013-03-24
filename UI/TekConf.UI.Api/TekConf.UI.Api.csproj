@@ -265,8 +265,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppHost.cs" />
+    <Compile Include="EmailSender.cs" />
     <Compile Include="EventsHub.cs" />
     <Compile Include="HubSubscriptions.cs" />
+    <Compile Include="IEmailSender.cs" />
     <Compile Include="Services\v1\Events\ConferenceCreatedService.cs" />
     <Compile Include="Services\v1\Events\ConferenceEndDateChangedService.cs" />
     <Compile Include="Services\v1\Events\ConferenceLocationChangedService.cs" />

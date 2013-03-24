@@ -7,6 +7,7 @@ using AutoMapper;
 using FluentMongo.Linq;
 using ServiceStack.CacheAccess;
 using ServiceStack.Common.Web;
+using TekConf.Common.Entities;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.UI.Api.Services.Requests.v1;
 using TekConf.UI.Api.UrlResolvers.v1;
@@ -60,6 +61,7 @@ namespace TekConf.UI.Api.Services.v1
 				return new HttpError() { StatusCode = HttpStatusCode.BadRequest };
 			}
 
+			entity.TrimAllProperties();
 			conference.AddSession(entity);
 			conference.Save();
 			this.CacheClient.FlushAll();
@@ -75,6 +77,7 @@ namespace TekConf.UI.Api.Services.v1
 			var conference = _conferenceRepository.AsQueryable().FirstOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
 
 			var session = conference.sessions.FirstOrDefault(s => s.slug.ToLower() == request.slug.ToLower());
+			session.TrimAllProperties();
 			Mapper.Map<AddSession, SessionEntity>(request, session);
 
 			conference.Save();

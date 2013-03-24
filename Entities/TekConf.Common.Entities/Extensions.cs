@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using TekConf.UI.Api;
 
 namespace TekConf.Common.Entities
 {
@@ -9,7 +10,24 @@ namespace TekConf.Common.Entities
 		{
 			return string.IsNullOrWhiteSpace(value);
 		}
+
+		public static void TrimAllProperties<T>(this T entity) where T : IEntity
+		{
+			var stringProperties = entity.GetType().GetProperties()
+													.Where(p => p.PropertyType == typeof(string));
+
+			foreach (var stringProperty in stringProperties)
+			{
+				string currentValue = (string)stringProperty.GetValue(entity, null);
+				if (!currentValue.IsNullOrWhiteSpace())
+				{
+					stringProperty.SetValue(entity, currentValue.Trim(), null);
+				}
+			}
+		}
 	}
+
+
 
 	public static class TypeExtensions
 	{

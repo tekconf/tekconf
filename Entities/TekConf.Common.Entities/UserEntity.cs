@@ -7,7 +7,7 @@ using TinyMessenger;
 
 namespace TekConf.UI.Api
 {
-    public class UserEntity
+    public class UserEntity : IEntity
     {
         [BsonIgnore]
         public ITinyMessengerHub Hub { get; set; }

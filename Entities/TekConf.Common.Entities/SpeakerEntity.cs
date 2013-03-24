@@ -6,7 +6,7 @@ using MongoDB.Bson.Serialization.IdGenerators;
 
 namespace TekConf.UI.Api
 {
-	public class SpeakerEntity
+	public class SpeakerEntity : IEntity
 	{
 		[BsonId(IdGenerator = typeof(CombGuidGenerator))]
 		public Guid _id { get; set; }

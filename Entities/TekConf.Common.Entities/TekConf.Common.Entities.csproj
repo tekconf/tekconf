@@ -89,7 +89,7 @@
     <Compile Include="Messages\TinyMessageBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\UserRepository.cs" />
-    <Compile Include="RoomChanged.cs" />
+    <Compile Include="Messages\RoomChanged.cs" />
     <Compile Include="ScheduleEntity.cs" />
     <Compile Include="Messages\SessionAddedMessage.cs" />
     <Compile Include="SessionEntity.cs" />

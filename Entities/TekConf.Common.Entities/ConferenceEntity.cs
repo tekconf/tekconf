@@ -9,7 +9,7 @@ using TinyMessenger;
 
 namespace TekConf.UI.Api
 {
-	public class ConferenceEntity : ISupportInitialize
+	public class ConferenceEntity : ISupportInitialize, IEntity
 	{
 		private readonly ITinyMessengerHub _hub;
 		private readonly IRepository<ConferenceEntity> _repository;
@@ -216,6 +216,8 @@ namespace TekConf.UI.Api
 		public string slug { get; set; }
 		public DateTime datePublished { get; private set; }
 		public bool isSaved { get; private set; }
+		public int defaultTalkLength { get; set; }
+
 		public string name
 		{
 			get { return _name; }

@@ -86,6 +86,7 @@
     <Compile Include="v1\Dtos\SchedulesDto.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="v1\Dtos\SearchResultDto.cs" />
     <Compile Include="v1\Dtos\SessionDto.cs">
       <SubType>Code</SubType>
     </Compile>

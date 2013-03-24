@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.IdGenerators;
+using TekConf.UI.Api;
 
 namespace TekConf.Common.Entities
 {
-	public class GeoLocationEntity
+	public class GeoLocationEntity : IEntity
 	{
 		[BsonId(IdGenerator = typeof(CombGuidGenerator))]
 		public Guid _id { get; private set; }

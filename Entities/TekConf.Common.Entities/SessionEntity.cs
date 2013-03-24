@@ -8,7 +8,7 @@ using TinyMessenger;
 
 namespace TekConf.UI.Api
 {
-	public class SessionEntity
+	public class SessionEntity : IEntity
 	{
 		public event RoomChangedHandler RoomChanged;
 		public delegate void RoomChangedHandler(SessionEntity m, RoomChanged e);
