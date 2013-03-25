@@ -217,6 +217,8 @@ namespace TekConf.UI.Api
 		public DateTime datePublished { get; private set; }
 		public bool isSaved { get; private set; }
 		public int defaultTalkLength { get; set; }
+		public List<string> rooms { get; set; }
+		public List<string> sessionTypes { get; set; } 
 
 		public string name
 		{

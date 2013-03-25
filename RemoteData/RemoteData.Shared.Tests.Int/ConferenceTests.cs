@@ -17,7 +17,7 @@ namespace RemoteData.Shared.Tests.Int
     public void GetConferences()
     {
       RemoteDataRepository remoteData = new RemoteDataRepository(_baseUrl);
-      IList<ConferencesDto> conferences = null;
+      IList<FullConferenceDto> conferences = null;
       remoteData.GetConferences(c =>
                                      {
                                        conferences = c;

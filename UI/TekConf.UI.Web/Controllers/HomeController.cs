@@ -35,51 +35,68 @@ namespace TekConf.UI.Web.Controllers
 		{
 			try
 			{
-				AutoResetEvent stopWaitHandle = new AutoResetEvent(false);
-				//AsyncManager.OutstandingOperations.Increment();
-				//AsyncManager.OutstandingOperations.Increment();
-				//AsyncManager.OutstandingOperations.Increment();
+				var stopWaitHandle = new AutoResetEvent(false);
 
 				List<FullSpeakerDto> featuredSpeakers = null;
 				_repository.GetFeaturedSpeakers(callback: speakers =>
 				{
 					featuredSpeakers = speakers;
 					stopWaitHandle.Set();
-					//AsyncManager.OutstandingOperations.Decrement();
 				});
 				stopWaitHandle.WaitOne();
 
-				IList<ConferencesDto> featuredConferences = null;
-				_repository.GetFeaturedConferences(callback: conferences =>
+
+				IList<FullConferenceDto> featuredConferences = null;
+				_repository.GetFeaturedConferences(conferences =>
 				{
 					featuredConferences = conferences;
 					stopWaitHandle.Set();
-					//AsyncManager.OutstandingOperations.Decrement();
 				});
 				stopWaitHandle.WaitOne();
+
+				IList<FullConferenceDto> scheduledConferences = new List<FullConferenceDto>();
+				if (Request.IsAuthenticated)
+				{
+					_repository.GetSchedules(User.Identity.Name, conferences =>
+						{
+							scheduledConferences = conferences.Where(x => x.end >= DateTime.Now).Take(4).ToList();
+							stopWaitHandle.Set();
+						});
+
+					stopWaitHandle.WaitOne();
+				}
 
 				int totalCount = 0;
 				_repository.GetConferencesCount(showPastConferences: false, search: null, callback: count =>
 				{
 					totalCount = count;
 					stopWaitHandle.Set();
-					//AsyncManager.OutstandingOperations.Decrement();
 				});
 				stopWaitHandle.WaitOne();
 
-				//var conferencesTask = _asyncRepository.GetFeaturedConferences();
-				//var speakersTask = _asyncRepository.GetFeaturedSpeakers();
-				//var conferencesCountTask = _asyncRepository.GetConferencesCount(showPastConferences: false, search: null);
+				IList<FullConferenceDto> allConferences = new List<FullConferenceDto>();
+				if (scheduledConferences.Any())
+				{
+					if (scheduledConferences.Count < 4)
+					{
+						allConferences = scheduledConferences;
+						allConferences.Add(featuredConferences.Take(1).Single());
+						allConferences.Add(featuredConferences.Skip(1).Take(1).Single());
 
-				//await Task.WhenAll(conferencesTask, speakersTask, conferencesCountTask);
-
-				//var featuredSpeakers = speakersTask.Result == null ? new List<FullSpeakerDto>() : speakersTask.Result.ToList();
-				//var featuredConferences = conferencesTask.Result == null ? new List<ConferencesDto>() : conferencesTask.Result.ToList();
-				//var totalCount = conferencesCountTask.Result;
+					}
+					else
+					{
+						allConferences = scheduledConferences;
+					}
+				}
+				else
+				{
+					allConferences = featuredConferences.Take(4).ToList();
+				}
 
 				var vm = new HomePageViewModel()
 				{
-					FeaturedConferences = featuredConferences == null ? new List<ConferencesDto>() : featuredConferences.ToList(),
+					FeaturedConferences = allConferences.ToList(), // featuredConferences == null ? new List<FullConferenceDto>() : featuredConferences.ToList(),
 					FeaturedSpeakers = featuredSpeakers ?? new List<FullSpeakerDto>(),
 					TotalCount = totalCount
 				};
@@ -88,16 +105,16 @@ namespace TekConf.UI.Web.Controllers
 			}
 			catch (Exception ex)
 			{
-	
+
 				return
 					View(new HomePageViewModel()
 						{
-							FeaturedConferences = new List<ConferencesDto>() { new ConferencesDto() { name = ex.Message }},
+							FeaturedConferences = new List<FullConferenceDto>() { new FullConferenceDto() { name = ex.Message } },
 							FeaturedSpeakers = new List<FullSpeakerDto>(),
 							TotalCount = 0
 						});
 			}
-			
+
 		}
 	}
 }

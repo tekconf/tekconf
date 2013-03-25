@@ -67,7 +67,7 @@ namespace TekConf.UI.Api.Services.Requests.v1
 	}
 
 	[Route("/v1/conferences", "GET")]
-	public class Conferences : IReturn<List<ConferencesDto>>
+	public class Conferences : IReturn<List<FullConferenceDto>>
 	{
 		[ApiMember(Name = "search", Description = "Search conference name, description, city, country, session title, session description, speaker name, or speaker twitter handle.", ParameterType = "query", DataType = "string", IsRequired = false)]
 		public string search { get; set; }
@@ -124,71 +124,102 @@ namespace TekConf.UI.Api.Services.Requests.v1
 			if (this.defaultTalkLength == default(int))
 				defaultTalkLength = 60;
 		}
+
 		[ApiMember(Name = "slug", Description = "XXXX", ParameterType = "query", DataType = "string", IsRequired = false)]
 		public string slug { get; set; }
 
 		[ApiMember(Name = "name", Description = "XXXX", ParameterType = "query", DataType = "string", IsRequired = false)]
 		public string name { get; set; }
+		
 		[ApiMember(Name = "start", Description = "XXXX", ParameterType = "query", DataType = "DateTime", IsRequired = false)]
 		public DateTime start { get; set; }
+		
 		[ApiMember(Name = "end", Description = "XXXX", ParameterType = "query", DataType = "DateTime", IsRequired = false)]
 		public DateTime end { get; set; }
+		
 		[ApiMember(Name = "callForSpeakersOpens", Description = "XXXX", ParameterType = "query", DataType = "DateTime", IsRequired = false)]
 		public DateTime callForSpeakersOpens { get; set; }
+		
 		[ApiMember(Name = "callForSpeakersCloses", Description = "XXXX", ParameterType = "query", DataType = "DateTime", IsRequired = false)]
 		public DateTime callForSpeakersCloses { get; set; }
+		
 		[ApiMember(Name = "registrationOpens", Description = "XXXX", ParameterType = "query", DataType = "DateTime", IsRequired = false)]
 		public DateTime registrationOpens { get; set; }
+		
 		[ApiMember(Name = "registrationCloses", Description = "XXXX", ParameterType = "query", DataType = "DateTime", IsRequired = false)]
 		public DateTime registrationCloses { get; set; }
+		
 		[ApiMember(Name = "description", Description = "XXXX", ParameterType = "query", DataType = "string", IsRequired = false)]
 		public string description { get; set; }
+		
 		[ApiMember(Name = "location", Description = "XXXX", ParameterType = "query", DataType = "string", IsRequired = false)]
 		public string location { get; set; }
+		
 		[ApiMember(Name = "address", Description = "XXXX", ParameterType = "query", DataType = "Address", IsRequired = false)]
 		public Address address { get; set; }
+		
 		[ApiMember(Name = "tagline", Description = "XXXX", ParameterType = "query", DataType = "string", IsRequired = false)]
 		public string tagline { get; set; }
+		
 		[ApiMember(Name = "imageUrl", Description = "XXXX", ParameterType = "query", DataType = "string", IsRequired = false)]
 		public string imageUrl { get; set; }
+		
 		[ApiMember(Name = "isLive", Description = "XXXX", ParameterType = "query", DataType = "bool", IsRequired = false)]
 		public bool isLive { get; set; }
+		
 		[ApiMember(Name = "latitude", Description = "XXXX", ParameterType = "query", DataType = "double", IsRequired = false)]
 		public double latitude { get; set; }
+		
 		[ApiMember(Name = "longitude", Description = "XXXX", ParameterType = "query", DataType = "double", IsRequired = false)]
 		public double longitude { get; set; }
 
 		[ApiMember(Name = "defaultTalkLength", Description = "XXXX", ParameterType = "query", DataType = "int", IsRequired = false)]
 		public int defaultTalkLength { get; set; }
 
-
 		[ApiMember(Name = "facebookUrl", Description = "XXXX", ParameterType = "query", DataType = "string", IsRequired = false)]
 		public string facebookUrl { get; set; }
+		
 		[ApiMember(Name = "homepageUrl", Description = "XXXX", ParameterType = "query", DataType = "string", IsRequired = false)]
 		public string homepageUrl { get; set; }
+		
 		[ApiMember(Name = "lanyrdUrl", Description = "XXXX", ParameterType = "query", DataType = "string", IsRequired = false)]
 		public string lanyrdUrl { get; set; }
+		
 		[ApiMember(Name = "meetupUrl", Description = "XXXX", ParameterType = "query", DataType = "string", IsRequired = false)]
 		public string meetupUrl { get; set; }
+		
 		[ApiMember(Name = "googlePlusUrl", Description = "XXXX", ParameterType = "query", DataType = "string", IsRequired = false)]
 		public string googlePlusUrl { get; set; }
+		
 		[ApiMember(Name = "vimeoUrl", Description = "XXXX", ParameterType = "query", DataType = "string", IsRequired = false)]
 		public string vimeoUrl { get; set; }
+		
 		[ApiMember(Name = "youtubeUrl", Description = "XXXX", ParameterType = "query", DataType = "string", IsRequired = false)]
 		public string youtubeUrl { get; set; }
+		
 		[ApiMember(Name = "githubUrl", Description = "XXXX", ParameterType = "query", DataType = "string", IsRequired = false)]
 		public string githubUrl { get; set; }
+		
 		[ApiMember(Name = "linkedInUrl", Description = "XXXX", ParameterType = "query", DataType = "string", IsRequired = false)]
 		public string linkedInUrl { get; set; }
+		
 		[ApiMember(Name = "twitterHashTag", Description = "XXXX", ParameterType = "query", DataType = "string", IsRequired = false)]
 		public string twitterHashTag { get; set; }
+		
 		[ApiMember(Name = "twitterName", Description = "XXXX", ParameterType = "query", DataType = "string", IsRequired = false)]
 		public string twitterName { get; set; }
 
 		[ApiMember(Name = "tags", Description = "XXXX", ParameterType = "query", DataType = "string", IsRequired = false)]
 		public List<string> tags { get; set; }
+		
 		[ApiMember(Name = "subjects", Description = "XXXX", ParameterType = "query", DataType = "string", IsRequired = false)]
 		public List<string> subjects { get; set; }
+
+		[ApiMember(Name = "rooms", Description = "XXXX", ParameterType = "query", DataType = "string", IsRequired = false)]
+		public List<string> rooms { get; set; }
+
+		[ApiMember(Name = "sessionTypes", Description = "XXXX", ParameterType = "query", DataType = "string", IsRequired = false)]
+		public List<string> sessionTypes { get; set; }
 
 	}
 }

@@ -51,7 +51,7 @@ namespace TekConf.UI.Web.Controllers
 			}
 			
 
-			var openCallConferences = openCallsConferencesTask.Result == null ? new List<ConferencesDto>() : openCallsConferencesTask.Result.ToList();
+			var openCallConferences = openCallsConferencesTask.Result == null ? new List<FullConferenceDto>() : openCallsConferencesTask.Result.ToList();
 		
 			var vm = new SpeakersViewModel()
 			{

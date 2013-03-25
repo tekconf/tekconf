@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web.Mvc;
@@ -29,7 +30,7 @@ namespace TekConf.UI.Web.Controllers
 			string userName = string.Empty;
 			if (Request.IsAuthenticated)
 			{
-					userName = System.Web.HttpContext.Current.User.Identity.Name;
+				userName = System.Web.HttpContext.Current.User.Identity.Name;
 			}
 
 			AsyncManager.OutstandingOperations.Increment();
@@ -42,7 +43,21 @@ namespace TekConf.UI.Web.Controllers
 
 		public ActionResult AddSessionCompleted(FullConferenceDto conference)
 		{
-			var session = new AddSession() { conferenceSlug = conference.slug, start = conference.start, end = conference.end, defaultTalkLength = conference.defaultTalkLength};
+			var session = new AddSession() { conferenceSlug = conference.slug, start = conference.start, end = conference.end, defaultTalkLength = conference.defaultTalkLength };
+
+			var rooms = (conference.rooms ?? new List<string>()).OrderBy(x => x).ToList();
+			var sessionTypes = (conference.sessionTypes ?? new List<string>()).OrderBy(x => x).ToList();
+
+			var difficulties = new List<string>() { "Beginner", "Intermediate", "Expert" };
+
+			var difficultiesList = new SelectList(difficulties.Select(x => new KeyValuePair<string, string>(x, x)), "Key", "Value");
+			var roomsList = new SelectList(rooms.Select(x => new KeyValuePair<string, string>(x, x)), "Key", "Value");
+			var sessionTypesList = new SelectList(sessionTypes.Select(x => new KeyValuePair<string, string>(x, x)), "Key", "Value");
+			//roomsList
+			ViewBag.DifficultiesList = difficultiesList;
+			ViewBag.RoomsList = roomsList;
+			ViewBag.SessionTypesList = sessionTypesList;
+
 			session.start = conference.start;
 			session.end = conference.end;
 
@@ -82,7 +97,7 @@ namespace TekConf.UI.Web.Controllers
 			string userName = string.Empty;
 			if (Request.IsAuthenticated)
 			{
-					userName = System.Web.HttpContext.Current.User.Identity.Name;
+				userName = System.Web.HttpContext.Current.User.Identity.Name;
 			}
 
 			AsyncManager.OutstandingOperations.Increment();

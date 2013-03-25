@@ -28,10 +28,10 @@ namespace TekConf.UI.Api
 			Mapper.AddFormatter<TrimmingFormatter>();
 
 
-			Mapper.CreateMap<ConferenceEntity, ConferencesDto>()
-							.ForMember(dest => dest.url, opt => opt.Ignore())
-							.ForMember(dest => dest.imageUrl, opt => opt.ResolveUsing<ImageResolver>())
-							.ForMember(dest => dest.numberOfSessions, opt => opt.ResolveUsing<SessionsCounterResolver>());
+			//Mapper.CreateMap<ConferenceEntity, ConferencesDto>()
+			//				.ForMember(dest => dest.url, opt => opt.Ignore())
+			//				.ForMember(dest => dest.imageUrl, opt => opt.ResolveUsing<ImageResolver>())
+			//				.ForMember(dest => dest.numberOfSessions, opt => opt.ResolveUsing<SessionsCounterResolver>());
 
 			Mapper.CreateMap<ConferenceEntity, ConferenceEntity>()
 							.ForMember(c => c._id, opt => opt.Ignore())

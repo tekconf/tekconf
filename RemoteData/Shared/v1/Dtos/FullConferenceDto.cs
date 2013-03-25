@@ -33,7 +33,8 @@ namespace TekConf.RemoteData.Dtos.v1
         public string twitterName { get; set; }
         public double[] position { get; set; }
 				public int defaultTalkLength { get; set; }
-
+				public List<string> rooms { get; set; }
+				public List<string> sessionTypes { get; set; } 
         public List<FullSessionDto> sessions { get; set; }
 
         public bool IsOnSale()

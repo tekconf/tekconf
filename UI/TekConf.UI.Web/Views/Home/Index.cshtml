@@ -74,7 +74,7 @@
 						<div class="@spanClass">
 							<h3><span class="slash">//</span> Upcoming Conferences</h3>
 							<ul class="features-list">
-								@foreach (var featuredConference in Model.FeaturedConferences ?? new List<ConferencesDto>())
+								@foreach (var featuredConference in Model.FeaturedConferences ?? new List<FullConferenceDto>())
 								{
 									<li class="feature">
 										<div class="feature-thumbnail">

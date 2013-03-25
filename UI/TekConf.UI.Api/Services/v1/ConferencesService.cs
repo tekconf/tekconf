@@ -154,6 +154,7 @@ namespace TekConf.UI.Api.Services.v1
 			return searchResults;
 		}
 
+		
 		public object Get(Conferences request)
 		{
 			if (request.showOnlyFeatured)
@@ -167,7 +168,7 @@ namespace TekConf.UI.Api.Services.v1
 			var cacheKey = GetCacheKey(request);
 
 			var expireInTimespan = new TimeSpan(0, 0, _configuration.cacheTimeout);
-			List<ConferencesDto> conferencesDtos = null;
+			List<FullConferenceDto> conferencesDtos = null;
 
 			var result = base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
 				{
@@ -224,7 +225,7 @@ namespace TekConf.UI.Api.Services.v1
 		}
 
 
-		private List<ConferencesDto> BuildConferencesSearch(IQueryable<ConferenceEntity> query, Expression<Func<ConferenceEntity, bool>> searchExpression, string sortBy, string searchTerm, bool? showPastConferences, bool? showOnlyWithOpenCalls, bool? showOnlyOnSale)
+		private List<FullConferenceDto> BuildConferencesSearch(IQueryable<ConferenceEntity> query, Expression<Func<ConferenceEntity, bool>> searchExpression, string sortBy, string searchTerm, bool? showPastConferences, bool? showOnlyWithOpenCalls, bool? showOnlyOnSale)
 		{
 			var orderByFunc = GetOrderByFunc(sortBy);
 			var showPastConferencesExpression = GetShowPastConferences(showPastConferences);
@@ -256,7 +257,7 @@ namespace TekConf.UI.Api.Services.v1
 
 			query = query.Where(c => c.isLive);
 
-			List<ConferencesDto> conferencesDtos = null;
+			List<FullConferenceDto> conferencesDtos = null;
 			List<ConferenceEntity> conferences = null;
 
 			if (sortBy == "dateAdded")
@@ -271,7 +272,7 @@ namespace TekConf.UI.Api.Services.v1
 			conferences = query
 				.ToList();
 
-			conferencesDtos = Mapper.Map<List<ConferencesDto>>(conferences);
+			conferencesDtos = Mapper.Map<List<FullConferenceDto>>(conferences);
 			return conferencesDtos;
 		}
 

@@ -7,7 +7,7 @@ namespace TekConf.UI.Web.Controllers
 {
 	public interface IRemoteDataRepositoryAsync
 	{
-		Task<IList<ConferencesDto>> GetConferences(
+		Task<IList<FullConferenceDto>> GetConferences(
 			string sortBy = null,
 			bool? showPastConferences = false,
 			bool? showOnlyOpenCalls = false,
@@ -20,8 +20,8 @@ namespace TekConf.UI.Web.Controllers
 		Task<ScheduleDto> GetSchedule(string conferenceSlug, string userName);
 		Task<List<FullConferenceDto>> GetSchedules(string userName);
 		Task<FullConferenceDto> GetFullConference(string conferenceSlug, string userName);
-		Task<IList<ConferencesDto>> GetFeaturedConferences();
-		Task<IList<ConferencesDto>> GetConferencesWithOpenCalls();
+		Task<IList<FullConferenceDto>> GetFeaturedConferences();
+		Task<IList<FullConferenceDto>> GetConferencesWithOpenCalls();
 		Task<IList<FullSpeakerDto>> GetFeaturedSpeakers();
 		Task<IList<SessionsDto>> GetSessions(string conferenceSlug);
 		Task<SessionDto> GetSessionDetail(string conferenceSlug, string sessionSlug);

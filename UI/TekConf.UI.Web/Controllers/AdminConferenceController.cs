@@ -182,7 +182,7 @@ namespace TekConf.UI.Web.Controllers
 			});
 		}
 
-		public ActionResult EditConferencesIndexCompleted(List<ConferencesDto> conferences)
+		public ActionResult EditConferencesIndexCompleted(List<FullConferenceDto> conferences)
 		{
 			return View(conferences.OrderBy(c => c.name).ToList());
 		}

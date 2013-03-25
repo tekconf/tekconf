@@ -57,7 +57,6 @@
 
                         <label>Title</label>
                         @Html.TextBoxFor(c => c.title)
-                        <span class="help-block">Example block-level help text here.</span>
 
                         <label>Start Date/Time</label>
                         @Html.TextBoxFor(c => c.start, new { type = "datetime" })
@@ -66,13 +65,13 @@
                         @Html.TextBoxFor(c => c.end, new { type = "datetime" })
 
                         <label>Room</label>
-                        @Html.TextBoxFor(c => c.room)
-
+                        @Html.DropDownList("room", ViewBag.RoomsList as IEnumerable<SelectListItem>, "")
+											
                         <label>Difficulty</label>
-                        @Html.TextBoxFor(c => c.difficulty)
+                        @Html.DropDownList("difficulty", ViewBag.DifficultiesList as IEnumerable<SelectListItem>, "")
 
                         <label>Session Type</label>
-                        @Html.TextBoxFor(c => c.sessionType)
+                        @Html.DropDownList("sessionType", ViewBag.SessionTypesList as IEnumerable<SelectListItem>, "")
 
                         <label>Twitter Hash Tag</label>
                         @Html.TextBoxFor(c => c.twitterHashTag)
