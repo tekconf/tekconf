@@ -59,7 +59,10 @@ namespace TekConf.UI.Web.Controllers
 				{
 					_repository.GetSchedules(User.Identity.Name, conferences =>
 						{
-							scheduledConferences = conferences.Where(x => x.end >= DateTime.Now).Take(4).ToList();
+							if (conferences != null)
+							{
+								scheduledConferences = conferences.Where(x => x.end >= DateTime.Now).Take(4).ToList();
+							}
 							stopWaitHandle.Set();
 						});
 

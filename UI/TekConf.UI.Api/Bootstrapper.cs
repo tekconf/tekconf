@@ -44,7 +44,8 @@ namespace TekConf.UI.Api
 			//				.ForMember(dest => dest.speakersUrl, opt => opt.Ignore());
 
 			Mapper.CreateMap<ConferenceEntity, FullConferenceDto>()
-							.ForMember(dest => dest.imageUrl, opt => opt.ResolveUsing<ImageResolver>());
+							.ForMember(dest => dest.imageUrl, opt => opt.ResolveUsing<ImageResolver>())
+							.ForMember(dest => dest.numberOfSessions, opt => opt.ResolveUsing<SessionsCounterResolver>()); ;
 
 			Mapper.CreateMap<SessionEntity, SessionsDto>()
 							.ForMember(dest => dest.url, opt => opt.Ignore());

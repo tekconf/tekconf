@@ -202,7 +202,6 @@
     <Content Include="App_Readme\Elmah.txt" />
     <Content Include="clientaccesspolicy.xml" />
     <Content Include="Global.asax" />
-    <Content Include="OctoPack-Readme.txt" />
     <Content Include="newrelic.cmd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -262,6 +261,7 @@
       <DependentUpon>swagger-ui.js</DependentUpon>
     </Content>
     <Content Include="Scripts\jquery-1.9.1.min.map" />
+    <Content Include="TekConf.UI.Api.nuspec" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppHost.cs" />
@@ -375,6 +375,7 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="..\..\packages\OctoPack.2.0.20\targets\OctoPack.targets" />
   <!--<Import Project="..\..\packages\OctoPack.1.0.109\targets\OctoPack.targets" />-->
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

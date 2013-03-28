@@ -649,6 +649,7 @@
     <Content Include="Views\Presentations\Index.cshtml" />
     <Content Include="Views\Presentations\AddHistory.cshtml" />
     <Content Include="Views\Presentations\Detail.cshtml" />
+    <Content Include="TekConf.UI.Web.nuspec" />
     <None Include="Views\Web.Debug.config" />
     <None Include="Views\Web.Release.config" />
   </ItemGroup>
