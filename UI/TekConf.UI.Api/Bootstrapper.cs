@@ -137,7 +137,7 @@ namespace TekConf.UI.Api
 			var repository = new ConferenceRepository(new Configuration());
 			var conference = repository.AsQueryable()
 																.SingleOrDefault(c => c.slug.ToLower() == source.ConferenceSlug.ToLower());
-			if (conference != null)
+			if (conference.IsNotNull())
 			{
 				conferenceName = conference.name;
 			}
@@ -198,14 +198,14 @@ namespace TekConf.UI.Api
 	{
 		public string FormatValue(ResolutionContext context)
 		{
-			if (context.SourceValue == null)
+			if (context.SourceValue.IsNull())
 			{
 				return null;
 			}
 
 			if (!(context.SourceValue is T))
 			{
-				return context.SourceValue == null ? String.Empty : context.SourceValue.ToString();
+				return context.SourceValue.IsNull() ? String.Empty : context.SourceValue.ToString();
 			}
 
 			return FormatValueCore((T)context.SourceValue);

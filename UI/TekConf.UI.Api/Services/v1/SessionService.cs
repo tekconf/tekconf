@@ -56,7 +56,7 @@ namespace TekConf.UI.Api.Services.v1
 				//.Where(c => c.isLive)
 					.FirstOrDefault(x => x.slug.ToLower() == request.conferenceSlug.ToLower());
 
-			if (conference == null)
+			if (conference.IsNull())
 			{
 				return new HttpError() { StatusCode = HttpStatusCode.BadRequest };
 			}
@@ -118,7 +118,7 @@ namespace TekConf.UI.Api.Services.v1
 									//.Where(c => c.isLive)
 										.SingleOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
 
-								if (conference == null)
+								if (conference.IsNull())
 								{
 									lock (NonExistingConferences)
 									{
@@ -128,7 +128,7 @@ namespace TekConf.UI.Api.Services.v1
 								}
 
 
-								if (conference.sessions == null)
+								if (conference.sessions.IsNull())
 								{
 									lock (NonExistingSessions)
 									{
@@ -139,7 +139,7 @@ namespace TekConf.UI.Api.Services.v1
 
 								var session = conference.sessions.FirstOrDefault(s => s.slug.ToLower() == request.sessionSlug.ToLower());
 
-								if (session != null)
+								if (session.IsNotNull())
 								{
 									var sessionDto = Mapper.Map<SessionEntity, SessionDto>(session);
 									var sessionUrlResolver = new SessionUrlResolver(request.conferenceSlug, sessionDto.slug);

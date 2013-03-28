@@ -2,6 +2,7 @@
 using System.Net;
 using System.Web.Security;
 using AutoMapper;
+using TekConf.Common.Entities;
 using TekConf.UI.Api.Services.Requests.v1;
 using ServiceStack.CacheAccess;
 using ServiceStack.Common.Web;
@@ -21,7 +22,7 @@ namespace TekConf.UI.Api.Services.v1
 
 				public object Get(User request)
 				{
-						if (request == null || request.userName == default(string))
+						if (request.IsNull() || request.userName == default(string))
 						{
 								return new HttpError() { StatusCode = HttpStatusCode.BadRequest, StatusDescription = "UserName is required." };
 

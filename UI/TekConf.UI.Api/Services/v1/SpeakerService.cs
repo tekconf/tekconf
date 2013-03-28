@@ -114,7 +114,7 @@ namespace TekConf.UI.Api.Services.v1
 					//.Where(c => c.isLive)
 						 .SingleOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
 
-				if (conference == null)
+				if (conference.IsNull())
 				{
 					lock (NonExistingConferences)
 					{
@@ -128,7 +128,7 @@ namespace TekConf.UI.Api.Services.v1
 				//TODO : Linq this
 				foreach (var session in conference.sessions)
 				{
-					if (session.speakers != null)
+					if (session.speakers.IsNotNull())
 					{
 						foreach (var speakerEntity in session.speakers)
 						{
@@ -143,7 +143,7 @@ namespace TekConf.UI.Api.Services.v1
 
 				var speaker = speakers.FirstOrDefault(s => s.slug.ToLower() == request.speakerSlug.ToLower());
 
-				if (speaker == null)
+				if (speaker.IsNull())
 				{
 					lock (NonExistingSpeakers)
 					{
@@ -198,7 +198,7 @@ namespace TekConf.UI.Api.Services.v1
 				.Where(x => x.slug == history.PresentationSlug)
 				.FirstOrDefault(x => x.SpeakerSlug == history.SpeakerSlug);
 
-			if (presentation != null)
+			if (presentation.IsNotNull())
 			{
 				var historyEntity = Mapper.Map<CreatePresentationHistory, HistoryEntity>(history);
 				presentation.History.Add(historyEntity);

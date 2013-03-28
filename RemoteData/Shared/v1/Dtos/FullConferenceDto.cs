@@ -35,6 +35,8 @@ namespace TekConf.RemoteData.Dtos.v1
 		public int defaultTalkLength { get; set; }
 		public List<string> rooms { get; set; }
 		public List<string> sessionTypes { get; set; }
+		public List<string> subjects { get; set; }
+		public List<string> tags { get; set; }
 		public List<FullSessionDto> sessions { get; set; }
 		public int numberOfSessions { get; set; }
 

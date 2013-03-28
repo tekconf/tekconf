@@ -109,78 +109,79 @@
 						@Html.TextBoxFor(c => c.longitude)
 					</div>
 				</div>
-		 <div class="row">
-			 <legend>Optional Information</legend>
-
-			 <div class="span4">
-				 <div class="input-prepend">
-					 <label>Website</label>
-					 <span class="add-on">http://</span>
-					 @Html.TextBoxFor(c => c.homepageUrl)
-				 </div>
-
-				 <div class="input-prepend">
-					 <label>Facebook</label>
-					 <span class="add-on">http://</span>
-					 @Html.TextBoxFor(c => c.facebookUrl)
-				 </div>
-
-				 <div class="input-prepend">
-					 <label>Twitter Name</label>
-					 <span class="add-on">@@</span>
-					 @Html.TextBoxFor(c => c.twitterName)
-				 </div>
-
-				 <div class="input-prepend">
-					 <label>Twitter Hash Tag</label>
-					 <span class="add-on">#</span>
-					 @Html.TextBoxFor(c => c.twitterHashTag)
-				 </div>
-
-				 <div class="input-prepend">
-					 <label>Lanyrd</label>
-					 <span class="add-on">http://</span>
-					 @Html.TextBoxFor(c => c.lanyrdUrl)
-				 </div>
-
-			 </div>
-			 <div class="span4">
-				 <div class="input-prepend">
-					 <label>Meetup</label>
-					 <span class="add-on">http://</span>
-					 @Html.TextBoxFor(c => c.meetupUrl)
-				 </div>
-				 <div class="input-prepend">
-					 <label>Google+</label>
-					 <span class="add-on">http://</span>
-					 @Html.TextBoxFor(c => c.googlePlusUrl)
-				 </div>
-
-				 <div class="input-prepend">
-					 <label>Vimeo</label>
-					 <span class="add-on">http://</span>
-					 @Html.TextBoxFor(c => c.vimeoUrl)
-				 </div>
-				 <div class="input-prepend">
-					 <label>YouTube</label>
-					 <span class="add-on">http://</span>
-					 @Html.TextBoxFor(c => c.youtubeUrl)
-				 </div>
-				 <div class="input-prepend">
-					 <label>GitHub</label>
-					 <span class="add-on">http://</span>
-					 @Html.TextBoxFor(c => c.githubUrl)
-				 </div>
-				 <div class="input-prepend">
-					 <label>LinkedIn</label>
-					 <span class="add-on">http://</span>
-					 @Html.TextBoxFor(c => c.linkedInUrl)
-				 </div>
-			 </div>
-
-		 </div>
 				<div class="row">
-					<div class="span-4">
+					<legend>Optional Information</legend>
+
+					<div class="span4">
+						<div class="input-prepend">
+							<label>Website</label>
+							<span class="add-on">http://</span>
+							@Html.TextBoxFor(c => c.homepageUrl)
+						</div>
+
+						<div class="input-prepend">
+							<label>Facebook</label>
+							<span class="add-on">http://</span>
+							@Html.TextBoxFor(c => c.facebookUrl)
+						</div>
+
+						<div class="input-prepend">
+							<label>Twitter Name</label>
+							<span class="add-on">@@</span>
+							@Html.TextBoxFor(c => c.twitterName)
+						</div>
+
+						<div class="input-prepend">
+							<label>Twitter Hash Tag</label>
+							<span class="add-on">#</span>
+							@Html.TextBoxFor(c => c.twitterHashTag)
+						</div>
+
+						<div class="input-prepend">
+							<label>Lanyrd</label>
+							<span class="add-on">http://</span>
+							@Html.TextBoxFor(c => c.lanyrdUrl)
+						</div>
+
+					</div>
+					<div class="span4">
+						<div class="input-prepend">
+							<label>Meetup</label>
+							<span class="add-on">http://</span>
+							@Html.TextBoxFor(c => c.meetupUrl)
+						</div>
+						<div class="input-prepend">
+							<label>Google+</label>
+							<span class="add-on">http://</span>
+							@Html.TextBoxFor(c => c.googlePlusUrl)
+						</div>
+
+						<div class="input-prepend">
+							<label>Vimeo</label>
+							<span class="add-on">http://</span>
+							@Html.TextBoxFor(c => c.vimeoUrl)
+						</div>
+						<div class="input-prepend">
+							<label>YouTube</label>
+							<span class="add-on">http://</span>
+							@Html.TextBoxFor(c => c.youtubeUrl)
+						</div>
+						<div class="input-prepend">
+							<label>GitHub</label>
+							<span class="add-on">http://</span>
+							@Html.TextBoxFor(c => c.githubUrl)
+						</div>
+						<div class="input-prepend">
+							<label>LinkedIn</label>
+							<span class="add-on">http://</span>
+							@Html.TextBoxFor(c => c.linkedInUrl)
+						</div>
+					</div>
+
+				</div>
+		 
+				<div class="row">
+					<div class="span4">
 						<table class="table table-bordered table-condensed table-striped" id="sessionTypesTable">
 							<caption style="text-align: left">Session Types</caption>
 							<tbody>
@@ -191,20 +192,20 @@
 						</table>
 					</div>
 				</div>	
-		 <div class="row">
-			 <div class="span-4">
-				 <table class="table table-bordered table-condensed table-striped" id="roomsTable">
-					 <caption style="text-align: left">Rooms</caption>
-					 <tbody>
-						 <tr>
-							 <td><a href="#" class="addRoom">Add</a></td>
-						 </tr>
-					 </tbody>
-				 </table>
-			 </div>
-		 </div>	 
 				<div class="row">
-					<div class="span-4">
+					<div class="span4">
+						<table class="table table-bordered table-condensed table-striped" id="roomsTable">
+							<caption style="text-align: left">Rooms</caption>
+							<tbody>
+								<tr>
+									<td><a href="#" class="addRoom">Add</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>	 
+				<div class="row">
+					<div class="span4">
 						<table class="table table-bordered table-condensed table-striped" id="subjectsTable">
 							<caption style="text-align: left">Subjects</caption>
 							<tbody>
@@ -216,7 +217,7 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="span-4">
+					<div class="span4">
 						<table class="table table-bordered table-condensed table-striped" id="tagsTable">
 							<caption style="text-align: left">Tags</caption>
 							<tbody>

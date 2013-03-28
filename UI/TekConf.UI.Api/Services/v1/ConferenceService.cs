@@ -42,7 +42,7 @@ namespace TekConf.UI.Api.Services.v1
 					//.Where(c => c.isLive)
 						.SingleOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
 
-				if (conference == null)
+				if (conference.IsNull())
 				{
 					//return new HttpError(HttpStatusCode.NotFound, "Conference not found.");
 					return new FullConferenceDto();
@@ -55,12 +55,12 @@ namespace TekConf.UI.Api.Services.v1
 					var schedule = _scheduleRepository.AsQueryable()
 											.Where(x => x.ConferenceSlug == request.conferenceSlug)
 											.SingleOrDefault(x => x.UserName == request.userName);
-					if (schedule != null)
+					if (schedule.IsNotNull())
 					{
 						foreach (var sessionSlug in schedule.SessionSlugs)
 						{
 							var session = conferenceDto.sessions.FirstOrDefault(x => x.slug == sessionSlug);
-							if (session != null)
+							if (session.IsNotNull())
 							{
 								session.isAddedToSchedule = true;
 							}
@@ -106,14 +106,15 @@ namespace TekConf.UI.Api.Services.v1
 				var conference = this._conferenceRepository.AsQueryable()
 													.FirstOrDefault(c => c.slug.ToLower() == speaker.conferenceSlug.ToLower());
 
-				if (conference == null)
+				if (conference.IsNull())
 				{
 					return new HttpError() { StatusCode = HttpStatusCode.BadRequest };
 				}
 
 				var session = conference.sessions
 											.FirstOrDefault(s => s.slug.ToLower() == speaker.sessionSlug.ToLower());
-				if (session == null)
+				
+				if (session.IsNull())
 				{
 					return new HttpError() { StatusCode = HttpStatusCode.BadRequest };
 				}
@@ -145,7 +146,7 @@ namespace TekConf.UI.Api.Services.v1
 															.FirstOrDefault(c => c.sessions != null);
 
 
-			if (conference != null && conference.sessions != null)
+			if (conference.IsNotNull() && conference.sessions != null)
 			{
 				var speakers = conference.sessions
 						.Where(session => session.speakers != null)
@@ -178,19 +179,24 @@ namespace TekConf.UI.Api.Services.v1
 			FullConferenceDto conferenceDto = null;
 			try
 			{
-				var entity = Mapper.Map<ConferenceEntity>(conference);
+				var conferenceEntity = Mapper.Map<ConferenceEntity>(conference);
 
-				entity.dateAdded = DateTime.Now; // TODO : This logic should be encapsulated
-				if (entity.isLive)
+				conferenceEntity.dateAdded = DateTime.Now; // TODO : This logic should be encapsulated
+				if (conferenceEntity.isLive)
 				{
-					entity.Publish();
+					conferenceEntity.Publish();
 				}
 
-				entity.TrimAllProperties();
-				entity.Save();
+				conferenceEntity.subjects = conferenceEntity.subjects.Where(x => !string.IsNullOrWhiteSpace(x)).Distinct().ToList();
+				conferenceEntity.tags = conferenceEntity.tags.Where(x => !string.IsNullOrWhiteSpace(x)).Distinct().ToList();
+				conferenceEntity.rooms = conferenceEntity.rooms.Where(x => !string.IsNullOrWhiteSpace(x)).Distinct().ToList();
+				conferenceEntity.sessionTypes = conferenceEntity.sessionTypes.Where(x => !string.IsNullOrWhiteSpace(x)).Distinct().ToList();
+
+				conferenceEntity.TrimAllProperties();
+				conferenceEntity.Save();
 				this.CacheClient.FlushAll();
 
-				conferenceDto = Mapper.Map<ConferenceEntity, FullConferenceDto>(entity);
+				conferenceDto = Mapper.Map<ConferenceEntity, FullConferenceDto>(conferenceEntity);
 			}
 			catch (Exception ex)
 			{
@@ -216,7 +222,14 @@ namespace TekConf.UI.Api.Services.v1
 				{
 					existingConference.Publish();
 				}
+
+				existingConference.subjects = existingConference.subjects.Where(x => !string.IsNullOrWhiteSpace(x)).Distinct().ToList();
+				existingConference.tags = existingConference.tags.Where(x => !string.IsNullOrWhiteSpace(x)).Distinct().ToList();
+				existingConference.rooms = existingConference.rooms.Where(x => !string.IsNullOrWhiteSpace(x)).Distinct().ToList();
+				existingConference.sessionTypes = existingConference.sessionTypes.Where(x => !string.IsNullOrWhiteSpace(x)).Distinct().ToList();
+
 				existingConference.Save();
+
 				this.CacheClient.FlushAll();
 
 				conferenceDto = Mapper.Map<ConferenceEntity, FullConferenceDto>(existingConference);

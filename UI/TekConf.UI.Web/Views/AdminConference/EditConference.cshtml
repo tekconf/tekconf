@@ -151,7 +151,93 @@
 					</div>
 
 				</div>
-                    
+            
+				<div class="row">
+					<div class="span4">
+						<table class="table table-bordered table-condensed table-striped" id="sessionTypesTable">
+							<caption style="text-align: left">Session Types</caption>
+							<tbody>
+								<tr>
+									<td><a href="#" class="addSessionType">Add</a></td>
+								</tr>
+								@for (int sessionTypeCounter = 0; sessionTypeCounter < Model.sessionTypes.Count; sessionTypeCounter++)
+								{
+									<tr>
+										<td>
+											<input type="text" id="sessionTypes[@sessionTypeCounter]" name="sessionTypes[@sessionTypeCounter]" value="@Model.sessionTypes[sessionTypeCounter]"> <i class="icon-remove"></i>
+											<span></span>
+										</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+				</div>	
+				<div class="row">
+					<div class="span4">
+						<table class="table table-bordered table-condensed table-striped" id="roomsTable">
+							<caption style="text-align: left">Rooms</caption>
+							<tbody>
+								<tr>
+									<td><a href="#" class="addRoom">Add</a></td>
+								</tr>
+								@for (int roomCounter = 0; roomCounter < Model.rooms.Count; roomCounter++)
+								{
+									<tr>
+										<td>
+											<input type="text" id="rooms[@roomCounter]" name="rooms[@roomCounter]" value="@Model.rooms[roomCounter]"> <i class="icon-remove"></i>
+											<span></span>
+										</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+				</div>	 
+				<div class="row">
+					<div class="span4">
+						<table class="table table-bordered table-condensed table-striped" id="subjectsTable">
+							<caption style="text-align: left">Subjects</caption>
+							<tbody>
+								<tr>
+									<td><a href="#" class="addSubject">Add</a></td>
+								</tr>
+								@for (int subjectCounter = 0; subjectCounter < Model.subjects.Count; subjectCounter++)
+								{
+									<tr>
+										<td>
+											<input type="text" id="subjects[@subjectCounter]" name="subjects[@subjectCounter]" value="@Model.subjects[subjectCounter]"> <i class="icon-remove"></i>
+											<span></span>
+										</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="row">
+					<div class="span4">
+						<table class="table table-bordered table-condensed table-striped" id="tagsTable">
+							<caption style="text-align: left">Tags</caption>
+							<tbody>
+								<tr>
+									<td><a href="#" class="addTag">Add</a></td>
+								</tr>
+								@for (int tagCounter = 0; tagCounter < Model.tags.Count; tagCounter++)
+								{
+									<tr>
+										<td>
+											<input type="text" id="tags[@tagCounter]" name="tags[@tagCounter]" value="@Model.tags[tagCounter]"> <i class="icon-remove"></i>
+											<span></span>
+										</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+				</div>		 
+		 
+		         
 				<div class="row">
 					<input type="submit" class="btn-large btn btn-success" value="Save Conference" />
 				</div>      
@@ -219,6 +305,59 @@
 
 				codeAddress(streetNumber, streetName, city, state, postalArea, country);
 			});
+			
+			$(document).on("click", ".addSubject", function (e) {
+				e.preventDefault();
+
+				$(this).closest('tr').after('<tr><td><input type="text" /><span></span></td></tr>');
+
+				$('#subjectsTable td').each(function (index, el) {
+					var element = index - 1;
+					$('input', this).attr('id', 'subjects[' + element + ']');
+					$('input', this).attr('name', 'subjects[' + element + ']');
+
+				});
+			});
+
+			$(document).on("click", ".addTag", function (e) {
+				e.preventDefault();
+
+				$(this).closest('tr').after('<tr><td><input type="text" /><span></span></td></tr>');
+
+				$('#tagsTable td').each(function (index, el) {
+					var element = index - 1;
+					$('input', this).attr('id', 'tags[' + element + ']');
+					$('input', this).attr('name', 'tags[' + element + ']');
+
+				});
+			});
+
+			$(document).on("click", ".addRoom", function (e) {
+				e.preventDefault();
+
+				$(this).closest('tr').after('<tr><td><input type="text" /><span></span></td></tr>');
+
+				$('#roomsTable td').each(function (index, el) {
+					var element = index - 1;
+					$('input', this).attr('id', 'rooms[' + element + ']');
+					$('input', this).attr('name', 'rooms[' + element + ']');
+
+				});
+			});
+
+			$(document).on("click", ".addSessionType", function (e) {
+				e.preventDefault();
+
+				$(this).closest('tr').after('<tr><td><input type="text" /><span></span></td></tr>');
+
+				$('#sessionTypesTable td').each(function (index, el) {
+					var element = index - 1;
+					$('input', this).attr('id', 'sessionTypes[' + element + ']');
+					$('input', this).attr('name', 'sessionTypes[' + element + ']');
+
+				});
+			});
+
 
 		});
 	</script>
