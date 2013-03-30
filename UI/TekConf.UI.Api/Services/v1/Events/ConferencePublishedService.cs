@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using AutoMapper;
 using ServiceStack.CacheAccess;
 using ServiceStack.ServiceHost;
+using TekConf.RemoteData.Dtos.v1;
 using TekConf.RemoteData.Shared.v1.Requests;
 
 namespace TekConf.UI.Api.Services.v1
@@ -29,7 +32,9 @@ namespace TekConf.UI.Api.Services.v1
 						.AsQueryable()
 						.ToList();
 
-					return events;
+					var eventDtos = Mapper.Map<List<ConferencePublishedMessage>>(events);
+
+					return eventDtos;
 				});
 		}
 	}

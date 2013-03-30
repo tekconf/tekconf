@@ -29,17 +29,17 @@ namespace TekConf.RemoteData.v1
 			}
 		}
 
-		public void Register(string authenticationMethod, string userName, string identifier, string password, string email)
-		{
-			Registration request = new Registration()
-			{
-				Email = email,
-				UserName = userName,
-				Password = password
-			};
+		//public void Register(string authenticationMethod, string userName, string identifier, string password, string email)
+		//{
+		//	var request = new Registration()
+		//	{
+		//		Email = email,
+		//		UserName = userName,
+		//		Password = password
+		//	};
 
-			var response = ServiceClient.Post<RegistrationResponse>("/register", request);
-		}
+		//	var response = ServiceClient.Post<RegistrationResponse>("/register", request);
+		//}
 
 		public void GetSchedule(string conferenceSlug, string userName, Action<ScheduleDto> callback)
 		{

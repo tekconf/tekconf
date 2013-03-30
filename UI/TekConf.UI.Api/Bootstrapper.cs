@@ -5,6 +5,7 @@ using System.Linq;
 using AutoMapper;
 using MongoDB.Bson.Serialization;
 using TekConf.Common.Entities;
+using TekConf.Common.Entities.Messages;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.UI.Api.Services.Requests.v1;
 using TinyMessenger;
@@ -100,6 +101,21 @@ namespace TekConf.UI.Api
 			Mapper.CreateMap<AddressEntity, Address>();
 			Mapper.CreateMap<Address, AddressEntity>();
 			Mapper.CreateMap<AddressEntity, AddressDto>();
+
+			Mapper.CreateMap<ConferenceCreatedMessage, ConferenceCreatedDto>();
+			Mapper.CreateMap<ConferenceEndDateChangedMessage, ConferenceEndDateChangedDto>();
+			Mapper.CreateMap<ConferenceLocationChangedMessage, ConferenceLocationChangedDto>();
+			Mapper.CreateMap<ConferencePublishedMessage, ConferencePublishedDto>();
+			Mapper.CreateMap<ConferenceStartDateChangedMessage, ConferenceStartDateChangedDto>();
+			Mapper.CreateMap<ConferenceUpdatedMessage, ConferenceUpdatedDto>();
+			Mapper.CreateMap<ScheduleCreatedMessage, ScheduleCreatedDto>();
+			Mapper.CreateMap<SessionAddedMessage, SessionAddedDto>();
+			Mapper.CreateMap<SessionAddedToScheduleMessage, SessionAddedToScheduleDto>();
+			Mapper.CreateMap<SessionRemovedMessage, SessionRemovedDto>();
+			Mapper.CreateMap<SessionRoomChangedMessage, SessionRoomChangedDto>();
+			Mapper.CreateMap<SpeakerAddedMessage, SpeakerAddedDto>();
+			Mapper.CreateMap<SpeakerRemovedMessage, SpeakerRemovedDto>();
+
 		}
 
 	}

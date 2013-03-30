@@ -58,12 +58,18 @@
     <Compile Include="v1\Dtos\AddressDto.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="v1\Dtos\ConferenceCreatedDto.cs" />
     <Compile Include="v1\Dtos\ConferenceDto.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="v1\Dtos\ConferenceEndDateChangedDto.cs" />
+    <Compile Include="v1\Dtos\ConferenceLocationChangedDto.cs" />
+    <Compile Include="v1\Dtos\ConferencePublishedDto.cs" />
     <Compile Include="v1\Dtos\ConferencesDto.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="v1\Dtos\ConferenceStartDateChangedDto.cs" />
+    <Compile Include="v1\Dtos\ConferenceUpdatedDto.cs" />
     <Compile Include="v1\Dtos\FullConferenceDto.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -80,6 +86,7 @@
     <Compile Include="v1\Dtos\PresentingSpeakerDto.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="v1\Dtos\ScheduleCreatedDto.cs" />
     <Compile Include="v1\Dtos\ScheduleDto.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -87,15 +94,21 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="v1\Dtos\SearchResultDto.cs" />
+    <Compile Include="v1\Dtos\SessionAddedDto.cs" />
+    <Compile Include="v1\Dtos\SessionAddedToScheduleDto.cs" />
     <Compile Include="v1\Dtos\SessionDto.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="v1\Dtos\SessionRemovedDto.cs" />
+    <Compile Include="v1\Dtos\SessionRoomChangedDto.cs" />
     <Compile Include="v1\Dtos\SessionsDto.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="v1\Dtos\SpeakerAddedDto.cs" />
     <Compile Include="v1\Dtos\SpeakerDto.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="v1\Dtos\SpeakerRemovedDto.cs" />
     <Compile Include="v1\Dtos\SpeakersDto.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -139,7 +152,7 @@
     <Compile Include="v1\Requests\SessionResources.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="v1\Requests\SessionRoomChanged.cs">
+    <Compile Include="v1\Requests\EventRequests.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="v1\Requests\Sessions.cs">

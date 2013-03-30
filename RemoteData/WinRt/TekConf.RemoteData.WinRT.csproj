@@ -1,0 +1,286 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8C3356E0-D6B9-4C2F-9549-3D03E33BCEEA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TekConf.RemoteData.WinRT</RootNamespace>
+    <AssemblyName>TekConf.RemoteData.WinRT</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\Shared\v1\Dtos\AddressDto.cs">
+      <Link>v1\Dtos\AddressDto.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Dtos\ConferenceCreatedDto.cs">
+      <Link>v1\Dtos\ConferenceCreatedDto.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Dtos\ConferenceDto.cs">
+      <Link>v1\Dtos\ConferenceDto.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Dtos\ConferenceEndDateChangedDto.cs">
+      <Link>v1\Dtos\ConferenceEndDateChangedDto.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Dtos\ConferenceLocationChangedDto.cs">
+      <Link>v1\Dtos\ConferenceLocationChangedDto.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Dtos\ConferencePublishedDto.cs">
+      <Link>v1\Dtos\ConferencePublishedDto.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Dtos\ConferencesDto.cs">
+      <Link>v1\Dtos\ConferencesDto.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Dtos\ConferenceStartDateChangedDto.cs">
+      <Link>v1\Dtos\ConferenceStartDateChangedDto.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Dtos\ConferenceUpdatedDto.cs">
+      <Link>v1\Dtos\ConferenceUpdatedDto.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Dtos\FullConferenceDto.cs">
+      <Link>v1\Dtos\FullConferenceDto.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Dtos\FullSessionDto.cs">
+      <Link>v1\Dtos\FullSessionDto.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Dtos\FullSpeakerDto.cs">
+      <Link>v1\Dtos\FullSpeakerDto.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Dtos\HistoryDto.cs">
+      <Link>v1\Dtos\HistoryDto.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Dtos\PresentationDto.cs">
+      <Link>v1\Dtos\PresentationDto.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Dtos\PresentingSpeakerDto.cs">
+      <Link>v1\Dtos\PresentingSpeakerDto.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Dtos\ScheduleCreatedDto.cs">
+      <Link>v1\Dtos\ScheduleCreatedDto.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Dtos\ScheduleDto.cs">
+      <Link>v1\Dtos\ScheduleDto.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Dtos\SchedulesDto.cs">
+      <Link>v1\Dtos\SchedulesDto.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Dtos\SearchResultDto.cs">
+      <Link>v1\Dtos\SearchResultDto.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Dtos\SessionAddedDto.cs">
+      <Link>v1\Dtos\SessionAddedDto.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Dtos\SessionAddedToScheduleDto.cs">
+      <Link>v1\Dtos\SessionAddedToScheduleDto.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Dtos\SessionDto.cs">
+      <Link>v1\Dtos\SessionDto.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Dtos\SessionRemovedDto.cs">
+      <Link>v1\Dtos\SessionRemovedDto.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Dtos\SessionRoomChangedDto.cs">
+      <Link>v1\Dtos\SessionRoomChangedDto.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Dtos\SessionsDto.cs">
+      <Link>v1\Dtos\SessionsDto.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Dtos\SpeakerAddedDto.cs">
+      <Link>v1\Dtos\SpeakerAddedDto.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Dtos\SpeakerDto.cs">
+      <Link>v1\Dtos\SpeakerDto.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Dtos\SpeakerRemovedDto.cs">
+      <Link>v1\Dtos\SpeakerRemovedDto.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Dtos\SpeakersDto.cs">
+      <Link>v1\Dtos\SpeakersDto.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Dtos\UserDto.cs">
+      <Link>v1\Dtos\UserDto.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Helpers.cs">
+      <Link>v1\Helpers.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\RemoteDataRepository.cs">
+      <Link>v1\RemoteDataRepository.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Requests\Address.cs">
+      <Link>v1\Requests\Address.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Requests\AddSessionToSchedule.cs">
+      <Link>v1\Requests\AddSessionToSchedule.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Requests\Conferences.cs">
+      <Link>v1\Requests\Conferences.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Requests\CreatePresentation.cs">
+      <Link>v1\Requests\CreatePresentation.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Requests\CreatePresentationHistory.cs">
+      <Link>v1\Requests\CreatePresentationHistory.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Requests\EventRequests.cs">
+      <Link>v1\Requests\EventRequests.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Requests\FeaturedSpeakers.cs">
+      <Link>v1\Requests\FeaturedSpeakers.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Requests\Presentation.cs">
+      <Link>v1\Requests\Presentation.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Requests\Presentations.cs">
+      <Link>v1\Requests\Presentations.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Requests\Schedule.cs">
+      <Link>v1\Requests\Schedule.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Requests\Schedules.cs">
+      <Link>v1\Requests\Schedules.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Requests\SessionLinks.cs">
+      <Link>v1\Requests\SessionLinks.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Requests\SessionPrerequisites.cs">
+      <Link>v1\Requests\SessionPrerequisites.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Requests\SessionResources.cs">
+      <Link>v1\Requests\SessionResources.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Requests\Sessions.cs">
+      <Link>v1\Requests\Sessions.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Requests\SessionSpeakers.cs">
+      <Link>v1\Requests\SessionSpeakers.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Requests\Speakers.cs">
+      <Link>v1\Requests\Speakers.cs</Link>
+    </Compile>
+    <Compile Include="..\Shared\v1\Requests\Users.cs">
+      <Link>v1\Requests\Users.cs</Link>
+    </Compile>
+    <Compile Include="ApiAttribute.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Shared\packages.config">
+      <Link>packages.config</Link>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\ServiceStack\src\ServiceStack.Common.WinRT\ServiceStack.Common.WinRT.csproj">
+      <Project>{27b20313-1994-469b-ac59-1ae7e89cfe33}</Project>
+      <Name>ServiceStack.Common.WinRT</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\ServiceStack\src\ServiceStack.Interfaces.WinRT\ServiceStack.Interfaces.WinRT.csproj">
+      <Project>{7a5d5904-5a5f-4fd9-abb4-9dcb3861adc8}</Project>
+      <Name>ServiceStack.Interfaces.WinRT</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
+    <VisualStudioVersion>11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" ProjectLinkReference="1439b0ec-5c15-4b18-b4eb-8a2787abdfde" />
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

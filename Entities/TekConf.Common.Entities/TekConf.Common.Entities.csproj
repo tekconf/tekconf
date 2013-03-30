@@ -48,63 +48,158 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddressEntity.cs" />
-    <Compile Include="ConferenceEntity.cs" />
-    <Compile Include="Extensions.cs" />
-    <Compile Include="GeoLocationEntity.cs" />
-    <Compile Include="HistoryEntity.cs" />
-    <Compile Include="Messages\ConferenceCreatedMessage.cs" />
-    <Compile Include="Messages\ScheduleCreatedMessage.cs" />
-    <Compile Include="Messages\SessionAddedToScheduleMessage.cs" />
-    <Compile Include="PresentationEntity.cs" />
-    <Compile Include="Repositories\ConferenceCreatedRepository.cs" />
-    <Compile Include="Repositories\GenericRepository.cs" />
-    <Compile Include="Repositories\GeoLocationRepository.cs" />
-    <Compile Include="Repositories\ScheduleCreatedRepository.cs" />
-    <Compile Include="Repositories\ScheduleRepository.cs" />
-    <Compile Include="Repositories\SpeakerRemovedRepository.cs" />
-    <Compile Include="Repositories\ConferenceEndDateChangedRepository.cs" />
-    <Compile Include="Repositories\ConferencePublishedRepository.cs" />
-    <Compile Include="Repositories\ConferenceUpdatedRepository.cs" />
-    <Compile Include="Repositories\ConferenceStartDateChangedRepository.cs" />
-    <Compile Include="Repositories\SessionAddedRepository.cs" />
-    <Compile Include="Repositories\SessionRemovedRepository.cs" />
-    <Compile Include="Repositories\SpeakerAddedRepository.cs" />
-    <Compile Include="Repositories\ConferenceLocationChangedRepository.cs" />
-    <Compile Include="Repositories\ConferenceRepository.cs" />
-    <Compile Include="Configuration.cs" />
-    <Compile Include="IConfiguration.cs" />
-    <Compile Include="IRepository.cs" />
-    <Compile Include="Messages\ConferenceEndDateChangedMessage.cs" />
-    <Compile Include="Messages\ConferenceLocationChangedMessage.cs" />
-    <Compile Include="Messages\ConferencePublishedMessage.cs" />
-    <Compile Include="Helpers.cs" />
-    <Compile Include="Messages\ConferenceUpdatedMessage.cs" />
-    <Compile Include="Messages\ConferenceStartDateChangedMessage.cs" />
-    <Compile Include="Messages\ITinyMessageBase.cs" />
-    <Compile Include="Messages\SessionRemovedMessage.cs" />
-    <Compile Include="Messages\SessionRoomChangedMessage.cs" />
-    <Compile Include="Messages\SpeakerAddedMessage.cs" />
-    <Compile Include="Messages\SpeakerRemovedMessage.cs" />
-    <Compile Include="Messages\TinyMessageBase.cs" />
+    <Compile Include="Configuration.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\AddressEntity.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\ConferenceEntity.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\GeoLocationEntity.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\HistoryEntity.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\IEntity.cs" />
+    <Compile Include="Entities\PresentationEntity.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\ScheduleEntity.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\SessionEntity.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\SpeakerEntity.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Entities\UserEntity.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Extensions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Helpers.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IConfiguration.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Messages\ConferenceCreatedMessage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Messages\ConferenceEndDateChangedMessage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Messages\ConferenceLocationChangedMessage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Messages\ConferencePublishedMessage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Messages\ConferenceStartDateChangedMessage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Messages\ConferenceUpdatedMessage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Messages\ITinyMessageBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Messages\RoomChangedArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Messages\ScheduleCreatedMessage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Messages\SessionAddedMessage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Messages\SessionAddedToScheduleMessage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Messages\SessionRemovedMessage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Messages\SessionRoomChangedMessage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Messages\SpeakerAddedMessage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Messages\SpeakerRemovedMessage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Messages\TinyMessageBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\UserRepository.cs" />
-    <Compile Include="Messages\RoomChanged.cs" />
-    <Compile Include="ScheduleEntity.cs" />
-    <Compile Include="Messages\SessionAddedMessage.cs" />
-    <Compile Include="SessionEntity.cs" />
-    <Compile Include="Repositories\SessionRoomChangedRepository.cs" />
-    <Compile Include="SpeakerEntity.cs" />
-    <Compile Include="UserEntity.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <Compile Include="Repositories\ConferenceCreatedRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repositories\ConferenceEndDateChangedRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repositories\ConferenceLocationChangedRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repositories\ConferencePublishedRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repositories\ConferenceRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repositories\ConferenceStartDateChangedRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repositories\ConferenceUpdatedRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repositories\GenericRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repositories\GeoLocationRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repositories\ScheduleCreatedRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repositories\ScheduleRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repositories\SessionAddedRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repositories\SessionRemovedRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repositories\SessionRoomChangedRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repositories\SpeakerAddedRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repositories\SpeakerRemovedRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Repositories\UserRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\libs\TinyMessenger\TinyMessenger.csproj">
       <Project>{7c6925bc-f644-4d3e-9c66-f1593ecbf522}</Project>
       <Name>TinyMessenger</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
