@@ -509,6 +509,7 @@
     <Content Include="img\Speakers\default.png" />
     <Content Include="img\Windows8-coming-soon.png" />
     <Content Include="img\Windows8.png" />
+    <Content Include="js\jquery.lazyload.min.js" />
     <Content Include="js\notification.js" />
     <Content Include="js\typeahead.css" />
     <Content Include="js\typeahead.js" />
@@ -653,9 +654,9 @@
     <Content Include="Views\Presentations\Detail.cshtml" />
     <None Include="Views\Web.Debug.config" />
     <None Include="Views\Web.Release.config" />
-    <None Include="Web.Azure.config">
+    <Content Include="Web.Azure.config">
       <DependentUpon>Web.config</DependentUpon>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -664,6 +665,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Entities\TekConf.Common.Entities\TekConf.Common.Entities.csproj">
+      <Project>{67514387-8c88-477f-ad16-f24b32b69113}</Project>
+      <Name>TekConf.Common.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\libs\TekConf.Azure\TekConf.Azure.csproj">
       <Project>{3B882D71-EB35-4655-8425-E6952B3470DF}</Project>
       <Name>TekConf.Azure</Name>
@@ -719,5 +724,5 @@
   </Target>
   <Target Name="AfterBuild">
   </Target> -->
-	<Import Project="..\..\packages\OctoPack.2.0.20\targets\OctoPack.targets" />
+  <Import Project="..\..\packages\OctoPack.2.0.20\targets\OctoPack.targets" />
 </Project>

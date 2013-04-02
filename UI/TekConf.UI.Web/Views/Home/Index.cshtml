@@ -47,9 +47,10 @@
 							}
 						</div>
 						<!-- /landing-text -->
-						<div class="span7 landing-screenshot">
-							<img src="~/img/iPad1.png" class="screengrab" alt="Screenshot" />
-						</div>
+					    <div class="span7 landing-screenshot">
+					        
+					        <img src="~/img/iPad1.png" class="screengrab" alt="Screenshot" />
+					    </div>
 					</div>
 					<!-- .row -->
 				</div>
@@ -202,9 +203,11 @@
 		@Scripts.Render("~/bundles/jqueryMigrate")
 		@Scripts.Render("~/js/common")
 		@Scripts.Render("~/js/commonLightbox")
+	    <script src="~/js/jquery.lazyload.min.js" type="text/javascript"></script>
 
 		<script>
 			$(function () {
+			    $("img.lazy").lazyload();
 
 			});
 

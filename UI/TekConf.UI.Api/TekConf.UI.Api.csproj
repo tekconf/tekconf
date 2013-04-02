@@ -202,9 +202,6 @@
     <Content Include="App_Readme\Elmah.txt" />
     <Content Include="clientaccesspolicy.xml" />
     <Content Include="Global.asax" />
-    <Content Include="newrelic.cmd">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <None Include="Properties\PublishProfiles\tekconf-api - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\tekconf-api - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
@@ -262,9 +259,9 @@
     </Content>
     <Content Include="Scripts\jquery-1.9.1.min.map" />
     <Content Include="TekConf.UI.Api.nuspec" />
-    <None Include="Web.Azure.config">
+    <Content Include="Web.Azure.config">
       <DependentUpon>Web.config</DependentUpon>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppHost.cs" />

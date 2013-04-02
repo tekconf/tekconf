@@ -30,7 +30,7 @@ namespace TekConf.UI.Api.Tests.Unit
 		public void Count_should_return_correct_value_for_no_filter()
 		{
 			ITinyMessengerHub hub = new Mock<ITinyMessengerHub>().Object;
-			var conferencesRepostioryMock = new Mock<IRepository<ConferenceEntity>>();
+			var conferencesRepostioryMock = new Mock<IConferenceRepository>();
 
 			var conferenceEntityLive = _fixture.Build<ConferenceEntity>()
 					.With(x => x.start, DateTime.Now.AddDays(-1))
@@ -73,7 +73,7 @@ namespace TekConf.UI.Api.Tests.Unit
 		{
 			var searchTerm = _fixture.Create<string>();
 			ITinyMessengerHub hub = new Mock<ITinyMessengerHub>().Object;
-			var conferencesRepositoryMock = new Mock<IRepository<ConferenceEntity>>();
+			var conferencesRepositoryMock = new Mock<IConferenceRepository>();
 
 			var conferenceEntityLive = _fixture.Build<ConferenceEntity>()
 					.With(x => x.start, DateTime.Now.AddDays(-1))
@@ -119,7 +119,7 @@ namespace TekConf.UI.Api.Tests.Unit
 		public void Count_should_return_correct_value_for_past_conferences_filter()
 		{
 			ITinyMessengerHub hub = new Mock<ITinyMessengerHub>().Object;
-			var conferencesRepositoryMock = new Mock<IRepository<ConferenceEntity>>();
+			var conferencesRepositoryMock = new Mock<IConferenceRepository>();
 
 			var conferenceEntityLive = _fixture.Build<ConferenceEntity>()
 					.With(x => x.start, DateTime.Now.AddDays(-1))

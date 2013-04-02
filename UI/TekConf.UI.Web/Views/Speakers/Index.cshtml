@@ -85,11 +85,12 @@
 						@foreach (var conference in Model.OpenConferences ?? new List<FullConferenceDto>())
 						{
 							<tr>
-								<td style="width: 125px">
-									<img src="@conference.imageUrl" style="height:80px;" alt="@conference.name" /><br />
-									<br />
-									<a href="~/conferences/@conference.slug" class="btn btn-primary btn-mini">View Conference</a>
-								</td>
+							    <td style="width: 125px">
+                                    <img class="lazy" src="~/Images/spacer.gif" data-original="@conference.imageUrl" width="116" height="80" alt="@conference.name">
+							        <br />
+							        <br />
+							        <a href="~/conferences/@conference.slug" class="btn btn-primary btn-mini">View Conference</a>
+							    </td>
 								<td>
 									<h3>@conference.name</h3>
 									Call for Speakers : @HtmlHelpers.FormatDateRange(conference.callForSpeakersOpens, conference.callForSpeakersCloses)<br />
@@ -148,9 +149,12 @@
 	@Scripts.Render("~/bundles/jqueryMigrate")
 	@Scripts.Render("~/js/common")
 	@Scripts.Render("~/js/commonFaq")
+    
+	    <script src="~/js/jquery.lazyload.min.js" type="text/javascript"></script>
 
-	<script>
-		$(function () {
+    <script>
+        $(function () {
+            $("img.lazy").lazyload();
 		});
 	</script>
 </body>

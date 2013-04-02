@@ -173,6 +173,7 @@
     <Compile Include="Repositories\GenericRepository.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Repositories\GeoConferenceEntity.cs" />
     <Compile Include="Repositories\GeoLocationRepository.cs">
       <SubType>Code</SubType>
     </Compile>

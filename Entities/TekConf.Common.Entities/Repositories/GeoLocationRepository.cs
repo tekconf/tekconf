@@ -9,7 +9,12 @@ using TekConf.UI.Api;
 
 namespace TekConf.Common.Entities.Repositories
 {
-	public class GeoLocationRepository : IRepository<GeoLocationEntity>
+    public interface IGeoLocationRepository : IRepository<GeoLocationEntity>
+    {
+        
+    }
+
+    public class GeoLocationRepository : IGeoLocationRepository
 	{
 		private readonly IConfiguration _configuration;
 

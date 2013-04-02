@@ -1,10 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Linq;
+using AutoMapper;
 using Elmah;
+using TekConf.RemoteData.Dtos.v1;
+using TekConf.UI.Api;
 using TekConf.UI.Web.App_Start;
+using Configuration = TekConf.UI.Api.Configuration;
+using IConfiguration = TekConf.UI.Api.IConfiguration;
 
 namespace TekConf.UI.Web.Controllers
 {
@@ -29,12 +35,14 @@ namespace TekConf.UI.Web.Controllers
 	public class ConferencesController : Controller
 	{
 		private RemoteDataRepositoryAsync _repository;
-
+	    private IConferenceRepository _conferenceRepository;
 		public ConferencesController()
 		{
 			var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
 
 			_repository = new RemoteDataRepositoryAsync(baseUrl);
+		    IConfiguration configuration = new Configuration();
+		    _conferenceRepository = new ConferenceRepository(configuration);
 		}
 
 		[CompressFilter]
@@ -49,9 +57,15 @@ namespace TekConf.UI.Web.Controllers
 			{
 				ViewBag.ShowTable = false;
 			}
-			var conferencesTask = _repository.GetConferences(sortBy, showPastConferences, showOnlyOpenCalls, showOnlyOnSale, search, city, state, country, latitude, longitude, distance);
 
-			await conferencesTask;
+            IEnumerable<ConferenceEntity> conferences = new List<ConferenceEntity>();
+
+            Task getConferencesTask = Task.Factory.StartNew(() =>
+                {
+                    conferences = _conferenceRepository.GetConferences(search, sortBy, showPastConferences, showOnlyOpenCalls, showOnlyOnSale, false, longitude, latitude, distance, city, state, country);
+                });
+
+            await getConferencesTask;
 
 			var filter = new ConferencesFilter()
 				{
@@ -71,7 +85,9 @@ namespace TekConf.UI.Web.Controllers
 
 			ViewBag.Filter = filter;
 
-			return View(conferencesTask.Result.ToList());
+		    var conferencesDtos = Mapper.Map<List<FullConferenceDto>>(conferences);
+		   
+            return View(conferencesDtos);
 
 		}
 

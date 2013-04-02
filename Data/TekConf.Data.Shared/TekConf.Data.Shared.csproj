@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D502D4EF-4EA7-4DE6-AFDC-1AFE9FA5137F}</ProjectGuid>
+    <ProjectGuid>{69995E74-B4D0-45AC-913F-5072526D9645}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TekConf.Data.Shared</RootNamespace>
@@ -30,17 +30,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FluentMongo">
-      <HintPath>..\..\packages\FluentMongo.1.3.1.1\lib\FluentMongo.dll</HintPath>
-    </Reference>
-    <Reference Include="MongoDB.Bson">
-      <HintPath>..\..\packages\mongocsharpdriver.1.8.0\lib\net35\MongoDB.Bson.dll</HintPath>
-    </Reference>
-    <Reference Include="MongoDB.Driver">
-      <HintPath>..\..\packages\mongocsharpdriver.1.8.0\lib\net35\MongoDB.Driver.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -49,39 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration.cs" />
-    <Compile Include="IConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\ConferenceCreatedRepository.cs" />
-    <Compile Include="Repositories\ConferenceEndDateChangedRepository.cs" />
-    <Compile Include="Repositories\ConferenceLocationChangedRepository.cs" />
-    <Compile Include="Repositories\ConferencePublishedRepository.cs" />
-    <Compile Include="Repositories\ConferenceRepository.cs" />
-    <Compile Include="Repositories\ConferenceStartDateChangedRepository.cs" />
-    <Compile Include="Repositories\ConferenceUpdatedRepository.cs" />
-    <Compile Include="Repositories\GenericRepository.cs" />
-    <Compile Include="Repositories\GeoLocationRepository.cs" />
-    <Compile Include="Repositories\ScheduleCreatedRepository.cs" />
-    <Compile Include="Repositories\ScheduleRepository.cs" />
-    <Compile Include="Repositories\SessionAddedRepository.cs" />
-    <Compile Include="Repositories\SessionRemovedRepository.cs" />
-    <Compile Include="Repositories\SessionRoomChangedRepository.cs" />
-    <Compile Include="Repositories\SpeakerAddedRepository.cs" />
-    <Compile Include="Repositories\SpeakerRemovedRepository.cs" />
-    <Compile Include="Repositories\UserRepository.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Entities\TekConf.Common.Entities\TekConf.Common.Entities.csproj">
-      <Project>{67514387-8c88-477f-ad16-f24b32b69113}</Project>
-      <Name>TekConf.Common.Entities</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\libs\TinyMessenger\TinyMessenger.csproj">
-      <Project>{7C6925BC-F644-4D3E-9C66-F1593ECBF522}</Project>
-      <Name>TinyMessenger</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

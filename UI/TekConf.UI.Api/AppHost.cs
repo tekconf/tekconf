@@ -42,11 +42,13 @@ namespace TekConf.UI.Api
 			IConfiguration configuration = new Configuration();
 
 			container.Register<IConfiguration>(configuration);
-			container.Register<IRepository<ConferenceEntity>>(new ConferenceRepository(configuration));
+
+            container.Register<IConferenceRepository>(new ConferenceRepository(configuration));
 			container.Register<IRepository<ScheduleEntity>>(new ScheduleRepository(configuration));
 			container.Register<IRepository<UserEntity>>(new UserRepository(configuration));
 			container.Register<IRepository<GeoLocationEntity>>(new GeoLocationRepository(configuration));
             container.Register<IRepository<PresentationEntity>>(new GenericRepository<PresentationEntity>(configuration));
+		    container.Register<IRepository<ConferenceEntity>>(new ConferenceRepository(configuration));
 
 			container.Register<IRepository<SessionRoomChangedMessage>>(new GenericRepository<SessionRoomChangedMessage>(configuration));
 			container.Register<IRepository<ConferenceLocationChangedMessage>>(new GenericRepository<ConferenceLocationChangedMessage>(configuration));

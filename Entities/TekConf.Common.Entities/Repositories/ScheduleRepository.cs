@@ -1,68 +1,81 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using MongoDB.Driver.Linq;
 
 namespace TekConf.Common.Entities.Repositories
 {
-	
+    using MongoDB.Driver;
+    using MongoDB.Driver.Builders;
+    using TekConf.UI.Api;
 
-	using MongoDB.Driver;
-	using MongoDB.Driver.Builders;
+    public interface IScheduleRepository : IRepository<ScheduleEntity>
+    {
+        IEnumerable<ScheduleEntity> GetSchedules(string userName);        
+    }
 
-	using TekConf.UI.Api;
+    public class ScheduleRepository : IScheduleRepository
+    {
+        private readonly IConfiguration _configuration;
 
-	public class ScheduleRepository : IRepository<ScheduleEntity>
-		{
-				private readonly IConfiguration _configuration;
+        public IEnumerable<ScheduleEntity> GetSchedules(string userName)
+        {
+            var schedules = this
+                                .AsQueryable()
+                                .Where(s => s.UserName.ToLower() == userName.ToLower())
+                                .ToList();
 
-				public ScheduleRepository(IConfiguration configuration)
-				{
-						_configuration = configuration;
-				}
+            return schedules;
+        }
 
-				public void Save(ScheduleEntity entity)
-				{
-						var collection = MongoCollection();
-						collection.Save(entity);
-				}
+        public ScheduleRepository(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
 
-				public IQueryable<ScheduleEntity> AsQueryable()
-				{
-						var collection = MongoCollection();
-						return collection.AsQueryable();
-				}
+        public void Save(ScheduleEntity entity)
+        {
+            var collection = MongoCollection();
+            collection.Save(entity);
+        }
 
-				public void Remove(Guid id)
-				{
-						var collection = this.LocalDatabase.GetCollection<ScheduleEntity>("schedules");
-						collection.Remove(Query.EQ("_id", id));
-				}
+        public IQueryable<ScheduleEntity> AsQueryable()
+        {
+            var collection = MongoCollection();
+            return collection.AsQueryable();
+        }
 
-				private MongoCollection<ScheduleEntity> MongoCollection()
-				{
-						var collection = this.LocalDatabase.GetCollection<ScheduleEntity>("schedules");
-						return collection;
-				}
+        public void Remove(Guid id)
+        {
+            var collection = this.LocalDatabase.GetCollection<ScheduleEntity>("schedules");
+            collection.Remove(Query.EQ("_id", id));
+        }
 
-				private MongoServer _localServer;
-				private MongoDatabase _localDatabase;
-				private MongoDatabase LocalDatabase
-				{
-						get
-						{
-								if (_localServer == null)
-								{
-										var mongoServer = _configuration.MongoServer;
-										_localServer = MongoServer.Create(mongoServer);
-								}
+        private MongoCollection<ScheduleEntity> MongoCollection()
+        {
+            var collection = this.LocalDatabase.GetCollection<ScheduleEntity>("schedules");
+            return collection;
+        }
 
-								if (_localDatabase == null)
-								{
-										_localDatabase = _localServer.GetDatabase("tekconf");
+        private MongoServer _localServer;
+        private MongoDatabase _localDatabase;
+        private MongoDatabase LocalDatabase
+        {
+            get
+            {
+                if (_localServer == null)
+                {
+                    var mongoServer = _configuration.MongoServer;
+                    _localServer = MongoServer.Create(mongoServer);
+                }
 
-								}
-								return _localDatabase;
-						}
-				}
-		}
+                if (_localDatabase == null)
+                {
+                    _localDatabase = _localServer.GetDatabase("tekconf");
+
+                }
+                return _localDatabase;
+            }
+        }
+    }
 }

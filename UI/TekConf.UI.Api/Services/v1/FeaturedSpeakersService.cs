@@ -10,48 +10,36 @@ using ServiceStack.ServiceHost;
 
 namespace TekConf.UI.Api.Services.v1
 {
-	public class FeaturedSpeakersService : MongoServiceBase
-	{
-		private readonly IConfiguration _configuration;
+    public class FeaturedSpeakersService : MongoServiceBase
+    {
+        private readonly IConfiguration _configuration;
+        private readonly IConferenceRepository _conferenceRepository;
 
-		private readonly IRepository<ConferenceEntity> _conferenceRepository;
+        public ICacheClient CacheClient { get; set; }
 
-		public ICacheClient CacheClient { get; set; }
+        public FeaturedSpeakersService(IConfiguration configuration, IConferenceRepository conferenceRepository)
+        {
+            _configuration = configuration;
+            _conferenceRepository = conferenceRepository;
+        }
 
-		public FeaturedSpeakersService(IConfiguration configuration, IRepository<ConferenceEntity> conferenceRepository)
-		{
-			_configuration = configuration;
-			_conferenceRepository = conferenceRepository;
-		}
+        public object Get(FeaturedSpeakers request)
+        {
+            return GetFeaturedSpeakers(request);
+        }
 
-		public object Get(FeaturedSpeakers request)
-		{
-			return GetFeaturedSpeakers(request);
-		}
+        private object GetFeaturedSpeakers(FeaturedSpeakers request)
+        {
+            var cacheKey = "GetFeaturedSpeakers";
+            var expireInTimespan = new TimeSpan(0, 0, _configuration.cacheTimeout);
+            return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
+                {
+                    var featuredSpeakers = _conferenceRepository.GetFeaturedSpeakers();
 
-		private object GetFeaturedSpeakers(FeaturedSpeakers request)
-		{
-			var cacheKey = "GetFeaturedSpeakers";
-			var expireInTimespan = new TimeSpan(0, 0, _configuration.cacheTimeout);
-			return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
-			{
-					var featuredSpeakers = _conferenceRepository
-																.AsQueryable()
-																.Where(c => c.isLive)
-																.ToList()
-																.Where(c => c.sessions != null)
-																.SelectMany(c => c.sessions)
-																.Where(s => s.speakers != null)
-																.SelectMany(s => s.speakers)
-																.Where(s => s.isFeatured)
-																.Where(s => !string.IsNullOrWhiteSpace(s.description))
-																.Distinct()
-																.Take(3);
+                    var speakersDto = Mapper.Map<List<FullSpeakerDto>>(featuredSpeakers);
+                    return speakersDto.ToList();
+                });
 
-				var speakersDto = Mapper.Map<List<FullSpeakerDto>>(featuredSpeakers);
-				return speakersDto.ToList();
-			});
-
-		}
-	}
+        }
+    }
 }

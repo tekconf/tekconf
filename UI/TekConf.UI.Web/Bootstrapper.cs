@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using AutoMapper;
 using TekConf.RemoteData.Dtos.v1;
+using TekConf.UI.Api;
 using TekConf.UI.Api.Services.Requests.v1;
 
 namespace TekConf.UI.Web
@@ -17,6 +19,12 @@ namespace TekConf.UI.Web
             Mapper.CreateMap<FullSessionDto, AddSession>();
 
             Mapper.CreateMap<FullSpeakerDto, CreateSpeaker>();
+
+            Mapper.CreateMap<SpeakerEntity, FullSpeakerDto>();
+            Mapper.CreateMap<AddressEntity, AddressDto>();
+            Mapper.CreateMap<ConferenceEntity, FullConferenceDto>();
+            Mapper.CreateMap<SessionEntity, FullSessionDto>();
+
         }
 
         public class LatitudeResolver : ValueResolver<FullConferenceDto, double>

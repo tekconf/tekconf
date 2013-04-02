@@ -217,7 +217,7 @@
 				{
 									<img src="~/img/OnSale.png" class="overlay overlay-onsale" alt="On Sale Now" />
 				}
-								<img src="@conference.imageUrl" alt="@conference.name">
+                                <img class="lazy" src="~/Images/spacer.gif" data-original="@conference.imageUrl" width="260" height="180">
 								@if (conference.IsOpenCallForSpeakers())
 				{
 									<img src="~/img/OpenCall.png" class="overlay overlay-opencall overlay-right" alt="Open Call for Speakers" />
@@ -282,9 +282,14 @@
 	@Scripts.Render("~/js/common")
 	@Scripts.Render("~/bundles/jqueryUI")
 	@Scripts.Render("~/js/conferences/index")
+    
+	    <script src="~/js/jquery.lazyload.min.js" type="text/javascript"></script>
 
-	<script type="text/javascript" language="javascript">
-		$(function () {
+
+    <script type="text/javascript" language="javascript">
+	    $(function () {
+	        $("img.lazy").lazyload();
+	        
 			// run the currently selected effect
 			function runEffect() {
 				// get effect type from
