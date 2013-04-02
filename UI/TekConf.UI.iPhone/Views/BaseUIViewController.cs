@@ -45,7 +45,7 @@ namespace TekConf.UI.iPhone
 
 		protected void TrackAnalyticsEvent(string eventName)
 		{
-			FlurryAnalytics.FlurryAnalytics.LogEvent(eventName);
+			//FlurryAnalytics.FlurryAnalytics.LogEvent(eventName);
 
 		}
 

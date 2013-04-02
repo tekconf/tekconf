@@ -18,7 +18,7 @@ else
 		<p>
 				@foreach (AuthenticationClientData p in Model)
 		{
-						<button type="submit" name="provider" value="@p.AuthenticationClient.ProviderName" title="Log in using your @p.DisplayName account" style="background: transparent;border:none;"><img src="/img/social/@p.DisplayName-48x48.png" /></button>
+						<button type="submit" name="provider" value="@p.AuthenticationClient.ProviderName" title="Log in using your @p.DisplayName account" style="background: transparent;border:none;"><img src="/img/social/@p.DisplayName-48x48.png" alt="Login with @p.DisplayName" /></button>
 		}
 		</p>
 		}

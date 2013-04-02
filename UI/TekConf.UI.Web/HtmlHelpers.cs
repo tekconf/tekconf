@@ -7,7 +7,7 @@ namespace TekConf.UI.Web
 	{
 		public static bool IsAdmin(this HtmlHelper helper)
 		{
-			if (HttpContext.Current.Request.IsLocal || HttpContext.Current.User.Identity.Name == "robgibbens@gmail.com" ||
+			if (HttpContext.Current.Request.IsLocal || HttpContext.Current.User.Identity.Name == "robgibbens@gmail.com" || HttpContext.Current.User.Identity.Name == "RobGibbens" ||
 					(HttpContext.Current.Session["admin"] != null && HttpContext.Current.Session["admin"].ToString() == "true") ||
 			    (HttpContext.Current.Request.QueryString["admin"] != null && HttpContext.Current.Request.QueryString["admin"] == "true"))
 			{

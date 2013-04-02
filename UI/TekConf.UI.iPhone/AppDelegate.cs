@@ -4,7 +4,7 @@ using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using MonoTouch.Dialog;
-using FA=FlurryAnalytics;
+//using FA=FlurryAnalytics;
 using MonoTouch.Accounts;
 using TekConf.RemoteData.v1;
 using FlyoutNavigation;
@@ -29,8 +29,8 @@ namespace TekConf.UI.iPhone
 		//
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
-			FA.FlurryAnalytics.StartSession ("J57HPDDQQ8J8MVGKBKF7");
-			FA.FlurryAnalytics.SetSessionReportsOnPause (true);
+			//FA.FlurryAnalytics.StartSession ("J57HPDDQQ8J8MVGKBKF7");
+			//FA.FlurryAnalytics.SetSessionReportsOnPause (true);
 
 			var font = UIFont.FromName ("OpenSans-Light", 14f);
 			var headerFont = UIFont.FromName ("OpenSans", 16f);
@@ -129,7 +129,7 @@ namespace TekConf.UI.iPhone
 
 		protected void TrackAnalyticsEvent(string eventName)
 		{
-			FlurryAnalytics.FlurryAnalytics.LogEvent(eventName);		
+			//FlurryAnalytics.FlurryAnalytics.LogEvent(eventName);		
 		}
 
 		public override void ViewDidLoad ()

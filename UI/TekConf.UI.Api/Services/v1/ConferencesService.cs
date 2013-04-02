@@ -41,13 +41,13 @@ namespace TekConf.UI.Api.Services.v1
 			{
 				var searchTerm = request.searchTerm.ToLower();
 				var search = GetSearchTermSearchForMongo(searchTerm);
-				if (search != null)
+				if (search.IsNotNull())
 				{
 					query = query.Where(search);
 				}
 			}
 
-			if (showPastConferences != null)
+			if (showPastConferences.IsNotNull())
 			{
 				query = query.Where(showPastConferences);
 			}
@@ -83,22 +83,27 @@ namespace TekConf.UI.Api.Services.v1
 																				 .ToList()
 																				 .FirstOrDefault(x => x.name.ToLower() == request.city.ToLower());
 
-				if (city != null)
+				if (city.IsNotNull())
 					searchResults = SearchByLatLong(city.latitude, city.longitude, request.distance.Value, request.searchTerm, request.showPastConferences);
 
 			}
 			else
 			{
-				var searchTerm = request.searchTerm.ToLower();
+				var searchTerm = request.searchTerm.IsNullOrWhiteSpace() ? "" : request.searchTerm.ToLower();
 				var searchTermSearch = GetSearchTermSearchForMongo(searchTerm);
 
 				var showPastConferences = GetShowPastConferences(request.showPastConferences);
 
 				var query = _conferenceRepository.AsQueryable()
-									 .Where(searchTermSearch)
-									 .Where(c => c.isLive);
+											.Where(c => c.isLive)
+											;
 
-				if (showPastConferences != null)
+				if (searchTermSearch.IsNotNull())
+				{
+					query = query.Where(searchTermSearch);
+				}
+
+				if (showPastConferences.IsNotNull())
 				{
 					query = query.Where(showPastConferences);
 				}
@@ -129,13 +134,13 @@ namespace TekConf.UI.Api.Services.v1
 			{
 				searchTerm = searchTerm.ToLower();
 				var searchTermExpression = GetSearchTermSearchForMongo(searchTerm);
-				if (searchTermExpression != null)
+				if (searchTermExpression.IsNotNull())
 				{
 					query = query.Where(searchTermExpression);
 				}
 			}
 			var showPastConferencesExpression = GetShowPastConferences(showPastConferences);
-			if (showPastConferencesExpression != null)
+			if (showPastConferencesExpression.IsNotNull())
 			{
 				query = query.Where(showPastConferencesExpression);
 			}
@@ -149,6 +154,7 @@ namespace TekConf.UI.Api.Services.v1
 			return searchResults;
 		}
 
+		
 		public object Get(Conferences request)
 		{
 			if (request.showOnlyFeatured)
@@ -162,7 +168,7 @@ namespace TekConf.UI.Api.Services.v1
 			var cacheKey = GetCacheKey(request);
 
 			var expireInTimespan = new TimeSpan(0, 0, _configuration.cacheTimeout);
-			List<ConferencesDto> conferencesDtos = null;
+			List<FullConferenceDto> conferencesDtos = null;
 
 			var result = base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
 				{
@@ -193,7 +199,7 @@ namespace TekConf.UI.Api.Services.v1
 																						 .ToList()
 																						 .FirstOrDefault(x => x.name.ToLower() == request.city.ToLower());
 
-						if (city != null)
+						if (city.IsNotNull())
 						{
 							var conferences = (_conferenceRepository as ConferenceRepository).GeoSearch(city.latitude,
 																														city.longitude,
@@ -219,7 +225,7 @@ namespace TekConf.UI.Api.Services.v1
 		}
 
 
-		private List<ConferencesDto> BuildConferencesSearch(IQueryable<ConferenceEntity> query, Expression<Func<ConferenceEntity, bool>> searchExpression, string sortBy, string searchTerm, bool? showPastConferences, bool? showOnlyWithOpenCalls, bool? showOnlyOnSale)
+		private List<FullConferenceDto> BuildConferencesSearch(IQueryable<ConferenceEntity> query, Expression<Func<ConferenceEntity, bool>> searchExpression, string sortBy, string searchTerm, bool? showPastConferences, bool? showOnlyWithOpenCalls, bool? showOnlyOnSale)
 		{
 			var orderByFunc = GetOrderByFunc(sortBy);
 			var showPastConferencesExpression = GetShowPastConferences(showPastConferences);
@@ -229,29 +235,29 @@ namespace TekConf.UI.Api.Services.v1
 			//var query = _conferenceRepository
 			//	.AsQueryable();
 
-			if (searchExpression != null)
+			if (searchExpression.IsNotNull())
 			{
 				query = query.Where(searchExpression);
 			}
 
-			if (showPastConferencesExpression != null)
+			if (showPastConferencesExpression.IsNotNull())
 			{
 				query = query.Where(showPastConferencesExpression);
 			}
 
-			if (showOnlyOpenCallsExpression != null)
+			if (showOnlyOpenCallsExpression.IsNotNull())
 			{
 				query = query.Where(showOnlyOpenCallsExpression);
 			}
 
-			if (showOnlyOnSaleExpression != null)
+			if (showOnlyOnSaleExpression.IsNotNull())
 			{
 				query = query.Where(showOnlyOnSaleExpression);
 			}
 
 			query = query.Where(c => c.isLive);
 
-			List<ConferencesDto> conferencesDtos = null;
+			List<FullConferenceDto> conferencesDtos = null;
 			List<ConferenceEntity> conferences = null;
 
 			if (sortBy == "dateAdded")
@@ -266,7 +272,7 @@ namespace TekConf.UI.Api.Services.v1
 			conferences = query
 				.ToList();
 
-			conferencesDtos = Mapper.Map<List<ConferencesDto>>(conferences);
+			conferencesDtos = Mapper.Map<List<FullConferenceDto>>(conferences);
 			return conferencesDtos;
 		}
 
@@ -340,7 +346,7 @@ namespace TekConf.UI.Api.Services.v1
 			Expression<Func<ConferenceEntity, bool>> searchBy = null;
 
 			//Only show current conferences
-			if (showPastConferences == null || !(bool)showPastConferences)
+			if (showPastConferences.IsNull() || !(bool)showPastConferences)
 			{
 				searchBy = c => c.end >= DateTime.Now.AddDays(-3);
 			}
@@ -354,7 +360,7 @@ namespace TekConf.UI.Api.Services.v1
 
 			if (showOnlyOpenCalls.HasValue && showOnlyOpenCalls.Value)
 			{
-				searchBy = c => c.callForSpeakersOpens <= DateTime.Now && c.callForSpeakersCloses >= DateTime.Now;
+				searchBy = c => c.callForSpeakersOpens <= DateTime.Now.AddMonths(1) && c.callForSpeakersCloses >= DateTime.Now;
 			}
 
 			return searchBy;
@@ -382,14 +388,14 @@ namespace TekConf.UI.Api.Services.v1
 				//var regex = new Regex(search, RegexOptions.IgnoreCase);
 
 				searchBy = c => c.name.ToLower().Contains(search)
-						|| (c.slug == null || c.slug.ToLower().Contains(search))
-						|| (c.description == null || c.description.ToLower().Contains(search))
-						|| (c.address == null || c.address.City == null || c.address.City.ToLower().Contains(search))
-						|| (c.address == null || c.address.Country == null || c.address.Country.ToLower().Contains(search))
-						|| c.sessions.Any(s => (s.description == null || s.description.ToLower().Contains(search)))
-						|| c.sessions.Any(s => (s.title == null || s.title.ToLower().Contains(search)))
-						|| c.sessions.Any(s => s.speakers.Any(sp => (sp.lastName == null || sp.lastName.ToLower().Contains(search))))
-						|| c.sessions.Any(s => s.speakers.Any(sp => (sp.twitterName == null || sp.twitterName.ToLower().Contains(search))))
+						|| (c.slug.IsNull() || c.slug.ToLower().Contains(search))
+						|| (c.description.IsNull() || c.description.ToLower().Contains(search))
+						|| (c.address.IsNull() || c.address.City.IsNull() || c.address.City.ToLower().Contains(search))
+						|| (c.address.IsNull() || c.address.Country.IsNull() || c.address.Country.ToLower().Contains(search))
+						|| c.sessions.Any(s => (s.description.IsNull() || s.description.ToLower().Contains(search)))
+						|| c.sessions.Any(s => (s.title.IsNull() || s.title.ToLower().Contains(search)))
+						|| c.sessions.Any(s => s.speakers.Any(sp => (sp.lastName.IsNull() || sp.lastName.ToLower().Contains(search))))
+						|| c.sessions.Any(s => s.speakers.Any(sp => (sp.twitterName.IsNull() || sp.twitterName.ToLower().Contains(search))))
 						;
 			
 			}

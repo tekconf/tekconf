@@ -1,87 +1,44 @@
-GET http://api.tekconf.com/v1/conferences
+# About #
+TekConf is a conference management solution, focused on technical conferences.  The main components include a quasi-RESTful API, the web front end, and mobile and desktop apps.
 
-  Returns list of conferences with urls to details
-            
-           <pre><code>
-            [
-                {
-                    "name" : "That-Conference",
-                    "start" : "2012-08-13",
-                    "end" : "2012-08-15",
-                    "location" : "Wisconsin",
-                    "url" : "http://api.tekconf.com/v1/That-Conference/2012"
-                },
-            ]
-            </code></pre>
+[http://tekConf.com](http://tekConf.com "TekConf.com")<br/>
+[http://api.tekconf.com](http://api.tekconf.com "TekConf API")
 
+# Requirements for building/hosting #
+- Windows
+- Visual Studio 2012
+- IISExpress
+- MongoDB
 
+# Setting up environment for development #
+1. Pull code from develop
+2. MongoDB must be installed
+3. Restore db (coming soon)
+4. db.conferences.ensureIndex( { "position" : "2d" } )
 
-GET http://api.tekconf.com/v1/conferences/That-Conference/2012
-    
-    
-    - Returns general info with link to sessions
-        {
-            _id: "498f66af7f9442e4b4be7ca6d3ec52e5",
-            description: "Spend 3 days, with 1000 of your fellow campers in 150 sessions geeking out on everything Mobile, Web and Cloud at a giant waterpark.",
-            facebookUrl: "https://www.facebook.com/CodeMash",
-            slug: "CodeMash-2012",
-            homepageUrl: "http://codemash.com",
-            lanyrdUrl: "lanyrd.com/2012/codemash/",
-            location: "Kalahari Resort, Wisconsin Dells, WI",
-            name: "That Conference",
-            start: "/Date(1344830400000-0400)/",
-            end: "/Date(1345003200000-0400)/",
-            twitterHashTag: "#codemash",
-            twitterName: "@codemash",
-            sessions : "http://api.tekconf.com/v1/CodeMash-2012/session"
-        }
+# Backlog #
+See Trello [https://trello.com/board/tekconf/50747c7b7dfbc8a32f0417b7](https://trello.com/board/tekconf/50747c7b7dfbc8a32f0417b7 "Trello")
 
-GET http://api.tekconf.com/v1/conferences/That-Conference/2012/sessions
-    - Returns sessions with speakers
+# Use Cases #
+Attendees
 
-GET http://api.tekconf.com/v1/conferences/That-Conference/2012/sessions/MonoTouch
-    - Returns single session with speakers, prerequisites, links, resources
+- Attendee can browse conferences
+- Attendee can search for conferences
+- Attendee can login
+- Attendee can save a schedule for a conference
+- Attendee is alerted to changes to a conference schedule
 
-GET http://api.tekconf.com/v1/conferences/That-Conference/2012/sessions/MonoTouch/speakers
-    - Returns speakers
+Speakers
 
-GET http://api.tekconf.com/v1/conferences/That-Conference/2012/sessions/MonoTouch/prerequisites
-    - Returns prerequisites
+- Speakers can find conferences with open calls for speakers/presentations
+- Speakers can maintain a speaker profile
+- Speakers can upload their presentations
+- Speakers can submit presentations to conferences
 
-GET http://api.tekconf.com/v1/conferences/That-Conference/2012/sessions/MonoTouch/links
-    - Returns links
+Organizers
 
-GET http://api.tekconf.com/v1/conferences/That-Conference/2012/sessions/MonoTouch/resources
-    - Returns resources
+- Organizer can create a conference
+- Organizer can add sessions
+- Organizer can search for speaker presentations
+- Organizer can create schedule
 
-GET http://api.tekconf.com/v1/conferences/That-Conference/2012/speakers
-    - Returns speakers with sessions
-
-GET http://api.tekconf.com/v1/conferences/That-Conference/2012/speakers/rob-gibbens
-    - Returns speakers info
-
-GET http://api.tekconf.com/v1/conferences/That-Conference/2012
-
-- Authenticate
-- Get schedule
-- Add session to schedule
-- Add conference
-- Add session
-- Add new speaker
-- Add existing speaker
-- Remove session from schedule
-- Submit session
-- Approve session
-- Vote on session
-- Reject session
-- Remove session
-- Edit/update session
-- Edit/update conference
-- Edit/update speaker
-
-
-
-<div style="background: #00578e url('http://www.jetbrains.com/img/banners/Codebetter300x250.png') no-repeat 0 50%; margin:0;padding:0;text-decoration:none;text-indent:0;letter-spacing:-0.001em; width:300px; height:250px">
-<a href="http://www.jetbrains.com/youtrack" title="YouTrack by JetBrains" style="margin: 52px 0 0 58px;padding: 0; float: left;font-size: 14px; background-image:none;border:0;color: #acc4f9; font-family: trebuchet ms,arial,sans-serif;font-weight: normal;text-align:left;">keyboard-centric bug tracker</a>
-<a href="http://www.jetbrains.com/teamcity" title="TeamCity by JetBrains" style="margin:0 0 0 58px;padding:122px 0 0 0;font-size:14px; background-image:none;border:0;display:block; color: #acc4f9; font-family: trebuchet ms,arial,sans-serif;font-weight: normal;text-align:left;">continuous integration server</a>
-</div>

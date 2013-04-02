@@ -29,17 +29,17 @@ namespace TekConf.RemoteData.v1
 			}
 		}
 
-		public void Register(string authenticationMethod, string userName, string identifier, string password, string email)
-		{
-			Registration request = new Registration()
-			{
-				Email = email,
-				UserName = userName,
-				Password = password
-			};
+		//public void Register(string authenticationMethod, string userName, string identifier, string password, string email)
+		//{
+		//	var request = new Registration()
+		//	{
+		//		Email = email,
+		//		UserName = userName,
+		//		Password = password
+		//	};
 
-			var response = ServiceClient.Post<RegistrationResponse>("/register", request);
-		}
+		//	var response = ServiceClient.Post<RegistrationResponse>("/register", request);
+		//}
 
 		public void GetSchedule(string conferenceSlug, string userName, Action<ScheduleDto> callback)
 		{
@@ -60,6 +60,35 @@ namespace TekConf.RemoteData.v1
 			};
 
 			ServiceClient.GetAsync(schedules, callback, (r, ex) =>
+			{
+				var x = ex;
+				callback(null);
+			});
+		}
+
+		public void GetPresentations(string userName, Action<List<PresentationDto>> callback)
+		{
+			var presentation = new Presentations()
+			{
+				speakerSlug = userName
+			};
+
+			ServiceClient.GetAsync(presentation, callback, (r, ex) =>
+			{
+				var x = ex;
+				callback(null);
+			});
+		}
+
+		public void GetPresentation(string slug, string userName, Action<PresentationDto> callback)
+		{
+			var presentation = new Presentation()
+			{
+				slug = slug,
+				speakerSlug = userName
+			};
+
+			ServiceClient.GetAsync(presentation, callback, (r, ex) =>
 			{
 				var x = ex;
 				callback(null);
@@ -98,7 +127,7 @@ namespace TekConf.RemoteData.v1
 			});
 		}
 
-		public void GetConferences(Action<IList<ConferencesDto>> callback, string sortBy = "end", 
+		public void GetConferences(Action<IList<FullConferenceDto>> callback, string sortBy = "end", 
 			bool? showPastConferences = false, bool? showOnlyOpenCalls = false, bool? showOnlyOnSale = false, 
 			string search = null, string city = null, string state = null, string country = null, double? latitude = null, 
 			double? longitude = null, double? distance = null)
@@ -148,16 +177,22 @@ namespace TekConf.RemoteData.v1
 			}
 
 			var conferences = new ConferencesCount() { showPastConferences = showPastConferences, searchTerm = search };
-			ServiceClient.GetAsync(conferences, callback, (r, ex) => { callback(0); });
+			ServiceClient.GetAsync(conferences, callback, (r, ex) =>
+				{
+					ServiceClient.GetAsync(conferences, callback, (r2, ex2) =>
+					{
+						callback(0);
+					});
+				});
 		}
 
-		public void GetFeaturedConferences(Action<IList<ConferencesDto>> callback)
+		public void GetFeaturedConferences(Action<IList<FullConferenceDto>> callback)
 		{
 			var featured = new Conferences() { showOnlyFeatured = true };
 			ServiceClient.GetAsync(featured, callback, (r, ex) => { callback(null); });
 		}
 
-		public void GetConferencesWithOpenCalls(Action<IList<ConferencesDto>> callback)
+		public void GetConferencesWithOpenCalls(Action<IList<FullConferenceDto>> callback)
 		{
 			var openCalls = new Conferences() { showOnlyFeatured = true, showOnlyWithOpenCalls = true };
 			ServiceClient.GetAsync(openCalls, callback, (r, ex) => { callback(null); });
@@ -212,6 +247,23 @@ namespace TekConf.RemoteData.v1
 																			});
 		}
 
+		public void CreatePresentation(CreatePresentation presentation, string userName, string password, Action<PresentationDto> callback)
+		{
+			presentation.Slug = presentation.Title.GenerateSlug();
+			presentation.UserName = userName;
+
+			ServiceClient.SetCredentials(userName, password);
+			ServiceClient.PostAsync(presentation, callback, (r, ex) => { callback(null); });
+		}
+
+		public void CreatePresentationHistory(CreatePresentationHistory history, string userName, string password, Action<PresentationDto> callback)
+		{
+			history.UserName = userName;
+
+			ServiceClient.SetCredentials(userName, password);
+			ServiceClient.PutAsync(history, callback, (r, ex) => { callback(null); });
+		}
+
 		public void CreateConference(CreateConference conference, string userName, string password, Action<FullConferenceDto> callback)
 		{
 			conference.slug = conference.name.GenerateSlug();
@@ -262,6 +314,7 @@ namespace TekConf.RemoteData.v1
 																callback(null);
 															});
 		}
+
 
 	}
 }

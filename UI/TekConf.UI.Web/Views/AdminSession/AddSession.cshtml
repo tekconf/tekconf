@@ -15,7 +15,9 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
 
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet" type="text/css">
-    @Styles.Render("~/css/conferences/detail")
+		<link rel="search" type="application/opensearchdescription+xml" href="http://www.tekconf.com/TekConf.xml" title="TekConf Search" /> 
+    
+	@Styles.Render("~/css/conferences/detail")
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -55,7 +57,6 @@
 
                         <label>Title</label>
                         @Html.TextBoxFor(c => c.title)
-                        <span class="help-block">Example block-level help text here.</span>
 
                         <label>Start Date/Time</label>
                         @Html.TextBoxFor(c => c.start, new { type = "datetime" })
@@ -64,13 +65,13 @@
                         @Html.TextBoxFor(c => c.end, new { type = "datetime" })
 
                         <label>Room</label>
-                        @Html.TextBoxFor(c => c.room)
-
+                        @Html.DropDownList("room", ViewBag.RoomsList as IEnumerable<SelectListItem>, "")
+											
                         <label>Difficulty</label>
-                        @Html.TextBoxFor(c => c.difficulty)
+                        @Html.DropDownList("difficulty", ViewBag.DifficultiesList as IEnumerable<SelectListItem>, "")
 
                         <label>Session Type</label>
-                        @Html.TextBoxFor(c => c.sessionType)
+                        @Html.DropDownList("sessionType", ViewBag.SessionTypesList as IEnumerable<SelectListItem>, "")
 
                         <label>Twitter Hash Tag</label>
                         @Html.TextBoxFor(c => c.twitterHashTag)
@@ -168,6 +169,35 @@
         $(function () {
         	$('#start').datetimepicker();
         	$('#end').datetimepicker();
+        });
+
+
+        function addMinutes(date, minutes) {
+        	return new Date(date.getTime() + minutes * 60000);
+        }
+        
+        function formatAMPM(date) {
+        	var hours = date.getHours();
+        	var minutes = date.getMinutes();
+        	var ampm = hours >= 12 ? 'PM' : 'AM';
+        	hours = hours % 12;
+        	hours = hours ? hours : 12; // the hour '0' should be '12'
+        	minutes = minutes < 10 ? '0' + minutes : minutes;
+        	var strTime = hours + ':' + minutes + ' ' + ampm;
+        	return strTime;
+        }
+
+
+        $('#start').change(function () {
+        	var startDate = new Date($('#start').val());
+        	var endDate = addMinutes(startDate, '@Model.defaultTalkLength');
+	        
+        	var endDateMonth = endDate.getMonth() + 1;
+        	var endDateDay = endDate.getDate();
+        	var endDateYear = endDate.getFullYear();
+        	var endDateTime = formatAMPM(endDate);
+	        
+	        $('#end').val(endDateMonth + '/' + endDateDay + '/' + endDateYear + ' ' + endDateTime);
         });
 
         $(document).on("click", ".addPrerequisite", function (e) {

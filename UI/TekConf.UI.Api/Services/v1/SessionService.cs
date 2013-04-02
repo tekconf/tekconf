@@ -7,6 +7,7 @@ using AutoMapper;
 using FluentMongo.Linq;
 using ServiceStack.CacheAccess;
 using ServiceStack.Common.Web;
+using TekConf.Common.Entities;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.UI.Api.Services.Requests.v1;
 using TekConf.UI.Api.UrlResolvers.v1;
@@ -55,11 +56,12 @@ namespace TekConf.UI.Api.Services.v1
 				//.Where(c => c.isLive)
 					.FirstOrDefault(x => x.slug.ToLower() == request.conferenceSlug.ToLower());
 
-			if (conference == null)
+			if (conference.IsNull())
 			{
 				return new HttpError() { StatusCode = HttpStatusCode.BadRequest };
 			}
 
+			entity.TrimAllProperties();
 			conference.AddSession(entity);
 			conference.Save();
 			this.CacheClient.FlushAll();
@@ -75,6 +77,7 @@ namespace TekConf.UI.Api.Services.v1
 			var conference = _conferenceRepository.AsQueryable().FirstOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
 
 			var session = conference.sessions.FirstOrDefault(s => s.slug.ToLower() == request.slug.ToLower());
+			session.TrimAllProperties();
 			Mapper.Map<AddSession, SessionEntity>(request, session);
 
 			conference.Save();
@@ -115,7 +118,7 @@ namespace TekConf.UI.Api.Services.v1
 									//.Where(c => c.isLive)
 										.SingleOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
 
-								if (conference == null)
+								if (conference.IsNull())
 								{
 									lock (NonExistingConferences)
 									{
@@ -125,7 +128,7 @@ namespace TekConf.UI.Api.Services.v1
 								}
 
 
-								if (conference.sessions == null)
+								if (conference.sessions.IsNull())
 								{
 									lock (NonExistingSessions)
 									{
@@ -136,7 +139,7 @@ namespace TekConf.UI.Api.Services.v1
 
 								var session = conference.sessions.FirstOrDefault(s => s.slug.ToLower() == request.sessionSlug.ToLower());
 
-								if (session != null)
+								if (session.IsNotNull())
 								{
 									var sessionDto = Mapper.Map<SessionEntity, SessionDto>(session);
 									var sessionUrlResolver = new SessionUrlResolver(request.conferenceSlug, sessionDto.slug);

@@ -1,6 +1,7 @@
 using System.Configuration;
 using MongoDB.Driver;
 using ServiceStack.ServiceInterface;
+using TekConf.Common.Entities;
 
 namespace TekConf.UI.Api.Services
 {
@@ -15,12 +16,12 @@ namespace TekConf.UI.Api.Services
 		{
 			//get
 			//{
-			//    if (_remoteServer == null)
+			//    if (_remoteServer.IsNull())
 			//    {
 			//        _remoteServer = MongoServer.Create("mongodb://tekconf:tekconf1234@alex.mongohq.com:10035/?safe=true");
 			//    }
 
-			//    if (_remoteDatabase == null)
+			//    if (_remoteDatabase.IsNull())
 			//    {
 			//        _remoteDatabase = _remoteServer.GetDatabase("conferences");
 			//    }
@@ -33,13 +34,13 @@ namespace TekConf.UI.Api.Services
 		{
 			get
 			{
-				if (_localServer == null)
+				if (_localServer.IsNull())
 				{
 					var mongoServer = ConfigurationManager.ConnectionStrings["MongoServer"].ConnectionString;
 					_localServer = MongoServer.Create(mongoServer);
 				}
 
-				if (_localDatabase == null)
+				if (_localDatabase.IsNull())
 				{
 					_localDatabase = _localServer.GetDatabase("tekconf");
 

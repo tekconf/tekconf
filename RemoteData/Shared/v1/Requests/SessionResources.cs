@@ -3,11 +3,12 @@ using ServiceStack.ServiceHost;
 
 namespace TekConf.UI.Api.Services.Requests.v1
 {
-
-    [Route("/v1/conferences/{conferenceSlug}/sessions/{sessionSlug}/resources", "GET")]
-    public class SessionResources : IReturn<List<string>>
-    {
-        public string conferenceSlug { get; set; }
-        public string sessionSlug { get; set; }
-    }
+	[Route("/v1/conferences/{conferenceSlug}/sessions/{sessionSlug}/resources", "GET")]
+	public class SessionResources : IReturn<List<string>>
+	{
+		[ApiMember(Name = "conferenceSlug", Description = "XXXX", ParameterType = "query", DataType = "string", IsRequired = false)]
+		public string conferenceSlug { get; set; }
+		[ApiMember(Name = "sessionSlug", Description = "XXXX", ParameterType = "query", DataType = "string", IsRequired = false)]
+		public string sessionSlug { get; set; }
+	}
 }

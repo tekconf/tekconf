@@ -46,6 +46,7 @@ namespace TekConf.UI.Api
 			container.Register<IRepository<ScheduleEntity>>(new ScheduleRepository(configuration));
 			container.Register<IRepository<UserEntity>>(new UserRepository(configuration));
 			container.Register<IRepository<GeoLocationEntity>>(new GeoLocationRepository(configuration));
+            container.Register<IRepository<PresentationEntity>>(new GenericRepository<PresentationEntity>(configuration));
 
 			container.Register<IRepository<SessionRoomChangedMessage>>(new GenericRepository<SessionRoomChangedMessage>(configuration));
 			container.Register<IRepository<ConferenceLocationChangedMessage>>(new GenericRepository<ConferenceLocationChangedMessage>(configuration));
@@ -60,6 +61,7 @@ namespace TekConf.UI.Api
 			container.Register<IRepository<SpeakerRemovedMessage>>(new GenericRepository<SpeakerRemovedMessage>(configuration));
 			container.Register<IRepository<ScheduleCreatedMessage>>(new GenericRepository<ScheduleCreatedMessage>(configuration));
 			container.Register<IRepository<SessionAddedToScheduleMessage>>(new GenericRepository<SessionAddedToScheduleMessage>(configuration));
+
 
 
 			container.Register<IEmailSender>(new EmailSender(container.Resolve<IConfiguration>()));

@@ -15,6 +15,8 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 
 	<link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet" type="text/css">
+	<link rel="search" type="application/opensearchdescription+xml" href="http://www.tekconf.com/TekConf.xml" title="TekConf Search" />
+
 	@Styles.Render("~/css/conferences/detail")
 
 	<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -56,7 +58,6 @@
 
 						<label>Conference Name</label>
 						@Html.TextBoxFor(c => c.name)
-						<span class="help-block">Example block-level help text here.</span>
 
 						<label>Start Date/Time</label>
 						@Html.TextBoxFor(c => c.start, new { type = "datetime" })
@@ -66,6 +67,9 @@
 
 						<label>Tagline</label>
 						@Html.TextBoxFor(c => c.tagline)
+
+						<label>Default Talk Length</label>
+						@Html.TextBoxFor(c => c.defaultTalkLength)
 
 						<label>Call for Speakers Opens</label>
 						@Html.TextBoxFor(c => c.callForSpeakersOpens)
@@ -175,8 +179,33 @@
 					</div>
 
 				</div>
+		 
 				<div class="row">
-					<div class="span-4">
+					<div class="span4">
+						<table class="table table-bordered table-condensed table-striped" id="sessionTypesTable">
+							<caption style="text-align: left">Session Types</caption>
+							<tbody>
+								<tr>
+									<td><a href="#" class="addSessionType">Add</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>	
+				<div class="row">
+					<div class="span4">
+						<table class="table table-bordered table-condensed table-striped" id="roomsTable">
+							<caption style="text-align: left">Rooms</caption>
+							<tbody>
+								<tr>
+									<td><a href="#" class="addRoom">Add</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>	 
+				<div class="row">
+					<div class="span4">
 						<table class="table table-bordered table-condensed table-striped" id="subjectsTable">
 							<caption style="text-align: left">Subjects</caption>
 							<tbody>
@@ -186,7 +215,9 @@
 							</tbody>
 						</table>
 					</div>
-					<div class="span-4">
+				</div>
+				<div class="row">
+					<div class="span4">
 						<table class="table table-bordered table-condensed table-striped" id="tagsTable">
 							<caption style="text-align: left">Tags</caption>
 							<tbody>
@@ -291,6 +322,33 @@
 
 				});
 			});
+
+			$(document).on("click", ".addRoom", function (e) {
+				e.preventDefault();
+
+				$(this).closest('tr').after('<tr><td><input type="text" /><span></span></td></tr>');
+
+				$('#roomsTable td').each(function (index, el) {
+					var element = index - 1;
+					$('input', this).attr('id', 'rooms[' + element + ']');
+					$('input', this).attr('name', 'rooms[' + element + ']');
+
+				});
+			});
+
+			$(document).on("click", ".addSessionType", function (e) {
+				e.preventDefault();
+
+				$(this).closest('tr').after('<tr><td><input type="text" /><span></span></td></tr>');
+
+				$('#sessionTypesTable td').each(function (index, el) {
+					var element = index - 1;
+					$('input', this).attr('id', 'sessionTypes[' + element + ']');
+					$('input', this).attr('name', 'sessionTypes[' + element + ']');
+
+				});
+			});
+
 
 		});
 	</script>

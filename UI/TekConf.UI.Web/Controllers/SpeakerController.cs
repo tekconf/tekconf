@@ -51,7 +51,7 @@ namespace TekConf.UI.Web.Controllers
 			var conference = conferenceTask.Result;
 			var speaker = speakerTask.Result;
 
-			var conferenceDto = new ConferencesDto()
+			var conferenceDto = new FullConferenceDto()
 			{
 				description = conference.description,
 				end = conference.end,

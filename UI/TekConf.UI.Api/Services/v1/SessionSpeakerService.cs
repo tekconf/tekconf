@@ -5,6 +5,7 @@ using AutoMapper;
 using FluentMongo.Linq;
 using ServiceStack.CacheAccess;
 using ServiceStack.Common.Web;
+using TekConf.Common.Entities;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.UI.Api.Services.Requests.v1;
 using TekConf.UI.Api.UrlResolvers.v1;
@@ -42,14 +43,14 @@ namespace TekConf.UI.Api.Services.v1
 				//.Where(c => c.isLive)
 					.SingleOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
 
-			if (conference == null)
+			if (conference.IsNull())
 			{
 				throw new HttpError() { StatusCode = HttpStatusCode.NotFound };
 			}
 
 			var session = conference.sessions.SingleOrDefault(s => s.slug.ToLower() == request.sessionSlug.ToLower());
 
-			if (session == null)
+			if (session.IsNull())
 			{
 				throw new HttpError() { StatusCode = HttpStatusCode.NotFound };
 			}

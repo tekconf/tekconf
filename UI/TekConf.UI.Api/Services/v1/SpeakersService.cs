@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using AutoMapper;
+using TekConf.Common.Entities;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.UI.Api.Services.Requests.v1;
 using TekConf.UI.Api.UrlResolvers.v1;
@@ -60,7 +61,7 @@ namespace TekConf.UI.Api.Services.v1
 					//.Where(c => c.isLive)
 				.SingleOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
 
-				if (conference == null)
+				if (conference.IsNull())
 				{
 					lock (NonExistingConferences)
 					{
@@ -74,7 +75,7 @@ namespace TekConf.UI.Api.Services.v1
 				//TODO : Linq this
 				foreach (var session in conference.sessions)
 				{
-					if (session.speakers != null)
+					if (session.speakers.IsNotNull())
 					{
 						foreach (var speakerEntity in session.speakers)
 						{

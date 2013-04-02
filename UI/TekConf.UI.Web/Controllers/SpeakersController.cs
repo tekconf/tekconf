@@ -4,9 +4,7 @@ using System.Configuration;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
-using Ploeh.AutoFixture;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.UI.Web.App_Start;
 using TekConf.UI.Web.ViewModels;
@@ -30,45 +28,39 @@ namespace TekConf.UI.Web.Controllers
 		{
 			//var openCallsConferencesTask = _repository.GetConferencesWithOpenCalls();
 			var openCallsConferencesTask = _repository.GetConferences(showOnlyOpenCalls: true);
+			List<PresentationDto> presentations;
+			List<FullConferenceDto> myConferences;
 
-			await Task.WhenAll(openCallsConferencesTask);
+			if (Request.IsAuthenticated)
+			{
+				var userName = User.Identity.Name;
+				var presentationsTask = _repository.GetPresentations(userName);
+				var conferencesTask = _repository.GetSchedules(userName);
 
-			var openCallConferences = openCallsConferencesTask.Result == null ? new List<ConferencesDto>() : openCallsConferencesTask.Result.ToList();
+				await Task.WhenAll(openCallsConferencesTask, presentationsTask, conferencesTask);
+
+				presentations = presentationsTask.Result;
+				myConferences = conferencesTask.Result;
+			}
+			else
+			{
+				await Task.WhenAll(openCallsConferencesTask);
+
+				presentations = new List<PresentationDto>();
+				myConferences = new List<FullConferenceDto>();
+			}
+			
+
+			var openCallConferences = openCallsConferencesTask.Result == null ? new List<FullConferenceDto>() : openCallsConferencesTask.Result.ToList();
 		
 			var vm = new SpeakersViewModel()
 			{
 				OpenConferences = openCallConferences.OrderBy(x => x.callForSpeakersCloses).ToList(),
-				Presentations = new List<PresentationDto>(),
-				MyConferences = new List<ConferencesDto>(),
+				Presentations = presentations,
+				MyConferences = myConferences,
 			};
 
 			return View(vm);
-		}
-
-		private string GetRandomConferenceImage()
-		{
-			Thread.Sleep(10);
-			var images = new List<string>()
-				{
-					"img/conferences/mountainjs-2013.png",
-					"img/conferences/cloud-develop-2012.png",
-					"img/conferences/BackboneConf.png",
-					"img/conferences/codemash-2013.png",
-					"img/conferences/devoxx-2012.png",
-					"img/conferences/js-conf-downunder-2012.png",
-					"img/conferences/jsconf-2013.png",
-					"img/conferences/m3-conference-2012.png",
-					"img/conferences/aspConf.png",
-					"img/conferences/cascadiajs-2012.png",
-					"img/conferences/xamarin-evolve-2013.png",
-					"img/conferences/wwdc-2012.png",
-					"img/conferences/RailsConf.png",
-				};
-
-			images.Shuffle();
-			var image = images.FirstOrDefault();
-
-			return image;
 		}
 
 	}

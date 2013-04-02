@@ -16,8 +16,10 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="description" content="@Model.Conference.name @Model.Speaker.fullName" />
 
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet" type="text/css">
+		<link rel="search" type="application/opensearchdescription+xml" href="http://www.tekconf.com/TekConf.xml" title="TekConf Search" /> 
     @Styles.Render("~/css/session/detail")
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -85,71 +87,71 @@
 
                             @if (!string.IsNullOrWhiteSpace(Model.Speaker.blogUrl))
                             {
-                                <img src="~/img/social/website-16x16.png" /> @HtmlHelpers.SimpleLink(Model.Speaker.blogUrl, Model.Speaker.blogUrl.Replace("http://", ""))<br />
+                                <img src="~/img/social/website-16x16.png" alt="Website" /> @HtmlHelpers.SimpleLink(Model.Speaker.blogUrl, Model.Speaker.blogUrl.Replace("http://", ""))<br />
                             }
 
                             @if (!string.IsNullOrWhiteSpace(Model.Speaker.emailAddress))
                             {
-                                <img src="~/img/social/email-16x16.png" /> @Model.Speaker.emailAddress<br />
+                                <img src="~/img/social/email-16x16.png" alt="Email" /> @Model.Speaker.emailAddress<br />
                             }
 
                             @if (!string.IsNullOrWhiteSpace(Model.Speaker.phoneNumber))
                             {
-                                <img src="~/img/social/phone.png" /> @HtmlHelpers.PhoneLink(Model.Speaker.phoneNumber)<br />
+                                <img src="~/img/social/phone.png" alt="Phone" /> @HtmlHelpers.PhoneLink(Model.Speaker.phoneNumber)<br />
                             }
 
                             @if (!string.IsNullOrWhiteSpace(Model.Speaker.twitterName))
                             {
-                                <img src="~/img/social/twitter-16x16.png" /> @HtmlHelpers.TwitterUserLink(Model.Speaker.twitterName)<br />
+                                <img src="~/img/social/twitter-16x16.png" alt="Twitter Name" /> @HtmlHelpers.TwitterUserLink(Model.Speaker.twitterName)<br />
                             }
 
                             @if (!string.IsNullOrWhiteSpace(Model.Speaker.facebookUrl))
                             {
-                                <img src="~/img/social/facebook-16x16.png" /> @HtmlHelpers.SimpleLink(Model.Speaker.facebookUrl, "Facebook")<br />
+                                <img src="~/img/social/facebook-16x16.png" alt="Facebook" /> @HtmlHelpers.SimpleLink(Model.Speaker.facebookUrl, "Facebook")<br />
                             }
 
                             @if (!string.IsNullOrWhiteSpace(Model.Speaker.googlePlusUrl))
                             {
-                                <img src="~/img/social/googlePlus-16x16.png" /> @HtmlHelpers.SimpleLink(Model.Speaker.googlePlusUrl, "Google+")<br />
+                                <img src="~/img/social/googlePlus-16x16.png" alt="Google Plus" /> @HtmlHelpers.SimpleLink(Model.Speaker.googlePlusUrl, "Google+")<br />
                             }
 
                             @if (!string.IsNullOrWhiteSpace(Model.Speaker.vimeoUrl))
                             {
-                                <img src="~/img/social/vimeo-16x16.png" /> @HtmlHelpers.SimpleLink(Model.Speaker.vimeoUrl, "Vimeo")<br />
+                                <img src="~/img/social/vimeo-16x16.png" alt="Vimeo" /> @HtmlHelpers.SimpleLink(Model.Speaker.vimeoUrl, "Vimeo")<br />
                             }
 
                             @if (!string.IsNullOrWhiteSpace(Model.Speaker.youtubeUrl))
                             {
-                                <img src="~/img/social/youtube-16x16.png" /> @HtmlHelpers.SimpleLink(Model.Speaker.youtubeUrl, "YouTube")<br />
+                                <img src="~/img/social/youtube-16x16.png" alt="Youtube" /> @HtmlHelpers.SimpleLink(Model.Speaker.youtubeUrl, "YouTube")<br />
                             }
 
                             @if (!string.IsNullOrWhiteSpace(Model.Speaker.githubUrl))
                             {
-                                <img src="~/img/social/github-16x16.png" /> @HtmlHelpers.SimpleLink(Model.Speaker.googlePlusUrl, "Github")<br />
+                                <img src="~/img/social/github-16x16.png" alt="GitHub" /> @HtmlHelpers.SimpleLink(Model.Speaker.googlePlusUrl, "Github")<br />
                             }
 
                             @if (!string.IsNullOrWhiteSpace(Model.Speaker.linkedInUrl))
                             {
-                                <img src="~/img/social/linkedin-16x16.png" /> @HtmlHelpers.SimpleLink(Model.Speaker.linkedInUrl, "LinkedIn")<br />
+                                <img src="~/img/social/linkedin-16x16.png" alt="LinkedIn" /> @HtmlHelpers.SimpleLink(Model.Speaker.linkedInUrl, "LinkedIn")<br />
                             }
 
                             @if (!string.IsNullOrWhiteSpace(Model.Speaker.stackoverflowUrl))
                             {
-                                <img src="~/img/social/stackoverflow-16x16.png" /> @HtmlHelpers.SimpleLink(Model.Speaker.stackoverflowUrl, "StackOverflow")<br />
+                                <img src="~/img/social/stackoverflow-16x16.png" alt="StackOverflow" /> @HtmlHelpers.SimpleLink(Model.Speaker.stackoverflowUrl, "StackOverflow")<br />
                             }
 
                             @if (!string.IsNullOrWhiteSpace(Model.Speaker.coderWallUrl))
                             {
-                                <img src="~/img/social/coderwall.png" /> @HtmlHelpers.SimpleLink(Model.Speaker.coderWallUrl, "CoderWall")<br />
+                                <img src="~/img/social/coderwall.png" alt="CoderWall" /> @HtmlHelpers.SimpleLink(Model.Speaker.coderWallUrl, "CoderWall")<br />
                             }
 
                             @if (!string.IsNullOrWhiteSpace(Model.Speaker.bitbucketUrl))
                             {
-                                <img src="~/img/social/bitbucket.png" /> @HtmlHelpers.SimpleLink(Model.Speaker.bitbucketUrl, "BitBucket")<br />
+                                <img src="~/img/social/bitbucket.png" alt="BitBucket" /> @HtmlHelpers.SimpleLink(Model.Speaker.bitbucketUrl, "BitBucket")<br />
                             }
                             @if (!string.IsNullOrWhiteSpace(Model.Speaker.codeplexUrl))
                             {
-                                <img src="~/img/social/codeplex.png" /> @HtmlHelpers.SimpleLink(Model.Speaker.codeplexUrl, "CodePlex")<br />
+                                <img src="~/img/social/codeplex.png" alt="CodePlex" /> @HtmlHelpers.SimpleLink(Model.Speaker.codeplexUrl, "CodePlex")<br />
                             }
                         </p>
                         @if (Html.IsAdmin())

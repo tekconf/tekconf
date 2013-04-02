@@ -5,7 +5,6 @@ namespace TekConf.UI.Api
 		public string ConferenceSlug { get; set; }
 		public string OldValue { get; set; }
 		public string NewValue { get; set; }
-
 		public string ConferenceName { get; set; }
 	}
 }

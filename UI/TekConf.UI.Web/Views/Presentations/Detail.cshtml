@@ -1,5 +1,6 @@
-﻿@using System.Web.Optimization
-@model dynamic
+﻿@using System.Globalization
+@using System.Web.Optimization
+@model TekConf.RemoteData.Dtos.v1.PresentationDto
 
 @{
 	Layout = null;
@@ -16,6 +17,7 @@
 	<meta name="apple-mobile-web-app-capable" content="yes">
 
 	<link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
+		<link rel="search" type="application/opensearchdescription+xml" href="http://www.tekconf.com/TekConf.xml" title="TekConf Search" /> 
 
 	@Styles.Render("~/css/api/index")
 
@@ -32,7 +34,7 @@
 	<div id="subheader">
 		<div class="inner">
 			<div class="container">
-				<h1>Presentation</h1>
+				<h1>@Model.Title</h1>
 			</div>
 			<!-- /.container -->
 		</div>
@@ -43,13 +45,111 @@
 	<div id="subpage">
 		<div class="container">
 			<div class="row">
+				<div class="span6">
+					<div class="big-intro">
+						<img src="/img/Presentations/Sample/Sample.png" alt="@Model.Title">
+					</div>
+				</div>
+				<div class="span6">
+					<div class="big-intro">
+						<iframe width="422" height="316" src="http://www.youtube.com/embed/P2AH2JBUUIk" frameborder="0" allowfullscreen></iframe>
+					</div>
+				</div>
+				<!-- /span12 -->
+
 			</div>
+			<!-- /row -->
+
+			<br />
+			<div class="row">
+
+				<div class="span8">
+					@Model.Description
+					<br />
+
+					@Model.Comments
+				</div>
+				<!-- /span6 -->
+
+				<div class="span4">
+					<div class="sidebar">
+						<h4><span class="slash">//</span> More Information</h4>
+						<p>
+							<b>Level/Difficulty :</b> @Model.Level
+							<br />
+							<b>Expected Length :</b> @Model.ExpectedNumberOfMinutes
+							<br />
+							<b>Uploaded :</b> @Model.UploadedOn
+							<br />
+							<b>Number of Views :</b> @Model.NumberOfViews
+							<br />
+						</p>
+						
+						@if (Model.Subjects != null && Model.Subjects.Any())
+						{
+							<b>Subjects</b>
+							<p>
+								@foreach (var subject in Model.Subjects)
+								{
+									@subject
+								}
+							</p>
+						}
+						
+						@if (Model.Tags != null && Model.Tags.Any())
+						{
+							<b>Tags</b>
+							<p>
+								@foreach (var tag in Model.Tags)
+								{
+									@tag
+								}
+							</p>
+						}
+						
+						@if (Model.DownloadPaths != null && Model.DownloadPaths.Any())
+						{
+							<b>Download Paths</b>
+							<p>
+								@foreach (var downloadPath in Model.DownloadPaths)
+								{
+									@downloadPath
+								}
+							</p>
+						}
+						
+						@if (Model.History != null && Model.History.Any())
+						{
+							<b>History</b>
+							<p>
+								@foreach (var history in Model.History)
+								{
+									@history.ConferenceName
+								}
+							</p>
+						}
+
+						<br />
+					</div>
+					<!-- /sidebar -->
+				</div>
+				<!-- /span4 -->
+
+
+			</div>
+			<!-- /row -->
+
+			<br />
+			<br />
+
+			<div class="row">
+			</div>
+			<!-- /row -->
+
 		</div>
-
-
 		<!-- /container -->
+
 	</div>
-	<!-- /subpage -->
 
 	@Html.Partial("Extra")
 

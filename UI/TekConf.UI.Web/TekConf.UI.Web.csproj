@@ -48,31 +48,31 @@
     </Reference>
     <Reference Include="AutoMapper, Version=2.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\AutoMapper.2.2.1-ci9000\lib\net40\AutoMapper.dll</HintPath>
+      <HintPath>..\..\packages\AutoMapper.2.2.1\lib\net40\AutoMapper.dll</HintPath>
     </Reference>
     <Reference Include="DotNetOpenAuth.AspNet, Version=4.2.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\DotNetOpenAuth.AspNet.4.2.1.13026\lib\net45-full\DotNetOpenAuth.AspNet.dll</HintPath>
+      <HintPath>..\..\packages\DotNetOpenAuth.AspNet.4.2.2.13055\lib\net45-full\DotNetOpenAuth.AspNet.dll</HintPath>
     </Reference>
     <Reference Include="DotNetOpenAuth.Core, Version=4.2.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\DotNetOpenAuth.Core.4.2.1.13026\lib\net45-full\DotNetOpenAuth.Core.dll</HintPath>
+      <HintPath>..\..\packages\DotNetOpenAuth.Core.4.2.2.13055\lib\net45-full\DotNetOpenAuth.Core.dll</HintPath>
     </Reference>
     <Reference Include="DotNetOpenAuth.OAuth, Version=4.2.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\DotNetOpenAuth.OAuth.Core.4.2.1.13026\lib\net45-full\DotNetOpenAuth.OAuth.dll</HintPath>
+      <HintPath>..\..\packages\DotNetOpenAuth.OAuth.Core.4.2.2.13055\lib\net45-full\DotNetOpenAuth.OAuth.dll</HintPath>
     </Reference>
     <Reference Include="DotNetOpenAuth.OAuth.Consumer, Version=4.2.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\DotNetOpenAuth.OAuth.Consumer.4.2.1.13026\lib\net45-full\DotNetOpenAuth.OAuth.Consumer.dll</HintPath>
+      <HintPath>..\..\packages\DotNetOpenAuth.OAuth.Consumer.4.2.2.13055\lib\net45-full\DotNetOpenAuth.OAuth.Consumer.dll</HintPath>
     </Reference>
     <Reference Include="DotNetOpenAuth.OpenId, Version=4.2.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\DotNetOpenAuth.OpenId.Core.4.2.1.13026\lib\net45-full\DotNetOpenAuth.OpenId.dll</HintPath>
+      <HintPath>..\..\packages\DotNetOpenAuth.OpenId.Core.4.2.2.13055\lib\net45-full\DotNetOpenAuth.OpenId.dll</HintPath>
     </Reference>
     <Reference Include="DotNetOpenAuth.OpenId.RelyingParty, Version=4.2.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\DotNetOpenAuth.OpenId.RelyingParty.4.2.1.13026\lib\net45-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
+      <HintPath>..\..\packages\DotNetOpenAuth.OpenId.RelyingParty.4.2.2.13055\lib\net45-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
     </Reference>
     <Reference Include="Elmah, Version=1.2.14706.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -85,36 +85,48 @@
     <Reference Include="EntityFramework">
       <HintPath>..\..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="Glimpse.Core">
-      <HintPath>..\..\packages\Glimpse.0.87\lib\net40\Glimpse.Core.dll</HintPath>
+    <Reference Include="Glimpse.AspNet, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Glimpse.AspNet.1.2.0\lib\net45\Glimpse.AspNet.dll</HintPath>
     </Reference>
-    <Reference Include="Glimpse.Mvc3">
-      <HintPath>..\..\packages\Glimpse.Mvc3.0.87\lib\net40\Glimpse.Mvc3.dll</HintPath>
+    <Reference Include="Glimpse.Core, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Glimpse.1.2.0\lib\net45\Glimpse.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Glimpse.MiniProfiler">
+      <HintPath>..\..\packages\Glimpse.MiniProfiler.1.2.2\lib\net40\Glimpse.MiniProfiler.dll</HintPath>
+    </Reference>
+    <Reference Include="Glimpse.Mvc4, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Glimpse.Mvc4.1.2.0\lib\net40\Glimpse.Mvc4.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.Core.1.0.0\lib\net40\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.Core.1.0.1\lib\net40\Microsoft.AspNet.SignalR.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.Owin.1.0.0\lib\net45\Microsoft.AspNet.SignalR.Owin.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.Owin.1.0.1\lib\net45\Microsoft.AspNet.SignalR.Owin.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.SystemWeb.1.0.0\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.SystemWeb.1.0.1\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.Owin.Host.SystemWeb.1.0.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.Owin.Host.SystemWeb.1.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
     </Reference>
-    <Reference Include="MongoDB.Bson, Version=1.7.1.4791, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\mongocsharpdriver.1.7.1\lib\net35\MongoDB.Bson.dll</HintPath>
+    <Reference Include="MiniProfiler">
+      <HintPath>..\..\packages\MiniProfiler.2.1.0\lib\net40\MiniProfiler.dll</HintPath>
     </Reference>
-    <Reference Include="MongoDB.Driver, Version=1.7.1.4791, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
+    <Reference Include="MongoDB.Bson, Version=1.8.0.124, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\mongocsharpdriver.1.7.1\lib\net35\MongoDB.Driver.dll</HintPath>
+      <HintPath>..\..\packages\mongocsharpdriver.1.8.0\lib\net35\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=1.8.0.124, Culture=neutral, PublicKeyToken=f686731cfb9cc103, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\mongocsharpdriver.1.8.0\lib\net35\MongoDB.Driver.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -123,45 +135,41 @@
     <Reference Include="Owin">
       <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
-    <Reference Include="Ploeh.AutoFixture, Version=2.16.2.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
+    <Reference Include="Ploeh.AutoFixture, Version=3.0.3.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\AutoFixture.2.16.2\lib\net35\Ploeh.AutoFixture.dll</HintPath>
+      <HintPath>..\..\packages\AutoFixture.3.0.3\lib\net40\Ploeh.AutoFixture.dll</HintPath>
     </Reference>
-    <Reference Include="Ploeh.SemanticComparison, Version=2.16.2.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack, Version=3.9.42.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\AutoFixture.2.16.2\lib\net35\Ploeh.SemanticComparison.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.3.9.42\lib\net35\ServiceStack.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack, Version=3.9.37.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Common, Version=3.9.42.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\ServiceStack.3.9.37\lib\net35\ServiceStack.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.Common.3.9.42\lib\net35\ServiceStack.Common.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Common, Version=3.9.37.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Interfaces, Version=3.9.42.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\ServiceStack.Common.3.9.37\lib\net35\ServiceStack.Common.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.Common.3.9.42\lib\net35\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Interfaces, Version=3.9.37.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.OrmLite, Version=3.9.42.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\ServiceStack.Common.3.9.37\lib\net35\ServiceStack.Interfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="ServiceStack.OrmLite, Version=3.9.37.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\ServiceStack.OrmLite.SqlServer.3.9.37\lib\ServiceStack.OrmLite.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.OrmLite.SqlServer.3.9.42\lib\ServiceStack.OrmLite.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.OrmLite.SqlServer, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\ServiceStack.OrmLite.SqlServer.3.9.37\lib\ServiceStack.OrmLite.SqlServer.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.OrmLite.SqlServer.3.9.42\lib\ServiceStack.OrmLite.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Redis, Version=3.9.37.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Redis, Version=3.9.42.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\ServiceStack.Redis.3.9.37\lib\net35\ServiceStack.Redis.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.Redis.3.9.42\lib\net35\ServiceStack.Redis.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.ServiceInterface, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\ServiceStack.3.9.37\lib\net35\ServiceStack.ServiceInterface.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.3.9.42\lib\net35\ServiceStack.ServiceInterface.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Text, Version=3.9.37.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Text, Version=3.9.42.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\ServiceStack.Text.3.9.37\lib\net35\ServiceStack.Text.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.Text.3.9.42\lib\net35\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -260,6 +268,7 @@
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\FileSystemImageSaver.cs" />
     <Compile Include="Controllers\ImageSaverConfiguration.cs" />
+    <Compile Include="Controllers\IRemoteDataRepositoryAsync.cs" />
     <Compile Include="Controllers\OrganizersController.cs" />
     <Compile Include="Controllers\PresentationsController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
@@ -270,8 +279,10 @@
     <Compile Include="ga.ashx.cs">
       <DependentUpon>ga.ashx</DependentUpon>
     </Compile>
+    <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="HtmlHelpers.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="ViewModels\AddPresentationHistoryViewModel.cs" />
     <Compile Include="ViewModels\AddPresentationViewModel.cs" />
     <Compile Include="ViewModels\GravatarImage.cs" />
     <Compile Include="App_Start\AuthConfig.cs" />
@@ -301,8 +312,6 @@
     <Content Include="about.html" />
     <Content Include="App_Readme\Elmah.MongoDB.txt" />
     <Content Include="App_Readme\Elmah.txt" />
-    <Content Include="App_Readme\glimpse.mvc3.readme.txt" />
-    <Content Include="App_Readme\glimpse.readme.txt" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -389,149 +398,11 @@
     <Content Include="css\jquery-ui-timepicker-addon.css" />
     <Content Include="css\typeahead.css" />
     <Content Include="css\typeahead.min.css" />
-    <Content Include="docs\assets\blueprint-css\ie.css" />
-    <Content Include="docs\assets\blueprint-css\plugins\buttons\icons\cross.png" />
-    <Content Include="docs\assets\blueprint-css\plugins\buttons\icons\key.png" />
-    <Content Include="docs\assets\blueprint-css\plugins\buttons\icons\tick.png" />
-    <Content Include="docs\assets\blueprint-css\plugins\buttons\readme.txt" />
-    <Content Include="docs\assets\blueprint-css\plugins\buttons\screen.css" />
-    <Content Include="docs\assets\blueprint-css\plugins\fancy-type\readme.txt" />
-    <Content Include="docs\assets\blueprint-css\plugins\fancy-type\screen.css" />
-    <Content Include="docs\assets\blueprint-css\plugins\link-icons\icons\doc.png" />
-    <Content Include="docs\assets\blueprint-css\plugins\link-icons\icons\email.png" />
-    <Content Include="docs\assets\blueprint-css\plugins\link-icons\icons\external.png" />
-    <Content Include="docs\assets\blueprint-css\plugins\link-icons\icons\feed.png" />
-    <Content Include="docs\assets\blueprint-css\plugins\link-icons\icons\im.png" />
-    <Content Include="docs\assets\blueprint-css\plugins\link-icons\icons\pdf.png" />
-    <Content Include="docs\assets\blueprint-css\plugins\link-icons\icons\visited.png" />
-    <Content Include="docs\assets\blueprint-css\plugins\link-icons\icons\xls.png" />
-    <Content Include="docs\assets\blueprint-css\plugins\link-icons\readme.txt" />
-    <Content Include="docs\assets\blueprint-css\plugins\link-icons\screen.css" />
-    <Content Include="docs\assets\blueprint-css\plugins\rtl\readme.txt" />
-    <Content Include="docs\assets\blueprint-css\plugins\rtl\screen.css" />
-    <Content Include="docs\assets\blueprint-css\print.css" />
-    <Content Include="docs\assets\blueprint-css\screen.css" />
-    <Content Include="docs\assets\blueprint-css\src\forms.css" />
-    <Content Include="docs\assets\blueprint-css\src\grid.css" />
-    <Content Include="docs\assets\blueprint-css\src\grid.png" />
-    <Content Include="docs\assets\blueprint-css\src\ie.css" />
-    <Content Include="docs\assets\blueprint-css\src\print.css" />
-    <Content Include="docs\assets\blueprint-css\src\reset.css" />
-    <Content Include="docs\assets\blueprint-css\src\typography.css" />
-    <Content Include="docs\assets\images\htmlstructure.png" />
-    <Content Include="docs\jquery.lightbox\assets\1.jpg" />
-    <Content Include="docs\jquery.lightbox\assets\17.jpg" />
-    <Content Include="docs\jquery.lightbox\assets\18.jpg" />
-    <Content Include="docs\jquery.lightbox\assets\2.jpg" />
-    <Content Include="docs\jquery.lightbox\assets\3.jpg" />
-    <Content Include="docs\jquery.lightbox\assets\4.jpg" />
-    <Content Include="docs\jquery.lightbox\assets\5.jpg" />
-    <Content Include="docs\jquery.lightbox\assets\6.jpg" />
-    <Content Include="docs\jquery.lightbox\assets\7.jpg" />
-    <Content Include="docs\jquery.lightbox\assets\8.jpg" />
-    <Content Include="docs\jquery.lightbox\assets\9.jpg" />
-    <Content Include="docs\jquery.lightbox\assets\intro.jpg" />
-    <Content Include="docs\jquery.lightbox\assets\lightbox-new-window.png" />
-    <Content Include="docs\jquery.lightbox\assets\m1.jpg" />
-    <Content Include="docs\jquery.lightbox\assets\m10.jpg" />
-    <Content Include="docs\jquery.lightbox\assets\m11.jpg" />
-    <Content Include="docs\jquery.lightbox\assets\m12.jpg" />
-    <Content Include="docs\jquery.lightbox\assets\m13.jpg" />
-    <Content Include="docs\jquery.lightbox\assets\m14.jpg" />
-    <Content Include="docs\jquery.lightbox\assets\m15.jpg" />
-    <Content Include="docs\jquery.lightbox\assets\m16.jpg" />
-    <Content Include="docs\jquery.lightbox\assets\m17.jpg" />
-    <Content Include="docs\jquery.lightbox\assets\m18.jpg" />
-    <Content Include="docs\jquery.lightbox\assets\m19.jpg" />
-    <Content Include="docs\jquery.lightbox\assets\m2.jpg" />
-    <Content Include="docs\jquery.lightbox\assets\m20.jpg" />
-    <Content Include="docs\jquery.lightbox\assets\m21.jpg" />
-    <Content Include="docs\jquery.lightbox\assets\m22.jpg" />
-    <Content Include="docs\jquery.lightbox\assets\m23.jpg" />
-    <Content Include="docs\jquery.lightbox\assets\m24.jpg" />
-    <Content Include="docs\jquery.lightbox\assets\m3.jpg" />
-    <Content Include="docs\jquery.lightbox\assets\m4.jpg" />
-    <Content Include="docs\jquery.lightbox\assets\m5.jpg" />
-    <Content Include="docs\jquery.lightbox\assets\m6.jpg" />
-    <Content Include="docs\jquery.lightbox\assets\m7.jpg" />
-    <Content Include="docs\jquery.lightbox\assets\m8.jpg" />
-    <Content Include="docs\jquery.lightbox\assets\m9.jpg" />
-    <Content Include="docs\jquery.lightbox\examples.html" />
-    <Content Include="docs\jquery.lightbox\examples\ajax-html.html" />
-    <Content Include="docs\jquery.lightbox\examples\ajax-license.html" />
-    <Content Include="docs\jquery.lightbox\examples\ajax-login.html" />
-    <Content Include="docs\jquery.lightbox\examples\ajax-shake.html" />
-    <Content Include="docs\jquery.lightbox\examples\ajax-video.html" />
-    <Content Include="docs\jquery.lightbox\examples\iframe-html.html" />
-    <Content Include="docs\jquery.lightbox\help.html" />
-    <Content Include="docs\jquery.lightbox\help\css\reset.css" />
-    <Content Include="docs\jquery.lightbox\help\css\style.css" />
-    <Content Include="docs\jquery.lightbox\help\images\comment.gif" />
-    <Content Include="docs\jquery.lightbox\help\images\dots.gif" />
-    <Content Include="docs\jquery.lightbox\index.html" />
-    <Content Include="docs\jquery.lightbox\js\jquery.min.js" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\jquery.lightbox.min.js" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\carbono\images\jquery-lightbox-theme.gif" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\carbono\images\jquery-lightbox-theme.png" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\carbono\images\loading.gif" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\carbono\jquery.lightbox.css" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\carbono\jquery.lightbox.ie6.css" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\classic-dark\images\jquery-lightbox-theme.gif" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\classic-dark\images\loading.gif" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\classic-dark\jquery.lightbox.css" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\classic-dark\jquery.lightbox.ie6.css" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\classic\images\jquery-lightbox-theme.gif" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\classic\images\loading.gif" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\classic\jquery.lightbox.css" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\classic\jquery.lightbox.ie6.css" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\default\images\jquery-lightbox-theme.gif" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\default\images\jquery-lightbox-theme.png" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\default\images\loading.gif" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\default\jquery.lightbox.css" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\default\jquery.lightbox.ie6.css" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\evolution-dark\images\jquery-lightbox-theme.gif" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\evolution-dark\images\jquery-lightbox-theme.png" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\evolution-dark\images\loading.gif" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\evolution-dark\jquery.lightbox.css" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\evolution-dark\jquery.lightbox.ie6.css" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\evolution\images\jquery-lightbox-theme.gif" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\evolution\images\jquery-lightbox-theme.png" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\evolution\images\loading.gif" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\evolution\jquery.lightbox.css" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\evolution\jquery.lightbox.ie6.css" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\facebook\images\jquery-lightbox-theme.gif" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\facebook\images\jquery-lightbox-theme.png" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\facebook\images\loading.gif" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\facebook\jquery.lightbox.css" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\facebook\jquery.lightbox.ie6.css" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\minimalist-dark\images\jquery-lightbox-theme.gif" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\minimalist-dark\images\loading.gif" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\minimalist-dark\jquery.lightbox.css" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\minimalist-dark\jquery.lightbox.ie6.css" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\minimalist\images\jquery-lightbox-theme.gif" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\minimalist\images\loading.gif" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\minimalist\jquery.lightbox.css" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\minimalist\jquery.lightbox.ie6.css" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\white-green\images\jquery-lightbox-theme.gif" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\white-green\images\jquery-lightbox-theme.png" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\white-green\images\loading.gif" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\white-green\jquery.lightbox.css" />
-    <Content Include="docs\jquery.lightbox\js\lightbox\themes\white-green\jquery.lightbox.ie6.css" />
-    <Content Include="docs\jquery.lightbox\src\jquery.lightbox.js" />
     <Content Include="faq.html" />
     <Content Include="favicon.ico" />
     <Content Include="features.html" />
     <Content Include="font\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
-    <Content Include="docs\jquery.lightbox\psd\theme-carbono.psd" />
-    <Content Include="docs\jquery.lightbox\psd\theme-classic.psd" />
-    <Content Include="docs\jquery.lightbox\psd\theme-dark.psd" />
-    <Content Include="docs\jquery.lightbox\psd\theme-default.psd" />
-    <Content Include="docs\jquery.lightbox\psd\theme-evolution-dark.psd" />
-    <Content Include="docs\jquery.lightbox\psd\theme-evolution.psd" />
-    <Content Include="docs\jquery.lightbox\psd\theme-facebook.psd" />
-    <Content Include="docs\jquery.lightbox\psd\theme-minimalist.psd" />
-    <Content Include="docs\jquery.lightbox\psd\theme-white-green.psd" />
     <Content Include="font\fontawesome-webfont.eot" />
     <Content Include="font\fontawesome-webfont.svgz" />
     <Content Include="font\fontawesome-webfont.ttf" />
@@ -558,6 +429,8 @@
     <Content Include="img\Apps\Windows-coming-soon.png" />
     <Content Include="img\Apps\WindowsPhone-coming-soon.png" />
     <Content Include="img\conferences\DefaultConference.png" />
+    <Content Include="img\glyphicons-halflings-white.png" />
+    <Content Include="img\glyphicons-halflings.png" />
     <Content Include="img\iOS-coming-soon.jpg" />
     <Content Include="img\LiveTile.png" />
     <Content Include="img\OnSale.png" />
@@ -565,68 +438,14 @@
     <Content Include="img\Presentations\Sample\Sample.png" />
     <Content Include="img\showTable.png" />
     <Content Include="img\showThumbnails.png" />
-    <Content Include="img\social\500px-16x16.png" />
-    <Content Include="img\social\500px-24x24.png" />
-    <Content Include="img\social\500px-32x32.png" />
-    <Content Include="img\social\500px-48x48.png" />
-    <Content Include="img\social\aboutdotme-16x16.png" />
-    <Content Include="img\social\aboutdotme-24x24.png" />
-    <Content Include="img\social\aboutdotme-32x32.png" />
-    <Content Include="img\social\aboutdotme-48x48.png" />
-    <Content Include="img\social\aim-16x16.png" />
-    <Content Include="img\social\aim-24x24.png" />
-    <Content Include="img\social\aim-32x32.png" />
-    <Content Include="img\social\aim-48x48.png" />
-    <Content Include="img\social\amazon-16x16.png" />
-    <Content Include="img\social\amazon-24x24.png" />
-    <Content Include="img\social\amazon-32x32.png" />
-    <Content Include="img\social\amazon-48x48.png" />
-    <Content Include="img\social\bbcid-16x16.png" />
-    <Content Include="img\social\bbcid-24x24.png" />
-    <Content Include="img\social\bbcid-32x32.png" />
-    <Content Include="img\social\bbcid-48x48.png" />
     <Content Include="img\social\bitbucket.png" />
-    <Content Include="img\social\blinklist.png" />
-    <Content Include="img\social\brightkite.png" />
     <Content Include="img\social\codeplex.png" />
     <Content Include="img\social\coderwall.png" />
-    <Content Include="img\social\creativecommons-16x16.png" />
-    <Content Include="img\social\creativecommons-24x24.png" />
-    <Content Include="img\social\creativecommons-32x32.png" />
-    <Content Include="img\social\creativecommons-48x48.png" />
-    <Content Include="img\social\delicious-16x16.png" />
-    <Content Include="img\social\delicious-24x24.png" />
-    <Content Include="img\social\delicious-32x32.png" />
-    <Content Include="img\social\delicious-48x48.png" />
-    <Content Include="img\social\delicious.png" />
-    <Content Include="img\social\design_float.png" />
-    <Content Include="img\social\digg-16x16.png" />
-    <Content Include="img\social\digg-24x24.png" />
-    <Content Include="img\social\digg-32x32.png" />
-    <Content Include="img\social\digg-48x48.png" />
-    <Content Include="img\social\digg-this-16x16.png" />
-    <Content Include="img\social\digg-this-24x24.png" />
-    <Content Include="img\social\digg-this-32x32.png" />
-    <Content Include="img\social\digg-this-48x48.png" />
-    <Content Include="img\social\digg.png" />
-    <Content Include="img\social\dopplr-16x16.png" />
-    <Content Include="img\social\dopplr-24x24.png" />
-    <Content Include="img\social\dopplr-32x32.png" />
-    <Content Include="img\social\dopplr-48x48.png" />
-    <Content Include="img\social\dopplr.png" />
-    <Content Include="img\social\dribbble-16x16.png" />
-    <Content Include="img\social\dribbble-24x24.png" />
-    <Content Include="img\social\dribbble-32x32.png" />
-    <Content Include="img\social\dribbble-48x48.png" />
     <Content Include="img\social\email-16x16.png" />
     <Content Include="img\social\email-24x24.png" />
     <Content Include="img\social\email-32x32.png" />
     <Content Include="img\social\email-48x48.png" />
     <Content Include="img\social\email.png" />
-    <Content Include="img\social\etsy-16x16.png" />
-    <Content Include="img\social\etsy-24x24.png" />
-    <Content Include="img\social\etsy-32x32.png" />
-    <Content Include="img\social\etsy-48x48.png" />
     <Content Include="img\social\facebook-16x16.png" />
     <Content Include="img\social\facebook-24x24.png" />
     <Content Include="img\social\facebook-32x32.png" />
@@ -637,47 +456,11 @@
     <Content Include="img\social\feed-32x32.png" />
     <Content Include="img\social\feed-48x48.png" />
     <Content Include="img\social\feed.png" />
-    <Content Include="img\social\ffffound-16x16.png" />
-    <Content Include="img\social\ffffound-24x24.png" />
-    <Content Include="img\social\ffffound-32x32.png" />
-    <Content Include="img\social\ffffound-48x48.png" />
-    <Content Include="img\social\flickr-16x16.png" />
-    <Content Include="img\social\flickr-24x24.png" />
-    <Content Include="img\social\flickr-32x32.png" />
-    <Content Include="img\social\flickr-48x48.png" />
-    <Content Include="img\social\flickr.png" />
-    <Content Include="img\social\formspring-16x16.png" />
-    <Content Include="img\social\formspring-24x24.png" />
-    <Content Include="img\social\formspring-32x32.png" />
-    <Content Include="img\social\formspring-48x48.png" />
-    <Content Include="img\social\forrst-16x16.png" />
-    <Content Include="img\social\forrst-24x24.png" />
-    <Content Include="img\social\forrst-32x32.png" />
-    <Content Include="img\social\forrst-48x48.png" />
-    <Content Include="img\social\foursquare-16x16.png" />
-    <Content Include="img\social\foursquare-24x24.png" />
-    <Content Include="img\social\foursquare-32x32.png" />
-    <Content Include="img\social\foursquare-48x48.png" />
-    <Content Include="img\social\friendfeed.png" />
-    <Content Include="img\social\furl.png" />
-    <Content Include="img\social\gamespot.png" />
-    <Content Include="img\social\geotag-16x16.png" />
-    <Content Include="img\social\geotag-24x24.png" />
-    <Content Include="img\social\geotag-32x32.png" />
-    <Content Include="img\social\geotag-48x48.png" />
-    <Content Include="img\social\getsatisfaction-16x16.png" />
-    <Content Include="img\social\getsatisfaction-24x24.png" />
-    <Content Include="img\social\getsatisfaction-32x32.png" />
-    <Content Include="img\social\getsatisfaction-48x48.png" />
     <Content Include="img\social\github-16x16.png" />
     <Content Include="img\social\github-24x24.png" />
     <Content Include="img\social\github-32x32.png" />
     <Content Include="img\social\github-48x48.png" />
     <Content Include="img\social\github-octocat-48x48.png" />
-    <Content Include="img\social\goodreads-16x16.png" />
-    <Content Include="img\social\goodreads-24x24.png" />
-    <Content Include="img\social\goodreads-32x32.png" />
-    <Content Include="img\social\goodreads-48x48.png" />
     <Content Include="img\social\googlePlus-16x16.png" />
     <Content Include="img\social\googlePlus-24x24.png" />
     <Content Include="img\social\googlePlus-32x32.png" />
@@ -686,174 +469,29 @@
     <Content Include="img\social\google-24x24.png" />
     <Content Include="img\social\google-32x32.png" />
     <Content Include="img\social\google-48x48.png" />
-    <Content Include="img\social\google-talk-16x16.png" />
-    <Content Include="img\social\google-talk-24x24.png" />
-    <Content Include="img\social\google-talk-32x32.png" />
-    <Content Include="img\social\google-talk-48x48.png" />
-    <Content Include="img\social\huffduffer-16x16.png" />
-    <Content Include="img\social\huffduffer-24x24.png" />
-    <Content Include="img\social\huffduffer-32x32.png" />
-    <Content Include="img\social\huffduffer-48x48.png" />
-    <Content Include="img\social\identica-16x16.png" />
-    <Content Include="img\social\identica-24x24.png" />
-    <Content Include="img\social\identica-32x32.png" />
-    <Content Include="img\social\identica-48x48.png" />
-    <Content Include="img\social\ilike-16x16.png" />
-    <Content Include="img\social\ilike-24x24.png" />
-    <Content Include="img\social\ilike-32x32.png" />
-    <Content Include="img\social\ilike-48x48.png" />
-    <Content Include="img\social\imdb-16x16.png" />
-    <Content Include="img\social\imdb-24x24.png" />
-    <Content Include="img\social\imdb-32x32.png" />
-    <Content Include="img\social\imdb-48x48.png" />
-    <Content Include="img\social\instagram-16x16.png" />
-    <Content Include="img\social\instagram-24x24.png" />
-    <Content Include="img\social\instagram-32x32.png" />
-    <Content Include="img\social\instagram-48x48.png" />
-    <Content Include="img\social\itunes-16x16.png" />
-    <Content Include="img\social\itunes-24x24.png" />
-    <Content Include="img\social\itunes-32x32.png" />
-    <Content Include="img\social\itunes-48x48.png" />
     <Content Include="img\social\lanyrd-16x16.png" />
     <Content Include="img\social\lanyrd-24x24.png" />
     <Content Include="img\social\lanyrd-32x32.png" />
     <Content Include="img\social\lanyrd-48x48.png" />
-    <Content Include="img\social\lastfm-16x16.png" />
-    <Content Include="img\social\lastfm-24x24.png" />
-    <Content Include="img\social\lastfm-32x32.png" />
-    <Content Include="img\social\lastfm-48x48.png" />
-    <Content Include="img\social\lastfm.png" />
     <Content Include="img\social\linkedin-16x16.png" />
     <Content Include="img\social\linkedin-24x24.png" />
     <Content Include="img\social\linkedin-32x32.png" />
     <Content Include="img\social\linkedin-48x48.png" />
     <Content Include="img\social\linkedin.png" />
-    <Content Include="img\social\magnolia.png" />
-    <Content Include="img\social\meetup-16x16.png" />
-    <Content Include="img\social\meetup-24x24.png" />
-    <Content Include="img\social\meetup-32x32.png" />
-    <Content Include="img\social\meetup-48x48.png" />
-    <Content Include="img\social\messenger-16x16.png" />
-    <Content Include="img\social\messenger-24x24.png" />
-    <Content Include="img\social\messenger-32x32.png" />
-    <Content Include="img\social\messenger-48x48.png" />
-    <Content Include="img\social\mixx.png" />
-    <Content Include="img\social\myspace-16x16.png" />
-    <Content Include="img\social\myspace-24x24.png" />
-    <Content Include="img\social\myspace-32x32.png" />
-    <Content Include="img\social\myspace-48x48.png" />
-    <Content Include="img\social\myspace.png" />
-    <Content Include="img\social\newsvine-16x16.png" />
-    <Content Include="img\social\newsvine-24x24.png" />
-    <Content Include="img\social\newsvine-32x32.png" />
-    <Content Include="img\social\newsvine-48x48.png" />
-    <Content Include="img\social\newsvine.png" />
-    <Content Include="img\social\nikeplus-16x16.png" />
-    <Content Include="img\social\nikeplus-24x24.png" />
-    <Content Include="img\social\nikeplus-32x32.png" />
-    <Content Include="img\social\nikeplus-48x48.png" />
-    <Content Include="img\social\openid-16x16.png" />
-    <Content Include="img\social\openid-24x24.png" />
-    <Content Include="img\social\openid-32x32.png" />
-    <Content Include="img\social\openid-48x48.png" />
-    <Content Include="img\social\orkut-16x16.png" />
-    <Content Include="img\social\orkut-24x24.png" />
-    <Content Include="img\social\orkut-32x32.png" />
-    <Content Include="img\social\orkut-48x48.png" />
     <Content Include="img\social\phone.png" />
-    <Content Include="img\social\pinboard-16x16.png" />
-    <Content Include="img\social\pinboard-24x24.png" />
-    <Content Include="img\social\pinboard-32x32.png" />
-    <Content Include="img\social\pinboard-48x48.png" />
-    <Content Include="img\social\pintrest-16x16.png" />
-    <Content Include="img\social\pintrest-24x24.png" />
-    <Content Include="img\social\pintrest-32x32.png" />
-    <Content Include="img\social\pintrest-48x48.png" />
-    <Content Include="img\social\plancast-16x16.png" />
-    <Content Include="img\social\plancast-24x24.png" />
-    <Content Include="img\social\plancast-32x32.png" />
-    <Content Include="img\social\plancast-48x48.png" />
-    <Content Include="img\social\posterous-16x16.png" />
-    <Content Include="img\social\posterous-24x24.png" />
-    <Content Include="img\social\posterous-32x32.png" />
-    <Content Include="img\social\posterous-48x48.png" />
-    <Content Include="img\social\posterous.png" />
-    <Content Include="img\social\rdio-16x16.png" />
-    <Content Include="img\social\rdio-24x24.png" />
-    <Content Include="img\social\rdio-32x32.png" />
-    <Content Include="img\social\rdio-48x48.png" />
-    <Content Include="img\social\readernaut-16x16.png" />
-    <Content Include="img\social\readernaut-24x24.png" />
-    <Content Include="img\social\readernaut-32x32.png" />
-    <Content Include="img\social\readernaut-48x48.png" />
-    <Content Include="img\social\reddit-16x16.png" />
-    <Content Include="img\social\reddit-24x24.png" />
-    <Content Include="img\social\reddit-32x32.png" />
-    <Content Include="img\social\reddit-48x48.png" />
-    <Content Include="img\social\reddit.png" />
-    <Content Include="img\social\share-16x16.png" />
-    <Content Include="img\social\share-24x24.png" />
-    <Content Include="img\social\share-32x32.png" />
-    <Content Include="img\social\share-48x48.png" />
-    <Content Include="img\social\skype-16x16.png" />
-    <Content Include="img\social\skype-24x24.png" />
-    <Content Include="img\social\skype-32x32.png" />
-    <Content Include="img\social\skype-48x48.png" />
-    <Content Include="img\social\slideshare-16x16.png" />
-    <Content Include="img\social\slideshare-24x24.png" />
-    <Content Include="img\social\slideshare-32x32.png" />
-    <Content Include="img\social\slideshare-48x48.png" />
-    <Content Include="img\social\soundcloud-16x16.png" />
-    <Content Include="img\social\soundcloud-24x24.png" />
-    <Content Include="img\social\soundcloud-32x32.png" />
-    <Content Include="img\social\soundcloud-48x48.png" />
     <Content Include="img\social\speakerdeck-16x16.png" />
     <Content Include="img\social\speakerdeck-24x24.png" />
     <Content Include="img\social\speakerdeck-32x32.png" />
     <Content Include="img\social\speakerdeck-48x48.png" />
-    <Content Include="img\social\sphere.png" />
-    <Content Include="img\social\sphinn.png" />
-    <Content Include="img\social\spotify-16x16.png" />
-    <Content Include="img\social\spotify-24x24.png" />
-    <Content Include="img\social\spotify-32x32.png" />
-    <Content Include="img\social\spotify-48x48.png" />
     <Content Include="img\social\stackoverflow-16x16.png" />
     <Content Include="img\social\stackoverflow-24x24.png" />
     <Content Include="img\social\stackoverflow-32x32.png" />
     <Content Include="img\social\stackoverflow-48x48.png" />
-    <Content Include="img\social\stumble.png" />
-    <Content Include="img\social\stumbleupon-16x16.png" />
-    <Content Include="img\social\stumbleupon-24x24.png" />
-    <Content Include="img\social\stumbleupon-32x32.png" />
-    <Content Include="img\social\stumbleupon-48x48.png" />
-    <Content Include="img\social\technorati.png" />
-    <Content Include="img\social\tripadvisor.png" />
-    <Content Include="img\social\tumblr-16x16.png" />
-    <Content Include="img\social\tumblr-24x24.png" />
-    <Content Include="img\social\tumblr-32x32.png" />
-    <Content Include="img\social\tumblr-48x48.png" />
-    <Content Include="img\social\tumblr.png" />
     <Content Include="img\social\twitter-16x16.png" />
     <Content Include="img\social\twitter-24x24.png" />
     <Content Include="img\social\twitter-32x32.png" />
     <Content Include="img\social\twitter-48x48.png" />
-    <Content Include="img\social\twitter-retweet-16x16.png" />
-    <Content Include="img\social\twitter-retweet-24x24.png" />
-    <Content Include="img\social\twitter-retweet-32x32.png" />
-    <Content Include="img\social\twitter-retweet-48x48.png" />
     <Content Include="img\social\twitter.png" />
-    <Content Include="img\social\upcoming-16x16.png" />
-    <Content Include="img\social\upcoming-24x24.png" />
-    <Content Include="img\social\upcoming-32x32.png" />
-    <Content Include="img\social\upcoming-48x48.png" />
-    <Content Include="img\social\vcard-16x16.png" />
-    <Content Include="img\social\vcard-24x24.png" />
-    <Content Include="img\social\vcard-32x32.png" />
-    <Content Include="img\social\vcard-48x48.png" />
-    <Content Include="img\social\viddler-16x16.png" />
-    <Content Include="img\social\viddler-24x24.png" />
-    <Content Include="img\social\viddler-32x32.png" />
-    <Content Include="img\social\viddler-48x48.png" />
     <Content Include="img\social\vimeo-16x16.png" />
     <Content Include="img\social\vimeo-24x24.png" />
     <Content Include="img\social\vimeo-32x32.png" />
@@ -863,47 +501,11 @@
     <Content Include="img\social\website-24x24.png" />
     <Content Include="img\social\website-32x32.png" />
     <Content Include="img\social\website-48x48.png" />
-    <Content Include="img\social\wikipedia-16x16.png" />
-    <Content Include="img\social\wikipedia-24x24.png" />
-    <Content Include="img\social\wikipedia-32x32.png" />
-    <Content Include="img\social\wikipedia-48x48.png" />
-    <Content Include="img\social\xbox-16x16.png" />
-    <Content Include="img\social\xbox-24x24.png" />
-    <Content Include="img\social\xbox-32x32.png" />
-    <Content Include="img\social\xbox-48x48.png" />
-    <Content Include="img\social\xing-16x16.png" />
-    <Content Include="img\social\xing-24x24.png" />
-    <Content Include="img\social\xing-32x32.png" />
-    <Content Include="img\social\xing-48x48.png" />
-    <Content Include="img\social\yahoo-16x16.png" />
-    <Content Include="img\social\yahoo-24x24.png" />
-    <Content Include="img\social\yahoo-32x32.png" />
-    <Content Include="img\social\yahoo-48x48.png" />
-    <Content Include="img\social\yahoo-messenger-16x16.png" />
-    <Content Include="img\social\yahoo-messenger-24x24.png" />
-    <Content Include="img\social\yahoo-messenger-32x32.png" />
-    <Content Include="img\social\yahoo-messenger-48x48.png" />
-    <Content Include="img\social\yelp-16x16.png" />
-    <Content Include="img\social\yelp-24x24.png" />
-    <Content Include="img\social\yelp-32x32.png" />
-    <Content Include="img\social\yelp-48x48.png" />
     <Content Include="img\social\youtube-16x16.png" />
     <Content Include="img\social\youtube-24x24.png" />
     <Content Include="img\social\youtube-32x32.png" />
     <Content Include="img\social\youtube-48x48.png" />
     <Content Include="img\social\youtube.png" />
-    <Content Include="img\social\zerply-16x16.png" />
-    <Content Include="img\social\zerply-24x24.png" />
-    <Content Include="img\social\zerply-32x32.png" />
-    <Content Include="img\social\zerply-48x48.png" />
-    <Content Include="img\social\zootool-16x16.png" />
-    <Content Include="img\social\zootool-24x24.png" />
-    <Content Include="img\social\zootool-32x32.png" />
-    <Content Include="img\social\zootool-48x48.png" />
-    <Content Include="img\social\_template-16x16.png" />
-    <Content Include="img\social\_template-24x24.png" />
-    <Content Include="img\social\_template-32x32.png" />
-    <Content Include="img\social\_template-48x48.png" />
     <Content Include="img\Speakers\default.png" />
     <Content Include="img\Windows8-coming-soon.png" />
     <Content Include="img\Windows8.png" />
@@ -932,60 +534,11 @@
     <Content Include="img\logo.png" />
     <Content Include="img\magnifier.png" />
     <Content Include="img\screenshots\placeholder.gif" />
-    <Content Include="img\social\social-sprite-30.png" />
-    <Content Include="img\social\social-sprite.png" />
     <Content Include="index.html" />
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\faq.js" />
     <Content Include="js\jquery-1.7.2.min.js" />
-    <Content Include="js\lightbox\jquery.lightbox.min.js" />
-    <Content Include="js\lightbox\themes\carbono\images\jquery-lightbox-theme.gif" />
-    <Content Include="js\lightbox\themes\carbono\images\jquery-lightbox-theme.png" />
-    <Content Include="js\lightbox\themes\carbono\images\loading.gif" />
-    <Content Include="js\lightbox\themes\carbono\jquery.lightbox.css" />
-    <Content Include="js\lightbox\themes\carbono\jquery.lightbox.ie6.css" />
-    <Content Include="js\lightbox\themes\classic-dark\images\jquery-lightbox-theme.gif" />
-    <Content Include="js\lightbox\themes\classic-dark\images\loading.gif" />
-    <Content Include="js\lightbox\themes\classic-dark\jquery.lightbox.css" />
-    <Content Include="js\lightbox\themes\classic-dark\jquery.lightbox.ie6.css" />
-    <Content Include="js\lightbox\themes\classic\images\jquery-lightbox-theme.gif" />
-    <Content Include="js\lightbox\themes\classic\images\loading.gif" />
-    <Content Include="js\lightbox\themes\classic\jquery.lightbox.css" />
-    <Content Include="js\lightbox\themes\classic\jquery.lightbox.ie6.css" />
-    <Content Include="js\lightbox\themes\default\images\jquery-lightbox-theme.gif" />
-    <Content Include="js\lightbox\themes\default\images\jquery-lightbox-theme.png" />
-    <Content Include="js\lightbox\themes\default\images\loading.gif" />
-    <Content Include="js\lightbox\themes\default\jquery.lightbox.css" />
-    <Content Include="js\lightbox\themes\default\jquery.lightbox.ie6.css" />
-    <Content Include="js\lightbox\themes\evolution-dark\images\jquery-lightbox-theme.gif" />
-    <Content Include="js\lightbox\themes\evolution-dark\images\jquery-lightbox-theme.png" />
-    <Content Include="js\lightbox\themes\evolution-dark\images\loading.gif" />
-    <Content Include="js\lightbox\themes\evolution-dark\jquery.lightbox.css" />
-    <Content Include="js\lightbox\themes\evolution-dark\jquery.lightbox.ie6.css" />
-    <Content Include="js\lightbox\themes\evolution\images\jquery-lightbox-theme.gif" />
-    <Content Include="js\lightbox\themes\evolution\images\jquery-lightbox-theme.png" />
-    <Content Include="js\lightbox\themes\evolution\images\loading.gif" />
-    <Content Include="js\lightbox\themes\evolution\jquery.lightbox.css" />
-    <Content Include="js\lightbox\themes\evolution\jquery.lightbox.ie6.css" />
-    <Content Include="js\lightbox\themes\facebook\images\jquery-lightbox-theme.gif" />
-    <Content Include="js\lightbox\themes\facebook\images\jquery-lightbox-theme.png" />
-    <Content Include="js\lightbox\themes\facebook\images\loading.gif" />
-    <Content Include="js\lightbox\themes\facebook\jquery.lightbox.css" />
-    <Content Include="js\lightbox\themes\facebook\jquery.lightbox.ie6.css" />
-    <Content Include="js\lightbox\themes\minimalist-dark\images\jquery-lightbox-theme.gif" />
-    <Content Include="js\lightbox\themes\minimalist-dark\images\loading.gif" />
-    <Content Include="js\lightbox\themes\minimalist-dark\jquery.lightbox.css" />
-    <Content Include="js\lightbox\themes\minimalist-dark\jquery.lightbox.ie6.css" />
-    <Content Include="js\lightbox\themes\minimalist\images\jquery-lightbox-theme.gif" />
-    <Content Include="js\lightbox\themes\minimalist\images\loading.gif" />
-    <Content Include="js\lightbox\themes\minimalist\jquery.lightbox.css" />
-    <Content Include="js\lightbox\themes\minimalist\jquery.lightbox.ie6.css" />
-    <Content Include="js\lightbox\themes\white-green\images\jquery-lightbox-theme.gif" />
-    <Content Include="js\lightbox\themes\white-green\images\jquery-lightbox-theme.png" />
-    <Content Include="js\lightbox\themes\white-green\images\loading.gif" />
-    <Content Include="js\lightbox\themes\white-green\jquery.lightbox.css" />
-    <Content Include="js\lightbox\themes\white-green\jquery.lightbox.ie6.css" />
     <Content Include="pricing.html" />
     <Content Include="Scripts\Analytics.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -1007,15 +560,15 @@
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
-    <Content Include="Scripts\jquery-migrate-1.1.0.js" />
-    <Content Include="Scripts\jquery-migrate-1.1.0.min.js" />
-    <Content Include="Scripts\jquery-ui-1.10.0.js" />
-    <Content Include="Scripts\jquery-ui-1.10.0.min.js" />
+    <Content Include="Scripts\jquery-migrate-1.1.1.js" />
+    <Content Include="Scripts\jquery-migrate-1.1.1.min.js" />
+    <Content Include="Scripts\jquery-ui-1.10.2.js" />
+    <Content Include="Scripts\jquery-ui-1.10.2.min.js" />
     <Content Include="Scripts\jquery-ui-timepicker-addon.js" />
     <Content Include="Scripts\jquery.cookie.js" />
     <Content Include="Scripts\jquery.cookie2.js" />
-    <Content Include="Scripts\jquery.signalR-1.0.0.js" />
-    <Content Include="Scripts\jquery.signalR-1.0.0.min.js" />
+    <Content Include="Scripts\jquery.signalR-1.0.1.js" />
+    <Content Include="Scripts\jquery.signalR-1.0.1.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery-1.9.1.min.map" />
@@ -1028,6 +581,7 @@
     <Content Include="Scripts\knockout-2.2.1.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\jquery-ui-sliderAccess.js" />
+    <Content Include="TekConf.xml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1096,6 +650,7 @@
     <Content Include="Views\Presentations\Index.cshtml" />
     <Content Include="Views\Presentations\AddHistory.cshtml" />
     <Content Include="Views\Presentations\Detail.cshtml" />
+    <Content Include="TekConf.UI.Web.nuspec" />
     <None Include="Views\Web.Debug.config" />
     <None Include="Views\Web.Release.config" />
   </ItemGroup>

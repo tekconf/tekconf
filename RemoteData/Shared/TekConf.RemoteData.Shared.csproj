@@ -30,20 +30,20 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ServiceStack.Common, Version=3.9.37.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Common, Version=3.9.42.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\ServiceStack.Common.3.9.37\lib\net35\ServiceStack.Common.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.Common.3.9.42\lib\net35\ServiceStack.Common.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Interfaces">
-      <HintPath>..\..\packages\ServiceStack.Common.3.9.37\lib\net35\ServiceStack.Interfaces.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="ServiceStack.Interfaces, Version=3.9.42.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\ServiceStack.Common.3.9.42\lib\net35\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.ServiceInterface">
-      <HintPath>..\..\packages\ServiceStack.3.9.28\lib\net35\ServiceStack.ServiceInterface.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.3.9.42\lib\net35\ServiceStack.ServiceInterface.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Text, Version=3.9.37.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Text, Version=3.9.42.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\ServiceStack.Text.3.9.37\lib\net35\ServiceStack.Text.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.Text.3.9.42\lib\net35\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -58,12 +58,18 @@
     <Compile Include="v1\Dtos\AddressDto.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="v1\Dtos\ConferenceCreatedDto.cs" />
     <Compile Include="v1\Dtos\ConferenceDto.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="v1\Dtos\ConferenceEndDateChangedDto.cs" />
+    <Compile Include="v1\Dtos\ConferenceLocationChangedDto.cs" />
+    <Compile Include="v1\Dtos\ConferencePublishedDto.cs" />
     <Compile Include="v1\Dtos\ConferencesDto.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="v1\Dtos\ConferenceStartDateChangedDto.cs" />
+    <Compile Include="v1\Dtos\ConferenceUpdatedDto.cs" />
     <Compile Include="v1\Dtos\FullConferenceDto.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -73,27 +79,36 @@
     <Compile Include="v1\Dtos\FullSpeakerDto.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="v1\Dtos\HistoryDto.cs" />
     <Compile Include="v1\Dtos\PresentationDto.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="v1\Dtos\PresentingSpeakerDto.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="v1\Dtos\ScheduleCreatedDto.cs" />
     <Compile Include="v1\Dtos\ScheduleDto.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="v1\Dtos\SchedulesDto.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="v1\Dtos\SearchResultDto.cs" />
+    <Compile Include="v1\Dtos\SessionAddedDto.cs" />
+    <Compile Include="v1\Dtos\SessionAddedToScheduleDto.cs" />
     <Compile Include="v1\Dtos\SessionDto.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="v1\Dtos\SessionRemovedDto.cs" />
+    <Compile Include="v1\Dtos\SessionRoomChangedDto.cs" />
     <Compile Include="v1\Dtos\SessionsDto.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="v1\Dtos\SpeakerAddedDto.cs" />
     <Compile Include="v1\Dtos\SpeakerDto.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="v1\Dtos\SpeakerRemovedDto.cs" />
     <Compile Include="v1\Dtos\SpeakersDto.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -115,9 +130,13 @@
     <Compile Include="v1\Requests\Conferences.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="v1\Requests\CreatePresentation.cs" />
+    <Compile Include="v1\Requests\CreatePresentationHistory.cs" />
     <Compile Include="v1\Requests\FeaturedSpeakers.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="v1\Requests\Presentation.cs" />
+    <Compile Include="v1\Requests\Presentations.cs" />
     <Compile Include="v1\Requests\Schedule.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -133,7 +152,7 @@
     <Compile Include="v1\Requests\SessionResources.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="v1\Requests\SessionRoomChanged.cs">
+    <Compile Include="v1\Requests\EventRequests.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="v1\Requests\Sessions.cs">

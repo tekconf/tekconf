@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using AutoMapper;
+using TekConf.Common.Entities;
 using TekConf.Common.Entities.Messages;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.UI.Api.Services;
@@ -45,7 +46,7 @@ namespace TekConf.UI.Api.v1
 			.Where(x => x.UserName == request.userName)
 				.SingleOrDefault(s => s.ConferenceSlug.ToLower() == request.conferenceSlug.ToLower());
 
-			if (schedule == null)
+			if (schedule.IsNull())
 			{
 				schedule = new ScheduleEntity()
 											 {
@@ -61,7 +62,7 @@ namespace TekConf.UI.Api.v1
 					_conferenceRepository.AsQueryable()
 					.SingleOrDefault(c => c.slug == request.conferenceSlug);
 
-			if (conference != null)
+			if (!conference.IsNull())
 			{
 				if (!string.IsNullOrWhiteSpace(request.sessionSlug) && !schedule.SessionSlugs.Any(s => s == request.sessionSlug))
 				{
@@ -90,7 +91,7 @@ namespace TekConf.UI.Api.v1
 												.Where(x => x.UserName == request.userName)
 												.SingleOrDefault(s => s.ConferenceSlug.ToLower() == request.conferenceSlug.ToLower());
 
-			if (schedule == null)
+			if (schedule.IsNull())
 				return new HttpResult(HttpStatusCode.NotFound);
 
 			if (string.IsNullOrWhiteSpace(request.sessionSlug))
@@ -99,7 +100,7 @@ namespace TekConf.UI.Api.v1
 			}
 			else
 			{
-				if (schedule.SessionSlugs == null || !schedule.SessionSlugs.Any(s => s == request.sessionSlug))
+				if (schedule.SessionSlugs.IsNull() || !schedule.SessionSlugs.Any(s => s == request.sessionSlug))
 					return new HttpResult(HttpStatusCode.NotFound);
 
 				schedule.SessionSlugs.Remove(request.sessionSlug);

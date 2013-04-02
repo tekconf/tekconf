@@ -1,13 +1,15 @@
-﻿<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
-    <metadata>
-        <id>ConferencesIO.Api</id>
-        <title>Conferences.IO - API</title>
-        <version>1.0.0</version>
-        <authors>ConferencesIO</authors>
-        <owners>ConferencesIO</owners>
-        <licenseUrl>http://conferences.io</licenseUrl>
-        <projectUrl>http://conferences.io</projectUrl>
-        <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>The API for Conferences.IO</description>
-    </metadata>
+﻿<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+	<metadata>
+		<id>TekConf.UI.Api</id>
+		<title>TekConf API</title>
+		<version>1.0.0</version>
+		<authors>Rob Gibbens</authors>
+		<owners>Rob Gibbens</owners>
+		<licenseUrl>http://www.tekconf.com</licenseUrl>
+		<projectUrl>http://www.tekconf.com</projectUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>TekConf Web API</description>
+		<releaseNotes></releaseNotes>
+	</metadata>
 </package>
