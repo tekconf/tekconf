@@ -35,10 +35,10 @@ namespace TekConf.UI.Web.Controllers
 
 			AsyncManager.OutstandingOperations.Increment();
 			repository.GetFullConference(conferenceSlug, userName, conference =>
-																											 {
-																												 AsyncManager.Parameters["conference"] = conference;
-																												 AsyncManager.OutstandingOperations.Decrement();
-																											 });
+												{
+													AsyncManager.Parameters["conference"] = conference;
+													AsyncManager.OutstandingOperations.Decrement();
+												});
 		}
 
 		public ActionResult AddSessionCompleted(FullConferenceDto conference)
@@ -67,6 +67,11 @@ namespace TekConf.UI.Web.Controllers
 		[HttpPost]
 		public void AddSessionToConferenceAsync(AddSession session)
 		{
+            if (Request.Form["hidden-tags"] != null)
+                session.tags = Request.Form["hidden-tags"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+            if (Request.Form["hidden-subjects"] != null)
+                session.subjects = Request.Form["hidden-subjects"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList(); 
+
 			var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
 
 			var repository = new RemoteDataRepository(baseUrl);
@@ -119,6 +124,11 @@ namespace TekConf.UI.Web.Controllers
 		[HttpPost]
 		public void EditSessionInConferenceAsync(AddSession session)
 		{
+            if (Request.Form["hidden-tags"] != null)
+                session.tags = Request.Form["hidden-tags"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+            if (Request.Form["hidden-subjects"] != null)
+                session.subjects = Request.Form["hidden-subjects"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList(); 
+
 			var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
 
 			var repository = new RemoteDataRepository(baseUrl);

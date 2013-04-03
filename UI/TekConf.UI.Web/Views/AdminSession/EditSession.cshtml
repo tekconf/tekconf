@@ -28,7 +28,9 @@
 	@Scripts.Render("~/bundles/jqueryUI")
 	@Scripts.Render("~/js/common")
 	@Scripts.Render("~/scripts/conferences/detail")
-
+    
+        <link href="~/Scripts/bootstrap-tagmanager.css" rel="stylesheet" type="text/css"></link>
+    <script src="~/Scripts/bootstrap-tagmanager.js"></script>
 </head>
 
 <body>
@@ -126,44 +128,6 @@
 				</div>                 
 				<div class="row">
 					<div class="span-4">
-						<table class="table table-bordered table-condensed table-striped" id="subjectsTable">
-							<caption style="text-align: left">Subjects</caption>
-							<tbody>
-								<tr>
-									<td><a href="#" class="addSubject">Add</a></td>
-								</tr>
-								@for (var counter = 0; counter < Model.subjects.Count; counter++)
-				{
-									<tr>
-										<td>
-											<input type="text" id="subjects[@counter]" name="subjects[@counter]" value="@Model.subjects[counter]" /></td>
-									</tr>
-				}
-							</tbody>
-						</table>
-					</div>
-				</div>
-				<div class="row">
-					<div class="span-4">
-						<table class="table table-bordered table-condensed table-striped" id="tagsTable">
-							<caption style="text-align: left">Tags</caption>
-							<tbody>
-								<tr>
-									<td><a href="#" class="addTag">Add</a></td>
-								</tr>
-								@for (var counter = 0; counter < Model.tags.Count; counter++)
-				{
-									<tr>
-										<td>
-											<input type="text" id="tags[@counter]" name="tags[@counter]" value="@Model.tags[counter]" /></td>
-									</tr>
-				}
-							</tbody>
-						</table>
-					</div>
-				</div>                 
-				<div class="row">
-					<div class="span-4">
 						<table class="table table-bordered table-condensed table-striped" id="linksTable">
 							<caption style="text-align: left">Links</caption>
 							<tbody>
@@ -181,11 +145,22 @@
 						</table>
 					</div>
 				</div>
-                                                    
+                <div class="row">
+                    <div class="span4">
+                        <label>Tags</label>
+                        <input type="text" name="tags" placeholder="Add Tag <Enter>" class="tagTagManager" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="span4">
+                        <label>Subjects</label>
+                        <input type="text" name="subjects" placeholder="Add Subject <Enter>" class="subjectTagManager" />
+                    </div>
+                </div>                                                       
 				<div class="row">
 					<input type="submit" class="btn-large btn btn-success" value="Save Session" />
 				</div>      
-	 }
+     }
 
 
 		</div>
@@ -202,6 +177,18 @@
 		$(function () {
 			$('#start').datetimepicker();
 			$('#end').datetimepicker();
+			$(".tagTagManager").tagsManager();
+			$(".subjectTagManager").tagsManager();
+		    
+             @foreach (var tag in Model.tags)
+            {
+	            <text>$(".tagTagManager").tagsManager('pushTag', '@tag');</text>
+            }
+	        
+            @foreach (var subject in Model.subjects)
+            {
+	            <text>$(".subjectTagManager").tagsManager('pushTag', '@subject');</text>
+            }
 		});
 
 		$(document).on("click", ".addPrerequisite", function (e) {
@@ -230,32 +217,6 @@
 			});
 		});
 		
-		$(document).on("click", ".addSubject", function (e) {
-			e.preventDefault();
-
-			$(this).closest('tr').after('<tr><td><input type="text" /></td></tr>');
-
-			$('#subjectsTable td').each(function (index, el) {
-				var element = index - 1;
-				$('input', this).attr('id', 'subjects[' + element + ']');
-				$('input', this).attr('name', 'subjects[' + element + ']');
-
-			});
-		});
-
-		$(document).on("click", ".addTag", function (e) {
-			e.preventDefault();
-
-			$(this).closest('tr').after('<tr><td><input type="text" /></td></tr>');
-
-			$('#tagsTable td').each(function (index, el) {
-				var element = index - 1;
-				$('input', this).attr('id', 'tags[' + element + ']');
-				$('input', this).attr('name', 'tags[' + element + ']');
-
-			});
-		});
-
 		$(document).on("click", ".addLink", function (e) {
 			e.preventDefault();
 

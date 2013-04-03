@@ -105,15 +105,17 @@ namespace TekConf.UI.Web.Controllers
 			return View(createConference);
 		}
 
+
 		[HttpPost]
 		public void EditConfAsync(CreateConference conference, HttpPostedFileBase file)
 		{
             if (Request.Form["hidden-tags"] != null)
                 conference.tags = Request.Form["hidden-tags"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+            if (Request.Form["hidden-subjects"] != null)
+                conference.subjects = Request.Form["hidden-subjects"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList(); 
             if (Request.Form["hidden-sessionTypes"] != null)
                 conference.sessionTypes = Request.Form["hidden-sessionTypes"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
-            if (Request.Form["hidden-subjects"] != null)
-                conference.subjects = Request.Form["hidden-subjects"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+
             if (Request.Form["hidden-rooms"] != null)
                 conference.rooms = Request.Form["hidden-rooms"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
 
