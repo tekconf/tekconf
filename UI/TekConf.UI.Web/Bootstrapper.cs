@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
 using AutoMapper;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.UI.Api;
@@ -22,9 +24,41 @@ namespace TekConf.UI.Web
 
             Mapper.CreateMap<SpeakerEntity, FullSpeakerDto>();
             Mapper.CreateMap<AddressEntity, AddressDto>();
-            Mapper.CreateMap<ConferenceEntity, FullConferenceDto>();
+            Mapper.CreateMap<ConferenceEntity, FullConferenceDto>()
+                            .ForMember(dest => dest.imageUrl, opt => opt.ResolveUsing<ImageResolver>())
+                            .ForMember(dest => dest.numberOfSessions, opt => opt.ResolveUsing<SessionsCounterResolver>());
+
             Mapper.CreateMap<SessionEntity, FullSessionDto>();
 
+        }
+
+        public class SessionsCounterResolver : ValueResolver<ConferenceEntity, int>
+        {
+            protected override int ResolveCore(ConferenceEntity source)
+            {
+                return source.sessions.Count();
+            }
+        }
+
+        public class ImageResolver : ValueResolver<ConferenceEntity, string>
+        {
+            protected override string ResolveCore(ConferenceEntity source)
+            {
+                var webUrl = ConfigurationManager.AppSettings["webUrl"];
+
+                if (string.IsNullOrWhiteSpace(source.imageUrl))
+                {
+                    return webUrl + "/img/conferences/DefaultConference.png";
+                }
+                else if (!source.imageUrl.StartsWith("http"))
+                {
+                    return webUrl + source.imageUrl;
+                }
+                else
+                {
+                    return source.imageUrl;
+                }
+            }
         }
 
         public class LatitudeResolver : ValueResolver<FullConferenceDto, double>

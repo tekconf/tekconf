@@ -138,7 +138,7 @@ namespace TekConf.UI.WinRT
                     {
                         if (!string.IsNullOrWhiteSpace(conference.imageUrl))
                         {
-                            conference.imageUrl = "http://www.tekconf.com" + conference.imageUrl;
+                            //conference.imageUrl = "http://www.tekconf.com" + conference.imageUrl;
                         }
                     }
                 }
@@ -146,11 +146,13 @@ namespace TekConf.UI.WinRT
                 return groups;
             }
         }
+
         public Task LoadConferences()
         {
             return Task.Run(async () =>
             {
-                var url = "http://api.tekconf.com/v1/conferences?showPastConferences=true&format=json";
+                //var url = "http://api.tekconf.com/v1/conferences?showPastConferences=true&format=json";
+                var url = "http://localhost:25825/v1/conferences?showPastConferences=true&format=json";
                 var client = new HttpClient();
                 var response = await client.GetAsync(url);
                 if (response.StatusCode == HttpStatusCode.OK)

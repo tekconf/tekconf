@@ -152,7 +152,7 @@
                 <GroupStyle>
                     <GroupStyle.HeaderTemplate>
                         <DataTemplate>
-                            <Grid Margin="1,0,0,6">
+                            <Grid Margin="1,15,0,6">
                                 <Button
                                     AutomationProperties.Name="Group Title"
                                     Content="{Binding GroupMonthName}"
