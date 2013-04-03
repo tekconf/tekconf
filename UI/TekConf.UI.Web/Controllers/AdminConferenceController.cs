@@ -39,6 +39,15 @@ namespace TekConf.UI.Web.Controllers
 		[HttpPost]
 		public async Task<ActionResult> CreateConference(CreateConference conference, HttpPostedFileBase file)
 		{
+            if (Request.Form["hidden-tags"] != null)
+                conference.tags = Request.Form["hidden-tags"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+            if (Request.Form["hidden-sessionTypes"] != null)
+                conference.sessionTypes = Request.Form["hidden-sessionTypes"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+            if (Request.Form["hidden-subjects"] != null)
+                conference.subjects = Request.Form["hidden-subjects"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+            if (Request.Form["hidden-rooms"] != null)
+                conference.rooms = Request.Form["hidden-rooms"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+
 			string url = string.Empty;
 
 			if (file != null)
@@ -99,6 +108,15 @@ namespace TekConf.UI.Web.Controllers
 		[HttpPost]
 		public void EditConfAsync(CreateConference conference, HttpPostedFileBase file)
 		{
+            if (Request.Form["hidden-tags"] != null)
+                conference.tags = Request.Form["hidden-tags"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+            if (Request.Form["hidden-sessionTypes"] != null)
+                conference.sessionTypes = Request.Form["hidden-sessionTypes"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+            if (Request.Form["hidden-subjects"] != null)
+                conference.subjects = Request.Form["hidden-subjects"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+            if (Request.Form["hidden-rooms"] != null)
+                conference.rooms = Request.Form["hidden-rooms"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+
 			var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
 
 			var repository = new RemoteDataRepository(baseUrl);

@@ -542,6 +542,8 @@
     <Content Include="js\jquery-1.7.2.min.js" />
     <Content Include="pricing.html" />
     <Content Include="Scripts\Analytics.js" />
+    <Content Include="Scripts\bootstrap-tagmanager.css" />
+    <Content Include="Scripts\bootstrap-tagmanager.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="App_Code\HtmlHelpers.cshtml" />
@@ -558,6 +560,7 @@
     <None Include="Properties\PublishProfiles\tekconf-web - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\tekconf-web - Web Deploy.pubxml" />
     <Content Include="Scripts\common.js" />
+    <Content Include="Scripts\bootstrap-tagmanager.less" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />

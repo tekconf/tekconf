@@ -152,6 +152,29 @@
 
 							@Html.RouteLink("Add Speaker", "AdminAddSpeaker", new { conferenceSlug = Model.conferenceSlug, sessionSlug = Model.slug }, new { @class = "btn" })
 			}
+                        
+@*                        					    <p>
+					        <h4><span class="slash">//</span> Tags</h4>
+                            @foreach (var tag in Model.tags)
+                            {
+                                <text><a href="#" class="btn disabled">@tag</a>&nbsp;</text>
+                            }
+                            <br/><br/><h4><span class="slash">//</span> Subjects</h4>
+                            @foreach (var subject in Model.subjects)
+                            {
+                                <text><a href="#" class="btn disabled">@subject</a>&nbsp;</text>
+                            }
+                            <br/><br/><h4><span class="slash">//</span> Session Types</h4>
+                            @foreach (var sessionType in Model.sessionTypes)
+                            {
+                                <text><a href="#" class="btn disabled">@sessionType</a>&nbsp;</text>
+                            }
+                                                        <br/><br/><h4><span class="slash">//</span> Subjects</h4>
+                            @foreach (var subject in Model.subjects)
+                            {
+                                <text><a href="#" class="btn disabled">@subject</a>&nbsp;</text>
+                            }
+					    </p>*@
 					</div>
 
 				</div>

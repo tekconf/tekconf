@@ -109,7 +109,7 @@
 							<table class="table">
 								<tbody>
 									@{
-			 var sessionTimes = dayGroup.Sessions
+			                                    var sessionTimes = dayGroup.Sessions
 																	.GroupBy(s => new { s.start })
 																	.Select(s => new { DateKey = s.Key, Sessions = s })
 																	.OrderBy(s => s.DateKey.start)
@@ -163,94 +163,95 @@
 				<div class="span4">
 					<div class="sidebar">
 						<h4><span class="slash">//</span> More Information</h4>
-						<p>
-							@HtmlHelpers.FormatDateRange(Model.start, Model.end)<br />
-							<br />
-							@if (!string.IsNullOrWhiteSpace(Model.location))
-			 {
-								@Model.location<br />
-			 }
-							@if (Model.address != null)
-			 {
-				 if (Model.address.StreetNumber != 0)
-				 {
-								@Model.address.StreetNumber<text> </text>
-				 }
-				 if (!string.IsNullOrWhiteSpace(Model.address.StreetName))
-				 {
-								@Model.address.StreetName<br />
-				 }
+					    <p>
+					        @HtmlHelpers.FormatDateRange(Model.start, Model.end)<br />
+					        <br />
+					        @if (!string.IsNullOrWhiteSpace(Model.location))
+					        {
+					            @Model.location<br />
+					        }
+					        @if (Model.address != null)
+					        {
+					            if (Model.address.StreetNumber != 0)
+					            {
+					                @Model.address.StreetNumber<text> </text>
+					            }
+					            if (!string.IsNullOrWhiteSpace(Model.address.StreetName))
+					            {
+					                @Model.address.StreetName<br />
+					            }
 														
-								@Model.address.City<text> </text>@Model.address.State<text> </text>@Model.address.Country<br />
-								<br />
-			 }
+					            @Model.address.City<text> </text>@Model.address.State<text> </text>@Model.address.Country<br />
+					            <br />
+					        }
 
 
-							@if (Model.callForSpeakersOpens != default(DateTime))
-			 {
-								<text>Call for Speakers : </text><br />
-								@HtmlHelpers.FormatDateRange(Model.callForSpeakersOpens, Model.callForSpeakersCloses)
-			 }
-							<h4><span class="slash">//</span> Connect</h4>
-							@if (!string.IsNullOrWhiteSpace(Model.homepageUrl))
-			 {
-								<img src="~/img/social/website-16x16.png" alt="Website" /> @HtmlHelpers.SimpleLink(Model.homepageUrl, Model.homepageUrl.Replace("http://", ""))<br />
-			 }
+					        @if (Model.callForSpeakersOpens != default(DateTime))
+					        {
+					            <text>Call for Speakers : </text><br />
+					            @HtmlHelpers.FormatDateRange(Model.callForSpeakersOpens, Model.callForSpeakersCloses)
+					        }
+					        <h4><span class="slash">//</span> Connect</h4>
+					        @if (!string.IsNullOrWhiteSpace(Model.homepageUrl))
+					        {
+					            <img src="~/img/social/website-16x16.png" alt="Website" /> @HtmlHelpers.SimpleLink(Model.homepageUrl, Model.homepageUrl.Replace("http://", ""))<br />
+					        }
 
-							@if (!string.IsNullOrWhiteSpace(Model.twitterName))
-			 {
-								<img src="~/img/social/twitter-16x16.png" alt="Twitter Name" /> @HtmlHelpers.TwitterUserLink(Model.twitterName)<br />
-			 }
-							@if (!string.IsNullOrWhiteSpace(Model.twitterHashTag))
-			 {
-								<img src="~/img/social/twitter-16x16.png" alt="Twitter Hashtag" /> @HtmlHelpers.SimpleLink("https://twitter.com/#!/search/" + Model.twitterHashTag.Replace("#", "%23"), Model.twitterHashTag)<br />
-			 }
+					        @if (!string.IsNullOrWhiteSpace(Model.twitterName))
+					        {
+					            <img src="~/img/social/twitter-16x16.png" alt="Twitter Name" /> @HtmlHelpers.TwitterUserLink(Model.twitterName)<br />
+					        }
+					        @if (!string.IsNullOrWhiteSpace(Model.twitterHashTag))
+					        {
+					            <img src="~/img/social/twitter-16x16.png" alt="Twitter Hashtag" /> @HtmlHelpers.SimpleLink("https://twitter.com/#!/search/" + Model.twitterHashTag.Replace("#", "%23"), Model.twitterHashTag)<br />
+					        }
 
-							@if (!string.IsNullOrWhiteSpace(Model.facebookUrl))
-			 {
-								<img src="~/img/social/facebook-16x16.png" alt="Facebook" /> @HtmlHelpers.SimpleLink(Model.facebookUrl, "Facebook")<br />
-			 }
+					        @if (!string.IsNullOrWhiteSpace(Model.facebookUrl))
+					        {
+					            <img src="~/img/social/facebook-16x16.png" alt="Facebook" /> @HtmlHelpers.SimpleLink(Model.facebookUrl, "Facebook")<br />
+					        }
 
-							@if (!string.IsNullOrWhiteSpace(Model.lanyrdUrl))
-			 {
-								<img src="~/img/social/lanyrd-16x16.png" alt="Lanyrd" /> @HtmlHelpers.SimpleLink(Model.lanyrdUrl, "Lanyrd")<br />
-			 }
+					        @if (!string.IsNullOrWhiteSpace(Model.lanyrdUrl))
+					        {
+					            <img src="~/img/social/lanyrd-16x16.png" alt="Lanyrd" /> @HtmlHelpers.SimpleLink(Model.lanyrdUrl, "Lanyrd")<br />
+					        }
 
-							@if (!string.IsNullOrWhiteSpace(Model.meetupUrl))
-			 {
-								<img src="~/img/social/meetup-16x16.png" alt="Meetup" /> @HtmlHelpers.SimpleLink(Model.meetupUrl, "Meetup")<br />
-			 }
+					        @if (!string.IsNullOrWhiteSpace(Model.meetupUrl))
+					        {
+					            <img src="~/img/social/meetup-16x16.png" alt="Meetup" /> @HtmlHelpers.SimpleLink(Model.meetupUrl, "Meetup")<br />
+					        }
 
-							@if (!string.IsNullOrWhiteSpace(Model.googlePlusUrl))
-			 {
-								<img src="~/img/social/googlePlus-16x16.png" alt="Google Plus" /> @HtmlHelpers.SimpleLink(Model.googlePlusUrl, "Google+")<br />
-			 }
+					        @if (!string.IsNullOrWhiteSpace(Model.googlePlusUrl))
+					        {
+					            <img src="~/img/social/googlePlus-16x16.png" alt="Google Plus" /> @HtmlHelpers.SimpleLink(Model.googlePlusUrl, "Google+")<br />
+					        }
 
-							@if (!string.IsNullOrWhiteSpace(Model.vimeoUrl))
-			 {
-								<img src="~/img/social/vimeo-16x16.png" alt="Vimeo" /> @HtmlHelpers.SimpleLink(Model.vimeoUrl, "Vimeo")<br />
-			 }
+					        @if (!string.IsNullOrWhiteSpace(Model.vimeoUrl))
+					        {
+					            <img src="~/img/social/vimeo-16x16.png" alt="Vimeo" /> @HtmlHelpers.SimpleLink(Model.vimeoUrl, "Vimeo")<br />
+					        }
 
-							@if (!string.IsNullOrWhiteSpace(Model.youtubeUrl))
-			 {
-								<img src="~/img/social/youtube-16x16.png" alt="Youtube" /> @HtmlHelpers.SimpleLink(Model.youtubeUrl, "YouTube")<br />
-			 }
+					        @if (!string.IsNullOrWhiteSpace(Model.youtubeUrl))
+					        {
+					            <img src="~/img/social/youtube-16x16.png" alt="Youtube" /> @HtmlHelpers.SimpleLink(Model.youtubeUrl, "YouTube")<br />
+					        }
 
-							@if (!string.IsNullOrWhiteSpace(Model.githubUrl))
-			 {
-								<img src="~/img/social/github-16x16.png" alt="GitHub" /> @HtmlHelpers.SimpleLink(Model.googlePlusUrl, "Github")<br />
-			 }
+					        @if (!string.IsNullOrWhiteSpace(Model.githubUrl))
+					        {
+					            <img src="~/img/social/github-16x16.png" alt="GitHub" /> @HtmlHelpers.SimpleLink(Model.googlePlusUrl, "Github")<br />
+					        }
 
-							@if (!string.IsNullOrWhiteSpace(Model.linkedInUrl))
-			 {
-								<img src="~/img/social/linkedin-16x16.png" alt="LinkedIn" /> @HtmlHelpers.SimpleLink(Model.linkedInUrl, "LinkedIn")<br />
-			 }
-						</p>
+					        @if (!string.IsNullOrWhiteSpace(Model.linkedInUrl))
+					        {
+					            <img src="~/img/social/linkedin-16x16.png" alt="LinkedIn" /> @HtmlHelpers.SimpleLink(Model.linkedInUrl, "LinkedIn")<br />
+					        }
+					    </p>
+
 						@if (Html.IsAdmin())
-			{
+      {
 							@Html.RouteLink("Edit Conference", "AdminEditConference", new { conferenceSlug = Model.slug }, new { @class = "btn btn-info" })	
 							@Html.RouteLink("Add Session", "AdminAddSession", new { conferenceSlug = Model.slug }, new { @class = "btn" })	
-			}
+      }
 						<br />
 					</div>
 					<!-- /sidebar -->
