@@ -152,7 +152,7 @@ namespace TekConf.UI.WinRT
             return Task.Run(async () =>
             {
                 //var url = "http://api.tekconf.com/v1/conferences?showPastConferences=true&format=json";
-                var url = "http://localhost:25825/v1/conferences?showPastConferences=true&format=json";
+                var url = "http://localhost:25825/v1/conferences?showPastConferences=false&format=json";
                 var client = new HttpClient();
                 var response = await client.GetAsync(url);
                 if (response.StatusCode == HttpStatusCode.OK)

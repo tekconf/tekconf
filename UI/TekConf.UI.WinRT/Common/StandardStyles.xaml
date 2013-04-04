@@ -108,8 +108,15 @@
 
     <Style x:Key="ItemTextStyle" TargetType="TextBlock" BasedOn="{StaticResource BaselineTextStyle}"/>
 
+    <Style x:Key="ConferenceDetailDescriptionBodyTextStyle" TargetType="TextBlock" BasedOn="{StaticResource BaselineTextStyle}">
+        <Setter Property="FontWeight" Value="SemiLight"/>
+        <Setter Property="FontSize" Value="30" />
+        <Setter Property="LineHeight" Value="30" />
+    </Style>
+    
     <Style x:Key="BodyTextStyle" TargetType="TextBlock" BasedOn="{StaticResource BaselineTextStyle}">
         <Setter Property="FontWeight" Value="SemiLight"/>
+        <Setter Property="Foreground" Value="{StaticResource AppBarBackgroundThemeBrush}"/>
     </Style>
 
     <Style x:Key="CaptionTextStyle" TargetType="TextBlock" BasedOn="{StaticResource BaselineTextStyle}">
@@ -836,6 +843,23 @@
         </Grid>
     </DataTemplate>
 
+    <DataTemplate x:Key="Speaker500x130ItemTemplate">
+        <Grid Height="110" Width="480" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" Width="110" Height="110">
+                <Image Source="http://tekconf.com/img/speakers/default.png" Stretch="UniformToFill"/>
+            </Border>
+            <StackPanel Grid.Column="1" VerticalAlignment="Top" Margin="10,0,0,0">
+                <TextBlock Text="{Binding fullName}" Style="{StaticResource TitleTextStyle}" TextWrapping="NoWrap"/>
+                <!--<TextBlock Text="{Binding Subtitle}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap"/>-->
+                <TextBlock Text="{Binding description}" Style="{StaticResource BodyTextStyle}" MaxHeight="60"/>
+            </StackPanel>
+        </Grid>
+    </DataTemplate>
+
     <!-- Grid-appropriate 500 by 130 pixel item template as seen in the GroupDetailPage -->
     <DataTemplate x:Key="Standard500x130ItemTemplate">
         <Grid Height="110" Width="480" Margin="10">
@@ -888,6 +912,39 @@
             <StackPanel Grid.Column="1" Margin="10,0,0,0">
                 <TextBlock Text="{Binding name}" Style="{StaticResource ItemTextStyle}" MaxHeight="40"/>
                 <TextBlock Text="{Binding Subtitle}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap"/>
+            </StackPanel>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="SmallSessionListItemTemplate">
+        <Grid Margin="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border Background="White" Width="86" Height="60">
+                <Image Source="{Binding imageUrl}" Stretch="UniformToFill"/>
+            </Border>
+            <StackPanel Grid.Column="1" Margin="10,0,0,0">
+                <TextBlock Text="{Binding title}" Style="{StaticResource ItemTextStyle}" MaxHeight="40"/>
+                <TextBlock Text="{Binding Subtitle}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap"/>
+            </StackPanel>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="LargeSessionListItemTemplate">
+        <Grid Height="110" Width="480" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" Width="110" Height="110">
+                <Image Source="http://www.tekconf.com/img/speakers/default.png" Stretch="UniformToFill"/>
+            </Border>
+            <StackPanel Grid.Column="1" VerticalAlignment="Top" Margin="10,0,0,0">
+                <TextBlock Text="{Binding title}" Style="{StaticResource TitleTextStyle}" TextWrapping="NoWrap"/>
+                <!--<TextBlock Text="{Binding Subtitle}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap"/>-->
+                <TextBlock Text="{Binding description}" Style="{StaticResource BodyTextStyle}" MaxHeight="60"/>
             </StackPanel>
         </Grid>
     </DataTemplate>

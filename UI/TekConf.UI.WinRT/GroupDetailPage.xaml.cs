@@ -1,4 +1,10 @@
-﻿using TekConf.UI.WinRT.Data;
+﻿using System.Net;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Newtonsoft.Json;
+using TekConf.RemoteData.Dtos.v1;
+using TekConf.RemoteData.v1;
+using TekConf.UI.WinRT.Data;
 
 using System;
 using System.Collections.Generic;
@@ -31,9 +37,35 @@ namespace TekConf.UI.WinRT
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
             // TODO: Create an appropriate data model for your problem domain to replace the sample data
-            var group = SampleDataSource.GetGroup((String)navigationParameter);
-            this.DefaultViewModel["Group"] = group;
-            this.DefaultViewModel["Items"] = group.Items;
+            //var group = SampleDataSource.GetGroup((String)navigationParameter);
+
+            //var url = "http://localhost:25825/";
+            var slug = (String) navigationParameter;
+            var task = LoadConference(slug);
+            Task.WhenAll(task);
+            var conference = task.Result;
+
+            this.DefaultViewModel["Group"] = conference;
+            this.DefaultViewModel["Items"] = conference.sessions;
+
+        }
+
+        public Task<FullConferenceDto> LoadConference(string slug)
+        {
+            return Task.Run(async () =>
+            {
+                var url = "http://localhost:25825/v1/conferences/" + slug + "?format=json";
+                var client = new HttpClient();
+                var response = await client.GetAsync(url);
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+                    // parse to json
+                    var conference = JsonConvert.DeserializeObject<FullConferenceDto>(responseString);
+                    return conference;
+                }
+                return null;
+            });
         }
 
         /// <summary>
@@ -46,8 +78,10 @@ namespace TekConf.UI.WinRT
         {
             // Navigate to the appropriate destination page, configuring the new page
             // by passing required information as a navigation parameter
-            var itemId = ((SampleDataItem)e.ClickedItem).UniqueId;
-            this.Frame.Navigate(typeof(ItemDetailPage), itemId);
+            var fullSessionDto = ((FullSessionDto)e.ClickedItem);
+            this.Frame.Navigate(typeof(SessionDetailPage), fullSessionDto);
         }
+
+
     }
 }

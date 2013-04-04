@@ -126,7 +126,7 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
-            <TextBlock x:Name="pageTitle" Text="TekConf" Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}"/>
+            <TextBlock x:Name="pageTitle" Text="Conferences" Grid.Column="1" Style="{StaticResource PageHeaderTextStyle}"/>
         </Grid>
 
         <!-- Horizontal scrolling grid used in most view states -->
