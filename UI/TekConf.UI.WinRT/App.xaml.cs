@@ -4,24 +4,16 @@ using System.Net;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Microsoft.WindowsAzure.MobileServices;
 using Newtonsoft.Json;
 using TekConf.UI.WinRT.Common;
-
 using System;
-using System.IO;
 using System.Linq;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
+using Windows.UI.Popups;
 // The Grid App template is documented at http://go.microsoft.com/fwlink/?LinkId=234226
 
 namespace TekConf.UI.WinRT
@@ -31,6 +23,7 @@ namespace TekConf.UI.WinRT
     /// </summary>
     sealed partial class App : Application
     {
+        public static MobileServiceClient MobileService = new MobileServiceClient(@"https://tekconfauth.azure-mobile.net/");
         /// <summary>
         /// Initializes the singleton Application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -41,6 +34,7 @@ namespace TekConf.UI.WinRT
             this.Suspending += OnSuspending;
         }
 
+        public static bool IsAuthenticated { get; set; }
         private static ConferencesViewModel _viewModel;
         public static ConferencesViewModel ViewModel
         {
@@ -108,6 +102,8 @@ namespace TekConf.UI.WinRT
             await SuspensionManager.SaveAsync();
             deferral.Complete();
         }
+
+
     }
 
     public class ConferencesViewModel

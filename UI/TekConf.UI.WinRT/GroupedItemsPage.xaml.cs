@@ -1,4 +1,5 @@
-﻿using TekConf.UI.WinRT.Data;
+﻿using Microsoft.WindowsAzure.MobileServices;
+using TekConf.UI.WinRT.Data;
 
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.IO;
 using System.Linq;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -21,7 +23,7 @@ namespace TekConf.UI.WinRT
     public class SomeShit
     {
         public string GroupMonthName { get; set; }
-        public List<ConferencesDto> Conferences { get; set; } 
+        public List<ConferencesDto> Conferences { get; set; }
     }
 
     /// <summary>
@@ -32,6 +34,38 @@ namespace TekConf.UI.WinRT
         public GroupedItemsPage()
         {
             this.InitializeComponent();
+        }
+
+        //protected override async void OnNavigatedTo(NavigationEventArgs e)
+        //{
+        //    await Authenticate();
+        //}
+
+        private MobileServiceUser user;
+        private async void Authenticate()
+        {
+            if (!App.IsAuthenticated)
+            {
+                while (user == null)
+                {
+                    string message;
+                    try
+                    {
+                        user = await App.MobileService
+                                        .LoginAsync(MobileServiceAuthenticationProvider.Twitter);
+                        App.IsAuthenticated = true;
+                        //message =
+                        //string.Format("You are now logged in - {0}", user.UserId);
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        //message = "You must log in. Login Required";
+                        //var dialog = new MessageDialog(message);
+                        //dialog.Commands.Add(new UICommand("OK"));
+                        //await dialog.ShowAsync();
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -45,11 +79,12 @@ namespace TekConf.UI.WinRT
         /// session.  This will be null the first time a page is visited.</param>
         protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
         {
+            Authenticate();
+
             // TODO: Create an appropriate data model for your problem domain to replace the sample data
             var sampleDataGroups = SampleDataSource.GetGroups((String)navigationParameter);
             //this.DefaultViewModel["Groups"] = sampleDataGroups;
             var groups = App.ViewModel.GroupedItems;
-                                    
 
             this.DefaultViewModel["Groups"] = groups;
 

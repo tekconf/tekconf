@@ -67,7 +67,7 @@
                     <Border Background="White">
                         <Image Source="{Binding imageUrl}" Height="260" Margin="10,0" Stretch="None"/>
                     </Border>
-                    <TextBlock Text="{Binding description}" Margin="0,15,18,0" Style="{StaticResource ConferenceDetailDescriptionBodyTextStyle}"/>
+                    <TextBlock Text="{Binding description}" Margin="0,15,18,0" Style="{StaticResource ConferenceDetailDescriptionBodyTextStyle}" Foreground="Black" />
                 </StackPanel>
             </GridView.Header>
             <GridView.ItemContainerStyle>
