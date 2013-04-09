@@ -19,7 +19,7 @@ namespace TekConf.UI.Api
 			var hub = container.Resolve<ITinyMessengerHub>();
 
 			var repository = new ConferenceRepository(new Configuration());
-			
+
 			BsonClassMap.RegisterClassMap<ConferenceEntity>()
 					.SetCreator(() => new ConferenceEntity(hub, repository));
 		}
@@ -28,21 +28,10 @@ namespace TekConf.UI.Api
 		{
 			Mapper.AddFormatter<TrimmingFormatter>();
 
-
-			//Mapper.CreateMap<ConferenceEntity, ConferencesDto>()
-			//				.ForMember(dest => dest.url, opt => opt.Ignore())
-			//				.ForMember(dest => dest.imageUrl, opt => opt.ResolveUsing<ImageResolver>())
-			//				.ForMember(dest => dest.numberOfSessions, opt => opt.ResolveUsing<SessionsCounterResolver>());
-
 			Mapper.CreateMap<ConferenceEntity, ConferenceEntity>()
 							.ForMember(c => c._id, opt => opt.Ignore())
 							.ForMember(dest => dest.imageUrl, opt => opt.ResolveUsing<ImageResolver>())
 							.ConstructUsing((Func<ResolutionContext, ConferenceEntity>)(r => new ConferenceEntity(container.Resolve<ITinyMessengerHub>(), container.Resolve<IRepository<ConferenceEntity>>())));
-
-			//Mapper.CreateMap<ConferenceEntity, ConferenceDto>()
-			//				.ForMember(dest => dest.url, opt => opt.Ignore())
-			//				.ForMember(dest => dest.sessionsUrl, opt => opt.Ignore())
-			//				.ForMember(dest => dest.speakersUrl, opt => opt.Ignore());
 
 			Mapper.CreateMap<ConferenceEntity, FullConferenceDto>()
 							.ForMember(dest => dest.imageUrl, opt => opt.ResolveUsing<ImageResolver>())
@@ -63,7 +52,13 @@ namespace TekConf.UI.Api
 			Mapper.CreateMap<AddSession, SessionEntity>()
 							.ForMember(s => s._id, opt => opt.UseValue(Guid.NewGuid()))
 							.ForMember(s => s.speakers, opt => opt.UseValue(new List<SpeakerEntity>()))
+							.ForMember(dest => dest.start, opt => opt.ResolveUsing<SessionStartTimeZoneResolver>())
+							.ForMember(dest => dest.end, opt => opt.ResolveUsing<SessionEndTimeZoneResolver>())
 							;
+
+			Mapper.CreateMap<SessionEntity, SessionEntity>()
+				.ForMember(s => s._id, opt => opt.Ignore())
+				;
 
 			Mapper.CreateMap<CreatePresentation, PresentationEntity>()
 						.ForMember(p => p._id, opt => opt.UseValue(Guid.NewGuid()))
@@ -80,6 +75,8 @@ namespace TekConf.UI.Api
 
 			Mapper.CreateMap<CreateConference, ConferenceEntity>()
 							.ForMember(c => c._id, opt => opt.Ignore())
+							.ForMember(dest => dest.start, opt => opt.ResolveUsing<ConferenceStartTimeZoneResolver>())
+							.ForMember(dest => dest.end, opt => opt.ResolveUsing<ConferenceEndTimeZoneResolver>())
 							.ForMember(c => c.position, opt => opt.ResolveUsing<PositionResolver>())
 							.ConstructUsing((Func<ResolutionContext, ConferenceEntity>)(r => new ConferenceEntity(container.Resolve<ITinyMessengerHub>(), container.Resolve<IRepository<ConferenceEntity>>())));
 
@@ -133,6 +130,43 @@ namespace TekConf.UI.Api
 		protected override string ResolveCore(CreatePresentation source)
 		{
 			return source.Title.GenerateSlug();
+		}
+	}
+
+	public class SessionStartTimeZoneResolver : ValueResolver<AddSession, DateTime>
+	{
+		protected override DateTime ResolveCore(AddSession source)
+		{
+			TimeZoneInfo est = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+			return TimeZoneInfo.ConvertTimeFromUtc(source.start, est);
+		}
+	}
+
+	public class SessionEndTimeZoneResolver : ValueResolver<AddSession, DateTime>
+	{
+		protected override DateTime ResolveCore(AddSession source)
+		{
+			TimeZoneInfo est = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+			return TimeZoneInfo.ConvertTimeFromUtc(source.end, est);
+		}
+	}
+
+	public class ConferenceStartTimeZoneResolver : ValueResolver<CreateConference, DateTime?>
+	{
+		protected override DateTime? ResolveCore(CreateConference source)
+		{
+			TimeZoneInfo est = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+			return TimeZoneInfo.ConvertTimeFromUtc(source.start, est);
+		}
+	}
+
+	public class ConferenceEndTimeZoneResolver : ValueResolver<CreateConference, DateTime?>
+	{
+		protected override DateTime? ResolveCore(CreateConference source)
+		{
+
+			TimeZoneInfo est = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+			return TimeZoneInfo.ConvertTimeFromUtc(source.end, est);
 		}
 	}
 

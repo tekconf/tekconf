@@ -22,7 +22,7 @@ namespace TekConf.UI.Api.Services.v1
 		private ITinyMessengerHub _hub;
 		private readonly IConfiguration _configuration;
 
-		private readonly IRepository<ConferenceEntity> _conferenceRepository;
+		private readonly IConferenceRepository _conferenceRepository;
 
 		static HttpError ConferenceNotFound = HttpError.NotFound("Conference not found") as HttpError;
 		static HashSet<string> NonExistingConferences = new HashSet<string>();
@@ -30,7 +30,7 @@ namespace TekConf.UI.Api.Services.v1
 		static HttpError SessionNotFound = HttpError.NotFound("Session not found") as HttpError;
 		static HashSet<string> NonExistingSessions = new HashSet<string>();
 
-		public SessionService(ITinyMessengerHub hub, IConfiguration configuration, IRepository<ConferenceEntity> conferenceRepository)
+		public SessionService(ITinyMessengerHub hub, IConfiguration configuration, IConferenceRepository conferenceRepository)
 		{
 			_hub = hub;
 			_configuration = configuration;
@@ -74,16 +74,14 @@ namespace TekConf.UI.Api.Services.v1
 
 		public object Put(AddSession request)
 		{
-			var conference = _conferenceRepository.AsQueryable().FirstOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
-
-			var session = conference.sessions.FirstOrDefault(s => s.slug.ToLower() == request.slug.ToLower());
-			session.TrimAllProperties();
-			Mapper.Map<AddSession, SessionEntity>(request, session);
-
-			conference.Save();
+			var session = Mapper.Map<AddSession, SessionEntity>(request);
+			var sessionEntity = _conferenceRepository.SaveSession(request.conferenceSlug, session);
 			this.CacheClient.FlushAll();
 
-			var sessionDto = Mapper.Map<SessionEntity, SessionDto>(session);
+			var conference = _conferenceRepository.AsQueryable().Single(x => x.slug == request.conferenceSlug);
+
+
+			var sessionDto = Mapper.Map<SessionEntity, SessionDto>(sessionEntity);
 			sessionDto.conferenceSlug = request.conferenceSlug;
 			sessionDto.conferenceName = conference.name;
 			return sessionDto;

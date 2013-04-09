@@ -39,14 +39,14 @@ namespace TekConf.UI.Web.Controllers
 		[HttpPost]
 		public async Task<ActionResult> CreateConference(CreateConference conference, HttpPostedFileBase file)
 		{
-            if (Request.Form["hidden-tags"] != null)
-                conference.tags = Request.Form["hidden-tags"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
-            if (Request.Form["hidden-sessionTypes"] != null)
-                conference.sessionTypes = Request.Form["hidden-sessionTypes"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
-            if (Request.Form["hidden-subjects"] != null)
-                conference.subjects = Request.Form["hidden-subjects"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
-            if (Request.Form["hidden-rooms"] != null)
-                conference.rooms = Request.Form["hidden-rooms"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+			if (Request.Form["hidden-tags"] != null)
+				conference.tags = Request.Form["hidden-tags"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+			if (Request.Form["hidden-sessionTypes"] != null)
+				conference.sessionTypes = Request.Form["hidden-sessionTypes"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+			if (Request.Form["hidden-subjects"] != null)
+				conference.subjects = Request.Form["hidden-subjects"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+			if (Request.Form["hidden-rooms"] != null)
+				conference.rooms = Request.Form["hidden-rooms"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
 
 			string url = string.Empty;
 
@@ -89,7 +89,7 @@ namespace TekConf.UI.Web.Controllers
 			string userName = string.Empty;
 			if (Request.IsAuthenticated)
 			{
-					userName = System.Web.HttpContext.Current.User.Identity.Name;
+				userName = System.Web.HttpContext.Current.User.Identity.Name;
 			}
 			AsyncManager.OutstandingOperations.Increment();
 			repository.GetFullConference(conferenceSlug, userName, conference =>
@@ -109,15 +109,15 @@ namespace TekConf.UI.Web.Controllers
 		[HttpPost]
 		public void EditConfAsync(CreateConference conference, HttpPostedFileBase file)
 		{
-            if (Request.Form["hidden-tags"] != null)
-                conference.tags = Request.Form["hidden-tags"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
-            if (Request.Form["hidden-subjects"] != null)
-                conference.subjects = Request.Form["hidden-subjects"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList(); 
-            if (Request.Form["hidden-sessionTypes"] != null)
-                conference.sessionTypes = Request.Form["hidden-sessionTypes"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+			if (Request.Form["hidden-tags"] != null)
+				conference.tags = Request.Form["hidden-tags"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+			if (Request.Form["hidden-subjects"] != null)
+				conference.subjects = Request.Form["hidden-subjects"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+			if (Request.Form["hidden-sessionTypes"] != null)
+				conference.sessionTypes = Request.Form["hidden-sessionTypes"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
 
-            if (Request.Form["hidden-rooms"] != null)
-                conference.rooms = Request.Form["hidden-rooms"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+			if (Request.Form["hidden-rooms"] != null)
+				conference.rooms = Request.Form["hidden-rooms"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
 
 			var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
 

@@ -29,7 +29,7 @@ namespace TekConf.Common.Entities
 			foreach (var stringProperty in stringProperties)
 			{
 				var currentValue = (string)stringProperty.GetValue(entity, null);
-				if (!currentValue.IsNullOrWhiteSpace())
+				if (!currentValue.IsNullOrWhiteSpace() && stringProperty.CanWrite)
 				{
 					stringProperty.SetValue(entity, currentValue.Trim().Substring(0, currentValue.Length > 5000 ? 5000 : currentValue.Length), null);
 				}

@@ -676,6 +676,10 @@
       <Project>{3B882D71-EB35-4655-8425-E6952B3470DF}</Project>
       <Name>TekConf.Azure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\libs\TinyMessenger\TinyMessenger.csproj">
+      <Project>{7c6925bc-f644-4d3e-9c66-f1593ecbf522}</Project>
+      <Name>TinyMessenger</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\RemoteData\Shared\TekConf.RemoteData.Shared.csproj">
       <Project>{1439b0ec-5c15-4b18-b4eb-8a2787abdfde}</Project>
       <Name>TekConf.RemoteData.Shared</Name>

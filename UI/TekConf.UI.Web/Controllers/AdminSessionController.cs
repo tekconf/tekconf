@@ -1,11 +1,16 @@
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using AutoMapper;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.RemoteData.v1;
+using TekConf.UI.Api;
 using TekConf.UI.Api.Services.Requests.v1;
+using Configuration = TekConf.UI.Api.Configuration;
+using IConfiguration = TekConf.UI.Api.IConfiguration;
 
 namespace TekConf.UI.Web.Controllers
 {
@@ -13,11 +18,14 @@ namespace TekConf.UI.Web.Controllers
 	public class AdminSessionController : AsyncController
 	{
 		private RemoteDataRepositoryAsync _repository;
+		private readonly IConferenceRepository _conferenceRepository;
 		public AdminSessionController()
 		{
 			var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
 
 			_repository = new RemoteDataRepositoryAsync(baseUrl);
+			var configuration = new Configuration();
+			_conferenceRepository = new ConferenceRepository(configuration);
 		}
 
 		#region Add Session
@@ -67,10 +75,10 @@ namespace TekConf.UI.Web.Controllers
 		[HttpPost]
 		public void AddSessionToConferenceAsync(AddSession session)
 		{
-            if (Request.Form["hidden-tags"] != null)
-                session.tags = Request.Form["hidden-tags"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
-            if (Request.Form["hidden-subjects"] != null)
-                session.subjects = Request.Form["hidden-subjects"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList(); 
+			if (Request.Form["hidden-tags"] != null)
+				session.tags = Request.Form["hidden-tags"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+			if (Request.Form["hidden-subjects"] != null)
+				session.subjects = Request.Form["hidden-subjects"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
 
 			var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
 
@@ -122,29 +130,30 @@ namespace TekConf.UI.Web.Controllers
 		}
 
 		[HttpPost]
-		public void EditSessionInConferenceAsync(AddSession session)
+		public async Task<ActionResult> EditSessionInConference(AddSession request)
 		{
-            if (Request.Form["hidden-tags"] != null)
-                session.tags = Request.Form["hidden-tags"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
-            if (Request.Form["hidden-subjects"] != null)
-                session.subjects = Request.Form["hidden-subjects"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList(); 
+			if (Request.Form["hidden-tags"] != null)
+				request.tags = Request.Form["hidden-tags"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+			if (Request.Form["hidden-subjects"] != null)
+				request.subjects = Request.Form["hidden-subjects"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
 
-			var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
+			SessionEntity sessionEntity = null;
+			ConferenceEntity conferenceEntity = null;
+			var saveSessionTask = Task.Factory.StartNew(() =>
+			{
+				var session = Mapper.Map<AddSession, SessionEntity>(request);
+				sessionEntity = _conferenceRepository.SaveSession(request.conferenceSlug, session);
+				conferenceEntity = _conferenceRepository.AsQueryable().Single(x => x.slug == request.conferenceSlug);
+			});
+			
+			await saveSessionTask;
 
-			var repository = new RemoteDataRepository(baseUrl);
+			var sessionDto = Mapper.Map<SessionEntity, SessionDto>(sessionEntity);
+			sessionDto.conferenceSlug = request.conferenceSlug;
+			sessionDto.conferenceName = conferenceEntity.name;
 
-			AsyncManager.OutstandingOperations.Increment();
+			return RedirectToRoute("SessionDetail", new { conferenceSlug = sessionDto.conferenceSlug, sessionSlug = sessionDto.slug });
 
-			repository.EditSessionInConference(session, "user", "password", c =>
-																											{
-																												AsyncManager.Parameters["session"] = c;
-																												AsyncManager.OutstandingOperations.Decrement();
-																											});
-		}
-
-		public ActionResult EditSessionInConferenceCompleted(SessionDto session)
-		{
-			return RedirectToRoute("SessionDetail", new { conferenceSlug = session.conferenceSlug, sessionSlug = session.slug });
 		}
 
 		#endregion

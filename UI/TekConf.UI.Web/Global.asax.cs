@@ -23,6 +23,7 @@ namespace TekConf.UI.Web
 
 			var bootstrapper = new Bootstrapper();
 			bootstrapper.BootstrapAutomapper();
+			bootstrapper.BootstrapMongoDb();
 		}
 	}
 }
