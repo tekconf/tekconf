@@ -11,6 +11,8 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>ELMAH with configuration for getting started quickly on a MongoDB database as the error log. NB requires manual configuration. NOTE: The format of the log files has changed, please use a new collection or clear existing entries before using this version.</description>
     <summary>ELMAH with configuration for getting started quickly on a MongoDB database as the error log. NB requires manual configuration. NOTE: The format of the log files has changed, please use a new collection or clear existing entries before using this version.</summary>
+    <releaseNotes />
+    <copyright />
     <language>en-US</language>
     <tags>mongodb elmah error logging unhandled exception</tags>
     <dependencies>
