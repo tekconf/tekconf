@@ -4,7 +4,7 @@ using System.Linq;
 using AutoMapper;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.UI.Api.Services.Requests.v1;
-using FluentMongo.Linq;
+
 using ServiceStack.CacheAccess;
 using ServiceStack.ServiceHost;
 

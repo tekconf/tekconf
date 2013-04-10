@@ -3,7 +3,7 @@ using System.Linq;
 using System.Net;
 using TekConf.Common.Entities;
 using TekConf.UI.Api.Services.Requests.v1;
-using FluentMongo.Linq;
+
 using ServiceStack.CacheAccess;
 using ServiceStack.Common.Web;
 using ServiceStack.ServiceHost;

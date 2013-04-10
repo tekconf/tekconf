@@ -58,6 +58,7 @@ namespace TekConf.UI.Api
 
 			Mapper.CreateMap<SessionEntity, SessionEntity>()
 				.ForMember(s => s._id, opt => opt.Ignore())
+				.ForMember(s => s.speakers, opt => opt.Ignore())
 				;
 
 			Mapper.CreateMap<CreatePresentation, PresentationEntity>()
