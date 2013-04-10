@@ -2,7 +2,6 @@
 using Moq;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
-using TekConf.UI.Api;
 using TinyMessenger;
 
 namespace TekConf.Common.Entities.Tests.Unit
