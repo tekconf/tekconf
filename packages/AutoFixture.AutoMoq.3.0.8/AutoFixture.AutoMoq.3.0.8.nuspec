@@ -1,26 +1,24 @@
 <?xml version="1.0"?>
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
-    <id>AutoFixture.Xunit</id>
+    <id>AutoFixture.AutoMoq</id>
     <version>3.0.8</version>
-    <title>AutoFixture with xUnit.net data theories</title>
+    <title>AutoFixture with Auto Mocking using Moq</title>
     <authors>Mark Seemann</authors>
     <owners>Mark Seemann</owners>
     <licenseUrl>http://autofixture.codeplex.com/license</licenseUrl>
     <projectUrl>https://github.com/AutoFixture/AutoFixture</projectUrl>
     <iconUrl>http://i3.codeplex.com/Download?ProjectName=autofixture&amp;DownloadId=278049</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>By leveraging the data theory feature of xUnit.net, this extension turns AutoFixture into a declarative framework for writing unit tests. In many ways it becomes a unit testing DSL (Domain Specific Language).</description>
-    <summary>Extension to AutoFixture that integrates it with xUnit.net.</summary>
-    <releaseNotes />
-    <copyright />
+    <description>This extension turns AutoFixture into an Auto-Mocking Container. The mock instances are created by Moq. To use it, add the AutoMoqCustomization to your Fixture instance. Read more at http://blog.ploeh.dk/2010/08/19/AutoFixtureAsAnAutomockingContainer.aspx</description>
+    <summary>Turns AutoFixture into an Auto-Mocking Container based on Moq.</summary>
     <language>en-US</language>
     <dependencies>
       <dependency id="autofixture" version="3.0.8" />
-      <dependency id="xunit.extensions" version="1.6.1" />
+      <dependency id="moq" version="3.1" />
     </dependencies>
     <references>
-      <reference file="Ploeh.AutoFixture.Xunit.dll" />
+      <reference file="Ploeh.AutoFixture.AutoMoq.dll" />
     </references>
   </metadata>
 </package>

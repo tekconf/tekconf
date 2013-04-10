@@ -175,17 +175,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\Entities\TekConf.Common.Entities\TekConf.Common.Entities.csproj">
-      <Project>{67514387-8C88-477F-AD16-F24B32B69113}</Project>
+      <Project>{67514387-8c88-477f-ad16-f24b32b69113}</Project>
       <Name>TekConf.Common.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\libs\TinyMessenger\TinyMessenger.csproj">
       <Project>{7c6925bc-f644-4d3e-9c66-f1593ecbf522}</Project>
       <Name>TinyMessenger</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

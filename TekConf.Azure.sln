@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TinyMessenger", "libs\TinyM
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TekConf.Azure", "libs\TekConf.Azure\TekConf.Azure.csproj", "{3B882D71-EB35-4655-8425-E6952B3470DF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{524C16D3-822E-45ED-A461-9A8FF2B1BDC8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Azure|Any CPU = Azure|Any CPU
@@ -83,5 +85,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1749F752-2DEB-4C4D-A49D-D389783C03A9} = {524C16D3-822E-45ED-A461-9A8FF2B1BDC8}
+		{547357F1-C960-4849-9941-E725B0133C8D} = {524C16D3-822E-45ED-A461-9A8FF2B1BDC8}
+		{0DB3210F-005E-4F7F-8405-306D95502EF5} = {524C16D3-822E-45ED-A461-9A8FF2B1BDC8}
 	EndGlobalSection
 EndGlobal
