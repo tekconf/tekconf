@@ -14,7 +14,7 @@ namespace TekConf.UI.Web.Tests.Unit
 		[Test]
 		public void ncrunch() { true.ShouldBeTrue(); }
 
-		[Theory]
+		[Test]
 		public async Task will_add_new_presentation()
 		{
 			var repository = A.Fake<IRemoteDataRepositoryAsync>();
