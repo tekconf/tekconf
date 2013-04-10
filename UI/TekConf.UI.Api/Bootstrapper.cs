@@ -66,6 +66,7 @@ namespace TekConf.UI.Api
 						.ForMember(p => p.slug, opt => opt.ResolveUsing<PresentationSlugResolver>());
 
 			Mapper.CreateMap<CreatePresentationHistory, HistoryEntity>();
+
 			Mapper.CreateMap<HistoryEntity, HistoryDto>();
 
 			Mapper.CreateMap<PresentationEntity, PresentationDto>();
