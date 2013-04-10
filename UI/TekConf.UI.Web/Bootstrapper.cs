@@ -45,6 +45,8 @@ namespace TekConf.UI.Web
 					.ForMember(s => s.speakers, opt => opt.Ignore())
 					;
 
+
+
 			Mapper.CreateMap<SpeakerEntity, SpeakersDto>()
 				.ForMember(dest => dest.url, opt => opt.Ignore());
 

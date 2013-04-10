@@ -49,6 +49,8 @@ namespace TekConf.UI.Api
 			Mapper.CreateMap<SpeakerEntity, SpeakersDto>()
 							.ForMember(dest => dest.url, opt => opt.Ignore());
 
+
+
 			Mapper.CreateMap<AddSession, SessionEntity>()
 							.ForMember(s => s._id, opt => opt.UseValue(Guid.NewGuid()))
 							.ForMember(s => s.speakers, opt => opt.UseValue(new List<SpeakerEntity>()))
