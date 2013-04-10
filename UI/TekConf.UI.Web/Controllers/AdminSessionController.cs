@@ -53,18 +53,19 @@ namespace TekConf.UI.Web.Controllers
 		{
 			var session = new AddSession() { conferenceSlug = conference.slug, start = conference.start, end = conference.end, defaultTalkLength = conference.defaultTalkLength };
 
-			var rooms = (conference.rooms ?? new List<string>()).OrderBy(x => x).ToList();
 			var sessionTypes = (conference.sessionTypes ?? new List<string>()).OrderBy(x => x).ToList();
+			var sessionTypesList = new SelectList(sessionTypes.Select(x => new KeyValuePair<string, string>(x, x)), "Key", "Value");
+			ViewBag.SessionTypesList = sessionTypesList;
 
 			var difficulties = new List<string>() { "Beginner", "Intermediate", "Expert" };
-
 			var difficultiesList = new SelectList(difficulties.Select(x => new KeyValuePair<string, string>(x, x)), "Key", "Value");
-			var roomsList = new SelectList(rooms.Select(x => new KeyValuePair<string, string>(x, x)), "Key", "Value");
-			var sessionTypesList = new SelectList(sessionTypes.Select(x => new KeyValuePair<string, string>(x, x)), "Key", "Value");
-			//roomsList
 			ViewBag.DifficultiesList = difficultiesList;
+
+			var rooms = (conference.rooms ?? new List<string>()).OrderBy(x => x).ToList();
+			var roomsList = new SelectList(rooms.Select(x => new KeyValuePair<string, string>(x, x)), "Key", "Value");
 			ViewBag.RoomsList = roomsList;
-			ViewBag.SessionTypesList = sessionTypesList;
+
+			
 
 			session.start = conference.start;
 			session.end = conference.end;
@@ -116,15 +117,29 @@ namespace TekConf.UI.Web.Controllers
 			AsyncManager.OutstandingOperations.Increment();
 			repository.GetFullConference(conferenceSlug, userName, conference =>
 																											 {
-																												 var session = conference.sessions.FirstOrDefault(s => s.slug == sessionSlug);
-																												 AsyncManager.Parameters["session"] = session;
+																												 AsyncManager.Parameters["sessionSlug"] = sessionSlug;
+																												 AsyncManager.Parameters["conference"] = conference;
 																												 AsyncManager.OutstandingOperations.Decrement();
 																											 });
 		}
 
-		public ActionResult EditSessionCompleted(FullSessionDto session)
+		public ActionResult EditSessionCompleted(string sessionSlug, FullConferenceDto conference)
 		{
+			var session = conference.sessions.FirstOrDefault(s => s.slug == sessionSlug);
+
 			var addSession = Mapper.Map<AddSession>(session);
+
+			var sessionTypes = (conference.sessionTypes ?? new List<string>()).OrderBy(x => x).ToList();
+			var sessionTypesList = new SelectList(sessionTypes.Select(x => new KeyValuePair<string, string>(x, x)), "Key", "Value");
+			ViewBag.SessionTypesList = sessionTypesList;
+
+			var difficulties = new List<string>() { "Beginner", "Intermediate", "Expert" };
+			var difficultiesList = new SelectList(difficulties.Select(x => new KeyValuePair<string, string>(x, x)), "Key", "Value");
+			ViewBag.DifficultiesList = difficultiesList;
+
+			var rooms = (conference.rooms ?? new List<string>()).OrderBy(x => x).ToList();
+			var roomsList = new SelectList(rooms.Select(x => new KeyValuePair<string, string>(x, x)), "Key", "Value");
+			ViewBag.RoomsList = roomsList;
 
 			return View(addSession);
 		}
