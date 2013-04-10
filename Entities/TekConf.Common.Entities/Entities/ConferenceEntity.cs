@@ -12,21 +12,21 @@ namespace TekConf.Common.Entities
 	public class ConferenceEntity : ISupportInitialize, IEntity
 	{
 		private readonly ITinyMessengerHub _hub;
-		private readonly IRepository<ConferenceEntity> _repository;
+		private readonly IConferenceRepository _repository;
 		private bool _isInitializingFromBson;
-		private List<ConferenceCreatedMessage> _conferenceCreatedMessages;
-		private List<ConferenceStartDateChangedMessage> _conferenceStartDateChangedMessages;
-		private List<ConferenceEndDateChangedMessage> _conferenceEndDateChangedMessages;
-		private List<ConferenceLocationChangedMessage> _conferenceLocationChangedMessages;
-		private List<ConferencePublishedMessage> _conferencePublishedMessages;
-		private List<ConferenceUpdatedMessage> _conferenceUpdatedMessages;
-		private List<SessionAddedMessage> _sessionAddedMessages;
-		private List<SessionRemovedMessage> _sessionRemovedMessages;
-		private List<SpeakerAddedMessage> _speakerAddedMessages;
-		private List<SpeakerRemovedMessage> _speakerRemovedMessages;
-		private List<SessionRoomChangedMessage> _sessionRoomChangedMessages;
+		private readonly List<ConferenceCreatedMessage> _conferenceCreatedMessages;
+		private readonly List<ConferenceStartDateChangedMessage> _conferenceStartDateChangedMessages;
+		private readonly List<ConferenceEndDateChangedMessage> _conferenceEndDateChangedMessages;
+		private readonly List<ConferenceLocationChangedMessage> _conferenceLocationChangedMessages;
+		private readonly List<ConferencePublishedMessage> _conferencePublishedMessages;
+		private readonly List<ConferenceUpdatedMessage> _conferenceUpdatedMessages;
+		private readonly List<SessionAddedMessage> _sessionAddedMessages;
+		private readonly List<SessionRemovedMessage> _sessionRemovedMessages;
+		private readonly List<SpeakerAddedMessage> _speakerAddedMessages;
+		private readonly List<SpeakerRemovedMessage> _speakerRemovedMessages;
+		private readonly List<SessionRoomChangedMessage> _sessionRoomChangedMessages;
 
-		public ConferenceEntity(ITinyMessengerHub hub, IRepository<ConferenceEntity> repository)
+		public ConferenceEntity(ITinyMessengerHub hub, IConferenceRepository repository)
 		{
 			_hub = hub;
 			_repository = repository;
@@ -44,7 +44,6 @@ namespace TekConf.Common.Entities
 			_speakerRemovedMessages = new List<SpeakerRemovedMessage>();
 		}
 
-
 		public void Save()
 		{
 			bool isNew = false;
@@ -53,11 +52,12 @@ namespace TekConf.Common.Entities
 				if (_id == default(Guid))
 				{
 					_id = Guid.NewGuid();
+					isNew = true;
 				}
+
 				slug = name.GenerateSlug();
 				dateAdded = DateTime.Now;
 				isSaved = true;
-				isNew = true;
 			}
 			_repository.Save(this);
 
@@ -153,10 +153,8 @@ namespace TekConf.Common.Entities
 		public void AddSession(SessionEntity session)
 		{
 			if (_sessions == null)
-			{
 				_sessions = new List<SessionEntity>();
-			}
-
+			
 			session.RoomChanged += SessionRoomChangedHandler;
 
 			_sessions.Add(session);
@@ -210,7 +208,7 @@ namespace TekConf.Common.Entities
 
 
 		[BsonId(IdGenerator = typeof(CombGuidGenerator))]
-		public Guid _id { get; private set; }
+		public Guid _id { get; set; }
 		public bool isLive { get; private set; }
 		public double[] position { get; set; }
 		public string slug { get; set; }

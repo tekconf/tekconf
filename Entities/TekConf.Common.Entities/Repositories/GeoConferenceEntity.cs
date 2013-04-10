@@ -4,7 +4,7 @@ namespace TekConf.Common.Entities
 {
     public class GeoConferenceEntity : ConferenceEntity
     {
-        public GeoConferenceEntity(ITinyMessengerHub hub, IRepository<ConferenceEntity> repository)
+        public GeoConferenceEntity(ITinyMessengerHub hub, IConferenceRepository repository)
             : base(hub, repository)
         {
 

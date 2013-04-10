@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.IdGenerators;
-using TekConf.Common.Entities;
-using TinyMessenger;
 
 namespace TekConf.Common.Entities
 {

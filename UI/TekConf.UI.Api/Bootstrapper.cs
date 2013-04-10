@@ -31,7 +31,7 @@ namespace TekConf.UI.Api
 			Mapper.CreateMap<ConferenceEntity, ConferenceEntity>()
 							.ForMember(c => c._id, opt => opt.Ignore())
 							.ForMember(dest => dest.imageUrl, opt => opt.ResolveUsing<ImageResolver>())
-							.ConstructUsing((Func<ResolutionContext, ConferenceEntity>)(r => new ConferenceEntity(container.Resolve<ITinyMessengerHub>(), container.Resolve<IRepository<ConferenceEntity>>())));
+							.ConstructUsing((Func<ResolutionContext, ConferenceEntity>)(r => new ConferenceEntity(container.Resolve<ITinyMessengerHub>(), container.Resolve<IConferenceRepository>())));
 
 			Mapper.CreateMap<ConferenceEntity, FullConferenceDto>()
 							.ForMember(dest => dest.imageUrl, opt => opt.ResolveUsing<ImageResolver>())
@@ -82,7 +82,7 @@ namespace TekConf.UI.Api
 							.ForMember(dest => dest.start, opt => opt.ResolveUsing<ConferenceStartTimeZoneResolver>())
 							.ForMember(dest => dest.end, opt => opt.ResolveUsing<ConferenceEndTimeZoneResolver>())
 							.ForMember(c => c.position, opt => opt.ResolveUsing<PositionResolver>())
-							.ConstructUsing((Func<ResolutionContext, ConferenceEntity>)(r => new ConferenceEntity(container.Resolve<ITinyMessengerHub>(), container.Resolve<IRepository<ConferenceEntity>>())));
+							.ConstructUsing((Func<ResolutionContext, ConferenceEntity>)(r => new ConferenceEntity(container.Resolve<ITinyMessengerHub>(), container.Resolve<IConferenceRepository>())));
 
 
 			Mapper.CreateMap<CreateSpeaker, SpeakerEntity>()
