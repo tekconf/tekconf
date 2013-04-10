@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using AutoMapper;
 using ServiceStack.CacheAccess;
 using ServiceStack.ServiceHost;
 using TekConf.RemoteData.Dtos.v1;
@@ -9,22 +8,26 @@ using TekConf.RemoteData.Shared.v1.Requests;
 
 namespace TekConf.UI.Api.Services.v1
 {
+	using AutoMapper;
+
+	using TekConf.Common.Entities;
+
 	public class ConferenceCreatedService : MongoServiceBase
 	{
 		private readonly IRepository<ConferenceCreatedMessage> _repository;
-		private readonly IConfiguration _configuration;
+		private readonly IEntityConfiguration _entityConfiguration;
 		public ICacheClient CacheClient { get; set; }
 
-		public ConferenceCreatedService(IRepository<ConferenceCreatedMessage> repository, IConfiguration configuration)
+		public ConferenceCreatedService(IRepository<ConferenceCreatedMessage> repository, IEntityConfiguration entityConfiguration)
 		{
 			_repository = repository;
-			_configuration = configuration;
+			this._entityConfiguration = entityConfiguration;
 		}
 
 		public object Get(ConferenceCreated request)
 		{
-			var cacheKey = "GetConferenceCreated";
-			var expireInTimespan = new TimeSpan(0, 0, _configuration.cacheTimeout);
+			const string cacheKey = "GetConferenceCreated";
+			var expireInTimespan = new TimeSpan(0, 0, this._entityConfiguration.cacheTimeout);
 
 			return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
 				{

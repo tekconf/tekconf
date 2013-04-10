@@ -18,7 +18,7 @@ namespace TekConf.UI.Api
 		{
 			var hub = container.Resolve<ITinyMessengerHub>();
 
-			var repository = new ConferenceRepository(new Configuration());
+			var repository = new ConferenceRepository(new EntityConfiguration());
 
 			BsonClassMap.RegisterClassMap<ConferenceEntity>()
 					.SetCreator(() => new ConferenceEntity(hub, repository));
@@ -188,7 +188,7 @@ namespace TekConf.UI.Api
 		{
 			var conferenceName = string.Empty;
 
-			var repository = new ConferenceRepository(new Configuration());
+			var repository = new ConferenceRepository(new EntityConfiguration());
 			var conference = repository.AsQueryable()
 																.SingleOrDefault(c => c.slug.ToLower() == source.ConferenceSlug.ToLower());
 			if (conference.IsNotNull())
@@ -205,7 +205,7 @@ namespace TekConf.UI.Api
 		{
 			var sessions = new List<FullSessionDto>();
 
-			var repository = new ConferenceRepository(new Configuration());
+			var repository = new ConferenceRepository(new EntityConfiguration());
 			var conference = repository.AsQueryable()
 															.SingleOrDefault(c => c.slug.ToLower() == source.ConferenceSlug.ToLower());
 

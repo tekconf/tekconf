@@ -1,6 +1,6 @@
 using System;
 
-namespace TekConf.UI.Api
+namespace TekConf.Common.Entities
 {
 	public abstract class TinyMessageBase : ITinyMessageBase
 	{

@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 
-namespace TekConf.UI.Api
+namespace TekConf.Common.Entities
 {
 	public interface IRepository<T> where T : class
 	{

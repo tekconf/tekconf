@@ -17,7 +17,7 @@ namespace TekConf.UI.Api.Services.v1
 {
 	public class SessionsService : MongoServiceBase
 	{
-		private readonly IConfiguration _configuration;
+		private readonly IEntityConfiguration _configuration;
 
 		private readonly IRepository<ConferenceEntity> _conferenceRepository;
 
@@ -28,7 +28,7 @@ namespace TekConf.UI.Api.Services.v1
 		static HttpError SessionNotFound = HttpError.NotFound("Session not found") as HttpError;
 		static HashSet<string> NonExistingSessions = new HashSet<string>();
 
-		public SessionsService(IConfiguration configuration, IRepository<ConferenceEntity> conferenceRepository)
+		public SessionsService(IEntityConfiguration configuration, IRepository<ConferenceEntity> conferenceRepository)
 		{
 			_configuration = configuration;
 			_conferenceRepository = conferenceRepository;

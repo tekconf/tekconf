@@ -15,13 +15,13 @@ namespace TekConf.UI.Api.Services.v1
 {
 	public class SessionSpeakerService : MongoServiceBase
 	{
-		private readonly IConfiguration _configuration;
+		private readonly IEntityConfiguration _configuration;
 
 		private readonly IRepository<ConferenceEntity> _conferenceRepository;
 
 		public ICacheClient CacheClient { get; set; }
 
-		public SessionSpeakerService(IConfiguration configuration, IRepository<ConferenceEntity> conferenceRepository)
+		public SessionSpeakerService(IEntityConfiguration configuration, IRepository<ConferenceEntity> conferenceRepository)
 		{
 			_configuration = configuration;
 			_conferenceRepository = conferenceRepository;

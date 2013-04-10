@@ -10,24 +10,11 @@ using MongoDB.Driver.Linq;
 using TekConf.Common.Entities;
 using TekConf.Common.Entities.Repositories;
 
-namespace TekConf.UI.Api
+namespace TekConf.Common.Entities
 {
-	public interface IConferenceRepository : IRepository<ConferenceEntity>
-	{
-		int GetConferenceCount(string searchTerm, bool? showPastConferences);
-		IEnumerable<SpeakerEntity> GetFeaturedSpeakers();
-		IEnumerable<ConferenceEntity> GetFeaturedConferences();
-		//void Save(ConferenceEntity entity);
-		IQueryable<ConferenceEntity> AsQueryable();
-		//void Remove(Guid id);
-		List<ConferenceEntity> GeoSearch(double latitude, double longitude, double rangeInMiles);
-		IEnumerable<ConferenceEntity> GetConferences(string search, string sortBy, bool? showPastConferences, bool? showOnlyWithOpenCalls, bool? showOnlyOnSale, bool showOnlyFeatured, double? longitude, double? latitude, double? distance, string city, string state, string country);
-		SessionEntity SaveSession(string conferenceSlug, SessionEntity session);
-	}
-
 	public class ConferenceRepository : IConferenceRepository
 	{
-		private readonly IConfiguration _configuration;
+		private readonly IEntityConfiguration _entityConfiguration;
 
 		public int GetConferenceCount(string searchTerm, bool? showPastConferences)
 		{
@@ -88,9 +75,9 @@ namespace TekConf.UI.Api
 			return conferences;
 		}
 
-		public ConferenceRepository(IConfiguration configuration)
+		public ConferenceRepository(IEntityConfiguration entityConfiguration)
 		{
-			_configuration = configuration;
+			this._entityConfiguration = entityConfiguration;
 			CreateIndexes();
 		}
 
@@ -176,8 +163,8 @@ namespace TekConf.UI.Api
 				if (string.IsNullOrWhiteSpace(country))
 					country = "US";
 
-				IConfiguration configuration = new Configuration();
-				IGeoLocationRepository geoLocationRepository = new GeoLocationRepository(configuration);
+				IEntityConfiguration entityConfiguration = new EntityConfiguration();
+				IGeoLocationRepository geoLocationRepository = new GeoLocationRepository(entityConfiguration);
 				var cityEntity = geoLocationRepository.AsQueryable()
 																				.Where(g => Regex.IsMatch(g.name, city, RegexOptions.IgnoreCase))
 																				.Where(g => Regex.IsMatch(g.fipscode, state, RegexOptions.IgnoreCase))
@@ -412,7 +399,7 @@ namespace TekConf.UI.Api
 			{
 				if (_localServer == null)
 				{
-					var mongoServer = _configuration.MongoServer;
+					var mongoServer = this._entityConfiguration.MongoServer;
 					_localServer = MongoServer.Create(mongoServer);
 				}
 

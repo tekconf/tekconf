@@ -5,15 +5,15 @@ using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using MongoDB.Driver.Linq;
 
-namespace TekConf.UI.Api
+namespace TekConf.Common.Entities
 {
 	public class ConferenceCreatedRepository : IRepository<ConferenceCreatedMessage>
 	{
-		private readonly IConfiguration _configuration;
+		private readonly IEntityConfiguration _entityConfiguration;
 
-		public ConferenceCreatedRepository(IConfiguration configuration)
+		public ConferenceCreatedRepository(IEntityConfiguration entityConfiguration)
 		{
-			_configuration = configuration;
+			this._entityConfiguration = entityConfiguration;
 		}
 
 		public void Save(ConferenceCreatedMessage entity)
@@ -48,7 +48,7 @@ namespace TekConf.UI.Api
 			{
 				if (_localServer == null)
 				{
-					var mongoServer = _configuration.MongoServer;
+					var mongoServer = this._entityConfiguration.MongoServer;
 					_localServer = MongoServer.Create(mongoServer);
 				}
 

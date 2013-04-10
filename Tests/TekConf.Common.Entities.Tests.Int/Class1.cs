@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+
 using NUnit.Framework;
 using Should;
 using TekConf.Common.Entities.Repositories;
-using TekConf.UI.Api;
 
 namespace TekConf.Common.Entities.Tests.Int
 {
@@ -17,8 +13,8 @@ namespace TekConf.Common.Entities.Tests.Int
 		[Test]
 		public void Should_return_geo_results()
 		{
-			IConfiguration configuration = new Configuration();
-			var conferenceRepository = new ConferenceRepository(configuration);
+			IEntityConfiguration entityConfiguration = new EntityConfiguration();
+			var conferenceRepository = new ConferenceRepository(entityConfiguration);
 
 			var conferences = conferenceRepository.GeoSearch(latitude: 42.467051, longitude: -83.409285, rangeInMiles: 25);
 
@@ -29,8 +25,8 @@ namespace TekConf.Common.Entities.Tests.Int
 		[Test]
 		public void Should_find_conferences_near_city_name()
 		{
-			IConfiguration configuration = new Configuration();
-			var geolocationRepository = new GeoLocationRepository(configuration);
+			IEntityConfiguration entityConfiguration = new EntityConfiguration();
+			var geolocationRepository = new GeoLocationRepository(entityConfiguration);
 			var cityName = "Seattle";
 			var state = "WA";
 			double distance = 100;
@@ -42,7 +38,7 @@ namespace TekConf.Common.Entities.Tests.Int
 				.Where(x => x.name.ToLower() == cityName.ToLower())
 				.FirstOrDefault();
 
-			var conferenceRepository = new ConferenceRepository(configuration);
+			var conferenceRepository = new ConferenceRepository(entityConfiguration);
 			var conferences = conferenceRepository.GeoSearch(latitude: city.latitude, longitude: city.longitude, rangeInMiles: distance);
 			conferences.Count.ShouldEqual(1);
 		}
@@ -52,15 +48,15 @@ namespace TekConf.Common.Entities.Tests.Int
 		[Ignore]
 		public void Should_update_position_for_cities()
 		{
-			IConfiguration configuration = new Configuration();
-			var conferenceRepository = new ConferenceRepository(configuration);
+			IEntityConfiguration entityConfiguration = new EntityConfiguration();
+			var conferenceRepository = new ConferenceRepository(entityConfiguration);
 			var conferencesInUSA = conferenceRepository.AsQueryable()
 													.Where(x => x.address.City != null)
 													.Where(x => x.address.Country != null)
 													.Where(x => x.address.State != null)
 													.ToList();
 
-			var geolocationRepository = new GeoLocationRepository(configuration);
+			var geolocationRepository = new GeoLocationRepository(entityConfiguration);
 
 			//Parallel.ForEach(conferencesInUSA, conference =>
 			//{

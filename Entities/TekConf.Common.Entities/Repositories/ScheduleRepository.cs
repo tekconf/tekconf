@@ -7,7 +7,6 @@ namespace TekConf.Common.Entities.Repositories
 {
     using MongoDB.Driver;
     using MongoDB.Driver.Builders;
-    using TekConf.UI.Api;
 
     public interface IScheduleRepository : IRepository<ScheduleEntity>
     {
@@ -16,7 +15,7 @@ namespace TekConf.Common.Entities.Repositories
 
     public class ScheduleRepository : IScheduleRepository
     {
-        private readonly IConfiguration _configuration;
+        private readonly IEntityConfiguration _entityConfiguration;
 
         public IEnumerable<ScheduleEntity> GetSchedules(string userName)
         {
@@ -28,9 +27,9 @@ namespace TekConf.Common.Entities.Repositories
             return schedules;
         }
 
-        public ScheduleRepository(IConfiguration configuration)
+        public ScheduleRepository(IEntityConfiguration entityConfiguration)
         {
-            _configuration = configuration;
+            this._entityConfiguration = entityConfiguration;
         }
 
         public void Save(ScheduleEntity entity)
@@ -65,7 +64,7 @@ namespace TekConf.Common.Entities.Repositories
             {
                 if (_localServer == null)
                 {
-                    var mongoServer = _configuration.MongoServer;
+                    var mongoServer = this._entityConfiguration.MongoServer;
                     _localServer = MongoServer.Create(mongoServer);
                 }
 

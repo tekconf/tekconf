@@ -12,15 +12,15 @@ namespace TekConf.UI.Api.Services.v1
 {
   public class SessionPrerequisitesService : MongoServiceBase
   {
-	  private readonly IConfiguration _configuration;
+	  private readonly IEntityConfiguration _entityConfiguration;
 
 	  private readonly IRepository<ConferenceEntity> _conferenceRepository;
 
 	  public ICacheClient CacheClient { get; set; }
 
-	  public SessionPrerequisitesService(IConfiguration configuration, IRepository<ConferenceEntity> conferenceRepository)
+	  public SessionPrerequisitesService(IEntityConfiguration entityConfiguration, IRepository<ConferenceEntity> conferenceRepository)
 	  {
-		  _configuration = configuration;
+		  this._entityConfiguration = entityConfiguration;
 		  _conferenceRepository = conferenceRepository;
 	  }
 
@@ -42,7 +42,7 @@ namespace TekConf.UI.Api.Services.v1
     private object GetSingleSessionPrerequisites(SessionPrerequisites request)
     {
       var cacheKey = "GetSingleSessionPrerequisites-" + request.conferenceSlug + "-" + request.sessionSlug;
-			var expireInTimespan = new TimeSpan(0, 0, _configuration.cacheTimeout);
+			var expireInTimespan = new TimeSpan(0, 0, this._entityConfiguration.cacheTimeout);
       return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan,  () =>
       {
 					var conference = _conferenceRepository

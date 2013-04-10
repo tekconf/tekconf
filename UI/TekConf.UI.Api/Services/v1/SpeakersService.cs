@@ -15,7 +15,7 @@ namespace TekConf.UI.Api.Services.v1
 {
 	public class SpeakersService : MongoServiceBase
 	{
-		private readonly IConfiguration _configuration;
+		private readonly IEntityConfiguration _configuration;
 
 		private readonly IRepository<ConferenceEntity> _conferenceRepository;
 
@@ -26,7 +26,7 @@ namespace TekConf.UI.Api.Services.v1
 		static HttpError SpeakerNotFound = HttpError.NotFound("Speaker not found") as HttpError;
 		static HashSet<string> NonExistingSpeakers = new HashSet<string>();
 
-		public SpeakersService(IConfiguration configuration, IRepository<ConferenceEntity> conferenceRepository)
+		public SpeakersService(IEntityConfiguration configuration, IRepository<ConferenceEntity> conferenceRepository)
 		{
 			_configuration = configuration;
 			_conferenceRepository = conferenceRepository;

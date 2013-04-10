@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.IdGenerators;
 
-namespace TekConf.UI.Api
+namespace TekConf.Common.Entities
 {
 	public class PresentationEntity : IEntity
 	{

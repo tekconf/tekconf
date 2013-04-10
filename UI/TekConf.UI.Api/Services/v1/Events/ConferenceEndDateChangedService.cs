@@ -9,13 +9,15 @@ using TekConf.RemoteData.Shared.v1.Requests;
 
 namespace TekConf.UI.Api.Services.v1
 {
+	using TekConf.Common.Entities;
+
 	public class ConferenceEndDateChangedService : MongoServiceBase
 	{
 		private readonly IRepository<ConferenceEndDateChangedMessage> _repository;
-		private readonly IConfiguration _configuration;
+		private readonly IEntityConfiguration _configuration;
 		public ICacheClient CacheClient { get; set; }
 
-		public ConferenceEndDateChangedService(IRepository<ConferenceEndDateChangedMessage> repository, IConfiguration configuration)
+		public ConferenceEndDateChangedService(IRepository<ConferenceEndDateChangedMessage> repository, IEntityConfiguration configuration)
 		{
 			_repository = repository;
 			_configuration = configuration;

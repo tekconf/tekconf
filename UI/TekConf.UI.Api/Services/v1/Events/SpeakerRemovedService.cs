@@ -9,13 +9,15 @@ using TekConf.RemoteData.Shared.v1.Requests;
 
 namespace TekConf.UI.Api.Services.v1
 {
+	using TekConf.Common.Entities;
+
 	public class SpeakerRemovedService : MongoServiceBase
 	{
 		private readonly IRepository<SpeakerRemovedMessage> _repository;
-		private readonly IConfiguration _configuration;
+		private readonly IEntityConfiguration _configuration;
 		public ICacheClient CacheClient { get; set; }
 
-		public SpeakerRemovedService(IRepository<SpeakerRemovedMessage> repository, IConfiguration configuration)
+		public SpeakerRemovedService(IRepository<SpeakerRemovedMessage> repository, IEntityConfiguration configuration)
 		{
 			_repository = repository;
 			_configuration = configuration;

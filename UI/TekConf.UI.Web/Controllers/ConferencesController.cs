@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using System.Linq;
+
 using AutoMapper;
 using Elmah;
 using TekConf.RemoteData.Dtos.v1;
-using TekConf.UI.Api;
 using TekConf.UI.Web.App_Start;
-using Configuration = TekConf.UI.Api.Configuration;
-using IConfiguration = TekConf.UI.Api.IConfiguration;
 
 namespace TekConf.UI.Web.Controllers
 {
+	using TekConf.Common.Entities;
+
+	using ConferenceRepository = TekConf.Common.Entities.ConferenceRepository;
+	using IConferenceRepository = TekConf.Common.Entities.IConferenceRepository;
+
 	public class ConferencesFilter
 	{
 		public string sortBy { get; set; }
@@ -34,15 +36,15 @@ namespace TekConf.UI.Web.Controllers
 
 	public class ConferencesController : Controller
 	{
-		private RemoteDataRepositoryAsync _repository;
-	    private IConferenceRepository _conferenceRepository;
+		private readonly RemoteDataRepositoryAsync _repository;
+		private readonly IConferenceRepository _conferenceRepository;
 		public ConferencesController()
 		{
 			var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
 
 			_repository = new RemoteDataRepositoryAsync(baseUrl);
-		    IConfiguration configuration = new Configuration();
-		    _conferenceRepository = new ConferenceRepository(configuration);
+			IEntityConfiguration entityConfiguration = new EntityConfiguration();
+			_conferenceRepository = new ConferenceRepository(entityConfiguration);
 		}
 
 		[CompressFilter]
@@ -58,14 +60,14 @@ namespace TekConf.UI.Web.Controllers
 				ViewBag.ShowTable = false;
 			}
 
-            IEnumerable<ConferenceEntity> conferences = new List<ConferenceEntity>();
+			IEnumerable<ConferenceEntity> conferences = new List<ConferenceEntity>();
 
-            Task getConferencesTask = Task.Factory.StartNew(() =>
-                {
-                    conferences = _conferenceRepository.GetConferences(search, sortBy, showPastConferences, showOnlyOpenCalls, showOnlyOnSale, false, longitude, latitude, distance, city, state, country);
-                });
+			Task getConferencesTask = Task.Factory.StartNew(() =>
+					{
+						conferences = _conferenceRepository.GetConferences(search, sortBy, showPastConferences, showOnlyOpenCalls, showOnlyOnSale, false, longitude, latitude, distance, city, state, country);
+					});
 
-            await getConferencesTask;
+			await getConferencesTask;
 
 			var filter = new ConferencesFilter()
 				{
@@ -85,9 +87,9 @@ namespace TekConf.UI.Web.Controllers
 
 			ViewBag.Filter = filter;
 
-		    var conferencesDtos = Mapper.Map<List<FullConferenceDto>>(conferences);
-		   
-            return View(conferencesDtos);
+			var conferencesDtos = Mapper.Map<List<FullConferenceDto>>(conferences);
+
+			return View(conferencesDtos);
 
 		}
 

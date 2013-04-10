@@ -1,6 +1,4 @@
-﻿using TekConf.UI.Api;
-
-namespace TekConf.Common.Entities.Messages
+﻿namespace TekConf.Common.Entities.Messages
 {
 	public class ScheduleCreatedMessage : TinyMessageBase
 	{

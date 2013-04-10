@@ -9,13 +9,15 @@ using TekConf.RemoteData.Shared.v1.Requests;
 
 namespace TekConf.UI.Api.Services.v1
 {
+	using TekConf.Common.Entities;
+
 	public class ConferencePublishedService : MongoServiceBase
 	{
 		private readonly IRepository<ConferencePublishedMessage> _repository;
-		private readonly IConfiguration _configuration;
+		private readonly IEntityConfiguration _configuration;
 		public ICacheClient CacheClient { get; set; }
 
-		public ConferencePublishedService(IRepository<ConferencePublishedMessage> repository, IConfiguration configuration)
+		public ConferencePublishedService(IRepository<ConferencePublishedMessage> repository, IEntityConfiguration configuration)
 		{
 			_repository = repository;
 			_configuration = configuration;

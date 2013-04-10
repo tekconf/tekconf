@@ -9,11 +9,13 @@ using TekConf.RemoteData.Dtos.v1;
 using TekConf.RemoteData.v1;
 using TekConf.UI.Api;
 using TekConf.UI.Api.Services.Requests.v1;
-using Configuration = TekConf.UI.Api.Configuration;
-using IConfiguration = TekConf.UI.Api.IConfiguration;
 
 namespace TekConf.UI.Web.Controllers
 {
+	using TekConf.Common.Entities;
+
+	using Configuration = System.Configuration.Configuration;
+
 	[Authorize]
 	public class AdminSessionController : AsyncController
 	{
@@ -24,7 +26,7 @@ namespace TekConf.UI.Web.Controllers
 			var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
 
 			_repository = new RemoteDataRepositoryAsync(baseUrl);
-			var configuration = new Configuration();
+			var configuration = new EntityConfiguration();
 			_conferenceRepository = new ConferenceRepository(configuration);
 		}
 

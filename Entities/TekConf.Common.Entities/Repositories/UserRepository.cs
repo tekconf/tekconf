@@ -1,25 +1,20 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+
 using MongoDB.Driver.Linq;
 
 namespace TekConf.Common.Entities.Repositories
 {
-	
-
 	using MongoDB.Driver;
 	using MongoDB.Driver.Builders;
 
-	using TekConf.UI.Api;
-
 	public class UserRepository : IRepository<UserEntity>
 		{
-				private readonly IConfiguration _configuration;
+				private readonly IEntityConfiguration _entityConfiguration;
 
-				public UserRepository(IConfiguration configuration)
+				public UserRepository(IEntityConfiguration entityConfiguration)
 				{
-						_configuration = configuration;
+						this._entityConfiguration = entityConfiguration;
 				}
 
 				public void Save(UserEntity entity)
@@ -54,7 +49,7 @@ namespace TekConf.Common.Entities.Repositories
 						{
 								if (_localServer == null)
 								{
-										var mongoServer = _configuration.MongoServer;
+										var mongoServer = this._entityConfiguration.MongoServer;
 										_localServer = MongoServer.Create(mongoServer);
 								}
 

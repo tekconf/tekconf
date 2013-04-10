@@ -6,11 +6,13 @@ using SendGridMail.Transport;
 
 namespace TekConf.UI.Api
 {
+	using TekConf.Common.Entities;
+
 	public class EmailSender : IEmailSender
 	{
-		private readonly IConfiguration _configuration;
+		private readonly IEntityConfiguration _configuration;
 
-		public EmailSender(IConfiguration configuration)
+		public EmailSender(IEntityConfiguration configuration)
 		{
 			_configuration = configuration;
 		}

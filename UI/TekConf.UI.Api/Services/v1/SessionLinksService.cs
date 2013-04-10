@@ -14,7 +14,7 @@ namespace TekConf.UI.Api.Services.v1
 	{
 		private readonly IRepository<ConferenceEntity> _conferenceRepository;
 
-		private readonly IConfiguration _configuration;
+		private readonly IEntityConfiguration _entityConfiguration;
 		public ICacheClient CacheClient { get; set; }
 
 		public SessionLinksService(IRepository<ConferenceEntity> conferenceRepository)
@@ -22,9 +22,9 @@ namespace TekConf.UI.Api.Services.v1
 			_conferenceRepository = conferenceRepository;
 		}
 
-		public SessionLinksService(IConfiguration configuration)
+		public SessionLinksService(IEntityConfiguration entityConfiguration)
 		{
-			_configuration = configuration;
+			this._entityConfiguration = entityConfiguration;
 		}
 
 		public object Get(SessionLinks request)
@@ -45,7 +45,7 @@ namespace TekConf.UI.Api.Services.v1
 		private object GetSingleSessionLinks(SessionLinks request)
 		{
 			var cacheKey = "GetSingleSessionLinks-" + request.conferenceSlug + "-" + request.sessionSlug;
-			var expireInTimespan = new TimeSpan(0, 0, _configuration.cacheTimeout);
+			var expireInTimespan = new TimeSpan(0, 0, this._entityConfiguration.cacheTimeout);
 			return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
 			{
 					var conference = _conferenceRepository

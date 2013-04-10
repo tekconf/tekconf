@@ -7,7 +7,7 @@ using MongoDB.Bson.Serialization.IdGenerators;
 using TekConf.Common.Entities;
 using TinyMessenger;
 
-namespace TekConf.UI.Api
+namespace TekConf.Common.Entities
 {
 	public class ConferenceEntity : ISupportInitialize, IEntity
 	{

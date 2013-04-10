@@ -20,10 +20,10 @@ namespace TekConf.UI.Api.Services.v1
         private readonly ITinyMessengerHub _hub;
         private readonly IConferenceRepository _conferenceRepository;
         private readonly IRepository<GeoLocationEntity> _geolocationRepository;
-        private readonly IConfiguration _configuration;
+				private readonly IEntityConfiguration _configuration;
         public ICacheClient CacheClient { get; set; }
 
-        public ConferencesService(ITinyMessengerHub hub, IConferenceRepository conferenceRepository, IRepository<GeoLocationEntity> geolocationRepository, IConfiguration configuration)
+				public ConferencesService(ITinyMessengerHub hub, IConferenceRepository conferenceRepository, IRepository<GeoLocationEntity> geolocationRepository, IEntityConfiguration configuration)
         {
             _hub = hub;
             _conferenceRepository = conferenceRepository;

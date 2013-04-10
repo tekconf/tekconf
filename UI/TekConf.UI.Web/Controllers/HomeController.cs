@@ -11,12 +11,12 @@ using TekConf.RemoteData.v1;
 using TekConf.UI.Api;
 using TekConf.UI.Web.App_Start;
 using System.Linq;
-using Configuration = TekConf.UI.Api.Configuration;
-using IConfiguration = TekConf.UI.Api.IConfiguration;
 
 namespace TekConf.UI.Web.Controllers
 {
-    public class HomeController : Controller
+	using TekConf.Common.Entities;
+
+	public class HomeController : Controller
     {
         //private RemoteDataRepositoryAsync _asyncRepository;
         private RemoteDataRepository _repository;
@@ -36,7 +36,7 @@ namespace TekConf.UI.Web.Controllers
 
             //_asyncRepository = new RemoteDataRepositoryAsync(baseUrl);
             _repository = new RemoteDataRepository(baseUrl);
-            IConfiguration configuration = new Configuration();
+						IEntityConfiguration configuration = new EntityConfiguration();
             _conferenceRepository = new ConferenceRepository(configuration);
             _scheduleRepository = new ScheduleRepository(configuration);
         }

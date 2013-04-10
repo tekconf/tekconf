@@ -9,22 +9,24 @@ using TekConf.RemoteData.Shared.v1.Requests;
 
 namespace TekConf.UI.Api.Services.v1
 {
+	using TekConf.Common.Entities;
+
 	public class SessionRemovedService : MongoServiceBase
 	{
 		private readonly IRepository<SessionRemovedMessage> _repository;
-		private readonly IConfiguration _configuration;
+		private readonly IEntityConfiguration _entityConfiguration;
 		public ICacheClient CacheClient { get; set; }
 
-		public SessionRemovedService(IRepository<SessionRemovedMessage> repository, IConfiguration configuration)
+		public SessionRemovedService(IRepository<SessionRemovedMessage> repository, IEntityConfiguration entityConfiguration)
 		{
 			_repository = repository;
-			_configuration = configuration;
+			this._entityConfiguration = entityConfiguration;
 		}
 
 		public object Get(SessionRemoved request)
 		{
 			var cacheKey = "GetSessionRemoved";
-			var expireInTimespan = new TimeSpan(0, 0, _configuration.cacheTimeout);
+			var expireInTimespan = new TimeSpan(0, 0, this._entityConfiguration.cacheTimeout);
 
 			return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
 				{

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace TekConf.UI.Api
+namespace TekConf.Common.Entities
 {
 	public class HistoryEntity : IEntity
 	{

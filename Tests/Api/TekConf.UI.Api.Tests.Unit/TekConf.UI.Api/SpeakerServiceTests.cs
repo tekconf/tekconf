@@ -9,6 +9,8 @@ using Xunit.Extensions;
 
 namespace TekConf.UI.Api.Tests.Unit
 {
+	using global::TekConf.Common.Entities;
+
 	public class SpeakerServiceTests
 	{
 		public SpeakerServiceTests()
@@ -22,7 +24,7 @@ namespace TekConf.UI.Api.Tests.Unit
 		public void ncrunch() { true.ShouldBeTrue(); }
 
 		[Theory, AutoFakeData]
-		public void will_create_new_presentation([Frozen]Fake<IConfiguration> configuration, 
+				public void will_create_new_presentation([Frozen]Fake<IEntityConfiguration> configuration, 
 																							[Frozen]Fake<IRepository<ConferenceEntity>> conferenceRepository, 
 																							IRepository<PresentationEntity> presentationRepository,
 																							[Frozen]Fake<CreatePresentation> presentation)
@@ -34,7 +36,7 @@ namespace TekConf.UI.Api.Tests.Unit
 		}
 
 		[Theory, AutoFakeData]
-		public void will_create_return_valid_response([Frozen]Fake<IConfiguration> configuration,
+		public void will_create_return_valid_response([Frozen]Fake<IEntityConfiguration> configuration,
 																							[Frozen]Fake<IRepository<ConferenceEntity>> conferenceRepository,
 																							[Frozen]Fake<IRepository<PresentationEntity>> presentationRepository,
 																							Fake<CreatePresentation> presentation)

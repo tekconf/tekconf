@@ -4,7 +4,7 @@ using System.Linq;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson.Serialization.IdGenerators;
 
-namespace TekConf.UI.Api
+namespace TekConf.Common.Entities
 {
 	public class SpeakerEntity : IEntity
 	{

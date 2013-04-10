@@ -11,7 +11,9 @@ namespace TekConf.UI.Api.Tests.Unit
 
 		using TinyMessenger;
 
-		[TestFixture]
+		using global::TekConf.Common.Entities;
+
+	[TestFixture]
 		public class ConferenceEntityTests
 		{
 				private IFixture _fixture;

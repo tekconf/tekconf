@@ -1,7 +1,7 @@
 using System;
 using TinyMessenger;
 
-namespace TekConf.UI.Api
+namespace TekConf.Common.Entities
 {
 	public interface ITinyMessageBase : ITinyMessage
 	{

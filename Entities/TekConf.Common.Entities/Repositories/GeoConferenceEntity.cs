@@ -1,6 +1,6 @@
 using TinyMessenger;
 
-namespace TekConf.UI.Api
+namespace TekConf.Common.Entities
 {
     public class GeoConferenceEntity : ConferenceEntity
     {

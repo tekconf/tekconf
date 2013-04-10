@@ -9,14 +9,15 @@ using TekConf.RemoteData.Shared.v1.Requests;
 
 namespace TekConf.UI.Api.Services.v1
 {
+	using TekConf.Common.Entities;
 
 	public class SessionRoomChangedService : MongoServiceBase
 	{
 		private readonly IRepository<SessionRoomChangedMessage> _repository;
-		private readonly IConfiguration _configuration;
+		private readonly IEntityConfiguration _configuration;
 		public ICacheClient CacheClient { get; set; }
 
-		public SessionRoomChangedService(IRepository<SessionRoomChangedMessage> repository, IConfiguration configuration)
+		public SessionRoomChangedService(IRepository<SessionRoomChangedMessage> repository, IEntityConfiguration configuration)
 		{
 			_repository = repository;
 			_configuration = configuration;

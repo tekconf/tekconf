@@ -20,7 +20,7 @@ namespace TekConf.UI.Api.Services.v1
 	{
 		public ICacheClient CacheClient { get; set; }
 		private ITinyMessengerHub _hub;
-		private readonly IConfiguration _configuration;
+		private readonly IEntityConfiguration _configuration;
 
 		private readonly IConferenceRepository _conferenceRepository;
 
@@ -30,7 +30,7 @@ namespace TekConf.UI.Api.Services.v1
 		static HttpError SessionNotFound = HttpError.NotFound("Session not found") as HttpError;
 		static HashSet<string> NonExistingSessions = new HashSet<string>();
 
-		public SessionService(ITinyMessengerHub hub, IConfiguration configuration, IConferenceRepository conferenceRepository)
+		public SessionService(ITinyMessengerHub hub, IEntityConfiguration configuration, IConferenceRepository conferenceRepository)
 		{
 			_hub = hub;
 			_configuration = configuration;

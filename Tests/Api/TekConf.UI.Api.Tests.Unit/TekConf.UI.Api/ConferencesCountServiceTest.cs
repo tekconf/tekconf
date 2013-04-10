@@ -57,7 +57,7 @@ namespace TekConf.UI.Api.Tests.Unit
 											};
 
 			conferencesRepostioryMock.Setup(x => x.AsQueryable()).Returns(conferences.AsQueryable());
-			var configuration = new Mock<IConfiguration>().Object;
+			var configuration = new Mock<IEntityConfiguration>().Object;
 
 			var geolocationRepositoryMock = new Mock<IRepository<GeoLocationEntity>>();
 			var service = new ConferencesService(hub, conferencesRepostioryMock.Object, geolocationRepositoryMock.Object, configuration);
@@ -101,7 +101,7 @@ namespace TekConf.UI.Api.Tests.Unit
 											};
 
 			conferencesRepositoryMock.Setup(x => x.AsQueryable()).Returns(conferences.AsQueryable());
-			var configuration = new Mock<IConfiguration>().Object;
+			var configuration = new Mock<IEntityConfiguration>().Object;
 
 			var geolocationRepositoryMock = new Mock<IRepository<GeoLocationEntity>>();
 
@@ -146,7 +146,7 @@ namespace TekConf.UI.Api.Tests.Unit
 											};
 
 			conferencesRepositoryMock.Setup(x => x.AsQueryable()).Returns(conferences.AsQueryable());
-			var configuration = new Mock<IConfiguration>().Object;
+			var configuration = new Mock<IEntityConfiguration>().Object;
 			var geolocationRepositoryMock = new Mock<IRepository<GeoLocationEntity>>();
 
 			var service = new ConferencesService(hub, conferencesRepositoryMock.Object, geolocationRepositoryMock.Object, configuration);

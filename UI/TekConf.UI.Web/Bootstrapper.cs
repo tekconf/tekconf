@@ -8,7 +8,7 @@ using TekConf.RemoteData.Dtos.v1;
 using TekConf.UI.Api;
 using TekConf.UI.Api.Services.Requests.v1;
 using TinyMessenger;
-using Configuration = TekConf.UI.Api.Configuration;
+using TekConf.Common.Entities;
 
 namespace TekConf.UI.Web
 {
@@ -18,7 +18,7 @@ namespace TekConf.UI.Web
 		{
 			ITinyMessengerHub hub = new TinyMessengerHub();
 
-			var repository = new ConferenceRepository(new Configuration());
+			var repository = new ConferenceRepository(new EntityConfiguration());
 
 			BsonClassMap.RegisterClassMap<ConferenceEntity>()
 					.SetCreator(() => new ConferenceEntity(hub, repository));

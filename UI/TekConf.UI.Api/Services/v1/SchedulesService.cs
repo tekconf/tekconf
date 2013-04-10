@@ -8,7 +8,9 @@ using TekConf.UI.Api.Services.Requests.v1;
 
 namespace TekConf.UI.Api.v1
 {
-    public class SchedulesService : MongoServiceBase
+	using TekConf.Common.Entities;
+
+	public class SchedulesService : MongoServiceBase
     {
         private readonly IRepository<ScheduleEntity> _scheduleRepository;
         private readonly IRepository<ConferenceEntity> _conferenceRepository;

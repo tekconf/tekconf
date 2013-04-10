@@ -1,4 +1,4 @@
-namespace TekConf.UI.Api
+namespace TekConf.Common.Entities
 {
 	public class SessionRemovedMessage : TinyMessageBase
 	{

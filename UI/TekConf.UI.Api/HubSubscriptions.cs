@@ -5,6 +5,8 @@ using TinyMessenger;
 
 namespace TekConf.UI.Api
 {
+	using TekConf.Common.Entities;
+
 	public class HubSubscriptions
 	{
 		private readonly ITinyMessengerHub _hub;
@@ -22,7 +24,7 @@ namespace TekConf.UI.Api
 		private readonly IRepository<ScheduleCreatedMessage> _scheduleCreatedRepository;
 		private readonly IRepository<SessionAddedToScheduleMessage> _sessionAddedToScheduleRepository;
 		private readonly IEmailSender _emailSender;
-		private readonly IConfiguration _configuration;
+		private readonly IEntityConfiguration _entityConfiguration;
 
 		public HubSubscriptions(ITinyMessengerHub hub,
 																IRepository<SessionRoomChangedMessage> sessionRoomChangedRepository,
@@ -39,7 +41,7 @@ namespace TekConf.UI.Api
 																IRepository<ScheduleCreatedMessage> scheduleCreatedRepository,
 																IRepository<SessionAddedToScheduleMessage> sessionAddedToScheduleRepository,
 																IEmailSender emailSender,
-																IConfiguration configuration
+																IEntityConfiguration entityConfiguration
 														)
 		{
 			_hub = hub;
@@ -59,7 +61,7 @@ namespace TekConf.UI.Api
 			_scheduleCreatedRepository = scheduleCreatedRepository;
 			_sessionAddedToScheduleRepository = sessionAddedToScheduleRepository;
 			_emailSender = emailSender;
-			_configuration = configuration;
+			this._entityConfiguration = entityConfiguration;
 
 			Subscribe();
 		}
