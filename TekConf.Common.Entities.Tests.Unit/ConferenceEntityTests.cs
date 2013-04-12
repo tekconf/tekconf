@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Moq;
 using NUnit.Framework;
 using Ploeh.AutoFixture;
@@ -102,5 +103,24 @@ public class ConferenceEntityTests
 		entity.isSaved.ShouldBeFalse();
 		entity.Save();
 		entity.isSaved.ShouldBeTrue();
+	}
+
+	[Test]
+	public void Should_add_session_to_list()
+	{
+		var repository = new Mock<IConferenceRepository>();
+		var hub = new Mock<ITinyMessengerHub>();
+		var entity = new ConferenceEntity(hub.Object, repository.Object);
+
+		entity.isSaved.ShouldBeFalse();
+		entity.Save();
+		entity.isSaved.ShouldBeTrue();
+		entity.sessions.ShouldNotBeNull();
+		entity.sessions.Count().ShouldEqual(0);
+		entity.AddSession(new SessionEntity());
+		entity.sessions.Count().ShouldEqual(1);
+		entity.Save();
+		var message = new SessionAddedMessage();
+		hub.Verify(x => x.Publish(message));
 	}
 }
