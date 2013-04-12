@@ -7,7 +7,7 @@ namespace TekConf.UI.Web.Controllers
 {
 	public class SessionController : Controller
 	{
-		private RemoteDataRepositoryAsync _repository;
+		private readonly RemoteDataRepositoryAsync _repository;
 
 		public SessionController()
 		{

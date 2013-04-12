@@ -7,7 +7,7 @@ namespace TekConf.UI.Web.Controllers
 {
 	public class ScheduleController : Controller
 	{
-		private RemoteDataRepositoryAsync _repository;
+		private readonly RemoteDataRepositoryAsync _repository;
 
 		public ScheduleController()
 		{

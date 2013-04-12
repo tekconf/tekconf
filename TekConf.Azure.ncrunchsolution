@@ -9,5 +9,10 @@
   <FrameworkUtilisationTypeForMSTest>UseStaticAnalysis</FrameworkUtilisationTypeForMSTest>
   <EngineModes>Run all tests automatically:BFRydWU=;Run all tests manually:BUZhbHNl;Run impacted tests automatically, others manually (experimental!):CklzSW1wYWN0ZWQ=;Run pinned tests automatically, others manually:CElzUGlubmVk</EngineModes>
   <MetricsExclusionList>
+libs\TekConf.Azure\TekConf.Azure.csproj
+libs\TinyMessenger\TinyMessenger.csproj
+TekConf.Common.Entities.Tests.Unit\TekConf.Common.Entities.Tests.Unit.csproj
+TekConf.UI.Web.Tests.Unit\TekConf.UI.Web.Tests.Unit.csproj
+Tests\Api\TekConf.UI.Api.Tests.Unit\TekConf.UI.Api.Tests.Unit.csproj
 </MetricsExclusionList>
 </SolutionConfiguration>

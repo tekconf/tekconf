@@ -13,7 +13,7 @@ namespace TekConf.UI.Web.Controllers
 {
 	public class SpeakersController : Controller
 	{
-		private RemoteDataRepositoryAsync _repository;
+		private readonly RemoteDataRepositoryAsync _repository;
 
 		public SpeakersController()
 		{

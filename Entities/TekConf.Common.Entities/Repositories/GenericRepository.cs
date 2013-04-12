@@ -10,7 +10,7 @@ namespace TekConf.Common.Entities
 	public class GenericRepository<T> : IRepository<T> where T: class
 	{
 		private readonly IEntityConfiguration _entityConfiguration;
-		private string dbName = typeof(T).ToGenericTypeString();
+		private readonly string dbName = typeof(T).ToGenericTypeString();
 
 		public GenericRepository(IEntityConfiguration entityConfiguration)
 		{

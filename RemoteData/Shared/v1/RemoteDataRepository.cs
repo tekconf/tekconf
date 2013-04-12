@@ -9,7 +9,7 @@ namespace TekConf.RemoteData.v1
 {
 	public class RemoteDataRepository
 	{
-		private string _baseUrl;
+		private readonly string _baseUrl;
 		public RemoteDataRepository(string baseUrl)
 		{
 			_baseUrl = baseUrl;

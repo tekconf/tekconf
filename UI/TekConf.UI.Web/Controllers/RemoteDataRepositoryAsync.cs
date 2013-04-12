@@ -12,7 +12,7 @@ namespace TekConf.UI.Web.Controllers
 	public class RemoteDataRepositoryAsync : IRemoteDataRepositoryAsync
 	{
 		private readonly string _baseUrl;
-		private RemoteDataRepository _repository;
+		private readonly RemoteDataRepository _repository;
 
 		public RemoteDataRepositoryAsync(string baseUrl)
 		{

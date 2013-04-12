@@ -10,7 +10,7 @@ namespace TekConf.Common.Entities
 	public class ScheduleCreatedRepository : IRepository<ScheduleCreatedMessage>
 	{
 		private readonly IEntityConfiguration _entityConfiguration;
-		private string dbName = "scheduleCreatedEvents";
+		private const string dbName = "scheduleCreatedEvents";
 
 		public ScheduleCreatedRepository(IEntityConfiguration entityConfiguration)
 		{

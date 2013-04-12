@@ -22,8 +22,8 @@ namespace TekConf.UI.Api.Services.v1
 		private readonly IRepository<ConferenceEntity> _conferenceRepository;
 
 		public ICacheClient CacheClient { get; set; }
-		static HttpError ConferenceNotFound = HttpError.NotFound("Conference not found") as HttpError;
-		static HashSet<string> NonExistingConferences = new HashSet<string>();
+		static readonly HttpError ConferenceNotFound = HttpError.NotFound("Conference not found") as HttpError;
+		static readonly HashSet<string> NonExistingConferences = new HashSet<string>();
 
 		static HttpError SessionNotFound = HttpError.NotFound("Session not found") as HttpError;
 		static HashSet<string> NonExistingSessions = new HashSet<string>();

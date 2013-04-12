@@ -18,7 +18,7 @@ namespace TekConf.UI.Web.Controllers
 	[Authorize]
 	public class AdminConferenceController : AsyncController
 	{
-		private RemoteDataRepositoryAsync _repository;
+		private readonly RemoteDataRepositoryAsync _repository;
 		public AdminConferenceController()
 		{
 			var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];

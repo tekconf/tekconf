@@ -17,7 +17,7 @@ namespace TekConf.Common.Entities
 		public string title
 		{
 			get { return _title; }
-			set { _title = value.IsNullOrWhiteSpace() ? value : value.Trim(); ; }
+			set { _title = value.IsNullOrWhiteSpace() ? value : value.Trim(); }
 		}
 
 		public DateTime start { get; set; }
@@ -37,32 +37,32 @@ namespace TekConf.Common.Entities
 						RoomChanged(this, roomChanged);
 					}
 				}
-				_room = value.IsNullOrWhiteSpace() ? value : value.Trim(); ;
+				_room = value.IsNullOrWhiteSpace() ? value : value.Trim();
 			}
 		}
 
 		public string difficulty
 		{
 			get { return _difficulty; }
-			set { _difficulty = value.IsNullOrWhiteSpace() ? value : value.Trim(); ; }
+			set { _difficulty = value.IsNullOrWhiteSpace() ? value : value.Trim(); }
 		}
 
 		public string description
 		{
 			get { return _description; }
-			set { _description = value.IsNullOrWhiteSpace() ? value : value.Trim(); ; }
+			set { _description = value.IsNullOrWhiteSpace() ? value : value.Trim(); }
 		}
 
 		public string twitterHashTag
 		{
 			get { return _twitterHashTag; }
-			set { _twitterHashTag = value.IsNullOrWhiteSpace() ? value : value.Trim(); ; }
+			set { _twitterHashTag = value.IsNullOrWhiteSpace() ? value : value.Trim(); }
 		}
 
 		public string sessionType
 		{
 			get { return _sessionType; }
-			set { _sessionType = value.IsNullOrWhiteSpace() ? value : value.Trim(); ; }
+			set { _sessionType = value.IsNullOrWhiteSpace() ? value : value.Trim(); }
 		}
 
 		public List<string> links { get; set; }

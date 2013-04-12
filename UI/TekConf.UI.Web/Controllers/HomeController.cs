@@ -20,8 +20,8 @@ namespace TekConf.UI.Web.Controllers
     {
         //private RemoteDataRepositoryAsync _asyncRepository;
         private RemoteDataRepository _repository;
-        private IConferenceRepository _conferenceRepository;
-        private IScheduleRepository _scheduleRepository;
+        private readonly IConferenceRepository _conferenceRepository;
+        private readonly IScheduleRepository _scheduleRepository;
 
         public HomeController()
         {

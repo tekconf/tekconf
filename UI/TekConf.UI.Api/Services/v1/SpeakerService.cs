@@ -22,11 +22,11 @@ namespace TekConf.UI.Api.Services.v1
 		private readonly IRepository<PresentationEntity> _presentationRepository;
 
 		public ICacheClient CacheClient { get; set; }
-		static HttpError ConferenceNotFound = HttpError.NotFound("Conference not found") as HttpError;
-		static HashSet<string> NonExistingConferences = new HashSet<string>();
+		static readonly HttpError ConferenceNotFound = HttpError.NotFound("Conference not found") as HttpError;
+		static readonly HashSet<string> NonExistingConferences = new HashSet<string>();
 
-		static HttpError SpeakerNotFound = HttpError.NotFound("Speaker not found") as HttpError;
-		static HashSet<string> NonExistingSpeakers = new HashSet<string>();
+		static readonly HttpError SpeakerNotFound = HttpError.NotFound("Speaker not found") as HttpError;
+		static readonly HashSet<string> NonExistingSpeakers = new HashSet<string>();
 
 		public SpeakerService(IEntityConfiguration configuration, IRepository<ConferenceEntity> conferenceRepository, IRepository<PresentationEntity> presentationRepository)
 		{

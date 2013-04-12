@@ -266,7 +266,7 @@ namespace TekConf.Common.Entities
 				if (!_isInitializingFromBson && isSaved && _location != value)
 					_conferenceLocationChangedMessages.Add(new ConferenceLocationChangedMessage() { ConferenceSlug = this.slug, ConferenceName = this.name, OldValue = _location, NewValue = value });
 
-				_location = value.IsNullOrWhiteSpace() ? value : value.Trim(); ;
+				_location = value.IsNullOrWhiteSpace() ? value : value.Trim();
 			}
 		}
 
@@ -274,43 +274,43 @@ namespace TekConf.Common.Entities
 		public string description
 		{
 			get { return _description; }
-			set { _description = value.IsNullOrWhiteSpace() ? value : value.Trim(); ; }
+			set { _description = value.IsNullOrWhiteSpace() ? value : value.Trim(); }
 		}
 
 		public string imageUrl
 		{
 			get { return _imageUrl; }
-			set { _imageUrl = value.IsNullOrWhiteSpace() ? value : value.Trim(); ; }
+			set { _imageUrl = value.IsNullOrWhiteSpace() ? value : value.Trim(); }
 		}
 
 		public string tagLine
 		{
 			get { return _tagLine; }
-			set { _tagLine = value.IsNullOrWhiteSpace() ? value : value.Trim(); ; }
+			set { _tagLine = value.IsNullOrWhiteSpace() ? value : value.Trim(); }
 		}
 
 		public string facebookUrl
 		{
 			get { return _facebookUrl; }
-			set { _facebookUrl = value.IsNullOrWhiteSpace() ? value : value.Trim(); ; }
+			set { _facebookUrl = value.IsNullOrWhiteSpace() ? value : value.Trim(); }
 		}
 
 		public string homepageUrl
 		{
 			get { return _homepageUrl; }
-			set { _homepageUrl = value.IsNullOrWhiteSpace() ? value : value.Trim(); ; }
+			set { _homepageUrl = value.IsNullOrWhiteSpace() ? value : value.Trim(); }
 		}
 
 		public string lanyrdUrl
 		{
 			get { return _lanyrdUrl; }
-			set { _lanyrdUrl = value.IsNullOrWhiteSpace() ? value : value.Trim(); ; }
+			set { _lanyrdUrl = value.IsNullOrWhiteSpace() ? value : value.Trim(); }
 		}
 
 		public string twitterHashTag
 		{
 			get { return _twitterHashTag; }
-			set { _twitterHashTag = value.IsNullOrWhiteSpace() ? value : value.Trim(); ; }
+			set { _twitterHashTag = value.IsNullOrWhiteSpace() ? value : value.Trim(); }
 		}
 
 		public string twitterName
@@ -321,44 +321,44 @@ namespace TekConf.Common.Entities
 				if (!string.IsNullOrWhiteSpace(value) && !value.StartsWith("@"))
 					value = "@" + value;
 
-				_twitterName = value.IsNullOrWhiteSpace() ? value : value.Trim(); ;
+				_twitterName = value.IsNullOrWhiteSpace() ? value : value.Trim();
 			}
 		}
 
 		public string meetupUrl
 		{
 			get { return _meetupUrl; }
-			set { _meetupUrl = value.IsNullOrWhiteSpace() ? value : value.Trim(); ; }
+			set { _meetupUrl = value.IsNullOrWhiteSpace() ? value : value.Trim(); }
 		}
 
 		public string googlePlusUrl
 		{
 			get { return _googlePlusUrl; }
-			set { _googlePlusUrl = value.IsNullOrWhiteSpace() ? value : value.Trim(); ; }
+			set { _googlePlusUrl = value.IsNullOrWhiteSpace() ? value : value.Trim(); }
 		}
 
 		public string vimeoUrl
 		{
 			get { return _vimeoUrl; }
-			set { _vimeoUrl = value.IsNullOrWhiteSpace() ? value : value.Trim(); ; }
+			set { _vimeoUrl = value.IsNullOrWhiteSpace() ? value : value.Trim(); }
 		}
 
 		public string youtubeUrl
 		{
 			get { return _youtubeUrl; }
-			set { _youtubeUrl = value.IsNullOrWhiteSpace() ? value : value.Trim(); ; }
+			set { _youtubeUrl = value.IsNullOrWhiteSpace() ? value : value.Trim(); }
 		}
 
 		public string githubUrl
 		{
 			get { return _githubUrl; }
-			set { _githubUrl = value.IsNullOrWhiteSpace() ? value : value.Trim(); ; }
+			set { _githubUrl = value.IsNullOrWhiteSpace() ? value : value.Trim(); }
 		}
 
 		public string linkedInUrl
 		{
 			get { return _linkedInUrl; }
-			set { _linkedInUrl = value.IsNullOrWhiteSpace() ? value : value.Trim(); ; }
+			set { _linkedInUrl = value.IsNullOrWhiteSpace() ? value : value.Trim(); }
 		}
 
 		[BsonIgnore]

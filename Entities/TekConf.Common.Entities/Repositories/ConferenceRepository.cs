@@ -7,7 +7,6 @@ using AutoMapper;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using MongoDB.Driver.Linq;
-using TekConf.Common.Entities;
 using TekConf.Common.Entities.Repositories;
 
 namespace TekConf.Common.Entities
@@ -110,7 +109,7 @@ namespace TekConf.Common.Entities
 			List<ConferenceEntity> conferences = null;
 			var collection = this.LocalDatabase.GetCollection<ConferenceEntity>("conferences");
 
-			var earthRadius = 3959.0; // miles
+			const double earthRadius = 3959.0; // miles
 
 			var options = GeoNearOptions
 							.SetMaxDistance(rangeInMiles / earthRadius /* to radians */)
@@ -277,7 +276,7 @@ namespace TekConf.Common.Entities
 			return searchBy;
 		}
 
-		private List<ConferenceEntity> BuildConferencesSearch(IQueryable<ConferenceEntity> query, Expression<Func<ConferenceEntity, bool>> searchExpression, string sortBy, string searchTerm, bool? showPastConferences, bool? showOnlyWithOpenCalls, bool? showOnlyOnSale)
+		private IEnumerable<ConferenceEntity> BuildConferencesSearch(IQueryable<ConferenceEntity> query, Expression<Func<ConferenceEntity, bool>> searchExpression, string sortBy, string searchTerm, bool? showPastConferences, bool? showOnlyWithOpenCalls, bool? showOnlyOnSale)
 		{
 			var orderByFunc = GetOrderByFunc(sortBy);
 			var showPastConferencesExpression = GetShowPastConferences(showPastConferences);
