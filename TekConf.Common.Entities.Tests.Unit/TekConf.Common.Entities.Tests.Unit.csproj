@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="AutoMoqPropertiesCustomization.cs" />
     <Compile Include="ConferenceEntityTests.cs" />
+    <Compile Include="ConferenceRepositoryTests.cs" />
     <Compile Include="PropertiesPostprocessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

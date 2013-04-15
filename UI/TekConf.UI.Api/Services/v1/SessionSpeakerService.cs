@@ -41,14 +41,14 @@ namespace TekConf.UI.Api.Services.v1
 			var conference = _conferenceRepository
 					.AsQueryable()
 				//.Where(c => c.isLive)
-					.SingleOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
+					.FirstOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
 
 			if (conference.IsNull())
 			{
 				throw new HttpError() { StatusCode = HttpStatusCode.NotFound };
 			}
 
-			var session = conference.sessions.SingleOrDefault(s => s.slug.ToLower() == request.sessionSlug.ToLower());
+			var session = conference.sessions.FirstOrDefault(s => s.slug.ToLower() == request.sessionSlug.ToLower());
 
 			if (session.IsNull())
 			{

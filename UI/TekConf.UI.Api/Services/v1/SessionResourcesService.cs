@@ -39,7 +39,7 @@ namespace TekConf.UI.Api.Services.v1
 			var conference = _conferenceRepository
 									.AsQueryable()
 				//.Where(c => c.isLive)
-									.SingleOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
+									.FirstOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
 
 			if (conference.IsNull())
 			{

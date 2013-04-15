@@ -12,17 +12,17 @@ namespace TekConf.UI.Web
 			BundleTable.EnableOptimizations = false;
 
 
-			var jquery = new ScriptBundle("~/bundles/jquery", "https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js")
+			var jquery = new ScriptBundle("~/bundles/jquery", "https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js")
 										.Include("~/Scripts/jquery-{version}.js");
 			jquery.CdnFallbackExpression = "window.jquery";
 			bundles.Add(jquery);
 
-			var jqueryUI = new ScriptBundle("~/bundles/jqueryUI", "http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js")
+			var jqueryUI = new ScriptBundle("~/bundles/jqueryUI", "http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js")
 										.Include("~/Scripts/jquery-ui-{version}.js");
 			jqueryUI.CdnFallbackExpression = "window.jqueryUI";
 			bundles.Add(jqueryUI);
 
-			var jqueryMigrate = new ScriptBundle("~/bundles/jqueryMigrate", "http://code.jquery.com/jquery-migrate-1.0.0.min.js")
+			var jqueryMigrate = new ScriptBundle("~/bundles/jqueryMigrate", "http://code.jquery.com/jquery-migrate-1.1.1.min.js")
 							.Include("~/Scripts/jquery-migrate-{version}.js");
 			jqueryMigrate.CdnFallbackExpression = "window.jqueryMigrate";
 			bundles.Add(jqueryMigrate);

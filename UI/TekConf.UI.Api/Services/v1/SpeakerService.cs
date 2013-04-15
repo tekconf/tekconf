@@ -73,7 +73,7 @@ namespace TekConf.UI.Api.Services.v1
 					var presentation = _presentationRepository
 						.AsQueryable()
 						.Where(p => p.SpeakerSlug == request.speakerSlug)
-						.SingleOrDefault(p => p.slug.ToLower() == request.slug.ToLower());
+						.FirstOrDefault(p => p.slug.ToLower() == request.slug.ToLower());
 
 					var presentationDto = Mapper.Map<PresentationEntity, PresentationDto>(presentation);
 
@@ -112,7 +112,7 @@ namespace TekConf.UI.Api.Services.v1
 				var conference = _conferenceRepository
 						 .AsQueryable()
 					//.Where(c => c.isLive)
-						 .SingleOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
+						 .FirstOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
 
 				if (conference.IsNull())
 				{

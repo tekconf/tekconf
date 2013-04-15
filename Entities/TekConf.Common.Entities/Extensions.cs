@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace TekConf.Common.Entities
 {
@@ -8,6 +10,11 @@ namespace TekConf.Common.Entities
 		public static bool IsNotNull(this object value)
 		{
 			return value != null;
+		}
+
+		public static Task<List<T>> ToListAsync<T>(this IQueryable<T> list)
+		{
+			return Task.Run(() => list.ToList());
 		}
 
 		public static bool IsNull(this object value)

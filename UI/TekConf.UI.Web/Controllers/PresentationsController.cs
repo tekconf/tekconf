@@ -1,8 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using Elmah;
+using TekConf.Azure;
+using TekConf.RemoteData.v1;
 using TekConf.UI.Api.Services.Requests.v1;
 using TekConf.UI.Web.ViewModels;
 
@@ -19,6 +25,7 @@ namespace TekConf.UI.Web.Controllers
 
 			_repository = new RemoteDataRepositoryAsync(baseUrl);
 		}
+
 		public PresentationsController(IRemoteDataRepositoryAsync repository)
 		{
 			_repository = repository;
@@ -55,21 +62,48 @@ namespace TekConf.UI.Web.Controllers
 
 		public ActionResult Add()
 		{
+			var difficulties = new List<string>() { "Beginner", "Intermediate", "Expert" };
+			var difficultiesList = new SelectList(difficulties.Select(x => new KeyValuePair<string, string>(x, x)), "Key", "Value");
+			ViewBag.DifficultiesList = difficultiesList;
 			return View();
 		}
 
 		[HttpPost]
-		public async Task<ActionResult> Add(AddPresentationViewModel addPresentationViewModel)
+		public async Task<ActionResult> Add(AddPresentationViewModel addPresentationViewModel, HttpPostedFileBase file)
 		{
-
 			var presentation = new CreatePresentation()
-				{
-					UserName = this.ControllerContext.HttpContext.User.Identity.Name,
-					SpeakerSlug = this.ControllerContext.HttpContext.User.Identity.Name,
-					Description = addPresentationViewModel.Description,
-					Tags = addPresentationViewModel.Tags,
-					Title = addPresentationViewModel.Title
-				};
+			{
+				UserName = this.ControllerContext.HttpContext.User.Identity.Name,
+				SpeakerSlug = this.ControllerContext.HttpContext.User.Identity.Name,
+				Description = addPresentationViewModel.Description,
+				Title = addPresentationViewModel.Title,
+				Difficulty = addPresentationViewModel.Difficulty,
+				Length = addPresentationViewModel.Length,
+				Videos = addPresentationViewModel.Videos.Where(x => !string.IsNullOrWhiteSpace(x)).ToList()
+			};
+
+			if (file != null)
+			{
+				IImageSaver imageSaver = null;
+
+#if DEBUG
+				//TODO, Move this to configuration
+				imageSaver = new FileSystemImageSaver();
+#else
+				IImageSaverConfiguration configuration = new ImageSaverConfiguration();
+				imageSaver = new AzureImageSaver(configuration);
+#endif
+
+				presentation.Slug = presentation.Title.GenerateSlug();
+				presentation.imageUrl = imageSaver.SaveImage(presentation.Slug + Path.GetExtension(file.FileName), file);
+			}
+
+			if (Request.Form["hidden-tags"] != null)
+				presentation.Tags = Request.Form["hidden-tags"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+			if (Request.Form["hidden-subjects"] != null)
+				presentation.Subjects = Request.Form["hidden-subjects"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+
+
 			var presentationTask = _repository.CreatePresentation(presentation);
 
 			await Task.WhenAll(presentationTask);
@@ -80,7 +114,7 @@ namespace TekConf.UI.Web.Controllers
 
 		public ActionResult AddHistory(string speakerSlug, string presentationSlug)
 		{
-			var model = new AddPresentationHistoryViewModel() {SpeakerSlug = speakerSlug, PresentationSlug = presentationSlug};
+			var model = new AddPresentationHistoryViewModel() { SpeakerSlug = speakerSlug, PresentationSlug = presentationSlug };
 			return View(model);
 		}
 

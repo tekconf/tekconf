@@ -43,8 +43,8 @@ namespace TekConf.UI.Api.v1
 		public object Post(AddSessionToSchedule request)
 		{
 			ScheduleEntity schedule = _scheduleRepository.AsQueryable()
-			.Where(x => x.UserName == request.userName)
-				.SingleOrDefault(s => s.ConferenceSlug.ToLower() == request.conferenceSlug.ToLower());
+																	.Where(x => x.UserName == request.userName)
+																	.FirstOrDefault(s => s.ConferenceSlug.ToLower() == request.conferenceSlug.ToLower());
 
 			if (schedule.IsNull())
 			{
@@ -60,7 +60,7 @@ namespace TekConf.UI.Api.v1
 
 			var conference =
 					_conferenceRepository.AsQueryable()
-					.SingleOrDefault(c => c.slug == request.conferenceSlug);
+					.FirstOrDefault(c => c.slug == request.conferenceSlug);
 
 			if (!conference.IsNull())
 			{
@@ -89,7 +89,7 @@ namespace TekConf.UI.Api.v1
 
 			var schedule = _scheduleRepository.AsQueryable()
 												.Where(x => x.UserName == request.userName)
-												.SingleOrDefault(s => s.ConferenceSlug.ToLower() == request.conferenceSlug.ToLower());
+												.FirstOrDefault(s => s.ConferenceSlug.ToLower() == request.conferenceSlug.ToLower());
 
 			if (schedule.IsNull())
 				return new HttpResult(HttpStatusCode.NotFound);
@@ -125,7 +125,7 @@ namespace TekConf.UI.Api.v1
 			var schedule = _scheduleRepository
 												 .AsQueryable()
 												 .Where(s => s.ConferenceSlug.ToLower() == request.conferenceSlug.ToLower())
-												 .SingleOrDefault(s => s.UserName.ToLower() == request.userName.ToLower());
+												 .FirstOrDefault(s => s.UserName.ToLower() == request.userName.ToLower());
 
 			var scheduleDto = Mapper.Map<ScheduleEntity, ScheduleDto>(schedule);
 

@@ -4,7 +4,6 @@ using System.Configuration;
 using System.Linq;
 using System.Net;
 using AutoMapper;
-
 using ServiceStack.CacheAccess;
 using ServiceStack.Common.Web;
 using TekConf.Common.Entities;
@@ -75,10 +74,10 @@ namespace TekConf.UI.Api.Services.v1
 		public object Put(AddSession request)
 		{
 			var session = Mapper.Map<AddSession, SessionEntity>(request);
-			var sessionEntity = _conferenceRepository.SaveSession(request.conferenceSlug, session);
+			var sessionEntity = _conferenceRepository.SaveSession(request.conferenceSlug, request.slug, session);
 			this.CacheClient.FlushAll();
 
-			var conference = _conferenceRepository.AsQueryable().Single(x => x.slug == request.conferenceSlug);
+			var conference = _conferenceRepository.AsQueryable().First(x => x.slug == request.conferenceSlug);
 
 
 			var sessionDto = Mapper.Map<SessionEntity, SessionDto>(sessionEntity);
@@ -114,7 +113,7 @@ namespace TekConf.UI.Api.Services.v1
 										.AsQueryable()
 									//.Where(s => s.slug.ToLower() == request.sessionSlug.ToLower())
 									//.Where(c => c.isLive)
-										.SingleOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
+										.FirstOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
 
 								if (conference.IsNull())
 								{

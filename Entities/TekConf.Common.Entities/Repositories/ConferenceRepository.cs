@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using AutoMapper;
+using Microsoft.Win32;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using MongoDB.Driver.Linq;
@@ -14,6 +15,13 @@ namespace TekConf.Common.Entities
 	public class ConferenceRepository : IConferenceRepository
 	{
 		private readonly IEntityConfiguration _entityConfiguration;
+
+		public ConferenceRepository(IEntityConfiguration entityConfiguration)
+		{
+			this._entityConfiguration = entityConfiguration;
+			CreateIndexes();
+		}
+
 
 		public int GetConferenceCount(string searchTerm, bool? showPastConferences)
 		{
@@ -74,11 +82,6 @@ namespace TekConf.Common.Entities
 			return conferences;
 		}
 
-		public ConferenceRepository(IEntityConfiguration entityConfiguration)
-		{
-			this._entityConfiguration = entityConfiguration;
-			CreateIndexes();
-		}
 
 		private void CreateIndexes()
 		{
@@ -86,6 +89,7 @@ namespace TekConf.Common.Entities
 
 			//collection.EnsureIndex(new string[] { "name" });
 		}
+
 		public void Save(ConferenceEntity entity)
 		{
 			var collection = MongoCollection();
@@ -191,24 +195,29 @@ namespace TekConf.Common.Entities
 			return conferenceEntities;
 		}
 
-		public SessionEntity SaveSession(string conferenceSlug, SessionEntity session)
+		public SessionEntity SaveSession(string conferenceSlug, string originalSessionSlug, SessionEntity session)
 		{
 			var conference = this.AsQueryable().FirstOrDefault(c => c.slug.ToLower() == conferenceSlug.ToLower());
 			SessionEntity returnSession = null;
+			string slug = "";
 			if (conference != null)
 			{
-				var existingSession = conference.sessions.FirstOrDefault(s => s.slug.ToLower() == session.slug.ToLower());
+				var existingSession = conference.sessions.FirstOrDefault(s => s.slug.ToLower() == originalSessionSlug.ToLower());
 				if (existingSession != null)
 				{
 					existingSession.TrimAllProperties();
 					Mapper.Map(session, existingSession);
+					existingSession.slug = existingSession.title.GenerateSlug();
+					slug = existingSession.slug;
 				}
 				else
 				{
 					conference.AddSession(session);
+					session.slug = session.title.GenerateSlug();
+					slug = session.slug;
 				}
 				conference.Save();
-				returnSession = conference.sessions.SingleOrDefault(s => s.slug == session.slug);
+				returnSession = conference.sessions.SingleOrDefault(s => s.slug == slug);
 			}
 
 			return returnSession;

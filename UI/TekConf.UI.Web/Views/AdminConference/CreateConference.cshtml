@@ -238,9 +238,7 @@
             } else if (city.length != 0 && country.length != 0) {
                 address = city + ",+" + country;
             }
-            //address = encodeURIComponent(address);
-            //address = address.replace(" ", "+");
-            //alert(address);
+
             geocoder.geocode({ 'address': address }, function (results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
                     $('#latitude').val(results[0].geometry.location.lat());
@@ -280,59 +278,6 @@
 
                 codeAddress(streetNumber, streetName, city, state, postalArea, country);
             });
-
-            $(document).on("click", ".addSubject", function (e) {
-                e.preventDefault();
-
-                $(this).closest('tr').after('<tr><td><input type="text" /><span></span></td></tr>');
-
-                $('#subjectsTable td').each(function (index, el) {
-                    var element = index - 1;
-                    $('input', this).attr('id', 'subjects[' + element + ']');
-                    $('input', this).attr('name', 'subjects[' + element + ']');
-
-                });
-            });
-
-            $(document).on("click", ".addTag", function (e) {
-                e.preventDefault();
-
-                $(this).closest('tr').after('<tr><td><input type="text" /><span></span></td></tr>');
-
-                $('#tagsTable td').each(function (index, el) {
-                    var element = index - 1;
-                    $('input', this).attr('id', 'tags[' + element + ']');
-                    $('input', this).attr('name', 'tags[' + element + ']');
-
-                });
-            });
-
-            $(document).on("click", ".addRoom", function (e) {
-                e.preventDefault();
-
-                $(this).closest('tr').after('<tr><td><input type="text" /><span></span></td></tr>');
-
-                $('#roomsTable td').each(function (index, el) {
-                    var element = index - 1;
-                    $('input', this).attr('id', 'rooms[' + element + ']');
-                    $('input', this).attr('name', 'rooms[' + element + ']');
-
-                });
-            });
-
-            $(document).on("click", ".addSessionType", function (e) {
-                e.preventDefault();
-
-                $(this).closest('tr').after('<tr><td><input type="text" /><span></span></td></tr>');
-
-                $('#sessionTypesTable td').each(function (index, el) {
-                    var element = index - 1;
-                    $('input', this).attr('id', 'sessionTypes[' + element + ']');
-                    $('input', this).attr('name', 'sessionTypes[' + element + ']');
-
-                });
-            });
-
 
         });
     </script>

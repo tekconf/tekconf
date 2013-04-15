@@ -190,7 +190,7 @@ namespace TekConf.UI.Api
 
 			var repository = new ConferenceRepository(new EntityConfiguration());
 			var conference = repository.AsQueryable()
-																.SingleOrDefault(c => c.slug.ToLower() == source.ConferenceSlug.ToLower());
+																.FirstOrDefault(c => c.slug.ToLower() == source.ConferenceSlug.ToLower());
 			if (conference.IsNotNull())
 			{
 				conferenceName = conference.name;
@@ -207,11 +207,11 @@ namespace TekConf.UI.Api
 
 			var repository = new ConferenceRepository(new EntityConfiguration());
 			var conference = repository.AsQueryable()
-															.SingleOrDefault(c => c.slug.ToLower() == source.ConferenceSlug.ToLower());
+															.FirstOrDefault(c => c.slug.ToLower() == source.ConferenceSlug.ToLower());
 
 			foreach (var sessionSlug in source.SessionSlugs)
 			{
-				var session = conference.sessions.SingleOrDefault(c => c.slug == sessionSlug);
+				var session = conference.sessions.FirstOrDefault(c => c.slug == sessionSlug);
 				var sessionDto = Mapper.Map<FullSessionDto>(session);
 				sessions.Add(sessionDto);
 			}

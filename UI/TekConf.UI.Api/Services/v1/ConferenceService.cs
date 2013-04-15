@@ -40,7 +40,7 @@ namespace TekConf.UI.Api.Services.v1
 				var conference = this._conferenceRepository
 						.AsQueryable()
 					//.Where(c => c.isLive)
-						.SingleOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
+						.FirstOrDefault(c => c.slug.ToLower() == request.conferenceSlug.ToLower());
 
 				if (conference.IsNull())
 				{
@@ -54,7 +54,7 @@ namespace TekConf.UI.Api.Services.v1
 				{
 					var schedule = _scheduleRepository.AsQueryable()
 											.Where(x => x.ConferenceSlug == request.conferenceSlug)
-											.SingleOrDefault(x => x.UserName == request.userName);
+											.FirstOrDefault(x => x.UserName == request.userName);
 					if (schedule.IsNotNull())
 					{
 						foreach (var sessionSlug in schedule.SessionSlugs)

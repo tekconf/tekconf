@@ -55,10 +55,10 @@ namespace TekConf.Common.Entities
 					isNew = true;
 				}
 
-				slug = name.GenerateSlug();
 				dateAdded = DateTime.Now;
 				isSaved = true;
 			}
+			slug = name.GenerateSlug();
 			_repository.Save(this);
 
 			if (isNew)

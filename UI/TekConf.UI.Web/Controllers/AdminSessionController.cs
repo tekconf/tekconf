@@ -21,6 +21,7 @@ namespace TekConf.UI.Web.Controllers
 	{
 		private RemoteDataRepositoryAsync _repository;
 		private readonly IConferenceRepository _conferenceRepository;
+
 		public AdminSessionController()
 		{
 			var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
@@ -159,7 +160,7 @@ namespace TekConf.UI.Web.Controllers
 			var saveSessionTask = Task.Factory.StartNew(() =>
 			{
 				var session = Mapper.Map<AddSession, SessionEntity>(request);
-				sessionEntity = _conferenceRepository.SaveSession(request.conferenceSlug, session);
+				sessionEntity = _conferenceRepository.SaveSession(request.conferenceSlug, request.slug, session);
 				conferenceEntity = _conferenceRepository.AsQueryable().Single(x => x.slug == request.conferenceSlug);
 			});
 			
