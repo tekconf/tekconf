@@ -69,6 +69,9 @@ namespace TekConf.UI.Api.Services.Requests.v1
 	[Route("/v1/conferences", "GET")]
 	public class Conferences : IReturn<List<FullConferenceDto>>
 	{
+		[ApiMember(Name = "userName", Description = "The requesting user's login name. This is used to determine which conferences are on their schedule.", ParameterType = "query", DataType = "string", IsRequired = false)]
+		public string userName { get; set; }
+
 		[ApiMember(Name = "search", Description = "Search conference name, description, city, country, session title, session description, speaker name, or speaker twitter handle.", ParameterType = "query", DataType = "string", IsRequired = false)]
 		public string search { get; set; }
 

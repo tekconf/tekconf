@@ -14,7 +14,7 @@ namespace TekConf.RemoteData.v1
 		void AddSessionToSchedule(string conferenceSlug, string sessionSlug, string userName, Action<ScheduleDto> callback);
 		void RemoveSessionFromSchedule(string conferenceSlug, string sessionSlug, string userName, Action<ScheduleDto> callback);
 
-		void GetConferences(Action<IList<FullConferenceDto>> callback, string sortBy = "end", 
+		void GetConferences(Action<IList<FullConferenceDto>> callback, string userName = null, string sortBy = "end", 
 			bool? showPastConferences = false, bool? showOnlyOpenCalls = false, bool? showOnlyOnSale = false, 
 			string search = null, string city = null, string state = null, string country = null, double? latitude = null, 
 			double? longitude = null, double? distance = null);

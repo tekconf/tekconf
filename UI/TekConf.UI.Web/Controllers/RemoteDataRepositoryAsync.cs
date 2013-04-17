@@ -44,7 +44,9 @@ namespace TekConf.UI.Web.Controllers
 				return t.Task;
 			});
 		}
+
 		public Task<IList<FullConferenceDto>> GetConferences(
+														string userName = null,
 														string sortBy = null,
 														bool? showPastConferences = false,
 														bool? showOnlyOpenCalls = false,
@@ -57,7 +59,9 @@ namespace TekConf.UI.Web.Controllers
 			{
 				var t = new TaskCompletionSource<IList<FullConferenceDto>>();
 
-				_repository.GetConferences(sortBy: sortBy,
+				_repository.GetConferences(
+														userName: userName,
+														sortBy: sortBy,
 														showPastConferences: showPastConferences,
 														showOnlyOpenCalls: showOnlyOpenCalls,
 														showOnlyOnSale: showOnlyOnSale,

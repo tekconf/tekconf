@@ -127,7 +127,7 @@ namespace TekConf.RemoteData.v1
 			});
 		}
 
-		public void GetConferences(Action<IList<FullConferenceDto>> callback, string sortBy = "end", 
+		public void GetConferences(Action<IList<FullConferenceDto>> callback, string userName, string sortBy = "end", 
 			bool? showPastConferences = false, bool? showOnlyOpenCalls = false, bool? showOnlyOnSale = false, 
 			string search = null, string city = null, string state = null, string country = null, double? latitude = null, 
 			double? longitude = null, double? distance = null)
@@ -164,7 +164,8 @@ namespace TekConf.RemoteData.v1
 				country = country,
 				latitude = latitude,
 				longitude = longitude,
-				distance = distance
+				distance = distance,
+				userName = userName
 			};
 			ServiceClient.GetAsync(conferences, callback, (r, ex) => { callback(null); });
 		}

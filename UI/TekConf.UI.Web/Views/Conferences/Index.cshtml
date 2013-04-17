@@ -231,18 +231,25 @@
 										@conference.description
 									</p>
 
-									<div style="position: absolute; bottom: 10px;">
-										<a href="~/Conferences/@conference.slug" class="btn btn-primary btn-block">View Conference</a>
+									<div style="position: absolute; bottom: 10px; width:240px;">
+										<a href="~/Conferences/@conference.slug" class="btn btn-primary btn-block" style="margin-bottom: 8px; width:100%;">View Conference</a>
 										@if (Request.IsAuthenticated)
-					{
-						using (Html.BeginForm("Add", "Schedule", FormMethod.Post, new { id = conference.slug + "-form" }))
-						{
-							Html.AntiForgeryToken();
-							var formName = conference.slug + "-form";
+										{
+											using (Html.BeginForm("Add", "Schedule", FormMethod.Post, new { id = conference.slug + "-form" }))
+											{
+												Html.AntiForgeryToken();
+												var formName = conference.slug + "-form";
 												@Html.Hidden("conferenceSlug", conference.slug)
-												<a href="javascript:document.getElementById('@formName').submit()" class="btn btn-block">I'm Attending!</a>
-						}
-					}
+												 if (conference.isAddedToSchedule.HasValue && conference.isAddedToSchedule.Value)
+												 {
+													 <a href="javascript:document.getElementById('@formName').submit()" class="btn btn-block btn-success" style="width:100%">View My Schedule</a>
+												 }
+												 else
+												 {
+													 <a href="javascript:document.getElementById('@formName').submit()" class="btn btn-block" style="width: 100%;">Add to Schedule</a>													 
+												 }
+											}
+										}
 									</div>
 								</div>
 							</div>

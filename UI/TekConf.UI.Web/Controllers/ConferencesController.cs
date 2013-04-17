@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using AutoMapper;
@@ -13,11 +14,13 @@ namespace TekConf.UI.Web.Controllers
 	public class ConferencesController : Controller
 	{
 		private readonly IConferenceRepository _conferenceRepository;
+		private readonly IRepository<ScheduleEntity> _scheduleRepository;
 		private readonly IRemoteDataRepositoryAsync _remoteDataRepositoryAsync;
 
-		public ConferencesController(IConferenceRepository conferenceRepository, IRemoteDataRepositoryAsync remoteDataRepositoryAsync)
+		public ConferencesController(IConferenceRepository conferenceRepository, IRepository<ScheduleEntity> scheduleRepository, IRemoteDataRepositoryAsync remoteDataRepositoryAsync)
 		{
 			_conferenceRepository = conferenceRepository;
+			_scheduleRepository = scheduleRepository;
 			_remoteDataRepositoryAsync = remoteDataRepositoryAsync;
 		}
 
@@ -63,6 +66,19 @@ namespace TekConf.UI.Web.Controllers
 
 			var conferencesDtos = Mapper.Map<List<FullConferenceDto>>(conferences);
 
+			string userName = string.Empty;
+			if (Request.IsAuthenticated)
+			{
+				userName = System.Web.HttpContext.Current.User.Identity.Name;
+				var schedules = _scheduleRepository.AsQueryable().Where(x => x.UserName == userName).ToList();
+				foreach (var conferenceDto in conferencesDtos)
+				{
+					conferenceDto.isAddedToSchedule = schedules.Any(x => x.ConferenceSlug == conferenceDto.slug);
+				}
+			}
+
+			
+
 			return View(conferencesDtos);
 
 		}
@@ -70,7 +86,6 @@ namespace TekConf.UI.Web.Controllers
 		[CompressFilter]
 		public async Task<ActionResult> Detail(string conferenceSlug)
 		{
-
 			string userName = string.Empty;
 			if (Request.IsAuthenticated)
 			{

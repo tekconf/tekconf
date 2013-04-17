@@ -41,14 +41,19 @@ namespace TekConf.UI.Api.Services.v1
 		private readonly ITinyMessengerHub _hub;
 		private readonly IConferenceRepository _conferenceRepository;
 		private readonly IRepository<GeoLocationEntity> _geolocationRepository;
+		private readonly IRepository<ScheduleEntity> _scheduleRepository;
 		private readonly IEntityConfiguration _configuration;
 		public ICacheClient CacheClient { get; set; }
 
-		public ConferencesService(ITinyMessengerHub hub, IConferenceRepository conferenceRepository, IRepository<GeoLocationEntity> geolocationRepository, IEntityConfiguration configuration)
+		public ConferencesService(ITinyMessengerHub hub, IConferenceRepository conferenceRepository, 
+			IRepository<GeoLocationEntity> geolocationRepository, 
+			IRepository<ScheduleEntity> scheduleRepository, 
+			IEntityConfiguration configuration)
 		{
 			_hub = hub;
 			_conferenceRepository = conferenceRepository;
 			_geolocationRepository = geolocationRepository;
+			_scheduleRepository = scheduleRepository;
 			_configuration = configuration;
 		}
 
@@ -185,7 +190,11 @@ namespace TekConf.UI.Api.Services.v1
 																																																		request.country);
 
 						var conferencesDtos = Mapper.Map<List<FullConferenceDto>>(conferenceEntities);
-
+						var schedules = _scheduleRepository.AsQueryable().Where(x => x.UserName == request.userName).ToList();
+						foreach (var conferenceDto in conferencesDtos)
+						{
+							conferenceDto.isAddedToSchedule = schedules.Any(x => x.ConferenceSlug == conferenceDto.slug);
+						}
 						return conferencesDtos;
 					});
 

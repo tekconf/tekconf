@@ -61,7 +61,8 @@ namespace TekConf.UI.Web
 			container.Register<ITinyMessengerHub>(hub);
 			container.Register<IConferencesService>(new ConferencesService(container.Resolve<ITinyMessengerHub>(), 
 																																			container.Resolve<IConferenceRepository>(), 
-																																			container.Resolve<IRepository<GeoLocationEntity>>(), 
+																																			container.Resolve<IRepository<GeoLocationEntity>>(),
+																																			container.Resolve<IRepository<ScheduleEntity>>(), 
 																																			container.Resolve<IEntityConfiguration>()));
 
 			var subscriptions = new HubSubscriptions(hub,

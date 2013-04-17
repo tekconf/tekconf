@@ -8,6 +8,7 @@ namespace TekConf.UI.Web.Controllers
 	public interface IRemoteDataRepositoryAsync
 	{
 		Task<IList<FullConferenceDto>> GetConferences(
+			string userName = null,
 			string sortBy = null,
 			bool? showPastConferences = false,
 			bool? showOnlyOpenCalls = false,
