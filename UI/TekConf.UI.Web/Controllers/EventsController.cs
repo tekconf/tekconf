@@ -1,5 +1,4 @@
-﻿
-using System.Timers;
+﻿using System.Timers;
 using System.Web.Mvc;
 using Microsoft.AspNet.SignalR;
 
@@ -19,6 +18,5 @@ namespace TekConf.UI.Web.Controllers
 
 			return View();
 		}
-
 	}
 }

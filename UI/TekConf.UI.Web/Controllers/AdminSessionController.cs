@@ -1,43 +1,34 @@
-using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using AutoMapper;
+using TekConf.Common.Entities;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.RemoteData.v1;
-using TekConf.UI.Api;
 using TekConf.UI.Api.Services.Requests.v1;
 
 namespace TekConf.UI.Web.Controllers
 {
-	using TekConf.Common.Entities;
-
-	using Configuration = System.Configuration.Configuration;
-
 	[Authorize]
 	public class AdminSessionController : AsyncController
 	{
-		private RemoteDataRepositoryAsync _repository;
+		private IRemoteDataRepositoryAsync _remoteDataRepositoryAsync;
+		private readonly IRemoteDataRepository _remoteDataRepository;
 		private readonly IConferenceRepository _conferenceRepository;
 
-		public AdminSessionController()
+		public AdminSessionController(IConferenceRepository conferenceRepository, IRemoteDataRepositoryAsync remoteDataRepositoryAsync, IRemoteDataRepository remoteDataRepository)
 		{
-			var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
-
-			_repository = new RemoteDataRepositoryAsync(baseUrl);
-			var configuration = new EntityConfiguration();
-			_conferenceRepository = new ConferenceRepository(configuration);
+			_conferenceRepository = conferenceRepository;
+			_remoteDataRepositoryAsync = remoteDataRepositoryAsync;
+			_remoteDataRepository = remoteDataRepository;
 		}
 
 		#region Add Session
 
 		public void AddSessionAsync(string conferenceSlug)
 		{
-			var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
-
-			var repository = new RemoteDataRepository(baseUrl);
 			string userName = string.Empty;
 			if (Request.IsAuthenticated)
 			{
@@ -45,7 +36,7 @@ namespace TekConf.UI.Web.Controllers
 			}
 
 			AsyncManager.OutstandingOperations.Increment();
-			repository.GetFullConference(conferenceSlug, userName, conference =>
+			_remoteDataRepository.GetFullConference(conferenceSlug, userName, conference =>
 												{
 													AsyncManager.Parameters["conference"] = conference;
 													AsyncManager.OutstandingOperations.Decrement();
@@ -68,8 +59,6 @@ namespace TekConf.UI.Web.Controllers
 			var roomsList = new SelectList(rooms.Select(x => new KeyValuePair<string, string>(x, x)), "Key", "Value");
 			ViewBag.RoomsList = roomsList;
 
-			
-
 			session.start = conference.start;
 			session.end = conference.end;
 
@@ -84,13 +73,9 @@ namespace TekConf.UI.Web.Controllers
 			if (Request.Form["hidden-subjects"] != null)
 				session.subjects = Request.Form["hidden-subjects"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
 
-			var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
-
-			var repository = new RemoteDataRepository(baseUrl);
-
 			AsyncManager.OutstandingOperations.Increment();
 
-			repository.AddSessionToConference(session, "user", "password", c =>
+			_remoteDataRepository.AddSessionToConference(session, "user", "password", c =>
 																										 {
 																											 AsyncManager.Parameters["session"] = c;
 																											 AsyncManager.OutstandingOperations.Decrement();
@@ -108,9 +93,6 @@ namespace TekConf.UI.Web.Controllers
 
 		public void EditSessionAsync(string conferenceSlug, string sessionSlug)
 		{
-			var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
-
-			var repository = new RemoteDataRepository(baseUrl);
 			string userName = string.Empty;
 			if (Request.IsAuthenticated)
 			{
@@ -118,7 +100,7 @@ namespace TekConf.UI.Web.Controllers
 			}
 
 			AsyncManager.OutstandingOperations.Increment();
-			repository.GetFullConference(conferenceSlug, userName, conference =>
+			_remoteDataRepository.GetFullConference(conferenceSlug, userName, conference =>
 																											 {
 																												 AsyncManager.Parameters["sessionSlug"] = sessionSlug;
 																												 AsyncManager.Parameters["conference"] = conference;

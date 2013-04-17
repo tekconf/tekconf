@@ -1,10 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using AutoMapper;
+using MongoDB.Driver;
+using ServiceStack.Messaging;
+using ServiceStack.Redis;
+using ServiceStack.ServiceInterface;
+using ServiceStack.WebHost.Endpoints;
 using TekConf.Common.Entities;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.UI.Api.Services.Requests.v1;
@@ -14,9 +20,24 @@ using TinyMessenger;
 
 namespace TekConf.UI.Api.Services.v1
 {
+	public interface IConferencesService
+	{
+		ICacheClient CacheClient { get; set; }
+		IRequestContext RequestContext { get; set; }
+		ICacheClient Cache { get; }
+		IDbConnection Db { get; }
+		IRedisClient Redis { get; }
+		IMessageProducer MessageProducer { get; }
+		ISessionFactory SessionFactory { get; }
+		ISession Session { get; }
 
-    public class ConferencesService : MongoServiceBase
-    {
+		object Get(ConferencesCount request);
+		object Get(Search request);
+		object Get(Conferences request);
+	}
+
+	public class ConferencesService : MongoServiceBase, IConferencesService
+	{
         private readonly ITinyMessengerHub _hub;
         private readonly IConferenceRepository _conferenceRepository;
         private readonly IRepository<GeoLocationEntity> _geolocationRepository;

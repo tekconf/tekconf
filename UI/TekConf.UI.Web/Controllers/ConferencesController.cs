@@ -1,50 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-
 using AutoMapper;
 using Elmah;
+using TekConf.Common.Entities;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.UI.Web.App_Start;
 
 namespace TekConf.UI.Web.Controllers
 {
-	using TekConf.Common.Entities;
-
-	using ConferenceRepository = TekConf.Common.Entities.ConferenceRepository;
-	using IConferenceRepository = TekConf.Common.Entities.IConferenceRepository;
-
-	public class ConferencesFilter
-	{
-		public string sortBy { get; set; }
-		public bool showPastConferences { get; set; }
-		public bool showOnlyOpenCalls { get; set; }
-		public bool showOnlyOnSale { get; set; }
-		public string viewAs { get; set; }
-		public string search { get; set; }
-
-		public string city { get; set; }
-		public string state { get; set; }
-		public string country { get; set; }
-		public double? latitude { get; set; }
-		public double? longitude { get; set; }
-		public double? distance { get; set; }
-
-	}
-
 	public class ConferencesController : Controller
 	{
-		private readonly RemoteDataRepositoryAsync _repository;
 		private readonly IConferenceRepository _conferenceRepository;
-		public ConferencesController()
-		{
-			var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
+		private readonly IRemoteDataRepositoryAsync _remoteDataRepositoryAsync;
 
-			_repository = new RemoteDataRepositoryAsync(baseUrl);
-			IEntityConfiguration entityConfiguration = new EntityConfiguration();
-			_conferenceRepository = new ConferenceRepository(entityConfiguration);
+		public ConferencesController(IConferenceRepository conferenceRepository, IRemoteDataRepositoryAsync remoteDataRepositoryAsync)
+		{
+			_conferenceRepository = conferenceRepository;
+			_remoteDataRepositoryAsync = remoteDataRepositoryAsync;
 		}
 
 		[CompressFilter]
@@ -63,9 +37,9 @@ namespace TekConf.UI.Web.Controllers
 			IEnumerable<ConferenceEntity> conferences = new List<ConferenceEntity>();
 
 			Task getConferencesTask = Task.Factory.StartNew(() =>
-					{
-						conferences = _conferenceRepository.GetConferences(search, sortBy, showPastConferences, showOnlyOpenCalls, showOnlyOnSale, false, longitude, latitude, distance, city, state, country);
-					});
+			{
+				conferences = _conferenceRepository.GetConferences(search, sortBy, showPastConferences, showOnlyOpenCalls, showOnlyOnSale, false, longitude, latitude, distance, city, state, country);
+			});
 
 			await getConferencesTask;
 
@@ -103,7 +77,7 @@ namespace TekConf.UI.Web.Controllers
 				userName = System.Web.HttpContext.Current.User.Identity.Name;
 			}
 
-			var conferenceTask = _repository.GetFullConference(conferenceSlug, userName);
+			var conferenceTask = _remoteDataRepositoryAsync.GetFullConference(conferenceSlug, userName);
 
 			await conferenceTask;
 

@@ -8,6 +8,8 @@ namespace TekConf.UI.Web
 	{
 		protected void Application_Start()
 		{
+			new AppHost().Init();
+
 			ViewEngines.Engines.Clear();
 			ViewEngines.Engines.Add(new RazorViewEngine());
 
@@ -18,12 +20,6 @@ namespace TekConf.UI.Web
 			RouteConfig.RegisterRoutes(RouteTable.Routes);
 			BundleConfig.RegisterBundles(BundleTable.Bundles);
 			AuthConfig.RegisterAuth();
-
-
-
-			var bootstrapper = new Bootstrapper();
-			bootstrapper.BootstrapAutomapper();
-			bootstrapper.BootstrapMongoDb();
 		}
 	}
 }

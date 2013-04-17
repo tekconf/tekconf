@@ -7,7 +7,7 @@ using ServiceStack.Common.ServiceClient.Web;
 
 namespace TekConf.RemoteData.v1
 {
-	public class RemoteDataRepository
+	public class RemoteDataRepository : IRemoteDataRepository
 	{
 		private readonly string _baseUrl;
 		public RemoteDataRepository(string baseUrl)

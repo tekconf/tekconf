@@ -13,12 +13,11 @@ namespace TekConf.UI.Web.Controllers
 	[Authorize]
 	public class AdminSpeakerController : Controller
 	{
-		private readonly RemoteDataRepositoryAsync _repository;
-		public AdminSpeakerController()
-		{
-			var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
+		private readonly IRemoteDataRepositoryAsync _remoteDataRepositoryAsync;
 
-			_repository = new RemoteDataRepositoryAsync(baseUrl);
+		public AdminSpeakerController(IRemoteDataRepositoryAsync remoteDataRepositoryAsync)
+		{
+			_remoteDataRepositoryAsync = remoteDataRepositoryAsync;
 		}
 
 		[HttpGet]
@@ -51,7 +50,7 @@ namespace TekConf.UI.Web.Controllers
 																				 }, null);
 			}
 
-			var addSpeakerTask = _repository.AddSpeakerToSession(speaker);
+			var addSpeakerTask = _remoteDataRepositoryAsync.AddSpeakerToSession(speaker);
 
 			await Task.WhenAll(addSpeakerTask, imageTask);
 
@@ -73,7 +72,7 @@ namespace TekConf.UI.Web.Controllers
 		[HttpGet]
 		public async Task<ActionResult> EditSpeaker(string conferenceSlug, string speakerSlug)
 		{
-			var speakerTask = _repository.GetSpeaker(conferenceSlug, speakerSlug);
+			var speakerTask = _remoteDataRepositoryAsync.GetSpeaker(conferenceSlug, speakerSlug);
 			await speakerTask;
 
 			var createSpeaker = Mapper.Map<CreateSpeaker>(speakerTask.Result);
@@ -92,7 +91,7 @@ namespace TekConf.UI.Web.Controllers
 			}
 
 			var imageTask = SaveSpeakerImage(url, file);
-			var speakerTask = _repository.EditSpeaker(speaker);
+			var speakerTask = _remoteDataRepositoryAsync.EditSpeaker(speaker);
 
 			await Task.WhenAll(imageTask, speakerTask);
 

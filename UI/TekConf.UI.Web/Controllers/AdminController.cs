@@ -1,16 +1,14 @@
-﻿﻿using System.Configuration;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace TekConf.UI.Web.Controllers
 {
 	[Authorize]
 	public class AdminController : Controller
 	{
-		private RemoteDataRepositoryAsync _repository;
-		public AdminController()
+		private IRemoteDataRepositoryAsync _remoteDataRepositoryAsync;
+		public AdminController(IRemoteDataRepositoryAsync remoteDataRepositoryAsync)
 		{
-			var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
-			_repository = new RemoteDataRepositoryAsync(baseUrl);
+			_remoteDataRepositoryAsync = remoteDataRepositoryAsync;
 		}
 
 		public ActionResult Index()

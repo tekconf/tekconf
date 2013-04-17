@@ -35,5 +35,6 @@ namespace TekConf.UI.Web.Controllers
 		Task<FullSpeakerDto> AddSpeakerToSession(CreateSpeaker speaker);
 		Task<FullSpeakerDto> EditSpeaker(CreateSpeaker speaker);
 		Task<PresentationDto> GetPresentation(string slug, string userName);
+		Task<List<PresentationDto>>  GetPresentations(string userName);
 	}
 }

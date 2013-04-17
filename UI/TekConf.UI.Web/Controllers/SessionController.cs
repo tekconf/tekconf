@@ -7,19 +7,17 @@ namespace TekConf.UI.Web.Controllers
 {
 	public class SessionController : Controller
 	{
-		private readonly RemoteDataRepositoryAsync _repository;
+		private readonly IRemoteDataRepositoryAsync _remoteDataRepositoryAsync;
 
-		public SessionController()
+		public SessionController(IRemoteDataRepositoryAsync remoteDataRepositoryAsync)
 		{
-			var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
-
-			_repository = new RemoteDataRepositoryAsync(baseUrl);
+			_remoteDataRepositoryAsync = remoteDataRepositoryAsync;
 		}
 
 		[CompressFilter]
 		public async Task<ActionResult> Index(string conferenceSlug)
 		{
-			var sessionsTask = _repository.GetSessions(conferenceSlug);
+			var sessionsTask = _remoteDataRepositoryAsync.GetSessions(conferenceSlug);
 			await sessionsTask;
 			return View(sessionsTask.Result);
 		}
@@ -27,7 +25,7 @@ namespace TekConf.UI.Web.Controllers
 		[CompressFilter]
 		public async Task<ActionResult> Detail(string conferenceSlug, string sessionSlug)
 		{
-			var sessionDetailTask = _repository.GetSessionDetail(conferenceSlug, sessionSlug);
+			var sessionDetailTask = _remoteDataRepositoryAsync.GetSessionDetail(conferenceSlug, sessionSlug);
 
 			await sessionDetailTask;
 

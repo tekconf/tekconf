@@ -124,6 +124,7 @@
     <Compile Include="v1\Helpers.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="v1\IRemoteDataRepository.cs" />
     <Compile Include="v1\RemoteDataRepository.cs">
       <SubType>Code</SubType>
     </Compile>

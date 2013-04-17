@@ -18,12 +18,13 @@ namespace TekConf.UI.Web.Controllers
 	[Authorize]
 	public class AdminConferenceController : AsyncController
 	{
-		private readonly RemoteDataRepositoryAsync _repository;
-		public AdminConferenceController()
-		{
-			var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
+		private readonly IRemoteDataRepository _remoteDataRepository;
+		private readonly IRemoteDataRepositoryAsync _remoteDataRepositoryAsync;
 
-			_repository = new RemoteDataRepositoryAsync(baseUrl);
+		public AdminConferenceController(IRemoteDataRepository remoteDataRepository, IRemoteDataRepositoryAsync remoteDataRepositoryAsync)
+		{
+			_remoteDataRepository = remoteDataRepository;
+			_remoteDataRepositoryAsync = remoteDataRepositoryAsync;
 		}
 
 		#region Add Conference
@@ -41,10 +42,13 @@ namespace TekConf.UI.Web.Controllers
 		{
 			if (Request.Form["hidden-tags"] != null)
 				conference.tags = Request.Form["hidden-tags"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+			
 			if (Request.Form["hidden-sessionTypes"] != null)
 				conference.sessionTypes = Request.Form["hidden-sessionTypes"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+			
 			if (Request.Form["hidden-subjects"] != null)
 				conference.subjects = Request.Form["hidden-subjects"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+			
 			if (Request.Form["hidden-rooms"] != null)
 				conference.rooms = Request.Form["hidden-rooms"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
 
@@ -66,7 +70,7 @@ namespace TekConf.UI.Web.Controllers
 				conference.imageUrl = url;
 			}
 
-			var conferenceTask = _repository.CreateConference(conference);
+			var conferenceTask = _remoteDataRepositoryAsync.CreateConference(conference);
 
 			await Task.WhenAll(conferenceTask);
 
@@ -82,17 +86,13 @@ namespace TekConf.UI.Web.Controllers
 		[HttpGet]
 		public void EditConferenceAsync(string conferenceSlug)
 		{
-			var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
-
-			var repository = new RemoteDataRepository(baseUrl);
-
 			string userName = string.Empty;
 			if (Request.IsAuthenticated)
 			{
 				userName = System.Web.HttpContext.Current.User.Identity.Name;
 			}
 			AsyncManager.OutstandingOperations.Increment();
-			repository.GetFullConference(conferenceSlug, userName, conference =>
+			_remoteDataRepository.GetFullConference(conferenceSlug, userName, conference =>
 			{
 				AsyncManager.Parameters["conference"] = conference;
 				AsyncManager.OutstandingOperations.Decrement();
@@ -119,10 +119,6 @@ namespace TekConf.UI.Web.Controllers
 			if (Request.Form["hidden-rooms"] != null)
 				conference.rooms = Request.Form["hidden-rooms"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
 
-			var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
-
-			var repository = new RemoteDataRepository(baseUrl);
-
 			if (file != null)
 			{
 				AsyncManager.OutstandingOperations.Increment(2);
@@ -146,7 +142,7 @@ namespace TekConf.UI.Web.Controllers
 								}, null);
 			}
 
-			repository.EditConference(conference, "user", "password", c =>
+			_remoteDataRepository.EditConference(conference, "user", "password", c =>
 			{
 				AsyncManager.Parameters["conference"] = c;
 				AsyncManager.OutstandingOperations.Decrement();
@@ -189,13 +185,9 @@ namespace TekConf.UI.Web.Controllers
 
 		public void EditConferencesIndexAsync(string sortBy, bool? showPastConferences, string search)
 		{
-			var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
-
-			var repository = new RemoteDataRepository(baseUrl);
-
 			AsyncManager.OutstandingOperations.Increment();
 
-			repository.GetConferences(sortBy: sortBy, showPastConferences: showPastConferences, search: search, callback: conferences =>
+			_remoteDataRepository.GetConferences(sortBy: sortBy, showPastConferences: showPastConferences, search: search, callback: conferences =>
 			{
 				AsyncManager.Parameters["conferences"] = conferences;
 				AsyncManager.OutstandingOperations.Decrement();

@@ -17,21 +17,11 @@ namespace TekConf.UI.Web.Controllers
 	[Authorize]
 	public class PresentationsController : Controller
 	{
-		private readonly IRemoteDataRepositoryAsync _repository;
+		private readonly IRemoteDataRepositoryAsync _remoteDataRepositoryAsync;
 
-		public PresentationsController()
+		public PresentationsController(IRemoteDataRepositoryAsync remoteDataRepositoryAsync)
 		{
-			var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
-
-			_repository = new RemoteDataRepositoryAsync(baseUrl);
-		}
-
-		public PresentationsController(IRemoteDataRepositoryAsync repository)
-		{
-			_repository = repository;
-			//var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
-
-			//_repository = new RemoteDataRepositoryAsync(baseUrl);
+			_remoteDataRepositoryAsync = remoteDataRepositoryAsync;
 		}
 
 		public ActionResult Index()
@@ -47,7 +37,7 @@ namespace TekConf.UI.Web.Controllers
 				userName = System.Web.HttpContext.Current.User.Identity.Name;
 			}
 
-			var presentationTask = _repository.GetPresentation(slug, userName);
+			var presentationTask = _remoteDataRepositoryAsync.GetPresentation(slug, userName);
 
 			await presentationTask;
 
@@ -104,7 +94,7 @@ namespace TekConf.UI.Web.Controllers
 				presentation.Subjects = Request.Form["hidden-subjects"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
 
 
-			var presentationTask = _repository.CreatePresentation(presentation);
+			var presentationTask = _remoteDataRepositoryAsync.CreatePresentation(presentation);
 
 			await Task.WhenAll(presentationTask);
 
@@ -131,7 +121,7 @@ namespace TekConf.UI.Web.Controllers
 				Links = addPresentationHistoryViewModel.Links,
 				Notes = addPresentationHistoryViewModel.Notes
 			};
-			var presentationTask = _repository.CreatePresentationHistory(history);
+			var presentationTask = _remoteDataRepositoryAsync.CreatePresentationHistory(history);
 
 			await Task.WhenAll(presentationTask);
 

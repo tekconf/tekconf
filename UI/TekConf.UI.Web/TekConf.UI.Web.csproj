@@ -148,6 +148,10 @@
       <HintPath>..\..\packages\ServiceStack.Common.3.9.43\lib\net35\ServiceStack.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="ServiceStack.FluentValidation.Mvc3, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\ServiceStack.Mvc.3.9.43\lib\net40\ServiceStack.FluentValidation.Mvc3.dll</HintPath>
+    </Reference>
     <Reference Include="ServiceStack.Interfaces">
       <HintPath>..\..\packages\ServiceStack.Common.3.9.43\lib\net35\ServiceStack.Interfaces.dll</HintPath>
       <Private>True</Private>
@@ -255,11 +259,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Code\Class1.cs" />
+    <Compile Include="AppHost.cs" />
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminConferenceController.cs" />
     <Compile Include="Controllers\AdminSessionController.cs" />
     <Compile Include="Controllers\AdminSpeakerController.cs" />
+    <Compile Include="Controllers\ConferencesFilter.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\FileSystemImageSaver.cs" />
@@ -682,6 +688,10 @@
     <ProjectReference Include="..\..\RemoteData\Shared\TekConf.RemoteData.Shared.csproj">
       <Project>{1439b0ec-5c15-4b18-b4eb-8a2787abdfde}</Project>
       <Name>TekConf.RemoteData.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TekConf.UI.Api\TekConf.UI.Api.csproj">
+      <Project>{e029f24d-8594-4954-892d-d640d6053406}</Project>
+      <Name>TekConf.UI.Api</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

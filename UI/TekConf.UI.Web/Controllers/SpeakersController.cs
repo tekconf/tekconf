@@ -13,13 +13,11 @@ namespace TekConf.UI.Web.Controllers
 {
 	public class SpeakersController : Controller
 	{
-		private readonly RemoteDataRepositoryAsync _repository;
+		private readonly IRemoteDataRepositoryAsync _remoteDataRepositoryAsync;
 
-		public SpeakersController()
+		public SpeakersController(IRemoteDataRepositoryAsync remoteDataRepositoryAsync)
 		{
-			var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
-
-			_repository = new RemoteDataRepositoryAsync(baseUrl);
+			_remoteDataRepositoryAsync = remoteDataRepositoryAsync;
 		}
 
 
@@ -27,15 +25,15 @@ namespace TekConf.UI.Web.Controllers
 		public async Task<ActionResult> Index()
 		{
 			//var openCallsConferencesTask = _repository.GetConferencesWithOpenCalls();
-			var openCallsConferencesTask = _repository.GetConferences(showOnlyOpenCalls: true);
+			var openCallsConferencesTask = _remoteDataRepositoryAsync.GetConferences(showOnlyOpenCalls: true);
 			List<PresentationDto> presentations;
 			List<FullConferenceDto> myConferences;
 
 			if (Request.IsAuthenticated)
 			{
 				var userName = User.Identity.Name;
-				var presentationsTask = _repository.GetPresentations(userName);
-				var conferencesTask = _repository.GetSchedules(userName);
+				var presentationsTask = _remoteDataRepositoryAsync.GetPresentations(userName);
+				var conferencesTask = _remoteDataRepositoryAsync.GetSchedules(userName);
 
 				await Task.WhenAll(openCallsConferencesTask, presentationsTask, conferencesTask);
 
