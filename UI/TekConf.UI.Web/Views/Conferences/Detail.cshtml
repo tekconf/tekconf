@@ -91,7 +91,10 @@
 																		.Select(s => new { DateKey = s.Key, Sessions = s })
 																		.ToList();
 					}
-
+					@if (Request.IsAuthenticated)
+					{
+						<div class="well"><a href="#" id="showHideMySessions">Show/Hide unscheduled sessions</a></div>
+					}
 					@foreach (var dayGroup in sessionGroup.OrderBy(s => s.DateKey.Year).ThenBy(s => s.DateKey.Month).ThenBy(s => s.DateKey.Day))
 		 {
 			 var date = DateTime.Parse(dayGroup.DateKey.Month + "/" + dayGroup.DateKey.Day + "/" + dayGroup.DateKey.Year);
@@ -125,20 +128,20 @@
                                 
 										<tr>
 											@if (Request.IsAuthenticated)
-					 {
-						 if (session.isAddedToSchedule.HasValue && session.isAddedToSchedule.Value)
-						 {
-												<td style="width: 20px;">
-													<i class="icon-star icon-2x icon-selected" id="remove-@session.slug" onclick="javascript:toggleSessionOnSchedule('@Model.slug', '@session.slug', '#remove-@session.slug')"></i>
-												</td>
-						 }
-						 else
-						 {
-												<td style="width: 20px;">
-													<i class="icon-star-empty icon-2x" id="add-@session.slug" onclick="javascript:toggleSessionOnSchedule('@Model.slug', '@session.slug', '#add-@session.slug')"></i>
-												</td>																										
-						 }
-					 }
+											 {
+												 if (session.isAddedToSchedule.HasValue && session.isAddedToSchedule.Value)
+												 {
+														<td class="scheduled" style="width: 20px;">
+															<i class="icon-star icon-2x icon-selected" id="remove-@session.slug" onclick="javascript:toggleSessionOnSchedule('@Model.slug', '@session.slug', '#remove-@session.slug')"></i>
+														</td>
+												 }
+												 else
+												 {
+														<td class="unscheduled" style="width: 20px;">
+															<i class="icon-star-empty icon-2x" id="add-@session.slug" onclick="javascript:toggleSessionOnSchedule('@Model.slug', '@session.slug', '#add-@session.slug')"></i>
+														</td>																										
+												 }
+											 }
 
 											<td>
 												@Html.RouteLink(session.title, "SessionDetail", new { conferenceSlug = Model.slug, sessionSlug = session.slug }, null)
@@ -285,6 +288,14 @@
 	@Scripts.Render("~/bundles/jqueryUI")
 
 	<script>
+		$(function () {
+			$(document).on("click", "#showHideMySessions", function (e) {
+				e.preventDefault();
+
+				$('td.unscheduled').parent().toggle();
+			});
+		});
+		
 		function toggleSessionOnSchedule(conferenceSlug, sessionSlug, element) {
 			if ($(element).hasClass("icon-star")) {
 				removeSessionFromSchedule(conferenceSlug, sessionSlug, element);
@@ -295,29 +306,31 @@
 
 		function removeSessionFromSchedule(conferenceSlug, sessionSlug, element) {
 			$(element).removeClass("icon-star").removeClass("icon-selected").addClass("icon-exchange");
+			$(element).parent().removeClass("scheduled").addClass("unscheduled");
 			var jqxhr = $.post("@Url.Action("Delete", "Schedule")", { conferenceSlug: conferenceSlug, sessionSlug: sessionSlug }, function () {
-    		})
-						.done(function () {
-							$(element).removeClass("icon-star").removeClass("icon-selected").removeClass("icon-exchange").addClass("icon-star-empty");
-						})
-						.fail(function () { alert("error"); })
-						.always(function () {
-							$(element).removeClass("icon-exchange");
-						});
-			}
+			})
+				.done(function () {
+					$(element).removeClass("icon-star").removeClass("icon-selected").removeClass("icon-exchange").addClass("icon-star-empty");
+				})
+				.fail(function () { alert("error"); })
+				.always(function () {
+					$(element).removeClass("icon-exchange");
+				});
+		}
 
-			function addSessionToSchedule(conferenceSlug, sessionSlug, element) {
-				$(element).removeClass("icon-star-empty").addClass("icon-exchange");
-				var jqxhr = $.post("@Url.Action("Add", "Schedule")", { conferenceSlug: conferenceSlug, sessionSlug: sessionSlug }, function () {
-						})
-						.done(function () {
-							$(element).removeClass("icon-star-empty").removeClass("icon-exchange").addClass("icon-star").addClass("icon-selected");
-						})
-						.fail(function () { alert("error"); })
-						.always(function () {
-							$(element).removeClass("icon-exchange");
-						});
-					}
+		function addSessionToSchedule(conferenceSlug, sessionSlug, element) {
+			$(element).removeClass("icon-star-empty").addClass("icon-exchange");
+			$(element).parent().removeClass("unscheduled").addClass("scheduled");
+			var jqxhr = $.post("@Url.Action("Add", "Schedule")", { conferenceSlug: conferenceSlug, sessionSlug: sessionSlug }, function () {
+			})
+				.done(function () {
+					$(element).removeClass("icon-star-empty").removeClass("icon-exchange").addClass("icon-star").addClass("icon-selected");
+				})
+				.fail(function () { alert("error"); })
+				.always(function () {
+					$(element).removeClass("icon-exchange");
+				});
+		}
 	</script>
 </body>
 </html>
