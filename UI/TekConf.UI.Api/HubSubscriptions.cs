@@ -5,6 +5,8 @@ using TinyMessenger;
 
 namespace TekConf.UI.Api
 {
+	using System.Linq;
+
 	using TekConf.Common.Entities;
 
 	public class HubSubscriptions
@@ -23,6 +25,9 @@ namespace TekConf.UI.Api
 		private readonly IRepository<ConferenceCreatedMessage> _conferenceCreatedRepository;
 		private readonly IRepository<ScheduleCreatedMessage> _scheduleCreatedRepository;
 		private readonly IRepository<SessionAddedToScheduleMessage> _sessionAddedToScheduleRepository;
+
+		private readonly IRepository<SubscriptionEntity> _subscriptionRepository;
+
 		private readonly IEmailSender _emailSender;
 		private readonly IEntityConfiguration _entityConfiguration;
 
@@ -40,6 +45,7 @@ namespace TekConf.UI.Api
 																IRepository<ConferenceCreatedMessage> conferenceCreatedRepository,
 																IRepository<ScheduleCreatedMessage> scheduleCreatedRepository,
 																IRepository<SessionAddedToScheduleMessage> sessionAddedToScheduleRepository,
+																IRepository<SubscriptionEntity> subscriptionRepository,
 																IEmailSender emailSender,
 																IEntityConfiguration entityConfiguration
 														)
@@ -60,6 +66,7 @@ namespace TekConf.UI.Api
 			_conferenceCreatedRepository = conferenceCreatedRepository;
 			_scheduleCreatedRepository = scheduleCreatedRepository;
 			_sessionAddedToScheduleRepository = sessionAddedToScheduleRepository;
+			_subscriptionRepository = subscriptionRepository;
 			_emailSender = emailSender;
 			this._entityConfiguration = entityConfiguration;
 
@@ -265,10 +272,12 @@ namespace TekConf.UI.Api
 								// Tweet
 								_conferencePublishedRepository.Save(@event);
 								var context = GlobalHost.ConnectionManager.GetHubContext<EventsHub>();
-								var message = @event.ConferenceName + " has been published. ";
+								var message = @event.ConferenceName + " has been published to TekConf.";
 								context.Clients.All.broadcastMessage(message);
 
-								//_emailSender.Send(message);
+								//TODO : Format this better
+								var subscriptions = _subscriptionRepository.AsQueryable().Select(x => x.EmailAddress).ToList();
+								_emailSender.Send(message, subscriptions);
 							});
 
 		}

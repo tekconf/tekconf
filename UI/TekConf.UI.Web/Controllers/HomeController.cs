@@ -18,8 +18,6 @@ namespace TekConf.UI.Web.Controllers
 
 	public class HomeController : Controller
 	{
-		//private RemoteDataRepositoryAsync _asyncRepository;
-		private RemoteDataRepository _repository;
 		private readonly IConferenceRepository _conferenceRepository;
 		private readonly IScheduleRepository _scheduleRepository;
 		private readonly IRepository<SubscriptionEntity> _subscriptionRepository;
@@ -131,7 +129,7 @@ namespace TekConf.UI.Web.Controllers
 		[HttpPost]
 		public ActionResult Subscribe(string emailAddress)
 		{
-			_repository.AddSubscription(emailAddress, subscription =>
+			_remoteDataRepository.AddSubscription(emailAddress, subscription =>
 			{
 				
 			});

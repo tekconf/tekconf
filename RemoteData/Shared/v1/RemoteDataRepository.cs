@@ -117,7 +117,6 @@ namespace TekConf.RemoteData.v1
 
 			ServiceClient.PostAsync(subscription, callback, (r, ex) =>
 			{
-				var x = ex;
 				callback(null);
 			});
 		}

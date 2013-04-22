@@ -30,10 +30,10 @@ namespace TekConf.UI.Api
 
 		public override void Configure(Funq.Container container)
 		{
-				SetConfig(new EndpointHostConfig
-				{
-						MetadataPageBodyHtml = "<script>window.location = 'swagger-ui/index.html';</script>",
-				});
+			SetConfig(new EndpointHostConfig
+			{
+				MetadataPageBodyHtml = "<script>window.location = 'swagger-ui/index.html';</script>",
+			});
 
 			ServiceStack.Text.JsConfig.EmitCamelCaseNames = true;
 			Plugins.Add(new SwaggerFeature());
@@ -43,13 +43,14 @@ namespace TekConf.UI.Api
 
 			container.Register<IEntityConfiguration>(entityConfiguration);
 
-            container.Register<IConferenceRepository>(new ConferenceRepository(entityConfiguration));
+			container.Register<IConferenceRepository>(new ConferenceRepository(entityConfiguration));
 			container.Register<IRepository<ScheduleEntity>>(new ScheduleRepository(entityConfiguration));
 			container.Register<IRepository<UserEntity>>(new UserRepository(entityConfiguration));
 			container.Register<IRepository<GeoLocationEntity>>(new GeoLocationRepository(entityConfiguration));
-            container.Register<IRepository<PresentationEntity>>(new GenericRepository<PresentationEntity>(entityConfiguration));
-		    container.Register<IRepository<ConferenceEntity>>(new ConferenceRepository(entityConfiguration));
+			container.Register<IRepository<PresentationEntity>>(new GenericRepository<PresentationEntity>(entityConfiguration));
+			container.Register<IRepository<ConferenceEntity>>(new ConferenceRepository(entityConfiguration));
 
+			container.Register<IRepository<SubscriptionEntity>>(new GenericRepository<SubscriptionEntity>(entityConfiguration));
 			container.Register<IRepository<SessionRoomChangedMessage>>(new GenericRepository<SessionRoomChangedMessage>(entityConfiguration));
 			container.Register<IRepository<ConferenceLocationChangedMessage>>(new GenericRepository<ConferenceLocationChangedMessage>(entityConfiguration));
 			container.Register<IRepository<ConferenceEndDateChangedMessage>>(new GenericRepository<ConferenceEndDateChangedMessage>(entityConfiguration));
@@ -71,7 +72,7 @@ namespace TekConf.UI.Api
 			var hub = new TinyMessengerHub();
 			container.Register<ITinyMessengerHub>(hub);
 
-			var subscriptions = new HubSubscriptions(hub, 
+			var subscriptions = new HubSubscriptions(hub,
 								container.Resolve<IRepository<SessionRoomChangedMessage>>(),
 								container.Resolve<IRepository<ConferenceLocationChangedMessage>>(),
 								container.Resolve<IRepository<ConferenceEndDateChangedMessage>>(),
@@ -85,6 +86,7 @@ namespace TekConf.UI.Api
 								container.Resolve<IRepository<ConferenceCreatedMessage>>(),
 								container.Resolve<IRepository<ScheduleCreatedMessage>>(),
 								container.Resolve<IRepository<SessionAddedToScheduleMessage>>(),
+								container.Resolve<IRepository<SubscriptionEntity>>(),
 								container.Resolve<IEmailSender>(),
 								container.Resolve<IEntityConfiguration>()
 
