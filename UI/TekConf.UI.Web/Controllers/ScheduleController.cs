@@ -4,35 +4,34 @@ using TekConf.UI.Web.ViewModels;
 
 namespace TekConf.UI.Web.Controllers
 {
+	using TekConf.RemoteData.v1;
+
 	public class ScheduleController : Controller
 	{
-		private readonly IRemoteDataRepositoryAsync _remoteDataRepositoryAsync;
+		private readonly IRemoteDataRepository _remoteDataRepository;
 
-		public ScheduleController(IRemoteDataRepositoryAsync remoteDataRepositoryAsync)
+		public ScheduleController(IRemoteDataRepository remoteDataRepository)
 		{
-			_remoteDataRepositoryAsync = remoteDataRepositoryAsync;
+			_remoteDataRepository = remoteDataRepository;
 		}
 
 		[Authorize]
 		public async Task<ActionResult> Index()
 		{
-			if (Request.IsAuthenticated)
+			if (!Request.IsAuthenticated || System.Web.HttpContext.Current.User == null)
 			{
-				if (System.Web.HttpContext.Current.User != null)
-				{
-					var conferencesTask = _remoteDataRepositoryAsync.GetSchedules(System.Web.HttpContext.Current.User.Identity.Name);
-					await conferencesTask;
-
-					var model = new ScheduleViewModel()
-						{
-							Conferences = conferencesTask.Result
-						};
-
-					return View(model);
-
-				}
+				return View();
 			}
-			return View();
+
+			var conferences = await this._remoteDataRepository.GetSchedules(System.Web.HttpContext.Current.User.Identity.Name);
+
+			var model = new ScheduleViewModel()
+									{
+										Conferences = conferences
+									};
+
+			return View(model);
+
 		}
 
 		[HttpPost]
@@ -43,7 +42,7 @@ namespace TekConf.UI.Web.Controllers
 			{
 				if (System.Web.HttpContext.Current.User != null)
 				{
-					await _remoteDataRepositoryAsync.RemoveSessionFromSchedule(conferenceSlug, sessionSlug, System.Web.HttpContext.Current.User.Identity.Name, "");
+					await _remoteDataRepository.RemoveSessionFromSchedule(conferenceSlug, sessionSlug, System.Web.HttpContext.Current.User.Identity.Name);
 				}
 			}
 
@@ -58,7 +57,7 @@ namespace TekConf.UI.Web.Controllers
 			{
 				if (System.Web.HttpContext.Current.User != null)
 				{
-					await _remoteDataRepositoryAsync.AddSessionToSchedule(conferenceSlug, sessionSlug, System.Web.HttpContext.Current.User.Identity.Name, "");
+					await _remoteDataRepository.AddSessionToSchedule(conferenceSlug, sessionSlug, System.Web.HttpContext.Current.User.Identity.Name);
 				}
 			}
 

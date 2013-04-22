@@ -127,15 +127,11 @@ namespace TekConf.UI.Web.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult Subscribe(string emailAddress)
+		public async Task<ActionResult> Subscribe(string emailAddress)
 		{
-			_remoteDataRepository.AddSubscription(emailAddress, subscription =>
-			{
-				
-			});
+			var response = await _remoteDataRepository.AddSubscription(emailAddress);
 
 			return View();
-
 		}
 	}
 }

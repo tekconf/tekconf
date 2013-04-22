@@ -17,11 +17,11 @@ namespace TekConf.UI.Web.Controllers
 	[Authorize]
 	public class PresentationsController : Controller
 	{
-		private readonly IRemoteDataRepositoryAsync _remoteDataRepositoryAsync;
+		private readonly IRemoteDataRepository _remoteDataRepository;
 
-		public PresentationsController(IRemoteDataRepositoryAsync remoteDataRepositoryAsync)
+		public PresentationsController(IRemoteDataRepository remoteDataRepository)
 		{
-			_remoteDataRepositoryAsync = remoteDataRepositoryAsync;
+			_remoteDataRepository = remoteDataRepository;
 		}
 
 		public ActionResult Index()
@@ -37,17 +37,15 @@ namespace TekConf.UI.Web.Controllers
 				userName = System.Web.HttpContext.Current.User.Identity.Name;
 			}
 
-			var presentationTask = _remoteDataRepositoryAsync.GetPresentation(slug, userName);
+			var presentation = await _remoteDataRepository.GetPresentation(slug, userName);
 
-			await presentationTask;
-
-			if (presentationTask.Result == null)
+			if (presentation == null)
 			{
-				Elmah.ErrorLog.GetDefault(System.Web.HttpContext.Current).Log(new Error(new Exception("Presentation " + slug + " not found")));
+				ErrorLog.GetDefault(System.Web.HttpContext.Current).Log(new Error(new Exception("Presentation " + slug + " not found")));
 				return RedirectToAction("NotFound", "Error");
 			}
 
-			return View(presentationTask.Result);
+			return View(presentation);
 		}
 
 		public ActionResult Add()
@@ -94,9 +92,7 @@ namespace TekConf.UI.Web.Controllers
 				presentation.Subjects = Request.Form["hidden-subjects"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
 
 
-			var presentationTask = _remoteDataRepositoryAsync.CreatePresentation(presentation);
-
-			await Task.WhenAll(presentationTask);
+			var response = await _remoteDataRepository.CreatePresentation(presentation, presentation.UserName, "password");
 
 			return RedirectToAction("AddHistory", new { speakerSlug = presentation.SpeakerSlug, presentationSlug = presentation.Slug });
 		}
@@ -121,11 +117,8 @@ namespace TekConf.UI.Web.Controllers
 				Links = addPresentationHistoryViewModel.Links,
 				Notes = addPresentationHistoryViewModel.Notes
 			};
-			var presentationTask = _remoteDataRepositoryAsync.CreatePresentationHistory(history);
-
-			await Task.WhenAll(presentationTask);
-
-			var dto = presentationTask.Result;
+			
+			var dto = await _remoteDataRepository.CreatePresentationHistory(history, history.UserName, "password");
 
 			return RedirectToRoute("PresentationDetail", new { slug = dto.Slug });
 		}

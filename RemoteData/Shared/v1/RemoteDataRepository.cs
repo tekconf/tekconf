@@ -7,6 +7,10 @@ using ServiceStack.Common.ServiceClient.Web;
 
 namespace TekConf.RemoteData.v1
 {
+	using System.Threading.Tasks;
+
+	using ServiceStack.ServiceHost;
+
 	public class RemoteDataRepository : IRemoteDataRepository
 	{
 		private readonly string _baseUrl;
@@ -21,66 +25,47 @@ namespace TekConf.RemoteData.v1
 			{
 				if (_restClient == null)
 				{
-					_restClient = new JsonServiceClient(_baseUrl);
-					_restClient.Timeout = new TimeSpan(0, 0, 0, 120, 0);
+					_restClient = new JsonServiceClient(_baseUrl) { Timeout = new TimeSpan(0, 0, 0, 120, 0) };
 				}
 
 				return _restClient;
 			}
 		}
 
-		//public void Register(string authenticationMethod, string userName, string identifier, string password, string email)
-		//{
-		//	var request = new Registration()
-		//	{
-		//		Email = email,
-		//		UserName = userName,
-		//		Password = password
-		//	};
-
-		//	var response = ServiceClient.Post<RegistrationResponse>("/register", request);
-		//}
-
-		public void GetSchedule(string conferenceSlug, string userName, Action<ScheduleDto> callback)
+		public async Task<ScheduleDto> GetSchedule(string conferenceSlug, string userName)
 		{
 			var schedule = new Schedule() { conferenceSlug = conferenceSlug, userName = userName };
 
-			ServiceClient.GetAsync(schedule, callback, (r, ex) =>
-														 {
-															 var x = ex;
-															 callback(null);
-														 });
+			var response = await ServiceClient.GetAsync(schedule);
+		
+			return response;
 		}
 
-		public void GetSchedules(string userName, Action<List<FullConferenceDto>> callback)
+		public async Task<List<FullConferenceDto>> GetSchedules(string userName)
 		{
 			var schedules = new Schedules()
 			{
 				userName = userName
 			};
 
-			ServiceClient.GetAsync(schedules, callback, (r, ex) =>
-			{
-				var x = ex;
-				callback(null);
-			});
+			var response = await ServiceClient.GetAsync(schedules);
+
+			return response;
 		}
 
-		public void GetPresentations(string userName, Action<List<PresentationDto>> callback)
+		public async Task<List<PresentationDto>> GetPresentations(string userName)
 		{
 			var presentation = new Presentations()
 			{
 				speakerSlug = userName
 			};
 
-			ServiceClient.GetAsync(presentation, callback, (r, ex) =>
-			{
-				var x = ex;
-				callback(null);
-			});
+			var response = await ServiceClient.GetAsync(presentation);
+
+			return response;
 		}
 
-		public void GetPresentation(string slug, string userName, Action<PresentationDto> callback)
+		public async Task<PresentationDto> GetPresentation(string slug, string userName)
 		{
 			var presentation = new Presentation()
 			{
@@ -88,40 +73,34 @@ namespace TekConf.RemoteData.v1
 				speakerSlug = userName
 			};
 
-			ServiceClient.GetAsync(presentation, callback, (r, ex) =>
-			{
-				var x = ex;
-				callback(null);
-			});
+			var response = await ServiceClient.GetAsync(presentation);
+
+			return response;
 		}
 
-		public void GetSubscription(string emailAddress, Action<SubscriptionDto> callback)
+		public async Task<SubscriptionDto> GetSubscription(string emailAddress)
 		{
 			var subscription = new Subscription()
 			{
 				emailAddress = emailAddress
 			};
 
-			ServiceClient.GetAsync(subscription, callback, (r, ex) =>
-			{
-				callback(null);
-			});
+			var response = await ServiceClient.GetAsync(subscription);
+			return response;
 		}
 
-		public void AddSubscription(string emailAddress, Action<SubscriptionDto> callback)
+		public async Task<SubscriptionDto> AddSubscription(string emailAddress)
 		{
 			var subscription = new CreateSubscription()
 			{
 				EmailAddress = emailAddress
 			};
 
-			ServiceClient.PostAsync(subscription, callback, (r, ex) =>
-			{
-				callback(null);
-			});
+			var response = await ServiceClient.PostAsync(subscription);
+			return response;
 		}
 
-		public void AddSessionToSchedule(string conferenceSlug, string sessionSlug, string userName, Action<ScheduleDto> callback)
+		public async Task<ScheduleDto> AddSessionToSchedule(string conferenceSlug, string sessionSlug, string userName)
 		{
 			var schedule = new AddSessionToSchedule()
 			{
@@ -130,14 +109,11 @@ namespace TekConf.RemoteData.v1
 				sessionSlug = sessionSlug,
 			};
 
-			ServiceClient.PostAsync(schedule, callback, (r, ex) =>
-			{
-				var x = ex;
-				callback(null);
-			});
+			var response = await ServiceClient.PostAsync(schedule);
+			return response;
 		}
 
-		public void RemoveSessionFromSchedule(string conferenceSlug, string sessionSlug, string userName, Action<ScheduleDto> callback)
+		public async Task<ScheduleDto> RemoveSessionFromSchedule(string conferenceSlug, string sessionSlug, string userName)
 		{
 			var schedule = new RemoveSessionFromSchedule()
 			{
@@ -146,14 +122,11 @@ namespace TekConf.RemoteData.v1
 				sessionSlug = sessionSlug,
 			};
 
-			ServiceClient.DeleteAsync(schedule, callback, (r, ex) =>
-			{
-				var x = ex;
-				callback(null);
-			});
+			var response = await ServiceClient.DeleteAsync(schedule);
+			return response;
 		}
 
-		public void GetConferences(Action<IList<FullConferenceDto>> callback, string userName, string sortBy = "end", 
+		public async Task<IList<FullConferenceDto>> GetConferencesAsync(string userName, string sortBy = "end", 
 			bool? showPastConferences = false, bool? showOnlyOpenCalls = false, bool? showOnlyOnSale = false, 
 			string search = null, string city = null, string state = null, string country = null, double? latitude = null, 
 			double? longitude = null, double? distance = null)
@@ -193,10 +166,13 @@ namespace TekConf.RemoteData.v1
 				distance = distance,
 				userName = userName
 			};
-			ServiceClient.GetAsync(conferences, callback, (r, ex) => { callback(null); });
+
+			var response = await ServiceClient.GetAsync(conferences);
+
+			return response;
 		}
 
-		public void GetConferencesCount(Action<int> callback, bool? showPastConferences = false, string search = null)
+		public async Task<int> GetConferencesCount(bool? showPastConferences = false, string search = null)
 		{
 			if (!showPastConferences.HasValue)
 			{
@@ -204,142 +180,149 @@ namespace TekConf.RemoteData.v1
 			}
 
 			var conferences = new ConferencesCount() { showPastConferences = showPastConferences, searchTerm = search };
-			ServiceClient.GetAsync(conferences, callback, (r, ex) =>
-				{
-					ServiceClient.GetAsync(conferences, callback, (r2, ex2) =>
-					{
-						callback(0);
-					});
-				});
+
+			var response = await ServiceClient.GetAsync(conferences);
+			return response;
 		}
 
-		public void GetFeaturedConferences(Action<IList<FullConferenceDto>> callback)
+		public async Task<IList<FullConferenceDto>> GetFeaturedConferences()
 		{
 			var featured = new Conferences() { showOnlyFeatured = true };
-			ServiceClient.GetAsync(featured, callback, (r, ex) => { callback(null); });
+
+			var response = await ServiceClient.GetAsync(featured);
+
+			return response;
 		}
 
-		public void GetConferencesWithOpenCalls(Action<IList<FullConferenceDto>> callback)
+		public async Task<IList<FullConferenceDto>> GetConferencesWithOpenCalls()
 		{
 			var openCalls = new Conferences() { showOnlyFeatured = true, showOnlyWithOpenCalls = true };
-			ServiceClient.GetAsync(openCalls, callback, (r, ex) => { callback(null); });
+
+			var response = await ServiceClient.GetAsync(openCalls);
+			
+			return response;
 		}
 
-		public void GetConference(string slug, Action<FullConferenceDto> callback)
+		public async Task<FullConferenceDto> GetConference(string slug)
 		{
-			ServiceClient.GetAsync(new Conference() { conferenceSlug = slug }, callback, (r, ex) => { callback(null); });
+			var response = await ServiceClient.GetAsync(new Conference() { conferenceSlug = slug });
+			return response;
 		}
 
-		public void GetFullConference(string slug, string userName, Action<FullConferenceDto> callback)
+		public async Task<FullConferenceDto> GetFullConference(string slug, string userName)
 		{
-			ServiceClient.GetAsync(new Conference() { conferenceSlug = slug, userName = userName }, callback, (r, ex) =>
-																																											 {
-																																												 callback(null);
-																																											 });
+			var response = await ServiceClient.GetAsync(new Conference() { conferenceSlug = slug, userName = userName });
+			return response;
 		}
 
-		public void GetFeaturedSpeakers(Action<List<FullSpeakerDto>> callback)
+		public async Task<List<FullSpeakerDto>> GetFeaturedSpeakers()
 		{
-			ServiceClient.GetAsync(new FeaturedSpeakers(), callback, (r, ex) => { callback(null); });
+			var response = await ServiceClient.GetAsync(new FeaturedSpeakers());
+			return response;
 		}
 
-		public void GetSessionSpeakers(string conferenceSlug, string sessionSlug, Action<IList<SpeakersDto>> callback)
+		public async Task<IList<SpeakersDto>> GetSessionSpeakers(string conferenceSlug, string sessionSlug)
 		{
-			ServiceClient.GetAsync(new SessionSpeakers() { conferenceSlug = conferenceSlug, sessionSlug = sessionSlug }, callback, (r, ex) => { callback(null); });
+			var response = await ServiceClient.GetAsync(new SessionSpeakers() { conferenceSlug = conferenceSlug, sessionSlug = sessionSlug });
+			return response;
 		}
 
-		public void GetSpeakers(string conferenceSlug, Action<IList<FullSpeakerDto>> callback)
+		public async Task<IList<FullSpeakerDto>> GetSpeakers(string conferenceSlug)
 		{
-			ServiceClient.GetAsync(new Speakers() { conferenceSlug = conferenceSlug }, callback, (r, ex) => { callback(null); });
+			var response = await ServiceClient.GetAsync(new Speakers() { conferenceSlug = conferenceSlug });
+			return response;
 		}
 
-		public void GetSpeaker(string conferenceSlug, string speakerSlug, Action<FullSpeakerDto> callback)
+		public async Task<FullSpeakerDto> GetSpeaker(string conferenceSlug, string speakerSlug)
 		{
-			ServiceClient.GetAsync(new Speaker() { conferenceSlug = conferenceSlug, speakerSlug = speakerSlug }, callback, (r, ex) =>
-																									{
-																										callback(null);
-																									});
+			var response = await ServiceClient.GetAsync(new Speaker() { conferenceSlug = conferenceSlug, speakerSlug = speakerSlug });
+
+			return response;
 		}
 
-		public void GetSessions(string conferenceSlug, Action<IList<SessionsDto>> callback)
+		public async Task<List<SessionsDto>> GetSessionsAsync(string conferenceSlug)
 		{
-			ServiceClient.GetAsync(new Sessions() { conferenceSlug = conferenceSlug }, callback, (r, ex) => { callback(null); });
-		}
+			var request = new Sessions() { conferenceSlug = conferenceSlug };
 
-		public void GetSession(string conferenceSlug, string slug, Action<SessionDto> callback)
+			var result = await ServiceClient.GetAsync<List<SessionsDto>>(request);
+
+			return result;
+		}
+		
+		public async Task<SessionDto> GetSession(string conferenceSlug, string slug)
 		{
-			ServiceClient.GetAsync(new Session() { conferenceSlug = conferenceSlug, sessionSlug = slug }, callback, (r, ex) =>
-																			{
-																				callback(null);
-																			});
+			var response = await ServiceClient.GetAsync(new Session() { conferenceSlug = conferenceSlug, sessionSlug = slug });
+			return response;
 		}
 
-		public void CreatePresentation(CreatePresentation presentation, string userName, string password, Action<PresentationDto> callback)
+		public async Task<PresentationDto> CreatePresentation(CreatePresentation presentation, string userName, string password)
 		{
 			presentation.Slug = presentation.Title.GenerateSlug();
 			presentation.UserName = userName;
 
 			ServiceClient.SetCredentials(userName, password);
-			ServiceClient.PostAsync(presentation, callback, (r, ex) => { callback(null); });
+			var response = await ServiceClient.PostAsync(presentation);
+			return response;
 		}
 
-		public void CreatePresentationHistory(CreatePresentationHistory history, string userName, string password, Action<PresentationDto> callback)
+		public async Task<PresentationDto> CreatePresentationHistory(CreatePresentationHistory history, string userName, string password)
 		{
 			history.UserName = userName;
 
 			ServiceClient.SetCredentials(userName, password);
-			ServiceClient.PutAsync(history, callback, (r, ex) => { callback(null); });
+			var response = await ServiceClient.PutAsync(history);
+			return response;
 		}
 
-		public void CreateConference(CreateConference conference, string userName, string password, Action<FullConferenceDto> callback)
+		public async Task<FullConferenceDto> CreateConference(CreateConference conference, string userName, string password)
 		{
 			conference.slug = conference.name.GenerateSlug();
 			ServiceClient.SetCredentials(userName, password);
-			ServiceClient.PostAsync(conference, callback, (r, ex) => { callback(null); });
+			var response = await ServiceClient.PostAsync(conference);
+			return response;
 		}
 
-		public void EditConference(CreateConference conference, string userName, string password, Action<FullConferenceDto> callback)
+		public async Task<FullConferenceDto> EditConference(CreateConference conference, string userName, string password)
 		{
 			ServiceClient.SetCredentials(userName, password);
-			ServiceClient.PutAsync(conference, callback, (r, ex) => { callback(null); });
+			var response = await ServiceClient.PutAsync(conference);
+			return response;
 		}
 
-
-		public void GetUser(string userName, Action<UserDto> callback)
+		public async Task<UserDto> GetUser(string userName)
 		{
-			ServiceClient.GetAsync(new User() { userName = userName }, callback, (r, ex) => { callback(null); });
+			var response = await ServiceClient.GetAsync(new User() { userName = userName });
+			return response;
 		}
 
-		public void AddSessionToConference(AddSession session, string userName, string password, Action<SessionDto> callback)
+		public async Task<SessionDto> AddSessionToConference(AddSession session, string userName, string password)
 		{
 			session.slug = session.title.GenerateSlug();
 			ServiceClient.SetCredentials(userName, password);
-			ServiceClient.PostAsync(session, callback, (r, ex) => { callback(null); });
+			var response = await ServiceClient.PostAsync(session);
+			return response;
 		}
 
-		public void EditSessionInConference(AddSession session, string userName, string password, Action<SessionDto> callback)
+		public async Task<SessionDto> EditSessionInConference(AddSession session, string userName, string password)
 		{
 			ServiceClient.SetCredentials(userName, password);
-			ServiceClient.PutAsync(session, callback, (r, ex) => { callback(null); });
+			var response = await ServiceClient.PutAsync(session);
+			return response;
 		}
 
-		public void AddSpeakerToSession(CreateSpeaker speaker, string userName, string password, Action<FullSpeakerDto> callback)
+		public async Task<FullSpeakerDto> AddSpeakerToSession(CreateSpeaker speaker, string userName, string password)
 		{
 			speaker.slug = (speaker.firstName.ToLower() + " " + speaker.lastName.ToLower()).GenerateSlug();
 			ServiceClient.SetCredentials(userName, password);
-			ServiceClient.PostAsync(speaker, callback, (r, ex) =>
-																										 {
-																											 callback(null);
-																										 });
+			var response = await ServiceClient.PostAsync(speaker);
+			return response;
 		}
 
-		public void EditSpeaker(CreateSpeaker speaker, string userName, string password, Action<FullSpeakerDto> callback)
+		public async Task<FullSpeakerDto> EditSpeaker(CreateSpeaker speaker, string userName, string password)
 		{
 			ServiceClient.SetCredentials(userName, password);
-			ServiceClient.PutAsync(speaker, callback, (r, ex) =>
-															{
-																callback(null);
-															});
+			var response = await ServiceClient.PutAsync(speaker);
+			return response;
 		}
 
 

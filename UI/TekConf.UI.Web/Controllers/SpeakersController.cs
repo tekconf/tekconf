@@ -11,29 +11,30 @@ using TekConf.UI.Web.ViewModels;
 
 namespace TekConf.UI.Web.Controllers
 {
+	using TekConf.RemoteData.v1;
+
 	public class SpeakersController : Controller
 	{
-		private readonly IRemoteDataRepositoryAsync _remoteDataRepositoryAsync;
+		private readonly IRemoteDataRepository _remoteDataRepository;
 
-		public SpeakersController(IRemoteDataRepositoryAsync remoteDataRepositoryAsync)
+		public SpeakersController(IRemoteDataRepository remoteDataRepository)
 		{
-			_remoteDataRepositoryAsync = remoteDataRepositoryAsync;
+			_remoteDataRepository = remoteDataRepository;
 		}
-
 
 		[CompressFilter]
 		public async Task<ActionResult> Index()
 		{
 			//var openCallsConferencesTask = _repository.GetConferencesWithOpenCalls();
-			var openCallsConferencesTask = _remoteDataRepositoryAsync.GetConferences(showOnlyOpenCalls: true);
+			var openCallsConferencesTask = _remoteDataRepository.GetConferencesAsync(showOnlyOpenCalls: true);
 			List<PresentationDto> presentations;
 			List<FullConferenceDto> myConferences;
 
 			if (Request.IsAuthenticated)
 			{
 				var userName = User.Identity.Name;
-				var presentationsTask = _remoteDataRepositoryAsync.GetPresentations(userName);
-				var conferencesTask = _remoteDataRepositoryAsync.GetSchedules(userName);
+				var presentationsTask = _remoteDataRepository.GetPresentations(userName);
+				var conferencesTask = _remoteDataRepository.GetSchedules(userName);
 
 				await Task.WhenAll(openCallsConferencesTask, presentationsTask, conferencesTask);
 

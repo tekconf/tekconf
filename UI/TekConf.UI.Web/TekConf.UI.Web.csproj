@@ -270,11 +270,9 @@
     <Compile Include="Controllers\EventsController.cs" />
     <Compile Include="Controllers\FileSystemImageSaver.cs" />
     <Compile Include="Controllers\ImageSaverConfiguration.cs" />
-    <Compile Include="Controllers\IRemoteDataRepositoryAsync.cs" />
     <Compile Include="Controllers\OrganizersController.cs" />
     <Compile Include="Controllers\PresentationsController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
-    <Compile Include="Controllers\RemoteDataRepositoryAsync.cs" />
     <Compile Include="Controllers\SpeakersController.cs" />
     <Compile Include="EventsHub.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />

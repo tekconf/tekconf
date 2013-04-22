@@ -31,7 +31,6 @@ namespace TekConf.UI.Web
 			var baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
 
 			container.Register<IRemoteDataRepository>(c => new RemoteDataRepository(baseUrl));
-			container.Register<IRemoteDataRepositoryAsync>(new RemoteDataRepositoryAsync(baseUrl));
 
 			container.Register<IConferenceRepository>(new ConferenceRepository(entityConfiguration));
 			container.Register<IScheduleRepository>(new ScheduleRepository(entityConfiguration));

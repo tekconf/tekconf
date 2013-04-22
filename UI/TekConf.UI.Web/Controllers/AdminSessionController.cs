@@ -14,20 +14,18 @@ namespace TekConf.UI.Web.Controllers
 	[Authorize]
 	public class AdminSessionController : AsyncController
 	{
-		private IRemoteDataRepositoryAsync _remoteDataRepositoryAsync;
 		private readonly IRemoteDataRepository _remoteDataRepository;
 		private readonly IConferenceRepository _conferenceRepository;
 
-		public AdminSessionController(IConferenceRepository conferenceRepository, IRemoteDataRepositoryAsync remoteDataRepositoryAsync, IRemoteDataRepository remoteDataRepository)
+		public AdminSessionController(IConferenceRepository conferenceRepository, IRemoteDataRepository remoteDataRepository)
 		{
 			_conferenceRepository = conferenceRepository;
-			_remoteDataRepositoryAsync = remoteDataRepositoryAsync;
 			_remoteDataRepository = remoteDataRepository;
 		}
 
 		#region Add Session
 
-		public void AddSessionAsync(string conferenceSlug)
+		public async Task<ActionResult> AddSession(string conferenceSlug)
 		{
 			string userName = string.Empty;
 			if (Request.IsAuthenticated)
@@ -35,16 +33,8 @@ namespace TekConf.UI.Web.Controllers
 				userName = System.Web.HttpContext.Current.User.Identity.Name;
 			}
 
-			AsyncManager.OutstandingOperations.Increment();
-			_remoteDataRepository.GetFullConference(conferenceSlug, userName, conference =>
-												{
-													AsyncManager.Parameters["conference"] = conference;
-													AsyncManager.OutstandingOperations.Decrement();
-												});
-		}
+			var conference = await _remoteDataRepository.GetFullConference(conferenceSlug, userName);
 
-		public ActionResult AddSessionCompleted(FullConferenceDto conference)
-		{
 			var session = new AddSession() { conferenceSlug = conference.slug, start = conference.start, end = conference.end, defaultTalkLength = conference.defaultTalkLength };
 
 			var sessionTypes = (conference.sessionTypes ?? new List<string>()).OrderBy(x => x).ToList();
@@ -66,24 +56,15 @@ namespace TekConf.UI.Web.Controllers
 		}
 
 		[HttpPost]
-		public void AddSessionToConferenceAsync(AddSession session)
+		public async Task<ActionResult> AddSessionToConferenceAsync(AddSession session)
 		{
 			if (Request.Form["hidden-tags"] != null)
 				session.tags = Request.Form["hidden-tags"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+
 			if (Request.Form["hidden-subjects"] != null)
 				session.subjects = Request.Form["hidden-subjects"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
-
-			AsyncManager.OutstandingOperations.Increment();
-
-			_remoteDataRepository.AddSessionToConference(session, "user", "password", c =>
-																										 {
-																											 AsyncManager.Parameters["session"] = c;
-																											 AsyncManager.OutstandingOperations.Decrement();
-																										 });
-		}
-
-		public ActionResult AddSessionToConferenceCompleted(SessionDto session)
-		{
+			
+			var response = await _remoteDataRepository.AddSessionToConference(session, "user", "password");
 			return RedirectToRoute("AdminAddSpeaker", new { conferenceSlug = session.conferenceSlug, sessionSlug = session.slug });
 		}
 
@@ -91,7 +72,7 @@ namespace TekConf.UI.Web.Controllers
 
 		#region Edit Session
 
-		public void EditSessionAsync(string conferenceSlug, string sessionSlug)
+		public async Task<ActionResult> EditSession(string conferenceSlug, string sessionSlug)
 		{
 			string userName = string.Empty;
 			if (Request.IsAuthenticated)
@@ -99,17 +80,8 @@ namespace TekConf.UI.Web.Controllers
 				userName = System.Web.HttpContext.Current.User.Identity.Name;
 			}
 
-			AsyncManager.OutstandingOperations.Increment();
-			_remoteDataRepository.GetFullConference(conferenceSlug, userName, conference =>
-																											 {
-																												 AsyncManager.Parameters["sessionSlug"] = sessionSlug;
-																												 AsyncManager.Parameters["conference"] = conference;
-																												 AsyncManager.OutstandingOperations.Decrement();
-																											 });
-		}
+			var conference = await _remoteDataRepository.GetFullConference(conferenceSlug, userName);
 
-		public ActionResult EditSessionCompleted(string sessionSlug, FullConferenceDto conference)
-		{
 			var session = conference.sessions.FirstOrDefault(s => s.slug == sessionSlug);
 
 			var addSession = Mapper.Map<AddSession>(session);
@@ -127,6 +99,7 @@ namespace TekConf.UI.Web.Controllers
 			ViewBag.RoomsList = roomsList;
 
 			return View(addSession);
+	
 		}
 
 		[HttpPost]

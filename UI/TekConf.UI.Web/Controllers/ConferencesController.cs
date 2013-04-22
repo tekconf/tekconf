@@ -11,17 +11,19 @@ using TekConf.UI.Web.App_Start;
 
 namespace TekConf.UI.Web.Controllers
 {
+	using TekConf.RemoteData.v1;
+
 	public class ConferencesController : Controller
 	{
 		private readonly IConferenceRepository _conferenceRepository;
 		private readonly IRepository<ScheduleEntity> _scheduleRepository;
-		private readonly IRemoteDataRepositoryAsync _remoteDataRepositoryAsync;
+		private readonly IRemoteDataRepository _remoteDataRepository;
 
-		public ConferencesController(IConferenceRepository conferenceRepository, IRepository<ScheduleEntity> scheduleRepository, IRemoteDataRepositoryAsync remoteDataRepositoryAsync)
+		public ConferencesController(IConferenceRepository conferenceRepository, IRepository<ScheduleEntity> scheduleRepository, IRemoteDataRepository remoteDataRepository)
 		{
 			_conferenceRepository = conferenceRepository;
 			_scheduleRepository = scheduleRepository;
-			_remoteDataRepositoryAsync = remoteDataRepositoryAsync;
+			_remoteDataRepository = remoteDataRepository;
 		}
 
 		[CompressFilter]
@@ -92,17 +94,15 @@ namespace TekConf.UI.Web.Controllers
 				userName = System.Web.HttpContext.Current.User.Identity.Name;
 			}
 
-			var conferenceTask = _remoteDataRepositoryAsync.GetFullConference(conferenceSlug, userName);
+			var conference = await _remoteDataRepository.GetFullConference(conferenceSlug, userName);
 
-			await conferenceTask;
-
-			if (conferenceTask.Result == null)
+			if (conference == null)
 			{
 				Elmah.ErrorLog.GetDefault(System.Web.HttpContext.Current).Log(new Error(new Exception("Conference " + conferenceSlug + " not found")));
 				return RedirectToAction("NotFound", "Error");
 			}
 
-			return View(conferenceTask.Result);
+			return View(conference);
 		}
 
 
