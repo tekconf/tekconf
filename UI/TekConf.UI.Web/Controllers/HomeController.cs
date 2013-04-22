@@ -131,14 +131,13 @@ namespace TekConf.UI.Web.Controllers
 		[HttpPost]
 		public ActionResult Subscribe(string emailAddress)
 		{
-			_repository.AddSubscription(emailAddress);
-			//if (!_subscriptionRepository.AsQueryable().Any(x => x.EmailAddress == emailAddress.Trim()))
-			//{
-			//	var subscriptionEntity = new SubscriptionEntity() { _id = Guid.NewGuid(), EmailAddress = emailAddress };
-			//	_subscriptionRepository.Save(subscriptionEntity);
+			_repository.AddSubscription(emailAddress, subscription =>
+			{
 				
-			//}
+			});
+
 			return RedirectToAction("Index");
+
 		}
 	}
 }
