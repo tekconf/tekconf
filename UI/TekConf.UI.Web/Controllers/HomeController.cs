@@ -136,7 +136,7 @@ namespace TekConf.UI.Web.Controllers
 				
 			});
 
-			return RedirectToAction("Index");
+			return View();
 
 		}
 	}
