@@ -95,6 +95,33 @@ namespace TekConf.RemoteData.v1
 			});
 		}
 
+		public void GetSubscription(string emailAddress, Action<SubscriptionDto> callback)
+		{
+			var subscription = new Subscription()
+			{
+				emailAddress = emailAddress
+			};
+
+			ServiceClient.GetAsync(subscription, callback, (r, ex) =>
+			{
+				callback(null);
+			});
+		}
+
+		public void AddSubscription(string emailAddress, Action<SubscriptionDto> callback)
+		{
+			var subscription = new CreateSubscription()
+			{
+				EmailAddress = emailAddress
+			};
+
+			ServiceClient.PostAsync(subscription, callback, (r, ex) =>
+			{
+				var x = ex;
+				callback(null);
+			});
+		}
+
 		public void AddSessionToSchedule(string conferenceSlug, string sessionSlug, string userName, Action<ScheduleDto> callback)
 		{
 			var schedule = new AddSessionToSchedule()

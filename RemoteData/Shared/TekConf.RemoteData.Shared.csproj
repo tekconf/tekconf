@@ -118,6 +118,7 @@
     <Compile Include="v1\Dtos\SpeakersDto.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="v1\Dtos\SubscriptionDto.cs" />
     <Compile Include="v1\Dtos\UserDto.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -139,6 +140,7 @@
     </Compile>
     <Compile Include="v1\Requests\CreatePresentation.cs" />
     <Compile Include="v1\Requests\CreatePresentationHistory.cs" />
+    <Compile Include="v1\Requests\CreateSubscription.cs" />
     <Compile Include="v1\Requests\FeaturedSpeakers.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -171,6 +173,7 @@
     <Compile Include="v1\Requests\Speakers.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="v1\Requests\Subscription.cs" />
     <Compile Include="v1\Requests\Users.cs">
       <SubType>Code</SubType>
     </Compile>

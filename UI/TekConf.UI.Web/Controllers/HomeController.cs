@@ -22,12 +22,14 @@ namespace TekConf.UI.Web.Controllers
 		private RemoteDataRepository _repository;
 		private readonly IConferenceRepository _conferenceRepository;
 		private readonly IScheduleRepository _scheduleRepository;
+		private readonly IRepository<SubscriptionEntity> _subscriptionRepository;
 		private readonly IRemoteDataRepository _remoteDataRepository;
 
-		public HomeController(IConferenceRepository conferenceRepository, IScheduleRepository scheduleRepository, IRemoteDataRepository remoteDataRepository)
+		public HomeController(IConferenceRepository conferenceRepository, IScheduleRepository scheduleRepository, IRepository<SubscriptionEntity> subscriptionRepository, IRemoteDataRepository remoteDataRepository)
 		{
 			_conferenceRepository = conferenceRepository;
 			_scheduleRepository = scheduleRepository;
+			_subscriptionRepository = subscriptionRepository;
 			_remoteDataRepository = remoteDataRepository;
 		}
 
@@ -124,6 +126,19 @@ namespace TekConf.UI.Web.Controllers
 								});
 			}
 
+		}
+
+		[HttpPost]
+		public ActionResult Subscribe(string emailAddress)
+		{
+			_repository.AddSubscription(emailAddress);
+			//if (!_subscriptionRepository.AsQueryable().Any(x => x.EmailAddress == emailAddress.Trim()))
+			//{
+			//	var subscriptionEntity = new SubscriptionEntity() { _id = Guid.NewGuid(), EmailAddress = emailAddress };
+			//	_subscriptionRepository.Save(subscriptionEntity);
+				
+			//}
+			return RedirectToAction("Index");
 		}
 	}
 }

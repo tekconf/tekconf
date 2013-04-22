@@ -99,9 +99,7 @@ namespace TekConf.UI.Api.Services.v1
 					}
 				}
 
-
 				var entity = Mapper.Map<SpeakerEntity>(speaker);
-
 
 				var conference = this._conferenceRepository.AsQueryable()
 													.FirstOrDefault(c => c.slug.ToLower() == speaker.conferenceSlug.ToLower());

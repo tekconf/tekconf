@@ -39,5 +39,8 @@ namespace TekConf.RemoteData.v1
 		void EditSessionInConference(AddSession session, string userName, string password, Action<SessionDto> callback);
 		void AddSpeakerToSession(CreateSpeaker speaker, string userName, string password, Action<FullSpeakerDto> callback);
 		void EditSpeaker(CreateSpeaker speaker, string userName, string password, Action<FullSpeakerDto> callback);
+
+		void GetSubscription(string emailAddress, Action<SubscriptionDto> callback);
+		void AddSubscription(string emailAddress, Action<SubscriptionDto> callback);
 	}
 }

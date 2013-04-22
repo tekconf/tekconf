@@ -40,16 +40,14 @@
                     <div class="span4">
                         <h3>
                             <span class="slash">//</span> Subscribe and get updates</h3>
-                        <p>
-                            Subscribe to our newsletter and get exclusive deals you wont find anywhere else
-              straight to your inbox!
-                        </p>
-                        <form>
-                            <input type="text" name="subscribe_email" placeholder="Your Email" />
-                            <br />
-                            <button class="btn ">
-                                Subscribe</button>
-                        </form>
+	                    <p>
+		                    Subscribe to our newsletter and get exclusive deals you wont find anywhere else straight to your inbox!
+	                    </p>
+											@using (Html.BeginForm("Subscribe", "Home", new {ReturnUrl = ViewBag.ReturnUrl}))
+											{
+												<input type="text" name="emailAddress" placeholder="Your Email" /> <input type="submit" class="btn" value="Subscribe" />									
+											}
+
                     </div>
                     <!-- /span4 -->
                 </div>

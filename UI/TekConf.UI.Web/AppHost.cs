@@ -41,6 +41,7 @@ namespace TekConf.UI.Web
 			container.Register<IRepository<PresentationEntity>>(new GenericRepository<PresentationEntity>(entityConfiguration));
 			container.Register<IRepository<ConferenceEntity>>(new ConferenceRepository(entityConfiguration));
 
+			container.Register<IRepository<SubscriptionEntity>>(new GenericRepository<SubscriptionEntity>(entityConfiguration));
 			container.Register<IRepository<SessionRoomChangedMessage>>(new GenericRepository<SessionRoomChangedMessage>(entityConfiguration));
 			container.Register<IRepository<ConferenceLocationChangedMessage>>(new GenericRepository<ConferenceLocationChangedMessage>(entityConfiguration));
 			container.Register<IRepository<ConferenceEndDateChangedMessage>>(new GenericRepository<ConferenceEndDateChangedMessage>(entityConfiguration));

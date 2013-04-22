@@ -307,6 +307,7 @@
 		function removeSessionFromSchedule(conferenceSlug, sessionSlug, element) {
 			$(element).removeClass("icon-star").removeClass("icon-selected").addClass("icon-exchange");
 			$(element).parent().removeClass("scheduled").addClass("unscheduled");
+			
 			var jqxhr = $.post("@Url.Action("Delete", "Schedule")", { conferenceSlug: conferenceSlug, sessionSlug: sessionSlug }, function () {
 			})
 				.done(function () {
