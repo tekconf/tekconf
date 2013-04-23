@@ -68,18 +68,30 @@
     <Compile Include="v1\Dtos\AddressDto.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="v1\Dtos\ConferenceCreatedDto.cs" />
+    <Compile Include="v1\Dtos\ConferenceCreatedDto.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="v1\Dtos\ConferenceDto.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="v1\Dtos\ConferenceEndDateChangedDto.cs" />
-    <Compile Include="v1\Dtos\ConferenceLocationChangedDto.cs" />
-    <Compile Include="v1\Dtos\ConferencePublishedDto.cs" />
+    <Compile Include="v1\Dtos\ConferenceEndDateChangedDto.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="v1\Dtos\ConferenceLocationChangedDto.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="v1\Dtos\ConferencePublishedDto.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="v1\Dtos\ConferencesDto.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="v1\Dtos\ConferenceStartDateChangedDto.cs" />
-    <Compile Include="v1\Dtos\ConferenceUpdatedDto.cs" />
+    <Compile Include="v1\Dtos\ConferenceStartDateChangedDto.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="v1\Dtos\ConferenceUpdatedDto.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="v1\Dtos\FullConferenceDto.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -89,48 +101,72 @@
     <Compile Include="v1\Dtos\FullSpeakerDto.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="v1\Dtos\HistoryDto.cs" />
+    <Compile Include="v1\Dtos\HistoryDto.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="v1\Dtos\PresentationDto.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="v1\Dtos\PresentingSpeakerDto.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="v1\Dtos\ScheduleCreatedDto.cs" />
+    <Compile Include="v1\Dtos\ScheduleCreatedDto.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="v1\Dtos\ScheduleDto.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="v1\Dtos\SchedulesDto.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="v1\Dtos\SearchResultDto.cs" />
-    <Compile Include="v1\Dtos\SessionAddedDto.cs" />
-    <Compile Include="v1\Dtos\SessionAddedToScheduleDto.cs" />
+    <Compile Include="v1\Dtos\SearchResultDto.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="v1\Dtos\SessionAddedDto.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="v1\Dtos\SessionAddedToScheduleDto.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="v1\Dtos\SessionDto.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="v1\Dtos\SessionRemovedDto.cs" />
-    <Compile Include="v1\Dtos\SessionRoomChangedDto.cs" />
+    <Compile Include="v1\Dtos\SessionRemovedDto.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="v1\Dtos\SessionRoomChangedDto.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="v1\Dtos\SessionsDto.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="v1\Dtos\SpeakerAddedDto.cs" />
+    <Compile Include="v1\Dtos\SpeakerAddedDto.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="v1\Dtos\SpeakerDto.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="v1\Dtos\SpeakerRemovedDto.cs" />
+    <Compile Include="v1\Dtos\SpeakerRemovedDto.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="v1\Dtos\SpeakersDto.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="v1\Dtos\SubscriptionDto.cs" />
+    <Compile Include="v1\Dtos\SubscriptionDto.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="v1\Dtos\UserDto.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="v1\Helpers.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="v1\IRemoteDataRepository.cs" />
-    <Compile Include="v1\JsonServiceClientExtensions.cs" />
+    <Compile Include="v1\IRemoteDataRepository.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="v1\JsonServiceClientExtensions.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="v1\RemoteDataRepository.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -143,14 +179,27 @@
     <Compile Include="v1\Requests\Conferences.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="v1\Requests\CreatePresentation.cs" />
-    <Compile Include="v1\Requests\CreatePresentationHistory.cs" />
-    <Compile Include="v1\Requests\CreateSubscription.cs" />
+    <Compile Include="v1\Requests\CreatePresentation.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="v1\Requests\CreatePresentationHistory.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="v1\Requests\CreateSubscription.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="v1\Requests\EventRequests.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="v1\Requests\FeaturedSpeakers.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="v1\Requests\Presentation.cs" />
-    <Compile Include="v1\Requests\Presentations.cs" />
+    <Compile Include="v1\Requests\Presentation.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="v1\Requests\Presentations.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="v1\Requests\Schedule.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -166,9 +215,6 @@
     <Compile Include="v1\Requests\SessionResources.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="v1\Requests\EventRequests.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="v1\Requests\Sessions.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -178,7 +224,9 @@
     <Compile Include="v1\Requests\Speakers.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="v1\Requests\Subscription.cs" />
+    <Compile Include="v1\Requests\Subscription.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="v1\Requests\Users.cs">
       <SubType>Code</SubType>
     </Compile>

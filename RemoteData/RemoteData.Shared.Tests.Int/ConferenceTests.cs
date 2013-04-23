@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.RemoteData.v1;
 using NUnit.Framework;
@@ -14,18 +15,15 @@ namespace RemoteData.Shared.Tests.Int
     private const string _baseUrl = "http://localhost:25825/";
     //private const string _baseUrl = "http://api.tekconf.com/";
     [Test]
-    public void GetConferences()
+    public async Task GetConferences()
     {
-      RemoteDataRepository remoteData = new RemoteDataRepository(_baseUrl);
-      IList<FullConferenceDto> conferences = null;
-      remoteData.GetConferences(c =>
-                                     {
-                                       conferences = c;
-                                     });
+      var remoteData = new RemoteDataRepository(_baseUrl);
+      
+      var conferences = await remoteData.GetConferencesAsync("user");
 
-      Stopwatch stopwatch = new Stopwatch();
+      var stopwatch = new Stopwatch();
       stopwatch.Start();
-      bool gotData = false;
+      var gotData = false;
       while(conferences == null && stopwatch.ElapsedMilliseconds < 3000)
       {
         if (conferences != null)
@@ -41,30 +39,27 @@ namespace RemoteData.Shared.Tests.Int
     }
 
     [Test]
-    public void GetConference()
+    public async Task GetConference()
     {
-      RemoteDataRepository remoteData = new RemoteDataRepository(_baseUrl);
-      FullConferenceDto conference = null;
-      string slug = "codeMash-2013";
-      remoteData.GetConference(slug, c =>
-      {
-        conference = c;
-      });
+      var remoteData = new RemoteDataRepository(_baseUrl);
+      
+      const string slug = "codeMash-2013";
+      var conferences = await remoteData.GetConferencesAsync(slug);
 
-      Stopwatch stopwatch = new Stopwatch();
+      var stopwatch = new Stopwatch();
       stopwatch.Start();
       bool gotData = false;
-      while (conference == null && stopwatch.ElapsedMilliseconds < 3000)
+      while (conferences == null && stopwatch.ElapsedMilliseconds < 3000)
       {
-        if (conference != null)
+        if (conferences != null)
         {
-          conference.slug.ShouldEqual(slug);
+          conferences.First().slug.ShouldEqual(slug);
           gotData = true;
         }
       }
 
       gotData.ShouldBeTrue();
-      conference.ShouldNotBeNull();
+      conferences.ShouldNotBeNull();
     }
 
   }

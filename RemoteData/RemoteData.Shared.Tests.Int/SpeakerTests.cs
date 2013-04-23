@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.RemoteData.v1;
 using NUnit.Framework;
@@ -15,20 +16,17 @@ namespace RemoteData.Shared.Tests.Int
     //private const string _baseUrl = "http://api.tekconf.com/v1";
     
     [Test]
-    public void GetSpeakers()
+    public async Task GetSpeakers()
     {
-      var slug = "Speaker-Slug2";
-      var conferenceSlug = "CodeMash-2013";
-      RemoteDataRepository remoteData = new RemoteDataRepository(_baseUrl);
-      IList<FullSpeakerDto> speakers = null;
-      remoteData.GetSpeakers(conferenceSlug, s =>
-                                               {
-                                                 speakers = s;
-                                               });
+      const string slug = "Speaker-Slug2";
+      const string conferenceSlug = "CodeMash-2013";
+      var remoteData = new RemoteDataRepository(_baseUrl);
+     
+      var speakers = await remoteData.GetSpeakers(conferenceSlug);
 
-      Stopwatch stopwatch = new Stopwatch();
+      var stopwatch = new Stopwatch();
       stopwatch.Start();
-      bool gotData = false;
+      var gotData = false;
       while (speakers == null && stopwatch.ElapsedMilliseconds < 3000)
       {
         if (speakers != null)
@@ -44,20 +42,17 @@ namespace RemoteData.Shared.Tests.Int
     }
 
     [Test]
-    public void GetSpeaker()
+    public async Task GetSpeaker()
     {
-      RemoteDataRepository remoteData = new RemoteDataRepository(_baseUrl);
-      FullSpeakerDto speaker = null;
-      string conferenceSlug = "CodeMash-2013";
-      string slug = "Speaker-Slug2";
-      remoteData.GetSpeaker(conferenceSlug, slug, s =>
-                                                    {
-                                                      speaker = s;
-                                                    });
+      var remoteData = new RemoteDataRepository(_baseUrl);
 
-      Stopwatch stopwatch = new Stopwatch();
+      const string conferenceSlug = "CodeMash-2013";
+      const string slug = "Speaker-Slug2";
+      var speaker = await remoteData.GetSpeaker(conferenceSlug, slug);
+
+      var stopwatch = new Stopwatch();
       stopwatch.Start();
-      bool gotData = false;
+      var gotData = false;
       while (speaker == null && stopwatch.ElapsedMilliseconds < 10000)
       {
         if (speaker != null)

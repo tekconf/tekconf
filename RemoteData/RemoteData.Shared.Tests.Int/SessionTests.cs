@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.RemoteData.v1;
 using NUnit.Framework;
@@ -14,18 +15,15 @@ namespace RemoteData.Shared.Tests.Int
     private const string _baseUrl = "http://localhost:25825/v1";
     //private const string _baseUrl = "http://api.tekconf.com/v1";
     [Test]
-    public void GetSessions()
+    public async Task GetSessions()
     {
-      var slug = "Android-Pro-Tips";
-      var conferenceSlug = "CodeMash-2013";
-      RemoteDataRepository remoteData = new RemoteDataRepository(_baseUrl);
-      IList<SessionsDto> sessions = null;
-      remoteData.GetSessions(conferenceSlug, s =>
-                                               {
-                                                 sessions = s;
-                                               });
+      const string slug = "Android-Pro-Tips";
+      const string conferenceSlug = "CodeMash-2013";
+      var remoteData = new RemoteDataRepository(_baseUrl);
+      
+      var sessions = await remoteData.GetSessionsAsync(conferenceSlug);
 
-      Stopwatch stopwatch = new Stopwatch();
+      var stopwatch = new Stopwatch();
       stopwatch.Start();
       bool gotData = false;
       while (sessions == null && stopwatch.ElapsedMilliseconds < 3000)
@@ -43,18 +41,15 @@ namespace RemoteData.Shared.Tests.Int
     }
 
     [Test]
-    public void GetSession()
+    public async Task GetSession()
     {
-      RemoteDataRepository remoteData = new RemoteDataRepository(_baseUrl);
-      SessionDto session = null;
-      string conferenceSlug = "CodeMash-2013";
-      string slug = "Android-Pro-Tips";
-      remoteData.GetSession(conferenceSlug, slug, s =>
-                                                    {
-                                                      session = s;
-                                                    });
+      var remoteData = new RemoteDataRepository(_baseUrl);
+      
+      const string conferenceSlug = "CodeMash-2013";
+      const string slug = "Android-Pro-Tips";
+      var session = await remoteData.GetSession(conferenceSlug, slug);
 
-      Stopwatch stopwatch = new Stopwatch();
+      var stopwatch = new Stopwatch();
       stopwatch.Start();
       bool gotData = false;
       while (session == null && stopwatch.ElapsedMilliseconds < 10000)
