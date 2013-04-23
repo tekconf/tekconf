@@ -71,9 +71,6 @@
     <Compile Include="v1\Dtos\ConferenceCreatedDto.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="v1\Dtos\ConferenceDto.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="v1\Dtos\ConferenceEndDateChangedDto.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -81,9 +78,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="v1\Dtos\ConferencePublishedDto.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="v1\Dtos\ConferencesDto.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="v1\Dtos\ConferenceStartDateChangedDto.cs">

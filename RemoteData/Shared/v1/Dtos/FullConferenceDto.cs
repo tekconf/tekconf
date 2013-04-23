@@ -40,6 +40,7 @@ namespace TekConf.RemoteData.Dtos.v1
 		public List<FullSessionDto> sessions { get; set; }
 		public int numberOfSessions { get; set; }
 		public bool? isAddedToSchedule { get; set; }
+		public bool? isOnline { get; set; }
 
 		public bool IsOnSale()
 		{

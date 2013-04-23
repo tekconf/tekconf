@@ -157,7 +157,10 @@ namespace TekConf.UI.Api.Services.Requests.v1
 		
 		[ApiMember(Name = "location", Description = "XXXX", ParameterType = "query", DataType = "string", IsRequired = false)]
 		public string location { get; set; }
-		
+
+		[ApiMember(Name = "isOnline", Description = "XXXX", ParameterType = "query", DataType = "bool", IsRequired = false)]
+		public bool isOnline { get; set; }
+
 		[ApiMember(Name = "address", Description = "XXXX", ParameterType = "query", DataType = "Address", IsRequired = false)]
 		public Address address { get; set; }
 		

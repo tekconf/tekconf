@@ -44,169 +44,6 @@ namespace TekConf.Common.Entities
 			_speakerRemovedMessages = new List<SpeakerRemovedMessage>();
 		}
 
-		public void Save()
-		{
-			bool isNew = false;
-			if (!this.isSaved)
-			{
-				if (_id == default(Guid))
-				{
-					_id = Guid.NewGuid();
-					isNew = true;
-				}
-
-				dateAdded = DateTime.Now;
-				isSaved = true;
-			}
-			slug = name.GenerateSlug();
-			_repository.Save(this);
-
-			if (isNew)
-			{
-				_conferenceCreatedMessages.Add(new ConferenceCreatedMessage() { ConferenceSlug = this.slug, ConferenceName = this.name });
-			}
-			else
-			{
-				_conferenceUpdatedMessages.Add(new ConferenceUpdatedMessage() { ConferenceSlug = this.slug, ConferenceName = this.name });
-			}
-
-			PublishEvents();
-		}
-
-		private void PublishEvents()
-		{
-			foreach (var message in _conferenceStartDateChangedMessages)
-			{
-				_hub.Publish(message);
-			}
-			_conferenceStartDateChangedMessages.Clear();
-
-			foreach (var message in _conferenceCreatedMessages)
-			{
-				_hub.Publish(message);
-			}
-			_conferenceCreatedMessages.Clear();
-
-			foreach (var message in _conferenceEndDateChangedMessages)
-			{
-				_hub.Publish(message);
-			}
-			_conferenceEndDateChangedMessages.Clear();
-
-			foreach (var message in _conferenceLocationChangedMessages)
-			{
-				_hub.Publish(message);
-			}
-			_conferenceLocationChangedMessages.Clear();
-
-			foreach (var message in _conferencePublishedMessages)
-			{
-				_hub.Publish(message);
-			}
-			_conferencePublishedMessages.Clear();
-
-			foreach (var message in _conferenceUpdatedMessages)
-			{
-				_hub.Publish(message);
-			}
-			_conferenceUpdatedMessages.Clear();
-
-			foreach (var message in _sessionAddedMessages)
-			{
-				_hub.Publish(message);
-			}
-			_sessionAddedMessages.Clear();
-
-			foreach (var message in _sessionRemovedMessages)
-			{
-				_hub.Publish(message);
-			}
-			_sessionRemovedMessages.Clear();
-
-			foreach (var message in _sessionRoomChangedMessages)
-			{
-				_hub.Publish(message);
-			}
-			_sessionRoomChangedMessages.Clear();
-
-			foreach (var message in _speakerAddedMessages)
-			{
-				_hub.Publish(message);
-			}
-			_speakerAddedMessages.Clear();
-
-			foreach (var message in _speakerRemovedMessages)
-			{
-				_hub.Publish(message);
-			}
-			_speakerRemovedMessages.Clear();
-		}
-
-		public void Publish()
-		{
-			this.datePublished = DateTime.Now;
-			this.isLive = true;
-
-			_conferencePublishedMessages.Add(new ConferencePublishedMessage() { ConferenceName = this.name, ConferenceSlug = this.slug });
-		}
-
-		public void AddSession(SessionEntity session)
-		{
-			if (_sessions == null)
-				_sessions = new List<SessionEntity>();
-			
-			session.RoomChanged += SessionRoomChangedHandler;
-
-			_sessions.Add(session);
-
-			if (!_isInitializingFromBson && isSaved)
-				_sessionAddedMessages.Add(new SessionAddedMessage() { SessionSlug = session.slug, SessionTitle = session.title });
-		}
-
-		public void RemoveSession(SessionEntity session)
-		{
-			if (_sessions == null)
-			{
-				_sessions = new List<SessionEntity>();
-			}
-			_sessions.Remove(session);
-			if (!_isInitializingFromBson && isSaved)
-				_sessionRemovedMessages.Add(new SessionRemovedMessage() { ConferenceName = this.name, SessionSlug = session.slug, SessionTitle = session.title });
-		}
-
-		public void AddSpeakerToSession(string sessionSlug, SpeakerEntity speaker)
-		{
-			if (this.sessions == null)
-				throw new ArgumentException("Cannot add speaker to session. Conference " + slug + " has no sessions.");
-
-			var session = this.sessions.SingleOrDefault(s => s.slug == sessionSlug);
-
-			if (session == null)
-				throw new ArgumentException("Cannot add speaker to session. Conference : " + slug + " Session:" + sessionSlug);
-
-			session.AddSpeaker(speaker);
-
-			if (!_isInitializingFromBson && isSaved)
-				_speakerAddedMessages.Add(new SpeakerAddedMessage() { SessionSlug = sessionSlug, SessionTitle = session.title, SpeakerSlug = speaker.slug, SpeakerName = speaker.fullName });
-		}
-
-		public void RemoveSpeakerFromSession(string sessionSlug, SpeakerEntity speaker)
-		{
-			if (this.sessions == null)
-				return;
-
-			var session = this.sessions.SingleOrDefault(s => s.slug == sessionSlug);
-
-			if (session == null)
-				return;
-
-			session.RemoveSpeaker(speaker);
-
-			if (!_isInitializingFromBson && isSaved)
-				_speakerRemovedMessages.Add(new SpeakerRemovedMessage() { SessionSlug = sessionSlug, SessionTitle = session.title, SpeakerSlug = speaker.slug, SpeakerName = speaker.fullName });
-		}
-
-
 		[BsonId(IdGenerator = typeof(CombGuidGenerator))]
 		public Guid _id { get; set; }
 		public bool isLive { get; private set; }
@@ -270,6 +107,7 @@ namespace TekConf.Common.Entities
 			}
 		}
 
+		public bool? isOnline { get; set; }
 		public AddressEntity address { get; set; }
 		public string description
 		{
@@ -436,6 +274,167 @@ namespace TekConf.Common.Entities
 		}
 
 
+		public void Save()
+		{
+			bool isNew = false;
+			if (!this.isSaved)
+			{
+				if (_id == default(Guid))
+				{
+					_id = Guid.NewGuid();
+					isNew = true;
+				}
+
+				dateAdded = DateTime.Now;
+				isSaved = true;
+			}
+			slug = name.GenerateSlug();
+			_repository.Save(this);
+
+			if (isNew)
+			{
+				_conferenceCreatedMessages.Add(new ConferenceCreatedMessage() { ConferenceSlug = this.slug, ConferenceName = this.name });
+			}
+			else
+			{
+				_conferenceUpdatedMessages.Add(new ConferenceUpdatedMessage() { ConferenceSlug = this.slug, ConferenceName = this.name });
+			}
+
+			PublishEvents();
+		}
+
+		private void PublishEvents()
+		{
+			foreach (var message in _conferenceStartDateChangedMessages)
+			{
+				_hub.Publish(message);
+			}
+			_conferenceStartDateChangedMessages.Clear();
+
+			foreach (var message in _conferenceCreatedMessages)
+			{
+				_hub.Publish(message);
+			}
+			_conferenceCreatedMessages.Clear();
+
+			foreach (var message in _conferenceEndDateChangedMessages)
+			{
+				_hub.Publish(message);
+			}
+			_conferenceEndDateChangedMessages.Clear();
+
+			foreach (var message in _conferenceLocationChangedMessages)
+			{
+				_hub.Publish(message);
+			}
+			_conferenceLocationChangedMessages.Clear();
+
+			foreach (var message in _conferencePublishedMessages)
+			{
+				_hub.Publish(message);
+			}
+			_conferencePublishedMessages.Clear();
+
+			foreach (var message in _conferenceUpdatedMessages)
+			{
+				_hub.Publish(message);
+			}
+			_conferenceUpdatedMessages.Clear();
+
+			foreach (var message in _sessionAddedMessages)
+			{
+				_hub.Publish(message);
+			}
+			_sessionAddedMessages.Clear();
+
+			foreach (var message in _sessionRemovedMessages)
+			{
+				_hub.Publish(message);
+			}
+			_sessionRemovedMessages.Clear();
+
+			foreach (var message in _sessionRoomChangedMessages)
+			{
+				_hub.Publish(message);
+			}
+			_sessionRoomChangedMessages.Clear();
+
+			foreach (var message in _speakerAddedMessages)
+			{
+				_hub.Publish(message);
+			}
+			_speakerAddedMessages.Clear();
+
+			foreach (var message in _speakerRemovedMessages)
+			{
+				_hub.Publish(message);
+			}
+			_speakerRemovedMessages.Clear();
+		}
+
+		public void Publish()
+		{
+			this.datePublished = DateTime.Now;
+			this.isLive = true;
+
+			_conferencePublishedMessages.Add(new ConferencePublishedMessage() { ConferenceName = this.name, ConferenceSlug = this.slug });
+		}
+
+		public void AddSession(SessionEntity session)
+		{
+			if (_sessions == null)
+				_sessions = new List<SessionEntity>();
+
+			session.RoomChanged += SessionRoomChangedHandler;
+
+			_sessions.Add(session);
+
+			if (!_isInitializingFromBson && isSaved)
+				_sessionAddedMessages.Add(new SessionAddedMessage() { SessionSlug = session.slug, SessionTitle = session.title });
+		}
+
+		public void RemoveSession(SessionEntity session)
+		{
+			if (_sessions == null)
+			{
+				_sessions = new List<SessionEntity>();
+			}
+			_sessions.Remove(session);
+			if (!_isInitializingFromBson && isSaved)
+				_sessionRemovedMessages.Add(new SessionRemovedMessage() { ConferenceName = this.name, SessionSlug = session.slug, SessionTitle = session.title });
+		}
+
+		public void AddSpeakerToSession(string sessionSlug, SpeakerEntity speaker)
+		{
+			if (this.sessions == null)
+				throw new ArgumentException("Cannot add speaker to session. Conference " + slug + " has no sessions.");
+
+			var session = this.sessions.SingleOrDefault(s => s.slug == sessionSlug);
+
+			if (session == null)
+				throw new ArgumentException("Cannot add speaker to session. Conference : " + slug + " Session:" + sessionSlug);
+
+			session.AddSpeaker(speaker);
+
+			if (!_isInitializingFromBson && isSaved)
+				_speakerAddedMessages.Add(new SpeakerAddedMessage() { SessionSlug = sessionSlug, SessionTitle = session.title, SpeakerSlug = speaker.slug, SpeakerName = speaker.fullName });
+		}
+
+		public void RemoveSpeakerFromSession(string sessionSlug, SpeakerEntity speaker)
+		{
+			if (this.sessions == null)
+				return;
+
+			var session = this.sessions.SingleOrDefault(s => s.slug == sessionSlug);
+
+			if (session == null)
+				return;
+
+			session.RemoveSpeaker(speaker);
+
+			if (!_isInitializingFromBson && isSaved)
+				_speakerRemovedMessages.Add(new SpeakerRemovedMessage() { SessionSlug = sessionSlug, SessionTitle = session.title, SpeakerSlug = speaker.slug, SpeakerName = speaker.fullName });
+		}
 
 		public void BeginInit()
 		{

@@ -138,7 +138,13 @@ namespace TekConf.Common.Entities
 				}
 			}
 
-			return conferences;
+			var onlineConferences = collection.AsQueryable().Where(x => x.isOnline == true);
+			var hs = new HashSet<ConferenceEntity>(onlineConferences, new ConferenceComparer());
+			if (conferences != null)
+				hs.UnionWith(conferences);
+			
+			var merged = hs.ToList();
+			return merged;
 		}
 
 		public IEnumerable<ConferenceEntity> GetConferences(string search, string sortBy, bool? showPastConferences, bool? showOnlyWithOpenCalls, bool? showOnlyOnSale, bool showOnlyFeatured, double? longitude, double? latitude, double? distance, string city, string state, string country)
@@ -418,6 +424,19 @@ namespace TekConf.Common.Entities
 				}
 				return _localDatabase;
 			}
+		}
+	}
+
+	class ConferenceComparer : IEqualityComparer<ConferenceEntity>
+	{
+		public bool Equals(ConferenceEntity c1, ConferenceEntity c2)
+		{
+			return c1.slug == c2.slug;
+		}
+
+		public int GetHashCode(ConferenceEntity c)
+		{
+			return c.slug.GetHashCode();
 		}
 	}
 }
