@@ -23,5 +23,10 @@ namespace TekConf.Core.Services
 					double? distance = null,
 					Action<IEnumerable<FullConferenceDto>> success = null,
 					Action<Exception> error = null);
+
+
+		void GetConference(string slug, 
+			Action<FullConferenceDto> success = null,
+			Action<Exception> error = null);
 	}
 }

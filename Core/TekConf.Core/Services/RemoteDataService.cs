@@ -28,15 +28,11 @@ namespace TekConf.Core.Services
 			Action<Exception> error = null)
 		{
 			ConferencesService.GetConferencesAsync(success, error);
-			//return new List<FullConferenceDto>()
-			//	{
-			//		new FullConferenceDto()
-			//		{
-			//			name = "Build 2013", 
-			//			imageUrl = "http://www.tekconf.com/img/conferences/DefaultConference.png", 
-			//			tagline = ""
-			//		}
-			//	};
+		}
+
+		public void GetConference(string slug, Action<FullConferenceDto> success = null, Action<Exception> error = null)
+		{
+			ConferenceService.GetConferenceAsync(slug, success, error);
 		}
 	}
 }
