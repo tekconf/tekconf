@@ -128,9 +128,6 @@
   <data name="ApplicationTitle" xml:space="preserve">
     <value>MY APPLICATION</value>
   </data>
-  <data name="SampleProperty" xml:space="preserve">
-    <value>Sample Runtime Property Value</value>
-  </data>
   <data name="AppBarButtonText" xml:space="preserve">
     <value>add</value>
   </data>

@@ -6,11 +6,11 @@ using System.Resources;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("TekConf.UI.WP8")]
+[assembly: AssemblyTitle("TekConf.UI.WinPhone")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("TekConf.UI.WP8")]
+[assembly: AssemblyProduct("TekConf.UI.WinPhone")]
 [assembly: AssemblyCopyright("Copyright ©  2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -21,7 +21,7 @@ using System.Resources;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("6c3edc7c-82c5-497c-9713-bde0fd672ff5")]
+[assembly: Guid("2fe5d61d-0a21-4f5e-8f2a-79960736647b")]
 
 // Version information for an assembly consists of the following four values:
 //

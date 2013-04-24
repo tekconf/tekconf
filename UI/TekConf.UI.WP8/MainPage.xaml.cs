@@ -11,43 +11,31 @@ using TekConf.UI.WP8.Resources;
 
 namespace TekConf.UI.WP8
 {
-    public partial class MainPage : PhoneApplicationPage
-    {
-        // Constructor
-        public MainPage()
-        {
-            InitializeComponent();
+	public partial class MainPage : PhoneApplicationPage
+	{
+		// Constructor
+		public MainPage()
+		{
+			InitializeComponent();
 
-            // Set the data context of the listbox control to the sample data
-            DataContext = App.ViewModel;
+			// Sample code to localize the ApplicationBar
+			//BuildLocalizedApplicationBar();
+		}
 
-            // Sample code to localize the ApplicationBar
-            //BuildLocalizedApplicationBar();
-        }
+		// Sample code for building a localized ApplicationBar
+		//private void BuildLocalizedApplicationBar()
+		//{
+		//    // Set the page's ApplicationBar to a new instance of ApplicationBar.
+		//    ApplicationBar = new ApplicationBar();
 
-        // Load data for the ViewModel Items
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            if (!App.ViewModel.IsDataLoaded)
-            {
-                App.ViewModel.LoadData();
-            }
-        }
+		//    // Create a new button and set the text value to the localized string from AppResources.
+		//    ApplicationBarIconButton appBarButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.add.rest.png", UriKind.Relative));
+		//    appBarButton.Text = AppResources.AppBarButtonText;
+		//    ApplicationBar.Buttons.Add(appBarButton);
 
-        // Sample code for building a localized ApplicationBar
-        //private void BuildLocalizedApplicationBar()
-        //{
-        //    // Set the page's ApplicationBar to a new instance of ApplicationBar.
-        //    ApplicationBar = new ApplicationBar();
-
-        //    // Create a new button and set the text value to the localized string from AppResources.
-        //    ApplicationBarIconButton appBarButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.add.rest.png", UriKind.Relative));
-        //    appBarButton.Text = AppResources.AppBarButtonText;
-        //    ApplicationBar.Buttons.Add(appBarButton);
-
-        //    // Create a new menu item with the localized string from AppResources.
-        //    ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.AppBarMenuItemText);
-        //    ApplicationBar.MenuItems.Add(appBarMenuItem);
-        //}
-    }
+		//    // Create a new menu item with the localized string from AppResources.
+		//    ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.AppBarMenuItemText);
+		//    ApplicationBar.MenuItems.Add(appBarMenuItem);
+		//}
+	}
 }

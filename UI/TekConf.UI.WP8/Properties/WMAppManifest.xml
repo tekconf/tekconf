@@ -2,7 +2,7 @@
 
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
   <DefaultLanguage xmlns="" code="en-US"/>
-  <App xmlns="" ProductID="{54a95905-0b3c-430c-bf9f-224b40128a50}" Title="TekConf.UI.WP8" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal"  Author="TekConf.UI.WP8 author" Description="Sample description" Publisher="TekConf.UI.WP8" PublisherID="{b291269f-a990-425e-b763-6ec33e8c4fe4}">
+  <App xmlns="" ProductID="{b898bd67-4f86-4a3f-857c-a9fcb711b3a6}" Title="TekConf.UI.WP8" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal"  Author="TekConf.UI.WP8 author" Description="Sample description" Publisher="TekConf.UI.WP8" PublisherID="{30597cf2-3e5e-4dc0-bc38-fb42941716df}">
     <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING"/>
