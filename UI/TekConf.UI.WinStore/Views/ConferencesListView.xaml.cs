@@ -9,9 +9,9 @@ namespace TekConf.UI.WinStore.Views
 	/// <summary>
 	/// A page that displays a grouped collection of items.
 	/// </summary>
-	public sealed partial class ConferencesView : TekConf.UI.WinStore.Common.LayoutAwarePage
+	public sealed partial class ConferencesListView : TekConf.UI.WinStore.Common.LayoutAwarePage
 	{
-		public ConferencesView()
+		public ConferencesListView()
 		{
 			this.InitializeComponent();
 		}

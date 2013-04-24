@@ -8,7 +8,7 @@ namespace TekConf.Core.Services
 {
 	public interface IRemoteDataService
 	{
-		List<FullConferenceDto> GetConferences(
+		void GetConferences(
 					string userName = null,
 					string sortBy = "end",
 					bool? showPastConferences = false,
@@ -20,26 +20,8 @@ namespace TekConf.Core.Services
 					string country = null,
 					double? latitude = null,
 					double? longitude = null,
-					double? distance = null);
-	}
-
-	public class RemoteDataServce : IRemoteDataService
-	{
-		public List<FullConferenceDto> GetConferences(
-			string userName = null,
-			string sortBy = "end",
-			bool? showPastConferences = null,
-			bool? showOnlyOpenCalls = null,
-			bool? showOnlyOnSale = null,
-			string search = null,
-			string city = null,
-			string state = null,
-			string country = null,
-			double? latitude = null,
-			double? longitude = null,
-			double? distance = null)
-		{
-			return new List<FullConferenceDto>() { new FullConferenceDto() { name = "Test " } };
-		}
+					double? distance = null,
+					Action<IEnumerable<FullConferenceDto>> success = null,
+					Action<Exception> error = null);
 	}
 }

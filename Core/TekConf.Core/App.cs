@@ -11,7 +11,7 @@ namespace TekConf.Core
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
 				
-            RegisterAppStart<ViewModels.ConferencesViewModel>();
+            RegisterAppStart<ViewModels.ConferencesListViewModel>();
         }
     }
 }

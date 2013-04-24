@@ -119,8 +119,8 @@
     <Compile Include="Common\RichTextColumns.cs" />
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="Setup.cs" />
-    <Compile Include="Views\ConferencesView.xaml.cs">
-      <DependentUpon>ConferencesView.xaml</DependentUpon>
+    <Compile Include="Views\ConferencesListView.xaml.cs">
+      <DependentUpon>ConferencesListView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -150,7 +150,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\ConferencesView.xaml">
+    <Page Include="Views\ConferencesListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
