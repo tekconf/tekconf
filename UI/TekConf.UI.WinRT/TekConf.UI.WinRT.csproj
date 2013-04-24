@@ -168,24 +168,6 @@
       <HintPath>..\..\packages\Newtonsoft.Json.4.5.11\lib\winrt45\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\ServiceStack.Text\src\ServiceStack.Text.WinRT\ServiceStack.Text.WinRT.csproj">
-      <Project>{1d8696a9-8562-4b6d-a4c6-f6e36744c9b0}</Project>
-      <Name>ServiceStack.Text.WinRT</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\ServiceStack\src\ServiceStack.Common.WinRT\ServiceStack.Common.WinRT.csproj">
-      <Project>{27b20313-1994-469b-ac59-1ae7e89cfe33}</Project>
-      <Name>ServiceStack.Common.WinRT</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\ServiceStack\src\ServiceStack.Interfaces.WinRT\ServiceStack.Interfaces.WinRT.csproj">
-      <Project>{7a5d5904-5a5f-4fd9-abb4-9dcb3861adc8}</Project>
-      <Name>ServiceStack.Interfaces.WinRT</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\RemoteData\WinRt\TekConf.RemoteData.WinRT.csproj">
-      <Project>{8c3356e0-d6b9-4c2f-9549-3d03e33bceea}</Project>
-      <Name>TekConf.RemoteData.WinRT</Name>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
   </PropertyGroup>

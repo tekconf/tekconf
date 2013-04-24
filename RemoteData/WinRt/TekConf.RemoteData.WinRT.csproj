@@ -105,9 +105,6 @@
     <Compile Include="..\Shared\v1\Dtos\ConferenceCreatedDto.cs">
       <Link>v1\Dtos\ConferenceCreatedDto.cs</Link>
     </Compile>
-    <Compile Include="..\Shared\v1\Dtos\ConferenceDto.cs">
-      <Link>v1\Dtos\ConferenceDto.cs</Link>
-    </Compile>
     <Compile Include="..\Shared\v1\Dtos\ConferenceEndDateChangedDto.cs">
       <Link>v1\Dtos\ConferenceEndDateChangedDto.cs</Link>
     </Compile>
@@ -116,9 +113,6 @@
     </Compile>
     <Compile Include="..\Shared\v1\Dtos\ConferencePublishedDto.cs">
       <Link>v1\Dtos\ConferencePublishedDto.cs</Link>
-    </Compile>
-    <Compile Include="..\Shared\v1\Dtos\ConferencesDto.cs">
-      <Link>v1\Dtos\ConferencesDto.cs</Link>
     </Compile>
     <Compile Include="..\Shared\v1\Dtos\ConferenceStartDateChangedDto.cs">
       <Link>v1\Dtos\ConferenceStartDateChangedDto.cs</Link>
@@ -271,16 +265,6 @@
     <None Include="..\Shared\packages.config">
       <Link>packages.config</Link>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\ServiceStack\src\ServiceStack.Common.WinRT\ServiceStack.Common.WinRT.csproj">
-      <Project>{27b20313-1994-469b-ac59-1ae7e89cfe33}</Project>
-      <Name>ServiceStack.Common.WinRT</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\ServiceStack\src\ServiceStack.Interfaces.WinRT\ServiceStack.Interfaces.WinRT.csproj">
-      <Project>{7a5d5904-5a5f-4fd9-abb4-9dcb3861adc8}</Project>
-      <Name>ServiceStack.Interfaces.WinRT</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
