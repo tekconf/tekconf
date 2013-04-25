@@ -39,7 +39,7 @@ namespace TekConf.Core.Models
 			try
 			{
 				// perform the search
-				string uri = ConferencesUrl;
+				const string uri = ConferencesUrl;
 				var request = WebRequest.Create(new Uri(uri));
 				request.BeginGetResponse(ReadCallback, request);
 			}
@@ -71,17 +71,6 @@ namespace TekConf.Core.Models
 		{
 			var conferences = JsonConvert.DeserializeObject<List<FullConferenceDto>>(response);
 			_success(conferences);
-			//var doc = XDocument.Parse(xml);
-			//var items = doc.Descendants(AtomConst.Entry)
-			//		.Select(entryElement => new Tweet()
-			//		{
-			//			Title = entryElement.Descendants(AtomConst.Title).Single().Value,
-			//			Id = long.Parse(entryElement.Descendants(AtomConst.ID).Single().Value.Split(':')[2]),
-			//			ProfileImageUrl = entryElement.Descendants(AtomConst.Link).Skip(1).First().Attribute("href").Value,
-			//			Timestamp = DateTime.Parse(entryElement.Descendants(AtomConst.Published).Single().Value),
-			//			Author = entryElement.Descendants(AtomConst.Name).Single().Value
-			//		});
-			//_success(items);
 		}
 
 	}

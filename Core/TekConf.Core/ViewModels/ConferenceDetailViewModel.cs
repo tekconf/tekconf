@@ -7,27 +7,27 @@ using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.Core.ViewModels
 {
-	public class ConferencesListViewModel : MvxViewModel
+	public class ConferenceDetailViewModel : MvxViewModel
 	{
 		private readonly IRemoteDataService _remoteDataService;
 
-		public ConferencesListViewModel(IRemoteDataService remoteDataService)
+		public ConferenceDetailViewModel(IRemoteDataService remoteDataService)
 		{
 			_remoteDataService = remoteDataService;
 		}
 
-		public void Init(string searchTerm)
+		public void Init(string slug)
 		{
-			StartSearch(searchTerm);
+			StartSearch(slug);
 		}
 
-		private void StartSearch(string searchTerm)
+		private void StartSearch(string slug)
 		{
 			if (IsSearching)
 				return;
 
 			IsSearching = true;
-			_remoteDataService.GetConferences(success: Success, error: Error);
+			_remoteDataService.GetConference(slug: slug, success: Success, error: Error);
 		}
 
 		private void Error(Exception exception)
@@ -36,15 +36,15 @@ namespace TekConf.Core.ViewModels
 			IsSearching = false;
 		}
 
-		private void Success(IEnumerable<FullConferenceDto> enumerable)
+		private void Success(FullConferenceDto conference)
 		{
-			InvokeOnMainThread(() => DisplayConferences(enumerable));
+			InvokeOnMainThread(() => DisplayConference(conference));
 		}
 
-		private void DisplayConferences(IEnumerable<FullConferenceDto> enumerable)
+		private void DisplayConference(FullConferenceDto conference)
 		{
 			IsSearching = false;
-			Conferences = enumerable.ToList();
+			Conference = conference;
 		}
 
 		private bool _isSearching;
@@ -54,19 +54,18 @@ namespace TekConf.Core.ViewModels
 			set { _isSearching = value; RaisePropertyChanged("IsSearching"); }
 		}
 
-		private List<FullConferenceDto> _conferences;
-		public List<FullConferenceDto> Conferences
+		private FullConferenceDto _conference;
+		public FullConferenceDto Conference
 		{
 			get
 			{
-				return _conferences;
+				return _conference;
 			}
 			set
 			{
-				_conferences = value;
-				RaisePropertyChanged(() => Conferences);
+				_conference = value;
+				RaisePropertyChanged(() => Conference);
 			}
 		}
-
 	}
 }
