@@ -40,7 +40,6 @@ namespace TekConf.UI.WinStore.Views
 		{
 			// TODO: Assign a bindable group to this.DefaultViewModel["Group"]
 			// TODO: Assign a collection of bindable items to this.DefaultViewModel["Items"]
-			var x = this.DataContext;
 		}
 	}
 }

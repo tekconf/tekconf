@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Navigation;
+﻿using System.Windows.Controls;
 using Cirrious.MvvmCross.WindowsPhone.Views;
-using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
+using TekConf.Core.ViewModels;
+using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.UI.WinPhone.Views
 {
@@ -16,6 +10,13 @@ namespace TekConf.UI.WinPhone.Views
 		public ConferencesListView()
 		{
 			InitializeComponent();
+		}
+
+		private void Conference_OnSelected(object sender, SelectionChangedEventArgs e)
+		{
+			var vm = this.DataContext as ConferencesListViewModel;
+			var conference = ((sender as ListBox).SelectedItem) as FullConferenceDto;
+			vm.ShowDetailCommand.Execute(conference.slug);
 		}
 	}
 }

@@ -69,6 +69,7 @@
       <HintPath>..\..\packages\MvvmCross.HotTuna.StarterPack.3.0.4\lib\sl4-wp71\Cirrious.MvvmCross.WindowsPhone.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Phone" />
+    <Reference Include="Microsoft.Phone.Controls, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Phone.Interop" />
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Json.3.0.4\lib\sl4-wp71\Newtonsoft.Json.dll</HintPath>
@@ -87,6 +88,9 @@
     <Compile Include="Bootstrap\JsonPluginBootstrap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Setup.cs" />
+    <Compile Include="Views\ConferenceDetailView.xaml.cs">
+      <DependentUpon>ConferenceDetailView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ConferencesListView.xaml.cs">
       <DependentUpon>ConferencesListView.xaml</DependentUpon>
     </Compile>
@@ -109,6 +113,8 @@
     <Content Include="Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="DefaultConference.png" />
+    <Content Include="LiveTile.png" />
     <Content Include="SplashScreenImage.jpg" />
     <Content Include="ToDo-MvvmCross\_ Windows Phone UI.txt" />
   </ItemGroup>
@@ -119,6 +125,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Views\ConferenceDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ConferencesListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
