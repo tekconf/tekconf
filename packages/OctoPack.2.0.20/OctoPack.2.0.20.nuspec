@@ -3,7 +3,6 @@
   <metadata>
     <id>OctoPack</id>
     <version>2.0.20</version>
-    <title>OctoPack</title>
     <authors>Octopus Deploy</authors>
     <owners>Octopus Deploy</owners>
     <licenseUrl>http://octopusdeploy.com/</licenseUrl>
@@ -11,9 +10,6 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Octopus is an automated deployment tool powered by NuGet (octopusdeploy.com). This tool adds a post-build activity to your Visual Studio project, 
       so that an Octopus-compatible NuGet package is produced in the Bin directory whenever a Release build completes.</description>
-    <releaseNotes />
-    <copyright />
-    <language />
     <references />
   </metadata>
 </package>
