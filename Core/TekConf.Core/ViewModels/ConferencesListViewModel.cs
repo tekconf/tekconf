@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Input;
 using Cirrious.MvvmCross.ViewModels;
 using TekConf.Core.Services;
 using TekConf.RemoteData.Dtos.v1;
@@ -68,5 +69,9 @@ namespace TekConf.Core.ViewModels
 			}
 		}
 
+		public ICommand ShowDetailCommand
+		{
+			get { return new MvxCommand<string>((slug) => ShowViewModel<ConferenceDetailViewModel>(new { slug = slug })); 	}
+		}
 	}
 }

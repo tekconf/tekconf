@@ -54,6 +54,7 @@ namespace TekConf.Core.ViewModels
 			set { _isSearching = value; RaisePropertyChanged("IsSearching"); }
 		}
 
+
 		private FullConferenceDto _conference;
 		public FullConferenceDto Conference
 		{

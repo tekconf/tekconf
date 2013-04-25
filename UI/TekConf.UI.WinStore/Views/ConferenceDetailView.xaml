@@ -14,7 +14,7 @@
 		<!-- Collection of items displayed by this page -->
 		<CollectionViewSource
             x:Name="itemsViewSource"
-            Source="{Binding sessions}"/>
+            Source="{Binding Conference.sessions}"/>
 
 		<DataTemplate x:Key="ConferenceDetail500x130ItemTemplate">
 			<Grid Height="110" Width="480" Margin="10">
@@ -23,12 +23,12 @@
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
 				<Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" Width="110" Height="110">
-					<Image Source="{Binding imageUrl}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}"/>
+					<Image Source="{Binding Conference.imageUrl, Mode=TwoWay}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Conference.name}"/>
 				</Border>
 				<StackPanel Grid.Column="1" VerticalAlignment="Top" Margin="10,0,0,0">
-					<TextBlock Text="{Binding name}" Style="{StaticResource TitleTextStyle}" TextWrapping="NoWrap"/>
-					<TextBlock Text="{Binding tagline}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap"/>
-					<TextBlock Text="{Binding description}" Style="{StaticResource BodyTextStyle}" MaxHeight="60"/>
+					<TextBlock Text="{Binding Conference.name, Mode=TwoWay}" Style="{StaticResource TitleTextStyle}" TextWrapping="NoWrap"/>
+					<TextBlock Text="{Binding Conference.tagline, Mode=TwoWay}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap"/>
+					<TextBlock Text="{Binding Conference.description, Mode=TwoWay}" Style="{StaticResource BodyTextStyle}" MaxHeight="60"/>
 				</StackPanel>
 			</Grid>
 		</DataTemplate>
@@ -39,7 +39,7 @@
         * Row 0 contains the back button and page title
         * Row 1 contains the rest of the page layout
     -->
-	<Grid DataContext="{Binding Group}" Style="{StaticResource LayoutRootStyle}">
+	<Grid Style="{StaticResource LayoutRootStyle}">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="140"/>
 			<RowDefinition Height="*"/>
@@ -60,9 +60,9 @@
 
 			<GridView.Header>
 				<StackPanel Width="480" Margin="0,4,14,0">
-					<TextBlock Text="{Binding Subtitle}" Margin="0,0,18,20" Style="{StaticResource SubheaderTextStyle}" MaxHeight="60"/>
-					<Image Source="{Binding Image}" Height="400" Margin="0,0,18,20" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}"/>
-					<TextBlock Text="{Binding Description}" Margin="0,0,18,0" Style="{StaticResource BodyTextStyle}"/>
+					<TextBlock Text="{Binding Conference.name, Mode=TwoWay}" Margin="0,0,18,20" Style="{StaticResource SubheaderTextStyle}" MaxHeight="60"/>
+					<Image Source="{Binding Conference.imageUrl, Mode=TwoWay}" Height="400" Margin="0,0,18,20" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}"/>
+					<TextBlock Text="{Binding Conference.description, Mode=TwoWay}" Margin="0,0,18,0" Style="{StaticResource BodyTextStyle}"/>
 				</StackPanel>
 			</GridView.Header>
 			<GridView.ItemContainerStyle>
@@ -90,7 +90,7 @@
 				<StackPanel>
 					<TextBlock Text="{Binding Subtitle}" Margin="10,0,18,20" Style="{StaticResource TitleTextStyle}" MaxHeight="60"/>
 					<Image Source="{Binding Image}" Margin="10,0,18,0" MaxHeight="160" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}"/>
-					<TextBlock Margin="10,20,18,30" Text="{Binding Description}" Style="{StaticResource BodyTextStyle}"/>
+					<TextBlock Margin="10,20,18,30" Text="{Binding Conference.description}" Style="{StaticResource BodyTextStyle}"/>
 				</StackPanel>
 			</ListView.Header>
 		</ListView>
@@ -102,7 +102,7 @@
 				<ColumnDefinition Width="*"/>
 			</Grid.ColumnDefinitions>
 			<Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
-			<TextBlock x:Name="pageTitle" Text="{Binding Title}" Style="{StaticResource PageHeaderTextStyle}" Grid.Column="1" IsHitTestVisible="false" />
+			<TextBlock x:Name="pageTitle" Text="{Binding Conference.name, Mode=TwoWay}" Style="{StaticResource PageHeaderTextStyle}" Grid.Column="1" IsHitTestVisible="false" />
 		</Grid>
 
 		<VisualStateManager.VisualStateGroups>

@@ -7,8 +7,8 @@
     xmlns:local="using:TekConf.UI.WinStore.Views"
     xmlns:common="using:TekConf.UI.WinStore.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:winStore="using:TekConf.UI.WinStore"
+	mc:Ignorable="d">
 
 	<Page.Resources>
 
@@ -71,8 +71,12 @@
             Padding="116,136,116,46"
             ItemsSource="{Binding Source={StaticResource itemsViewSource}}"
             ItemTemplate="{StaticResource Conferences250x250ItemTemplate}"
-            SelectionMode="None"
-            IsSwipeEnabled="false"/>
+            SelectionMode="Single"
+            IsSwipeEnabled="false"
+						IsItemClickEnabled="True"
+			ItemClick="Conference_OnClick"
+						
+			/>
 
 		<!-- Vertical scrolling list only used when snapped -->
 		<ListView

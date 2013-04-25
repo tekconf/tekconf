@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml.Controls;
+using TekConf.Core.ViewModels;
+using TekConf.RemoteData.Dtos.v1;
 
 // The Grouped Items Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234231
 
@@ -30,5 +32,11 @@ namespace TekConf.UI.WinStore.Views
 			// TODO: Assign a collection of bindable groups to this.DefaultViewModel["Groups"]
 		}
 
+		private void Conference_OnClick(object sender, ItemClickEventArgs e)
+		{
+			var vm = this.DataContext as ConferencesListViewModel;
+			var conference = e.ClickedItem as FullConferenceDto;
+			vm.ShowDetailCommand.Execute(conference.slug);
+		}
 	}
 }
