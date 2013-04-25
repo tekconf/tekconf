@@ -32,11 +32,13 @@
 			<ListBox ItemsSource="{Binding Conferences}" SelectionChanged="Conference_OnSelected">
 				<ListBox.ItemTemplate>
 					<DataTemplate>
-						<StackPanel Orientation="Horizontal">
-							<Image Height="180" Width="260" Source="{Binding imageUrl}"></Image>
-							<StackPanel>
-								<TextBlock Text="{Binding name}" FontSize="36"></TextBlock>
-								<TextBlock Text="{Binding tagline}" FontSize="12"></TextBlock>
+						<StackPanel>
+							<Border BorderBrush="#FF81994D" BorderThickness="2" Background="White">
+								<Image Source="{Binding imageUrl}" Margin="0,0,0,0" SizeChanged="ConferenceImage_OnSizeChanged"></Image>
+							</Border>
+							<StackPanel VerticalAlignment="Bottom"  Orientation="Vertical" Margin="0,0,0,15" Background="#FF81994D">
+								<TextBlock TextAlignment="Center" Foreground="White" Text="{Binding name}" FontSize="28" Height="60" TextWrapping="Wrap" SizeChanged="ConferenceName_OnSizeChanged"></TextBlock>
+								<TextBlock TextAlignment="Center" Foreground="White" Text="{Binding tagline}" FontSize="16" TextWrapping="Wrap" Margin="0,0,0,5"></TextBlock>
 							</StackPanel>
 						</StackPanel>
 					</DataTemplate>

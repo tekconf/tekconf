@@ -8,6 +8,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:views="clr-namespace:Cirrious.MvvmCross.WindowsPhone.Views;assembly=Cirrious.MvvmCross.WindowsPhone"
+	xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=Microsoft.Phone"
 	mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -15,6 +16,12 @@
     SupportedOrientations="Portrait"  Orientation="Portrait"
     shell:SystemTray.IsVisible="True">
 
+	<navigation:Page.Resources>
+		<CollectionViewSource
+            x:Name="sessionsViewSource"
+            Source="{Binding Conference.sessions}"/>
+	</navigation:Page.Resources>
+	
 	<!--LayoutRoot is the root grid where all page content is placed-->
 	<Grid x:Name="LayoutRoot" Background="Transparent">
 		<!--Pivot Control-->
@@ -37,11 +44,12 @@
 					<ListBox ItemsSource="{Binding Conference.sessions}">
 						<ListBox.ItemTemplate>
 							<DataTemplate>
-								<StackPanel Orientation="Horizontal">
-									<!--<Image Height="180" Width="260" Source="{Binding imageUrl}"></Image>-->
-									<StackPanel>
-										<TextBlock Text="{Binding title}" FontSize="36"></TextBlock>
-										<!--<TextBlock Text="{Binding tagline}" FontSize="12"></TextBlock>-->
+								<StackPanel Orientation="Vertical" Margin="0,0,0,10">
+									<TextBlock Text="{Binding title}" FontSize="28" TextWrapping="Wrap" SizeChanged="SessionTitle_OnSizeChanged"></TextBlock>
+									<StackPanel Orientation="Horizontal">
+										<TextBlock Text="{Binding start}" FontSize="16"></TextBlock>
+										<TextBlock Text=" - " FontSize="16"></TextBlock>
+										<TextBlock Text="{Binding end}" FontSize="16"></TextBlock>
 									</StackPanel>
 								</StackPanel>
 							</DataTemplate>

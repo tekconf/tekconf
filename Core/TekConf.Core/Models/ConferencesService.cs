@@ -23,6 +23,7 @@ namespace TekConf.Core.Models
 			search.StartSearch();
 		}
 
+		//private const string ConferencesUrl = "http://api.tekconf.com/v1/conferences?search=mobidev&format=json";
 		private const string ConferencesUrl = "http://api.tekconf.com/v1/conferences?format=json";
 
 		private readonly Action<IEnumerable<FullConferenceDto>> _success;
@@ -70,7 +71,7 @@ namespace TekConf.Core.Models
 		private void HandleResponse(string response)
 		{
 			var conferences = JsonConvert.DeserializeObject<List<FullConferenceDto>>(response);
-			_success(conferences);
+			_success(conferences.OrderBy(x => x.name).ToList());
 		}
 
 	}
