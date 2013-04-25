@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>CommonCore</id>
     <version>1.0.0.7</version>
@@ -9,5 +9,10 @@
     <projectUrl>http://github.com/marcosb/CommonCore</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Core libraries with common utility classes, such as a Cache and collection utilities. Aims to be similar to Guava for Java</description>
+    <references>
+      <reference file="CommonCore.Base.dll" />
+      <reference file="CommonCore.Cache.dll" />
+      <reference file="CommonCore.Collections.dll" />
+    </references>
   </metadata>
 </package>

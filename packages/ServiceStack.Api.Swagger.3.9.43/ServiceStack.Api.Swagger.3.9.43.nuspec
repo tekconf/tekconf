@@ -13,7 +13,6 @@
     <description>Provides a set of services to be discovered by Swagger (http://swagger.wordnik.com/)
       Swagger is a specification and complete framework implementation for describing, producing, consuming, and visualizing RESTful web services.</description>
     <summary>ServiceStack integration with Swagger</summary>
-    <releaseNotes />
     <copyright>StackExpress.net 2012 and contributors</copyright>
     <language>en-US</language>
     <tags>Swagger API REST Docs ServiceStack</tags>

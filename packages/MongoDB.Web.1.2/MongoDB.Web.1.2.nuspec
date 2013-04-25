@@ -11,9 +11,6 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>MongoDB.Web is a collection of ASP.NET providers (caching, membership, profiles, roles, session state, web events) for MongoDB.</description>
     <summary>MongoDB.Web is a collection of ASP.NET providers (caching, membership, profiles, roles, session state, web events) for MongoDB.</summary>
-    <releaseNotes />
-    <copyright />
-    <language />
     <tags>asp.net mongodb mongo nosql</tags>
     <frameworkAssemblies>
       <frameworkAssembly assemblyName="System" targetFramework="" />

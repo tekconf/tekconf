@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
   <metadata>
     <id>TinyMessenger</id>
     <version>1.0</version>
@@ -12,5 +12,6 @@
     <description>A simple messenger/event aggregator</description>
     <summary>A simple messenger/event aggregator</summary>
     <tags>messaging pubsub aggregator</tags>
+    <references />
   </metadata>
 </package>
