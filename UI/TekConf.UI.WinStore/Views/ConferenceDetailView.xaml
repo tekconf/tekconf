@@ -13,22 +13,18 @@
 	<Page.Resources>
 		<!-- Collection of items displayed by this page -->
 		<CollectionViewSource
-            x:Name="itemsViewSource"
+            x:Name="sessionsViewSource"
             Source="{Binding Conference.sessions}"/>
 
-		<DataTemplate x:Key="ConferenceDetail500x130ItemTemplate">
-			<Grid Height="110" Width="480" Margin="10">
+		<DataTemplate x:Key="ConferenceSession500x130ItemTemplate">
+			<Grid Height="150" Width="480" Margin="10">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="Auto"/>
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
-				<Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" Width="110" Height="110">
-					<Image Source="{Binding Conference.imageUrl, Mode=TwoWay}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Conference.name}"/>
-				</Border>
-				<StackPanel Grid.Column="1" VerticalAlignment="Top" Margin="10,0,0,0">
-					<TextBlock Text="{Binding Conference.name, Mode=TwoWay}" Style="{StaticResource TitleTextStyle}" TextWrapping="NoWrap"/>
-					<TextBlock Text="{Binding Conference.tagline, Mode=TwoWay}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap"/>
-					<TextBlock Text="{Binding Conference.description, Mode=TwoWay}" Style="{StaticResource BodyTextStyle}" MaxHeight="60"/>
+				<StackPanel Grid.Column="1" VerticalAlignment="Top" Margin="0,0,0,0">
+					<TextBlock Text="{Binding title, Mode=TwoWay}" Style="{StaticResource TitleTextStyle}" TextWrapping="Wrap"/>
+					<TextBlock Text="{Binding description, Mode=TwoWay}" Style="{StaticResource BodyTextStyle}" MaxHeight="120" TextWrapping="Wrap"/>
 				</StackPanel>
 			</Grid>
 		</DataTemplate>
@@ -47,21 +43,21 @@
 
 		<!-- Horizontal scrolling grid used in most view states -->
 		<GridView
-            x:Name="itemGridView"
+            x:Name="sessionsGridView"
             AutomationProperties.AutomationId="ItemGridView"
             AutomationProperties.Name="Items In Group"
             TabIndex="1"
             Grid.RowSpan="2"
             Padding="120,126,120,50"
-            ItemsSource="{Binding Source={StaticResource itemsViewSource}}"
-            ItemTemplate="{StaticResource ConferenceDetail500x130ItemTemplate}"
+            ItemsSource="{Binding Source={StaticResource sessionsViewSource}}"
+            ItemTemplate="{StaticResource ConferenceSession500x130ItemTemplate}"
             SelectionMode="None"
             IsSwipeEnabled="false">
 
 			<GridView.Header>
 				<StackPanel Width="480" Margin="0,4,14,0">
 					<TextBlock Text="{Binding Conference.name, Mode=TwoWay}" Margin="0,0,18,20" Style="{StaticResource SubheaderTextStyle}" MaxHeight="60"/>
-					<Image Source="{Binding Conference.imageUrl, Mode=TwoWay}" Height="400" Margin="0,0,18,20" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}"/>
+					<Image Source="{Binding Conference.imageUrl, Mode=TwoWay}" SizeChanged="ConferenceImage_OnSizeChanged" Height="600" Margin="0,0,18,20" Stretch="None" AutomationProperties.Name="{Binding Title}"/>
 					<TextBlock Text="{Binding Conference.description, Mode=TwoWay}" Margin="0,0,18,0" Style="{StaticResource BodyTextStyle}"/>
 				</StackPanel>
 			</GridView.Header>
@@ -81,7 +77,7 @@
             Grid.Row="1"
             Visibility="Collapsed"
             Padding="10,0,0,60"
-            ItemsSource="{Binding Source={StaticResource itemsViewSource}}"
+            ItemsSource="{Binding Source={StaticResource sessionsViewSource}}"
             ItemTemplate="{StaticResource Standard80ItemTemplate}"
             SelectionMode="None"
             IsSwipeEnabled="false">
@@ -119,7 +115,7 @@
 							<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource PortraitBackButtonStyle}"/>
 						</ObjectAnimationUsingKeyFrames>
 
-						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemGridView" Storyboard.TargetProperty="Padding">
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="sessionsGridView" Storyboard.TargetProperty="Padding">
 							<DiscreteObjectKeyFrame KeyTime="0" Value="100,126,90,0"/>
 						</ObjectAnimationUsingKeyFrames>
 					</Storyboard>
@@ -138,7 +134,7 @@
 							<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedPageHeaderTextStyle}"/>
 						</ObjectAnimationUsingKeyFrames>
 
-						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemGridView" Storyboard.TargetProperty="Visibility">
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="sessionsGridView" Storyboard.TargetProperty="Visibility">
 							<DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
 						</ObjectAnimationUsingKeyFrames>
 						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemListView" Storyboard.TargetProperty="Visibility">

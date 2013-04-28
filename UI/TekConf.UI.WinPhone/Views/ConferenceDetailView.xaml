@@ -7,9 +7,9 @@
     xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:views="clr-namespace:Cirrious.MvvmCross.WindowsPhone.Views;assembly=Cirrious.MvvmCross.WindowsPhone"
-	xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=Microsoft.Phone"
-	mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
+		xmlns:views="clr-namespace:Cirrious.MvvmCross.WindowsPhone.Views;assembly=Cirrious.MvvmCross.WindowsPhone"
+		xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=Microsoft.Phone"
+		mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -19,47 +19,179 @@
 	<navigation:Page.Resources>
 		<CollectionViewSource
             x:Name="sessionsViewSource"
-            Source="{Binding Conference.sessions}"/>
+            Source="{Binding Conference.sessions}" />
 	</navigation:Page.Resources>
-	
+
 	<!--LayoutRoot is the root grid where all page content is placed-->
 	<Grid x:Name="LayoutRoot" Background="Transparent">
-		<!--Pivot Control-->
-		<controls:Pivot Title="TEKCONF">
-			<!--Pivot item one-->
-			<controls:PivotItem Header="detail">
-				<Grid>
+		<controls:Pivot>
+			<controls:Pivot.TitleTemplate>
+				<DataTemplate>
+					<TextBlock Text="TEKCONF" Foreground="#FF81994D" />
+				</DataTemplate>
+			</controls:Pivot.TitleTemplate>
+
+			<controls:PivotItem>
+				<controls:PivotItem.Header>
+					<TextBlock Text="detail" Foreground="#FF81994D" />
+				</controls:PivotItem.Header>
+				<ScrollViewer>
 					<StackPanel>
-						<Image Height="180" Width="260" Source="{Binding Conference.imageUrl}"></Image>
-
-						<TextBlock Text="{Binding Conference.description}" TextWrapping="Wrap"></TextBlock>
+						<Image Source="{Binding Conference.imageUrl}" SizeChanged="ConferenceImage_OnSizeChanged"></Image>
+						<TextBlock Text="{Binding Conference.description}" TextWrapping="Wrap" Margin="0,10,0,0"></TextBlock>
 					</StackPanel>
-				</Grid>
+				</ScrollViewer>
 			</controls:PivotItem>
 
-			<!--Pivot item two-->
-
-			<controls:PivotItem Header="sessions">
-				<Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-					<ListBox ItemsSource="{Binding Conference.sessions}">
-						<ListBox.ItemTemplate>
-							<DataTemplate>
-								<StackPanel Orientation="Vertical" Margin="0,0,0,10">
-									<TextBlock Text="{Binding title}" FontSize="28" TextWrapping="Wrap" SizeChanged="SessionTitle_OnSizeChanged"></TextBlock>
-									<StackPanel Orientation="Horizontal">
-										<TextBlock Text="{Binding start}" FontSize="16"></TextBlock>
-										<TextBlock Text=" - " FontSize="16"></TextBlock>
-										<TextBlock Text="{Binding end}" FontSize="16"></TextBlock>
-									</StackPanel>
-								</StackPanel>
-							</DataTemplate>
-						</ListBox.ItemTemplate>
-					</ListBox>
-				</Grid>
+			<controls:PivotItem>
+				<controls:PivotItem.Header>
+					<TextBlock Text="map" Foreground="#FF81994D" />
+				</controls:PivotItem.Header>
+				<ScrollViewer>
+					<StackPanel>
+						<TextBlock Text="{Binding Conference.FormattedAddress}" TextWrapping="Wrap" Margin="0,10,0,0"></TextBlock>
+					</StackPanel>
+				</ScrollViewer>
 			</controls:PivotItem>
 
+			<controls:PivotItem>
+				<controls:PivotItem.Header>
+					<TextBlock Text="connect" Foreground="#FF81994D" />
+				</controls:PivotItem.Header>
+				<ScrollViewer>
+					<StackPanel>
+						<Button Click="FacebookNavigate_OnClick" BorderThickness="0" HorizontalAlignment="Left">
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="34"/>
+									<ColumnDefinition Width="Auto"/>
+								</Grid.ColumnDefinitions>
+								<Image Source="/img/facebook-32-black.png" Height="32" Width="32" Grid.Column="0"></Image>
+								<TextBlock Text="Facebook" Grid.Column="1"></TextBlock>
+							</Grid>
+						</Button>
+						
+						<Button Click="HomepageNavigate_OnClick" BorderThickness="0" HorizontalAlignment="Left">
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="34"/>
+									<ColumnDefinition Width="Auto"/>
+								</Grid.ColumnDefinitions>
+								<Image Source="/img/facebook-32-black.png" Height="32" Width="32" Grid.Column="0"></Image>
+								<TextBlock Text="Homepage" Grid.Column="1"></TextBlock>
+							</Grid>
+						</Button>
+						
+						<Button Click="LanyrdNavigate_OnClick" BorderThickness="0" HorizontalAlignment="Left">
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="34"/>
+									<ColumnDefinition Width="Auto"/>
+								</Grid.ColumnDefinitions>
+								<Image Source="/img/facebook-32-black.png" Height="32" Width="32" Grid.Column="0"></Image>
+								<TextBlock Text="Lanyrd" Grid.Column="1"></TextBlock>
+							</Grid>
+						</Button>
+						
+						<Button Click="MeetupNavigate_OnClick" BorderThickness="0" HorizontalAlignment="Left">
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="34"/>
+									<ColumnDefinition Width="Auto"/>
+								</Grid.ColumnDefinitions>
+								<Image Source="/img/facebook-32-black.png" Height="32" Width="32" Grid.Column="0"></Image>
+								<TextBlock Text="Meetup" Grid.Column="1"></TextBlock>
+							</Grid>
+						</Button>
+						
+						<Button Click="GooglePlusNavigate_OnClick" BorderThickness="0" HorizontalAlignment="Left">
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="34"/>
+									<ColumnDefinition Width="Auto"/>
+								</Grid.ColumnDefinitions>
+								<Image Source="/img/googleplus-32-black.png" Height="32" Width="32" Grid.Column="0"></Image>
+								<TextBlock Text="Google+" Grid.Column="1"></TextBlock>
+							</Grid>
+						</Button>
+						
+						<Button Click="VimeoNavigate_OnClick" BorderThickness="0" HorizontalAlignment="Left">
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="34"/>
+									<ColumnDefinition Width="Auto"/>
+								</Grid.ColumnDefinitions>
+								<Image Source="/img/vimeo-32-black.png" Height="32" Width="32" Grid.Column="0"></Image>
+								<TextBlock Text="Vimeo" Grid.Column="1"></TextBlock>
+							</Grid>
+						</Button>
+						
+						<Button Click="YouTubeNavigate_OnClick" BorderThickness="0" HorizontalAlignment="Left">
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="34"/>
+									<ColumnDefinition Width="Auto"/>
+								</Grid.ColumnDefinitions>
+								<Image Source="/img/youtube-32-black.png" Height="32" Width="32" Grid.Column="0"></Image>
+								<TextBlock Text="YouTube" Grid.Column="1"></TextBlock>
+							</Grid>
+						</Button>
+						
+						<Button Click="GitHubNavigate_OnClick" BorderThickness="0" HorizontalAlignment="Left">
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="34"/>
+									<ColumnDefinition Width="Auto"/>
+								</Grid.ColumnDefinitions>
+								<Image Source="/img/facebook-32-black.png" Height="32" Width="32" Grid.Column="0"></Image>
+								<TextBlock Text="GitHub" Grid.Column="1"></TextBlock>
+							</Grid>
+						</Button>
+						
+						<Button Click="LinkedInNavigate_OnClick" BorderThickness="0" HorizontalAlignment="Left">
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="34"/>
+									<ColumnDefinition Width="Auto"/>
+								</Grid.ColumnDefinitions>
+								<Image Source="/img/linkedin-32-black.png" Height="32" Width="32" Grid.Column="0"></Image>
+								<TextBlock Text="LinkedIn" Grid.Column="1"></TextBlock>
+							</Grid>
+						</Button>
+
+						<Grid>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto"/>
+								<ColumnDefinition Width="Auto"/>
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition></RowDefinition>
+								<RowDefinition></RowDefinition>
+
+							</Grid.RowDefinitions>
+							
+							<Image Source="/img/github-512-black.png" Height="240" Width="240" Grid.Column="0" Grid.Row="0"></Image>
+							<Image Source="/img/github-512-black.png" Height="240" Width="240" Grid.Column="1" Grid.Row="0"></Image>
+						</Grid>
+						
+						<TextBlock Text="{Binding Conference.twitterHashTag}" TextWrapping="Wrap" Margin="0,10,0,0"></TextBlock>
+						<TextBlock Text="{Binding Conference.twitterName}" TextWrapping="Wrap" Margin="0,10,0,0"></TextBlock>
+					</StackPanel>
+
+
+				</ScrollViewer>
+			</controls:PivotItem>
 
 		</controls:Pivot>
+
+
 	</Grid>
+
+	<phone:PhoneApplicationPage.ApplicationBar>
+		<shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" BackgroundColor="#FF81994D" ForegroundColor="White">
+			<shell:ApplicationBarIconButton IconUri="/img/feature.calendar.png" Text="sessions" Click="BrowseSessions_OnClick" />
+			<shell:ApplicationBarIconButton IconUri="/img/favs.png" Text="favorite" Click="AddFavorite_OnClick" />
+		</shell:ApplicationBar>
+	</phone:PhoneApplicationPage.ApplicationBar>
 
 </views:MvxPhonePage>

@@ -10,14 +10,16 @@ using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.Core.Models
 {
+
+
 	public class ConferencesService
 	{
 		public static void GetConferencesAsync(Action<IEnumerable<FullConferenceDto>> success, Action<Exception> error)
 		{
-			MvxAsyncDispatcher.BeginAsync(() => DoAsyncSearch(success, error));
+			MvxAsyncDispatcher.BeginAsync(() => DoAsyncGetAllSearch(success, error));
 		}
 
-		private static void DoAsyncSearch(Action<IEnumerable<FullConferenceDto>> success, Action<Exception> error)
+		private static void DoAsyncGetAllSearch(Action<IEnumerable<FullConferenceDto>> success, Action<Exception> error)
 		{
 			var search = new ConferencesService(success, error);
 			search.StartSearch();
@@ -71,7 +73,7 @@ namespace TekConf.Core.Models
 		private void HandleResponse(string response)
 		{
 			var conferences = JsonConvert.DeserializeObject<List<FullConferenceDto>>(response);
-			_success(conferences.OrderBy(x => x.name).ToList());
+			_success(conferences.OrderBy(x => x.start).ToList());
 		}
 
 	}

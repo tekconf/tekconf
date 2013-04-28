@@ -41,5 +41,10 @@ namespace TekConf.UI.WinStore.Views
 			// TODO: Assign a bindable group to this.DefaultViewModel["Group"]
 			// TODO: Assign a collection of bindable items to this.DefaultViewModel["Items"]
 		}
+
+		private void ConferenceImage_OnSizeChanged(object sender, SizeChangedEventArgs e)
+		{
+
+		}
 	}
 }

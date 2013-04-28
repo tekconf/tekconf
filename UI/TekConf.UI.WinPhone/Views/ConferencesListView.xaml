@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:views="clr-namespace:Cirrious.MvvmCross.WindowsPhone.Views;assembly=Cirrious.MvvmCross.WindowsPhone"
+	xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
 	FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -16,35 +17,65 @@
 
 	<!--LayoutRoot is the root grid where all page content is placed-->
 	<Grid x:Name="LayoutRoot" Background="Transparent">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="Auto"/>
-			<RowDefinition Height="*"/>
-		</Grid.RowDefinitions>
-
-		<!--TitlePanel contains the name of the application and page title-->
-		<StackPanel Grid.Row="0" Margin="12,17,0,28">
-			<TextBlock Text="TEKCONF" Style="{StaticResource PhoneTextNormalStyle}"/>
-			<TextBlock Text="conferences" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
-		</StackPanel>
-
-		<!--ContentPanel - place additional content here-->
-		<Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-			<ListBox ItemsSource="{Binding Conferences}" SelectionChanged="Conference_OnSelected">
-				<ListBox.ItemTemplate>
-					<DataTemplate>
-						<StackPanel>
-							<Border BorderBrush="#FF81994D" BorderThickness="2" Background="White">
-								<Image Source="{Binding imageUrl}" Margin="0,0,0,0" SizeChanged="ConferenceImage_OnSizeChanged"></Image>
-							</Border>
-							<StackPanel VerticalAlignment="Bottom"  Orientation="Vertical" Margin="0,0,0,15" Background="#FF81994D">
-								<TextBlock TextAlignment="Center" Foreground="White" Text="{Binding name}" FontSize="28" Height="60" TextWrapping="Wrap" SizeChanged="ConferenceName_OnSizeChanged"></TextBlock>
-								<TextBlock TextAlignment="Center" Foreground="White" Text="{Binding tagline}" FontSize="16" TextWrapping="Wrap" Margin="0,0,0,5"></TextBlock>
+		<controls:Pivot>
+			<controls:Pivot.TitleTemplate>
+				<DataTemplate>
+					<TextBlock Text="TEKCONF" Foreground="#FF81994D" />
+				</DataTemplate>
+			</controls:Pivot.TitleTemplate>
+			
+			<!--Pivot item one-->
+			<controls:PivotItem>
+				<controls:PivotItem.Header>
+					<TextBlock Text="conferences" Foreground="#FF81994D" />
+				</controls:PivotItem.Header>
+				<ListBox ItemsSource="{Binding Conferences}" SelectionChanged="Conference_OnSelected">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<StackPanel>
+								<Border BorderBrush="#FF81994D" BorderThickness="2" Background="White">
+									<Image Source="{Binding imageUrl}" Margin="0,0,0,0" SizeChanged="ConferenceImage_OnSizeChanged"></Image>
+								</Border>
+								<StackPanel VerticalAlignment="Bottom"  Orientation="Vertical" Margin="0,0,0,15" Background="#FF81994D">
+									<TextBlock TextAlignment="Center" Foreground="White" Text="{Binding name}" FontSize="28" TextWrapping="Wrap" SizeChanged="ConferenceName_OnSizeChanged"></TextBlock>
+									<TextBlock TextAlignment="Center" Foreground="White" Text="{Binding DateRange}" FontSize="20" TextWrapping="Wrap" Margin="0,0,0,5"></TextBlock>
+									<TextBlock TextAlignment="Center" Foreground="White" Text="{Binding FormattedAddress}" FontSize="20" TextWrapping="Wrap" Margin="0,0,0,5"></TextBlock>
+								</StackPanel>
 							</StackPanel>
-						</StackPanel>
-					</DataTemplate>
-				</ListBox.ItemTemplate>
-			</ListBox>
-		</Grid>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
+			</controls:PivotItem>
+			
+			<controls:PivotItem>
+				<controls:PivotItem.Header>
+					<TextBlock Text="favorites" Foreground="#FF81994D" />
+				</controls:PivotItem.Header>
+				<ListBox ItemsSource="{Binding Favorites}" SelectionChanged="Conference_OnSelected">
+					<ListBox.ItemTemplate>
+						<DataTemplate>
+							<StackPanel>
+								<Border BorderBrush="#FF81994D" BorderThickness="2" Background="White">
+									<Image Source="{Binding imageUrl}" Margin="0,0,0,0" SizeChanged="ConferenceImage_OnSizeChanged"></Image>
+								</Border>
+								<StackPanel VerticalAlignment="Bottom"  Orientation="Vertical" Margin="0,0,0,15" Background="#FF81994D">
+									<TextBlock TextAlignment="Center" Foreground="White" Text="{Binding name}" FontSize="28" TextWrapping="Wrap" SizeChanged="ConferenceName_OnSizeChanged"></TextBlock>
+									<TextBlock TextAlignment="Center" Foreground="White" Text="{Binding DateRange}" FontSize="20" TextWrapping="Wrap" Margin="0,0,0,5"></TextBlock>
+									<TextBlock TextAlignment="Center" Foreground="White" Text="{Binding FormattedAddress}" FontSize="20" TextWrapping="Wrap" Margin="0,0,0,5"></TextBlock>
+								</StackPanel>
+							</StackPanel>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
+			</controls:PivotItem>
+
+			<controls:PivotItem>
+				<controls:PivotItem.Header>
+					<TextBlock Text="nearby" Foreground="#FF81994D" />
+				</controls:PivotItem.Header>
+			</controls:PivotItem>
+		</controls:Pivot>
 	</Grid>
+
 
 </views:MvxPhonePage>

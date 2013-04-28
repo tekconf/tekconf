@@ -65,11 +65,26 @@
     <Reference Include="Cirrious.MvvmCross.Plugins.Json">
       <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Json.3.0.4\lib\sl4-wp71\Cirrious.MvvmCross.Plugins.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Share">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Share.3.0.4\lib\sl4-wp71\Cirrious.MvvmCross.Plugins.Share.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Share.WindowsPhone">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Share.3.0.4\lib\sl4-wp71\Cirrious.MvvmCross.Plugins.Share.WindowsPhone.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.WebBrowser">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.WebBrowser.3.0.4\lib\sl4-wp71\Cirrious.MvvmCross.Plugins.WebBrowser.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.WebBrowser.WindowsPhone">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.WebBrowser.3.0.4\lib\sl4-wp71\Cirrious.MvvmCross.Plugins.WebBrowser.WindowsPhone.dll</HintPath>
+    </Reference>
     <Reference Include="Cirrious.MvvmCross.WindowsPhone">
       <HintPath>..\..\packages\MvvmCross.HotTuna.StarterPack.3.0.4\lib\sl4-wp71\Cirrious.MvvmCross.WindowsPhone.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Controls, Version=7.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Phone.Controls.Toolkit">
+      <HintPath>..\..\packages\WPtoolkit.4.2012.10.30\lib\sl4-windowsphone71\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Phone.Interop" />
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Json.3.0.4\lib\sl4-wp71\Newtonsoft.Json.dll</HintPath>
@@ -86,10 +101,15 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Bootstrap\JsonPluginBootstrap.cs" />
+    <Compile Include="Bootstrap\SharePluginBootstrap.cs" />
+    <Compile Include="Bootstrap\WebBrowserPluginBootstrap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="Views\ConferenceDetailView.xaml.cs">
       <DependentUpon>ConferenceDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ConferenceSessionsView.xaml.cs">
+      <DependentUpon>ConferenceSessionsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ConferencesListView.xaml.cs">
       <DependentUpon>ConferencesListView.xaml</DependentUpon>
@@ -116,9 +136,27 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="DefaultConference.png" />
+    <Content Include="img\facebook-512-black.png" />
+    <Content Include="img\favs.png" />
+    <Content Include="img\feature.calendar.png" />
+    <Content Include="img\github-512-black.png" />
+    <Content Include="img\googleplus-512-black.png" />
+    <Content Include="img\like.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\linkedin-512-black.png" />
+    <Content Include="img\vimeo-512-black.png" />
+    <Content Include="img\youtube-512-black.png" />
     <Content Include="LiveTile.png" />
-    <Content Include="SplashScreenImage.jpg" />
+    <Content Include="README_FIRST.txt" />
+    <Content Include="SplashScreenImage.screen-720p.jpg" />
+    <Content Include="SplashScreenImage.screen-WVGA.jpg" />
+    <Content Include="SplashScreenImage.screen-WXGA.jpg" />
     <Content Include="ToDo-MvvmCross\_ Windows Phone UI.txt" />
+    <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
+    <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
+    <Content Include="Toolkit.Content\ApplicationBar.Delete.png" />
+    <Content Include="Toolkit.Content\ApplicationBar.Select.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Core\TekConf.Core\TekConf.Core.csproj">
@@ -128,6 +166,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Views\ConferenceDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ConferenceSessionsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -26,16 +26,16 @@ namespace TekConf.Core.Models
 		private static void DoAsyncSearch(string slug, Action<FullConferenceDto> success, Action<Exception> error)
 		{
 			var search = new ConferenceService(success, error);
-			search.StartSearch(slug);
+			search.StartGetAllSearch(slug);
 		}
 
-		private void StartSearch(string slug)
+		private void StartGetAllSearch(string slug)
 		{
 			try
 			{
 				var uri = string.Format("http://api.tekconf.com/v1/conferences/{0}?format=json", slug);
 				var request = WebRequest.Create(new Uri(uri));
-				request.BeginGetResponse(ReadCallback, request);
+				request.BeginGetResponse(ReadGetAllCallback, request);
 			}
 			catch (Exception exception)
 			{
@@ -43,7 +43,9 @@ namespace TekConf.Core.Models
 			}
 		}
 
-		private void ReadCallback(IAsyncResult asynchronousResult)
+		
+
+		private void ReadGetAllCallback(IAsyncResult asynchronousResult)
 		{
 			try
 			{
@@ -52,7 +54,7 @@ namespace TekConf.Core.Models
 				using (var streamReader1 = new StreamReader(response.GetResponseStream()))
 				{
 					string resultString = streamReader1.ReadToEnd();
-					HandleResponse(resultString);
+					HandleGetAllResponse(resultString);
 				}
 			}
 			catch (Exception exception)
@@ -61,11 +63,14 @@ namespace TekConf.Core.Models
 			}
 		}
 
-		private void HandleResponse(string response)
+
+		private void HandleGetAllResponse(string response)
 		{
 			var conferences = JsonConvert.DeserializeObject<FullConferenceDto>(response);
 			_success(conferences);
 		}
+
+
 
 	}
 }

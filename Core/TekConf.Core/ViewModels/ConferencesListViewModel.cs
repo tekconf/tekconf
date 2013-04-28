@@ -19,40 +19,75 @@ namespace TekConf.Core.ViewModels
 
 		public void Init(string searchTerm)
 		{
-			StartSearch(searchTerm);
+			StartGetAll(searchTerm);
+			StartGetFavorites();
 		}
 
-		private void StartSearch(string searchTerm)
+		private void StartGetAll(string searchTerm)
 		{
-			if (IsSearching)
+			if (IsSearchingForAll)
 				return;
 
-			IsSearching = true;
-			_remoteDataService.GetConferences(success: Success, error: Error);
+			IsSearchingForAll = true;
+			_remoteDataService.GetConferences(success: GetAllSuccess, error: GetAllError);
 		}
 
-		private void Error(Exception exception)
+		private void StartGetFavorites()
+		{
+			if (IsSearchingForFavorites)
+				return;
+
+			IsSearchingForFavorites = true;
+			string userName = "robgibbens"; //TODO
+			_remoteDataService.GetSchedule(userName, success: GetFavoritesSuccess, error: GetFavoritesError);
+		}
+
+		private void GetAllError(Exception exception)
 		{
 			// for now we just hide the error...
-			IsSearching = false;
+			IsSearchingForAll = false;
 		}
 
-		private void Success(IEnumerable<FullConferenceDto> enumerable)
+		private void GetFavoritesError(Exception exception)
 		{
-			InvokeOnMainThread(() => DisplayConferences(enumerable));
+			// for now we just hide the error...
+			IsSearchingForFavorites = false;
 		}
 
-		private void DisplayConferences(IEnumerable<FullConferenceDto> enumerable)
+		private void GetAllSuccess(IEnumerable<FullConferenceDto> enumerable)
 		{
-			IsSearching = false;
+			InvokeOnMainThread(() => DisplayAllConferences(enumerable));
+		}
+
+		private void GetFavoritesSuccess(IEnumerable<FullConferenceDto> enumerable)
+		{
+			InvokeOnMainThread(() => DisplayFavoritesConferences(enumerable));
+		}
+
+		private void DisplayAllConferences(IEnumerable<FullConferenceDto> enumerable)
+		{
+			IsSearchingForAll = false;
 			Conferences = enumerable.ToList();
 		}
 
-		private bool _isSearching;
-		public bool IsSearching
+		private void DisplayFavoritesConferences(IEnumerable<FullConferenceDto> enumerable)
 		{
-			get { return _isSearching; }
-			set { _isSearching = value; RaisePropertyChanged("IsSearching"); }
+			IsSearchingForFavorites = false;
+			Favorites = enumerable.ToList();
+		}
+
+		private bool _isSearchingForAll;
+		public bool IsSearchingForAll
+		{
+			get { return _isSearchingForAll; }
+			set { _isSearchingForAll = value; RaisePropertyChanged("IsSearchingForAll"); }
+		}
+
+		private bool _isSearchingForFavorites;
+		public bool IsSearchingForFavorites
+		{
+			get { return _isSearchingForFavorites; }
+			set { _isSearchingForFavorites = value; RaisePropertyChanged("IsSearchingForFavorites"); }
 		}
 
 		private List<FullConferenceDto> _conferences;
@@ -66,6 +101,20 @@ namespace TekConf.Core.ViewModels
 			{
 				_conferences = value;
 				RaisePropertyChanged(() => Conferences);
+			}
+		}
+
+		private List<FullConferenceDto> _favorites;
+		public List<FullConferenceDto> Favorites
+		{
+			get
+			{
+				return _favorites;
+			}
+			set
+			{
+				_favorites = value;
+				RaisePropertyChanged(() => Favorites);
 			}
 		}
 

@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Threading;
+using System.Windows;
 using System.Windows.Controls;
 using Cirrious.MvvmCross.WindowsPhone.Views;
 using TekConf.Core.ViewModels;
@@ -10,6 +11,7 @@ namespace TekConf.UI.WinPhone.Views
 	{
 		public ConferencesListView()
 		{
+			Thread.Sleep(2000);
 			InitializeComponent();
 		}
 

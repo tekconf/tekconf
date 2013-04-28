@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Input;
 using Cirrious.MvvmCross.ViewModels;
 using TekConf.Core.Services;
 using TekConf.RemoteData.Dtos.v1;
@@ -14,6 +15,7 @@ namespace TekConf.Core.ViewModels
 		public ConferenceDetailViewModel(IRemoteDataService remoteDataService)
 		{
 			_remoteDataService = remoteDataService;
+			AddFavoriteCommand = new ActionCommand(AddConferenceToFavorites);
 		}
 
 		public void Init(string slug)
@@ -54,6 +56,31 @@ namespace TekConf.Core.ViewModels
 			set { _isSearching = value; RaisePropertyChanged("IsSearching"); }
 		}
 
+		public bool HasSessions
+		{
+			get
+			{
+				if (Conference == null || Conference.sessions == null || !Conference.sessions.Any())
+					return false;
+				else
+					return true;
+			}
+		}
+
+
+		private string _pageTitle;
+		public string PageTitle
+		{
+			get
+			{
+				return _pageTitle;
+			}
+			set
+			{
+				_pageTitle = "TEKCONF - " + value.ToUpper();
+				RaisePropertyChanged(() => PageTitle);
+			}
+		}
 
 		private FullConferenceDto _conference;
 		public FullConferenceDto Conference
@@ -65,8 +92,28 @@ namespace TekConf.Core.ViewModels
 			set
 			{
 				_conference = value;
+				PageTitle = value.name;
 				RaisePropertyChanged(() => Conference);
 			}
 		}
+
+		public ICommand ShowSessionsCommand
+		{
+			get
+			{
+				return new MvxCommand<string>((slug) => ShowViewModel<ConferenceSessionsViewModel>(new { slug = slug }));
+			}
+		}
+
+		public ICommand AddFavoriteCommand { get; private set; }
+
+
+		private void AddConferenceToFavorites()
+		{
+			var addSuccess =  new Action<ScheduleDto>(dto => {});
+			var addError = new Action<Exception>(ex => { });
+			_remoteDataService.AddToSchedule("robgibbens", this.Conference.slug, success:addSuccess, error:addError);
+		}
+
 	}
 }
