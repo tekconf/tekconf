@@ -39,7 +39,7 @@ namespace TekConf.Core.ViewModels
 
 			IsSearchingForFavorites = true;
 			string userName = "robgibbens"; //TODO
-			_remoteDataService.GetSchedule(userName, success: GetFavoritesSuccess, error: GetFavoritesError);
+			_remoteDataService.GetSchedules(userName, success: GetFavoritesSuccess, error: GetFavoritesError);
 		}
 
 		private void GetAllError(Exception exception)

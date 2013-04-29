@@ -65,6 +65,12 @@
     <Reference Include="Cirrious.MvvmCross.Plugins.Json">
       <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Json.3.0.4\lib\sl4-wp71\Cirrious.MvvmCross.Plugins.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Location">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Location.3.0.4\lib\sl4-wp71\Cirrious.MvvmCross.Plugins.Location.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Location.WindowsPhone">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Location.3.0.4\lib\sl4-wp71\Cirrious.MvvmCross.Plugins.Location.WindowsPhone.dll</HintPath>
+    </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.Share">
       <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Share.3.0.4\lib\sl4-wp71\Cirrious.MvvmCross.Plugins.Share.dll</HintPath>
     </Reference>
@@ -93,6 +99,10 @@
     <Reference Include="system" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Program Files (x86)\Microsoft SDKs\Expression\Blend\Silverlight\v4.0\Libraries\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="mscorlib.extensions" />
   </ItemGroup>
@@ -101,6 +111,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Bootstrap\JsonPluginBootstrap.cs" />
+    <Compile Include="Bootstrap\LocationPluginBootstrap.cs" />
     <Compile Include="Bootstrap\SharePluginBootstrap.cs" />
     <Compile Include="Bootstrap\WebBrowserPluginBootstrap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -113,6 +124,9 @@
     </Compile>
     <Compile Include="Views\ConferencesListView.xaml.cs">
       <DependentUpon>ConferencesListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SessionDetailView.xaml.cs">
+      <DependentUpon>SessionDetailView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -141,10 +155,15 @@
     <Content Include="img\feature.calendar.png" />
     <Content Include="img\github-512-black.png" />
     <Content Include="img\googleplus-512-black.png" />
+    <Content Include="img\lanyrd-512-black.png" />
     <Content Include="img\like.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="img\linkedin-512-black.png" />
+    <Content Include="img\meetup-240.png" />
+    <Content Include="img\twitter-512-black.png" />
+    <Content Include="img\twitter-hashtag-512-black.png" />
+    <Content Include="img\twitter-name-512-black.png" />
     <Content Include="img\vimeo-512-black.png" />
     <Content Include="img\youtube-512-black.png" />
     <Content Include="LiveTile.png" />
@@ -152,7 +171,6 @@
     <Content Include="SplashScreenImage.screen-720p.jpg" />
     <Content Include="SplashScreenImage.screen-WVGA.jpg" />
     <Content Include="SplashScreenImage.screen-WXGA.jpg" />
-    <Content Include="ToDo-MvvmCross\_ Windows Phone UI.txt" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Delete.png" />
@@ -174,6 +192,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ConferencesListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SessionDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

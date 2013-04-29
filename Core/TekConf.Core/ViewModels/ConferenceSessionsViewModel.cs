@@ -10,6 +10,20 @@ namespace TekConf.Core.ViewModels
 {
 	public class ConferenceSessionsViewModel : MvxViewModel
 	{
+		private string _pageTitle;
+		public string PageTitle
+		{
+			get
+			{
+				return _pageTitle;
+			}
+			set
+			{
+				_pageTitle = "TEKCONF - " + value.ToUpper();
+				RaisePropertyChanged(() => PageTitle);
+			}
+		}
+
 		private readonly IRemoteDataService _remoteDataService;
 
 		public ConferenceSessionsViewModel(IRemoteDataService remoteDataService)
@@ -19,42 +33,43 @@ namespace TekConf.Core.ViewModels
 
 		public void Init(string slug)
 		{
-			StartSearch(slug);
+			StartGetConference(slug);
+			string userName = "robgibbens"; //TODO
+			StartGetSchedule(userName, slug);
 		}
 
-		private void StartSearch(string slug)
+		private void StartGetConference(string slug)
 		{
-			if (IsSearching)
+			if (IsGettingConferences)
 				return;
 
-			IsSearching = true;
-			_remoteDataService.GetConference(slug: slug, success: Success, error: Error);
+			IsGettingConferences = true;
+			_remoteDataService.GetConference(slug: slug, success: GetConferenceSuccess, error: GetConferenceError);
 		}
 
-		private void Error(Exception exception)
+		private void GetConferenceError(Exception exception)
 		{
 			// for now we just hide the error...
-			IsSearching = false;
+			IsGettingConferences = false;
 		}
 
-		private void Success(FullConferenceDto conference)
+		private void GetConferenceSuccess(FullConferenceDto conference)
 		{
 			InvokeOnMainThread(() => DisplayConference(conference));
 		}
 
 		private void DisplayConference(FullConferenceDto conference)
 		{
-			IsSearching = false;
+			IsGettingConferences = false;
 			Conference = conference;
 		}
 
-		private bool _isSearching;
-		public bool IsSearching
+		private bool _isGettingConferences;
+		public bool IsGettingConferences
 		{
-			get { return _isSearching; }
-			set { _isSearching = value; RaisePropertyChanged("IsSearching"); }
+			get { return _isGettingConferences; }
+			set { _isGettingConferences = value; RaisePropertyChanged("IsGettingConferences"); }
 		}
-
 
 		private FullConferenceDto _conference;
 		public FullConferenceDto Conference
@@ -72,18 +87,62 @@ namespace TekConf.Core.ViewModels
 			}
 		}
 
-		private string _pageTitle;
-		public string PageTitle
+
+
+		private void StartGetSchedule(string userName, string slug)
+		{
+			if (IsGettingSchedule)
+				return;
+
+			IsGettingSchedule = true;
+			_remoteDataService.GetSchedule(userName: userName, conferenceSlug: slug, success: GetScheduleSuccess, error: GetScheduleError);
+		}
+		private void GetScheduleError(Exception exception)
+		{
+			// for now we just hide the error...
+			IsGettingSchedule = false;
+		}
+		private void GetScheduleSuccess(ScheduleDto conference)
+		{
+			InvokeOnMainThread(() => DisplaySchedule(conference));
+		}
+		private void DisplaySchedule(ScheduleDto conference)
+		{
+			IsGettingSchedule = false;
+			Schedule = conference;
+		}
+		private bool _isGettingSchedule;
+		public bool IsGettingSchedule
+		{
+			get { return _isGettingSchedule; }
+			set { _isGettingSchedule = value; RaisePropertyChanged("IsGettingSchedule"); }
+		}
+		private ScheduleDto _schedule;
+		public ScheduleDto Schedule
 		{
 			get
 			{
-				return _pageTitle;
+				return _schedule;
 			}
 			set
 			{
-				_pageTitle = "TEKCONF - " + value.ToUpper();
-				RaisePropertyChanged(() => PageTitle);
+				_schedule = value;
+				RaisePropertyChanged(() => Schedule);
+
 			}
 		}
+
+
+
+		public ICommand ShowSessionDetailCommand
+		{
+			get
+			{
+				return new MvxCommand<SessionDetailViewModel.Navigation>((navigation) =>
+					ShowViewModel<SessionDetailViewModel>(navigation)
+					);
+			}
+		}
+
 	}
 }

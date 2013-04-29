@@ -20,22 +20,22 @@ namespace TekConf.Core.Models
 
 		public static void GetConferenceAsync(string slug, Action<FullConferenceDto> success, Action<Exception> error)
 		{
-			MvxAsyncDispatcher.BeginAsync(() => DoAsyncSearch(slug, success, error));
+			MvxAsyncDispatcher.BeginAsync(() => DoAsyncGetConference(slug, success, error));
 		}
 
-		private static void DoAsyncSearch(string slug, Action<FullConferenceDto> success, Action<Exception> error)
+		private static void DoAsyncGetConference(string slug, Action<FullConferenceDto> success, Action<Exception> error)
 		{
 			var search = new ConferenceService(success, error);
-			search.StartGetAllSearch(slug);
+			search.StartGetConferenceSearch(slug);
 		}
 
-		private void StartGetAllSearch(string slug)
+		private void StartGetConferenceSearch(string slug)
 		{
 			try
 			{
 				var uri = string.Format("http://api.tekconf.com/v1/conferences/{0}?format=json", slug);
 				var request = WebRequest.Create(new Uri(uri));
-				request.BeginGetResponse(ReadGetAllCallback, request);
+				request.BeginGetResponse(ReadGetConferenceCallback, request);
 			}
 			catch (Exception exception)
 			{
@@ -45,7 +45,7 @@ namespace TekConf.Core.Models
 
 		
 
-		private void ReadGetAllCallback(IAsyncResult asynchronousResult)
+		private void ReadGetConferenceCallback(IAsyncResult asynchronousResult)
 		{
 			try
 			{
@@ -54,7 +54,7 @@ namespace TekConf.Core.Models
 				using (var streamReader1 = new StreamReader(response.GetResponseStream()))
 				{
 					string resultString = streamReader1.ReadToEnd();
-					HandleGetAllResponse(resultString);
+					HandleGetConferenceResponse(resultString);
 				}
 			}
 			catch (Exception exception)
@@ -64,7 +64,7 @@ namespace TekConf.Core.Models
 		}
 
 
-		private void HandleGetAllResponse(string response)
+		private void HandleGetConferenceResponse(string response)
 		{
 			var conferences = JsonConvert.DeserializeObject<FullConferenceDto>(response);
 			_success(conferences);

@@ -44,6 +44,7 @@
 		<!-- Horizontal scrolling grid used in most view states -->
 		<GridView
             x:Name="sessionsGridView"
+						Background="White"
             AutomationProperties.AutomationId="ItemGridView"
             AutomationProperties.Name="Items In Group"
             TabIndex="1"
@@ -52,13 +53,13 @@
             ItemsSource="{Binding Source={StaticResource sessionsViewSource}}"
             ItemTemplate="{StaticResource ConferenceSession500x130ItemTemplate}"
             SelectionMode="None"
-            IsSwipeEnabled="false">
+            IsSwipeEnabled="false" Margin="0,20,0,0">
 
 			<GridView.Header>
 				<StackPanel Width="480" Margin="0,4,14,0">
-					<TextBlock Text="{Binding Conference.name, Mode=TwoWay}" Margin="0,0,18,20" Style="{StaticResource SubheaderTextStyle}" MaxHeight="60"/>
+					<TextBlock Text="{Binding Conference.name, Mode=TwoWay}" Foreground="Black" Margin="0,0,18,20" Style="{StaticResource SubheaderTextStyle}" MaxHeight="60"/>
 					<Image Source="{Binding Conference.imageUrl, Mode=TwoWay}" SizeChanged="ConferenceImage_OnSizeChanged" Height="600" Margin="0,0,18,20" Stretch="None" AutomationProperties.Name="{Binding Title}"/>
-					<TextBlock Text="{Binding Conference.description, Mode=TwoWay}" Margin="0,0,18,0" Style="{StaticResource BodyTextStyle}"/>
+					<TextBlock Text="{Binding Conference.description, Mode=TwoWay}" Foreground="Black" Margin="0,0,18,0" Style="{StaticResource BodyTextStyle}"/>
 				</StackPanel>
 			</GridView.Header>
 			<GridView.ItemContainerStyle>
@@ -71,6 +72,8 @@
 		<!-- Vertical scrolling list only used when snapped -->
 		<ListView
             x:Name="itemListView"
+						Background="White"
+						Foreground="Black"
             AutomationProperties.AutomationId="ItemListView"
             AutomationProperties.Name="Items In Group"
             TabIndex="1"
@@ -84,15 +87,15 @@
 
 			<ListView.Header>
 				<StackPanel>
-					<TextBlock Text="{Binding Subtitle}" Margin="10,0,18,20" Style="{StaticResource TitleTextStyle}" MaxHeight="60"/>
+					<TextBlock Text="{Binding Subtitle}" Foreground="Black" Margin="10,0,18,20" Style="{StaticResource TitleTextStyle}" MaxHeight="60"/>
 					<Image Source="{Binding Image}" Margin="10,0,18,0" MaxHeight="160" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}"/>
-					<TextBlock Margin="10,20,18,30" Text="{Binding Conference.description}" Style="{StaticResource BodyTextStyle}"/>
+					<TextBlock Margin="10,20,18,30" Foreground="Black" Text="{Binding Conference.description}" Style="{StaticResource BodyTextStyle}"/>
 				</StackPanel>
 			</ListView.Header>
 		</ListView>
 
 		<!-- Back button and page title -->
-		<Grid>
+		<Grid Background="#FF81994D">
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="Auto"/>
 				<ColumnDefinition Width="*"/>

@@ -35,14 +35,24 @@ namespace TekConf.Core.Services
 			ConferenceService.GetConferenceAsync(slug, success, error);
 		}
 
-		public void GetSchedule(string userName, Action<IEnumerable<FullConferenceDto>> success = null, Action<Exception> error = null)
+		public void GetSchedule(string userName, string conferenceSlug, Action<ScheduleDto> success = null, Action<Exception> error = null)
 		{
-			ScheduleService.GetScheduleAsync(userName, success, error);
+			ScheduleService.GetScheduleAsync(userName, conferenceSlug, success, error	);
+		}
+
+		public void GetSchedules(string userName, Action<IEnumerable<FullConferenceDto>> success = null, Action<Exception> error = null)
+		{
+			ScheduleService.GetSchedulesAsync(userName, success, error);
 		}
 
 		public void AddToSchedule(string userName, string conferenceSlug, Action<ScheduleDto> success = null, Action<Exception> error = null)
 		{
 			ScheduleService.AddToScheduleAsync(userName, conferenceSlug, success, error);
+		}
+
+		public void GetSession(string conferenceSlug, string sessionSlug, Action<FullSessionDto> success, Action<Exception> error)
+		{
+			SessionService.GetSessionAsync(conferenceSlug, sessionSlug, success, error);
 		}
 	}
 }

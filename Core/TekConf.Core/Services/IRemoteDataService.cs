@@ -29,8 +29,10 @@ namespace TekConf.Core.Services
 			Action<FullConferenceDto> success = null,
 			Action<Exception> error = null);
 
-		void GetSchedule(string userName, Action<IEnumerable<FullConferenceDto>> success = null, Action<Exception> error = null);
+		void GetSchedule(string userName, string conferenceSlug, Action<ScheduleDto> success = null, Action<Exception> error = null);
+		void GetSchedules(string userName, Action<IEnumerable<FullConferenceDto>> success = null, Action<Exception> error = null);
 
 		void AddToSchedule(string userName, string conferenceSlug, Action<ScheduleDto> success = null, Action<Exception> error = null);
+		void GetSession(string conferenceSlug, string sessionSlug, Action<FullSessionDto> success, Action<Exception> error);
 	}
 }

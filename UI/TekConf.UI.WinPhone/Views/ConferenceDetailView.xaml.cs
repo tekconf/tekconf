@@ -114,5 +114,14 @@ namespace TekConf.UI.WinPhone.Views
 				ShowWebBrowser(vm.Conference.linkedInUrl);
 		}
 
+		private void TwitterHashTagNavigate_OnClick(object sender, RoutedEventArgs e)
+		{
+			throw new NotImplementedException();
+		}
+
+		private void TwitterNameNavigate_OnClick(object sender, RoutedEventArgs e)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
