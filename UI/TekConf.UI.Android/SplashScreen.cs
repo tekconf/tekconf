@@ -2,13 +2,12 @@ using Android.App;
 using Cirrious.MvvmCross.Droid.Views;
 using TekConf.UI.Android;
 
-namespace KittenView.Droid
+namespace TekConf.UI.Android
 {
-	[Activity(Label = "TekConf", MainLauncher = true, Icon = "@drawable/icon")]
+	[Activity(MainLauncher = true, Icon = "@drawable/icon", Theme = "@style/Theme.Splash", NoHistory = true)]
 	public class SplashScreen : MvxSplashScreenActivity
 	{
-		public SplashScreen()
-			: base(Resource.Layout.SplashScreen)
+		public SplashScreen() : base(Resource.Layout.SplashScreen)
 		{
 		}
 	}

@@ -4,13 +4,16 @@ using Cirrious.MvvmCross.Droid.Views;
 
 namespace TekConf.UI.Android.Views
 {
-    [Activity(Label = "View for ConferencesListViewModel")]
-    public class ConferencesListView : MvxActivity
-    {
-        protected override void OnCreate(Bundle bundle)
-        {
-            base.OnCreate(bundle);
-            SetContentView(Resource.Layout.ConferencesListView);
-        }
-    }
+	using System.Threading;
+
+	[Activity(Label = "Conferences")]
+	public class ConferencesListView : MvxActivity
+	{
+		protected override void OnCreate(Bundle bundle)
+		{
+			Thread.Sleep(2000);
+			base.OnCreate(bundle);
+			SetContentView(Resource.Layout.ConferencesListView);
+		}
+	}
 }

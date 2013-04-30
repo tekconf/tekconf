@@ -4,24 +4,26 @@
     android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-	<Mvx.MvxImageView
-			android:layout_width="75dp"
-			android:layout_height="75dp"
-			android:layout_margin="10dp"
-			local:MvxBind="ImageUrl imageUrl" />
+
 	<LinearLayout
 			android:orientation="vertical"
 			android:layout_width="fill_parent"
 			android:layout_height="fill_parent">
+
+		<Mvx.MvxHttpImageView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:id="@+id/iconeView"
+						local:MvxBind="{'HttpImageUrl':{'Path':'imageUrl'}}" />
 		<TextView
 				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
-				android:textSize="40dp"
+				android:textSize="30dp"
 				local:MvxBind="Text name" />
 		<TextView
 				android:layout_width="fill_parent"
 				android:layout_height="wrap_content"
-				android:textSize="20dp"
+				android:textSize="10dp"
 				local:MvxBind="Text tagline" />
 	</LinearLayout>
 </LinearLayout>
