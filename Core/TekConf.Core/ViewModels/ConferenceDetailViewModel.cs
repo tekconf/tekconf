@@ -115,5 +115,15 @@ namespace TekConf.Core.ViewModels
 			_remoteDataService.AddToSchedule("robgibbens", this.Conference.slug, success:addSuccess, error:addError);
 		}
 
+		public ICommand ShowSessionDetailCommand
+		{
+			get
+			{
+				return new MvxCommand<SessionDetailViewModel.Navigation>((navigation) =>
+					ShowViewModel<SessionDetailViewModel>(navigation)
+					);
+			}
+		}
+
 	}
 }

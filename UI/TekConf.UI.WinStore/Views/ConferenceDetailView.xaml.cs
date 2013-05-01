@@ -11,6 +11,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using TekConf.Core.ViewModels;
+using TekConf.RemoteData.Dtos.v1;
 
 // The Group Detail Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234229
 
@@ -45,6 +47,14 @@ namespace TekConf.UI.WinStore.Views
 		private void ConferenceImage_OnSizeChanged(object sender, SizeChangedEventArgs e)
 		{
 
+		}
+
+		private void Session_OnTap(object sender, TappedRoutedEventArgs e)
+		{
+			var gridView = (sender as GridView);
+			var session = gridView.SelectedItem as FullSessionDto;
+			var vm = this.DataContext as ConferenceDetailViewModel;
+			vm.ShowSessionDetailCommand.Execute(new SessionDetailViewModel.Navigation() { ConferenceSlug = vm.Conference.slug, SessionSlug = session.slug });
 		}
 	}
 }

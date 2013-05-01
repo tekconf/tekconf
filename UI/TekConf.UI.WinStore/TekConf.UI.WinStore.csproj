@@ -126,6 +126,9 @@
     <Compile Include="Views\ConferencesListView.xaml.cs">
       <DependentUpon>ConferencesListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SessionDetailView.xaml.cs">
+      <DependentUpon>SessionDetailView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -161,6 +164,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ConferencesListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SessionDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

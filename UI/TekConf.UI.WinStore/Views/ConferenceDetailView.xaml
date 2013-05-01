@@ -23,8 +23,8 @@
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
 				<StackPanel Grid.Column="1" VerticalAlignment="Top" Margin="0,0,0,0">
-					<TextBlock Text="{Binding title, Mode=TwoWay}" Style="{StaticResource TitleTextStyle}" TextWrapping="Wrap"/>
-					<TextBlock Text="{Binding description, Mode=TwoWay}" Style="{StaticResource BodyTextStyle}" MaxHeight="120" TextWrapping="Wrap"/>
+					<TextBlock Text="{Binding title, Mode=TwoWay}" Style="{StaticResource TitleTextStyle}" Foreground="Black" TextWrapping="Wrap"/>
+					<TextBlock Text="{Binding description, Mode=TwoWay}" Style="{StaticResource BodyTextStyle}" Foreground="Black" MaxHeight="120" TextWrapping="Wrap"/>
 				</StackPanel>
 			</Grid>
 		</DataTemplate>
@@ -52,14 +52,21 @@
             Padding="120,126,120,50"
             ItemsSource="{Binding Source={StaticResource sessionsViewSource}}"
             ItemTemplate="{StaticResource ConferenceSession500x130ItemTemplate}"
-            SelectionMode="None"
+            SelectionMode="Single"
+						IsTapEnabled="True"
+						Tapped="Session_OnTap"
             IsSwipeEnabled="false" Margin="0,20,0,0">
 
 			<GridView.Header>
-				<StackPanel Width="480" Margin="0,4,14,0">
-					<TextBlock Text="{Binding Conference.name, Mode=TwoWay}" Foreground="Black" Margin="0,0,18,20" Style="{StaticResource SubheaderTextStyle}" MaxHeight="60"/>
-					<Image Source="{Binding Conference.imageUrl, Mode=TwoWay}" SizeChanged="ConferenceImage_OnSizeChanged" Height="600" Margin="0,0,18,20" Stretch="None" AutomationProperties.Name="{Binding Title}"/>
-					<TextBlock Text="{Binding Conference.description, Mode=TwoWay}" Foreground="Black" Margin="0,0,18,0" Style="{StaticResource BodyTextStyle}"/>
+				<StackPanel Width="650" Margin="0,4,14,0">
+					<Image Source="{Binding Conference.imageUrl, Mode=TwoWay}" 
+								 SizeChanged="ConferenceImage_OnSizeChanged" 
+								 Height="450" 
+								 Margin="0,0,18,20" 
+								 Stretch="UniformToFill" 
+								 AutomationProperties.Name="{Binding title}"/>
+					<TextBlock Text="{Binding Conference.description, Mode=TwoWay}" FontSize="24" Foreground="Black" 
+										 Margin="0,0,18,0" LineHeight="26" Style="{StaticResource BodyTextStyle}"/>
 				</StackPanel>
 			</GridView.Header>
 			<GridView.ItemContainerStyle>
@@ -87,9 +94,8 @@
 
 			<ListView.Header>
 				<StackPanel>
-					<TextBlock Text="{Binding Subtitle}" Foreground="Black" Margin="10,0,18,20" Style="{StaticResource TitleTextStyle}" MaxHeight="60"/>
-					<Image Source="{Binding Image}" Margin="10,0,18,0" MaxHeight="160" Stretch="UniformToFill" AutomationProperties.Name="{Binding Title}"/>
-					<TextBlock Margin="10,20,18,30" Foreground="Black" Text="{Binding Conference.description}" Style="{StaticResource BodyTextStyle}"/>
+					<TextBlock Text="{Binding title}" Foreground="Black" Margin="10,0,18,20" Style="{StaticResource TitleTextStyle}" MaxHeight="60"/>
+					<TextBlock Text="{Binding description}" Foreground="Black" Margin="10,20,18,30" Style="{StaticResource BodyTextStyle}"/>
 				</StackPanel>
 			</ListView.Header>
 		</ListView>

@@ -34,13 +34,21 @@
 		</DataTemplate>
 
 		<DataTemplate x:Key="Conferences250x250ItemTemplate">
-			<Grid HorizontalAlignment="Left" Width="250" Height="250">
+			<Grid HorizontalAlignment="Left" Width="260" Height="250">
 				<Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}">
-					<Image Source="{Binding imageUrl}" Stretch="None" Width="250" VerticalAlignment="Top" AutomationProperties.Name="{Binding name}"/>
+					<Image Source="{Binding imageUrl}" Stretch="UniformToFill" Width="260" Height="180" VerticalAlignment="Top" AutomationProperties.Name="{Binding name}"/>
 				</Border>
 				<StackPanel VerticalAlignment="Bottom" Background="{StaticResource ListViewItemOverlayBackgroundThemeBrush}">
-					<TextBlock Text="{Binding name}" Foreground="{StaticResource ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}" Height="60" Margin="15,0,15,0"/>
-					<TextBlock Text="{Binding tagline}" Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap" Margin="15,0,15,10"/>
+					<TextBlock Text="{Binding name}" 
+										 Foreground="{StaticResource 
+											ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}" 
+											Height="40" 
+											Margin="15,0,15,0"/>
+					<TextBlock Text="{Binding tagline}" 
+										 Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" 
+										 Style="{StaticResource CaptionTextStyle}" 
+											TextWrapping="NoWrap" 
+										 Margin="15,0,15,10"/>
 				</StackPanel>
 			</Grid>
 		</DataTemplate>
@@ -56,7 +64,7 @@
     -->
 	<Grid Style="{StaticResource LayoutRootStyle}">
 		<Grid.RowDefinitions>
-			<RowDefinition Height="140"/>
+			<RowDefinition Height="180"/>
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
 
@@ -74,7 +82,7 @@
             IsSwipeEnabled="false"
 						IsItemClickEnabled="True"
 						Background="White"
-						ItemClick="Conference_OnClick" Margin="0,20,0,0"
+						ItemClick="Conference_OnClick" Margin="0,60,0,0"
 						
 			/>
 
