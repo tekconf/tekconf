@@ -6,6 +6,8 @@ namespace TekConf.UI.Android.Views
 {
 	using System.Threading;
 
+	using global::Android.Views;
+
 	[Activity(Label = "Conferences")]
 	public class ConferencesListView : MvxActivity
 	{
@@ -15,5 +17,6 @@ namespace TekConf.UI.Android.Views
 			base.OnCreate(bundle);
 			SetContentView(Resource.Layout.ConferencesListView);
 		}
+ 
 	}
 }

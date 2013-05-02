@@ -134,7 +134,6 @@
     <Compile Include="ViewModels\ConferenceDetailViewModel.cs" />
     <Compile Include="ViewModels\ConferenceSessionsViewModel.cs" />
     <Compile Include="ViewModels\ConferencesListViewModel.cs" />
-    <Compile Include="ViewModels\FirstViewModel.cs" />
     <Compile Include="ViewModels\SessionDetailViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
