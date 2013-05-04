@@ -14,7 +14,7 @@
 
 		<!-- Collection of items displayed by this page -->
 		<CollectionViewSource
-            x:Name="itemsViewSource"
+            x:Name="conferencesListViewSource"
             Source="{Binding Conferences}"/>
 
 		<DataTemplate x:Key="Conferences80ItemTemplate">
@@ -24,7 +24,7 @@
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
 				<Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" Width="60" Height="60">
-					<Image Source="{Binding imageUrl}" Width="80" Stretch="None"/>
+					<Image Source="{Binding imageUrl}" Width="80" Stretch="UniformToFill"/>
 				</Border>
 				<StackPanel Grid.Column="1" Margin="10,0,0,0">
 					<TextBlock Text="{Binding name}" Foreground="Black" Style="{StaticResource ItemTextStyle}" MaxHeight="40"/>
@@ -35,7 +35,7 @@
 
 		<DataTemplate x:Key="Conferences250x250ItemTemplate">
 			<Grid HorizontalAlignment="Left" Width="260" Height="250">
-				<Border Background="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}">
+				<Border Background="White">
 					<Image Source="{Binding imageUrl}" Stretch="UniformToFill" Width="260" Height="180" VerticalAlignment="Top" AutomationProperties.Name="{Binding name}"/>
 				</Border>
 				<StackPanel VerticalAlignment="Bottom" Background="{StaticResource ListViewItemOverlayBackgroundThemeBrush}">
@@ -64,7 +64,7 @@
     -->
 	<Grid Style="{StaticResource LayoutRootStyle}">
 		<Grid.RowDefinitions>
-			<RowDefinition Height="180"/>
+			<RowDefinition Height="140"/>
 			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
 
@@ -76,19 +76,20 @@
             TabIndex="1"
             Grid.RowSpan="2"
             Padding="116,136,116,46"
-            ItemsSource="{Binding Source={StaticResource itemsViewSource}}"
+            ItemsSource="{Binding Source={StaticResource conferencesListViewSource}}"
             ItemTemplate="{StaticResource Conferences250x250ItemTemplate}"
-            SelectionMode="Single"
+            SelectionMode="None"
             IsSwipeEnabled="false"
 						IsItemClickEnabled="True"
 						Background="White"
-						ItemClick="Conference_OnClick" Margin="0,60,0,0"
+						ItemClick="Conference_OnClick" 
+						Margin="0,60,0,0"
 						
 			/>
 
 		<!-- Vertical scrolling list only used when snapped -->
 		<ListView
-            x:Name="itemListView"
+            x:Name="conferencesSmallListView"
 						Background="White"
             AutomationProperties.AutomationId="ItemsListView"
             AutomationProperties.Name="Items"
@@ -97,9 +98,11 @@
             Visibility="Collapsed"
             Margin="0,20,0,0"
             Padding="10,0,0,60"
-            ItemsSource="{Binding Source={StaticResource itemsViewSource}}"
+            ItemsSource="{Binding Source={StaticResource conferencesListViewSource}}"
             ItemTemplate="{StaticResource Conferences80ItemTemplate}"
             SelectionMode="None"
+						IsItemClickEnabled="True"
+						ItemClick="Conference_OnClick" 
             IsSwipeEnabled="false"/>
 
 		<!-- Back button and page title -->
@@ -144,7 +147,7 @@
 							<DiscreteObjectKeyFrame KeyTime="0" Value="{StaticResource SnappedPageHeaderTextStyle}"/>
 						</ObjectAnimationUsingKeyFrames>
 
-						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemListView" Storyboard.TargetProperty="Visibility">
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="conferencesSmallListView" Storyboard.TargetProperty="Visibility">
 							<DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
 						</ObjectAnimationUsingKeyFrames>
 						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="conferencesLargeGridView" Storyboard.TargetProperty="Visibility">

@@ -16,6 +16,9 @@ namespace TekConf.UI.WinStore.Views
 		public ConferencesListView()
 		{
 			this.InitializeComponent();
+			this.conferencesLargeGridView.SelectionMode = ListViewSelectionMode.Multiple;
+			this.conferencesSmallListView.SelectionMode = ListViewSelectionMode.Multiple; ;
+
 		}
 
 		/// <summary>

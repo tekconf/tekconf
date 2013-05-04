@@ -14,7 +14,7 @@
 		<!-- Collection of items displayed by this page -->
 		<CollectionViewSource
             x:Name="sessionsViewSource"
-            Source="{Binding Conference.sessions}"/>
+            Source="{Binding Conference.sessions}" />
 
 		<DataTemplate x:Key="ConferenceSession500x130ItemTemplate">
 			<Grid Height="150" Width="480" Margin="10">
@@ -28,6 +28,19 @@
 				</StackPanel>
 			</Grid>
 		</DataTemplate>
+
+		<DataTemplate x:Key="ConferenceSessions80ItemTemplate">
+			<Grid Margin="6">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+				<StackPanel Margin="10,0,0,0">
+					<TextBlock Text="{Binding title}" Foreground="Black" Style="{StaticResource ItemTextStyle}" MaxHeight="40"/>
+					<TextBlock Text="{Binding startDescription}" Foreground="Black" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap"/>
+				</StackPanel>
+			</Grid>
+		</DataTemplate>
+
 	</Page.Resources>
 
 	<!--
@@ -52,21 +65,21 @@
             Padding="120,126,120,50"
             ItemsSource="{Binding Source={StaticResource sessionsViewSource}}"
             ItemTemplate="{StaticResource ConferenceSession500x130ItemTemplate}"
-            SelectionMode="Single"
 						IsTapEnabled="True"
+						SelectionMode="None"
 						Tapped="Session_OnTap"
             IsSwipeEnabled="false" Margin="0,20,0,0">
 
 			<GridView.Header>
-				<StackPanel Width="650" Margin="0,4,14,0">
+				<StackPanel Width="530" Margin="0,4,14,0">
 					<Image Source="{Binding Conference.imageUrl, Mode=TwoWay}" 
 								 SizeChanged="ConferenceImage_OnSizeChanged" 
-								 Height="450" 
+								 Height="360" 
 								 Margin="0,0,18,20" 
 								 Stretch="UniformToFill" 
 								 AutomationProperties.Name="{Binding title}"/>
-					<TextBlock Text="{Binding Conference.description, Mode=TwoWay}" FontSize="24" Foreground="Black" 
-										 Margin="0,0,18,0" LineHeight="26" Style="{StaticResource BodyTextStyle}"/>
+					<TextBlock Text="{Binding Conference.description, Mode=TwoWay}" FontSize="22" Foreground="Black" 
+										 Margin="0,0,18,0" LineHeight="24" Style="{StaticResource BodyTextStyle}"/>
 				</StackPanel>
 			</GridView.Header>
 			<GridView.ItemContainerStyle>
@@ -78,7 +91,7 @@
 
 		<!-- Vertical scrolling list only used when snapped -->
 		<ListView
-            x:Name="itemListView"
+            x:Name="sessionsListView"
 						Background="White"
 						Foreground="Black"
             AutomationProperties.AutomationId="ItemListView"
@@ -88,16 +101,11 @@
             Visibility="Collapsed"
             Padding="10,0,0,60"
             ItemsSource="{Binding Source={StaticResource sessionsViewSource}}"
-            ItemTemplate="{StaticResource Standard80ItemTemplate}"
-            SelectionMode="None"
+            ItemTemplate="{StaticResource ConferenceSessions80ItemTemplate}"
+						IsTapEnabled="True"
+						SelectionMode="None"
+						Tapped="Session_OnTap"
             IsSwipeEnabled="false">
-
-			<ListView.Header>
-				<StackPanel>
-					<TextBlock Text="{Binding title}" Foreground="Black" Margin="10,0,18,20" Style="{StaticResource TitleTextStyle}" MaxHeight="60"/>
-					<TextBlock Text="{Binding description}" Foreground="Black" Margin="10,20,18,30" Style="{StaticResource BodyTextStyle}"/>
-				</StackPanel>
-			</ListView.Header>
 		</ListView>
 
 		<!-- Back button and page title -->
@@ -146,7 +154,7 @@
 						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="sessionsGridView" Storyboard.TargetProperty="Visibility">
 							<DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
 						</ObjectAnimationUsingKeyFrames>
-						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemListView" Storyboard.TargetProperty="Visibility">
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="sessionsListView" Storyboard.TargetProperty="Visibility">
 							<DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
 						</ObjectAnimationUsingKeyFrames>
 					</Storyboard>

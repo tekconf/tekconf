@@ -145,6 +145,8 @@
 
 											<td>
 												@Html.RouteLink(session.title, "SessionDetail", new { conferenceSlug = Model.slug, sessionSlug = session.slug }, null)
+												<br />
+												@session.room
 											</td>
 											<td>
 												@foreach (var speaker in session.speakers)
