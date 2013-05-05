@@ -12,6 +12,18 @@ namespace TekConf.UI.WinPhone.Views
 		public ConferenceDetailView()
 		{
 			InitializeComponent();
+			Loaded += (sender, args) =>
+			{
+				var vm = DataContext as ConferenceDetailViewModel;
+
+				if (vm != null && vm.Conference != null) 
+					GoogleAnalytics.EasyTracker.GetTracker().SendView("ConferenceDetail-" + vm.Conference.slug);
+			};
+
+			this.Pivot.SelectionChanged += (sender, args) =>
+			{
+				var x = "";
+			};
 		}
 
 		private void SessionTitle_OnSizeChanged(object sender, SizeChangedEventArgs e)

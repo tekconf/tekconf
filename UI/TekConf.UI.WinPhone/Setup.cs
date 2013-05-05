@@ -3,6 +3,7 @@ using Cirrious.CrossCore.Plugins;
 using Cirrious.MvvmCross.ViewModels;
 using Cirrious.MvvmCross.WindowsPhone.Platform;
 using Microsoft.Phone.Controls;
+using TekConf.Core.Interfaces;
 
 namespace TekConf.UI.WinPhone
 {
@@ -15,6 +16,7 @@ namespace TekConf.UI.WinPhone
 
 		protected override IMvxApplication CreateApp()
 		{
+			Mvx.RegisterType<IAnalytics, WinPhoneAnalytics>();
 			return new TekConf.Core.App();
 		}
 	}

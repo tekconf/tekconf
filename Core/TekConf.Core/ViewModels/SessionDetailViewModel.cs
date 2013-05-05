@@ -1,44 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Cirrious.MvvmCross.ViewModels;
+using TekConf.Core.Interfaces;
 using TekConf.Core.Services;
 using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.Core.ViewModels
 {
 	public class SessionDetailViewModel : MvxViewModel
-	{		
-		public class Navigation
-		{
-			public string ConferenceSlug { get; set; }
-			public string SessionSlug { get; set; }
-
-		}
-
-		private string _pageTitle;
-		public string PageTitle
-		{
-			get
-			{
-				return _pageTitle;
-			}
-			set
-			{
-				_pageTitle = "TEKCONF - " + value.ToUpper();
-				//_pageTitle = "TEKCONF";
-				RaisePropertyChanged(() => PageTitle);
-			}
-		}
-
+	{
 		private readonly IRemoteDataService _remoteDataService;
+		private readonly IAnalytics _analytics;
 
-		public SessionDetailViewModel(IRemoteDataService remoteDataService)
+		public SessionDetailViewModel(IRemoteDataService remoteDataService, IAnalytics analytics)
 		{
 			_remoteDataService = remoteDataService;
+			_analytics = analytics;
 		}
-
 		public void Init(Navigation navigation)
 		{
 			StartGetSession(navigation);
@@ -50,6 +27,8 @@ namespace TekConf.Core.ViewModels
 				return;
 
 			IsGettingSession = true;
+			this.ConferenceSlug = navigation.ConferenceSlug;
+			_analytics.SendView("SessionDetail-" + navigation.ConferenceSlug + "-" + navigation.SessionSlug);
 			_remoteDataService.GetSession(conferenceSlug: navigation.ConferenceSlug, sessionSlug: navigation.SessionSlug, success: GetSessionSuccess, error: GetConferenceError);
 		}
 
@@ -92,5 +71,42 @@ namespace TekConf.Core.ViewModels
 
 			}
 		}
+
+		private string _conferenceSlug;
+		public string ConferenceSlug
+		{
+			get
+			{
+				return _conferenceSlug;
+			}
+			set
+			{
+				_conferenceSlug = value;
+				RaisePropertyChanged(() => ConferenceSlug);
+			}
+		}
+
+		private string _pageTitle;
+		public string PageTitle
+		{
+			get
+			{
+				return _pageTitle;
+			}
+			set
+			{
+				_pageTitle = "TEKCONF - " + value.ToUpper();
+				//_pageTitle = "TEKCONF";
+				RaisePropertyChanged(() => PageTitle);
+			}
+		}
+
+		public class Navigation
+		{
+			public string ConferenceSlug { get; set; }
+			public string SessionSlug { get; set; }
+
+		}
+
 	}
 }

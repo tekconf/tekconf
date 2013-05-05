@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using Cirrious.CrossCore.Core;
+using Cirrious.MvvmCross.Plugins.File;
 using TekConf.Core.Models;
 using TekConf.RemoteData.Dtos.v1;
 
@@ -11,6 +12,13 @@ namespace TekConf.Core.Services
 
 	public class RemoteDataService : IRemoteDataService
 	{
+		private readonly IMvxFileStore _fileStore;
+
+		public RemoteDataService(IMvxFileStore fileStore)
+		{
+			_fileStore = fileStore;
+		}
+
 		public void GetConferences(
 			string userName = null,
 			string sortBy = "end",
@@ -27,27 +35,27 @@ namespace TekConf.Core.Services
 			Action<IEnumerable<FullConferenceDto>> success = null,
 			Action<Exception> error = null)
 		{
-			ConferencesService.GetConferencesAsync(success, error);
+			ConferencesService.GetConferencesAsync(_fileStore, success, error);
 		}
 
 		public void GetConference(string slug, Action<FullConferenceDto> success = null, Action<Exception> error = null)
 		{
-			ConferenceService.GetConferenceAsync(slug, success, error);
+			ConferenceService.GetConferenceAsync(_fileStore, slug, success, error);
 		}
 
 		public void GetSchedule(string userName, string conferenceSlug, Action<ScheduleDto> success = null, Action<Exception> error = null)
 		{
-			ScheduleService.GetScheduleAsync(userName, conferenceSlug, success, error	);
+			ScheduleService.GetScheduleAsync(_fileStore, userName, conferenceSlug, success, error	);
 		}
 
 		public void GetSchedules(string userName, Action<IEnumerable<FullConferenceDto>> success = null, Action<Exception> error = null)
 		{
-			ScheduleService.GetSchedulesAsync(userName, success, error);
+			ScheduleService.GetSchedulesAsync(_fileStore, userName, success, error);
 		}
 
 		public void AddToSchedule(string userName, string conferenceSlug, Action<ScheduleDto> success = null, Action<Exception> error = null)
 		{
-			ScheduleService.AddToScheduleAsync(userName, conferenceSlug, success, error);
+			ScheduleService.AddToScheduleAsync(_fileStore, userName, conferenceSlug, success, error);
 		}
 
 		public void GetSession(string conferenceSlug, string sessionSlug, Action<FullSessionDto> success, Action<Exception> error)

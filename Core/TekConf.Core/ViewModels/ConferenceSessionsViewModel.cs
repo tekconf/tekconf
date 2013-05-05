@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using Cirrious.MvvmCross.ViewModels;
+using TekConf.Core.Interfaces;
 using TekConf.Core.Services;
 using TekConf.RemoteData.Dtos.v1;
 
@@ -10,6 +11,16 @@ namespace TekConf.Core.ViewModels
 {
 	public class ConferenceSessionsViewModel : MvxViewModel
 	{
+
+		private readonly IRemoteDataService _remoteDataService;
+		private readonly IAnalytics _analytics;
+
+		public ConferenceSessionsViewModel(IRemoteDataService remoteDataService, IAnalytics analytics)
+		{
+			_remoteDataService = remoteDataService;
+			_analytics = analytics;
+		}
+
 		private string _pageTitle;
 		public string PageTitle
 		{
@@ -22,13 +33,6 @@ namespace TekConf.Core.ViewModels
 				_pageTitle = "TEKCONF - " + value.ToUpper();
 				RaisePropertyChanged(() => PageTitle);
 			}
-		}
-
-		private readonly IRemoteDataService _remoteDataService;
-
-		public ConferenceSessionsViewModel(IRemoteDataService remoteDataService)
-		{
-			_remoteDataService = remoteDataService;
 		}
 
 		public void Init(string slug)
@@ -44,6 +48,7 @@ namespace TekConf.Core.ViewModels
 				return;
 
 			IsGettingConferences = true;
+			_analytics.SendView("ConferenceSessions-" + slug);
 			_remoteDataService.GetConference(slug: slug, success: GetConferenceSuccess, error: GetConferenceError);
 		}
 

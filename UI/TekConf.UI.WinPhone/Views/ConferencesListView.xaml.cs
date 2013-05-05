@@ -1,5 +1,4 @@
-﻿using System.Threading;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using Cirrious.MvvmCross.WindowsPhone.Views;
 using TekConf.Core.ViewModels;
@@ -11,8 +10,14 @@ namespace TekConf.UI.WinPhone.Views
 	{
 		public ConferencesListView()
 		{
-			Thread.Sleep(2000);
 			InitializeComponent();
+			Loaded += (sender, args) =>
+			{
+				var vm = DataContext as ConferencesListViewModel;
+
+				if (vm != null) 
+					GoogleAnalytics.EasyTracker.GetTracker().SendView("ConferencesList");
+			};
 		}
 
 		private void Conference_OnSelected(object sender, SelectionChangedEventArgs e)

@@ -123,6 +123,7 @@
       <Link>Dtos\UserDto.cs</Link>
     </Compile>
     <Compile Include="App.cs" />
+    <Compile Include="Interfaces\IAnalytics.cs" />
     <Compile Include="Models\ConferenceService.cs" />
     <Compile Include="Models\ConferencesService.cs" />
     <Compile Include="Models\ScheduleService.cs" />
@@ -146,11 +147,17 @@
     <Reference Include="Cirrious.MvvmCross.Localization">
       <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.5\lib\portable-win+net45+MonoAndroid16+MonoTouch40+sl40+wp71\Cirrious.MvvmCross.Localization.dll</HintPath>
     </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.File">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.File.3.0.5\lib\portable-win+net45+MonoAndroid16+MonoTouch40+sl40+wp71\Cirrious.MvvmCross.Plugins.File.dll</HintPath>
+    </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.Json">
       <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Json.3.0.5\lib\portable-win+net45+MonoAndroid16+MonoTouch40+sl40+wp71\Cirrious.MvvmCross.Plugins.Json.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.Location">
       <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Location.3.0.5\lib\portable-win+net45+MonoAndroid16+MonoTouch40+sl40+wp71\Cirrious.MvvmCross.Plugins.Location.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Messenger">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Messenger.3.0.5\lib\portable-win+net45+MonoAndroid16+MonoTouch40+sl40+wp71\Cirrious.MvvmCross.Plugins.Messenger.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Json.3.0.5\lib\portable-win+net45+MonoAndroid16+MonoTouch40+sl40+wp71\Newtonsoft.Json.dll</HintPath>
@@ -158,9 +165,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="ToDo-MvvmCross\_ Core.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

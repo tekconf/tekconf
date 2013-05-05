@@ -5,46 +5,60 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using Cirrious.CrossCore.Core;
+using Cirrious.MvvmCross.Plugins.File;
 using Newtonsoft.Json;
 using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.Core.Models
 {
-
-
 	public class ConferencesService
 	{
-		public static void GetConferencesAsync(Action<IEnumerable<FullConferenceDto>> success, Action<Exception> error)
-		{
-			MvxAsyncDispatcher.BeginAsync(() => DoAsyncGetAllSearch(success, error));
-		}
-
-		private static void DoAsyncGetAllSearch(Action<IEnumerable<FullConferenceDto>> success, Action<Exception> error)
-		{
-			var search = new ConferencesService(success, error);
-			search.StartSearch();
-		}
-
-		//private const string ConferencesUrl = "http://api.tekconf.com/v1/conferences?search=mobidev&format=json";
 		private const string ConferencesUrl = "http://api.tekconf.com/v1/conferences?format=json";
 
+		private readonly IMvxFileStore _fileStore;
 		private readonly Action<IEnumerable<FullConferenceDto>> _success;
 		private readonly Action<Exception> _error;
 
-		private ConferencesService(Action<IEnumerable<FullConferenceDto>> success, Action<Exception> error)
+		private ConferencesService(IMvxFileStore fileStore, Action<IEnumerable<FullConferenceDto>> success, Action<Exception> error)
 		{
+			_fileStore = fileStore;
 			_success = success;
 			_error = error;
+		}
+
+		public static void GetConferencesAsync(IMvxFileStore fileStore, Action<IEnumerable<FullConferenceDto>> success, Action<Exception> error)
+		{
+			MvxAsyncDispatcher.BeginAsync(() => DoAsyncGetAllSearch(fileStore, success, error));
+		}
+
+		private static void DoAsyncGetAllSearch(IMvxFileStore fileStore, Action<IEnumerable<FullConferenceDto>> success, Action<Exception> error)
+		{
+			var search = new ConferencesService(fileStore, success, error);
+			search.StartSearch();
 		}
 
 		private void StartSearch()
 		{
 			try
 			{
-				// perform the search
-				const string uri = ConferencesUrl;
-				var request = WebRequest.Create(new Uri(uri));
-				request.BeginGetResponse(ReadCallback, request);
+				const string path = "conferences.json";
+
+				if (_fileStore.Exists(path))
+				{
+					string response;
+					if (_fileStore.TryReadTextFile(path, out response))
+					{
+						var conferences = JsonConvert.DeserializeObject<List<FullConferenceDto>>(response);
+						_success(conferences.OrderBy(x => x.start).ToList());
+					}
+				}
+				else
+				{
+					// perform the search
+					const string uri = ConferencesUrl;
+					var request = WebRequest.Create(new Uri(uri));
+					request.BeginGetResponse(ReadCallback, request);
+				}
 			}
 			catch (Exception exception)
 			{
@@ -72,6 +86,11 @@ namespace TekConf.Core.Models
 
 		private void HandleResponse(string response)
 		{
+			const string path = "conferences.json";
+			if (!_fileStore.Exists(path))
+			{
+				_fileStore.WriteFile(path, response);
+			}
 			var conferences = JsonConvert.DeserializeObject<List<FullConferenceDto>>(response);
 			_success(conferences.OrderBy(x => x.start).ToList());
 		}

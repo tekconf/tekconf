@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Navigation;
 using TekConf.Core.ViewModels;
 using TekConf.RemoteData.Dtos.v1;
 
@@ -17,8 +18,7 @@ namespace TekConf.UI.WinStore.Views
 		{
 			this.InitializeComponent();
 			this.conferencesLargeGridView.SelectionMode = ListViewSelectionMode.Multiple;
-			this.conferencesSmallListView.SelectionMode = ListViewSelectionMode.Multiple; ;
-
+			this.conferencesSmallListView.SelectionMode = ListViewSelectionMode.Multiple;
 		}
 
 		/// <summary>

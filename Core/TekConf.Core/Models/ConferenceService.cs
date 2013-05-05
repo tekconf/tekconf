@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net;
 using Cirrious.CrossCore.Core;
+using Cirrious.MvvmCross.Plugins.File;
 using Newtonsoft.Json;
 using TekConf.RemoteData.Dtos.v1;
 
@@ -9,33 +10,54 @@ namespace TekConf.Core.Models
 {
 	public class ConferenceService
 	{
+		private readonly IMvxFileStore _fileStore;
 		private readonly Action<FullConferenceDto> _success;
 		private readonly Action<Exception> _error;
+		private string _slug;
 
-		private ConferenceService(Action<FullConferenceDto> success, Action<Exception> error)
+		private ConferenceService(IMvxFileStore fileStore, Action<FullConferenceDto> success, Action<Exception> error)
 		{
+			_fileStore = fileStore;
 			_success = success;
 			_error = error;
 		}
 
-		public static void GetConferenceAsync(string slug, Action<FullConferenceDto> success, Action<Exception> error)
+		public static void GetConferenceAsync(IMvxFileStore fileStore, string slug, Action<FullConferenceDto> success, Action<Exception> error)
 		{
-			MvxAsyncDispatcher.BeginAsync(() => DoAsyncGetConference(slug, success, error));
+			MvxAsyncDispatcher.BeginAsync(() => DoAsyncGetConference(fileStore, slug, success, error));
 		}
 
-		private static void DoAsyncGetConference(string slug, Action<FullConferenceDto> success, Action<Exception> error)
+		private static void DoAsyncGetConference(IMvxFileStore fileStore, string slug, Action<FullConferenceDto> success, Action<Exception> error)
 		{
-			var search = new ConferenceService(success, error);
+			var search = new ConferenceService(fileStore, success, error);
 			search.StartGetConferenceSearch(slug);
 		}
 
 		private void StartGetConferenceSearch(string slug)
 		{
+			_slug = slug;
+
 			try
 			{
-				var uri = string.Format("http://api.tekconf.com/v1/conferences/{0}?format=json", slug);
-				var request = WebRequest.Create(new Uri(uri));
-				request.BeginGetResponse(ReadGetConferenceCallback, request);
+				var path = _slug + ".json";
+
+				if (_fileStore.Exists(path))
+				{
+					string response;
+					if (_fileStore.TryReadTextFile(path, out response))
+					{
+						var conference = JsonConvert.DeserializeObject<FullConferenceDto>(response);
+						_success(conference);
+					}
+				}
+				else
+				{
+					var uri = string.Format("http://api.tekconf.com/v1/conferences/{0}?format=json", slug);
+					var request = WebRequest.Create(new Uri(uri));
+					request.BeginGetResponse(ReadGetConferenceCallback, request);
+				}
+
+
 			}
 			catch (Exception exception)
 			{
@@ -66,6 +88,11 @@ namespace TekConf.Core.Models
 
 		private void HandleGetConferenceResponse(string response)
 		{
+			var path = _slug + ".json";
+			if (!_fileStore.Exists(path))
+			{
+				_fileStore.WriteFile(path, response);
+			}
 			var conferences = JsonConvert.DeserializeObject<FullConferenceDto>(response);
 			_success(conferences);
 		}

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using Cirrious.MvvmCross.ViewModels;
+using TekConf.Core.Interfaces;
 using TekConf.Core.Services;
 using TekConf.RemoteData.Dtos.v1;
 
@@ -11,10 +12,12 @@ namespace TekConf.Core.ViewModels
 	public class ConferenceDetailViewModel : MvxViewModel
 	{
 		private readonly IRemoteDataService _remoteDataService;
+		private readonly IAnalytics _analytics;
 
-		public ConferenceDetailViewModel(IRemoteDataService remoteDataService)
+		public ConferenceDetailViewModel(IRemoteDataService remoteDataService, IAnalytics analytics)
 		{
 			_remoteDataService = remoteDataService;
+			_analytics = analytics;
 			AddFavoriteCommand = new ActionCommand(AddConferenceToFavorites);
 		}
 
@@ -29,6 +32,7 @@ namespace TekConf.Core.ViewModels
 				return;
 
 			IsSearching = true;
+			_analytics.SendView("ConferenceDetail-" + slug);
 			_remoteDataService.GetConference(slug: slug, success: Success, error: Error);
 		}
 

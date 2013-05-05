@@ -1,16 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
-using Cirrious.MvvmCross.WindowsPhone.Views;
-using Microsoft.Phone.Controls;
+﻿using Cirrious.MvvmCross.WindowsPhone.Views;
+using TekConf.Core.ViewModels;
 
 namespace TekConf.UI.WinPhone.Views
 {
@@ -19,6 +8,14 @@ namespace TekConf.UI.WinPhone.Views
 		public SessionDetailView()
 		{
 			InitializeComponent();
+			Loaded += (sender, args) =>
+			{
+				var vm = DataContext as SessionDetailViewModel;
+
+				if (vm != null && vm.Session != null)
+					GoogleAnalytics.EasyTracker.GetTracker().SendView("SessionDetailView-" + vm.ConferenceSlug + "-" + vm.Session.slug);
+			};
+
 		}
 	}
 }
