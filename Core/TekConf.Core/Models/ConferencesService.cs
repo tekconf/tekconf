@@ -16,24 +16,26 @@ namespace TekConf.Core.Models
 		private const string ConferencesUrl = "http://api.tekconf.com/v1/conferences?format=json";
 
 		private readonly IMvxFileStore _fileStore;
+		private readonly bool _isRefreshing;
 		private readonly Action<IEnumerable<FullConferenceDto>> _success;
 		private readonly Action<Exception> _error;
 
-		private ConferencesService(IMvxFileStore fileStore, Action<IEnumerable<FullConferenceDto>> success, Action<Exception> error)
+		private ConferencesService(IMvxFileStore fileStore, bool isRefreshing, Action<IEnumerable<FullConferenceDto>> success, Action<Exception> error)
 		{
 			_fileStore = fileStore;
+			_isRefreshing = isRefreshing;
 			_success = success;
 			_error = error;
 		}
 
-		public static void GetConferencesAsync(IMvxFileStore fileStore, Action<IEnumerable<FullConferenceDto>> success, Action<Exception> error)
+		public static void GetConferencesAsync(IMvxFileStore fileStore, bool isRefreshing, Action<IEnumerable<FullConferenceDto>> success, Action<Exception> error)
 		{
-			MvxAsyncDispatcher.BeginAsync(() => DoAsyncGetAllSearch(fileStore, success, error));
+			MvxAsyncDispatcher.BeginAsync(() => DoAsyncGetAllSearch(fileStore, isRefreshing, success, error));
 		}
 
-		private static void DoAsyncGetAllSearch(IMvxFileStore fileStore, Action<IEnumerable<FullConferenceDto>> success, Action<Exception> error)
+		private static void DoAsyncGetAllSearch(IMvxFileStore fileStore, bool isRefreshing, Action<IEnumerable<FullConferenceDto>> success, Action<Exception> error)
 		{
-			var search = new ConferencesService(fileStore, success, error);
+			var search = new ConferencesService(fileStore, isRefreshing, success, error);
 			search.StartSearch();
 		}
 
@@ -43,7 +45,7 @@ namespace TekConf.Core.Models
 			{
 				const string path = "conferences.json";
 
-				if (_fileStore.Exists(path))
+				if (_fileStore.Exists(path) && !_isRefreshing)
 				{
 					string response;
 					if (_fileStore.TryReadTextFile(path, out response))
@@ -56,7 +58,8 @@ namespace TekConf.Core.Models
 				{
 					// perform the search
 					const string uri = ConferencesUrl;
-					var request = WebRequest.Create(new Uri(uri));
+					var request = (HttpWebRequest)WebRequest.Create(new Uri(uri));
+					request.Accept = "application/json";
 					request.BeginGetResponse(ReadCallback, request);
 				}
 			}
@@ -87,6 +90,11 @@ namespace TekConf.Core.Models
 		private void HandleResponse(string response)
 		{
 			const string path = "conferences.json";
+			if (_fileStore.Exists(path))
+			{
+				_fileStore.DeleteFile(path);
+			}
+
 			if (!_fileStore.Exists(path))
 			{
 				_fileStore.WriteFile(path, response);

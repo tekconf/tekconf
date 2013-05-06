@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Cirrious.MvvmCross.WindowsPhone.Views;
+using Microsoft.Phone.Shell;
 using Microsoft.WindowsAzure.MobileServices;
 using Newtonsoft.Json.Linq;
 using TekConf.Core.ViewModels;
@@ -14,43 +16,7 @@ namespace TekConf.UI.WinPhone.Views
 		public ConferencesListView()
 		{
 			InitializeComponent();
-			this.Loaded += Page_Loaded;
 		}
-
-		async void Page_Loaded(object sender, RoutedEventArgs e)
-		{
-			await Authenticate();
-		}
-
-		private MobileServiceUser user;
-		private async System.Threading.Tasks.Task Authenticate()
-		{
-			while (user == null)
-			{
-				try
-				{
-					user = await App.MobileService.LoginAsync(MobileServiceAuthenticationProvider.Twitter);
-				}
-				catch (InvalidOperationException)
-				{
-					const string message = "You must log in. Login Required";
-					MessageBox.Show(message);
-				}
-			}
-
-			//var table = App.MobileService.GetTable("Users");
-			var table = App.MobileService.GetTable<Users>();
-
-			var u = new Users
-			{
-				UserId = user.UserId,
-				UserName = ""
-			};
-
-			await table.InsertAsync(u);
-
-		}
-
 
 		private void Conference_OnSelected(object sender, SelectionChangedEventArgs e)
 		{
@@ -72,14 +38,19 @@ namespace TekConf.UI.WinPhone.Views
 			image.Height = 180 * (image.Width / 260);
 		}
 
-		private void Settings_OnClick(object sender, EventArgs e)
+		private async void Settings_OnClick(object sender, EventArgs e)
 		{
-			throw new NotImplementedException();
+			var vm = this.DataContext as ConferencesListViewModel;
+			if (vm != null) vm.ShowSettingsCommand.Execute(null);
 		}
 
 		private void Refresh_OnClick(object sender, EventArgs e)
 		{
-			throw new NotImplementedException();
+			var vm = this.DataContext as ConferencesListViewModel;
+			if (vm != null)
+			{
+				vm.Refresh();
+			}
 		}
 	}
 }

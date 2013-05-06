@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Input;
 using Cirrious.MvvmCross.ViewModels;
 using TekConf.Core.Interfaces;
 using TekConf.Core.Services;
@@ -16,12 +17,18 @@ namespace TekConf.Core.ViewModels
 			_remoteDataService = remoteDataService;
 			_analytics = analytics;
 		}
+
 		public void Init(Navigation navigation)
 		{
 			StartGetSession(navigation);
 		}
 
-		private void StartGetSession(Navigation navigation)
+		public void Refresh(Navigation navigation)
+		{
+			StartGetSession(navigation, true);
+		}
+
+		private void StartGetSession(Navigation navigation, bool isRefreshing = false)
 		{
 			if (IsGettingSession)
 				return;
@@ -29,7 +36,7 @@ namespace TekConf.Core.ViewModels
 			IsGettingSession = true;
 			this.ConferenceSlug = navigation.ConferenceSlug;
 			_analytics.SendView("SessionDetail-" + navigation.ConferenceSlug + "-" + navigation.SessionSlug);
-			_remoteDataService.GetSession(conferenceSlug: navigation.ConferenceSlug, sessionSlug: navigation.SessionSlug, success: GetSessionSuccess, error: GetConferenceError);
+			_remoteDataService.GetSession(conferenceSlug: navigation.ConferenceSlug, sessionSlug: navigation.SessionSlug, isRefreshing:isRefreshing, success: GetSessionSuccess, error: GetConferenceError);
 		}
 
 		private void GetConferenceError(Exception exception)
@@ -83,6 +90,14 @@ namespace TekConf.Core.ViewModels
 			{
 				_conferenceSlug = value;
 				RaisePropertyChanged(() => ConferenceSlug);
+			}
+		}
+
+		public ICommand ShowSettingsCommand
+		{
+			get
+			{
+				return new MvxCommand(() => ShowViewModel<SettingsViewModel>());
 			}
 		}
 

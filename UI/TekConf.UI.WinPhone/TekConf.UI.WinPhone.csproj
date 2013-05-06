@@ -113,6 +113,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\MvvmCross.HotTuna.StarterPack.3.0.5\lib\sl4-wp71\Cirrious.MvvmCross.dll</HintPath>
     </Reference>
+    <Reference Include="Cirrious.MvvmCross.Binding">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.5\lib\MonoAndroid16\Cirrious.MvvmCross.Binding.dll</HintPath>
+    </Reference>
     <Reference Include="Cirrious.MvvmCross.Localization, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.5\lib\sl4-wp71\Cirrious.MvvmCross.Localization.dll</HintPath>
@@ -207,6 +210,9 @@
     <Compile Include="Views\SessionDetailView.xaml.cs">
       <DependentUpon>SessionDetailView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Users.cs" />
     <Compile Include="WinPhoneAnalytics.cs" />
   </ItemGroup>
@@ -251,6 +257,7 @@
     <Content Include="img\meetup-240.png" />
     <Content Include="img\Refresh.png" />
     <Content Include="img\settings.png" />
+    <Content Include="img\Synchronize.png" />
     <Content Include="img\twitter-512-black.png" />
     <Content Include="img\twitter-hashtag-512-black.png" />
     <Content Include="img\twitter-name-512-black.png" />
@@ -286,6 +293,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SessionDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

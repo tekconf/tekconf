@@ -9,6 +9,7 @@ namespace TekConf.Core.Services
 	public interface IRemoteDataService
 	{
 		void GetConferences(
+					bool isRefreshing = false,
 					string userName = null,
 					string sortBy = "end",
 					bool? showPastConferences = false,
@@ -25,14 +26,14 @@ namespace TekConf.Core.Services
 					Action<Exception> error = null);
 
 
-		void GetConference(string slug, 
+		void GetConference(string slug, bool isRefreshing,
 			Action<FullConferenceDto> success = null,
 			Action<Exception> error = null);
 
-		void GetSchedule(string userName, string conferenceSlug, Action<ScheduleDto> success = null, Action<Exception> error = null);
-		void GetSchedules(string userName, Action<IEnumerable<FullConferenceDto>> success = null, Action<Exception> error = null);
+		void GetSchedule(string userName, string conferenceSlug, bool isRefreshing, Action<ScheduleDto> success = null, Action<Exception> error = null);
+		void GetSchedules(string userName, bool isRefreshing, Action<IEnumerable<FullConferenceDto>> success = null, Action<Exception> error = null);
 
 		void AddToSchedule(string userName, string conferenceSlug, Action<ScheduleDto> success = null, Action<Exception> error = null);
-		void GetSession(string conferenceSlug, string sessionSlug, Action<FullSessionDto> success, Action<Exception> error);
+		void GetSession(string conferenceSlug, string sessionSlug, bool isRefreshing, Action<FullSessionDto> success, Action<Exception> error);
 	}
 }

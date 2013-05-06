@@ -22,21 +22,27 @@ namespace TekConf.Core.ViewModels
 
 		public void Init(string searchTerm)
 		{
-			StartGetAll(searchTerm);
+			StartGetAll();
 			StartGetFavorites();
 		}
 
-		private void StartGetAll(string searchTerm)
+		public void Refresh()
+		{
+			StartGetAll(isRefreshing:true);
+			StartGetFavorites(isRefreshing: true);
+		}
+
+		private void StartGetAll(bool isRefreshing = false)
 		{
 			if (IsSearchingForAll)
 				return;
 
 			IsSearchingForAll = true;
 			_analytics.SendView("ConferencesList");
-			_remoteDataService.GetConferences(success: GetAllSuccess, error: GetAllError);
+			_remoteDataService.GetConferences(isRefreshing: isRefreshing, success: GetAllSuccess, error: GetAllError);
 		}
 
-		private void StartGetFavorites()
+		private void StartGetFavorites(bool isRefreshing = false)
 		{
 			if (IsSearchingForFavorites)
 				return;
@@ -44,7 +50,7 @@ namespace TekConf.Core.ViewModels
 			IsSearchingForFavorites = true;
 			string userName = "robgibbens"; //TODO
 			_analytics.SendView("ConferencesListSchedule-" + userName);
-			_remoteDataService.GetSchedules(userName, success: GetFavoritesSuccess, error: GetFavoritesError);
+			_remoteDataService.GetSchedules(userName, isRefreshing: isRefreshing, success: GetFavoritesSuccess, error: GetFavoritesError);
 		}
 
 		private void GetAllError(Exception exception)
@@ -120,6 +126,14 @@ namespace TekConf.Core.ViewModels
 			{
 				_favorites = value;
 				RaisePropertyChanged(() => Favorites);
+			}
+		}
+
+		public ICommand ShowSettingsCommand
+		{
+			get
+			{
+				return new MvxCommand(() => ShowViewModel<SettingsViewModel>());
 			}
 		}
 

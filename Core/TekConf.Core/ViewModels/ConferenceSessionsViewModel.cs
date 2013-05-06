@@ -37,19 +37,28 @@ namespace TekConf.Core.ViewModels
 
 		public void Init(string slug)
 		{
-			StartGetConference(slug);
 			string userName = "robgibbens"; //TODO
-			StartGetSchedule(userName, slug);
+
+			StartGetConference(slug);
+			StartGetSchedule(userName, slug, false);
 		}
 
-		private void StartGetConference(string slug)
+		public void Refresh(string slug)
+		{
+			string userName = "robgibbens"; //TODO
+
+			StartGetConference(slug, true);
+			StartGetSchedule(userName, slug, true);
+		}
+
+		private void StartGetConference(string slug, bool isRefreshing = false)
 		{
 			if (IsGettingConferences)
 				return;
 
 			IsGettingConferences = true;
 			_analytics.SendView("ConferenceSessions-" + slug);
-			_remoteDataService.GetConference(slug: slug, success: GetConferenceSuccess, error: GetConferenceError);
+			_remoteDataService.GetConference(slug: slug, isRefreshing: isRefreshing, success: GetConferenceSuccess, error: GetConferenceError);
 		}
 
 		private void GetConferenceError(Exception exception)
@@ -94,14 +103,15 @@ namespace TekConf.Core.ViewModels
 
 
 
-		private void StartGetSchedule(string userName, string slug)
+		private void StartGetSchedule(string userName, string slug, bool isRefreshing)
 		{
 			if (IsGettingSchedule)
 				return;
 
 			IsGettingSchedule = true;
-			_remoteDataService.GetSchedule(userName: userName, conferenceSlug: slug, success: GetScheduleSuccess, error: GetScheduleError);
+			_remoteDataService.GetSchedule(userName: userName, conferenceSlug: slug, isRefreshing:isRefreshing, success: GetScheduleSuccess, error: GetScheduleError);
 		}
+
 		private void GetScheduleError(Exception exception)
 		{
 			// for now we just hide the error...
@@ -137,7 +147,13 @@ namespace TekConf.Core.ViewModels
 			}
 		}
 
-
+		public ICommand ShowSettingsCommand
+		{
+			get
+			{
+				return new MvxCommand(() => ShowViewModel<SettingsViewModel>());
+			}
+		}
 
 		public ICommand ShowSessionDetailCommand
 		{

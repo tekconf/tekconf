@@ -80,7 +80,7 @@
 	<phone:PhoneApplicationPage.ApplicationBar>
 		<shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" BackgroundColor="#FF81994D" ForegroundColor="White">
 			<shell:ApplicationBarIconButton IconUri="/img/settings.png" Text="settings" Click="Settings_OnClick" />
-			<shell:ApplicationBarIconButton IconUri="/img/Refresh.png" Text="refresh" Click="Refresh_OnClick" />
+			<shell:ApplicationBarIconButton IconUri="/img/Synchronize.png" Text="refresh" Click="Refresh_OnClick" />
 		</shell:ApplicationBar>
 	</phone:PhoneApplicationPage.ApplicationBar>
 	

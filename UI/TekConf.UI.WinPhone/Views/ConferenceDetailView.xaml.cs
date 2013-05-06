@@ -128,5 +128,20 @@ namespace TekConf.UI.WinPhone.Views
 		{
 			throw new NotImplementedException();
 		}
+
+		private void Settings_OnClick(object sender, EventArgs e)
+		{
+			var vm = this.DataContext as ConferenceDetailViewModel;
+			if (vm != null) vm.ShowSettingsCommand.Execute(null);
+		}
+
+		private void Refresh_OnClick(object sender, EventArgs e)
+		{
+			var vm = this.DataContext as ConferenceDetailViewModel;
+			if (vm != null && vm.Conference != null)
+			{
+				vm.Refresh(vm.Conference.slug);
+			}
+		}
 	}
 }
