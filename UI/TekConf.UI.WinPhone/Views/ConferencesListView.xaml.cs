@@ -1,6 +1,9 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using Cirrious.MvvmCross.WindowsPhone.Views;
+using Microsoft.WindowsAzure.MobileServices;
+using Newtonsoft.Json.Linq;
 using TekConf.Core.ViewModels;
 using TekConf.RemoteData.Dtos.v1;
 
@@ -11,14 +14,43 @@ namespace TekConf.UI.WinPhone.Views
 		public ConferencesListView()
 		{
 			InitializeComponent();
-			Loaded += (sender, args) =>
-			{
-				var vm = DataContext as ConferencesListViewModel;
-
-				if (vm != null) 
-					GoogleAnalytics.EasyTracker.GetTracker().SendView("ConferencesList");
-			};
+			this.Loaded += Page_Loaded;
 		}
+
+		async void Page_Loaded(object sender, RoutedEventArgs e)
+		{
+			await Authenticate();
+		}
+
+		private MobileServiceUser user;
+		private async System.Threading.Tasks.Task Authenticate()
+		{
+			while (user == null)
+			{
+				try
+				{
+					user = await App.MobileService.LoginAsync(MobileServiceAuthenticationProvider.Twitter);
+				}
+				catch (InvalidOperationException)
+				{
+					const string message = "You must log in. Login Required";
+					MessageBox.Show(message);
+				}
+			}
+
+			//var table = App.MobileService.GetTable("Users");
+			var table = App.MobileService.GetTable<Users>();
+
+			var u = new Users
+			{
+				UserId = user.UserId,
+				UserName = ""
+			};
+
+			await table.InsertAsync(u);
+
+		}
+
 
 		private void Conference_OnSelected(object sender, SelectionChangedEventArgs e)
 		{
@@ -38,6 +70,16 @@ namespace TekConf.UI.WinPhone.Views
 			var image = (sender as Image);
 			image.Width = this.ActualWidth - 20;
 			image.Height = 180 * (image.Width / 260);
+		}
+
+		private void Settings_OnClick(object sender, EventArgs e)
+		{
+			throw new NotImplementedException();
+		}
+
+		private void Refresh_OnClick(object sender, EventArgs e)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

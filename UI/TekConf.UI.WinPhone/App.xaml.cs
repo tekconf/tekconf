@@ -12,11 +12,18 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using Microsoft.WindowsAzure.MobileServices;
 
 namespace TekConf.UI.WinPhone
 {
 	public partial class App : Application
 	{
+
+		public static MobileServiceClient MobileService = new MobileServiceClient(
+			"https://tekconfauth.azure-mobile.net/",
+			"NeMPYjchPdsFKlUqDdyAJYZtdrOPiJ11"
+		);
+
 		/// <summary>
 		/// Provides easy access to the root frame of the Phone Application.
 		/// </summary>

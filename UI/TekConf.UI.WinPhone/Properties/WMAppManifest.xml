@@ -1,25 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.1">
-  <App xmlns="" ProductID="{107bdd73-1c52-4e9b-8f31-a301cf711dd9}" Title="TekConf" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Artek Software, LLC" Description="Sample description" Publisher="Artek Software, LLC" BitsPerPixel="16">
+<Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
+  <DefaultLanguage xmlns="" code="en-US" />
+  <App xmlns="" ProductID="{4b4cd4ac-f8c5-4d40-bccb-7366359a3086}" Title="TekConf" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Artek Software, LLC" Description="Sample description" Publisher="Artek Software, LLC" BitsPerPixel="16" PublisherID="{8f5bc42d-e9c4-43a1-9485-bd11c1558643}">
     <IconPath IsRelative="true" IsResource="false">DefaultConference.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_LOCATION" />
       <Capability Name="ID_CAP_NETWORKING" />
       <Capability Name="ID_CAP_PUSH_NOTIFICATION" />
       <Capability Name="ID_CAP_APPOINTMENTS" />
+      <Capability Name="ID_CAP_WEBBROWSERCOMPONENT" />
     </Capabilities>
     <Tasks>
       <DefaultTask Name="_default" NavigationPage="MainPage.xaml" />
     </Tasks>
     <Tokens>
       <PrimaryToken TokenID="TekConf.UI.WinPhoneToken" TaskName="_default">
-        <TemplateType5>
-          <BackgroundImageURI IsRelative="true" IsResource="false">LiveTile.png</BackgroundImageURI>
+        <TemplateFlip>
+          <SmallImageURI IsResource="false" IsRelative="true">LiveTile.png</SmallImageURI>
           <Count>0</Count>
+          <BackgroundImageURI IsResource="false" IsRelative="true">LiveTile.png</BackgroundImageURI>
           <Title>
           </Title>
-        </TemplateType5>
+          <BackContent>
+          </BackContent>
+          <BackBackgroundImageURI>
+          </BackBackgroundImageURI>
+          <BackTitle>
+          </BackTitle>
+          <DeviceLockImageURI>
+          </DeviceLockImageURI>
+          <HasLarge>false</HasLarge>
+        </TemplateFlip>
       </PrimaryToken>
     </Tokens>
+    <ScreenResolutions>
+      <ScreenResolution Name="ID_RESOLUTION_WVGA" />
+      <ScreenResolution Name="ID_RESOLUTION_WXGA" />
+      <ScreenResolution Name="ID_RESOLUTION_HD720P" />
+    </ScreenResolutions>
   </App>
 </Deployment>

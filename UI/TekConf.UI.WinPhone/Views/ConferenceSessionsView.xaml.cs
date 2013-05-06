@@ -12,14 +12,6 @@ namespace TekConf.UI.WinPhone.Views
 		public ConferenceSessionsView()
 		{
 			InitializeComponent();
-			Loaded += (sender, args) =>
-			{
-				var vm = DataContext as ConferenceSessionsViewModel;
-
-				if (vm != null && vm.Conference != null) 
-					GoogleAnalytics.EasyTracker.GetTracker().SendView("ConferenceSessions-" + vm.Conference.slug);
-			};
-			
 		}
 
 		private void SessionTitle_OnSizeChanged(object sender, SizeChangedEventArgs e)
