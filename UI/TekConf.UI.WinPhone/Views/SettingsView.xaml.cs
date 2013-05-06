@@ -15,12 +15,20 @@ namespace TekConf.UI.WinPhone.Views
 
 		private async void LoginWithTwitter_OnClick(object sender, RoutedEventArgs e)
 		{
-			await Authenticate();
+			await AuthenticateWithTwitter();
+		}
+		private async void LoginWithFacebook_OnClick(object sender, RoutedEventArgs e)
+		{
+			await AuthenticateWithFacebook();
 		}
 
+		private async void LoginWithGoogle_OnClick(object sender, RoutedEventArgs e)
+		{
+			await AuthenticateWithGoogle();
+		}
 
 		private MobileServiceUser _user;
-		private async Task Authenticate()
+		private async Task AuthenticateWithTwitter()
 		{
 			while (_user == null)
 			{
@@ -30,7 +38,7 @@ namespace TekConf.UI.WinPhone.Views
 				}
 				catch (InvalidOperationException ex)
 				{
-					MessageBox.Show(ex.Message);
+					//MessageBox.Show(ex.Message);
 				}
 			}
 
@@ -46,5 +54,63 @@ namespace TekConf.UI.WinPhone.Views
 			//await table.InsertAsync(u);
 
 		}
+
+
+		private async Task AuthenticateWithFacebook()
+		{
+			while (_user == null)
+			{
+				try
+				{
+					_user = await App.MobileService.LoginAsync(MobileServiceAuthenticationProvider.Facebook);
+				}
+				catch (InvalidOperationException ex)
+				{
+					//MessageBox.Show(ex.Message);
+				}
+			}
+
+			////var table = App.MobileService.GetTable("Users");
+			//var table = App.MobileService.GetTable<Users>();
+
+			//var u = new Users
+			//{
+			//	UserId = _user.UserId,
+			//	UserName = ""
+			//};
+
+			//await table.InsertAsync(u);
+
+		}
+
+		private async Task AuthenticateWithGoogle()
+		{
+			while (_user == null)
+			{
+				try
+				{
+					_user = await App.MobileService.LoginAsync(MobileServiceAuthenticationProvider.Google);
+				}
+				catch (InvalidOperationException ex)
+				{
+					//MessageBox.Show(ex.Message);
+				}
+			}
+
+			var x = _user;
+			////var table = App.MobileService.GetTable("Users");
+			//var table = App.MobileService.GetTable<Users>();
+
+			//var u = new Users
+			//{
+			//	UserId = _user.UserId,
+			//	UserName = ""
+			//};
+
+			//await table.InsertAsync(u);
+
+		}
+
+
 	}
 }

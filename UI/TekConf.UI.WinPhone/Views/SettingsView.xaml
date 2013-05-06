@@ -26,6 +26,8 @@
 				<ScrollViewer>
 					<StackPanel>
 						<Button Click="LoginWithTwitter_OnClick">Login with Twitter</Button>
+						<Button Click="LoginWithFacebook_OnClick">Login with Facebook</Button>
+						<Button Click="LoginWithGoogle_OnClick">Login with Google</Button>
 					</StackPanel>
 				</ScrollViewer>
 			</phone:PivotItem>
