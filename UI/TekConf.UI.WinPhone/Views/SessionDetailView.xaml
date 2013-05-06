@@ -8,13 +8,20 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:views="clr-namespace:Cirrious.MvvmCross.WindowsPhone.Views;assembly=Cirrious.MvvmCross.WindowsPhone"
-		mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
+	xmlns:valueConverters="clr-namespace:TekConf.UI.WinPhone.ValueConverters"
+	mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  
 		Orientation="Portrait"
     shell:SystemTray.IsVisible="True">
+
+	<views:MvxPhonePage.Resources>
+		<valueConverters:NativeInverseBoolConverter x:Key="InverseBool"></valueConverters:NativeInverseBoolConverter>
+		<valueConverters:NativeVisibilityConverter x:Key="Visibility"></valueConverters:NativeVisibilityConverter>
+		<valueConverters:NativeInvertedVisibilityConverter x:Key="InvertedVisibility"></valueConverters:NativeInvertedVisibilityConverter>
+	</views:MvxPhonePage.Resources>
 
 	<!--LayoutRoot is the root grid where all page content is placed-->
 	<Grid x:Name="LayoutRoot" Background="Transparent">
@@ -27,11 +34,23 @@
 					<TextBlock Text="detail" Foreground="#FF81994D" />
 				</controls:PivotItem.Header>
 				<ScrollViewer>
-					<StackPanel>
-						<TextBlock Text="{Binding Session.title}" FontSize="38" TextWrapping="Wrap" Margin="0,10,0,0"></TextBlock>
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="*"></RowDefinition>
+						</Grid.RowDefinitions>
+						<ProgressBar 
+                Grid.RowSpan="2"
+                IsIndeterminate="True"
+                Foreground="#FF81994D"
+                         Visibility="{Binding IsLoading, Converter={StaticResource Visibility}}"></ProgressBar>
+						
+						<StackPanel ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+												Visibility="{Binding IsLoading, Converter={StaticResource InvertedVisibility}}">
+							<TextBlock Text="{Binding Session.title}" FontSize="38" TextWrapping="Wrap" Margin="0,10,0,0"></TextBlock>
 
-						<TextBlock Text="{Binding Session.description}" TextWrapping="Wrap" Margin="0,10,0,0"></TextBlock>
-					</StackPanel>
+							<TextBlock Text="{Binding Session.description}" TextWrapping="Wrap" Margin="0,10,0,0"></TextBlock>
+						</StackPanel>
+					</Grid>
 				</ScrollViewer>
 			</controls:PivotItem>
 

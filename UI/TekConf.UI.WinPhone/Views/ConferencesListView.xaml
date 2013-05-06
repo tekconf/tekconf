@@ -6,14 +6,21 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:views="clr-namespace:Cirrious.MvvmCross.WindowsPhone.Views;assembly=Cirrious.MvvmCross.WindowsPhone"
-	xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
-	FontFamily="{StaticResource PhoneFontFamilyNormal}"
+		xmlns:views="clr-namespace:Cirrious.MvvmCross.WindowsPhone.Views;assembly=Cirrious.MvvmCross.WindowsPhone"
+		xmlns:controls="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls"
+		xmlns:valueConverters="clr-namespace:TekConf.UI.WinPhone.ValueConverters"
+		FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d"
     shell:SystemTray.IsVisible="True">
+
+	<views:MvxPhonePage.Resources>
+		<valueConverters:NativeInverseBoolConverter x:Key="InverseBool"></valueConverters:NativeInverseBoolConverter>
+		<valueConverters:NativeVisibilityConverter x:Key="Visibility"></valueConverters:NativeVisibilityConverter>
+		<valueConverters:NativeInvertedVisibilityConverter x:Key="InvertedVisibility"></valueConverters:NativeInvertedVisibilityConverter>
+	</views:MvxPhonePage.Resources>
 
 	<!--LayoutRoot is the root grid where all page content is placed-->
 	<Grid x:Name="LayoutRoot" Background="Transparent">
@@ -23,50 +30,82 @@
 					<TextBlock Text="TEKCONF" Foreground="#FF81994D" />
 				</DataTemplate>
 			</controls:Pivot.TitleTemplate>
-			
+
 			<!--Pivot item one-->
 			<controls:PivotItem>
 				<controls:PivotItem.Header>
 					<TextBlock Text="conferences" Foreground="#FF81994D" />
 				</controls:PivotItem.Header>
-				<ListBox ItemsSource="{Binding Conferences}" SelectionChanged="Conference_OnSelected">
-					<ListBox.ItemTemplate>
-						<DataTemplate>
-							<StackPanel>
-								<Border BorderBrush="#FF81994D" BorderThickness="2" Background="White">
-									<Image Source="{Binding imageUrl}" Margin="0,0,0,0" SizeChanged="ConferenceImage_OnSizeChanged"></Image>
-								</Border>
-								<StackPanel VerticalAlignment="Bottom"  Orientation="Vertical" Margin="0,0,0,15" Background="#FF81994D">
-									<TextBlock TextAlignment="Center" Foreground="White" Text="{Binding name}" FontSize="28" TextWrapping="Wrap" SizeChanged="ConferenceName_OnSizeChanged"></TextBlock>
-									<TextBlock TextAlignment="Center" Foreground="White" Text="{Binding DateRange}" FontSize="20" TextWrapping="Wrap" Margin="0,0,0,5"></TextBlock>
-									<TextBlock TextAlignment="Center" Foreground="White" Text="{Binding FormattedAddress}" FontSize="20" TextWrapping="Wrap" Margin="0,0,0,5"></TextBlock>
-								</StackPanel>
-							</StackPanel>
-						</DataTemplate>
-					</ListBox.ItemTemplate>
-				</ListBox>
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*"></RowDefinition>
+					</Grid.RowDefinitions>
+					<ProgressBar 
+                Grid.RowSpan="2"
+                IsIndeterminate="True"
+                Foreground="#FF81994D"
+                         Visibility="{Binding IsLoadingConferences, Converter={StaticResource Visibility}}"></ProgressBar>
+					
+					<ScrollViewer>
+						
+						<ListBox ItemsSource="{Binding Conferences}" SelectionChanged="Conference_OnSelected" 
+										 ScrollViewer.VerticalScrollBarVisibility="Disabled"
+										 Visibility="{Binding IsLoadingConferences, Converter={StaticResource InvertedVisibility}}">
+							<ListBox.ItemTemplate>
+								<DataTemplate>
+									<StackPanel>
+										<Border BorderBrush="#FF81994D" BorderThickness="2" Background="White">
+											<Image Source="{Binding imageUrl}" Margin="0,0,0,0" SizeChanged="ConferenceImage_OnSizeChanged"></Image>
+										</Border>
+										<StackPanel VerticalAlignment="Bottom"  Orientation="Vertical" Margin="0,0,0,15" Background="#FF81994D">
+											<TextBlock TextAlignment="Center" Foreground="White" Text="{Binding name}" FontSize="28" TextWrapping="Wrap" SizeChanged="ConferenceName_OnSizeChanged"></TextBlock>
+											<TextBlock TextAlignment="Center" Foreground="White" Text="{Binding DateRange}" FontSize="20" TextWrapping="Wrap" Margin="0,0,0,5"></TextBlock>
+											<TextBlock TextAlignment="Center" Foreground="White" Text="{Binding FormattedAddress}" FontSize="20" TextWrapping="Wrap" Margin="0,0,0,5"></TextBlock>
+										</StackPanel>
+									</StackPanel>
+								</DataTemplate>
+							</ListBox.ItemTemplate>
+						</ListBox>
+					</ScrollViewer>
+
+				</Grid>
 			</controls:PivotItem>
-			
+
 			<controls:PivotItem>
 				<controls:PivotItem.Header>
 					<TextBlock Text="favorites" Foreground="#FF81994D" />
 				</controls:PivotItem.Header>
-				<ListBox ItemsSource="{Binding Favorites}" SelectionChanged="Conference_OnSelected">
-					<ListBox.ItemTemplate>
-						<DataTemplate>
-							<StackPanel>
-								<Border BorderBrush="#FF81994D" BorderThickness="2" Background="White">
-									<Image Source="{Binding imageUrl}" Margin="0,0,0,0" SizeChanged="ConferenceImage_OnSizeChanged"></Image>
-								</Border>
-								<StackPanel VerticalAlignment="Bottom"  Orientation="Vertical" Margin="0,0,0,15" Background="#FF81994D">
-									<TextBlock TextAlignment="Center" Foreground="White" Text="{Binding name}" FontSize="28" TextWrapping="Wrap" SizeChanged="ConferenceName_OnSizeChanged"></TextBlock>
-									<TextBlock TextAlignment="Center" Foreground="White" Text="{Binding DateRange}" FontSize="20" TextWrapping="Wrap" Margin="0,0,0,5"></TextBlock>
-									<TextBlock TextAlignment="Center" Foreground="White" Text="{Binding FormattedAddress}" FontSize="20" TextWrapping="Wrap" Margin="0,0,0,5"></TextBlock>
-								</StackPanel>
-							</StackPanel>
-						</DataTemplate>
-					</ListBox.ItemTemplate>
-				</ListBox>
+				<ScrollViewer>
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="*"></RowDefinition>
+						</Grid.RowDefinitions>
+						<ProgressBar 
+                Grid.RowSpan="2"
+                IsIndeterminate="True"
+                Foreground="#FF81994D"
+                         Visibility="{Binding IsLoadingFavorites, Converter={StaticResource Visibility}}"></ProgressBar>
+
+						<ListBox ItemsSource="{Binding Favorites}" SelectionChanged="Conference_OnSelected" 
+										 ScrollViewer.VerticalScrollBarVisibility="Disabled"
+										 Visibility="{Binding IsLoadingFavorites, Converter={StaticResource InvertedVisibility}}">
+							<ListBox.ItemTemplate>
+								<DataTemplate>
+									<StackPanel>
+										<Border BorderBrush="#FF81994D" BorderThickness="2" Background="White">
+											<Image Source="{Binding imageUrl}" Margin="0,0,0,0" SizeChanged="ConferenceImage_OnSizeChanged"></Image>
+										</Border>
+										<StackPanel VerticalAlignment="Bottom"  Orientation="Vertical" Margin="0,0,0,15" Background="#FF81994D">
+											<TextBlock TextAlignment="Center" Foreground="White" Text="{Binding name}" FontSize="28" TextWrapping="Wrap" SizeChanged="ConferenceName_OnSizeChanged"></TextBlock>
+											<TextBlock TextAlignment="Center" Foreground="White" Text="{Binding DateRange}" FontSize="20" TextWrapping="Wrap" Margin="0,0,0,5"></TextBlock>
+											<TextBlock TextAlignment="Center" Foreground="White" Text="{Binding FormattedAddress}" FontSize="20" TextWrapping="Wrap" Margin="0,0,0,5"></TextBlock>
+										</StackPanel>
+									</StackPanel>
+								</DataTemplate>
+							</ListBox.ItemTemplate>
+						</ListBox>
+					</Grid>
+				</ScrollViewer>
 			</controls:PivotItem>
 
 			<controls:PivotItem>
@@ -83,5 +122,5 @@
 			<shell:ApplicationBarIconButton IconUri="/img/Synchronize.png" Text="refresh" Click="Refresh_OnClick" />
 		</shell:ApplicationBar>
 	</phone:PhoneApplicationPage.ApplicationBar>
-	
+
 </views:MvxPhonePage>

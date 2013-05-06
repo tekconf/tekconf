@@ -53,10 +53,10 @@ namespace TekConf.Core.ViewModels
 
 		private void StartGetConference(string slug, bool isRefreshing = false)
 		{
-			if (IsGettingConferences)
+			if (IsLoadingConference)
 				return;
 
-			IsGettingConferences = true;
+			IsLoadingConference = true;
 			_analytics.SendView("ConferenceSessions-" + slug);
 			_remoteDataService.GetConference(slug: slug, isRefreshing: isRefreshing, success: GetConferenceSuccess, error: GetConferenceError);
 		}
@@ -64,7 +64,7 @@ namespace TekConf.Core.ViewModels
 		private void GetConferenceError(Exception exception)
 		{
 			// for now we just hide the error...
-			IsGettingConferences = false;
+			IsLoadingConference = false;
 		}
 
 		private void GetConferenceSuccess(FullConferenceDto conference)
@@ -74,15 +74,15 @@ namespace TekConf.Core.ViewModels
 
 		private void DisplayConference(FullConferenceDto conference)
 		{
-			IsGettingConferences = false;
+			IsLoadingConference = false;
 			Conference = conference;
 		}
 
-		private bool _isGettingConferences;
-		public bool IsGettingConferences
+		private bool _isLoadingConference;
+		public bool IsLoadingConference
 		{
-			get { return _isGettingConferences; }
-			set { _isGettingConferences = value; RaisePropertyChanged("IsGettingConferences"); }
+			get { return _isLoadingConference; }
+			set { _isLoadingConference = value; RaisePropertyChanged(() => IsLoadingConference); }
 		}
 
 		private FullConferenceDto _conference;
@@ -97,6 +97,7 @@ namespace TekConf.Core.ViewModels
 				_conference = value;
 				PageTitle = _conference.name;
 				RaisePropertyChanged(() => Conference);
+				IsLoadingConference = false;
 
 			}
 		}
@@ -105,17 +106,17 @@ namespace TekConf.Core.ViewModels
 
 		private void StartGetSchedule(string userName, string slug, bool isRefreshing)
 		{
-			if (IsGettingSchedule)
+			if (IsLoadingSchedule)
 				return;
 
-			IsGettingSchedule = true;
+			IsLoadingSchedule = true;
 			_remoteDataService.GetSchedule(userName: userName, conferenceSlug: slug, isRefreshing:isRefreshing, success: GetScheduleSuccess, error: GetScheduleError);
 		}
 
 		private void GetScheduleError(Exception exception)
 		{
 			// for now we just hide the error...
-			IsGettingSchedule = false;
+			IsLoadingSchedule = false;
 		}
 		private void GetScheduleSuccess(ScheduleDto conference)
 		{
@@ -123,15 +124,17 @@ namespace TekConf.Core.ViewModels
 		}
 		private void DisplaySchedule(ScheduleDto conference)
 		{
-			IsGettingSchedule = false;
+			IsLoadingSchedule = false;
 			Schedule = conference;
 		}
-		private bool _isGettingSchedule;
-		public bool IsGettingSchedule
+
+		private bool _isLoadingSchedule;
+		public bool IsLoadingSchedule
 		{
-			get { return _isGettingSchedule; }
-			set { _isGettingSchedule = value; RaisePropertyChanged("IsGettingSchedule"); }
+			get { return _isLoadingSchedule; }
+			set { _isLoadingSchedule = value; RaisePropertyChanged(() => IsLoadingSchedule); }
 		}
+
 		private ScheduleDto _schedule;
 		public ScheduleDto Schedule
 		{
@@ -143,7 +146,7 @@ namespace TekConf.Core.ViewModels
 			{
 				_schedule = value;
 				RaisePropertyChanged(() => Schedule);
-
+				IsLoadingSchedule = false;
 			}
 		}
 

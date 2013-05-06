@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Windows.Input;
 using Cirrious.MvvmCross.ViewModels;
 using TekConf.Core.Interfaces;
@@ -34,21 +35,21 @@ namespace TekConf.Core.ViewModels
 
 		private void StartGetAll(bool isRefreshing = false)
 		{
-			if (IsSearchingForAll)
+			if (IsLoadingConferences)
 				return;
 
-			IsSearchingForAll = true;
+			IsLoadingConferences = true;
 			_analytics.SendView("ConferencesList");
 			_remoteDataService.GetConferences(isRefreshing: isRefreshing, success: GetAllSuccess, error: GetAllError);
 		}
 
 		private void StartGetFavorites(bool isRefreshing = false)
 		{
-			if (IsSearchingForFavorites)
+			if (IsLoadingFavorites)
 				return;
 
-			IsSearchingForFavorites = true;
-			string userName = "robgibbens"; //TODO
+			IsLoadingFavorites = true;
+			const string userName = "robgibbens"; //TODO
 			_analytics.SendView("ConferencesListSchedule-" + userName);
 			_remoteDataService.GetSchedules(userName, isRefreshing: isRefreshing, success: GetFavoritesSuccess, error: GetFavoritesError);
 		}
@@ -56,13 +57,13 @@ namespace TekConf.Core.ViewModels
 		private void GetAllError(Exception exception)
 		{
 			// for now we just hide the error...
-			IsSearchingForAll = false;
+			IsLoadingConferences = false;
 		}
 
 		private void GetFavoritesError(Exception exception)
 		{
 			// for now we just hide the error...
-			IsSearchingForFavorites = false;
+			IsLoadingFavorites = false;
 		}
 
 		private void GetAllSuccess(IEnumerable<FullConferenceDto> enumerable)
@@ -77,28 +78,35 @@ namespace TekConf.Core.ViewModels
 
 		private void DisplayAllConferences(IEnumerable<FullConferenceDto> enumerable)
 		{
-			IsSearchingForAll = false;
+			IsLoadingConferences = false;
 			Conferences = enumerable.ToList();
 		}
 
 		private void DisplayFavoritesConferences(IEnumerable<FullConferenceDto> enumerable)
 		{
-			IsSearchingForFavorites = false;
+			IsLoadingFavorites = false;
 			Favorites = enumerable.ToList();
 		}
 
-		private bool _isSearchingForAll;
-		public bool IsSearchingForAll
+		private bool _isLoadingConferences;
+		public bool IsLoadingConferences
 		{
-			get { return _isSearchingForAll; }
-			set { _isSearchingForAll = value; RaisePropertyChanged("IsSearchingForAll"); }
+			get
+			{
+				return _isLoadingConferences;
+			}
+			set
+			{
+				_isLoadingConferences = value; 
+				RaisePropertyChanged(() => IsLoadingConferences);
+			}
 		}
 
-		private bool _isSearchingForFavorites;
-		public bool IsSearchingForFavorites
+		private bool _isLoadingFavorites;
+		public bool IsLoadingFavorites
 		{
-			get { return _isSearchingForFavorites; }
-			set { _isSearchingForFavorites = value; RaisePropertyChanged("IsSearchingForFavorites"); }
+			get { return _isLoadingFavorites; }
+			set { _isLoadingFavorites = value; RaisePropertyChanged(() => IsLoadingFavorites); }
 		}
 
 		private List<FullConferenceDto> _conferences;
@@ -112,8 +120,10 @@ namespace TekConf.Core.ViewModels
 			{
 				_conferences = value;
 				RaisePropertyChanged(() => Conferences);
+				IsLoadingConferences = false;
 			}
 		}
+
 
 		private List<FullConferenceDto> _favorites;
 		public List<FullConferenceDto> Favorites
@@ -126,6 +136,7 @@ namespace TekConf.Core.ViewModels
 			{
 				_favorites = value;
 				RaisePropertyChanged(() => Favorites);
+				IsLoadingFavorites = false;
 			}
 		}
 

@@ -30,10 +30,10 @@ namespace TekConf.Core.ViewModels
 
 		private void StartGetSession(Navigation navigation, bool isRefreshing = false)
 		{
-			if (IsGettingSession)
+			if (IsLoading)
 				return;
 
-			IsGettingSession = true;
+			IsLoading = true;
 			this.ConferenceSlug = navigation.ConferenceSlug;
 			_analytics.SendView("SessionDetail-" + navigation.ConferenceSlug + "-" + navigation.SessionSlug);
 			_remoteDataService.GetSession(conferenceSlug: navigation.ConferenceSlug, sessionSlug: navigation.SessionSlug, isRefreshing:isRefreshing, success: GetSessionSuccess, error: GetConferenceError);
@@ -42,7 +42,7 @@ namespace TekConf.Core.ViewModels
 		private void GetConferenceError(Exception exception)
 		{
 			// for now we just hide the error...
-			IsGettingSession = false;
+			IsLoading = false;
 		}
 
 		private void GetSessionSuccess(FullSessionDto session)
@@ -52,15 +52,15 @@ namespace TekConf.Core.ViewModels
 
 		private void DisplaySession(FullSessionDto session)
 		{
-			IsGettingSession = false;
+			IsLoading = false;
 			Session = session;
 		}
 
-		private bool _isGettingSession;
-		public bool IsGettingSession
+		private bool _isLoading;
+		public bool IsLoading
 		{
-			get { return _isGettingSession; }
-			set { _isGettingSession = value; RaisePropertyChanged(() => IsGettingSession); }
+			get { return _isLoading; }
+			set { _isLoading = value; RaisePropertyChanged(() => IsLoading); }
 		}
 
 		private FullSessionDto _session;

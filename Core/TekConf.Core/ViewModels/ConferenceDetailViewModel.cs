@@ -33,10 +33,10 @@ namespace TekConf.Core.ViewModels
 
 		private void StartSearch(string slug, bool isRefreshing = false)
 		{
-			if (IsSearching)
+			if (IsLoading)
 				return;
 
-			IsSearching = true;
+			IsLoading = true;
 			_analytics.SendView("ConferenceDetail-" + slug);
 			_remoteDataService.GetConference(slug: slug, isRefreshing:isRefreshing,success: Success, error: Error);
 		}
@@ -44,7 +44,7 @@ namespace TekConf.Core.ViewModels
 		private void Error(Exception exception)
 		{
 			// for now we just hide the error...
-			IsSearching = false;
+			IsLoading = false;
 		}
 
 		private void Success(FullConferenceDto conference)
@@ -54,15 +54,15 @@ namespace TekConf.Core.ViewModels
 
 		private void DisplayConference(FullConferenceDto conference)
 		{
-			IsSearching = false;
+			IsLoading = false;
 			Conference = conference;
 		}
 
-		private bool _isSearching;
-		public bool IsSearching
+		private bool _isLoading;
+		public bool IsLoading
 		{
-			get { return _isSearching; }
-			set { _isSearching = value; RaisePropertyChanged("IsSearching"); }
+			get { return _isLoading; }
+			set { _isLoading = value; RaisePropertyChanged(() => IsLoading); }
 		}
 
 		public bool HasSessions

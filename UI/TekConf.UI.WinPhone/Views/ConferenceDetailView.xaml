@@ -9,7 +9,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:views="clr-namespace:Cirrious.MvvmCross.WindowsPhone.Views;assembly=Cirrious.MvvmCross.WindowsPhone"
 		xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=Microsoft.Phone"
-		mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
+	xmlns:valueConverters="clr-namespace:TekConf.UI.WinPhone.ValueConverters"
+	mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -20,6 +21,12 @@
 		<CollectionViewSource
             x:Name="sessionsViewSource"
             Source="{Binding Conference.sessions}" />
+
+
+		<valueConverters:NativeInverseBoolConverter x:Key="InverseBool"></valueConverters:NativeInverseBoolConverter>
+		<valueConverters:NativeVisibilityConverter x:Key="Visibility"></valueConverters:NativeVisibilityConverter>
+		<valueConverters:NativeInvertedVisibilityConverter x:Key="InvertedVisibility"></valueConverters:NativeInvertedVisibilityConverter>
+
 	</navigation:Page.Resources>
 
 	<!--LayoutRoot is the root grid where all page content is placed-->
@@ -36,10 +43,20 @@
 					<TextBlock Text="detail" Foreground="#FF81994D" />
 				</controls:PivotItem.Header>
 				<ScrollViewer>
-					<StackPanel>
-						<Image Source="{Binding Conference.imageUrl}" SizeChanged="ConferenceImage_OnSizeChanged"></Image>
-						<TextBlock Text="{Binding Conference.description}" TextWrapping="Wrap" Margin="0,10,0,0"></TextBlock>
-					</StackPanel>
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="*"></RowDefinition>
+						</Grid.RowDefinitions>
+						<ProgressBar 
+                Grid.RowSpan="2"
+                IsIndeterminate="True"
+                Foreground="#FF81994D"
+                         Visibility="{Binding IsLoading, Converter={StaticResource Visibility}}"></ProgressBar>
+						<StackPanel ScrollViewer.VerticalScrollBarVisibility="Disabled" Visibility="{Binding IsLoading, Converter={StaticResource InvertedVisibility}}">
+							<Image Source="{Binding Conference.imageUrl}" SizeChanged="ConferenceImage_OnSizeChanged"></Image>
+							<TextBlock Text="{Binding Conference.description}" TextWrapping="Wrap" Margin="0,10,0,0"></TextBlock>
+						</StackPanel>
+					</Grid>
 				</ScrollViewer>
 			</controls:PivotItem>
 
@@ -48,9 +65,20 @@
 					<TextBlock Text="map" Foreground="#FF81994D" />
 				</controls:PivotItem.Header>
 				<ScrollViewer>
-					<StackPanel>
-						<TextBlock Text="{Binding Conference.FormattedAddress}" TextWrapping="Wrap" Margin="0,10,0,0"></TextBlock>
-					</StackPanel>
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="*"></RowDefinition>
+						</Grid.RowDefinitions>
+						<ProgressBar 
+                Grid.RowSpan="2"
+                IsIndeterminate="True"
+                Foreground="#FF81994D"
+                         Visibility="{Binding IsLoading, Converter={StaticResource Visibility}}"></ProgressBar>
+						<StackPanel ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+												Visibility="{Binding IsLoading, Converter={StaticResource InvertedVisibility}}">
+							<TextBlock Text="{Binding Conference.FormattedAddress}" TextWrapping="Wrap" Margin="0,10,0,0"></TextBlock>
+						</StackPanel>
+					</Grid>
 				</ScrollViewer>
 			</controls:PivotItem>
 
@@ -59,9 +87,18 @@
 					<TextBlock Text="connect" Foreground="#FF81994D" />
 				</controls:PivotItem.Header>
 				<ScrollViewer>
-					<StackPanel>
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="*"></RowDefinition>
+						</Grid.RowDefinitions>
 
-						<Grid>
+						<ProgressBar 
+                Grid.RowSpan="2"
+                IsIndeterminate="True"
+                Foreground="#FF81994D"
+                         Visibility="{Binding IsLoading, Converter={StaticResource Visibility}}"></ProgressBar>
+
+						<Grid ScrollViewer.VerticalScrollBarVisibility="Disabled" Visibility="{Binding IsLoading, Converter={StaticResource InvertedVisibility}}">
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition Width="Auto"/>
 								<ColumnDefinition Width="Auto"/>
@@ -79,7 +116,7 @@
 											HorizontalContentAlignment="Center" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
 								<Image Source="{Binding Conference.imageUrl}" Height="180" Width="260" ></Image>
 							</Button>
-							
+
 							<Button Click="FacebookNavigate_OnClick" BorderThickness="0" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Grid.Column="0" Grid.Row="1">
 								<Image Source="/img/facebook-512-black.png" Height="150" Width="150" ></Image>
 							</Button>
@@ -116,7 +153,7 @@
 							</Button>
 						</Grid>
 
-					</StackPanel>
+					</Grid>
 
 
 				</ScrollViewer>

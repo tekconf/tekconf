@@ -12,12 +12,14 @@
 	xmlns:system="clr-namespace:System;assembly=mscorlib"
 	xmlns:viewModels="clr-namespace:TekConf.Core.ViewModels;assembly=TekConf.Core"
 	xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+	xmlns:valueConverters="clr-namespace:TekConf.UI.WinPhone.ValueConverters"
 	mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
     shell:SystemTray.IsVisible="True">
+
 
 	<navigation:Page.Resources>
 		<DataTemplate x:Key="SessionItemTemplate">
@@ -29,8 +31,11 @@
 					<TextBlock Text="{Binding room}" FontSize="20"></TextBlock>
 				</StackPanel>
 			</Button>
-
 		</DataTemplate>
+
+		<valueConverters:NativeInverseBoolConverter x:Key="InverseBool"></valueConverters:NativeInverseBoolConverter>
+		<valueConverters:NativeVisibilityConverter x:Key="Visibility"></valueConverters:NativeVisibilityConverter>
+		<valueConverters:NativeInvertedVisibilityConverter x:Key="InvertedVisibility"></valueConverters:NativeInvertedVisibilityConverter>
 	</navigation:Page.Resources>
 
 	<!--LayoutRoot is the root grid where all page content is placed-->
@@ -47,10 +52,26 @@
 				<controls:PivotItem.Header>
 					<TextBlock Text="favorites" Foreground="#FF81994D" />
 				</controls:PivotItem.Header>
-				<Grid x:Name="MyFavoritesGrid" Grid.Row="1" Margin="12,0,12,0">
-					<ListBox Name="listBox" ItemsSource="{Binding Schedule.sessions}" ItemTemplate="{StaticResource SessionItemTemplate}">
-					</ListBox>
-				</Grid>
+				<ScrollViewer>
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="*"></RowDefinition>
+						</Grid.RowDefinitions>
+						<ProgressBar 
+                Grid.RowSpan="2"
+                IsIndeterminate="True"
+                Foreground="#FF81994D"
+                         Visibility="{Binding IsLoadingSchedule, Converter={StaticResource Visibility}}"></ProgressBar>
+
+						<Grid x:Name="MyFavoritesGrid" Grid.Row="1" Margin="12,0,12,0" 
+									ScrollViewer.VerticalScrollBarVisibility="Disabled"
+								Visibility="{Binding IsLoadingSchedule, Converter={StaticResource InvertedVisibility}}">
+
+							<ListBox Name="listBox" ItemsSource="{Binding Schedule.sessions}" ItemTemplate="{StaticResource SessionItemTemplate}">
+							</ListBox>
+						</Grid>
+					</Grid>
+				</ScrollViewer>
 			</controls:PivotItem>
 
 			<!--Pivot item two-->
@@ -58,50 +79,124 @@
 				<controls:PivotItem.Header>
 					<TextBlock Text="time" Foreground="#FF81994D" />
 				</controls:PivotItem.Header>
-				<Grid x:Name="SessionsByTimeGrid" Grid.Row="1" Margin="12,0,12,0">
-					<ListBox ItemsSource="{Binding Conference.SessionsByTime}" ItemTemplate="{StaticResource SessionItemTemplate}">
-					</ListBox>
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*"></RowDefinition>
+					</Grid.RowDefinitions>
+					<ProgressBar 
+                Grid.RowSpan="2"
+                IsIndeterminate="True"
+                Foreground="#FF81994D"
+                         Visibility="{Binding IsLoadingConference, Converter={StaticResource Visibility}}"></ProgressBar>
+
+					<Grid x:Name="SessionsByTimeGrid" Grid.Row="1" Margin="12,0,12,0" 
+								ScrollViewer.VerticalScrollBarVisibility="Disabled"
+								Visibility="{Binding IsLoadingConference, Converter={StaticResource InvertedVisibility}}">
+						<ListBox ItemsSource="{Binding Conference.SessionsByTime}" ItemTemplate="{StaticResource SessionItemTemplate}">
+						</ListBox>
+					</Grid>
 				</Grid>
+
 			</controls:PivotItem>
 
 			<controls:PivotItem>
 				<controls:PivotItem.Header>
 					<TextBlock Text="title" Foreground="#FF81994D" />
 				</controls:PivotItem.Header>
-				<Grid x:Name="SessionsByTitleGrid" Grid.Row="1" Margin="12,0,12,0">
-					<ListBox ItemsSource="{Binding Conference.sessions}" ItemTemplate="{StaticResource SessionItemTemplate}">
-					</ListBox>
-				</Grid>
+				<ScrollViewer>
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="*"></RowDefinition>
+						</Grid.RowDefinitions>
+						<ProgressBar 
+                Grid.RowSpan="2"
+                IsIndeterminate="True"
+                Foreground="#FF81994D"
+                         Visibility="{Binding IsLoadingConference, Converter={StaticResource Visibility}}"></ProgressBar>
+
+						<Grid x:Name="SessionsByTitleGrid" Grid.Row="1" Margin="12,0,12,0" 
+									ScrollViewer.VerticalScrollBarVisibility="Disabled"
+								Visibility="{Binding IsLoadingConference, Converter={StaticResource InvertedVisibility}}">
+							<ListBox ItemsSource="{Binding Conference.sessions}" ItemTemplate="{StaticResource SessionItemTemplate}">
+							</ListBox>
+						</Grid>
+					</Grid>
+				</ScrollViewer>
 			</controls:PivotItem>
 
 			<controls:PivotItem>
 				<controls:PivotItem.Header>
 					<TextBlock Text="speaker" Foreground="#FF81994D" />
 				</controls:PivotItem.Header>
-				<Grid x:Name="SessionsBySpeakerGrid" Grid.Row="1" Margin="12,0,12,0">
-					<ListBox ItemsSource="{Binding Conference.sessions}" ItemTemplate="{StaticResource SessionItemTemplate}">
-					</ListBox>
-				</Grid>
+				<ScrollViewer>
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="*"></RowDefinition>
+						</Grid.RowDefinitions>
+						<ProgressBar 
+                Grid.RowSpan="2"
+                IsIndeterminate="True"
+                Foreground="#FF81994D"
+                         Visibility="{Binding IsLoadingConference, Converter={StaticResource Visibility}}"></ProgressBar>
+
+						<Grid x:Name="SessionsBySpeakerGrid" Grid.Row="1" Margin="12,0,12,0" 
+									ScrollViewer.VerticalScrollBarVisibility="Disabled"
+								Visibility="{Binding IsLoadingConference, Converter={StaticResource InvertedVisibility}}">
+							<ListBox ItemsSource="{Binding Conference.sessions}" ItemTemplate="{StaticResource SessionItemTemplate}">
+							</ListBox>
+						</Grid>
+					</Grid>
+				</ScrollViewer>
 			</controls:PivotItem>
 
 			<controls:PivotItem>
 				<controls:PivotItem.Header>
 					<TextBlock Text="tag" Foreground="#FF81994D" />
 				</controls:PivotItem.Header>
-				<Grid x:Name="SessionsByTagGrid" Grid.Row="1" Margin="12,0,12,0">
-					<ListBox ItemsSource="{Binding Conference.sessions}" ItemTemplate="{StaticResource SessionItemTemplate}">
-					</ListBox>
-				</Grid>
+				<ScrollViewer>
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="*"></RowDefinition>
+						</Grid.RowDefinitions>
+						<ProgressBar 
+                Grid.RowSpan="2"
+                IsIndeterminate="True"
+                Foreground="#FF81994D"
+                         Visibility="{Binding IsLoadingConference, Converter={StaticResource Visibility}}"></ProgressBar>
+
+						<Grid x:Name="SessionsByTagGrid" Grid.Row="1" Margin="12,0,12,0" 
+									ScrollViewer.VerticalScrollBarVisibility="Disabled"
+								Visibility="{Binding IsLoadingConference, Converter={StaticResource InvertedVisibility}}">
+							<ListBox ItemsSource="{Binding Conference.sessions}" ItemTemplate="{StaticResource SessionItemTemplate}">
+							</ListBox>
+						</Grid>
+					</Grid>
+				</ScrollViewer>
 			</controls:PivotItem>
 
 			<controls:PivotItem>
 				<controls:PivotItem.Header>
 					<TextBlock Text="room" Foreground="#FF81994D" />
 				</controls:PivotItem.Header>
-				<Grid x:Name="SessionsByRoomGrid" Grid.Row="1" Margin="12,0,12,0">
-					<ListBox ItemsSource="{Binding Conference.sessions}" ItemTemplate="{StaticResource SessionItemTemplate}">
-					</ListBox>
-				</Grid>
+				<ScrollViewer>
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="*"></RowDefinition>
+						</Grid.RowDefinitions>
+						<ProgressBar 
+                Grid.RowSpan="2"
+                IsIndeterminate="True"
+                Foreground="#FF81994D"
+                         Visibility="{Binding IsLoadingConference, Converter={StaticResource Visibility}}"></ProgressBar>
+
+						<Grid x:Name="SessionsByRoomGrid" Grid.Row="1" Margin="12,0,12,0" 
+									ScrollViewer.VerticalScrollBarVisibility="Disabled"
+								Visibility="{Binding IsLoadingConference, Converter={StaticResource InvertedVisibility}}">
+							<ListBox ItemsSource="{Binding Conference.sessions}" ItemTemplate="{StaticResource SessionItemTemplate}">
+							</ListBox>
+						</Grid>
+					</Grid>
+				</ScrollViewer>
 			</controls:PivotItem>
 		</controls:Pivot>
 	</Grid>
