@@ -26,14 +26,19 @@ namespace TekConf.Core.ViewModels
 			StartSearch(slug);
 		}
 
-		private void StartSearch(string slug)
+		public void Refresh(string slug)
+		{
+			StartSearch(slug, true);
+		}
+
+		private void StartSearch(string slug, bool isRefreshing = false)
 		{
 			if (IsSearching)
 				return;
 
 			IsSearching = true;
 			_analytics.SendView("ConferenceDetail-" + slug);
-			_remoteDataService.GetConference(slug: slug, success: Success, error: Error);
+			_remoteDataService.GetConference(slug: slug, isRefreshing:isRefreshing,success: Success, error: Error);
 		}
 
 		private void Error(Exception exception)
@@ -108,6 +113,15 @@ namespace TekConf.Core.ViewModels
 				return new MvxCommand<string>((slug) => ShowViewModel<ConferenceSessionsViewModel>(new { slug = slug }));
 			}
 		}
+
+		public ICommand ShowSettingsCommand
+		{
+			get
+			{
+				return new MvxCommand(() => ShowViewModel<SettingsViewModel>());
+			}
+		}
+
 
 		public ICommand AddFavoriteCommand { get; private set; }
 

@@ -1,5 +1,7 @@
 using Cirrious.CrossCore;
+using Cirrious.CrossCore.Platform;
 using Cirrious.CrossCore.Plugins;
+using Cirrious.MvvmCross.Binding;
 using Cirrious.MvvmCross.ViewModels;
 using Cirrious.MvvmCross.WindowsPhone.Platform;
 using Microsoft.Phone.Controls;
@@ -16,6 +18,7 @@ namespace TekConf.UI.WinPhone
 
 		protected override IMvxApplication CreateApp()
 		{
+			MvxBindingTrace.TraceBindingLevel = MvxTraceLevel.Diagnostic;
 			Mvx.RegisterType<IAnalytics, WinPhoneAnalytics>();
 			return new TekConf.Core.App();
 		}

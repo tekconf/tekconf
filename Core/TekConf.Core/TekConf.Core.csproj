@@ -136,6 +136,7 @@
     <Compile Include="ViewModels\ConferenceSessionsViewModel.cs" />
     <Compile Include="ViewModels\ConferencesListViewModel.cs" />
     <Compile Include="ViewModels\SessionDetailViewModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Cirrious.CrossCore">

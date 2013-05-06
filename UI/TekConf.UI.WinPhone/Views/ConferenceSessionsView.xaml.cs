@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Cirrious.MvvmCross.WindowsPhone.Views;
@@ -12,14 +13,6 @@ namespace TekConf.UI.WinPhone.Views
 		public ConferenceSessionsView()
 		{
 			InitializeComponent();
-			Loaded += (sender, args) =>
-			{
-				var vm = DataContext as ConferenceSessionsViewModel;
-
-				if (vm != null && vm.Conference != null) 
-					GoogleAnalytics.EasyTracker.GetTracker().SendView("ConferenceSessions-" + vm.Conference.slug);
-			};
-			
 		}
 
 		private void SessionTitle_OnSizeChanged(object sender, SizeChangedEventArgs e)
@@ -36,5 +29,20 @@ namespace TekConf.UI.WinPhone.Views
 			vm.ShowSessionDetailCommand.Execute(new SessionDetailViewModel.Navigation() { ConferenceSlug = vm.Conference.slug, SessionSlug = session.slug });
 		}
 
+		private void Settings_OnClick(object sender, EventArgs e)
+		{
+			var vm = this.DataContext as ConferenceSessionsViewModel;
+			if (vm != null) vm.ShowSettingsCommand.Execute(null);
+		}
+
+		private void Refresh_OnClick(object sender, EventArgs e)
+		{
+			var vm = this.DataContext as ConferenceSessionsViewModel;
+			if (vm != null && vm.Conference != null)
+			{
+				vm.Refresh(vm.Conference.slug);
+			}
+			
+		}
 	}
 }

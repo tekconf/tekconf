@@ -12,13 +12,6 @@ namespace TekConf.UI.WinPhone.Views
 		public ConferenceDetailView()
 		{
 			InitializeComponent();
-			Loaded += (sender, args) =>
-			{
-				var vm = DataContext as ConferenceDetailViewModel;
-
-				if (vm != null && vm.Conference != null) 
-					GoogleAnalytics.EasyTracker.GetTracker().SendView("ConferenceDetail-" + vm.Conference.slug);
-			};
 
 			this.Pivot.SelectionChanged += (sender, args) =>
 			{
@@ -134,6 +127,21 @@ namespace TekConf.UI.WinPhone.Views
 		private void TwitterNameNavigate_OnClick(object sender, RoutedEventArgs e)
 		{
 			throw new NotImplementedException();
+		}
+
+		private void Settings_OnClick(object sender, EventArgs e)
+		{
+			var vm = this.DataContext as ConferenceDetailViewModel;
+			if (vm != null) vm.ShowSettingsCommand.Execute(null);
+		}
+
+		private void Refresh_OnClick(object sender, EventArgs e)
+		{
+			var vm = this.DataContext as ConferenceDetailViewModel;
+			if (vm != null && vm.Conference != null)
+			{
+				vm.Refresh(vm.Conference.slug);
+			}
 		}
 	}
 }

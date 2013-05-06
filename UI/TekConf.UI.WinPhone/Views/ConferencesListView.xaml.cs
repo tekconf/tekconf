@@ -1,6 +1,11 @@
-﻿using System.Windows;
+﻿using System;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using Cirrious.MvvmCross.WindowsPhone.Views;
+using Microsoft.Phone.Shell;
+using Microsoft.WindowsAzure.MobileServices;
+using Newtonsoft.Json.Linq;
 using TekConf.Core.ViewModels;
 using TekConf.RemoteData.Dtos.v1;
 
@@ -11,13 +16,6 @@ namespace TekConf.UI.WinPhone.Views
 		public ConferencesListView()
 		{
 			InitializeComponent();
-			Loaded += (sender, args) =>
-			{
-				var vm = DataContext as ConferencesListViewModel;
-
-				if (vm != null) 
-					GoogleAnalytics.EasyTracker.GetTracker().SendView("ConferencesList");
-			};
 		}
 
 		private void Conference_OnSelected(object sender, SelectionChangedEventArgs e)
@@ -38,6 +36,21 @@ namespace TekConf.UI.WinPhone.Views
 			var image = (sender as Image);
 			image.Width = this.ActualWidth - 20;
 			image.Height = 180 * (image.Width / 260);
+		}
+
+		private async void Settings_OnClick(object sender, EventArgs e)
+		{
+			var vm = this.DataContext as ConferencesListViewModel;
+			if (vm != null) vm.ShowSettingsCommand.Execute(null);
+		}
+
+		private void Refresh_OnClick(object sender, EventArgs e)
+		{
+			var vm = this.DataContext as ConferencesListViewModel;
+			if (vm != null)
+			{
+				vm.Refresh();
+			}
 		}
 	}
 }

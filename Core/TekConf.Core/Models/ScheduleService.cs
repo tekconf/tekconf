@@ -28,17 +28,19 @@ namespace TekConf.Core.Models
 		private readonly Action<ScheduleDto> _addToScheduleSuccess;
 		private readonly Action<Exception> _addToScheduleError;
 		private readonly string _userName;
+		private readonly bool _isRefreshing;
 		private readonly string _conferenceSlug;
 
-		private ScheduleService(IMvxFileStore fileStore, string userName, Action<IEnumerable<FullConferenceDto>> success, Action<Exception> error)
+		private ScheduleService(IMvxFileStore fileStore, string userName, bool isRefreshing, Action<IEnumerable<FullConferenceDto>> success, Action<Exception> error)
 		{
 			_fileStore = fileStore;
 			_getSchedulesSuccess = success;
 			_getSchedulesError = error;
 			_userName = userName;
+			_isRefreshing = isRefreshing;
 		}
 
-		private ScheduleService(IMvxFileStore fileStore, string userName, string conferenceSlug, Action<ScheduleDto> success, Action<Exception> error)
+		private ScheduleService(IMvxFileStore fileStore, string userName, string conferenceSlug, bool isRefreshing, Action<ScheduleDto> success, Action<Exception> error)
 		{
 			_fileStore = fileStore;
 			_addToScheduleSuccess = success;
@@ -48,40 +50,41 @@ namespace TekConf.Core.Models
 			_getScheduleError = error;
 
 			_userName = userName;
+			_isRefreshing = isRefreshing;
 			_conferenceSlug = conferenceSlug;
 		}
 
-		public static void GetSchedulesAsync(IMvxFileStore fileStore, string userName, Action<IEnumerable<FullConferenceDto>> success, Action<Exception> error)
+		public static void GetSchedulesAsync(IMvxFileStore fileStore, string userName, bool isRefreshing, Action<IEnumerable<FullConferenceDto>> success, Action<Exception> error)
 		{
-			MvxAsyncDispatcher.BeginAsync(() => DoAsyncGetSchedules(fileStore, userName, success, error));
+			MvxAsyncDispatcher.BeginAsync(() => DoAsyncGetSchedules(fileStore, userName, isRefreshing, success, error));
 		}
 
-		public static void AddToScheduleAsync(IMvxFileStore fileStore, string userName, string conferenceSlug, Action<ScheduleDto> success, Action<Exception> error)
+		public static void AddToScheduleAsync(IMvxFileStore fileStore, string userName, string conferenceSlug, bool isRefreshing, Action<ScheduleDto> success, Action<Exception> error)
 		{
-			MvxAsyncDispatcher.BeginAsync(() => DoAsyncAddToScheduleSchedule(fileStore, userName, conferenceSlug, success, error));
+			MvxAsyncDispatcher.BeginAsync(() => DoAsyncAddToScheduleSchedule(fileStore, userName, conferenceSlug, isRefreshing, success, error));
 		}
 
-		public static void GetScheduleAsync(IMvxFileStore fileStore, string userName, string conferenceSlug, Action<ScheduleDto> success, Action<Exception> error)
+		public static void GetScheduleAsync(IMvxFileStore fileStore, string userName, string conferenceSlug, bool isRefreshing, Action<ScheduleDto> success, Action<Exception> error)
 		{
-			MvxAsyncDispatcher.BeginAsync(() => DoAsyncGetSchedule(fileStore, userName, conferenceSlug, success, error));
+			MvxAsyncDispatcher.BeginAsync(() => DoAsyncGetSchedule(fileStore, userName, conferenceSlug, isRefreshing, success, error));
 		}
 
-		private static void DoAsyncGetSchedules(IMvxFileStore fileStore, string userName, Action<IEnumerable<FullConferenceDto>> success, Action<Exception> error)
+		private static void DoAsyncGetSchedules(IMvxFileStore fileStore, string userName, bool isRefreshing, Action<IEnumerable<FullConferenceDto>> success, Action<Exception> error)
 		{
-			var search = new ScheduleService(fileStore, userName, success, error);
+			var search = new ScheduleService(fileStore, userName, isRefreshing, success, error);
 			search.GetSchedules();
 		}
 
-		private static void DoAsyncGetSchedule(IMvxFileStore fileStore, string userName, string conferenceSlug, Action<ScheduleDto> success, Action<Exception> error)
+		private static void DoAsyncGetSchedule(IMvxFileStore fileStore, string userName, string conferenceSlug, bool isRefreshing, Action<ScheduleDto> success, Action<Exception> error)
 		{
-			var search = new ScheduleService(fileStore, userName, conferenceSlug, success, error);
+			var search = new ScheduleService(fileStore, userName, conferenceSlug, isRefreshing, success, error);
 			search.GetSchedule();
 		}
 
-		private static void DoAsyncAddToScheduleSchedule(IMvxFileStore fileStore, string userName, string conferenceSlug, Action<ScheduleDto> success, Action<Exception> error)
+		private static void DoAsyncAddToScheduleSchedule(IMvxFileStore fileStore, string userName, string conferenceSlug, bool isRefreshing, Action<ScheduleDto> success, Action<Exception> error)
 		{
-			
-			var search = new ScheduleService(fileStore, userName, conferenceSlug, success, error);
+
+			var search = new ScheduleService(fileStore, userName, conferenceSlug, isRefreshing, success, error);
 			search.StartAddToSchedule();
 		}
 
@@ -91,7 +94,7 @@ namespace TekConf.Core.Models
 			{
 				const string path = "schedules.json";
 
-				if (_fileStore.Exists(path))
+				if (_fileStore.Exists(path) && !_isRefreshing)
 				{
 					string response;
 					if (_fileStore.TryReadTextFile(path, out response))
@@ -104,7 +107,9 @@ namespace TekConf.Core.Models
 				{
 					// perform the search
 					string uri = string.Format(GetSchedulesUrl, _userName);
-					var request = WebRequest.Create(new Uri(uri));
+					var request = (HttpWebRequest)WebRequest.Create(new Uri(uri));
+					request.Accept = "application/json";
+
 					request.BeginGetResponse(ReadGetSchedulesCallback, request);
 				}
 			}
@@ -120,7 +125,7 @@ namespace TekConf.Core.Models
 			{
 				string path = _conferenceSlug + "-schedule.json";
 
-				if (_fileStore.Exists(path))
+				if (_fileStore.Exists(path) && !_isRefreshing)
 				{
 					string response;
 					if (_fileStore.TryReadTextFile(path, out response))
@@ -134,7 +139,9 @@ namespace TekConf.Core.Models
 				{
 					// perform the search
 					string uri = string.Format(GetScheduleUrl, _userName, _conferenceSlug);
-					var request = WebRequest.Create(new Uri(uri));
+					var request = (HttpWebRequest)WebRequest.Create(new Uri(uri));
+					request.Accept = "application/json";
+
 					request.BeginGetResponse(ReadGetScheduleCallback, request);
 				}
 			}
@@ -150,7 +157,9 @@ namespace TekConf.Core.Models
 			{
 				// perform the search
 				string uri = string.Format(AddToScheduleUrl, _userName, _conferenceSlug);
-				var request = WebRequest.Create(new Uri(uri));
+				var request = (HttpWebRequest)WebRequest.Create(new Uri(uri));
+				request.Accept = "application/json";
+
 				request.Method = "POST";
 				request.BeginGetResponse(ReadAddToScheduleCallback, request);
 			}
@@ -217,6 +226,10 @@ namespace TekConf.Core.Models
 		private void HandleGetSchedulesResponse(string response)
 		{
 			const string path = "schedules.json";
+			if (_fileStore.Exists(path))
+			{
+				_fileStore.DeleteFile(path);
+			}
 			if (!_fileStore.Exists(path))
 			{
 				_fileStore.WriteFile(path, response);
@@ -228,6 +241,10 @@ namespace TekConf.Core.Models
 		private void HandleGetScheduleResponse(string response)
 		{
 			var path = _conferenceSlug + "-schedule.json";
+			if (_fileStore.Exists(path))
+			{
+				_fileStore.DeleteFile(path);
+			}
 			if (!_fileStore.Exists(path))
 			{
 				_fileStore.WriteFile(path, response);
