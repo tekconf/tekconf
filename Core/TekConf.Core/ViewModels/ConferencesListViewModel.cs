@@ -78,13 +78,11 @@ namespace TekConf.Core.ViewModels
 
 		private void DisplayAllConferences(IEnumerable<FullConferenceDto> enumerable)
 		{
-			IsLoadingConferences = false;
 			Conferences = enumerable.ToList();
 		}
 
 		private void DisplayFavoritesConferences(IEnumerable<FullConferenceDto> enumerable)
 		{
-			IsLoadingFavorites = false;
 			Favorites = enumerable.ToList();
 		}
 
@@ -122,8 +120,21 @@ namespace TekConf.Core.ViewModels
 				RaisePropertyChanged(() => Conferences);
 				IsLoadingConferences = false;
 			}
+		}		
+		
+		private FullConferenceDto _selectedFavorite;
+		public FullConferenceDto SelectedFavorite
+		{
+			get
+			{
+				return _selectedFavorite;
+			}
+			set
+			{
+				_selectedFavorite = value;
+				RaisePropertyChanged(() => SelectedFavorite);
+			}
 		}
-
 
 		private List<FullConferenceDto> _favorites;
 		public List<FullConferenceDto> Favorites
@@ -135,6 +146,9 @@ namespace TekConf.Core.ViewModels
 			set
 			{
 				_favorites = value;
+				if (_favorites != null) 
+					SelectedFavorite = _favorites.FirstOrDefault(x => x.start >= DateTime.Now);
+				
 				RaisePropertyChanged(() => Favorites);
 				IsLoadingFavorites = false;
 			}

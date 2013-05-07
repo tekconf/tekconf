@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using Cirrious.MvvmCross.WindowsPhone.Views;
-using Microsoft.Phone.Shell;
-using Microsoft.WindowsAzure.MobileServices;
-using Newtonsoft.Json.Linq;
 using TekConf.Core.ViewModels;
 using TekConf.RemoteData.Dtos.v1;
 
@@ -13,10 +10,16 @@ namespace TekConf.UI.WinPhone.Views
 {
 	public partial class ConferencesListView : MvxPhonePage
 	{
+		PushSharpClient _pushSharpClient;
+
 		public ConferencesListView()
 		{
 			InitializeComponent();
+
+			_pushSharpClient = new PushSharpClient();
+			_pushSharpClient.RegisterForToast();
 		}
+
 
 		private void Conference_OnSelected(object sender, SelectionChangedEventArgs e)
 		{
@@ -52,5 +55,6 @@ namespace TekConf.UI.WinPhone.Views
 				vm.Refresh();
 			}
 		}
+
 	}
 }

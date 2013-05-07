@@ -204,6 +204,7 @@
     <Compile Include="Bootstrap\SharePluginBootstrap.cs" />
     <Compile Include="Bootstrap\VisibilityPluginBootstrap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PushSharpClient.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="ValueConverters\Converter.cs" />
     <Compile Include="Views\ConferenceDetailView.xaml.cs">
@@ -242,6 +243,7 @@
     <None Include="Properties\WMAppManifest.xml">
       <SubType>Designer</SubType>
     </None>
+    <None Include="TekConf.UI.WinPhone_2013_05_06_15_03_52.sap" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="analytics.xml" />

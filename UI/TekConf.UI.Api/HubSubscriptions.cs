@@ -1,5 +1,7 @@
 using System;
 using Microsoft.AspNet.SignalR;
+using PushSharp;
+using PushSharp.WindowsPhone;
 using TekConf.Common.Entities.Messages;
 using TinyMessenger;
 
@@ -181,6 +183,17 @@ namespace TekConf.UI.Api
 				var message = @event.ConferenceName + " has been updated.";
 				context.Clients.All.broadcastMessage(message);
 
+
+				var push = new PushBroker();
+				push.RegisterWindowsPhoneService();
+
+				push.QueueNotification(new WindowsPhoneToastNotification()
+				.ForEndpointUri(new Uri("TekConf.NotificationChannel.Toast"))
+				.ForOSVersion(WindowsPhoneDeviceOSVersion.Eight)
+				.WithBatchingInterval(BatchingInterval.Immediate)
+				.WithNavigatePath("/Views/ConferencesListView.xaml")
+				.WithText1("TekConf")
+				.WithText2(message));
 				//_emailSender.Send(message);
 			});
 		}

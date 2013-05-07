@@ -48,7 +48,8 @@
 					
 					<ScrollViewer>
 						
-						<ListBox ItemsSource="{Binding Conferences}" SelectionChanged="Conference_OnSelected" 
+						<ListBox ItemsSource="{Binding Conferences}" 
+										 SelectionChanged="Conference_OnSelected" 
 										 ScrollViewer.VerticalScrollBarVisibility="Disabled"
 										 Visibility="{Binding IsLoadingConferences, Converter={StaticResource InvertedVisibility}}">
 							<ListBox.ItemTemplate>
@@ -86,7 +87,9 @@
                 Foreground="#FF81994D"
                          Visibility="{Binding IsLoadingFavorites, Converter={StaticResource Visibility}}"></ProgressBar>
 
-						<ListBox ItemsSource="{Binding Favorites}" SelectionChanged="Conference_OnSelected" 
+						<ListBox ItemsSource="{Binding Favorites}" 
+										 SelectionChanged="Conference_OnSelected" 
+										 Name="Favorites"
 										 ScrollViewer.VerticalScrollBarVisibility="Disabled"
 										 Visibility="{Binding IsLoadingFavorites, Converter={StaticResource InvertedVisibility}}">
 							<ListBox.ItemTemplate>
