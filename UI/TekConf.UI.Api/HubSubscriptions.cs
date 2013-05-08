@@ -195,7 +195,8 @@ namespace TekConf.UI.Api
 				.WithNavigatePath("/Views/ConferencesListView.xaml")
 				.WithText1("TekConf")
 				.WithText2(message));
-				//_emailSender.Send(message);
+				
+				_emailSender.Send(message);
 			});
 		}
 
