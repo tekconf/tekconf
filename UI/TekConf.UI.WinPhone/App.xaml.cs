@@ -27,7 +27,6 @@ namespace TekConf.UI.WinPhone
 		{
 			// Global handler for uncaught exceptions. 
 			UnhandledException += Application_UnhandledException;
-
 			// Standard Silverlight initialization
 			InitializeComponent();
 
