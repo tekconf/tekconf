@@ -192,6 +192,7 @@ namespace TekConf.UI.Api.Services.v1
 
 				conferenceEntity.TrimAllProperties();
 				conferenceEntity.Save();
+				
 				this.CacheClient.FlushAll();
 
 				conferenceDto = Mapper.Map<ConferenceEntity, FullConferenceDto>(conferenceEntity);
@@ -227,7 +228,13 @@ namespace TekConf.UI.Api.Services.v1
 				existingConference.sessionTypes = existingConference.sessionTypes.Where(x => !string.IsNullOrWhiteSpace(x)).Distinct().ToList();
 
 				existingConference.Save();
-
+				_hub.Publish(new ConferenceUpdatedMessage()
+				{
+					ConferenceName = conference.name,
+					ConferenceSlug = conference.slug,
+					EventDate = DateTime.Now,
+					Id = Guid.NewGuid()
+				});
 				this.CacheClient.FlushAll();
 
 				conferenceDto = Mapper.Map<ConferenceEntity, FullConferenceDto>(existingConference);

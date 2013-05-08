@@ -175,6 +175,7 @@ namespace TekConf.UI.Api
 
 		private void SubscribeToConferenceUpdated()
 		{
+			
 			_hub.Subscribe<ConferenceUpdatedMessage>((@event) =>
 			{
 				_conferenceUpdatedRepository.Save(@event);
