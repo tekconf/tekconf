@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using Microsoft.Phone.Notification;
+using TekConf.Core.Models;
 
 namespace TekConf.UI.WinPhone
 {
@@ -27,6 +28,10 @@ namespace TekConf.UI.WinPhone
 				pushChannel.ChannelUriUpdated +=
 					delegate(object sender, NotificationChannelUriEventArgs e)
 					{
+						PushService.PostWindowsPhonePushNotificationAsync("RobGibbens", e.ChannelUri.AbsolutePath, false, 
+							isSuccessful => MessageBox.Show("Channel Updated " + isSuccessful), 
+							(ex) => MessageBox.Show("Channel Updated Exception " + ex.Message)
+							);
 						Debug.WriteLine("PushChannel URI Updated: " + e.ChannelUri.ToString());
 					};
 				pushChannel.ErrorOccurred +=
@@ -51,6 +56,10 @@ namespace TekConf.UI.WinPhone
 				pushChannel.ChannelUriUpdated +=
 					delegate(object sender, NotificationChannelUriEventArgs e)
 					{
+						PushService.PostWindowsPhonePushNotificationAsync("RobGibbens", e.ChannelUri.AbsolutePath, false,
+								isSuccessful => MessageBox.Show("Channel Updated " + isSuccessful),
+								(ex) => MessageBox.Show("Channel Updated Exception " + ex.Message)
+						);
 						Debug.WriteLine("PushChannel URI Updated: " + e.ChannelUri.ToString());
 					};
 				pushChannel.ErrorOccurred +=

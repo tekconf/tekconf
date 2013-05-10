@@ -29,6 +29,7 @@ namespace TekConf.UI.Api
 		private readonly IRepository<SessionAddedToScheduleMessage> _sessionAddedToScheduleRepository;
 
 		private readonly IRepository<SubscriptionEntity> _subscriptionRepository;
+		private readonly IRepository<UserEntity> _userRepository;
 
 		private readonly IEmailSender _emailSender;
 		private readonly IEntityConfiguration _entityConfiguration;
@@ -48,6 +49,7 @@ namespace TekConf.UI.Api
 																IRepository<ScheduleCreatedMessage> scheduleCreatedRepository,
 																IRepository<SessionAddedToScheduleMessage> sessionAddedToScheduleRepository,
 																IRepository<SubscriptionEntity> subscriptionRepository,
+																IRepository<UserEntity> userRepository,
 																IEmailSender emailSender,
 																IEntityConfiguration entityConfiguration
 														)
@@ -69,6 +71,7 @@ namespace TekConf.UI.Api
 			_scheduleCreatedRepository = scheduleCreatedRepository;
 			_sessionAddedToScheduleRepository = sessionAddedToScheduleRepository;
 			_subscriptionRepository = subscriptionRepository;
+			_userRepository = userRepository;
 			_emailSender = emailSender;
 			this._entityConfiguration = entityConfiguration;
 
@@ -186,7 +189,7 @@ namespace TekConf.UI.Api
 
 		private void SubscribeToConferenceUpdated()
 		{
-			
+
 			_hub.Subscribe<ConferenceUpdatedMessage>((@event) =>
 			{
 				_conferenceUpdatedRepository.Save(@event);
@@ -199,15 +202,22 @@ namespace TekConf.UI.Api
 				var push = new PushBroker();
 				push.RegisterWindowsPhoneService();
 
-				push.QueueNotification(new WindowsPhoneToastNotification()
-				.ForEndpointUri(new Uri("http://sn1.notify.live.net/throttledthirdparty/01.00/AAHVPY_gVgs8SpYGG5FJd0WKAgAAAAADAQAAAAQUZm52OkJCMjg1QTg1QkZDMkUxREQ"))
-				//.ForEndpointUri()
-				.ForOSVersion(WindowsPhoneDeviceOSVersion.Eight)
-				.WithBatchingInterval(BatchingInterval.Immediate)
-				.WithNavigatePath("/Views/ConferencesListView.xaml")
-				.WithText1("TekConf")
-				.WithText2(message));
-				
+				var users = _userRepository.AsQueryable().ToList().Where(x => x.WindowsPhoneEndpointUris.Any());
+				//"http://sn1.notify.live.net/throttledthirdparty/01.00/AAHVPY_gVgs8SpYGG5FJd0WKAgAAAAADAQAAAAQUZm52OkJCMjg1QTg1QkZDMkUxREQ"))
+
+				foreach (var user in users)
+				{
+					foreach (var endpoint in user.WindowsPhoneEndpointUris)
+					{
+						push.QueueNotification(new WindowsPhoneToastNotification()
+							.ForEndpointUri(new Uri(endpoint))
+							.ForOSVersion(WindowsPhoneDeviceOSVersion.Eight)
+							.WithBatchingInterval(BatchingInterval.Immediate)
+							.WithNavigatePath("/Views/ConferencesListView.xaml")
+							.WithText1("TekConf")
+							.WithText2(message));
+					}
+				}
 				_emailSender.Send(message);
 			});
 		}
@@ -273,7 +283,7 @@ namespace TekConf.UI.Api
 								context.Clients.All.broadcastMessage(message);
 
 								//_emailSender.Send(message);
-			});
+							});
 		}
 
 		private void SubscribeToSessionAdded()

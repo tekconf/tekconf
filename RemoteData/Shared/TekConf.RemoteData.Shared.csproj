@@ -229,6 +229,7 @@
     <Compile Include="v1\Requests\Users.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="v1\Requests\WindowsPhonePushRequest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

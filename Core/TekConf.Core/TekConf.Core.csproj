@@ -126,6 +126,7 @@
     <Compile Include="Interfaces\IAnalytics.cs" />
     <Compile Include="Models\ConferenceService.cs" />
     <Compile Include="Models\ConferencesService.cs" />
+    <Compile Include="Models\PushService.cs" />
     <Compile Include="Models\ScheduleService.cs" />
     <Compile Include="Models\SessionService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

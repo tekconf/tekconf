@@ -283,6 +283,7 @@
     <Compile Include="Services\v1\FeaturedSpeakersService.cs" />
     <Compile Include="Services\v1\GravatarImage.cs" />
     <Compile Include="Services\v1\MongoServiceBase.cs" />
+    <Compile Include="Services\v1\PushService.cs" />
     <Compile Include="Services\v1\SchedulesService.cs" />
     <Compile Include="Services\v1\Events\SessionAddedService.cs" />
     <Compile Include="Services\v1\Events\SessionRemovedService.cs" />

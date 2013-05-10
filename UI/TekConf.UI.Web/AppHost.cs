@@ -80,6 +80,7 @@ namespace TekConf.UI.Web
 				container.Resolve<IRepository<ScheduleCreatedMessage>>(),
 				container.Resolve<IRepository<SessionAddedToScheduleMessage>>(),
 				container.Resolve<IRepository<SubscriptionEntity>>(),
+				container.Resolve<IRepository<UserEntity>>(),
 				container.Resolve<IEmailSender>(),
 				container.Resolve<IEntityConfiguration>()
 
