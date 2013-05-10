@@ -200,7 +200,8 @@ namespace TekConf.UI.Api
 				push.RegisterWindowsPhoneService();
 
 				push.QueueNotification(new WindowsPhoneToastNotification()
-				.ForEndpointUri(new Uri("TekConf.NotificationChannel.Toast"))
+				.ForEndpointUri(new Uri("http://sn1.notify.live.net/throttledthirdparty/01.00/AAHVPY_gVgs8SpYGG5FJd0WKAgAAAAADAQAAAAQUZm52OkJCMjg1QTg1QkZDMkUxREQ"))
+				//.ForEndpointUri()
 				.ForOSVersion(WindowsPhoneDeviceOSVersion.Eight)
 				.WithBatchingInterval(BatchingInterval.Immediate)
 				.WithNavigatePath("/Views/ConferencesListView.xaml")

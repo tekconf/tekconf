@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
+using System.Windows;
 using Microsoft.Phone.Notification;
 
 namespace TekConf.UI.WinPhone
@@ -12,7 +14,7 @@ namespace TekConf.UI.WinPhone
 
 			// The name of our push channel.
 			const string channelName = "TekConf.NotificationChannel.Toast";
-
+			//const string channelName = "http://api.tekconf.com/push/wp/register";
 			// Try to find the push channel.
 			var pushChannel = HttpNotificationChannel.Find(channelName);
 
@@ -22,13 +24,23 @@ namespace TekConf.UI.WinPhone
 				pushChannel = new HttpNotificationChannel(channelName);
 
 				// Register for all the events before attempting to open the channel.
-				pushChannel.ChannelUriUpdated += (sender, e) => Debug.WriteLine("PushChannel URI Updated: " + e.ChannelUri.ToString());
-				pushChannel.ErrorOccurred += (sender, e) => Debug.WriteLine("PushChannel Error: " + e.ErrorType.ToString() + " -> " + e.ErrorCode + " -> " + e.Message + " -> " + e.ErrorAdditionalData);
+				pushChannel.ChannelUriUpdated +=
+					delegate(object sender, NotificationChannelUriEventArgs e)
+					{
+						Debug.WriteLine("PushChannel URI Updated: " + e.ChannelUri.ToString());
+					};
+				pushChannel.ErrorOccurred +=
+					delegate(object sender, NotificationChannelErrorEventArgs e)
+					{
+						Debug.WriteLine("PushChannel Error: " + e.ErrorType.ToString() + " -> " + e.ErrorCode + " -> " + e.Message +
+							" -> " + e.ErrorAdditionalData);
+					};
 
 				// Register for this notification only if you need to receive the notifications while your application is running.
 				pushChannel.ShellToastNotificationReceived += (sender, e) =>
 				{
 					//Yay notification
+					MessageBox.Show(@"Push notification received");
 				};
 
 				pushChannel.Open();
@@ -36,8 +48,17 @@ namespace TekConf.UI.WinPhone
 			else
 			{
 				// The channel was already open, so just register for all the events.
-				pushChannel.ChannelUriUpdated += (sender, e) => Debug.WriteLine("PushChannel URI Updated: " + e.ChannelUri.ToString());
-				pushChannel.ErrorOccurred += (sender, e) => Debug.WriteLine("PushChannel Error: " + e.ErrorType.ToString() + " -> " + e.ErrorCode + " -> " + e.Message + " -> " + e.ErrorAdditionalData);
+				pushChannel.ChannelUriUpdated +=
+					delegate(object sender, NotificationChannelUriEventArgs e)
+					{
+						Debug.WriteLine("PushChannel URI Updated: " + e.ChannelUri.ToString());
+					};
+				pushChannel.ErrorOccurred +=
+					delegate(object sender, NotificationChannelErrorEventArgs e)
+					{
+						Debug.WriteLine("PushChannel Error: " + e.ErrorType.ToString() + " -> " + e.ErrorCode + " -> " + e.Message +
+							" -> " + e.ErrorAdditionalData);
+					};
 
 				// Bind this new channel for toast events.
 				if (pushChannel.IsShellToastBound)
@@ -51,10 +72,10 @@ namespace TekConf.UI.WinPhone
 					pushChannel.BindToShellTile();
 
 				//// Register for this notification only if you need to receive the notifications while your application is running.
-				//pushChannel.ShellToastNotificationReceived += new EventHandler<NotificationEventArgs>((sender, e) =>
-				//{
-				//	//Yay
-				//});
+				pushChannel.ShellToastNotificationReceived += (sender, e) =>
+				{
+					MessageBox.Show(@"Push notification received");
+				};
 			}
 
 			// Bind this new channel for toast events.
