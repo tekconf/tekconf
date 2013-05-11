@@ -189,7 +189,6 @@ namespace TekConf.UI.Api
 
 		private void SubscribeToConferenceUpdated()
 		{
-
 			_hub.Subscribe<ConferenceUpdatedMessage>((@event) =>
 			{
 				_conferenceUpdatedRepository.Save(@event);
@@ -213,7 +212,7 @@ namespace TekConf.UI.Api
 							.ForEndpointUri(new Uri(endpoint))
 							.ForOSVersion(WindowsPhoneDeviceOSVersion.Eight)
 							.WithBatchingInterval(BatchingInterval.Immediate)
-							.WithNavigatePath("/Views/ConferencesListView.xaml")
+							.WithNavigatePath("/Views/ConferenceDetailView.xaml?slug=" + @event.ConferenceSlug)
 							.WithText1("TekConf")
 							.WithText2(message));
 					}

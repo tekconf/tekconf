@@ -28,9 +28,9 @@ namespace TekConf.UI.WinPhone
 				pushChannel.ChannelUriUpdated +=
 					delegate(object sender, NotificationChannelUriEventArgs e)
 					{
-						PushService.PostWindowsPhonePushNotificationAsync("RobGibbens", e.ChannelUri.AbsolutePath, false, 
-							isSuccessful => MessageBox.Show("Channel Updated " + isSuccessful), 
-							(ex) => MessageBox.Show("Channel Updated Exception " + ex.Message)
+						PushService.PostWindowsPhonePushNotificationAsync("RobGibbens", e.ChannelUri.AbsoluteUri, false,
+							isSuccessful => { },
+							(ex) => { }
 							);
 						Debug.WriteLine("PushChannel URI Updated: " + e.ChannelUri.ToString());
 					};
@@ -44,8 +44,12 @@ namespace TekConf.UI.WinPhone
 				// Register for this notification only if you need to receive the notifications while your application is running.
 				pushChannel.ShellToastNotificationReceived += (sender, e) =>
 				{
-					//Yay notification
-					MessageBox.Show(@"Push notification received");
+					Deployment.Current.Dispatcher.BeginInvoke(() =>
+					{
+						if (e != null && e.Collection != null && e.Collection.Count == 3)
+							MessageBox.Show(e.Collection.Skip(1).Single().Value);
+					});
+
 				};
 
 				pushChannel.Open();
@@ -56,10 +60,10 @@ namespace TekConf.UI.WinPhone
 				pushChannel.ChannelUriUpdated +=
 					delegate(object sender, NotificationChannelUriEventArgs e)
 					{
-						PushService.PostWindowsPhonePushNotificationAsync("RobGibbens", e.ChannelUri.AbsolutePath, false,
-								isSuccessful => MessageBox.Show("Channel Updated " + isSuccessful),
-								(ex) => MessageBox.Show("Channel Updated Exception " + ex.Message)
-						);
+						PushService.PostWindowsPhonePushNotificationAsync("RobGibbens", e.ChannelUri.AbsoluteUri, false,
+							isSuccessful => { },
+							(ex) => { }
+							);
 						Debug.WriteLine("PushChannel URI Updated: " + e.ChannelUri.ToString());
 					};
 				pushChannel.ErrorOccurred +=
@@ -83,7 +87,11 @@ namespace TekConf.UI.WinPhone
 				//// Register for this notification only if you need to receive the notifications while your application is running.
 				pushChannel.ShellToastNotificationReceived += (sender, e) =>
 				{
-					MessageBox.Show(@"Push notification received");
+					Deployment.Current.Dispatcher.BeginInvoke(() =>
+					{
+						if (e != null && e.Collection != null && e.Collection.Count == 3)
+							MessageBox.Show(e.Collection.ToArray()[1].Value);
+					});
 				};
 			}
 
