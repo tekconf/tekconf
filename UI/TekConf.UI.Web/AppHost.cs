@@ -94,7 +94,7 @@ namespace TekConf.UI.Web
 			container.Register<ISessionFactory>(c =>
 				new SessionFactory(c.Resolve<ICacheClient>()));
 
-			var bootstrapper = new Bootstrapper();
+			var bootstrapper = new Bootstrapper(container);
 			bootstrapper.BootstrapAutomapper();
 			bootstrapper.BootstrapMongoDb();
 

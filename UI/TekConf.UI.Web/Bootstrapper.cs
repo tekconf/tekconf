@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using AutoMapper;
+using Funq;
 using MongoDB.Bson.Serialization;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.UI.Api;
@@ -14,9 +15,16 @@ namespace TekConf.UI.Web
 {
 	public class Bootstrapper
 	{
+		private readonly Container _container;
+
+		public Bootstrapper(Container container)
+		{
+			_container = container;
+		}
+
 		public void BootstrapMongoDb()
 		{
-			ITinyMessengerHub hub = new TinyMessengerHub();
+			var hub = _container.Resolve<ITinyMessengerHub>();
 
 			var repository = new ConferenceRepository(new EntityConfiguration());
 
@@ -53,6 +61,14 @@ namespace TekConf.UI.Web
 			Mapper.CreateMap<ConferenceEntity, FullConferenceDto>()
 											.ForMember(dest => dest.imageUrl, opt => opt.ResolveUsing<ImageResolver>())
 											.ForMember(dest => dest.numberOfSessions, opt => opt.ResolveUsing<SessionsCounterResolver>());
+
+			Mapper.CreateMap<CreateConference, ConferenceEntity>()
+							.ForMember(c => c._id, opt => opt.Ignore())
+							.ForMember(dest => dest.start, opt => opt.ResolveUsing<Api.ConferenceStartTimeZoneResolver>())
+							.ForMember(dest => dest.end, opt => opt.ResolveUsing<Api.ConferenceEndTimeZoneResolver>())
+							.ForMember(c => c.position, opt => opt.ResolveUsing<PositionResolver>())
+							.ConstructUsing((Func<ResolutionContext, ConferenceEntity>)(r => new ConferenceEntity(_container.Resolve<ITinyMessengerHub>(), _container.Resolve<IConferenceRepository>())));
+
 
 			Mapper.CreateMap<AddSession, SessionEntity>()
 				.ForMember(s => s._id, opt => opt.UseValue(Guid.NewGuid()))
