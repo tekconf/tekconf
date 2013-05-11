@@ -27,9 +27,12 @@ namespace TekConf.UI.Api
 		private readonly IRepository<ConferenceCreatedMessage> _conferenceCreatedRepository;
 		private readonly IRepository<ScheduleCreatedMessage> _scheduleCreatedRepository;
 		private readonly IRepository<SessionAddedToScheduleMessage> _sessionAddedToScheduleRepository;
+		private readonly IRepository<SessionStartDateChangedMessage> _sessionStartDateChangedRepository;
+		private readonly IRepository<SessionEndDateChangedMessage> _sessionEndDateChangedRepository;
 
 		private readonly IRepository<SubscriptionEntity> _subscriptionRepository;
 		private readonly IRepository<UserEntity> _userRepository;
+		private readonly IRepository<ScheduleEntity> _scheduleRepository;
 
 		private readonly IEmailSender _emailSender;
 		private readonly IEntityConfiguration _entityConfiguration;
@@ -48,8 +51,11 @@ namespace TekConf.UI.Api
 																IRepository<ConferenceCreatedMessage> conferenceCreatedRepository,
 																IRepository<ScheduleCreatedMessage> scheduleCreatedRepository,
 																IRepository<SessionAddedToScheduleMessage> sessionAddedToScheduleRepository,
+																IRepository<SessionStartDateChangedMessage> sessionStartDateChangedRepository,
+																IRepository<SessionEndDateChangedMessage> sessionEndDateChangedRepository,
 																IRepository<SubscriptionEntity> subscriptionRepository,
 																IRepository<UserEntity> userRepository,
+																IRepository<ScheduleEntity> scheduleRepository,
 																IEmailSender emailSender,
 																IEntityConfiguration entityConfiguration
 														)
@@ -70,8 +76,11 @@ namespace TekConf.UI.Api
 			_conferenceCreatedRepository = conferenceCreatedRepository;
 			_scheduleCreatedRepository = scheduleCreatedRepository;
 			_sessionAddedToScheduleRepository = sessionAddedToScheduleRepository;
+			_sessionStartDateChangedRepository = sessionStartDateChangedRepository;
+			_sessionEndDateChangedRepository = sessionEndDateChangedRepository;
 			_subscriptionRepository = subscriptionRepository;
 			_userRepository = userRepository;
+			_scheduleRepository = scheduleRepository;
 			_emailSender = emailSender;
 			this._entityConfiguration = entityConfiguration;
 
@@ -88,6 +97,8 @@ namespace TekConf.UI.Api
 			SubscribeToConferenceUpdated();
 			SubscribeToConferenceStartDateChanged();
 			SubscribeToSessionRemoved();
+			SubscribeToSessionStartDateChanged();
+			SubscribeToSessionEndDateChanged();
 			SubscribeToSpeakerAdded();
 			SubscribeToSpeakerRemoved();
 			SubscribeToConferenceCreated();
@@ -104,17 +115,6 @@ namespace TekConf.UI.Api
 				var message = @event.UserName + " created a schedule for " + @event.ConferenceSlug;
 				context.Clients.All.broadcastMessage(message);
 
-				var push = new PushBroker();
-				push.RegisterWindowsPhoneService();
-
-				push.QueueNotification(new WindowsPhoneToastNotification()
-				.ForEndpointUri(new Uri("TekConf.NotificationChannel.Toast"))
-				.ForOSVersion(WindowsPhoneDeviceOSVersion.Eight)
-				.WithBatchingInterval(BatchingInterval.Immediate)
-				.WithNavigatePath("/Views/ConferencesListView.xaml")
-				.WithText1("TekConf")
-				.WithText2(message));
-
 				_emailSender.Send(message);
 			});
 		}
@@ -127,6 +127,29 @@ namespace TekConf.UI.Api
 				var context = GlobalHost.ConnectionManager.GetHubContext<EventsHub>();
 				var message = @event.UserName + " added " + @event.SessionSlug + " to their schedule for " + @event.ConferenceSlug;
 				context.Clients.All.broadcastMessage(message);
+
+				_emailSender.Send(message);
+			});
+		}
+
+		public void SubscribeToSessionStartDateChanged()
+		{
+			_hub.Subscribe<SessionStartDateChangedMessage>((@event) =>
+			{
+				_sessionStartDateChangedRepository.Save(@event);
+
+				var message = @event.SessionTitle + " start date has changed to " + @event.NewValue.ToShortTimeString();
+				
+				_emailSender.Send(message);
+			});
+		}
+
+		public void SubscribeToSessionEndDateChanged()
+		{
+			_hub.Subscribe<SessionEndDateChangedMessage>((@event) =>
+			{
+				_sessionEndDateChangedRepository.Save(@event);
+				var message = @event.SessionTitle + " end date has changed to " + @event.NewValue.ToShortTimeString();
 
 				_emailSender.Send(message);
 			});
@@ -198,28 +221,66 @@ namespace TekConf.UI.Api
 				context.Clients.All.broadcastMessage(message);
 
 
-				var push = new PushBroker();
-				push.RegisterWindowsPhoneService();
+				SendWindowsPhonePushNotifications(@event, message);
 
-				var users = _userRepository.AsQueryable().ToList().Where(x => x.WindowsPhoneEndpointUris.Any());
-				//"http://sn1.notify.live.net/throttledthirdparty/01.00/AAHVPY_gVgs8SpYGG5FJd0WKAgAAAAADAQAAAAQUZm52OkJCMjg1QTg1QkZDMkUxREQ"))
-
-				foreach (var user in users)
-				{
-					foreach (var endpoint in user.WindowsPhoneEndpointUris)
-					{
-						push.QueueNotification(new WindowsPhoneToastNotification()
-							.ForEndpointUri(new Uri(endpoint))
-							.ForOSVersion(WindowsPhoneDeviceOSVersion.Eight)
-							.WithBatchingInterval(BatchingInterval.Immediate)
-							.WithNavigatePath("/Views/ConferenceDetailView.xaml")
-							.WithParameter("slug", @event.ConferenceSlug)
-							.WithText1("TekConf")
-							.WithText2(message));
-					}
-				}
 				_emailSender.Send(message);
 			});
+		}
+
+		private void SendWindowsPhonePushNotifications(ConferenceUpdatedMessage @event, string message)
+		{
+			var push = new PushBroker();
+			push.RegisterWindowsPhoneService();
+
+			var windowsPhoneUsers = _userRepository.AsQueryable().ToList().Where(x => x.WindowsPhoneEndpointUris.Any()).ToList();
+			var schedules = _scheduleRepository.AsQueryable().Where(x => x.ConferenceSlug == @event.ConferenceSlug).ToList();
+
+			var notifications = windowsPhoneUsers.Where(wpu => schedules.Select(s => s.UserName).Contains(wpu.userName)).ToList();
+
+			foreach (var user in notifications)
+			{
+				foreach (var endpoint in user.WindowsPhoneEndpointUris)
+				{
+					push.QueueNotification(new WindowsPhoneToastNotification()
+						.ForEndpointUri(new Uri(endpoint))
+						.ForOSVersion(WindowsPhoneDeviceOSVersion.Eight)
+						.WithBatchingInterval(BatchingInterval.Immediate)
+						.WithNavigatePath("~/Views/ConferenceDetailView.xaml")
+						.WithParameter("slug", @event.ConferenceSlug)
+						.WithText1("TekConf")
+						.WithText2(message));
+				}
+			}
+		}
+
+		private void SendWindowsPhonePushNotifications(SessionStartDateChangedMessage @event, string message)
+		{
+			var push = new PushBroker();
+			push.RegisterWindowsPhoneService();
+
+			var windowsPhoneUsers = _userRepository.AsQueryable().ToList().Where(x => x.WindowsPhoneEndpointUris.Any()).ToList();
+			var schedules = _scheduleRepository.AsQueryable()
+				.Where(x => x.ConferenceSlug == @event.ConferenceSlug)
+				.Where(x => x.SessionSlugs.Contains(@event.SessionSlug))
+				.ToList();
+
+			var notifications = windowsPhoneUsers.Where(wpu => schedules.Select(s => s.UserName).Contains(wpu.userName)).ToList();
+
+			foreach (var user in notifications)
+			{
+				foreach (var endpoint in user.WindowsPhoneEndpointUris)
+				{
+					push.QueueNotification(new WindowsPhoneToastNotification()
+						.ForEndpointUri(new Uri(endpoint))
+						.ForOSVersion(WindowsPhoneDeviceOSVersion.Eight)
+						.WithBatchingInterval(BatchingInterval.Immediate)
+						.WithNavigatePath("~/Views/SessionDetailView.xaml")
+						.WithParameter("ConferenceSlug", @event.ConferenceSlug)
+						.WithParameter("SessionSlug", @event.SessionSlug)
+						.WithText1("TekConf")
+						.WithText2(message));
+				}
+			}
 		}
 
 		private void SubscribeToConferenceCreated()

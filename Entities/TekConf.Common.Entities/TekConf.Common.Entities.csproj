@@ -129,6 +129,7 @@
     <Compile Include="Messages\ConferenceUpdatedMessage.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Messages\EndDateChangedArgs.cs" />
     <Compile Include="Messages\ITinyMessageBase.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -144,18 +145,21 @@
     <Compile Include="Messages\SessionAddedToScheduleMessage.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Messages\SessionEndDateChangedMessage.cs" />
     <Compile Include="Messages\SessionRemovedMessage.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Messages\SessionRoomChangedMessage.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Messages\SessionStartDateChangedMessage.cs" />
     <Compile Include="Messages\SpeakerAddedMessage.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Messages\SpeakerRemovedMessage.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Messages\StartDateChangedArgs.cs" />
     <Compile Include="Messages\TinyMessageBase.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -198,12 +202,14 @@
     <Compile Include="Repositories\SessionAddedRepository.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Repositories\SessionEndDateChangedRepository.cs" />
     <Compile Include="Repositories\SessionRemovedRepository.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Repositories\SessionRoomChangedRepository.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Repositories\SessionStartDateChangedRepository.cs" />
     <Compile Include="Repositories\SpeakerAddedRepository.cs">
       <SubType>Code</SubType>
     </Compile>

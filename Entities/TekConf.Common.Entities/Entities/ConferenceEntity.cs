@@ -25,6 +25,8 @@ namespace TekConf.Common.Entities
 		private readonly List<SpeakerAddedMessage> _speakerAddedMessages;
 		private readonly List<SpeakerRemovedMessage> _speakerRemovedMessages;
 		private readonly List<SessionRoomChangedMessage> _sessionRoomChangedMessages;
+		private readonly List<SessionStartDateChangedMessage> _sessionStartDateChangedMessages;
+		private readonly List<SessionEndDateChangedMessage> _sessionEndDateChangedMessages;
 
 		public ConferenceEntity(ITinyMessengerHub hub, IConferenceRepository repository)
 		{
@@ -40,6 +42,8 @@ namespace TekConf.Common.Entities
 			_sessionAddedMessages = new List<SessionAddedMessage>();
 			_sessionRemovedMessages = new List<SessionRemovedMessage>();
 			_sessionRoomChangedMessages = new List<SessionRoomChangedMessage>();
+			_sessionStartDateChangedMessages = new List<SessionStartDateChangedMessage>();
+			_sessionEndDateChangedMessages = new List<SessionEndDateChangedMessage>();
 			_speakerAddedMessages = new List<SpeakerAddedMessage>();
 			_speakerRemovedMessages = new List<SpeakerRemovedMessage>();
 		}
@@ -218,6 +222,9 @@ namespace TekConf.Common.Entities
 				foreach (var session in _sessions)
 				{
 					session.RoomChanged += SessionRoomChangedHandler;
+					session.StartDateChanged += SessionStartDateChangedHandler;
+					session.EndDateChanged += SessionEndDateChangedHandler;
+					
 				}
 			}
 		}
@@ -271,6 +278,18 @@ namespace TekConf.Common.Entities
 		{
 			if (!_isInitializingFromBson && isSaved)
 				_sessionRoomChangedMessages.Add(new SessionRoomChangedMessage() { ConferenceSlug = this.slug, SessionSlug = e.SessionSlug, SessionTitle = sessionEntity.title, OldValue = e.OldValue, NewValue = e.NewValue });
+		}
+
+		private void SessionStartDateChangedHandler(SessionEntity sessionEntity, StartDateChangedArgs e)
+		{
+			if (!_isInitializingFromBson && isSaved)
+				_sessionStartDateChangedMessages.Add(new SessionStartDateChangedMessage() { ConferenceSlug = this.slug, SessionSlug = e.SessionSlug, SessionTitle = sessionEntity.title, OldValue = e.OldValue, NewValue = e.NewValue });
+		}
+
+		private void SessionEndDateChangedHandler(SessionEntity sessionEntity, EndDateChangedArgs e)
+		{
+			if (!_isInitializingFromBson && isSaved)
+				_sessionEndDateChangedMessages.Add(new SessionEndDateChangedMessage() { ConferenceSlug = this.slug, SessionSlug = e.SessionSlug, SessionTitle = sessionEntity.title, OldValue = e.OldValue, NewValue = e.NewValue });
 		}
 
 
@@ -359,6 +378,18 @@ namespace TekConf.Common.Entities
 			}
 			_sessionRoomChangedMessages.Clear();
 
+			foreach (var message in _sessionStartDateChangedMessages)
+			{
+				_hub.Publish(message);
+			}
+			_sessionStartDateChangedMessages.Clear();
+
+			foreach (var message in _sessionEndDateChangedMessages)
+			{
+				_hub.Publish(message);
+			}
+			_sessionEndDateChangedMessages.Clear();
+
 			foreach (var message in _speakerAddedMessages)
 			{
 				_hub.Publish(message);
@@ -386,6 +417,8 @@ namespace TekConf.Common.Entities
 				_sessions = new List<SessionEntity>();
 
 			session.RoomChanged += SessionRoomChangedHandler;
+			session.StartDateChanged += SessionStartDateChangedHandler;
+			session.EndDateChanged += SessionEndDateChangedHandler;
 
 			_sessions.Add(session);
 

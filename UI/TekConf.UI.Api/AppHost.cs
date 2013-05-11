@@ -60,6 +60,10 @@ namespace TekConf.UI.Api
 			container.Register<IRepository<ConferenceStartDateChangedMessage>>(new GenericRepository<ConferenceStartDateChangedMessage>(entityConfiguration));
 			container.Register<IRepository<SessionAddedMessage>>(new GenericRepository<SessionAddedMessage>(entityConfiguration));
 			container.Register<IRepository<SessionRemovedMessage>>(new GenericRepository<SessionRemovedMessage>(entityConfiguration));
+
+			container.Register<IRepository<SessionStartDateChangedMessage>>(new GenericRepository<SessionStartDateChangedMessage>(entityConfiguration));
+			container.Register<IRepository<SessionEndDateChangedMessage>>(new GenericRepository<SessionEndDateChangedMessage>(entityConfiguration));
+
 			container.Register<IRepository<SpeakerAddedMessage>>(new GenericRepository<SpeakerAddedMessage>(entityConfiguration));
 			container.Register<IRepository<SpeakerRemovedMessage>>(new GenericRepository<SpeakerRemovedMessage>(entityConfiguration));
 			container.Register<IRepository<ScheduleCreatedMessage>>(new GenericRepository<ScheduleCreatedMessage>(entityConfiguration));
@@ -86,8 +90,11 @@ namespace TekConf.UI.Api
 								container.Resolve<IRepository<ConferenceCreatedMessage>>(),
 								container.Resolve<IRepository<ScheduleCreatedMessage>>(),
 								container.Resolve<IRepository<SessionAddedToScheduleMessage>>(),
+								container.Resolve<IRepository<SessionStartDateChangedMessage>>(),
+								container.Resolve<IRepository<SessionEndDateChangedMessage>>(),
 								container.Resolve<IRepository<SubscriptionEntity>>(),
 								container.Resolve<IRepository<UserEntity>>(),
+								container.Resolve<IRepository<ScheduleEntity>>(),
 								container.Resolve<IEmailSender>(),
 								container.Resolve<IEntityConfiguration>()
 
