@@ -212,7 +212,8 @@ namespace TekConf.UI.Api
 							.ForEndpointUri(new Uri(endpoint))
 							.ForOSVersion(WindowsPhoneDeviceOSVersion.Eight)
 							.WithBatchingInterval(BatchingInterval.Immediate)
-							.WithNavigatePath("/Views/ConferenceDetailView.xaml?slug=" + @event.ConferenceSlug)
+							.WithNavigatePath("/Views/ConferenceDetailView.xaml")
+							.WithParameter("slug", @event.ConferenceSlug)
 							.WithText1("TekConf")
 							.WithText2(message));
 					}
