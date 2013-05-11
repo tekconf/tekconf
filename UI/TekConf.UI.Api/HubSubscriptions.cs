@@ -139,7 +139,9 @@ namespace TekConf.UI.Api
 				_sessionStartDateChangedRepository.Save(@event);
 
 				var message = @event.SessionTitle + " start date has changed to " + @event.NewValue.ToShortTimeString();
-				
+
+				SendWindowsPhonePushNotifications(@event, message);
+
 				_emailSender.Send(message);
 			});
 		}
@@ -150,7 +152,7 @@ namespace TekConf.UI.Api
 			{
 				_sessionEndDateChangedRepository.Save(@event);
 				var message = @event.SessionTitle + " end date has changed to " + @event.NewValue.ToShortTimeString();
-
+				SendWindowsPhonePushNotifications(@event, message);
 				_emailSender.Send(message);
 			});
 		}
@@ -254,6 +256,36 @@ namespace TekConf.UI.Api
 		}
 
 		private void SendWindowsPhonePushNotifications(SessionStartDateChangedMessage @event, string message)
+		{
+			var push = new PushBroker();
+			push.RegisterWindowsPhoneService();
+
+			var windowsPhoneUsers = _userRepository.AsQueryable().ToList().Where(x => x.WindowsPhoneEndpointUris.Any()).ToList();
+			var schedules = _scheduleRepository.AsQueryable()
+				.Where(x => x.ConferenceSlug == @event.ConferenceSlug)
+				.Where(x => x.SessionSlugs.Contains(@event.SessionSlug))
+				.ToList();
+
+			var notifications = windowsPhoneUsers.Where(wpu => schedules.Select(s => s.UserName).Contains(wpu.userName)).ToList();
+
+			foreach (var user in notifications)
+			{
+				foreach (var endpoint in user.WindowsPhoneEndpointUris)
+				{
+					push.QueueNotification(new WindowsPhoneToastNotification()
+						.ForEndpointUri(new Uri(endpoint))
+						.ForOSVersion(WindowsPhoneDeviceOSVersion.Eight)
+						.WithBatchingInterval(BatchingInterval.Immediate)
+						.WithNavigatePath("~/Views/SessionDetailView.xaml")
+						.WithParameter("ConferenceSlug", @event.ConferenceSlug)
+						.WithParameter("SessionSlug", @event.SessionSlug)
+						.WithText1("TekConf")
+						.WithText2(message));
+				}
+			}
+		}
+
+		private void SendWindowsPhonePushNotifications(SessionEndDateChangedMessage @event, string message)
 		{
 			var push = new PushBroker();
 			push.RegisterWindowsPhoneService();
