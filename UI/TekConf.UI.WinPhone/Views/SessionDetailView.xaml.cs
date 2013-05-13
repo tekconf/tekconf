@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using Cirrious.MvvmCross.WindowsPhone.Views;
 using TekConf.Core.ViewModels;
+using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.UI.WinPhone.Views
 {
@@ -31,6 +35,20 @@ namespace TekConf.UI.WinPhone.Views
 
 				vm.Refresh(navigation);
 			}
+		}
+
+		private void SpeakerFullName_OnSizeChanged(object sender, SizeChangedEventArgs e)
+		{
+			var title = (sender as TextBlock);
+			title.MaxWidth = this.ActualWidth;
+		}
+
+		private void Speaker_OnTap(object sender, GestureEventArgs e)
+		{
+			//var button = (sender as Button);
+			//var speaker = button.DataContext as FullSpeakerDto;
+			//var vm = this.DataContext as SessionDetailViewModel;
+			//vm.ShowSessionDetailCommand.Execute(new SessionDetailViewModel.Navigation() { ConferenceSlug = vm.Conference.slug, SessionSlug = speaker.slug });
 		}
 	}
 }

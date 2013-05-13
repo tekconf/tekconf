@@ -8,8 +8,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:views="clr-namespace:Cirrious.MvvmCross.WindowsPhone.Views;assembly=Cirrious.MvvmCross.WindowsPhone"
-	xmlns:valueConverters="clr-namespace:TekConf.UI.WinPhone.ValueConverters"
-	mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
+		xmlns:valueConverters="clr-namespace:TekConf.UI.WinPhone.ValueConverters"
+		mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
@@ -18,6 +18,16 @@
     shell:SystemTray.IsVisible="True">
 
 	<views:MvxPhonePage.Resources>
+		<DataTemplate x:Key="SpeakerItemTemplate">
+			<Button BorderThickness="0">
+				<StackPanel Orientation="Vertical" Margin="0,0,0,10">
+					<TextBlock Text="{Binding fullName}" FontSize="38" TextWrapping="Wrap" SizeChanged="SpeakerFullName_OnSizeChanged"></TextBlock>
+					<TextBlock Text="{Binding description}" FontSize="22" TextWrapping="Wrap" SizeChanged="SpeakerFullName_OnSizeChanged"></TextBlock>
+
+				</StackPanel>
+			</Button>
+		</DataTemplate>
+		
 		<valueConverters:NativeInverseBoolConverter x:Key="InverseBool"></valueConverters:NativeInverseBoolConverter>
 		<valueConverters:NativeVisibilityConverter x:Key="Visibility"></valueConverters:NativeVisibilityConverter>
 		<valueConverters:NativeInvertedVisibilityConverter x:Key="InvertedVisibility"></valueConverters:NativeInvertedVisibilityConverter>
@@ -55,8 +65,29 @@
 			</controls:PivotItem>
 
 			<!--Pivot item two-->
-			<controls:PivotItem Header="speakers">
-				<Grid/>
+			<controls:PivotItem>
+				<controls:PivotItem.Header>
+					<TextBlock Text="speakers" Foreground="#FF81994D" />
+				</controls:PivotItem.Header>
+				<ScrollViewer>
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="*"></RowDefinition>
+						</Grid.RowDefinitions>
+						<!--<ProgressBar 
+                Grid.RowSpan="2"
+                IsIndeterminate="True"
+                Foreground="#FF81994D"
+                         Visibility="{Binding IsLoadingSchedule, Converter={StaticResource Visibility}}"></ProgressBar>-->
+
+						<Grid x:Name="MySpeakersGrid" Grid.Row="0" Margin="12,0,12,0" 
+									ScrollViewer.VerticalScrollBarVisibility="Disabled">
+
+							<ListBox Name="listBox" ItemsSource="{Binding Session.speakers}" ItemTemplate="{StaticResource SpeakerItemTemplate}">
+							</ListBox>
+						</Grid>
+					</Grid>
+				</ScrollViewer>
 			</controls:PivotItem>
 		</controls:Pivot>
 	</Grid>

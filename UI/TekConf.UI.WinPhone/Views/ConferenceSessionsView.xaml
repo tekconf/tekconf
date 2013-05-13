@@ -63,9 +63,9 @@
                 Foreground="#FF81994D"
                          Visibility="{Binding IsLoadingSchedule, Converter={StaticResource Visibility}}"></ProgressBar>
 
-						<Grid x:Name="MyFavoritesGrid" Grid.Row="1" Margin="12,0,12,0" 
+						<Grid x:Name="MyFavoritesGrid" Grid.Row="0" Margin="12,0,12,0" 
 									ScrollViewer.VerticalScrollBarVisibility="Disabled"
-								Visibility="{Binding IsLoadingSchedule, Converter={StaticResource InvertedVisibility}}">
+									Visibility="{Binding IsLoadingSchedule, Converter={StaticResource InvertedVisibility}}">
 
 							<ListBox Name="listBox" ItemsSource="{Binding Schedule.sessions}" ItemTemplate="{StaticResource SessionItemTemplate}">
 							</ListBox>
@@ -79,24 +79,25 @@
 				<controls:PivotItem.Header>
 					<TextBlock Text="time" Foreground="#FF81994D" />
 				</controls:PivotItem.Header>
-				<Grid>
-					<Grid.RowDefinitions>
-						<RowDefinition Height="*"></RowDefinition>
-					</Grid.RowDefinitions>
-					<ProgressBar 
+				<ScrollViewer>
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="*"></RowDefinition>
+						</Grid.RowDefinitions>
+						<ProgressBar 
                 Grid.RowSpan="2"
                 IsIndeterminate="True"
                 Foreground="#FF81994D"
                          Visibility="{Binding IsLoadingConference, Converter={StaticResource Visibility}}"></ProgressBar>
 
-					<Grid x:Name="SessionsByTimeGrid" Grid.Row="1" Margin="12,0,12,0" 
+						<Grid x:Name="SessionsByTimeGrid" Grid.Row="1" Margin="12,0,12,0" 
 								ScrollViewer.VerticalScrollBarVisibility="Disabled"
 								Visibility="{Binding IsLoadingConference, Converter={StaticResource InvertedVisibility}}">
-						<ListBox ItemsSource="{Binding Conference.SessionsByTime}" ItemTemplate="{StaticResource SessionItemTemplate}">
-						</ListBox>
+							<ListBox ItemsSource="{Binding Conference.SessionsByTime}" ItemTemplate="{StaticResource SessionItemTemplate}">
+							</ListBox>
+						</Grid>
 					</Grid>
-				</Grid>
-
+				</ScrollViewer>
 			</controls:PivotItem>
 
 			<controls:PivotItem>

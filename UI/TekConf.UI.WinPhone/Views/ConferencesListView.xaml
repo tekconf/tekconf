@@ -58,7 +58,7 @@
 										<Border BorderBrush="#FF81994D" BorderThickness="2" Background="White">
 											<Image Source="{Binding imageUrl}" Margin="0,0,0,0" SizeChanged="ConferenceImage_OnSizeChanged"></Image>
 										</Border>
-										<StackPanel VerticalAlignment="Bottom"  Orientation="Vertical" Margin="0,0,0,15" Background="#FF81994D">
+										<StackPanel VerticalAlignment="Bottom"  Orientation="Vertical" Margin="0,0,0,15" Background="#FF81994D" Width="460">
 											<TextBlock TextAlignment="Center" Foreground="White" Text="{Binding name}" FontSize="28" TextWrapping="Wrap" SizeChanged="ConferenceName_OnSizeChanged"></TextBlock>
 											<TextBlock TextAlignment="Center" Foreground="White" Text="{Binding DateRange}" FontSize="20" TextWrapping="Wrap" Margin="0,0,0,5"></TextBlock>
 											<TextBlock TextAlignment="Center" Foreground="White" Text="{Binding FormattedAddress}" FontSize="20" TextWrapping="Wrap" Margin="0,0,0,5"></TextBlock>
@@ -98,7 +98,7 @@
 										<Border BorderBrush="#FF81994D" BorderThickness="2" Background="White">
 											<Image Source="{Binding imageUrl}" Margin="0,0,0,0" SizeChanged="ConferenceImage_OnSizeChanged"></Image>
 										</Border>
-										<StackPanel VerticalAlignment="Bottom"  Orientation="Vertical" Margin="0,0,0,15" Background="#FF81994D">
+										<StackPanel VerticalAlignment="Bottom"  Orientation="Vertical" Margin="0,0,0,15" Background="#FF81994D" Width="460">
 											<TextBlock TextAlignment="Center" Foreground="White" Text="{Binding name}" FontSize="28" TextWrapping="Wrap" SizeChanged="ConferenceName_OnSizeChanged"></TextBlock>
 											<TextBlock TextAlignment="Center" Foreground="White" Text="{Binding DateRange}" FontSize="20" TextWrapping="Wrap" Margin="0,0,0,5"></TextBlock>
 											<TextBlock TextAlignment="Center" Foreground="White" Text="{Binding FormattedAddress}" FontSize="20" TextWrapping="Wrap" Margin="0,0,0,5"></TextBlock>

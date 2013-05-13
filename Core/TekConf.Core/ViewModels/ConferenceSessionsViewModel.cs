@@ -102,8 +102,6 @@ namespace TekConf.Core.ViewModels
 			}
 		}
 
-
-
 		private void StartGetSchedule(string userName, string slug, bool isRefreshing)
 		{
 			if (IsLoadingSchedule)
@@ -118,10 +116,12 @@ namespace TekConf.Core.ViewModels
 			// for now we just hide the error...
 			IsLoadingSchedule = false;
 		}
+
 		private void GetScheduleSuccess(ScheduleDto conference)
 		{
 			InvokeOnMainThread(() => DisplaySchedule(conference));
 		}
+
 		private void DisplaySchedule(ScheduleDto conference)
 		{
 			IsLoadingSchedule = false;
