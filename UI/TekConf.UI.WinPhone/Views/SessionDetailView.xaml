@@ -22,7 +22,7 @@
 			<Button BorderThickness="0">
 				<StackPanel Orientation="Vertical" Margin="0,0,0,10">
 					<TextBlock Text="{Binding fullName}" FontSize="38" TextWrapping="Wrap" SizeChanged="SpeakerFullName_OnSizeChanged"></TextBlock>
-					<TextBlock Text="{Binding description}" FontSize="22" TextWrapping="Wrap" SizeChanged="SpeakerFullName_OnSizeChanged"></TextBlock>
+					<TextBlock Text="{Binding description}" TextWrapping="Wrap" SizeChanged="SpeakerFullName_OnSizeChanged"></TextBlock>
 
 				</StackPanel>
 			</Button>
@@ -43,25 +43,24 @@
 				<controls:PivotItem.Header>
 					<TextBlock Text="detail" Foreground="#FF81994D" />
 				</controls:PivotItem.Header>
-				<ScrollViewer>
-					<Grid>
-						<Grid.RowDefinitions>
-							<RowDefinition Height="*"></RowDefinition>
-						</Grid.RowDefinitions>
-						<ProgressBar 
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*"></RowDefinition>
+					</Grid.RowDefinitions>
+					<ProgressBar 
                 Grid.RowSpan="2"
                 IsIndeterminate="True"
                 Foreground="#FF81994D"
                          Visibility="{Binding IsLoading, Converter={StaticResource Visibility}}"></ProgressBar>
-						
+					<ScrollViewer>
 						<StackPanel ScrollViewer.VerticalScrollBarVisibility="Disabled" 
 												Visibility="{Binding IsLoading, Converter={StaticResource InvertedVisibility}}">
 							<TextBlock Text="{Binding Session.title}" FontSize="38" TextWrapping="Wrap" Margin="0,10,0,0"></TextBlock>
 
 							<TextBlock Text="{Binding Session.description}" TextWrapping="Wrap" Margin="0,10,0,0"></TextBlock>
 						</StackPanel>
-					</Grid>
-				</ScrollViewer>
+					</ScrollViewer>
+				</Grid>
 			</controls:PivotItem>
 
 			<!--Pivot item two-->
@@ -69,25 +68,18 @@
 				<controls:PivotItem.Header>
 					<TextBlock Text="speakers" Foreground="#FF81994D" />
 				</controls:PivotItem.Header>
-				<ScrollViewer>
-					<Grid>
-						<Grid.RowDefinitions>
-							<RowDefinition Height="*"></RowDefinition>
-						</Grid.RowDefinitions>
-						<!--<ProgressBar 
-                Grid.RowSpan="2"
-                IsIndeterminate="True"
-                Foreground="#FF81994D"
-                         Visibility="{Binding IsLoadingSchedule, Converter={StaticResource Visibility}}"></ProgressBar>-->
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*"></RowDefinition>
+					</Grid.RowDefinitions>
 
-						<Grid x:Name="MySpeakersGrid" Grid.Row="0" Margin="12,0,12,0" 
-									ScrollViewer.VerticalScrollBarVisibility="Disabled">
-
-							<ListBox Name="listBox" ItemsSource="{Binding Session.speakers}" ItemTemplate="{StaticResource SpeakerItemTemplate}">
-							</ListBox>
-						</Grid>
-					</Grid>
-				</ScrollViewer>
+					<ScrollViewer>
+						<ListBox Name="listBox" ItemsSource="{Binding Session.speakers}" 
+										 ItemTemplate="{StaticResource SpeakerItemTemplate}"
+										 ScrollViewer.VerticalScrollBarVisibility="Disabled">
+						</ListBox>
+					</ScrollViewer>
+				</Grid>
 			</controls:PivotItem>
 		</controls:Pivot>
 	</Grid>

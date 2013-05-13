@@ -42,8 +42,29 @@ namespace TekConf.RemoteData.Dtos.v1
 
 		public List<FullSessionDto> SessionsByTime
 		{
-			get { return sessions == null ? new List<FullSessionDto>() : sessions.OrderBy(x => x.start).ToList(); }
+			get { return sessions == null ? new List<FullSessionDto>() : sessions.OrderBy(x => x.start).ThenBy(t => t.title).ToList(); }
 		}
+
+		public List<FullSessionDto> SessionsByTitle
+		{
+			get { return sessions == null ? new List<FullSessionDto>() : sessions.OrderBy(x => x.title).ToList(); }
+		}
+
+		public List<FullSessionDto> SessionsBySpeaker
+		{
+			get { return sessions == null ? new List<FullSessionDto>() : sessions.OrderBy(x => x.speakers.OrderBy(s => s.lastName).Select(l => l.fullName).FirstOrDefault()).ThenBy(t => t.title).ToList(); }
+		}
+
+		public List<FullSessionDto> SessionsByTag
+		{
+			get { return sessions == null ? new List<FullSessionDto>() : sessions.OrderBy(x => x.tags.OrderBy(s => s).FirstOrDefault()).ThenBy(t => t.title).ToList(); }
+		}
+
+		public List<FullSessionDto> SessionsByRoom
+		{
+			get { return sessions == null ? new List<FullSessionDto>() : sessions.OrderBy(x => x.room).ThenBy(t => t.title).ToList(); }
+		}
+
 		public List<FullSessionDto> sessions { get; set; }
 
 		public int numberOfSessions { get; set; }

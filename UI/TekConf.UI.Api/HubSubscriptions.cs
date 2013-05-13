@@ -281,6 +281,12 @@ namespace TekConf.UI.Api
 						.WithParameter("SessionSlug", @event.SessionSlug)
 						.WithText1("TekConf")
 						.WithText2(message));
+
+					push.QueueNotification(new WindowsPhoneTileNotification()
+						.ForEndpointUri(new Uri(endpoint))
+						.ForOSVersion(WindowsPhoneDeviceOSVersion.Eight)
+						.WithBatchingInterval(BatchingInterval.Immediate)
+						.WithTitle("HI THERE"));
 				}
 			}
 		}
