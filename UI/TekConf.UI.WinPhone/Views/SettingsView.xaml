@@ -28,6 +28,10 @@
 						<Button Click="LoginWithTwitter_OnClick">Login with Twitter</Button>
 						<Button Click="LoginWithFacebook_OnClick">Login with Facebook</Button>
 						<Button Click="LoginWithGoogle_OnClick">Login with Google</Button>
+						<Button Click="LoginWithTekConf_OnClick">Login with TekConf</Button>
+						<Button Click="Logout_OnClick">Logout</Button>
+						<Button Click="Register_OnClick">Register</Button>
+
 					</StackPanel>
 				</ScrollViewer>
 			</phone:PivotItem>

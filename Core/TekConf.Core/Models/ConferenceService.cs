@@ -3,6 +3,7 @@ using System.IO;
 using System.Net;
 using Cirrious.CrossCore.Core;
 using Cirrious.MvvmCross.Plugins.File;
+using Cirrious.MvvmCross.Plugins.Network.Reachability;
 using Newtonsoft.Json;
 using TekConf.RemoteData.Dtos.v1;
 
@@ -11,27 +12,29 @@ namespace TekConf.Core.Models
 	public class ConferenceService
 	{
 		private readonly IMvxFileStore _fileStore;
+		private readonly IMvxReachability _reachability;
 		private readonly bool _isRefreshing;
 		private readonly Action<FullConferenceDto> _success;
 		private readonly Action<Exception> _error;
 		private string _slug;
 
-		private ConferenceService(IMvxFileStore fileStore, bool isRefreshing, Action<FullConferenceDto> success, Action<Exception> error)
+		private ConferenceService(IMvxFileStore fileStore, IMvxReachability reachability,  bool isRefreshing, Action<FullConferenceDto> success, Action<Exception> error)
 		{
 			_fileStore = fileStore;
+			_reachability = reachability;
 			_isRefreshing = isRefreshing;
 			_success = success;
 			_error = error;
 		}
 
-		public static void GetConferenceAsync(IMvxFileStore fileStore, string slug, bool isRefreshing, Action<FullConferenceDto> success, Action<Exception> error)
+		public static void GetConferenceAsync(IMvxFileStore fileStore, IMvxReachability reachability, string slug, bool isRefreshing, Action<FullConferenceDto> success, Action<Exception> error)
 		{
-			MvxAsyncDispatcher.BeginAsync(() => DoAsyncGetConference(fileStore, slug, isRefreshing, success, error));
+			MvxAsyncDispatcher.BeginAsync(() => DoAsyncGetConference(fileStore, reachability, slug, isRefreshing, success, error));
 		}
 
-		private static void DoAsyncGetConference(IMvxFileStore fileStore, string slug, bool isRefreshing, Action<FullConferenceDto> success, Action<Exception> error)
+		private static void DoAsyncGetConference(IMvxFileStore fileStore, IMvxReachability reachability, string slug, bool isRefreshing, Action<FullConferenceDto> success, Action<Exception> error)
 		{
-			var search = new ConferenceService(fileStore, isRefreshing, success, error);
+			var search = new ConferenceService(fileStore, reachability, isRefreshing, success, error);
 			search.StartGetConferenceSearch(slug);
 		}
 
@@ -54,10 +57,17 @@ namespace TekConf.Core.Models
 				}
 				else
 				{
-					var uri = string.Format("http://api.tekconf.com/v1/conferences/{0}?format=json", slug);
-					var request = (HttpWebRequest)WebRequest.Create(new Uri(uri));
-					request.Accept = "application/json";
-					request.BeginGetResponse(ReadGetConferenceCallback, request);
+					//if (_reachability.IsHostReachable("http://api.tekconf.com"))
+					//{
+						var uri = string.Format("http://api.tekconf.com/v1/conferences/{0}?format=json", slug);
+						var request = (HttpWebRequest) WebRequest.Create(new Uri(uri));
+						request.Accept = "application/json";
+						request.BeginGetResponse(ReadGetConferenceCallback, request);
+					//}
+					//else
+					//{
+						//_error(new Exception("Please connect to the network"));
+					//}
 				}
 
 

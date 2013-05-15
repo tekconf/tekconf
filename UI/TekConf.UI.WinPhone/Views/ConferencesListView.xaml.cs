@@ -18,6 +18,7 @@ namespace TekConf.UI.WinPhone.Views
 
 			_pushSharpClient = new PushSharpClient();
 			_pushSharpClient.RegisterForToast();
+			//_pushSharpClient.RegisterForTile();
 		}
 
 

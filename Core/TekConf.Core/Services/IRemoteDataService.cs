@@ -35,5 +35,6 @@ namespace TekConf.Core.Services
 
 		void AddToSchedule(string userName, string conferenceSlug, Action<ScheduleDto> success = null, Action<Exception> error = null);
 		void GetSession(string conferenceSlug, string sessionSlug, bool isRefreshing, Action<FullSessionDto> success, Action<Exception> error);
+		void GetIsOauthUserRegistered(string userId, Action<bool> success, Action<Exception> error);
 	}
 }

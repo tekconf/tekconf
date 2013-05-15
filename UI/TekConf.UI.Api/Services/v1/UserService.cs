@@ -20,6 +20,20 @@ namespace TekConf.UI.Api.Services.v1
 			_userRepository = userRepository;
 		}
 
+		//public object Get(Registration request)
+		//{
+		//	if (request.IsNull() || request.userId == default(string))
+		//	{
+		//		return new HttpError() { StatusCode = HttpStatusCode.BadRequest, StatusDescription = "UserId is required." };
+
+		//	}
+		//	else
+		//	{
+				
+		//		return username;
+		//	}
+		//}
+
 		public object Get(User request)
 		{
 			if (request.IsNull() || request.userName == default(string))

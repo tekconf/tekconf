@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Cirrious.MvvmCross.WindowsPhone.Views;
 using Microsoft.WindowsAzure.MobileServices;
+using TekConf.Core.ViewModels;
 
 namespace TekConf.UI.WinPhone.Views
 {
@@ -42,17 +43,12 @@ namespace TekConf.UI.WinPhone.Views
 				}
 			}
 
-			////var table = App.MobileService.GetTable("Users");
-			//var table = App.MobileService.GetTable<Users>();
-
-			//var u = new Users
-			//{
-			//	UserId = _user.UserId,
-			//	UserName = ""
-			//};
-
-			//await table.InsertAsync(u);
-
+			if (_user != null)
+			{
+				var vm = this.DataContext as SettingsViewModel;
+				if (vm != null) 
+					vm.IsOauthUserRegistered(_user.UserId);
+			}
 		}
 
 
@@ -97,20 +93,22 @@ namespace TekConf.UI.WinPhone.Views
 				}
 			}
 
-			var x = _user;
-			////var table = App.MobileService.GetTable("Users");
-			//var table = App.MobileService.GetTable<Users>();
-
-			//var u = new Users
-			//{
-			//	UserId = _user.UserId,
-			//	UserName = ""
-			//};
-
-			//await table.InsertAsync(u);
-
 		}
 
 
+		private void Logout_OnClick(object sender, RoutedEventArgs e)
+		{
+			App.MobileService.Logout();
+		}
+
+		private void Register_OnClick(object sender, RoutedEventArgs e)
+		{
+			
+		}
+
+		private void LoginWithTekConf_OnClick(object sender, RoutedEventArgs e)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }
