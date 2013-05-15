@@ -65,6 +65,8 @@ namespace MvcApplication2.Controllers
 			return View();
 		}
 
+		[AllowAnonymous]
+		[HttpGet]
 		public JsonResult IsOAuthUserRegistered(string providerName, string userId)
 		{
 			var username = OAuthWebSecurity.GetUserName("twitter", "17351920");
