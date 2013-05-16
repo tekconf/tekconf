@@ -36,13 +36,13 @@ namespace TekConf.Core.Models
 			{
 				string providerName = "";
 				string userName = "";
-				if (providerId.Contains("twitter"))
+				if (providerId.ToLower().Contains("twitter"))
 				{
 					providerName = "twitter";
-					userName = providerId.Replace("twitter:", "");
+					userName = providerId.ToLower().Replace("twitter:", "");
 				}
 
-				var uri = string.Format("http://localhost:2118/account/IsOAuthUserRegistered?providerName={0}&userId={1}", providerName, userName);
+				var uri = string.Format("http://www.tekconf.com/account/IsOAuthUserRegistered?providerName={0}&userId={1}", providerName, userName);
 				var request = (HttpWebRequest)WebRequest.Create(new Uri(uri));
 				request.Method = "GET";
 				request.Accept = "application/json";

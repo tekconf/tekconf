@@ -69,8 +69,8 @@ namespace MvcApplication2.Controllers
 		[HttpGet]
 		public JsonResult IsOAuthUserRegistered(string providerName, string userId)
 		{
-			var username = OAuthWebSecurity.GetUserName("twitter", "17351920");
-			//var username = OAuthWebSecurity.GetUserName(providerName, userId);
+			//var username = OAuthWebSecurity.GetUserName("twitter", "17351920");
+			var username = OAuthWebSecurity.GetUserName(providerName, userId);
 			return Json(new { username = username }, JsonRequestBehavior.AllowGet);
 		}
 
@@ -127,9 +127,6 @@ namespace MvcApplication2.Controllers
 			return RedirectToAction("Manage", new { Message = message });
 		}
 
-		//
-		// GET: /Account/Manage
-
 		public ActionResult Manage(ManageMessageId? message)
 		{
 			ViewBag.StatusMessage =
@@ -141,9 +138,6 @@ namespace MvcApplication2.Controllers
 			ViewBag.ReturnUrl = Url.Action("Manage");
 			return View();
 		}
-
-		//
-		// POST: /Account/Manage
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
@@ -204,9 +198,6 @@ namespace MvcApplication2.Controllers
 			// If we got this far, something failed, redisplay form
 			return View(model);
 		}
-
-		//
-		// POST: /Account/ExternalLogin
 
 		[HttpPost]
 		[AllowAnonymous]
