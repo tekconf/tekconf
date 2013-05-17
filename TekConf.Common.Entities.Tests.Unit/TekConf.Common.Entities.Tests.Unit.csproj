@@ -13,6 +13,8 @@
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <ProductVersion>12.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -34,7 +36,6 @@
   <ItemGroup>
     <Reference Include="MongoDB.Bson">
       <HintPath>..\packages\mongocsharpdriver.1.8.1\lib\net35\MongoDB.Bson.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="MongoDB.Driver">
       <HintPath>..\packages\mongocsharpdriver.1.8.1\lib\net35\MongoDB.Driver.dll</HintPath>
@@ -78,11 +79,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Entities\TekConf.Common.Entities\TekConf.Common.Entities.csproj">
-      <Project>{67514387-8c88-477f-ad16-f24b32b69113}</Project>
+      <Project>{67514387-8C88-477F-AD16-F24B32B69113}</Project>
       <Name>TekConf.Common.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\libs\TinyMessenger\TinyMessenger.csproj">
-      <Project>{7c6925bc-f644-4d3e-9c66-f1593ecbf522}</Project>
+      <Project>{7C6925BC-F644-4D3E-9C66-F1593ECBF522}</Project>
       <Name>TinyMessenger</Name>
     </ProjectReference>
   </ItemGroup>

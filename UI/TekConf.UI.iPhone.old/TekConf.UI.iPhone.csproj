@@ -166,24 +166,6 @@
     <Compile Include="Elements\SpeakerElement.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\ServiceStack.Text\src\ServiceStack.Text.MonoTouch\ServiceStack.Text.MonoTouch\ServiceStack.Text.MonoTouch.csproj">
-      <Project>{1137b5ac-2259-413c-a473-93721d2a7551}</Project>
-      <Name>ServiceStack.Text.MonoTouch</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\ServiceStack\src\ServiceStack.MonoTouch\ServiceStack.Common.MonoTouch\ServiceStack.Common.MonoTouch.csproj">
-      <Project>{105AD659-A41C-4063-A57B-E3EB31026445}</Project>
-      <Name>ServiceStack.Common.MonoTouch</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\ServiceStack\src\ServiceStack.MonoTouch\ServiceStack.Interfaces.MonoTouch\ServiceStack.Interfaces.MonoTouch.csproj">
-      <Project>{4E0544B6-8D34-45D2-AB27-605F51BF4C55}</Project>
-      <Name>ServiceStack.Interfaces.MonoTouch</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\RemoteData\iOS\TekConf.RemoteData.iOS.csproj">
-      <Project>{cf44a2c3-42df-4970-9618-e6ae3af31603}</Project>
-      <Name>TekConf.RemoteData.iOS</Name>
-    </ProjectReference>
-  </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <InterfaceDefinition Include="Views\ConferenceDetailAboutViewController.xib" />

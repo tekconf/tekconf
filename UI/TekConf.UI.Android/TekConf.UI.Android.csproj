@@ -27,7 +27,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
     <AndroidLinkMode>None</AndroidLinkMode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -47,19 +46,11 @@
     <Reference Include="Cirrious.CrossCore.Droid">
       <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.5\lib\MonoAndroid16\Cirrious.CrossCore.Droid.dll</HintPath>
     </Reference>
-    <Reference Include="Cirrious.MvvmCross, Version=1.0.0.0, Culture=neutral, PublicKeyToken=e16445fd9b451819, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.StarterPack.3.0.5\lib\MonoAndroid16\Cirrious.MvvmCross.dll</HintPath>
-    </Reference>
     <Reference Include="Cirrious.MvvmCross.Binding">
       <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.5\lib\MonoAndroid16\Cirrious.MvvmCross.Binding.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Binding.Droid">
       <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.5\lib\MonoAndroid16\Cirrious.MvvmCross.Binding.Droid.dll</HintPath>
-    </Reference>
-    <Reference Include="Cirrious.MvvmCross.Droid, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.StarterPack.3.0.5\lib\MonoAndroid16\Cirrious.MvvmCross.Droid.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Localization">
       <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.5\lib\MonoAndroid16\Cirrious.MvvmCross.Localization.dll</HintPath>
@@ -80,15 +71,20 @@
     <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Net, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.5\lib\MonoAndroid16\System.Net.dll</HintPath>
-    </Reference>
     <Reference Include="System.Windows">
       <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.5\lib\MonoAndroid16\System.Windows.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
+    <Reference Include="Cirrious.MvvmCross">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.StarterPack.3.0.5\lib\MonoAndroid16\Cirrious.MvvmCross.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Droid">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.StarterPack.3.0.5\lib\MonoAndroid16\Cirrious.MvvmCross.Droid.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.5\lib\MonoAndroid16\System.Net.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrap\DownloadCachePluginBootstrap.cs" />
@@ -140,7 +136,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Core\TekConf.Core\TekConf.Core.csproj">
-      <Project>{e740f915-a0fc-4c66-9fd3-1d9a0dda527a}</Project>
+      <Project>{E740F915-A0FC-4C66-9FD3-1D9A0DDA527A}</Project>
       <Name>TekConf.Core</Name>
     </ProjectReference>
   </ItemGroup>

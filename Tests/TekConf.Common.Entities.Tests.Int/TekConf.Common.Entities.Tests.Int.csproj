@@ -13,6 +13,8 @@
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <ProductVersion>12.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,6 +41,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="FakeItEasy">
@@ -56,22 +59,6 @@
     <Reference Include="nunit.framework">
       <HintPath>..\..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="Ploeh.AutoFixture, Version=3.0.8.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\AutoFixture.3.0.8\lib\net40\Ploeh.AutoFixture.dll</HintPath>
-    </Reference>
-    <Reference Include="Ploeh.AutoFixture.AutoFakeItEasy, Version=3.0.8.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\AutoFixture.AutoFakeItEasy.3.0.8\lib\net40\Ploeh.AutoFixture.AutoFakeItEasy.dll</HintPath>
-    </Reference>
-    <Reference Include="Ploeh.AutoFixture.AutoMoq, Version=3.0.8.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\AutoFixture.AutoMoq.3.0.8\lib\net40\Ploeh.AutoFixture.AutoMoq.dll</HintPath>
-    </Reference>
-    <Reference Include="Ploeh.AutoFixture.Xunit, Version=3.0.8.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\AutoFixture.Xunit.3.0.8\lib\net40\Ploeh.AutoFixture.Xunit.dll</HintPath>
-    </Reference>
     <Reference Include="Should">
       <HintPath>..\..\packages\Should.1.1.12.0\lib\Should.dll</HintPath>
     </Reference>
@@ -85,12 +72,23 @@
     <Reference Include="xunit.abstractions">
       <HintPath>..\..\packages\xunit.abstractions.2.0.0-alpha-build1650\lib\net35\xunit.abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="xunit.extensions, Version=1.7.0.1540, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\xunit.extensions.1.7.0.1540\lib\xunit.extensions.dll</HintPath>
-    </Reference>
     <Reference Include="xunit2">
       <HintPath>..\..\packages\xunit.2.0.0-alpha-build1650\lib\net45\xunit2.dll</HintPath>
+    </Reference>
+    <Reference Include="Ploeh.AutoFixture">
+      <HintPath>..\..\packages\AutoFixture.3.0.8\lib\net40\Ploeh.AutoFixture.dll</HintPath>
+    </Reference>
+    <Reference Include="Ploeh.AutoFixture.AutoFakeItEasy">
+      <HintPath>..\..\packages\AutoFixture.AutoFakeItEasy.3.0.8\lib\net40\Ploeh.AutoFixture.AutoFakeItEasy.dll</HintPath>
+    </Reference>
+    <Reference Include="Ploeh.AutoFixture.AutoMoq">
+      <HintPath>..\..\packages\AutoFixture.AutoMoq.3.0.8\lib\net40\Ploeh.AutoFixture.AutoMoq.dll</HintPath>
+    </Reference>
+    <Reference Include="Ploeh.AutoFixture.Xunit">
+      <HintPath>..\..\packages\AutoFixture.Xunit.3.0.8\lib\net40\Ploeh.AutoFixture.Xunit.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.extensions">
+      <HintPath>..\..\packages\xunit.extensions.1.7.0.1540\lib\xunit.extensions.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -103,7 +101,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Entities\TekConf.Common.Entities\TekConf.Common.Entities.csproj">
-      <Project>{67514387-8c88-477f-ad16-f24b32b69113}</Project>
+      <Project>{67514387-8C88-477F-AD16-F24B32B69113}</Project>
       <Name>TekConf.Common.Entities</Name>
     </ProjectReference>
   </ItemGroup>

@@ -8,7 +8,7 @@
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{E029F24D-8594-4954-892D-D640D6053406}</ProjectGuid>
-    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <ProjectTypeGuids>{349C5851-65DF-11DA-9384-00065B846F21};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TekConf.UI.Api</RootNamespace>
@@ -60,44 +60,20 @@
     <Reference Include="Argotic.Web">
       <HintPath>..\..\packages\Argotic.Web.2008.0.2.0\lib\Net35\Argotic.Web.dll</HintPath>
     </Reference>
-    <Reference Include="AutoMapper, Version=2.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\AutoMapper.2.2.1\lib\net40\AutoMapper.dll</HintPath>
-    </Reference>
     <Reference Include="Common.Logging">
       <HintPath>..\..\packages\Common.Logging.2.1.2\lib\net40\Common.Logging.dll</HintPath>
     </Reference>
     <Reference Include="Common.Logging.Log4Net">
       <HintPath>..\..\packages\Common.Logging.Log4Net.2.0.1\lib\net20\Common.Logging.Log4Net.dll</HintPath>
     </Reference>
-    <Reference Include="CommonCore.Base, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\CommonCore.1.0.0.7\lib\net35\CommonCore.Base.dll</HintPath>
-    </Reference>
-    <Reference Include="CommonCore.Cache, Version=1.0.0.4, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\CommonCore.1.0.0.7\lib\net35\CommonCore.Cache.dll</HintPath>
-    </Reference>
-    <Reference Include="CommonCore.Collections, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\CommonCore.1.0.0.7\lib\net35\CommonCore.Collections.dll</HintPath>
-    </Reference>
     <Reference Include="DotNetOpenAuth.AspNet">
       <HintPath>..\..\packages\DotNetOpenAuth.AspNet.4.3.0.13117\lib\net45-full\DotNetOpenAuth.AspNet.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.Core, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\DotNetOpenAuth.Core.4.3.0.13117\lib\net45-full\DotNetOpenAuth.Core.dll</HintPath>
     </Reference>
     <Reference Include="DotNetOpenAuth.OAuth">
       <HintPath>..\..\packages\DotNetOpenAuth.OAuth.Core.4.3.0.13117\lib\net45-full\DotNetOpenAuth.OAuth.dll</HintPath>
     </Reference>
     <Reference Include="DotNetOpenAuth.OAuth.Consumer">
       <HintPath>..\..\packages\DotNetOpenAuth.OAuth.Consumer.4.3.0.13117\lib\net45-full\DotNetOpenAuth.OAuth.Consumer.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OpenId, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\DotNetOpenAuth.OpenId.Core.4.3.0.13117\lib\net45-full\DotNetOpenAuth.OpenId.dll</HintPath>
     </Reference>
     <Reference Include="DotNetOpenAuth.OpenId.RelyingParty">
       <HintPath>..\..\packages\DotNetOpenAuth.OpenId.RelyingParty.4.3.0.13117\lib\net45-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
@@ -108,64 +84,18 @@
     <Reference Include="log4net">
       <HintPath>..\..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.Core.1.0.1\lib\net40\Microsoft.AspNet.SignalR.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.SignalR.Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.Owin.1.0.1\lib\net45\Microsoft.AspNet.SignalR.Owin.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.SystemWeb.1.0.1\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Owin.Host.SystemWeb">
       <HintPath>..\..\packages\Microsoft.Owin.Host.SystemWeb.1.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-    </Reference>
     <Reference Include="MongoDB.Bson">
       <HintPath>..\..\packages\mongocsharpdriver.1.8.1\lib\net35\MongoDB.Bson.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="MongoDB.Driver">
       <HintPath>..\..\packages\mongocsharpdriver.1.8.1\lib\net35\MongoDB.Driver.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="MongoDB.Web">
       <HintPath>..\..\packages\MongoDB.Web.1.2\lib\MongoDB.Web.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
-    </Reference>
-    <Reference Include="PushSharp.Android, Version=2.0.4.0, Culture=neutral, PublicKeyToken=cf74b75eab2c0170, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\PushSharp.2.0.4.0\lib\net40\PushSharp.Android.dll</HintPath>
-    </Reference>
-    <Reference Include="PushSharp.Apple, Version=2.0.4.0, Culture=neutral, PublicKeyToken=cf74b75eab2c0170, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\PushSharp.2.0.4.0\lib\net40\PushSharp.Apple.dll</HintPath>
-    </Reference>
-    <Reference Include="PushSharp.Core, Version=2.0.4.0, Culture=neutral, PublicKeyToken=cf74b75eab2c0170, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\PushSharp.2.0.4.0\lib\net40\PushSharp.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="PushSharp.Windows, Version=2.0.4.0, Culture=neutral, PublicKeyToken=cf74b75eab2c0170, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\PushSharp.2.0.4.0\lib\net40\PushSharp.Windows.dll</HintPath>
-    </Reference>
-    <Reference Include="PushSharp.WindowsPhone, Version=2.0.4.0, Culture=neutral, PublicKeyToken=cf74b75eab2c0170, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\PushSharp.2.0.4.0\lib\net40\PushSharp.WindowsPhone.dll</HintPath>
     </Reference>
     <Reference Include="RestSharp">
       <HintPath>..\..\packages\RestSharp.104.1\lib\net4\RestSharp.dll</HintPath>
@@ -173,24 +103,8 @@
     <Reference Include="SendGridMail">
       <HintPath>..\..\packages\Sendgrid.1.1.1\lib\net40\SendGridMail.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack, Version=3.9.45.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\ServiceStack.3.9.45\lib\net35\ServiceStack.dll</HintPath>
-    </Reference>
     <Reference Include="ServiceStack.Api.Swagger">
       <HintPath>..\..\packages\ServiceStack.Api.Swagger.3.9.45\lib\net35\ServiceStack.Api.Swagger.dll</HintPath>
-    </Reference>
-    <Reference Include="ServiceStack.Authentication.MongoDB, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\ServiceStack.Authentication.MongoDB.3.9.44\lib\ServiceStack.Authentication.MongoDB.dll</HintPath>
-    </Reference>
-    <Reference Include="ServiceStack.Common, Version=3.9.45.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\ServiceStack.Common.3.9.45\lib\net35\ServiceStack.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="ServiceStack.Interfaces, Version=3.9.45.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\ServiceStack.Common.3.9.45\lib\net35\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
     <Reference Include="ServiceStack.OrmLite">
       <HintPath>..\..\packages\ServiceStack.OrmLite.SqlServer.3.9.45\lib\ServiceStack.OrmLite.dll</HintPath>
@@ -200,14 +114,6 @@
     </Reference>
     <Reference Include="ServiceStack.Redis">
       <HintPath>..\..\packages\ServiceStack.Redis.3.9.45\lib\net35\ServiceStack.Redis.dll</HintPath>
-    </Reference>
-    <Reference Include="ServiceStack.ServiceInterface, Version=3.9.45.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\ServiceStack.3.9.45\lib\net35\ServiceStack.ServiceInterface.dll</HintPath>
-    </Reference>
-    <Reference Include="ServiceStack.Text, Version=3.9.45.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\ServiceStack.Text.3.9.45\lib\net35\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -228,8 +134,76 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
+    <Reference Include="AutoMapper">
+      <HintPath>..\..\packages\AutoMapper.2.2.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="CommonCore.Base">
+      <HintPath>..\..\packages\CommonCore.1.0.0.7\lib\net35\CommonCore.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="CommonCore.Cache">
+      <HintPath>..\..\packages\CommonCore.1.0.0.7\lib\net35\CommonCore.Cache.dll</HintPath>
+    </Reference>
+    <Reference Include="CommonCore.Collections">
+      <HintPath>..\..\packages\CommonCore.1.0.0.7\lib\net35\CommonCore.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.Core">
+      <HintPath>..\..\packages\DotNetOpenAuth.Core.4.3.0.13117\lib\net45-full\DotNetOpenAuth.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId">
+      <HintPath>..\..\packages\DotNetOpenAuth.OpenId.Core.4.3.0.13117\lib\net45-full\DotNetOpenAuth.OpenId.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core">
+      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.Core.1.0.1\lib\net40\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Owin">
+      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.Owin.1.0.1\lib\net45\Microsoft.AspNet.SignalR.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb">
+      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.SystemWeb.1.0.1\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="PushSharp.Android">
+      <HintPath>..\..\packages\PushSharp.2.0.4.0\lib\net40\PushSharp.Android.dll</HintPath>
+    </Reference>
+    <Reference Include="PushSharp.Apple">
+      <HintPath>..\..\packages\PushSharp.2.0.4.0\lib\net40\PushSharp.Apple.dll</HintPath>
+    </Reference>
+    <Reference Include="PushSharp.Core">
+      <HintPath>..\..\packages\PushSharp.2.0.4.0\lib\net40\PushSharp.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="PushSharp.Windows">
+      <HintPath>..\..\packages\PushSharp.2.0.4.0\lib\net40\PushSharp.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="PushSharp.WindowsPhone">
+      <HintPath>..\..\packages\PushSharp.2.0.4.0\lib\net40\PushSharp.WindowsPhone.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack">
+      <HintPath>..\..\packages\ServiceStack.3.9.45\lib\net35\ServiceStack.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Authentication.MongoDB">
+      <HintPath>..\..\packages\ServiceStack.Authentication.MongoDB.3.9.44\lib\ServiceStack.Authentication.MongoDB.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Common">
+      <HintPath>..\..\packages\ServiceStack.Common.3.9.45\lib\net35\ServiceStack.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Interfaces">
+      <HintPath>..\..\packages\ServiceStack.Common.3.9.45\lib\net35\ServiceStack.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.ServiceInterface">
+      <HintPath>..\..\packages\ServiceStack.3.9.45\lib\net35\ServiceStack.ServiceInterface.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Text">
+      <HintPath>..\..\packages\ServiceStack.Text.3.9.45\lib\net35\ServiceStack.Text.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <HintPath>..\..\packages\Microsoft.AspNet.WebPages.Data.2.0.20710.0\lib\net40\WebMatrix.Data.dll</HintPath>
     </Reference>
   </ItemGroup>
@@ -356,15 +330,15 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Entities\TekConf.Common.Entities\TekConf.Common.Entities.csproj">
-      <Project>{67514387-8c88-477f-ad16-f24b32b69113}</Project>
+      <Project>{67514387-8C88-477F-AD16-F24B32B69113}</Project>
       <Name>TekConf.Common.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\libs\TinyMessenger\TinyMessenger.csproj">
-      <Project>{7c6925bc-f644-4d3e-9c66-f1593ecbf522}</Project>
+      <Project>{7C6925BC-F644-4D3E-9C66-F1593ECBF522}</Project>
       <Name>TinyMessenger</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\RemoteData\Shared\TekConf.RemoteData.Shared.csproj">
-      <Project>{1439b0ec-5c15-4b18-b4eb-8a2787abdfde}</Project>
+      <Project>{1439B0EC-5C15-4B18-B4EB-8A2787ABDFDE}</Project>
       <Name>TekConf.RemoteData.Shared</Name>
     </ProjectReference>
   </ItemGroup>
@@ -380,6 +354,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
@@ -401,9 +376,15 @@
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>
+    <MonoDevelop>
+      <Properties VerifyCodeBehindFields="True" VerifyCodeBehindEvents="True">
+        <XspParameters Port="8080" Address="127.0.0.1" SslMode="None" SslProtocol="Default" KeyType="None" CertFile="" KeyFile="" PasswordOptions="None" Password="" Verbose="True" />
+      </Properties>
+    </MonoDevelop>
   </ProjectExtensions>
   <Import Project="..\..\packages\OctoPack.2.0.20\targets\OctoPack.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <!--<Import Project="..\..\packages\OctoPack.1.0.109\targets\OctoPack.targets" />-->
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

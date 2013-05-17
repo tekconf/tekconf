@@ -1,0 +1,29 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPhone.6.0" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="UI/TekConf.UI.iPhone/AppDelegate.cs">
+    <Files>
+      <File FileName="Core/TekConf.Core/App.cs" Line="17" Column="2" />
+      <File FileName="RemoteData/Shared/v1/Dtos/AddressDto.cs" Line="1" Column="1" />
+      <File FileName="RemoteData/Shared/v1/Dtos/ConferenceEndDateChangedDto.cs" Line="1" Column="1" />
+      <File FileName="RemoteData/Shared/v1/Dtos/ConferenceUpdatedDto.cs" Line="1" Column="1" />
+      <File FileName="RemoteData/Shared/v1/Dtos/ConferenceStartDateChangedDto.cs" Line="1" Column="1" />
+      <File FileName="UI/TekConf.UI.Api/AppHost.cs" Line="1" Column="1" />
+      <File FileName="UI/TekConf.UI.iPhone/AppDelegate.cs" Line="8" Column="28" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="Core" expanded="True" />
+          <Node name="UI" expanded="True">
+            <Node name="TekConf.UI.iPhone" expanded="True" selected="True" />
+            <Node name="TekConf.UI.iPhone" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
