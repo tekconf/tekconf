@@ -7,6 +7,8 @@ using Cirrious.MvvmCross.ViewModels;
 using Cirrious.MvvmCross.WindowsPhone.Platform;
 using Microsoft.Phone.Controls;
 using TekConf.Core.Interfaces;
+using TekConf.Core.Services;
+using TekConf.UI.WinPhone.Bootstrap;
 
 namespace TekConf.UI.WinPhone
 {
@@ -21,6 +23,7 @@ namespace TekConf.UI.WinPhone
 		{
 			MvxBindingTrace.TraceBindingLevel = MvxTraceLevel.Diagnostic;
 			Mvx.RegisterType<IAnalytics, WinPhoneAnalytics>();
+			Mvx.RegisterType<IAuthentication, Authentication>();
 			return new Core.App();
 		}
 	}

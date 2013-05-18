@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Windows.Input;
+using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 using TekConf.Core.Interfaces;
 using TekConf.Core.Services;
@@ -14,11 +15,27 @@ namespace TekConf.Core.ViewModels
 	{
 		private readonly IRemoteDataService _remoteDataService;
 		private readonly IAnalytics _analytics;
+		private readonly IAuthentication _authentication;
+		private readonly IMvxMessenger _messenger;
+		private MvxSubscriptionToken _token;
 
-		public ConferencesListViewModel(IRemoteDataService remoteDataService, IAnalytics analytics)
+		public ConferencesListViewModel(IRemoteDataService remoteDataService, IAnalytics analytics, IAuthentication authentication, IMvxMessenger messenger)
 		{
 			_remoteDataService = remoteDataService;
 			_analytics = analytics;
+			_authentication = authentication;
+			_messenger = messenger;
+			_token = _messenger.Subscribe<AuthenticationMessage>(OnAuthenticateMessage);
+		}
+
+		private void OnAuthenticateMessage(AuthenticationMessage message)
+		{
+			if (message != null && !string.IsNullOrWhiteSpace(message.UserName))
+			{
+				_authentication.UserName = message.UserName;
+				IsAuthenticated = true;
+				StartGetFavorites(isRefreshing:true);
+			}
 		}
 
 		public void Init(string searchTerm)
@@ -29,7 +46,7 @@ namespace TekConf.Core.ViewModels
 
 		public void Refresh()
 		{
-			StartGetAll(isRefreshing:true);
+			StartGetAll(isRefreshing: true);
 			StartGetFavorites(isRefreshing: true);
 		}
 
@@ -48,10 +65,14 @@ namespace TekConf.Core.ViewModels
 			if (IsLoadingFavorites)
 				return;
 
-			IsLoadingFavorites = true;
-			const string userName = "robgibbens"; //TODO
-			_analytics.SendView("ConferencesListSchedule-" + userName);
-			_remoteDataService.GetSchedules(userName, isRefreshing: isRefreshing, success: GetFavoritesSuccess, error: GetFavoritesError);
+			if (_authentication.IsAuthenticated)
+			{
+				IsLoadingFavorites = true;
+
+				var userName = _authentication.UserName;
+				_analytics.SendView("ConferencesListSchedule-" + userName);
+				_remoteDataService.GetSchedules(userName, isRefreshing: isRefreshing, success: GetFavoritesSuccess, error: GetFavoritesError);
+			}
 		}
 
 		private void GetAllError(Exception exception)
@@ -95,7 +116,8 @@ namespace TekConf.Core.ViewModels
 			}
 			set
 			{
-				_isLoadingConferences = value; 
+				_isLoadingConferences = value;
+				IsAuthenticated = _authentication.IsAuthenticated;
 				RaisePropertyChanged(() => IsLoadingConferences);
 			}
 		}
@@ -105,6 +127,20 @@ namespace TekConf.Core.ViewModels
 		{
 			get { return _isLoadingFavorites; }
 			set { _isLoadingFavorites = value; RaisePropertyChanged(() => IsLoadingFavorites); }
+		}
+
+		private bool _isAuthenticated;
+		public bool IsAuthenticated
+		{
+			get
+			{
+				return _isAuthenticated;
+			}
+			set
+			{
+				_isAuthenticated = value;
+				RaisePropertyChanged(() => IsAuthenticated);
+			}
 		}
 
 		private List<FullConferenceDto> _conferences;
@@ -120,8 +156,8 @@ namespace TekConf.Core.ViewModels
 				RaisePropertyChanged(() => Conferences);
 				IsLoadingConferences = false;
 			}
-		}		
-		
+		}
+
 		private FullConferenceDto _selectedFavorite;
 		public FullConferenceDto SelectedFavorite
 		{
@@ -146,9 +182,9 @@ namespace TekConf.Core.ViewModels
 			set
 			{
 				_favorites = value;
-				if (_favorites != null) 
+				if (_favorites != null)
 					SelectedFavorite = _favorites.FirstOrDefault(x => x.start >= DateTime.Now);
-				
+
 				RaisePropertyChanged(() => Favorites);
 				IsLoadingFavorites = false;
 			}
@@ -164,7 +200,7 @@ namespace TekConf.Core.ViewModels
 
 		public ICommand ShowDetailCommand
 		{
-			get { return new MvxCommand<string>((slug) => ShowViewModel<ConferenceDetailViewModel>(new { slug = slug })); 	}
+			get { return new MvxCommand<string>((slug) => ShowViewModel<ConferenceDetailViewModel>(new { slug = slug })); }
 		}
 	}
 }

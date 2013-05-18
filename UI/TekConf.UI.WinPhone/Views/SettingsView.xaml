@@ -21,27 +21,81 @@
 			<!--Pivot item one-->
 			<phone:PivotItem >
 				<phone:PivotItem.Header>
-					<TextBlock Text="account" Foreground="#FF81994D" />
+					<TextBlock Text="login" Foreground="#FF81994D" />
 				</phone:PivotItem.Header>
 				<ScrollViewer>
-					<StackPanel>
-						<Button Click="LoginWithTwitter_OnClick">Login with Twitter</Button>
-						<Button Click="LoginWithFacebook_OnClick">Login with Facebook</Button>
-						<Button Click="LoginWithGoogle_OnClick">Login with Google</Button>
-						<Button Click="LoginWithTekConf_OnClick">Login with TekConf</Button>
-						<Button Click="Logout_OnClick">Logout</Button>
-						<Button Click="Register_OnClick">Register</Button>
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="*"></RowDefinition>
+							<RowDefinition Height="*"></RowDefinition>
+							<RowDefinition Height="*"></RowDefinition>
+							<RowDefinition Height="*"></RowDefinition>
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition></ColumnDefinition>
+							<ColumnDefinition></ColumnDefinition>
+						</Grid.ColumnDefinitions>
 
-					</StackPanel>
+						<TextBlock Name="LoginName" Visibility="Collapsed" Text="{Binding UserName}"></TextBlock>
+
+						<Button Click="LoginWithTekConf_OnClick" 
+										Name="LoginInWithTekConfButton" 
+										HorizontalAlignment="Left" 
+										BorderThickness="0"
+										Grid.Row="0" Grid.Column="0">
+							<StackPanel HorizontalAlignment="Left">
+								<Image Source="/img/TekConf.png" HorizontalAlignment="Center" Height="160" Width="160"></Image>
+								<!--<TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource PhoneTextSmallStyle}" TextWrapping="Wrap">Login with TekConf</TextBlock>-->
+							</StackPanel>
+						</Button>
+						<Button Click="LoginWithTwitter_OnClick" 
+										Name="LoginInWithTwitterButton" 
+										HorizontalAlignment="Left" 
+										BorderThickness="0"
+										Grid.Row="0" Grid.Column="1">
+							<StackPanel HorizontalAlignment="Center">
+								<Image Source="/img/Twitter_001.jpg" HorizontalAlignment="Center" Height="160" Width="160"></Image>
+								<!--<TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource PhoneTextSmallStyle}" TextWrapping="Wrap">Login with Twitter</TextBlock>-->
+							</StackPanel>
+						</Button>
+						
+						<Button Click="LoginWithFacebook_OnClick" 
+										Name="LoginInWithFacebookButton" 
+										HorizontalAlignment="Left" 
+										BorderThickness="0"
+										Grid.Row="1" Grid.Column="0">
+							<StackPanel HorizontalAlignment="Center">
+								<Image Source="/img/facebook_001.jpg" HorizontalAlignment="Center" Height="160" Width="160"></Image>
+								<!--<TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource PhoneTextSmallStyle}" TextWrapping="Wrap">Login with Facebook</TextBlock>-->
+							</StackPanel>
+						</Button>
+						<Button Click="LoginWithGoogle_OnClick" 
+										Name="LoginInWithGoogleButton" 
+										HorizontalAlignment="Left" 
+										BorderThickness="0"
+										Grid.Row="1" Grid.Column="1">
+							<StackPanel HorizontalAlignment="Left">
+								<Image Source="/img/Google_Plus_001.jpg" HorizontalAlignment="Center" Height="160" Width="160"></Image>
+								<!--<TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource PhoneTextSmallStyle}" TextWrapping="Wrap">Login with Google</TextBlock>-->
+							</StackPanel>
+						</Button>
+
+
+
+						<Button Click="Register_OnClick" Name="RegisterButton" HorizontalAlignment="Center" FontSize="22" Grid.Row="2" Grid.ColumnSpan="2" Margin="0,80,0,0">Register With TekConf</Button>
+						<Button Click="Logout_OnClick" Name="LogoutButton" HorizontalAlignment="Center" Grid.Row="3" Grid.ColumnSpan="2">Logout</Button>
+
+					</Grid>
+
 				</ScrollViewer>
 			</phone:PivotItem>
 
-			<phone:PivotItem>
+			<!--<phone:PivotItem>
 				<phone:PivotItem.Header>
 					<TextBlock Text="item2" Foreground="#FF81994D" />
 				</phone:PivotItem.Header>
 				<Grid/>
-			</phone:PivotItem>
+			</phone:PivotItem>-->
 		</phone:Pivot>
 	</Grid>
 

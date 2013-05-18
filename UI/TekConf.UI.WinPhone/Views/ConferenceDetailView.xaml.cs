@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Cirrious.MvvmCross.WindowsPhone.Views;
+using Microsoft.Phone.Shell;
 using Microsoft.Phone.Tasks;
 using TekConf.Core.ViewModels;
+using TekConf.UI.WinPhone.Bootstrap;
 
 namespace TekConf.UI.WinPhone.Views
 {
@@ -12,11 +15,6 @@ namespace TekConf.UI.WinPhone.Views
 		public ConferenceDetailView()
 		{
 			InitializeComponent();
-
-			this.Pivot.SelectionChanged += (sender, args) =>
-			{
-				var x = "";
-			};
 		}
 
 		private void SessionTitle_OnSizeChanged(object sender, SizeChangedEventArgs e)
@@ -41,10 +39,19 @@ namespace TekConf.UI.WinPhone.Views
 
 		private void AddFavorite_OnClick(object sender, EventArgs e)
 		{
-			var vm = DataContext as ConferenceDetailViewModel;
+			var authentication = new Authentication();
 
-			if (vm != null) 
-				vm.AddFavoriteCommand.Execute(vm.Conference.slug);
+			if (authentication.IsAuthenticated)
+			{
+				var vm = DataContext as ConferenceDetailViewModel;
+
+				if (vm != null)
+					vm.AddFavoriteCommand.Execute(vm.Conference.slug);
+			}
+			else
+			{
+				MessageBox.Show("You must be logged in to favorite a conference");
+			}
 		}
 
 		private void ShowWebBrowser(string uri)

@@ -19,13 +19,10 @@
 
 	<views:MvxPhonePage.Resources>
 		<DataTemplate x:Key="SpeakerItemTemplate">
-			<Button BorderThickness="0">
 				<StackPanel Orientation="Vertical" Margin="0,0,0,10">
-					<TextBlock Text="{Binding fullName}" FontSize="38" TextWrapping="Wrap" SizeChanged="SpeakerFullName_OnSizeChanged"></TextBlock>
-					<TextBlock Text="{Binding description}" TextWrapping="Wrap" SizeChanged="SpeakerFullName_OnSizeChanged"></TextBlock>
-
+					<TextBlock Text="{Binding fullName}" Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap" SizeChanged="SpeakerFullName_OnSizeChanged"></TextBlock>
+					<TextBlock Text="{Binding description}" Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" SizeChanged="SpeakerFullName_OnSizeChanged"></TextBlock>
 				</StackPanel>
-			</Button>
 		</DataTemplate>
 		
 		<valueConverters:NativeInverseBoolConverter x:Key="InverseBool"></valueConverters:NativeInverseBoolConverter>
@@ -55,9 +52,9 @@
 					<ScrollViewer>
 						<StackPanel ScrollViewer.VerticalScrollBarVisibility="Disabled" 
 												Visibility="{Binding IsLoading, Converter={StaticResource InvertedVisibility}}">
-							<TextBlock Text="{Binding Session.title}" FontSize="38" TextWrapping="Wrap" Margin="0,10,0,0"></TextBlock>
+							<TextBlock Text="{Binding Session.title}" Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap" Margin="0,10,0,0"></TextBlock>
 
-							<TextBlock Text="{Binding Session.description}" TextWrapping="Wrap" Margin="0,10,0,0"></TextBlock>
+							<TextBlock Text="{Binding Session.description}" TextWrapping="Wrap" Margin="0,10"></TextBlock>
 						</StackPanel>
 					</ScrollViewer>
 				</Grid>
@@ -86,6 +83,7 @@
 
 	<phone:PhoneApplicationPage.ApplicationBar>
 		<shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" BackgroundColor="#FF81994D" ForegroundColor="White">
+			<shell:ApplicationBarIconButton IconUri="/img/favs.png" Text="favorite" Click="AddFavorite_OnClick" />
 			<shell:ApplicationBarIconButton IconUri="/img/settings.png" Text="settings" Click="Settings_OnClick" />
 			<shell:ApplicationBarIconButton IconUri="/img/Synchronize.png" Text="refresh" Click="Refresh_OnClick" />
 		</shell:ApplicationBar>

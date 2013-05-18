@@ -1,10 +1,30 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cirrious.CrossCore;
+using Cirrious.MvvmCross.Plugins.File;
+using Cirrious.MvvmCross.Plugins.Messenger;
+using Cirrious.MvvmCross.Plugins.Network.Reachability;
+using Cirrious.MvvmCross.ViewModels;
+using TekConf.Core.Models;
+using TekConf.Core.ViewModels;
+
 namespace TekConf.RemoteData.Dtos.v1
 {
-	public class FullConferenceDto
+	public class FullConferenceDto : MvxViewModel
 	{
+		private readonly IMvxFileStore _fileStore;
+		private readonly IMvxMessenger _messenger;
+		//private readonly ImageService _imageService;
+		private readonly IMvxReachability _reachability;
+
+		public FullConferenceDto()
+		{
+			_fileStore = Mvx.Resolve<IMvxFileStore>();
+			_messenger = Mvx.Resolve<IMvxMessenger>();
+			//_imageService = Mvx.Resolve<ImageService>();
+		}
+
 		public string slug { get; set; }
 
 		public string name { get; set; }
@@ -18,7 +38,46 @@ namespace TekConf.RemoteData.Dtos.v1
 		public string location { get; set; }
 		public AddressDto address { get; set; }
 		public string tagline { get; set; }
-		public string imageUrl { get; set; }
+
+
+		private byte[] _imageBytes;
+		private string _imageUrl;
+
+		public byte[] ImageBytes
+		{
+			get
+			{
+				return _imageBytes;
+			}
+			set
+			{
+				_imageBytes = value;
+				RaisePropertyChanged(() => ImageBytes);
+			}
+		}
+
+		private void GetImageError(Exception obj)
+		{
+			//throw new NotImplementedException();
+		}
+
+		private void GetImageSuccess(byte[] image)
+		{
+			InvokeOnMainThread(() => 
+				this.ImageBytes = image
+				);			
+		}
+
+		public string imageUrl
+		{
+			get { return _imageUrl; }
+			set
+			{
+				_imageUrl = value;
+				ImageService.GetImageAsync(_fileStore, _reachability, _imageUrl, GetImageSuccess, GetImageError);
+			}
+		}
+
 		public bool isLive { get; set; }
 
 		public string facebookUrl { get; set; }

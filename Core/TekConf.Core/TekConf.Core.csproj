@@ -128,18 +128,22 @@
     <Compile Include="Interfaces\IAnalytics.cs" />
     <Compile Include="Models\ConferenceService.cs" />
     <Compile Include="Models\ConferencesService.cs" />
+    <Compile Include="Models\ImageService.cs" />
     <Compile Include="Models\PushService.cs" />
     <Compile Include="Models\ScheduleService.cs" />
     <Compile Include="Models\SessionService.cs" />
     <Compile Include="Models\UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\IAuthentication.cs" />
     <Compile Include="Services\IRemoteDataService.cs" />
     <Compile Include="Services\RemoteDataService.cs" />
     <Compile Include="ValueConverters\InverseBoolValueConverter.cs" />
     <Compile Include="ViewModels\ActionCommand.cs" />
+    <Compile Include="ViewModels\AuthenticationMessage.cs" />
     <Compile Include="ViewModels\ConferenceDetailViewModel.cs" />
     <Compile Include="ViewModels\ConferenceSessionsViewModel.cs" />
     <Compile Include="ViewModels\ConferencesListViewModel.cs" />
+    <Compile Include="ViewModels\DownloadConferenceImageMessage.cs" />
     <Compile Include="ViewModels\SessionDetailViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
   </ItemGroup>
@@ -177,9 +181,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="ToDo-MvvmCross\_ Core.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

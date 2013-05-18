@@ -1,8 +1,17 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
+using Cirrious.CrossCore;
+using Cirrious.MvvmCross.Plugins.File;
+using Cirrious.MvvmCross.Plugins.Network.Reachability;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Microsoft.WindowsAzure.MobileServices;
+using TekConf.Core.Models;
+using TekConf.UI.WinPhone.Views;
 
 namespace TekConf.UI.WinPhone
 {
@@ -14,6 +23,7 @@ namespace TekConf.UI.WinPhone
 			"NeMPYjchPdsFKlUqDdyAJYZtdrOPiJ11"
 		);
 
+		public static string UserName { get; set; }
 		/// <summary>
 		/// Provides easy access to the root frame of the Phone Application.
 		/// </summary>
@@ -55,7 +65,29 @@ namespace TekConf.UI.WinPhone
 
 			var setup = new Setup(RootFrame);
 			setup.Initialize();
+			
+			SaveDefaultImage();
+		}
 
+		private void SaveDefaultImage()
+		{
+			var fileStore = Mvx.Resolve<IMvxFileStore>();
+			const string imageName = "DefaultConference.jpg";
+
+			if (!fileStore.Exists(imageName))
+			{
+				var uri = new Uri("/img/" + imageName, UriKind.Relative);
+				var imgSource = new BitmapImage(uri) {CreateOptions = BitmapCreateOptions.None};
+				imgSource.ImageOpened += delegate(object sender, RoutedEventArgs args)
+				{
+					var wb = new WriteableBitmap(imgSource);
+					var bytes = imgSource.ConvertToBytes();
+					fileStore.WriteFile(imageName, bytes);
+				};
+				var x = imgSource;
+				Image image = new Image();
+				image.Source = imgSource;
+			}
 		}
 
 		// Code to execute when the application is launching (eg, from Start)

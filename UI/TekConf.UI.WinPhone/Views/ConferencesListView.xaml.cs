@@ -1,32 +1,43 @@
 ﻿using System;
+using System.IO.IsolatedStorage;
+using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Resources;
+using Cirrious.CrossCore;
+using Cirrious.MvvmCross.Plugins.File;
+using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.WindowsPhone.Views;
 using TekConf.Core.ViewModels;
 using TekConf.RemoteData.Dtos.v1;
+using TekConf.UI.WinPhone.Bootstrap;
 
 namespace TekConf.UI.WinPhone.Views
 {
 	public partial class ConferencesListView : MvxPhonePage
 	{
 		PushSharpClient _pushSharpClient;
+		private MvxSubscriptionToken _downloadImageSubscriptionToken;
+		private IMvxFileStore _fileStore;
 
 		public ConferencesListView()
 		{
 			InitializeComponent();
 
-			_pushSharpClient = new PushSharpClient();
+			var authentication = new Authentication();
+			var messenger = Mvx.Resolve<IMvxMessenger>();
+			_fileStore = Mvx.Resolve<IMvxFileStore>();
+			_pushSharpClient = new PushSharpClient(authentication, messenger);
 			_pushSharpClient.RegisterForToast();
-			//_pushSharpClient.RegisterForTile();
 		}
-
 
 		private void Conference_OnSelected(object sender, SelectionChangedEventArgs e)
 		{
 			var vm = this.DataContext as ConferencesListViewModel;
 			var conference = ((sender as ListBox).SelectedItem) as FullConferenceDto;
-			vm.ShowDetailCommand.Execute(conference.slug);
+			if (vm != null) 
+				vm.ShowDetailCommand.Execute(conference.slug);
 		}
 
 		private void ConferenceName_OnSizeChanged(object sender, SizeChangedEventArgs e)

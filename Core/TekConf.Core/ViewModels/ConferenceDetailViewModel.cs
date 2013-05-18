@@ -13,11 +13,13 @@ namespace TekConf.Core.ViewModels
 	{
 		private readonly IRemoteDataService _remoteDataService;
 		private readonly IAnalytics _analytics;
+		private readonly IAuthentication _authentication;
 
-		public ConferenceDetailViewModel(IRemoteDataService remoteDataService, IAnalytics analytics)
+		public ConferenceDetailViewModel(IRemoteDataService remoteDataService, IAnalytics analytics, IAuthentication authentication)
 		{
 			_remoteDataService = remoteDataService;
 			_analytics = analytics;
+			_authentication = authentication;
 			AddFavoriteCommand = new ActionCommand(AddConferenceToFavorites);
 		}
 
@@ -54,6 +56,8 @@ namespace TekConf.Core.ViewModels
 
 		private void DisplayConference(FullConferenceDto conference)
 		{
+			 
+			IsAuthenticated = _authentication.IsAuthenticated;
 			IsLoading = false;
 			Conference = conference;
 		}
@@ -76,7 +80,19 @@ namespace TekConf.Core.ViewModels
 			}
 		}
 
-
+		private bool _isAuthenticated;
+		public bool IsAuthenticated
+		{
+			get
+			{
+				return _isAuthenticated;
+			}
+			set
+			{
+				_isAuthenticated = value;
+				RaisePropertyChanged(() => IsAuthenticated);
+			}
+		}
 		private string _pageTitle;
 		public string PageTitle
 		{
@@ -86,7 +102,7 @@ namespace TekConf.Core.ViewModels
 			}
 			set
 			{
-				_pageTitle = "TEKCONF - " + value.ToUpper();
+				_pageTitle = value.ToUpper();
 				RaisePropertyChanged(() => PageTitle);
 			}
 		}

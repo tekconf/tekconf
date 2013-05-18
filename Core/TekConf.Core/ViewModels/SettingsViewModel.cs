@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 using TekConf.Core.Interfaces;
 using TekConf.Core.Services;
@@ -11,38 +12,43 @@ namespace TekConf.Core.ViewModels
 	{
 		private readonly IRemoteDataService _remoteDataService;
 		private readonly IAnalytics _analytics;
+		private readonly IAuthentication _authentication;
+		private readonly IMvxMessenger _messenger;
 
-		public SettingsViewModel(IRemoteDataService remoteDataService, IAnalytics analytics)
+		public SettingsViewModel(IRemoteDataService remoteDataService, IAnalytics analytics, IAuthentication authentication, IMvxMessenger messenger)
 		{
 			_remoteDataService = remoteDataService;
 			_analytics = analytics;
+			_authentication = authentication;
+			_messenger = messenger;
 		}
 
 		public void Init(string fake)
 		{
 		}
 
-		//private bool _oauthUserIsRegistered;
-		//public bool OauthUserIsRegistered
-		//{
-		//	get
-		//	{
-		//		return _oauthUserIsRegistered;
-		//	}
-		//	set
-		//	{
-		//		_oauthUserIsRegistered = value;
-		//		RaisePropertyChanged(() => OauthUserIsRegistered);
-		//	}
-		//}
-
 		public void IsOauthUserRegistered(string userId)
 		{
 			_remoteDataService.GetIsOauthUserRegistered(userId, GetIsOauthUserRegisteredSuccess, GetIsOauthUserRegisteredError);
 		}
 
-		private void GetIsOauthUserRegisteredSuccess(bool isOauthUserRegistered)
+		private string _userName;
+		public string UserName
 		{
+			get
+			{
+				return _userName;
+			}
+			set
+			{
+				_userName = value;
+				RaisePropertyChanged(() => UserName);
+			}
+		}
+		private void GetIsOauthUserRegisteredSuccess(string userName)
+		{
+			_messenger.Publish(new AuthenticationMessage(this, userName));
+			this.UserName = userName;
 			//InvokeOnMainThread(() => DisplayAllConferences(enumerable));
 		}
 

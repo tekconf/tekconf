@@ -66,7 +66,10 @@ namespace TekConf.UI.Android
 			public const int Icon = 2130837504;
 			
 			// aapt resource value: 0x7f020001
-			public const int splash = 2130837505;
+			public const int monoandroidsplash = 2130837505;
+			
+			// aapt resource value: 0x7f020002
+			public const int splash = 2130837506;
 			
 			static Drawable()
 			{
@@ -110,10 +113,13 @@ namespace TekConf.UI.Android
 			public const int Item_Conference = 2130903043;
 			
 			// aapt resource value: 0x7f030004
-			public const int SessionDetailView = 2130903044;
+			public const int monoandroidsplash = 2130903044;
 			
 			// aapt resource value: 0x7f030005
-			public const int SplashScreen = 2130903045;
+			public const int SessionDetailView = 2130903045;
+			
+			// aapt resource value: 0x7f030006
+			public const int SplashScreen = 2130903046;
 			
 			static Layout()
 			{
@@ -146,6 +152,9 @@ namespace TekConf.UI.Android
 		
 		public partial class Style
 		{
+			
+			// aapt resource value: 0x7f060001
+			public const int Mono_Android_Theme_Splash = 2131099649;
 			
 			// aapt resource value: 0x7f060000
 			public const int Theme_Splash = 2131099648;

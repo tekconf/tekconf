@@ -69,7 +69,7 @@ namespace TekConf.Core.Services
 			SessionService.GetSessionAsync(_fileStore, conferenceSlug, sessionSlug, isRefreshing, success, error);
 		}
 
-		public void GetIsOauthUserRegistered(string userId, Action<bool> success, Action<Exception> error)
+		public void GetIsOauthUserRegistered(string userId, Action<string> success, Action<Exception> error)
 		{
 			UserService.GetIsOauthUserRegisteredAsync(userId, success, error);
 		}

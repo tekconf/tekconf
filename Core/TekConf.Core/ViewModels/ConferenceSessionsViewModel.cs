@@ -30,7 +30,7 @@ namespace TekConf.Core.ViewModels
 			}
 			set
 			{
-				_pageTitle = "TEKCONF - " + value.ToUpper();
+				_pageTitle = value.ToUpper();
 				RaisePropertyChanged(() => PageTitle);
 			}
 		}

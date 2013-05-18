@@ -3,8 +3,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Cirrious.MvvmCross.WindowsPhone.Views;
+using Microsoft.Phone.Shell;
 using TekConf.Core.ViewModels;
 using TekConf.RemoteData.Dtos.v1;
+using TekConf.UI.WinPhone.Bootstrap;
 
 namespace TekConf.UI.WinPhone.Views
 {
@@ -13,6 +15,9 @@ namespace TekConf.UI.WinPhone.Views
 		public ConferenceSessionsView()
 		{
 			InitializeComponent();
+			var authentication = new Authentication();
+			if (!authentication.IsAuthenticated)
+				this.SessionsPivot.SelectedIndex = 1;
 		}
 
 		private void SessionTitle_OnSizeChanged(object sender, SizeChangedEventArgs e)

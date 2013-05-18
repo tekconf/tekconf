@@ -17,6 +17,7 @@
     shell:SystemTray.IsVisible="True">
 
 	<views:MvxPhonePage.Resources>
+		<valueConverters:NativeBitmapImageValueConverter x:Key="ByteToBitmapImage"></valueConverters:NativeBitmapImageValueConverter>
 		<valueConverters:NativeInverseBoolConverter x:Key="InverseBool"></valueConverters:NativeInverseBoolConverter>
 		<valueConverters:NativeVisibilityConverter x:Key="Visibility"></valueConverters:NativeVisibilityConverter>
 		<valueConverters:NativeInvertedVisibilityConverter x:Key="InvertedVisibility"></valueConverters:NativeInvertedVisibilityConverter>
@@ -45,9 +46,9 @@
                 IsIndeterminate="True"
                 Foreground="#FF81994D"
                          Visibility="{Binding IsLoadingConferences, Converter={StaticResource Visibility}}"></ProgressBar>
-					
+
 					<ScrollViewer>
-						
+
 						<ListBox ItemsSource="{Binding Conferences}" 
 										 SelectionChanged="Conference_OnSelected" 
 										 ScrollViewer.VerticalScrollBarVisibility="Disabled"
@@ -56,7 +57,9 @@
 								<DataTemplate>
 									<StackPanel>
 										<Border BorderBrush="#FF81994D" BorderThickness="2" Background="White">
-											<Image Source="{Binding imageUrl}" Margin="0,0,0,0" SizeChanged="ConferenceImage_OnSizeChanged"></Image>
+											<StackPanel Orientation="Vertical">
+												<Image Source="{Binding ImageBytes, Converter={StaticResource ByteToBitmapImage}, Mode=TwoWay}"  Margin="0,0,0,0" SizeChanged="ConferenceImage_OnSizeChanged"></Image>
+											</StackPanel>
 										</Border>
 										<StackPanel VerticalAlignment="Bottom"  Orientation="Vertical" Margin="0,0,0,15" Background="#FF81994D" Width="460">
 											<TextBlock TextAlignment="Center" Foreground="White" Text="{Binding name}" FontSize="28" TextWrapping="Wrap" SizeChanged="ConferenceName_OnSizeChanged"></TextBlock>
@@ -87,6 +90,8 @@
                 Foreground="#FF81994D"
                          Visibility="{Binding IsLoadingFavorites, Converter={StaticResource Visibility}}"></ProgressBar>
 
+						<TextBlock Visibility="{Binding IsAuthenticated, Converter={StaticResource InvertedVisibility}}" 
+											 Style="{StaticResource PhoneTextNormalStyle}">You must login to see your favorite conferences</TextBlock>
 						<ListBox ItemsSource="{Binding Favorites}" 
 										 SelectionChanged="Conference_OnSelected" 
 										 Name="Favorites"
@@ -111,11 +116,11 @@
 				</ScrollViewer>
 			</controls:PivotItem>
 
-			<controls:PivotItem>
+			<!--<controls:PivotItem>
 				<controls:PivotItem.Header>
 					<TextBlock Text="nearby" Foreground="#FF81994D" />
 				</controls:PivotItem.Header>
-			</controls:PivotItem>
+			</controls:PivotItem>-->
 		</controls:Pivot>
 	</Grid>
 

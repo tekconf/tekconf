@@ -210,6 +210,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Bootstrap\Authentication.cs" />
     <Compile Include="Bootstrap\FilePluginBootstrap.cs" />
     <Compile Include="Bootstrap\JsonPluginBootstrap.cs" />
     <Compile Include="Bootstrap\LocationPluginBootstrap.cs" />
@@ -222,6 +223,7 @@
     <Compile Include="PushSharpClient.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="ValueConverters\Converter.cs" />
+    <Compile Include="Views\BitmapImageExtensions.cs" />
     <Compile Include="Views\ConferenceDetailView.xaml.cs">
       <DependentUpon>ConferenceDetailView.xaml</DependentUpon>
     </Compile>
@@ -230,9 +232,6 @@
     </Compile>
     <Compile Include="Views\ConferencesListView.xaml.cs">
       <DependentUpon>ConferencesListView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\FirstView.xaml.cs">
-      <DependentUpon>FirstView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SessionDetailView.xaml.cs">
       <DependentUpon>SessionDetailView.xaml</DependentUpon>
@@ -271,12 +270,24 @@
     <Content Include="Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="DefaultConference.png" />
+    <Content Include="DefaultConference.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DefaultConference.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\DefaultConference.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="img\DefaultSpeaker.jpg" />
+    <Content Include="img\DefaultSpeaker.png" />
     <Content Include="img\facebook-512-black.png" />
+    <Content Include="img\facebook_001.jpg" />
     <Content Include="img\favs.png" />
     <Content Include="img\feature.calendar.png" />
     <Content Include="img\github-512-black.png" />
     <Content Include="img\googleplus-512-black.png" />
+    <Content Include="img\Google_Plus_001.jpg" />
     <Content Include="img\lanyrd-512-black.png" />
     <Content Include="img\like.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -286,9 +297,11 @@
     <Content Include="img\Refresh.png" />
     <Content Include="img\settings.png" />
     <Content Include="img\Synchronize.png" />
+    <Content Include="img\TekConf.png" />
     <Content Include="img\twitter-512-black.png" />
     <Content Include="img\twitter-hashtag-512-black.png" />
     <Content Include="img\twitter-name-512-black.png" />
+    <Content Include="img\Twitter_001.jpg" />
     <Content Include="img\vimeo-512-black.png" />
     <Content Include="img\youtube-512-black.png" />
     <Content Include="LiveTile.png" />
@@ -296,7 +309,6 @@
     <Content Include="SplashScreenImage.screen-720p.jpg" />
     <Content Include="SplashScreenImage.screen-WVGA.jpg" />
     <Content Include="SplashScreenImage.screen-WXGA.jpg" />
-    <Content Include="ToDo-MvvmCross\_ Windows Phone UI.txt" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Delete.png" />
@@ -320,10 +332,6 @@
     <Page Include="Views\ConferencesListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\FirstView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\SessionDetailView.xaml">
       <SubType>Designer</SubType>

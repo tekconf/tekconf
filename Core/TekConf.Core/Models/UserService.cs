@@ -8,23 +8,23 @@ namespace TekConf.Core.Models
 {
 	public class UserService
 	{
-		private readonly Action<bool> _success;
+		private readonly Action<string> _success;
 		private readonly Action<Exception> _error;
 		private string _userId;
 		private string _endpointUri;
 
-		private UserService(Action<bool> success, Action<Exception> error)
+		private UserService(Action<string> success, Action<Exception> error)
 		{
 			_success = success;
 			_error = error;
 		}
 
-		public static void GetIsOauthUserRegisteredAsync(string userId, Action<bool> getIsOauthUserRegisteredSuccess, Action<Exception> getIsOauthUserRegisteredError)
+		public static void GetIsOauthUserRegisteredAsync(string userId, Action<string> getIsOauthUserRegisteredSuccess, Action<Exception> getIsOauthUserRegisteredError)
 		{
 			MvxAsyncDispatcher.BeginAsync(() => DoAsyncGetIsOauthUserRegistered(userId, getIsOauthUserRegisteredSuccess, getIsOauthUserRegisteredError));
 		}
 
-		private static void DoAsyncGetIsOauthUserRegistered(string userId, Action<bool> getIsOauthUserRegisteredSuccess, Action<Exception> getIsOauthUserRegisteredError)
+		private static void DoAsyncGetIsOauthUserRegistered(string userId, Action<string> getIsOauthUserRegisteredSuccess, Action<Exception> getIsOauthUserRegisteredError)
 		{
 			var search = new UserService(getIsOauthUserRegisteredSuccess, getIsOauthUserRegisteredError);
 			search.StartGetIsOauthUserRegistered(userId);
@@ -78,9 +78,9 @@ namespace TekConf.Core.Models
 			var message = JsonConvert.DeserializeObject<UserRegistration>(response);
 
 			if (message != null && message.username != null)
-				_success(true);
-				
-			_success(false);
+				_success(message.username);
+			else	
+				_success("");
 
 		}
 

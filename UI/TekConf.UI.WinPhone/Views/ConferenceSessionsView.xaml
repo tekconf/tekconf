@@ -23,13 +23,13 @@
 
 	<navigation:Page.Resources>
 		<DataTemplate x:Key="SessionItemTemplate">
-			<Button BorderThickness="0" Tap="Session_OnTap">
-				<StackPanel Orientation="Vertical" Margin="0,0,0,0">
-					<TextBlock Text="{Binding title}" FontSize="22" TextWrapping="Wrap" SizeChanged="SessionTitle_OnSizeChanged">
+			<Button BorderThickness="0" Tap="Session_OnTap" HorizontalAlignment="Left">
+				<StackPanel Orientation="Vertical" Margin="0,0,0,0" HorizontalAlignment="Left">
+					<TextBlock Text="{Binding title}" FontSize="22" TextWrapping="Wrap" SizeChanged="SessionTitle_OnSizeChanged" HorizontalAlignment="Left">
 					</TextBlock>
-					<TextBlock Text="{Binding startDescription}" FontSize="18"></TextBlock>
-					<TextBlock Text="{Binding room}" FontSize="18"></TextBlock>
-					<TextBlock Text="{Binding speakerNames}" FontSize="18"></TextBlock>
+					<TextBlock Text="{Binding startDescription}" Style="{StaticResource PhoneTextNormalStyle}" HorizontalAlignment="Left"></TextBlock>
+					<TextBlock Text="{Binding room}" Style="{StaticResource PhoneTextNormalStyle}" HorizontalAlignment="Left"></TextBlock>
+					<TextBlock Text="{Binding speakerNames}" Style="{StaticResource PhoneTextNormalStyle}" HorizontalAlignment="Left"></TextBlock>
 				</StackPanel>
 			</Button>
 		</DataTemplate>
@@ -42,7 +42,7 @@
 	<!--LayoutRoot is the root grid where all page content is placed-->
 	<Grid x:Name="LayoutRoot" Background="Transparent">
 		<!--Pivot Control-->
-		<controls:Pivot>
+		<controls:Pivot Name="SessionsPivot">
 			<controls:Pivot.TitleTemplate>
 				<DataTemplate>
 					<TextBlock Text="{Binding PageTitle}" Foreground="#FF81994D" />

@@ -3,8 +3,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Cirrious.MvvmCross.WindowsPhone.Views;
+using Microsoft.Phone.Shell;
 using TekConf.Core.ViewModels;
 using TekConf.RemoteData.Dtos.v1;
+using TekConf.UI.WinPhone.Bootstrap;
 
 namespace TekConf.UI.WinPhone.Views
 {
@@ -40,15 +42,21 @@ namespace TekConf.UI.WinPhone.Views
 		private void SpeakerFullName_OnSizeChanged(object sender, SizeChangedEventArgs e)
 		{
 			var title = (sender as TextBlock);
-			title.MaxWidth = this.ActualWidth;
+			if (title != null) 
+				title.MaxWidth = this.ActualWidth;
 		}
 
-		private void Speaker_OnTap(object sender, GestureEventArgs e)
+		private void AddFavorite_OnClick(object sender, EventArgs e)
 		{
-			//var button = (sender as Button);
-			//var speaker = button.DataContext as FullSpeakerDto;
-			//var vm = this.DataContext as SessionDetailViewModel;
-			//vm.ShowSessionDetailCommand.Execute(new SessionDetailViewModel.Navigation() { ConferenceSlug = vm.Conference.slug, SessionSlug = speaker.slug });
+			var authentication = new Authentication();
+			if (authentication.IsAuthenticated)
+			{
+				throw new NotImplementedException();
+			}
+			else
+			{
+				MessageBox.Show("You must be logged in to favorite a session");
+			}
 		}
 	}
 }

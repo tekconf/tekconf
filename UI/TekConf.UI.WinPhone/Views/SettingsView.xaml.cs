@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
 using Cirrious.MvvmCross.WindowsPhone.Views;
@@ -12,12 +13,27 @@ namespace TekConf.UI.WinPhone.Views
 		public SettingsView()
 		{
 			InitializeComponent();
+			SetLoggedInState();
+		}
+
+		private void VmOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
+		{
+			if (propertyChangedEventArgs.PropertyName == "UserName")
+			{
+				var vm = sender as SettingsViewModel;
+				if (vm != null) 
+					App.UserName = vm.UserName;
+			}
 		}
 
 		private async void LoginWithTwitter_OnClick(object sender, RoutedEventArgs e)
 		{
+			var vm = this.DataContext as SettingsViewModel;
+			if (vm != null) 
+				vm.PropertyChanged += VmOnPropertyChanged;
 			await AuthenticateWithTwitter();
 		}
+
 		private async void LoginWithFacebook_OnClick(object sender, RoutedEventArgs e)
 		{
 			await AuthenticateWithFacebook();
@@ -49,6 +65,7 @@ namespace TekConf.UI.WinPhone.Views
 				if (vm != null) 
 					vm.IsOauthUserRegistered(_user.UserId);
 			}
+			SetLoggedInState();
 		}
 
 
@@ -65,17 +82,7 @@ namespace TekConf.UI.WinPhone.Views
 					//MessageBox.Show(ex.Message);
 				}
 			}
-
-			////var table = App.MobileService.GetTable("Users");
-			//var table = App.MobileService.GetTable<Users>();
-
-			//var u = new Users
-			//{
-			//	UserId = _user.UserId,
-			//	UserName = ""
-			//};
-
-			//await table.InsertAsync(u);
+			SetLoggedInState();
 
 		}
 
@@ -92,13 +99,31 @@ namespace TekConf.UI.WinPhone.Views
 					//MessageBox.Show(ex.Message);
 				}
 			}
+			SetLoggedInState();
 
+		}
+
+
+		private void SetLoggedInState()
+		{
+			var isLoggedIn = App.MobileService.CurrentUser != null;
+
+			this.LoginInWithFacebookButton.Visibility = isLoggedIn ? Visibility.Collapsed : Visibility.Visible;
+			this.LoginInWithGoogleButton.Visibility = isLoggedIn ? Visibility.Collapsed : Visibility.Visible;
+			this.LoginInWithTekConfButton.Visibility = isLoggedIn ? Visibility.Collapsed : Visibility.Visible;
+			this.LoginInWithTwitterButton.Visibility = isLoggedIn ? Visibility.Collapsed : Visibility.Visible;
+			this.RegisterButton.Visibility = isLoggedIn ? Visibility.Collapsed : Visibility.Visible;
+			this.LogoutButton.Visibility = isLoggedIn ? Visibility.Visible : Visibility.Collapsed;
+			this.LoginName.Visibility = isLoggedIn ? Visibility.Visible : Visibility.Collapsed;
+			//this.LoginName.Text = isLoggedIn ? "Logged in as " + App.MobileService.CurrentUser.UserId : "";
+			
 		}
 
 
 		private void Logout_OnClick(object sender, RoutedEventArgs e)
 		{
 			App.MobileService.Logout();
+			SetLoggedInState();
 		}
 
 		private void Register_OnClick(object sender, RoutedEventArgs e)
@@ -109,6 +134,7 @@ namespace TekConf.UI.WinPhone.Views
 		private void LoginWithTekConf_OnClick(object sender, RoutedEventArgs e)
 		{
 			throw new NotImplementedException();
+			SetLoggedInState();
 		}
 	}
 }
