@@ -1,8 +1,6 @@
 using Cirrious.CrossCore;
 using Cirrious.CrossCore.Platform;
-using Cirrious.CrossCore.Plugins;
 using Cirrious.MvvmCross.Binding;
-using Cirrious.MvvmCross.Plugins.Network.Reachability;
 using Cirrious.MvvmCross.ViewModels;
 using Cirrious.MvvmCross.WindowsPhone.Platform;
 using Microsoft.Phone.Controls;
@@ -24,7 +22,10 @@ namespace TekConf.UI.WinPhone
 			MvxBindingTrace.TraceBindingLevel = MvxTraceLevel.Diagnostic;
 			Mvx.RegisterType<IAnalytics, WinPhoneAnalytics>();
 			Mvx.RegisterType<IAuthentication, Authentication>();
+			Mvx.RegisterType<ICacheService, CacheService>();
+
 			return new Core.App();
 		}
 	}
+
 }

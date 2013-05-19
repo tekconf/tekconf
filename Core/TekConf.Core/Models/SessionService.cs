@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using Cirrious.CrossCore.Core;
 using Cirrious.MvvmCross.Plugins.File;
 using Newtonsoft.Json;
+using TekConf.Core.Services;
 using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.Core.Models
@@ -12,27 +15,29 @@ namespace TekConf.Core.Models
 	{
 		private readonly bool _isRefreshing;
 		private readonly IMvxFileStore _fileStore;
+		private readonly ICacheService _cache;
 		private readonly Action<FullSessionDto> _success;
 		private readonly Action<Exception> _error;
 		private string _conferenceSlug;
 		private string _sessionSlug;
 
-		private SessionService(bool isRefreshing, IMvxFileStore fileStore, Action<FullSessionDto> success, Action<Exception> error)
+		private SessionService(bool isRefreshing, IMvxFileStore fileStore, ICacheService cache, Action<FullSessionDto> success, Action<Exception> error)
 		{
 			_isRefreshing = isRefreshing;
 			_fileStore = fileStore;
+			_cache = cache;
 			_success = success;
 			_error = error;
 		}
 
-		public static void GetSessionAsync(IMvxFileStore fileStore, string conferenceSlug, string sessionSlug, bool isRefreshing, Action<FullSessionDto> getSessionSuccess, Action<Exception> getSessionError)
+		public static void GetSessionAsync(IMvxFileStore fileStore, string conferenceSlug, string sessionSlug, bool isRefreshing, ICacheService cache, Action<FullSessionDto> getSessionSuccess, Action<Exception> getSessionError)
 		{
-			MvxAsyncDispatcher.BeginAsync(() => DoAsyncGetSession(fileStore, conferenceSlug, sessionSlug, isRefreshing, getSessionSuccess, getSessionError));
+			MvxAsyncDispatcher.BeginAsync(() => DoAsyncGetSession(fileStore, conferenceSlug, sessionSlug, isRefreshing, cache, getSessionSuccess, getSessionError));
 		}
 
-		private static void DoAsyncGetSession(IMvxFileStore fileStore, string conferenceSlug, string sessionSlug, bool isRefreshing, Action<FullSessionDto> getSessionSuccess, Action<Exception> getSessionError)
+		private static void DoAsyncGetSession(IMvxFileStore fileStore, string conferenceSlug, string sessionSlug, bool isRefreshing, ICacheService cache, Action<FullSessionDto> getSessionSuccess, Action<Exception> getSessionError)
 		{
-			var search = new SessionService(isRefreshing, fileStore, getSessionSuccess, getSessionError);
+			var search = new SessionService(isRefreshing, fileStore, cache, getSessionSuccess, getSessionError);
 			search.StartGetSession(conferenceSlug, sessionSlug);
 		}
 
@@ -45,7 +50,27 @@ namespace TekConf.Core.Models
 
 				var path = conferenceSlug + "-" + sessionSlug + ".json";
 
-				if (_fileStore.Exists(path) && !_isRefreshing)
+				var json = _cache.Get<string, string>("conferences.json");
+				List<FullConferenceDto> cachedConferences = null;
+				if (!string.IsNullOrWhiteSpace(json))
+				{
+					cachedConferences = JsonConvert.DeserializeObject<List<FullConferenceDto>>(json);
+				}
+
+				if (cachedConferences != null)
+				{
+					var conference = cachedConferences.FirstOrDefault(c => c.slug == conferenceSlug);
+					if (conference != null)
+					{
+						var session = conference.sessions.FirstOrDefault(s => s.slug == sessionSlug);
+						_success(session);
+					}
+					else
+					{
+						_error(new Exception("Session not found"));
+					}
+				}
+				else if (_fileStore.Exists(path) && !_isRefreshing)
 				{
 					string response;
 					if (_fileStore.TryReadTextFile(path, out response))

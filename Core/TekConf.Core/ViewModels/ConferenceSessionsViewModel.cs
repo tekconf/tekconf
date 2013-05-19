@@ -158,6 +158,14 @@ namespace TekConf.Core.ViewModels
 			}
 		}
 
+		public ICommand ShowSearchCommand
+		{
+			get
+			{
+				return new MvxCommand(() => ShowViewModel<ConferenceSearchViewModel>());
+			}
+		}
+
 		public ICommand ShowSessionDetailCommand
 		{
 			get

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Windows.Input;
+using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 using TekConf.Core.Interfaces;
@@ -16,14 +17,16 @@ namespace TekConf.Core.ViewModels
 		private readonly IRemoteDataService _remoteDataService;
 		private readonly IAnalytics _analytics;
 		private readonly IAuthentication _authentication;
+		private readonly ICacheService _cache;
 		private readonly IMvxMessenger _messenger;
 		private MvxSubscriptionToken _token;
 
-		public ConferencesListViewModel(IRemoteDataService remoteDataService, IAnalytics analytics, IAuthentication authentication, IMvxMessenger messenger)
+		public ConferencesListViewModel(IRemoteDataService remoteDataService, IAnalytics analytics, IAuthentication authentication, ICacheService cache, IMvxMessenger messenger)
 		{
 			_remoteDataService = remoteDataService;
 			_analytics = analytics;
 			_authentication = authentication;
+			_cache = cache;
 			_messenger = messenger;
 			_token = _messenger.Subscribe<AuthenticationMessage>(OnAuthenticateMessage);
 		}
@@ -34,13 +37,13 @@ namespace TekConf.Core.ViewModels
 			{
 				_authentication.UserName = message.UserName;
 				IsAuthenticated = true;
-				StartGetFavorites(isRefreshing:true);
+				StartGetFavorites(isRefreshing: true);
 			}
 		}
 
 		public void Init(string searchTerm)
 		{
-			StartGetAll();
+			StartGetAll(searchTerm);
 			StartGetFavorites();
 		}
 
@@ -50,14 +53,15 @@ namespace TekConf.Core.ViewModels
 			StartGetFavorites(isRefreshing: true);
 		}
 
-		private void StartGetAll(bool isRefreshing = false)
+		private void StartGetAll(string searchTerm = "", bool isRefreshing = false)
 		{
 			if (IsLoadingConferences)
 				return;
 
 			IsLoadingConferences = true;
 			_analytics.SendView("ConferencesList");
-			_remoteDataService.GetConferences(isRefreshing: isRefreshing, success: GetAllSuccess, error: GetAllError);
+
+			_remoteDataService.GetConferences(search: searchTerm, isRefreshing: isRefreshing, success: GetAllSuccess, error: GetAllError);
 		}
 
 		private void StartGetFavorites(bool isRefreshing = false)
@@ -182,6 +186,8 @@ namespace TekConf.Core.ViewModels
 			set
 			{
 				_favorites = value;
+				_cache.Remove("schedules");
+				_cache.Add("schedules", value, new TimeSpan(0, 0, 15));
 				if (_favorites != null)
 					SelectedFavorite = _favorites.FirstOrDefault(x => x.start >= DateTime.Now);
 
@@ -195,6 +201,14 @@ namespace TekConf.Core.ViewModels
 			get
 			{
 				return new MvxCommand(() => ShowViewModel<SettingsViewModel>());
+			}
+		}
+
+		public ICommand ShowSearchCommand
+		{
+			get
+			{
+				return new MvxCommand(() => ShowViewModel<ConferencesSearchViewModel>());
 			}
 		}
 

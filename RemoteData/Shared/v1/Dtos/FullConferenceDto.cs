@@ -58,7 +58,7 @@ namespace TekConf.RemoteData.Dtos.v1
 
 		private void GetImageError(Exception obj)
 		{
-			//throw new NotImplementedException();
+
 		}
 
 		private void GetImageSuccess(byte[] image)

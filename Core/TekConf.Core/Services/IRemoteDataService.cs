@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.Core.Services

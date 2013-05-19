@@ -233,6 +233,12 @@
     <Compile Include="Views\ConferencesListView.xaml.cs">
       <DependentUpon>ConferencesListView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ConferenceSearchView.xaml.cs">
+      <DependentUpon>ConferenceSearchView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ConferencesSearchView.xaml.cs">
+      <DependentUpon>ConferencesSearchView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SessionDetailView.xaml.cs">
       <DependentUpon>SessionDetailView.xaml</DependentUpon>
     </Compile>
@@ -285,6 +291,7 @@
     <Content Include="img\facebook_001.jpg" />
     <Content Include="img\favs.png" />
     <Content Include="img\feature.calendar.png" />
+    <Content Include="img\feature.search.png" />
     <Content Include="img\github-512-black.png" />
     <Content Include="img\googleplus-512-black.png" />
     <Content Include="img\Google_Plus_001.jpg" />
@@ -330,6 +337,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ConferencesListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ConferenceSearchView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ConferencesSearchView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

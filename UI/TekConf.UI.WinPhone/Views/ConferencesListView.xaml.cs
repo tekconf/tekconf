@@ -68,5 +68,11 @@ namespace TekConf.UI.WinPhone.Views
 			}
 		}
 
+		private void Search_OnClick(object sender, EventArgs e)
+		{
+			var vm = this.DataContext as ConferencesListViewModel;
+			if (vm != null)
+				vm.ShowSearchCommand.Execute(null);
+		}
 	}
 }

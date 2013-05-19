@@ -37,7 +37,8 @@ namespace TekConf.UI.WinPhone.Views
 		private void Settings_OnClick(object sender, EventArgs e)
 		{
 			var vm = this.DataContext as ConferenceSessionsViewModel;
-			if (vm != null) vm.ShowSettingsCommand.Execute(null);
+			if (vm != null) 
+				vm.ShowSettingsCommand.Execute(null);
 		}
 
 		private void Refresh_OnClick(object sender, EventArgs e)
@@ -48,6 +49,13 @@ namespace TekConf.UI.WinPhone.Views
 				vm.Refresh(vm.Conference.slug);
 			}
 			
+		}
+
+		private void Search_OnClick(object sender, EventArgs e)
+		{
+			var vm = this.DataContext as ConferenceSessionsViewModel;
+			if (vm != null)
+				vm.ShowSearchCommand.Execute(null);
 		}
 	}
 }

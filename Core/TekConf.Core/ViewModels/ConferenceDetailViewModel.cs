@@ -116,9 +116,14 @@ namespace TekConf.Core.ViewModels
 			}
 			set
 			{
-				_conference = value;
-				PageTitle = value.name;
-				RaisePropertyChanged(() => Conference);
+				if (_conference != value)
+				{
+					_conference = value;
+					if (value != null)
+						PageTitle = value.name;
+
+					RaisePropertyChanged(() => Conference);
+				}
 			}
 		}
 
