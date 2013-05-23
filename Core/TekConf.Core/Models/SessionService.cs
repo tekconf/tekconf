@@ -50,12 +50,13 @@ namespace TekConf.Core.Models
 
 				var path = conferenceSlug + "-" + sessionSlug + ".json";
 
-				var json = _cache.Get<string, string>("conferences.json");
+				//var json = _cache.Get<string, string>("conferences.json");
+				//string json = null;
 				List<FullConferenceDto> cachedConferences = null;
-				if (!string.IsNullOrWhiteSpace(json))
-				{
-					cachedConferences = JsonConvert.DeserializeObject<List<FullConferenceDto>>(json);
-				}
+				//if (!string.IsNullOrWhiteSpace(json) && !_isRefreshing)
+				//{
+				//	cachedConferences = JsonConvert.DeserializeObject<List<FullConferenceDto>>(json);
+				//}
 
 				if (cachedConferences != null)
 				{

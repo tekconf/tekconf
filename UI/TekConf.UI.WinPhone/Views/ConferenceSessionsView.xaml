@@ -9,9 +9,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:views="clr-namespace:Cirrious.MvvmCross.WindowsPhone.Views;assembly=Cirrious.MvvmCross.WindowsPhone"
 		xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=Microsoft.Phone"
-	xmlns:system="clr-namespace:System;assembly=mscorlib"
-	xmlns:viewModels="clr-namespace:TekConf.Core.ViewModels;assembly=TekConf.Core"
-	xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
 	xmlns:valueConverters="clr-namespace:TekConf.UI.WinPhone.ValueConverters"
 	mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
@@ -34,7 +31,6 @@
 			</Button>
 		</DataTemplate>
 
-		<valueConverters:NativeInverseBoolConverter x:Key="InverseBool"></valueConverters:NativeInverseBoolConverter>
 		<valueConverters:NativeVisibilityConverter x:Key="Visibility"></valueConverters:NativeVisibilityConverter>
 		<valueConverters:NativeInvertedVisibilityConverter x:Key="InvertedVisibility"></valueConverters:NativeInvertedVisibilityConverter>
 	</navigation:Page.Resources>
@@ -63,11 +59,14 @@
                 Foreground="#FF81994D"
                          Visibility="{Binding IsLoadingSchedule, Converter={StaticResource Visibility}}"></ProgressBar>
 					<ScrollViewer>
-						<ListBox Name="listBox" ItemsSource="{Binding Schedule.sessions}" 
+						<StackPanel>
+							<TextBlock Visibility="{Binding HasSessions, Converter={StaticResource InvertedVisibility}}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" Text="No sessions to display. Either sessions have not been released, or sessions have not been added to TekConf."></TextBlock>
+							<ListBox ItemsSource="{Binding Schedule.sessions}" 
 										 ItemTemplate="{StaticResource SessionItemTemplate}" 
 										 ScrollViewer.VerticalScrollBarVisibility="Disabled"
 										 Visibility="{Binding IsLoadingSchedule, Converter={StaticResource InvertedVisibility}}">
 							</ListBox>
+						</StackPanel>
 					</ScrollViewer>
 				</Grid>
 			</controls:PivotItem>
@@ -87,11 +86,15 @@
                 Foreground="#FF81994D"
                          Visibility="{Binding IsLoadingConference, Converter={StaticResource Visibility}}"></ProgressBar>
 					<ScrollViewer>
-						<ListBox ItemsSource="{Binding Conference.SessionsByTime}" 
+						<StackPanel>
+														<TextBlock Visibility="{Binding HasSessions, Converter={StaticResource InvertedVisibility}}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" Text="No sessions to display. Either sessions have not been released, or sessions have not been added to TekConf."></TextBlock>
+
+							<ListBox ItemsSource="{Binding Conference.SessionsByTime}" 
 										 ItemTemplate="{StaticResource SessionItemTemplate}"
 										 ScrollViewer.VerticalScrollBarVisibility="Disabled"
 										 Visibility="{Binding IsLoadingConference, Converter={StaticResource InvertedVisibility}}">
-						</ListBox>
+							</ListBox>
+						</StackPanel>
 					</ScrollViewer>
 				</Grid>
 			</controls:PivotItem>
@@ -110,11 +113,15 @@
                 Foreground="#FF81994D"
                          Visibility="{Binding IsLoadingConference, Converter={StaticResource Visibility}}"></ProgressBar>
 					<ScrollViewer>
-						<ListBox ItemsSource="{Binding Conference.SessionsByTitle}" 
+						<StackPanel>
+														<TextBlock Visibility="{Binding HasSessions, Converter={StaticResource InvertedVisibility}}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" Text="No sessions to display. Either sessions have not been released, or sessions have not been added to TekConf."></TextBlock>
+
+							<ListBox ItemsSource="{Binding Conference.SessionsByTitle}" 
 										 ItemTemplate="{StaticResource SessionItemTemplate}"
 										 ScrollViewer.VerticalScrollBarVisibility="Disabled"
 										 Visibility="{Binding IsLoadingConference, Converter={StaticResource InvertedVisibility}}">
-						</ListBox>
+							</ListBox>
+						</StackPanel>
 					</ScrollViewer>
 				</Grid>
 			</controls:PivotItem>
@@ -133,11 +140,15 @@
                 Foreground="#FF81994D"
                          Visibility="{Binding IsLoadingConference, Converter={StaticResource Visibility}}"></ProgressBar>
 					<ScrollViewer>
-						<ListBox ItemsSource="{Binding Conference.SessionsBySpeaker}" 
+						<StackPanel>
+														<TextBlock Visibility="{Binding HasSessions, Converter={StaticResource InvertedVisibility}}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" Text="No sessions to display. Either sessions have not been released, or sessions have not been added to TekConf."></TextBlock>
+							<ListBox ItemsSource="{Binding Conference.SessionsBySpeaker}" 
 										 ItemTemplate="{StaticResource SessionItemTemplate}"
 										 ScrollViewer.VerticalScrollBarVisibility="Disabled"
 										 Visibility="{Binding IsLoadingConference, Converter={StaticResource InvertedVisibility}}">
-						</ListBox>
+							</ListBox>
+						</StackPanel>
+
 					</ScrollViewer>
 				</Grid>
 			</controls:PivotItem>
@@ -156,11 +167,16 @@
                 Foreground="#FF81994D"
                          Visibility="{Binding IsLoadingConference, Converter={StaticResource Visibility}}"></ProgressBar>
 					<ScrollViewer>
-						<ListBox ItemsSource="{Binding Conference.SessionsByTag}" 
+						<StackPanel>
+														<TextBlock Visibility="{Binding HasSessions, Converter={StaticResource InvertedVisibility}}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" Text="No sessions to display. Either sessions have not been released, or sessions have not been added to TekConf."></TextBlock>
+
+							<ListBox ItemsSource="{Binding Conference.SessionsByTag}" 
 										 ItemTemplate="{StaticResource SessionItemTemplate}"
 										 ScrollViewer.VerticalScrollBarVisibility="Disabled"
 										Visibility="{Binding IsLoadingConference, Converter={StaticResource InvertedVisibility}}">
-						</ListBox>
+							</ListBox>
+						</StackPanel>
+
 					</ScrollViewer>
 				</Grid>
 			</controls:PivotItem>
@@ -179,11 +195,15 @@
                 Foreground="#FF81994D"
                          Visibility="{Binding IsLoadingConference, Converter={StaticResource Visibility}}"></ProgressBar>
 					<ScrollViewer>
-						<ListBox ItemsSource="{Binding Conference.SessionsByRoom}" 
+						<StackPanel>
+														<TextBlock Visibility="{Binding HasSessions, Converter={StaticResource InvertedVisibility}}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" Text="No sessions to display. Either sessions have not been released, or sessions have not been added to TekConf."></TextBlock>
+
+							<ListBox ItemsSource="{Binding Conference.SessionsByRoom}" 
 										 ItemTemplate="{StaticResource SessionItemTemplate}"
 										 ScrollViewer.VerticalScrollBarVisibility="Disabled"
 										Visibility="{Binding IsLoadingConference, Converter={StaticResource InvertedVisibility}}">
-						</ListBox>
+							</ListBox>
+						</StackPanel>
 					</ScrollViewer>
 				</Grid>
 			</controls:PivotItem>
@@ -192,9 +212,9 @@
 
 	<phone:PhoneApplicationPage.ApplicationBar>
 		<shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" BackgroundColor="#FF81994D" ForegroundColor="White">
-			<shell:ApplicationBarIconButton IconUri="/img/settings.png" Text="settings" Click="Settings_OnClick" />
 			<shell:ApplicationBarIconButton IconUri="/img/Synchronize.png" Text="refresh" Click="Refresh_OnClick" />
 			<shell:ApplicationBarIconButton IconUri="/img/feature.search.png" Text="search" Click="Search_OnClick" />
+			<shell:ApplicationBarIconButton IconUri="/img/settings.png" Text="settings" Click="Settings_OnClick" />
 
 		</shell:ApplicationBar>
 	</phone:PhoneApplicationPage.ApplicationBar>

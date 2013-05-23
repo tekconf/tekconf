@@ -1,9 +1,10 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
+using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 using TekConf.Core.Interfaces;
+using TekConf.Core.Models;
 using TekConf.Core.Services;
 using TekConf.RemoteData.Dtos.v1;
 
@@ -14,11 +15,15 @@ namespace TekConf.Core.ViewModels
 
 		private readonly IRemoteDataService _remoteDataService;
 		private readonly IAnalytics _analytics;
+		private readonly IMvxMessenger _messenger;
+		private readonly IAuthentication _authentication;
 
-		public ConferenceSessionsViewModel(IRemoteDataService remoteDataService, IAnalytics analytics)
+		public ConferenceSessionsViewModel(IRemoteDataService remoteDataService, IAnalytics analytics, IMvxMessenger messenger, IAuthentication authentication)
 		{
 			_remoteDataService = remoteDataService;
 			_analytics = analytics;
+			_messenger = messenger;
+			_authentication = authentication;
 		}
 
 		private string _pageTitle;
@@ -37,15 +42,21 @@ namespace TekConf.Core.ViewModels
 
 		public void Init(string slug)
 		{
-			string userName = "robgibbens"; //TODO
-
+			var userName = "";
+			if (_authentication.IsAuthenticated)
+			{
+				userName = _authentication.UserName;
+			}
+			HasSessions = true;
 			StartGetConference(slug);
 			StartGetSchedule(userName, slug, false);
 		}
 
 		public void Refresh(string slug)
 		{
-			string userName = "robgibbens"; //TODO
+			var userName = "";
+			if (_authentication.IsAuthenticated)
+				userName = _authentication.UserName;
 
 			StartGetConference(slug, true);
 			StartGetSchedule(userName, slug, true);
@@ -58,12 +69,13 @@ namespace TekConf.Core.ViewModels
 
 			IsLoadingConference = true;
 			_analytics.SendView("ConferenceSessions-" + slug);
-			_remoteDataService.GetConference(slug: slug, isRefreshing: isRefreshing, success: GetConferenceSuccess, error: GetConferenceError);
+			_remoteDataService.GetConference(slug, isRefreshing, GetConferenceSuccess, GetConferenceError);
 		}
 
 		private void GetConferenceError(Exception exception)
 		{
 			// for now we just hide the error...
+			_messenger.Publish(new ExceptionMessage(this, exception));
 			IsLoadingConference = false;
 		}
 
@@ -97,6 +109,8 @@ namespace TekConf.Core.ViewModels
 				_conference = value;
 				PageTitle = _conference.name;
 				RaisePropertyChanged(() => Conference);
+				RaisePropertyChanged(() => HasSessions);
+
 				IsLoadingConference = false;
 
 			}
@@ -108,12 +122,14 @@ namespace TekConf.Core.ViewModels
 				return;
 
 			IsLoadingSchedule = true;
-			_remoteDataService.GetSchedule(userName: userName, conferenceSlug: slug, isRefreshing:isRefreshing, success: GetScheduleSuccess, error: GetScheduleError);
+			_remoteDataService.GetSchedule(userName, slug, isRefreshing, GetScheduleSuccess, GetScheduleError);
 		}
 
 		private void GetScheduleError(Exception exception)
 		{
 			// for now we just hide the error...
+			_messenger.Publish(new ExceptionMessage(this, exception));
+
 			IsLoadingSchedule = false;
 		}
 
@@ -133,6 +149,21 @@ namespace TekConf.Core.ViewModels
 		{
 			get { return _isLoadingSchedule; }
 			set { _isLoadingSchedule = value; RaisePropertyChanged(() => IsLoadingSchedule); }
+		}
+
+		public bool HasSessions
+		{
+			get
+			{
+				if (Conference.IsNull())
+					return false;
+
+				return Conference.sessions.Any();
+			}
+			set
+			{
+				RaisePropertyChanged(() => HasSessions);
+			}
 		}
 
 		private ScheduleDto _schedule;
@@ -170,7 +201,7 @@ namespace TekConf.Core.ViewModels
 		{
 			get
 			{
-				return new MvxCommand<SessionDetailViewModel.Navigation>((navigation) =>
+				return new MvxCommand<SessionDetailViewModel.Navigation>(navigation =>
 					ShowViewModel<SessionDetailViewModel>(navigation)
 					);
 			}

@@ -15,9 +15,9 @@ namespace TekConf.UI.WinPhone.Bootstrap
 			{
 				if (IsAuthenticated)
 					return App.MobileService.CurrentUser.UserId.Split(':')[1];
-				else
-					return string.Empty;
-			} 
+				
+				return string.Empty;
+			}
 		}
 
 		public string OAuthProvider
@@ -26,8 +26,8 @@ namespace TekConf.UI.WinPhone.Bootstrap
 			{
 				if (IsAuthenticated)
 					return App.MobileService.CurrentUser.UserId.Split(':')[0];
-				else
-					return string.Empty;
+				
+				return string.Empty;
 			}
 		}
 		public string UserName { get; set; }

@@ -26,12 +26,8 @@ namespace MvcApplication2.Controllers
 			return View();
 		}
 
-		//
-		// POST: /Account/Login
-
 		[HttpPost]
 		[AllowAnonymous]
-		[ValidateAntiForgeryToken]
 		public ActionResult Login(LoginModel model, string returnUrl)
 		{
 			if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
@@ -44,9 +40,6 @@ namespace MvcApplication2.Controllers
 			return View(model);
 		}
 
-		//
-		// POST: /Account/LogOff
-
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public ActionResult LogOff()
@@ -55,9 +48,6 @@ namespace MvcApplication2.Controllers
 
 			return RedirectToAction("Index", "Home");
 		}
-
-		//
-		// GET: /Account/Register
 
 		[AllowAnonymous]
 		public ActionResult Register()

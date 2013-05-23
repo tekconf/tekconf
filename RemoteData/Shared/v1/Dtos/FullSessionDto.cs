@@ -57,15 +57,12 @@ namespace TekConf.RemoteData.Dtos.v1
 		{
 			get
 			{
-
-				if (this.start == default(DateTime))
+				if (start == default(DateTime))
 				{
 					return "Not scheduled yet";
 				}
-				else
-				{
-					return this.start.ToString("dddd h:mm tt");
-				}
+				
+				return start.ToString("dddd h:mm tt");
 			}
 		}
 	}

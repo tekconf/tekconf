@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
+using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 using TekConf.Core.Interfaces;
+using TekConf.Core.Models;
 using TekConf.Core.Services;
 using TekConf.RemoteData.Dtos.v1;
 
@@ -14,12 +16,14 @@ namespace TekConf.Core.ViewModels
 		private readonly IRemoteDataService _remoteDataService;
 		private readonly IAnalytics _analytics;
 		private readonly IAuthentication _authentication;
+		private readonly IMvxMessenger _messenger;
 
-		public ConferenceDetailViewModel(IRemoteDataService remoteDataService, IAnalytics analytics, IAuthentication authentication)
+		public ConferenceDetailViewModel(IRemoteDataService remoteDataService, IAnalytics analytics, IAuthentication authentication, IMvxMessenger messenger)
 		{
 			_remoteDataService = remoteDataService;
 			_analytics = analytics;
 			_authentication = authentication;
+			_messenger = messenger;
 			AddFavoriteCommand = new ActionCommand(AddConferenceToFavorites);
 		}
 
@@ -40,12 +44,13 @@ namespace TekConf.Core.ViewModels
 
 			IsLoading = true;
 			_analytics.SendView("ConferenceDetail-" + slug);
-			_remoteDataService.GetConference(slug: slug, isRefreshing:isRefreshing,success: Success, error: Error);
+			_remoteDataService.GetConference(slug, isRefreshing, Success, Error);
 		}
 
 		private void Error(Exception exception)
 		{
 			// for now we just hide the error...
+			_messenger.Publish(new ExceptionMessage(this, exception));
 			IsLoading = false;
 		}
 
@@ -73,10 +78,7 @@ namespace TekConf.Core.ViewModels
 		{
 			get
 			{
-				if (Conference == null || Conference.sessions == null || !Conference.sessions.Any())
-					return false;
-				else
-					return true;
+				return Conference != null && Conference.sessions != null && Conference.sessions.Any();
 			}
 		}
 
@@ -93,6 +95,7 @@ namespace TekConf.Core.ViewModels
 				RaisePropertyChanged(() => IsAuthenticated);
 			}
 		}
+
 		private string _pageTitle;
 		public string PageTitle
 		{
@@ -123,7 +126,79 @@ namespace TekConf.Core.ViewModels
 						PageTitle = value.name;
 
 					RaisePropertyChanged(() => Conference);
+					RaisePropertyChanged(() => ConnectItems);
+					RaisePropertyChanged(() => HasConnectItems);
 				}
+			}
+		}
+
+		public bool HasConnectItems
+		{
+			get
+			{
+				if (Conference.IsNull())
+					return false;
+
+				return !Conference.facebookUrl.IsNullOrWhiteSpace()
+					|| !Conference.homepageUrl.IsNullOrWhiteSpace()
+					|| !Conference.lanyrdUrl.IsNullOrWhiteSpace()
+					|| !Conference.meetupUrl.IsNullOrWhiteSpace()
+					|| !Conference.googlePlusUrl.IsNullOrWhiteSpace()
+					|| !Conference.vimeoUrl.IsNullOrWhiteSpace()
+					|| !Conference.youtubeUrl.IsNullOrWhiteSpace()
+					|| !Conference.githubUrl.IsNullOrWhiteSpace()
+					|| !Conference.linkedInUrl.IsNullOrWhiteSpace()
+					|| !Conference.twitterHashTag.IsNullOrWhiteSpace()
+					|| !Conference.twitterName.IsNullOrWhiteSpace();
+
+			}
+		}
+
+		private List<ConnectItem> _connectItems;
+		public List<ConnectItem> ConnectItems
+		{
+			get
+			{
+				if (_connectItems == null)
+					_connectItems = new List<ConnectItem>();
+
+				if (Conference != null)
+				{
+					if (!Conference.facebookUrl.IsNullOrWhiteSpace() && _connectItems.All(x => x.Name != "facebookUrl"))
+						_connectItems.Add(new ConnectItem { Name ="facebookUrl", Value = Conference.facebookUrl});
+
+					if (!Conference.homepageUrl.IsNullOrWhiteSpace() && _connectItems.All(x => x.Name != "homepageUrl"))
+						_connectItems.Add(new ConnectItem { Name = "homepageUrl", Value = Conference.homepageUrl });
+
+					if (!Conference.lanyrdUrl.IsNullOrWhiteSpace() && _connectItems.All(x => x.Name != "lanyrdUrl"))
+						_connectItems.Add(new ConnectItem { Name = "lanyrdUrl", Value = Conference.lanyrdUrl });
+
+					if (!Conference.meetupUrl.IsNullOrWhiteSpace() && _connectItems.All(x => x.Name != "meetupUrl"))
+						_connectItems.Add(new ConnectItem { Name = "meetupUrl", Value = Conference.meetupUrl });
+
+					if (!Conference.googlePlusUrl.IsNullOrWhiteSpace() && _connectItems.All(x => x.Name != "googlePlusUrl"))
+						_connectItems.Add(new ConnectItem { Name = "googlePlusUrl", Value = Conference.googlePlusUrl });
+
+					if (!Conference.vimeoUrl.IsNullOrWhiteSpace() && _connectItems.All(x => x.Name != "vimeoUrl"))
+						_connectItems.Add(new ConnectItem { Name = "vimeoUrl", Value = Conference.vimeoUrl });
+
+					if (!Conference.youtubeUrl.IsNullOrWhiteSpace() && _connectItems.All(x => x.Name != "youtubeUrl"))
+						_connectItems.Add(new ConnectItem { Name = "youtubeUrl", Value = Conference.youtubeUrl });
+
+					if (!Conference.githubUrl.IsNullOrWhiteSpace() && _connectItems.All(x => x.Name != "githubUrl"))
+						_connectItems.Add(new ConnectItem { Name = "githubUrl", Value = Conference.githubUrl });
+
+					if (!Conference.linkedInUrl.IsNullOrWhiteSpace() && _connectItems.All(x => x.Name != "linkedInUrl"))
+						_connectItems.Add(new ConnectItem { Name = "linkedInUrl", Value = Conference.linkedInUrl });
+
+					if (!Conference.twitterHashTag.IsNullOrWhiteSpace() && _connectItems.All(x => x.Name != "twitterHashTag"))
+						_connectItems.Add(new ConnectItem { Name = "twitterHashTag", Value = Conference.twitterHashTag });
+
+					if (!Conference.twitterName.IsNullOrWhiteSpace() && _connectItems.All(x => x.Name != "twitterName"))
+						_connectItems.Add(new ConnectItem { Name = "twitterName", Value = Conference.twitterName });
+
+				}
+				return _connectItems.OrderBy(x => x.Name).ToList();
 			}
 		}
 
@@ -131,7 +206,7 @@ namespace TekConf.Core.ViewModels
 		{
 			get
 			{
-				return new MvxCommand<string>((slug) => ShowViewModel<ConferenceSessionsViewModel>(new { slug = slug }));
+				return new MvxCommand<string>(slug => ShowViewModel<ConferenceSessionsViewModel>(new {slug }));
 			}
 		}
 
@@ -144,21 +219,51 @@ namespace TekConf.Core.ViewModels
 		}
 
 
-		public ICommand AddFavoriteCommand { get; private set; }
+		public ICommand AddFavoriteCommand { get; set; }
 
 
 		private void AddConferenceToFavorites()
 		{
-			var addSuccess =  new Action<ScheduleDto>(dto => {});
-			var addError = new Action<Exception>(ex => { });
-			_remoteDataService.AddToSchedule("robgibbens", this.Conference.slug, success:addSuccess, error:addError);
+			if (_authentication.IsAuthenticated)
+			{
+				var addSuccess = new Action<ScheduleDto>(dto =>
+				{
+					Conference.isAddedToSchedule = true;
+					RaisePropertyChanged(() => Conference);
+				});
+				var addError = new Action<Exception>(ex =>
+				{
+					Conference.isAddedToSchedule = false;
+					RaisePropertyChanged(() => Conference);
+				});
+
+				var removeSuccess = new Action<ScheduleDto>(dto =>
+				{
+					Conference.isAddedToSchedule = false;
+					RaisePropertyChanged(() => Conference);
+				});
+				var removeError = new Action<Exception>(ex =>
+				{
+					Conference.isAddedToSchedule = true;
+					RaisePropertyChanged(() => Conference);
+				});
+
+				if (Conference.isAddedToSchedule == true)
+				{
+					_remoteDataService.RemoveFromSchedule(_authentication.UserName, Conference.slug, removeSuccess, removeError);					
+				}
+				else
+				{
+					_remoteDataService.AddToSchedule(_authentication.UserName, Conference.slug, addSuccess, addError);					
+				}
+			}
 		}
 
 		public ICommand ShowSessionDetailCommand
 		{
 			get
 			{
-				return new MvxCommand<SessionDetailViewModel.Navigation>((navigation) =>
+				return new MvxCommand<SessionDetailViewModel.Navigation>(navigation =>
 					ShowViewModel<SessionDetailViewModel>(navigation)
 					);
 			}

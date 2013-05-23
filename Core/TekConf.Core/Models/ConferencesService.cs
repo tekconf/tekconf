@@ -7,6 +7,7 @@ using Cirrious.CrossCore.Core;
 using Cirrious.MvvmCross.Plugins.File;
 using Newtonsoft.Json;
 using TekConf.Core.Services;
+using TekConf.Core.ViewModels;
 using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.Core.Models
@@ -49,12 +50,13 @@ namespace TekConf.Core.Models
 			{
 				const string path = "conferences.json";
 
-				var json = _cache.Get<string, string>("conferences.json");
+				//var json = _cache.Get<string, string>("conferences.json");
+				//string json = null; 
 				List<FullConferenceDto> cachedConferences = null;
-				if (!string.IsNullOrWhiteSpace(json))
-				{
-					cachedConferences = JsonConvert.DeserializeObject<List<FullConferenceDto>>(json);
-				}
+				//if (!string.IsNullOrWhiteSpace(json) && !_isRefreshing)
+				//{
+				//	cachedConferences = JsonConvert.DeserializeObject<List<FullConferenceDto>>(json);
+				//}
 
 				if (cachedConferences != null)
 				{
@@ -88,9 +90,9 @@ namespace TekConf.Core.Models
 			}
 		}
 
-		private List<FullConferenceDto> SearchConferences(List<FullConferenceDto> conferences)
+		private IEnumerable<FullConferenceDto> SearchConferences(List<FullConferenceDto> conferences)
 		{
-			List<FullConferenceDto> filteredConferences = null;
+			List<FullConferenceDto> filteredConferences;
 			if (!string.IsNullOrWhiteSpace(_searchTerm))
 			{
 				var searchTerm = _searchTerm.ToLower();
@@ -135,6 +137,19 @@ namespace TekConf.Core.Models
 
 		private void HandleResponse(string response)
 		{
+			const string conferencesLastUpdatedPath = "conferencesLastUpdated.json";
+			if (_fileStore.Exists(conferencesLastUpdatedPath))
+			{
+				_fileStore.DeleteFile(conferencesLastUpdatedPath);
+			}
+
+			if (!_fileStore.Exists(conferencesLastUpdatedPath))
+			{
+				var conferencesLastUpdated = new DataLastUpdated { LastUpdated = DateTime.Now };
+				var json = JsonConvert.SerializeObject(conferencesLastUpdated);
+				_fileStore.WriteFile(conferencesLastUpdatedPath, json);
+			}
+
 			const string path = "conferences.json";
 			if (_fileStore.Exists(path))
 			{
@@ -145,6 +160,7 @@ namespace TekConf.Core.Models
 			{
 				_fileStore.WriteFile(path, response);
 			}
+
 			var conferences = JsonConvert.DeserializeObject<List<FullConferenceDto>>(response).OrderBy(x => x.start).ToList();
 			_cache.Add("conferences.json", response, new TimeSpan(0, 8, 0));
 

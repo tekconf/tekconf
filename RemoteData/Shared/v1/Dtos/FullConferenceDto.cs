@@ -3,26 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Plugins.File;
-using Cirrious.MvvmCross.Plugins.Messenger;
-using Cirrious.MvvmCross.Plugins.Network.Reachability;
 using Cirrious.MvvmCross.ViewModels;
 using TekConf.Core.Models;
-using TekConf.Core.ViewModels;
 
 namespace TekConf.RemoteData.Dtos.v1
 {
 	public class FullConferenceDto : MvxViewModel
 	{
 		private readonly IMvxFileStore _fileStore;
-		private readonly IMvxMessenger _messenger;
-		//private readonly ImageService _imageService;
-		private readonly IMvxReachability _reachability;
 
 		public FullConferenceDto()
 		{
 			_fileStore = Mvx.Resolve<IMvxFileStore>();
-			_messenger = Mvx.Resolve<IMvxMessenger>();
-			//_imageService = Mvx.Resolve<ImageService>();
 		}
 
 		public string slug { get; set; }
@@ -64,7 +56,7 @@ namespace TekConf.RemoteData.Dtos.v1
 		private void GetImageSuccess(byte[] image)
 		{
 			InvokeOnMainThread(() => 
-				this.ImageBytes = image
+				ImageBytes = image
 				);			
 		}
 
@@ -74,7 +66,7 @@ namespace TekConf.RemoteData.Dtos.v1
 			set
 			{
 				_imageUrl = value;
-				ImageService.GetImageAsync(_fileStore, _reachability, _imageUrl, GetImageSuccess, GetImageError);
+				ImageService.GetImageAsync(_fileStore, null, _imageUrl, GetImageSuccess, GetImageError);
 			}
 		}
 
@@ -135,33 +127,31 @@ namespace TekConf.RemoteData.Dtos.v1
 			get
 			{
 
-				var range = "";
-				if (this.start == default(DateTime) || this.end == default(DateTime))
+				string range;
+				if (start == default(DateTime) || end == default(DateTime))
 				{
 					range = "No Date Set";
 				}
-				else if (this.start.Month == this.end.Month && this.start.Year == this.end.Year)
+				else if (start.Month == end.Month && start.Year == end.Year)
 				{
 					// They begin and end in the same month
-					if (this.start.Date == this.end.Date)
+					if (start.Date == end.Date)
 					{
-						range = this.start.ToString("MMMM") + " " + this.start.Day + ", " + this.start.Year;
+						range = start.ToString("MMMM") + " " + start.Day + ", " + start.Year;
 					}
 					else
-					{
-						range = this.start.ToString("MMMM") + " " + this.start.Day + " - " + this.end.Day + ", " + this.start.Year;
-					}
+						range = start.ToString("MMMM") + " " + start.Day + " - " + end.Day + ", " + start.Year;
 				}
 				else
 				{
 					// They begin and end in different months
-					if (this.start.Year == this.end.Year)
+					if (start.Year == end.Year)
 					{
-						range = this.start.ToString("MMMM") + " " + this.start.Day + " - " + this.end.ToString("MMMM") + " " + this.end.Day + ", " + this.start.Year;
+						range = start.ToString("MMMM") + " " + start.Day + " - " + end.ToString("MMMM") + " " + end.Day + ", " + start.Year;
 					}
 					else
 					{
-						range = this.start.ToString("MMMM") + " " + this.start.Day + ", " + this.start.Year + " - " + this.end.ToString("MMMM") + " " + this.end.Day + ", " + this.end.Year;
+						range = start.ToString("MMMM") + " " + start.Day + ", " + start.Year + " - " + end.ToString("MMMM") + " " + end.Day + ", " + end.Year;
 					}
 
 				}
@@ -172,7 +162,7 @@ namespace TekConf.RemoteData.Dtos.v1
 
 		public bool IsOnSale()
 		{
-			bool isOnSale = this.registrationOpens <= DateTime.Now && this.registrationCloses >= DateTime.Now;
+			bool isOnSale = registrationOpens <= DateTime.Now && registrationCloses >= DateTime.Now;
 
 			return isOnSale;
 		}
@@ -180,7 +170,7 @@ namespace TekConf.RemoteData.Dtos.v1
 
 		public bool IsOpenCallForSpeakers()
 		{
-			bool isOpenCall = this.callForSpeakersOpens <= DateTime.Now && this.callForSpeakersCloses >= DateTime.Now;
+			var isOpenCall = callForSpeakersOpens > DateTime.Now || callForSpeakersCloses < DateTime.Now;
 
 			return isOpenCall;
 		}
@@ -189,7 +179,7 @@ namespace TekConf.RemoteData.Dtos.v1
 		{
 			get
 			{
-				string formattedAddress = "";
+				string formattedAddress;
 				if (isOnline == true)
 				{
 					formattedAddress = "online";

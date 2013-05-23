@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
 using Cirrious.CrossCore.Core;
 using Cirrious.MvvmCross.Plugins.File;
 using Newtonsoft.Json;
 using TekConf.Core.Services;
+using TekConf.Core.ViewModels;
 using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.Core.Models
@@ -18,6 +18,7 @@ namespace TekConf.Core.Models
 		private const string GetSchedulesUrl = "http://api.tekconf.com/v1/conferences/schedules?userName={0}&format=json";
 		private const string GetScheduleUrl = "http://api.tekconf.com/v1/conferences/{1}/schedule?userName={0}&conferenceSlug={1}&format=json";
 		private const string AddToScheduleUrl = "http://api.tekconf.com/v1/conferences/{1}/schedule?userName={0}&conferenceSlug={1}&sessionSlug=&format=json";
+		private const string RemoveFromScheduleUrl = "http://api.tekconf.com/v1/conferences/{1}/schedule?userName={0}&conferenceSlug={1}&sessionSlug=&format=json";
 
 		private readonly IMvxFileStore _fileStore;
 		private readonly Action<IEnumerable<FullConferenceDto>> _getSchedulesSuccess;
@@ -28,6 +29,9 @@ namespace TekConf.Core.Models
 
 		private readonly Action<ScheduleDto> _addToScheduleSuccess;
 		private readonly Action<Exception> _addToScheduleError;
+		private readonly Action<ScheduleDto> _removeFromScheduleSuccess;
+		private readonly Action<Exception> _removeFromScheduleError;
+
 		private readonly string _userName;
 		private readonly bool _isRefreshing;
 		private readonly ICacheService _cache;
@@ -46,11 +50,16 @@ namespace TekConf.Core.Models
 		private ScheduleService(IMvxFileStore fileStore, string userName, string conferenceSlug, bool isRefreshing, ICacheService cache, Action<ScheduleDto> success, Action<Exception> error)
 		{
 			_fileStore = fileStore;
+
 			_addToScheduleSuccess = success;
+			_removeFromScheduleSuccess = success;
 			_getScheduleSuccess = success;
+			//_getSchedulesSuccess = success;
 
 			_addToScheduleError = error;
+			_removeFromScheduleError = error;
 			_getScheduleError = error;
+			_getSchedulesError = error;
 
 			_userName = userName;
 			_isRefreshing = isRefreshing;
@@ -66,6 +75,11 @@ namespace TekConf.Core.Models
 		public static void AddToScheduleAsync(IMvxFileStore fileStore, string userName, string conferenceSlug, bool isRefreshing, ICacheService cache, Action<ScheduleDto> success, Action<Exception> error)
 		{
 			MvxAsyncDispatcher.BeginAsync(() => DoAsyncAddToScheduleSchedule(fileStore, userName, conferenceSlug, isRefreshing, cache, success, error));
+		}
+
+		public static void RemoveFromScheduleAsync(IMvxFileStore fileStore, string userName, string conferenceSlug, bool isRefreshing, ICacheService cache, Action<ScheduleDto> success, Action<Exception> error)
+		{
+			MvxAsyncDispatcher.BeginAsync(() => DoAsyncRemoveFromScheduleSchedule(fileStore, userName, conferenceSlug, isRefreshing, cache, success, error));
 		}
 
 		public static void GetScheduleAsync(IMvxFileStore fileStore, string userName, string conferenceSlug, bool isRefreshing, ICacheService cache, Action<ScheduleDto> success, Action<Exception> error)
@@ -91,15 +105,21 @@ namespace TekConf.Core.Models
 			search.StartAddToSchedule();
 		}
 
+		private static void DoAsyncRemoveFromScheduleSchedule(IMvxFileStore fileStore, string userName, string conferenceSlug, bool isRefreshing, ICacheService cache, Action<ScheduleDto> success, Action<Exception> error)
+		{
+			var search = new ScheduleService(fileStore, userName, conferenceSlug, isRefreshing, cache, success, error);
+			search.StartRemoveFromSchedule();
+		}
+
 		private void GetSchedules()
 		{
 			try
 			{
 				const string path = "schedules.json";
 
-				var cachedSchedules = _cache.Get<string, List<FullConferenceDto>>("schedules");
-
-				if (cachedSchedules != null)
+				//var cachedSchedules = _cache.Get<string, List<FullConferenceDto>>("schedules");
+				List<FullConferenceDto> cachedSchedules = null;
+				if (cachedSchedules != null && !_isRefreshing)
 				{
 					_getSchedulesSuccess(cachedSchedules);
 				}
@@ -136,8 +156,9 @@ namespace TekConf.Core.Models
 			{
 				string path = _conferenceSlug + "-schedule.json";
 
-				var cachedSchedule = _cache.Get<string, ScheduleDto>(path);
-				if (cachedSchedule != null)
+				//var cachedSchedule = _cache.Get<string, ScheduleDto>(path);
+				ScheduleDto cachedSchedule = null;
+				if (cachedSchedule != null && !_isRefreshing)
 				{
 					_getScheduleSuccess(cachedSchedule);
 				}
@@ -146,26 +167,39 @@ namespace TekConf.Core.Models
 					string response;
 					if (_fileStore.TryReadTextFile(path, out response))
 					{
-						var schedule = JsonConvert.DeserializeObject<ScheduleDto>(response);
-						schedule.sessions = schedule.sessions.OrderBy(x => x.start).ToList();
-						_cache.Add("schedule", schedule, new TimeSpan(0, 0, 15));
-						_getScheduleSuccess(schedule);
+						if (!response.IsNullOrWhiteSpace())
+							GetScheduleFromFileSystem(response);
+						else
+							GetScheduleFromWeb();
 					}
 				}
 				else
 				{
 					// perform the search
-					string uri = string.Format(GetScheduleUrl, _userName, _conferenceSlug);
-					var request = (HttpWebRequest)WebRequest.Create(new Uri(uri));
-					request.Accept = "application/json";
-
-					request.BeginGetResponse(ReadGetScheduleCallback, request);
+					GetScheduleFromWeb();
 				}
 			}
 			catch (Exception exception)
 			{
 				_getScheduleError(exception);
 			}
+		}
+
+		private void GetScheduleFromWeb()
+		{
+			string uri = string.Format(GetScheduleUrl, _userName, _conferenceSlug);
+			var request = (HttpWebRequest) WebRequest.Create(new Uri(uri));
+			request.Accept = "application/json";
+
+			request.BeginGetResponse(ReadGetScheduleCallback, request);
+		}
+
+		private void GetScheduleFromFileSystem(string response)
+		{
+			var schedule = JsonConvert.DeserializeObject<ScheduleDto>(response);
+			schedule.sessions = schedule.sessions.OrderBy(x => x.start).ToList();
+			_cache.Add("schedule", schedule, new TimeSpan(0, 0, 15));
+			_getScheduleSuccess(schedule);
 		}
 
 		private void StartAddToSchedule()
@@ -179,6 +213,24 @@ namespace TekConf.Core.Models
 
 				request.Method = "POST";
 				request.BeginGetResponse(ReadAddToScheduleCallback, request);
+			}
+			catch (Exception exception)
+			{
+				_getSchedulesError(exception);
+			}
+		}
+
+		private void StartRemoveFromSchedule()
+		{
+			try
+			{
+				// perform the search
+				string uri = string.Format(RemoveFromScheduleUrl, _userName, _conferenceSlug);
+				var request = (HttpWebRequest)WebRequest.Create(new Uri(uri));
+				request.Accept = "application/json";
+
+				request.Method = "DELETE";
+				request.BeginGetResponse(ReadRemoveFromScheduleCallback, request);
 			}
 			catch (Exception exception)
 			{
@@ -240,17 +292,57 @@ namespace TekConf.Core.Models
 			}
 		}
 
+		private void ReadRemoveFromScheduleCallback(IAsyncResult asynchronousResult)
+		{
+			try
+			{
+				var request = (HttpWebRequest)asynchronousResult.AsyncState;
+				var response = (HttpWebResponse)request.EndGetResponse(asynchronousResult);
+				if (response.StatusCode != HttpStatusCode.OK)
+				{
+					_getSchedulesError(new Exception("Could not remove conference from schedule"));
+				}
+				else
+				{
+					using (var streamReader1 = new StreamReader(response.GetResponseStream()))
+					{
+						string resultString = streamReader1.ReadToEnd();
+						HandleRemoveFromScheduleResponse(resultString);
+					}
+				}
+
+			}
+			catch (Exception exception)
+			{
+				_getSchedulesError(exception);
+			}
+		}
+
 		private void HandleGetSchedulesResponse(string response)
 		{
-			const string path = "schedules.json";
-			if (_fileStore.Exists(path))
+			const string schedulesLastUpdatedPath = "scheduleLastUpdated.json";
+			if (_fileStore.Exists(schedulesLastUpdatedPath))
 			{
-				_fileStore.DeleteFile(path);
+				_fileStore.DeleteFile(schedulesLastUpdatedPath);
 			}
-			if (!_fileStore.Exists(path))
+
+			if (!_fileStore.Exists(schedulesLastUpdatedPath))
 			{
-				_fileStore.WriteFile(path, response);
+				var schedulesLastUpdated = new DataLastUpdated { LastUpdated = DateTime.Now };
+				var json = JsonConvert.SerializeObject(schedulesLastUpdated);
+				_fileStore.WriteFile(schedulesLastUpdatedPath, json);
 			}
+
+			const string schedulesPath = "schedules.json";
+			if (_fileStore.Exists(schedulesPath))
+			{
+				_fileStore.DeleteFile(schedulesPath);
+			}
+			if (!_fileStore.Exists(schedulesPath))
+			{
+				_fileStore.WriteFile(schedulesPath, response);
+			}
+			
 			var conferences = JsonConvert.DeserializeObject<List<FullConferenceDto>>(response).OrderBy(x => x.start).ToList();
 			_cache.Add("schedules", conferences, new TimeSpan(0, 0, 15));
 			_getSchedulesSuccess(conferences);
@@ -258,26 +350,44 @@ namespace TekConf.Core.Models
 
 		private void HandleGetScheduleResponse(string response)
 		{
-			var path = _conferenceSlug + "-schedule.json";
-			if (_fileStore.Exists(path))
+			try
 			{
-				_fileStore.DeleteFile(path);
-			}
-			if (!_fileStore.Exists(path))
-			{
-				_fileStore.WriteFile(path, response);
-			}
-			var schedule = JsonConvert.DeserializeObject<ScheduleDto>(response);
-			schedule.sessions = schedule.sessions.OrderBy(x => x.start).ToList();
-			_cache.Add(path, schedule, new TimeSpan(0, 0, 15));
+				var path = _conferenceSlug + "-schedule.json";
+				if (_fileStore.Exists(path))
+				{
+					_fileStore.DeleteFile(path);
+				}
+				if (!_fileStore.Exists(path))
+				{
+					_fileStore.WriteFile(path, response);
+				}
+				var schedule = JsonConvert.DeserializeObject<ScheduleDto>(response);
+				
+				if (schedule.IsNull())
+					schedule = new ScheduleDto();
 
-			_getScheduleSuccess(schedule);
+				schedule.sessions = schedule.sessions.OrderBy(x => x.start).ToList();
+				_cache.Add(path, schedule, new TimeSpan(0, 0, 15));
+
+				_getScheduleSuccess(schedule);
+			}
+			catch (Exception ex)
+			{
+				_getScheduleError(ex);
+			}
+
 		}
 
 		private void HandleAddToScheduleResponse(string response)
 		{
 			var scheduleDto = JsonConvert.DeserializeObject<ScheduleDto>(response);
 			_addToScheduleSuccess(scheduleDto);
+		}
+
+		private void HandleRemoveFromScheduleResponse(string response)
+		{
+			var scheduleDto = JsonConvert.DeserializeObject<ScheduleDto>(response);
+			_removeFromScheduleSuccess(scheduleDto);
 		}
 
 

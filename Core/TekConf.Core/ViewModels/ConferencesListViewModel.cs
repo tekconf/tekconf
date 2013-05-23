@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Windows.Input;
-using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 using TekConf.Core.Interfaces;
@@ -75,19 +73,23 @@ namespace TekConf.Core.ViewModels
 
 				var userName = _authentication.UserName;
 				_analytics.SendView("ConferencesListSchedule-" + userName);
-				_remoteDataService.GetSchedules(userName, isRefreshing: isRefreshing, success: GetFavoritesSuccess, error: GetFavoritesError);
+				_remoteDataService.GetSchedules(userName, isRefreshing, GetFavoritesSuccess, GetFavoritesError);
 			}
 		}
 
 		private void GetAllError(Exception exception)
 		{
 			// for now we just hide the error...
+			_messenger.Publish(new ExceptionMessage(this, exception));
+
 			IsLoadingConferences = false;
 		}
 
 		private void GetFavoritesError(Exception exception)
 		{
 			// for now we just hide the error...
+			_messenger.Publish(new ExceptionMessage(this, exception));
+
 			IsLoadingFavorites = false;
 		}
 
@@ -96,9 +98,27 @@ namespace TekConf.Core.ViewModels
 			InvokeOnMainThread(() => DisplayAllConferences(enumerable));
 		}
 
-		private void GetFavoritesSuccess(IEnumerable<FullConferenceDto> enumerable)
+		private void GetFavoritesSuccess(IEnumerable<FullConferenceDto> conferences)
 		{
-			InvokeOnMainThread(() => DisplayFavoritesConferences(enumerable));
+			var conferencesList = conferences.ToList();
+
+			UpdateConferenceFavorites();
+			InvokeOnMainThread(() => DisplayFavoritesConferences(conferencesList));
+		}
+
+		private void UpdateConferenceFavorites()
+		{
+			//var json = _cache.Get<string, string>("conferences.json");
+			//string json = null;
+			//List<FullConferenceDto> cachedConferences = null;
+			//if (!string.IsNullOrWhiteSpace(json))
+			//{
+			//	cachedConferences = JsonConvert.DeserializeObject<List<FullConferenceDto>>(json);
+			//	foreach (var conference in conferences)
+			//	{
+			//		//TODO : Set isAddedToSchedule
+			//	}
+			//}
 		}
 
 		private void DisplayAllConferences(IEnumerable<FullConferenceDto> enumerable)
@@ -214,7 +234,10 @@ namespace TekConf.Core.ViewModels
 
 		public ICommand ShowDetailCommand
 		{
-			get { return new MvxCommand<string>((slug) => ShowViewModel<ConferenceDetailViewModel>(new { slug = slug })); }
+			get
+			{
+				return new MvxCommand<string>(slug => ShowViewModel<ConferenceDetailViewModel>(new {slug }));
+			}
 		}
 	}
 }

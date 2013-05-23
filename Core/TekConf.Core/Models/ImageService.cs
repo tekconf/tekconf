@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
 using Cirrious.CrossCore.Core;
 using Cirrious.MvvmCross.Plugins.File;
 using Cirrious.MvvmCross.Plugins.Network.Reachability;
-using Newtonsoft.Json;
-using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.Core.Models
 {
@@ -75,7 +70,7 @@ namespace TekConf.Core.Models
 
 		private void GetDefaultImage()
 		{
-			var path = "DefaultConference.jpg";
+			const string path = "DefaultConference.jpg";
 			if (_fileStore.Exists(path))
 			{
 				byte[] image;
@@ -93,13 +88,12 @@ namespace TekConf.Core.Models
 				var request = (HttpWebRequest)asynchronousResult.AsyncState;
 				var response = (HttpWebResponse)request.EndGetResponse(asynchronousResult);
 
-				byte[] result;
-				byte[] buffer = new byte[4096];
-				using (Stream responseStream = response.GetResponseStream())
+				var buffer = new byte[4096];
+				using (var responseStream = response.GetResponseStream())
 				{
-					using (MemoryStream memoryStream = new MemoryStream())
+					using (var memoryStream = new MemoryStream())
 					{
-						int count = 0;
+						int count;
 						do
 						{
 							count = responseStream.Read(buffer, 0, buffer.Length);
@@ -107,7 +101,7 @@ namespace TekConf.Core.Models
 
 						} while (count != 0);
 
-						result = memoryStream.ToArray();
+						var result = memoryStream.ToArray();
 
 						var localFileName = _imageUrl.Replace("http://tekconf.blob.core.windows.net/images/conferences/", "").Replace("http://www.tekconf.com/img/conferences/", "");
 						

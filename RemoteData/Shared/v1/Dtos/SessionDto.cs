@@ -52,13 +52,13 @@ namespace TekConf.RemoteData.Dtos.v1
 		public List<SpeakersDto> speakers { get; set; }
 
 		public string startDescription {
-			get {
-				
-				if (this.start == default(DateTime)) {
+			get
+			{
+				if (start == default(DateTime)) {
 					return "Not scheduled yet"; 
-				} else {
-					return this.start.ToString ("dddd h:mm tt").ToString (); 
 				}
+
+				return start.ToString ("dddd h:mm tt");
 			}
 		}
 	}

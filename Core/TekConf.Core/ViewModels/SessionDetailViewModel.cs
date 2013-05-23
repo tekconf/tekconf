@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Input;
+using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 using TekConf.Core.Interfaces;
 using TekConf.Core.Services;
@@ -11,11 +12,13 @@ namespace TekConf.Core.ViewModels
 	{
 		private readonly IRemoteDataService _remoteDataService;
 		private readonly IAnalytics _analytics;
+		private readonly IMvxMessenger _messenger;
 
-		public SessionDetailViewModel(IRemoteDataService remoteDataService, IAnalytics analytics)
+		public SessionDetailViewModel(IRemoteDataService remoteDataService, IAnalytics analytics, IMvxMessenger messenger)
 		{
 			_remoteDataService = remoteDataService;
 			_analytics = analytics;
+			_messenger = messenger;
 		}
 
 		public void Init(Navigation navigation)
@@ -34,14 +37,16 @@ namespace TekConf.Core.ViewModels
 				return;
 
 			IsLoading = true;
-			this.ConferenceSlug = navigation.ConferenceSlug;
+			ConferenceSlug = navigation.ConferenceSlug;
 			_analytics.SendView("SessionDetail-" + navigation.ConferenceSlug + "-" + navigation.SessionSlug);
-			_remoteDataService.GetSession(conferenceSlug: navigation.ConferenceSlug, sessionSlug: navigation.SessionSlug, isRefreshing:isRefreshing, success: GetSessionSuccess, error: GetConferenceError);
+			_remoteDataService.GetSession(navigation.ConferenceSlug, navigation.SessionSlug, isRefreshing, GetSessionSuccess, GetConferenceError);
 		}
 
 		private void GetConferenceError(Exception exception)
 		{
 			// for now we just hide the error...
+			_messenger.Publish(new ExceptionMessage(this, exception));
+
 			IsLoading = false;
 		}
 

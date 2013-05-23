@@ -18,18 +18,21 @@
     shell:SystemTray.IsVisible="True">
 
 	<navigation:Page.Resources>
-		<CollectionViewSource
-            x:Name="sessionsViewSource"
-            Source="{Binding Conference.sessions}" />
-
-
-		<valueConverters:NativeInverseBoolConverter x:Key="InverseBool"></valueConverters:NativeInverseBoolConverter>
 		<valueConverters:NativeVisibilityConverter x:Key="Visibility"></valueConverters:NativeVisibilityConverter>
 		<valueConverters:NativeInvertedVisibilityConverter x:Key="InvertedVisibility"></valueConverters:NativeInvertedVisibilityConverter>
+		<valueConverters:NativeSocialImageValueConverter x:Key="SocialImage"></valueConverters:NativeSocialImageValueConverter>
 
+		<DataTemplate x:Key="ConnectItemTemplate">
+			<!-- <Button BorderThickness="0" HorizontalAlignment="Left"> -->
+				<StackPanel Orientation="Horizontal" Margin="0,0,0,0" HorizontalAlignment="Left">
+					<Image Source="{Binding Name, Converter={StaticResource SocialImage}}" Margin="0,0,10,0"></Image>
+					<TextBlock Text="{Binding Value}" Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" HorizontalAlignment="Left"></TextBlock>
+				</StackPanel>
+			<!-- </Button> -->
+		</DataTemplate>		
+		
 	</navigation:Page.Resources>
 
-	<!--LayoutRoot is the root grid where all page content is placed-->
 	<Grid x:Name="LayoutRoot" Background="Transparent">
 		<controls:Pivot Name="Pivot">
 			<controls:Pivot.TitleTemplate>
@@ -54,15 +57,17 @@
                          Visibility="{Binding IsLoading, Converter={StaticResource Visibility}}"></ProgressBar>
 						<StackPanel ScrollViewer.VerticalScrollBarVisibility="Disabled" Visibility="{Binding IsLoading, Converter={StaticResource InvertedVisibility}}">
 							<Image Source="{Binding Conference.imageUrl}" SizeChanged="ConferenceImage_OnSizeChanged"></Image>
-							<TextBlock Text="{Binding Conference.description}" TextWrapping="Wrap" Margin="0,10,0,0"></TextBlock>
+							<TextBlock Text="{Binding Conference.DateRange}" Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"></TextBlock>
+							<TextBlock Text="{Binding Conference.FormattedAddress}" Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"></TextBlock>
+							<TextBlock Text="{Binding Conference.description}" TextWrapping="Wrap" Margin="0,10,0,20"></TextBlock>
 						</StackPanel>
 					</Grid>
 				</ScrollViewer>
 			</controls:PivotItem>
 
-			<!--<controls:PivotItem>
+			<controls:PivotItem>
 				<controls:PivotItem.Header>
-					<TextBlock Text="map" Foreground="#FF81994D" />
+					<TextBlock Text="location" Foreground="#FF81994D" />
 				</controls:PivotItem.Header>
 				<ScrollViewer>
 					<Grid>
@@ -80,9 +85,9 @@
 						</StackPanel>
 					</Grid>
 				</ScrollViewer>
-			</controls:PivotItem>-->
+			</controls:PivotItem>
 
-			<controls:PivotItem>
+			<controls:PivotItem Visibility="{Binding HasConnectItems, Converter={StaticResource Visibility}}">
 				<controls:PivotItem.Header>
 					<TextBlock Text="connect" Foreground="#FF81994D" />
 				</controls:PivotItem.Header>
@@ -98,64 +103,14 @@
                 Foreground="#FF81994D"
                          Visibility="{Binding IsLoading, Converter={StaticResource Visibility}}"></ProgressBar>
 
-						<Grid ScrollViewer.VerticalScrollBarVisibility="Disabled" Visibility="{Binding IsLoading, Converter={StaticResource InvertedVisibility}}">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="Auto"/>
-								<ColumnDefinition Width="Auto"/>
-							</Grid.ColumnDefinitions>
-							<Grid.RowDefinitions>
-								<RowDefinition></RowDefinition>
-								<RowDefinition></RowDefinition>
-								<RowDefinition></RowDefinition>
-								<RowDefinition></RowDefinition>
-								<RowDefinition></RowDefinition>
-								<RowDefinition></RowDefinition>
-							</Grid.RowDefinitions>
-
-							<Button Click="HomepageNavigate_OnClick" BorderThickness="0" HorizontalAlignment="Center" 
-											HorizontalContentAlignment="Center" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
-								<Image Source="{Binding Conference.imageUrl}" Height="180" Width="260" ></Image>
-							</Button>
-
-							<Button Click="FacebookNavigate_OnClick" BorderThickness="0" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Grid.Column="0" Grid.Row="1">
-								<Image Source="/img/facebook-512-black.png" Height="150" Width="150" ></Image>
-							</Button>
-							<Button Click="GitHubNavigate_OnClick" BorderThickness="0" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Grid.Column="1" Grid.Row="1">
-								<Image Source="/img/github-512-black.png" Height="150" Width="150"></Image>
-							</Button>
-
-							<Button Click="LinkedInNavigate_OnClick" BorderThickness="0" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Grid.Column="0" Grid.Row="2">
-								<Image Source="/img/linkedin-512-black.png" Height="150" Width="150" ></Image>
-							</Button>
-							<Button Click="YouTubeNavigate_OnClick" BorderThickness="0" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Grid.Column="1" Grid.Row="2">
-								<Image Source="/img/youtube-512-black.png" Height="150" Width="150"></Image>
-							</Button>
-
-							<Button Click="VimeoNavigate_OnClick" BorderThickness="0" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Grid.Column="0" Grid.Row="3">
-								<Image Source="/img/vimeo-512-black.png" Height="150" Width="150" ></Image>
-							</Button>
-							<Button Click="GooglePlusNavigate_OnClick" BorderThickness="0" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Grid.Column="1" Grid.Row="3">
-								<Image Source="/img/googleplus-512-black.png" Height="150" Width="150"></Image>
-							</Button>
-
-							<Button Click="MeetupNavigate_OnClick" BorderThickness="0" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Grid.Column="0" Grid.Row="4">
-								<Image Source="/img/meetup-240.png" Height="150" Width="150" ></Image>
-							</Button>
-							<Button Click="LanyrdNavigate_OnClick" BorderThickness="0" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Grid.Column="1" Grid.Row="4">
-								<Image Source="/img/lanyrd-512-black.png" Height="150" Width="150"></Image>
-							</Button>
-
-							<Button Click="TwitterHashTagNavigate_OnClick" BorderThickness="0" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Grid.Column="0" Grid.Row="5">
-								<Image Source="/img/twitter-hashtag-512-black.png" Height="150" Width="150" ></Image>
-							</Button>
-							<Button Click="TwitterNameNavigate_OnClick" BorderThickness="0" HorizontalAlignment="Left" HorizontalContentAlignment="Left" Grid.Column="1" Grid.Row="5">
-								<Image Source="/img/twitter-name-512-black.png" Height="150" Width="150"></Image>
-							</Button>
-						</Grid>
-
+						<ScrollViewer>
+							<ListBox ItemsSource="{Binding ConnectItems}" 
+										 ItemTemplate="{StaticResource ConnectItemTemplate}" 
+										 ScrollViewer.VerticalScrollBarVisibility="Disabled"
+										 Visibility="{Binding IsLoading, Converter={StaticResource InvertedVisibility}}">
+							</ListBox>
+						</ScrollViewer>
 					</Grid>
-
-
 				</ScrollViewer>
 			</controls:PivotItem>
 
@@ -167,9 +122,9 @@
 	<phone:PhoneApplicationPage.ApplicationBar>
 		<shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" BackgroundColor="#FF81994D" ForegroundColor="White">
 			<shell:ApplicationBarIconButton IconUri="/img/feature.calendar.png" Text="sessions" Click="BrowseSessions_OnClick" />
-			<shell:ApplicationBarIconButton IconUri="/img/favs.png" Text="favorite" Click="AddFavorite_OnClick" /> 
-			<shell:ApplicationBarIconButton IconUri="/img/settings.png" Text="settings" Click="Settings_OnClick" />
+			<shell:ApplicationBarIconButton IconUri="/img/appbar.heart.png" Text="favorite" Click="AddFavorite_OnClick" /> 
 			<shell:ApplicationBarIconButton IconUri="/img/Synchronize.png" Text="refresh" Click="Refresh_OnClick" />
+			<shell:ApplicationBarIconButton IconUri="/img/settings.png" Text="settings" Click="Settings_OnClick" />
 		</shell:ApplicationBar>
 	</phone:PhoneApplicationPage.ApplicationBar>
 

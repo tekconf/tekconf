@@ -24,8 +24,7 @@
 					<TextBlock Text="{Binding description}" Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" SizeChanged="SpeakerFullName_OnSizeChanged"></TextBlock>
 				</StackPanel>
 		</DataTemplate>
-		
-		<valueConverters:NativeInverseBoolConverter x:Key="InverseBool"></valueConverters:NativeInverseBoolConverter>
+
 		<valueConverters:NativeVisibilityConverter x:Key="Visibility"></valueConverters:NativeVisibilityConverter>
 		<valueConverters:NativeInvertedVisibilityConverter x:Key="InvertedVisibility"></valueConverters:NativeInvertedVisibilityConverter>
 	</views:MvxPhonePage.Resources>
@@ -54,6 +53,9 @@
 												Visibility="{Binding IsLoading, Converter={StaticResource InvertedVisibility}}">
 							<TextBlock Text="{Binding Session.title}" Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap" Margin="0,10,0,0"></TextBlock>
 
+							<TextBlock Text="{Binding Session.startDescription}" Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap" Margin="0,10"></TextBlock>
+							<TextBlock Text="{Binding Session.room}" Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap" Margin="0,10"></TextBlock>
+
 							<TextBlock Text="{Binding Session.description}" TextWrapping="Wrap" Margin="0,10"></TextBlock>
 						</StackPanel>
 					</ScrollViewer>
@@ -71,7 +73,7 @@
 					</Grid.RowDefinitions>
 
 					<ScrollViewer>
-						<ListBox Name="listBox" ItemsSource="{Binding Session.speakers}" 
+						<ListBox ItemsSource="{Binding Session.speakers}" 
 										 ItemTemplate="{StaticResource SpeakerItemTemplate}"
 										 ScrollViewer.VerticalScrollBarVisibility="Disabled">
 						</ListBox>
@@ -83,9 +85,9 @@
 
 	<phone:PhoneApplicationPage.ApplicationBar>
 		<shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" BackgroundColor="#FF81994D" ForegroundColor="White">
-			<shell:ApplicationBarIconButton IconUri="/img/favs.png" Text="favorite" Click="AddFavorite_OnClick" />
-			<shell:ApplicationBarIconButton IconUri="/img/settings.png" Text="settings" Click="Settings_OnClick" />
+			<shell:ApplicationBarIconButton IconUri="/img/appbar.heart.png" Text="favorite" Click="AddFavorite_OnClick" />
 			<shell:ApplicationBarIconButton IconUri="/img/Synchronize.png" Text="refresh" Click="Refresh_OnClick" />
+			<shell:ApplicationBarIconButton IconUri="/img/settings.png" Text="settings" Click="Settings_OnClick" />
 		</shell:ApplicationBar>
 	</phone:PhoneApplicationPage.ApplicationBar>
 </views:MvxPhonePage>

@@ -1,35 +1,38 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
-using Cirrious.MvvmCross.WindowsPhone.Views;
-using Microsoft.Phone.Shell;
+using Cirrious.MvvmCross.Plugins.Messenger;
 using TekConf.Core.ViewModels;
-using TekConf.RemoteData.Dtos.v1;
 using TekConf.UI.WinPhone.Bootstrap;
+using Cirrious.CrossCore;
 
 namespace TekConf.UI.WinPhone.Views
 {
-	public partial class SessionDetailView : MvxPhonePage
+	public partial class SessionDetailView
 	{
+		private MvxSubscriptionToken _token;
+
 		public SessionDetailView()
 		{
 			InitializeComponent();
+			var messenger = Mvx.Resolve<IMvxMessenger>();
+			_token = messenger.Subscribe<ExceptionMessage>(message => Dispatcher.BeginInvoke(() => MessageBox.Show(message.ExceptionObject == null ? "An exception occurred but was not caught" : message.ExceptionObject.Message)));
+
 		}
 
 		private void Settings_OnClick(object sender, EventArgs e)
 		{
-			var vm = this.DataContext as SessionDetailViewModel;
+			var vm = DataContext as SessionDetailViewModel;
 			if (vm != null) 
 				vm.ShowSettingsCommand.Execute(null);
 		}
 
 		private void Refresh_OnClick(object sender, EventArgs e)
 		{
-			var vm = this.DataContext as SessionDetailViewModel;
+			var vm = DataContext as SessionDetailViewModel;
 			if (vm != null && vm.Session != null)
 			{
-				var navigation = new SessionDetailViewModel.Navigation()
+				var navigation = new SessionDetailViewModel.Navigation
 				{
 					ConferenceSlug = vm.ConferenceSlug,
 					SessionSlug = vm.Session.slug
@@ -43,7 +46,7 @@ namespace TekConf.UI.WinPhone.Views
 		{
 			var title = (sender as TextBlock);
 			if (title != null) 
-				title.MaxWidth = this.ActualWidth;
+				title.MaxWidth = ActualWidth;
 		}
 
 		private void AddFavorite_OnClick(object sender, EventArgs e)
@@ -53,10 +56,8 @@ namespace TekConf.UI.WinPhone.Views
 			{
 				throw new NotImplementedException();
 			}
-			else
-			{
-				MessageBox.Show("You must be logged in to favorite a session");
-			}
+			
+			MessageBox.Show("You must be logged in to favorite a session");
 		}
 	}
 }

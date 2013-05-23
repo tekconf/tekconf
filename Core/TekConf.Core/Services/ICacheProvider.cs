@@ -24,14 +24,14 @@ namespace TekConf.Core.Services
 
 		public void Dispose()
 		{
-			this.dictionary.Clear();
+			dictionary.Clear();
 		}
 
 		#region ICacheProvider Members
 
 		public void Add<TKey, TValue>(TKey key, TValue value, TimeSpan relativeTime) where TValue : class
 		{
-			this.AddImpl(key, value, relativeTime);
+			AddImpl(key, value);
 		}
 
 		public void Add<TKey, TValue>(TKey key, TValue value, DateTime absoluteTime) where TValue : class
@@ -41,14 +41,13 @@ namespace TekConf.Core.Services
 				return;
 			}
 
-			var diff = absoluteTime - DateTime.Now;
-			this.AddImpl(key, value, diff);
+			AddImpl(key, value);
 		}
 
 		public TValue Get<TKey, TValue>(TKey key) where TValue : class
 		{
 			object value;
-			if (this.dictionary.TryGetValue(key, out value))
+			if (dictionary.TryGetValue(key, out value))
 			{
 				return (TValue)value;
 			}
@@ -63,14 +62,14 @@ namespace TekConf.Core.Services
 				return;
 			}
 
-			this.Purge(key);
+			Purge(key);
 		}
 
 		public void Clear()
 		{
-			lock (this.sync)
+			lock (sync)
 			{
-				this.dictionary.Clear();
+				dictionary.Clear();
 			}
 		}
 
@@ -87,15 +86,15 @@ namespace TekConf.Core.Services
 		{
 			lock (sync)
 			{
-				return this.dictionary.Keys.Where(k => k.GetType() == typeof(TKey)).Cast<TKey>().ToList();
+				return dictionary.Keys.Where(k => k.GetType() == typeof(TKey)).Cast<TKey>().ToList();
 			}
 		}
 
 		#endregion
 
-		private void AddImpl<TKey, TValue>(TKey key, TValue value, TimeSpan relative)
+		private void AddImpl<TKey, TValue>(TKey key, TValue value)
 		{
-			lock (this.sync)
+			lock (sync)
 			{
 				//Observable.Timer(relative)
 				//		.Finally(() =>
@@ -107,16 +106,16 @@ namespace TekConf.Core.Services
 				//		exn => this.log.Write("InMemoryCacheProvider: Purge Failed - '{0}'", exn.Message),
 				//		() => this.log.Write("InMemoryCacheProvider: Purge Completed..."));
 
-				this.dictionary[key] = value;
+				dictionary[key] = value;
 			}
 
 		}
 
 		private void Purge(object key)
 		{
-			lock (this.sync)
+			lock (sync)
 			{
-				this.dictionary.Remove(key);
+				dictionary.Remove(key);
 			}
 
 		}

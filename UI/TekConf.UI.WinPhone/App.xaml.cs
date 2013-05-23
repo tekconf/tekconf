@@ -1,21 +1,17 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Plugins.File;
-using Cirrious.MvvmCross.Plugins.Network.Reachability;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Microsoft.WindowsAzure.MobileServices;
-using TekConf.Core.Models;
 using TekConf.UI.WinPhone.Views;
 
 namespace TekConf.UI.WinPhone
 {
-	public partial class App : Application
+	public partial class App
 	{
 
 		public static MobileServiceClient MobileService = new MobileServiceClient(
@@ -47,7 +43,7 @@ namespace TekConf.UI.WinPhone
 			if (System.Diagnostics.Debugger.IsAttached)
 			{
 				// Display the current frame rate counters.
-				Application.Current.Host.Settings.EnableFrameRateCounter = true;
+				Current.Host.Settings.EnableFrameRateCounter = true;
 
 				// Show the areas of the app that are being redrawn in each frame.
 				//Application.Current.Host.Settings.EnableRedrawRegions = true;
@@ -78,15 +74,11 @@ namespace TekConf.UI.WinPhone
 			{
 				var uri = new Uri("/img/" + imageName, UriKind.Relative);
 				var imgSource = new BitmapImage(uri) {CreateOptions = BitmapCreateOptions.None};
-				imgSource.ImageOpened += delegate(object sender, RoutedEventArgs args)
+				imgSource.ImageOpened += delegate
 				{
-					var wb = new WriteableBitmap(imgSource);
 					var bytes = imgSource.ConvertToBytes();
 					fileStore.WriteFile(imageName, bytes);
 				};
-				var x = imgSource;
-				Image image = new Image();
-				image.Source = imgSource;
 			}
 		}
 
@@ -101,7 +93,7 @@ namespace TekConf.UI.WinPhone
 		{
 			args.Cancel = true;
 			RootFrame.Navigating -= RootFrameOnNavigating;
-			RootFrame.Dispatcher.BeginInvoke(() => Cirrious.CrossCore.Mvx.Resolve<Cirrious.MvvmCross.ViewModels.IMvxAppStart>().Start());
+			RootFrame.Dispatcher.BeginInvoke(() => Mvx.Resolve<Cirrious.MvvmCross.ViewModels.IMvxAppStart>().Start());
 		}
 
 		// Code to execute when the application is activated (brought to foreground)
@@ -125,6 +117,7 @@ namespace TekConf.UI.WinPhone
 		// Code to execute if a navigation fails
 		private void RootFrame_NavigationFailed(object sender, NavigationFailedEventArgs e)
 		{
+			MessageBox.Show("Exception occurred: " + e.Exception.Message);
 			if (System.Diagnostics.Debugger.IsAttached)
 			{
 				// A navigation has failed; break into the debugger
@@ -135,6 +128,8 @@ namespace TekConf.UI.WinPhone
 		// Code to execute on Unhandled Exceptions
 		private void Application_UnhandledException(object sender, ApplicationUnhandledExceptionEventArgs e)
 		{
+			MessageBox.Show("Exception occurred: " + e.ExceptionObject.Message);
+
 			if (System.Diagnostics.Debugger.IsAttached)
 			{
 				// An unhandled exception has occurred; break into the debugger
@@ -145,7 +140,7 @@ namespace TekConf.UI.WinPhone
 		#region Phone application initialization
 
 		// Avoid double-initialization
-		private bool phoneApplicationInitialized = false;
+		private bool phoneApplicationInitialized;
 
 		// Do not add any additional code to this method
 		private void InitializePhoneApplication()
@@ -169,7 +164,6 @@ namespace TekConf.UI.WinPhone
 		private void CompleteInitializePhoneApplication(object sender, NavigationEventArgs e)
 		{
 			// Set the root visual to allow the application to render
-			if (RootVisual != RootFrame)
 				RootVisual = RootFrame;
 
 			// Remove this handler since it is no longer needed
