@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Xml.Linq;
 using Cirrious.MvvmCross.Plugins.Messenger;
 using Microsoft.WindowsAzure.MobileServices;
 using TekConf.Core.Models;
@@ -23,6 +24,23 @@ namespace TekConf.UI.WinPhone.Views
 			_token = messenger.Subscribe<ExceptionMessage>(message => Dispatcher.BeginInvoke(() => MessageBox.Show(message.ExceptionObject == null ? "An exception occurred but was not caught" : message.ExceptionObject.Message)));
 
 			SetLoggedInState();
+			Loaded += (sender, args) =>
+			{
+				var xmlDocument = XDocument.Load("WMAppManifest.xml");
+				if (xmlDocument.Root != null)
+				{
+					var xElement = xmlDocument.Root.Element("App");
+					if (xElement != null)
+					{
+						var xAttribute = xElement.Attribute("Version");
+						if (xAttribute != null)
+						{
+							string version = xAttribute.Value;
+							this.AppVersion.Text = version;
+						}
+					}
+				}
+			};
 		}
 
 		private void VmOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
@@ -193,7 +211,7 @@ namespace TekConf.UI.WinPhone.Views
 
 		private void Register_OnClick(object sender, RoutedEventArgs e)
 		{
-			
+			MessageBox.Show("Not yet implemented");
 		}
 
 		private void LoginWithTekConf_OnClick(object sender, RoutedEventArgs e)

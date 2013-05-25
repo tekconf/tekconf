@@ -69,7 +69,7 @@ namespace TekConf.Core.Models
 					if (_fileStore.TryReadTextFile(path, out response))
 					{
 						var conferences = JsonConvert.DeserializeObject<List<FullConferenceDto>>(response).OrderBy(x => x.start).ToList();
-						_cache.Add("conferences.json", response, new TimeSpan(0, 8, 0));
+						//_cache.Add("conferences.json", response, new TimeSpan(0, 8, 0));
 
 						var results = SearchConferences(conferences);
 						_success(results);
@@ -162,7 +162,7 @@ namespace TekConf.Core.Models
 			}
 
 			var conferences = JsonConvert.DeserializeObject<List<FullConferenceDto>>(response).OrderBy(x => x.start).ToList();
-			_cache.Add("conferences.json", response, new TimeSpan(0, 8, 0));
+			//_cache.Add("conferences.json", response, new TimeSpan(0, 8, 0));
 
 			var results = SearchConferences(conferences);
 

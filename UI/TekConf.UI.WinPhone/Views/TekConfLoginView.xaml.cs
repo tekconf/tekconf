@@ -13,6 +13,9 @@ namespace TekConf.UI.WinPhone.Views
 
 		private void Login_OnClick(object sender, RoutedEventArgs e)
 		{
+			MessageBox.Show("Not yet implemented");
+			return;
+
 			var vm = this.DataContext as TekConfLoginViewModel;
 			if (vm != null)
 				vm.Login();

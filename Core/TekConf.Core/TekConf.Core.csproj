@@ -134,6 +134,7 @@
     <Compile Include="Models\SessionService.cs" />
     <Compile Include="Models\UserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\LocalScheduleRepository.cs" />
     <Compile Include="Repositories\LocalNotificationsRepository.cs" />
     <Compile Include="Services\IAuthentication.cs" />
     <Compile Include="Services\ICacheProvider.cs" />

@@ -42,24 +42,23 @@ namespace TekConf.Core.ViewModels
 
 		public void Init(string slug)
 		{
-			var userName = "";
-			if (_authentication.IsAuthenticated)
-			{
-				userName = _authentication.UserName;
-			}
 			HasSessions = true;
 			StartGetConference(slug);
-			StartGetSchedule(userName, slug, false);
+			if (_authentication.IsAuthenticated)
+			{
+				var userName = _authentication.UserName;
+				StartGetSchedule(userName, slug, false);
+			}
 		}
 
 		public void Refresh(string slug)
 		{
-			var userName = "";
-			if (_authentication.IsAuthenticated)
-				userName = _authentication.UserName;
-
 			StartGetConference(slug, true);
-			StartGetSchedule(userName, slug, true);
+			if (_authentication.IsAuthenticated)
+			{
+				var userName = _authentication.UserName;
+				StartGetSchedule(userName, slug, true);
+			}
 		}
 
 		private void StartGetConference(string slug, bool isRefreshing = false)

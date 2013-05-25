@@ -14,7 +14,7 @@ namespace TekConf.UI.WinPhone.Views
 			InitializeComponent();
 			var messenger = Mvx.Resolve<IMvxMessenger>();
 			_token = messenger.Subscribe<ExceptionMessage>(message => Dispatcher.BeginInvoke(() => MessageBox.Show(message.ExceptionObject == null ? "An exception occurred but was not caught" : message.ExceptionObject.Message)));
-
+			Loaded += (sender, args) => this.SearchText.Focus();
 		}
 
 		private void Search_OnClick(object sender, RoutedEventArgs e)

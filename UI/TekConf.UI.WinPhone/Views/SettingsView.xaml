@@ -19,7 +19,7 @@
 	<navigation:Page.Resources>
 		<valueConverters:NativeVisibilityConverter x:Key="Visibility"></valueConverters:NativeVisibilityConverter>
 	</navigation:Page.Resources>
-	
+
 	<!--LayoutRoot is the root grid where all page content is placed-->
 	<Grid x:Name="LayoutRoot" Background="Transparent">
 		<!--Pivot Control-->
@@ -101,17 +101,27 @@
 					<TextBlock Text="about" Foreground="#FF81994D" />
 				</phone:PivotItem.Header>
 				<StackPanel Orientation="Vertical">
-					<TextBlock Text="Conferences Last Updated" Style="{StaticResource PhoneTextNormalStyle}"></TextBlock>
-					<TextBlock Text="{Binding ConferenceUpdated}" Style="{StaticResource PhoneTextNormalStyle}"></TextBlock>
+					<StackPanel>
+						<TextBlock Text="App Version" Style="{StaticResource PhoneTextNormalStyle}"></TextBlock>
+						<TextBlock Style="{StaticResource PhoneTextNormalStyle}" Name="AppVersion"></TextBlock>
+					</StackPanel>
+					
+					
+					<StackPanel>
+						<TextBlock Text="Conferences Last Updated" Style="{StaticResource PhoneTextNormalStyle}"></TextBlock>
+						<TextBlock Text="{Binding ConferenceUpdated}" Style="{StaticResource PhoneTextNormalStyle}"></TextBlock>
+					</StackPanel>
+					
+					<TextBlock Text="" Style="{StaticResource PhoneTextNormalStyle}"></TextBlock>
+
+					<StackPanel Visibility="{Binding IsAuthenticated, Converter={StaticResource Visibility}}">
+						<TextBlock Text="Schedules Last Updated" Style="{StaticResource PhoneTextNormalStyle}"></TextBlock>
+						<TextBlock Text="{Binding SchedulesUpdated}" Style="{StaticResource PhoneTextNormalStyle}"></TextBlock>
+					</StackPanel>
 
 					<TextBlock Text="" Style="{StaticResource PhoneTextNormalStyle}"></TextBlock>
 
-					<TextBlock Text="Schedules Last Updated" Style="{StaticResource PhoneTextNormalStyle}" Visibility="{Binding IsAuthenticated, Converter={StaticResource Visibility}}"></TextBlock>
-					<TextBlock Text="{Binding SchedulesUpdated}" Style="{StaticResource PhoneTextNormalStyle}" Visibility="{Binding IsAuthenticated, Converter={StaticResource Visibility}}"></TextBlock>
-
-					<TextBlock Text="" Style="{StaticResource PhoneTextNormalStyle}"></TextBlock>
-
-					<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+					<StackPanel Orientation="Horizontal" VerticalAlignment="Center" Visibility="{Binding IsAuthenticated, Converter={StaticResource Visibility}}">
 						<TextBlock Text="Push Notifications?" Style="{StaticResource PhoneTextNormalStyle}"></TextBlock>
 						<CheckBox IsChecked="{Binding IsOptedInToNotifications, Mode=TwoWay}"></CheckBox>
 					</StackPanel>

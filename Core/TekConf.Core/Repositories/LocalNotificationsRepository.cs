@@ -1,6 +1,10 @@
-﻿using Cirrious.MvvmCross.Plugins.File;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Cirrious.MvvmCross.Plugins.File;
 using Newtonsoft.Json;
 using TekConf.Core.Services;
+using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.Core.Repositories
 {
@@ -36,7 +40,7 @@ namespace TekConf.Core.Repositories
 				}
 
 				return false;
-			} 
+			}
 			set
 			{
 				var isOptedIn = JsonConvert.SerializeObject(value);
@@ -44,4 +48,6 @@ namespace TekConf.Core.Repositories
 			}
 		}
 	}
+
+
 }

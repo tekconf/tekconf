@@ -7,6 +7,7 @@ using Cirrious.CrossCore.Core;
 using Cirrious.MvvmCross.Plugins.File;
 using Cirrious.MvvmCross.Plugins.Network.Reachability;
 using Newtonsoft.Json;
+using TekConf.Core.Repositories;
 using TekConf.Core.Services;
 using TekConf.RemoteData.Dtos.v1;
 
@@ -19,31 +20,33 @@ namespace TekConf.Core.Models
 		private readonly bool _isRefreshing;
 		private readonly ICacheService _cache;
 		private readonly IAuthentication _authentication;
+		private readonly ILocalScheduleRepository _localScheduleRepository;
 		private readonly Action<FullConferenceDto> _success;
 		private readonly Action<Exception> _error;
 		private string _slug;
 
-		private ConferenceService(IMvxFileStore fileStore, IMvxReachability reachability, bool isRefreshing, ICacheService cache, IAuthentication authentication, Action<FullConferenceDto> success, Action<Exception> error)
+		private ConferenceService(IMvxFileStore fileStore, IMvxReachability reachability, bool isRefreshing, ICacheService cache, IAuthentication authentication, ILocalScheduleRepository localScheduleRepository, Action<FullConferenceDto> success, Action<Exception> error)
 		{
 			_fileStore = fileStore;
 			_reachability = reachability;
 			_isRefreshing = isRefreshing;
 			_cache = cache;
 			_authentication = authentication;
+			_localScheduleRepository = localScheduleRepository;
 			_success = success;
 			_error = error;
 		}
 
-		public static void GetConferenceAsync(IMvxFileStore fileStore, IMvxReachability reachability, string slug, bool isRefreshing, ICacheService cache, IAuthentication authentication, Action<FullConferenceDto> success, Action<Exception> error)
+		public static void GetConferenceAsync(IMvxFileStore fileStore, ILocalScheduleRepository localScheduleRepository, IMvxReachability reachability, string slug, bool isRefreshing, ICacheService cache, IAuthentication authentication, Action<FullConferenceDto> success, Action<Exception> error)
 		{
 			MvxAsyncDispatcher.BeginAsync(() => 
-				DoAsyncGetConference(fileStore, reachability, slug, isRefreshing, cache, authentication, success, error)
+				DoAsyncGetConference(fileStore, localScheduleRepository, reachability, slug, isRefreshing, cache, authentication, success, error)
 				);
 		}
 
-		private static void DoAsyncGetConference(IMvxFileStore fileStore, IMvxReachability reachability, string slug, bool isRefreshing, ICacheService cache, IAuthentication authentication, Action<FullConferenceDto> success, Action<Exception> error)
+		private static void DoAsyncGetConference(IMvxFileStore fileStore, ILocalScheduleRepository localScheduleRepository, IMvxReachability reachability, string slug, bool isRefreshing, ICacheService cache, IAuthentication authentication, Action<FullConferenceDto> success, Action<Exception> error)
 		{
-			var search = new ConferenceService(fileStore, reachability, isRefreshing, cache, authentication, success, error);
+			var search = new ConferenceService(fileStore, reachability, isRefreshing, cache, authentication, localScheduleRepository, success, error);
 			search.StartGetConferenceSearch(slug);
 		}
 
@@ -53,7 +56,7 @@ namespace TekConf.Core.Models
 			if (_authentication.IsAuthenticated)
 			{
 				_conference = conference;
-				ScheduleService.GetScheduleAsync(_fileStore, _authentication.UserName, conference.slug, false, _cache, GetScheduleSuccess, GetScheduleError);
+				ScheduleService.GetScheduleAsync(_fileStore,_localScheduleRepository, _authentication.UserName, conference.slug, false, _cache, GetScheduleSuccess, GetScheduleError);
 			}
 			else
 			{

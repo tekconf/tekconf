@@ -5,6 +5,7 @@ using System.Windows.Input;
 using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 using TekConf.Core.Interfaces;
+using TekConf.Core.Repositories;
 using TekConf.Core.Services;
 using TekConf.RemoteData.Dtos.v1;
 
@@ -98,7 +99,7 @@ namespace TekConf.Core.ViewModels
 			InvokeOnMainThread(() => DisplayAllConferences(enumerable));
 		}
 
-		private void GetFavoritesSuccess(IEnumerable<FullConferenceDto> conferences)
+		private void GetFavoritesSuccess(IEnumerable<ConferencesListViewDto> conferences)
 		{
 			var conferencesList = conferences.ToList();
 
@@ -126,9 +127,9 @@ namespace TekConf.Core.ViewModels
 			Conferences = enumerable.ToList();
 		}
 
-		private void DisplayFavoritesConferences(IEnumerable<FullConferenceDto> enumerable)
+		private void DisplayFavoritesConferences(IEnumerable<ConferencesListViewDto> favorites)
 		{
-			Favorites = enumerable.ToList();
+			Favorites = favorites.ToList();
 		}
 
 		private bool _isLoadingConferences;
@@ -196,8 +197,8 @@ namespace TekConf.Core.ViewModels
 			}
 		}
 
-		private List<FullConferenceDto> _favorites;
-		public List<FullConferenceDto> Favorites
+		private List<ConferencesListViewDto> _favorites;
+		public List<ConferencesListViewDto> Favorites
 		{
 			get
 			{
@@ -206,10 +207,10 @@ namespace TekConf.Core.ViewModels
 			set
 			{
 				_favorites = value;
-				_cache.Remove("schedules");
-				_cache.Add("schedules", value, new TimeSpan(0, 0, 15));
-				if (_favorites != null)
-					SelectedFavorite = _favorites.FirstOrDefault(x => x.start >= DateTime.Now);
+				//_cache.Remove("schedules");
+				//_cache.Add("schedules", value, new TimeSpan(0, 0, 15));
+				//if (_favorites != null)
+				//	SelectedFavorite = _favorites.FirstOrDefault(x => x.start >= DateTime.Now);
 
 				RaisePropertyChanged(() => Favorites);
 				IsLoadingFavorites = false;

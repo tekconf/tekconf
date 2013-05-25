@@ -6,8 +6,8 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:views="clr-namespace:Cirrious.MvvmCross.WindowsPhone.Views;assembly=Cirrious.MvvmCross.WindowsPhone"
-	FontFamily="{StaticResource PhoneFontFamilyNormal}"
+		xmlns:views="clr-namespace:Cirrious.MvvmCross.WindowsPhone.Views;assembly=Cirrious.MvvmCross.WindowsPhone"
+		FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
@@ -35,7 +35,7 @@
 						
 						<StackPanel ScrollViewer.VerticalScrollBarVisibility="Disabled">
 							<TextBlock Text="Search"></TextBlock>
-							<TextBox Text="{Binding SearchText, Mode=TwoWay}"></TextBox>
+							<TextBox Text="{Binding SearchText, Mode=TwoWay}" Name="SearchText"></TextBox>
 							<Button Click="Search_OnClick" FontSize="22" Margin="0,80,0,0">Search</Button>
 						</StackPanel>
 					</Grid>

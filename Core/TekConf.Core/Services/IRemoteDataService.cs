@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TekConf.Core.Repositories;
 using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.Core.Services
@@ -29,7 +30,7 @@ namespace TekConf.Core.Services
 			Action<Exception> error = null);
 
 		void GetSchedule(string userName, string conferenceSlug, bool isRefreshing, Action<ScheduleDto> success = null, Action<Exception> error = null);
-		void GetSchedules(string userName, bool isRefreshing, Action<IEnumerable<FullConferenceDto>> success = null, Action<Exception> error = null);
+		void GetSchedules(string userName, bool isRefreshing, Action<IEnumerable<ConferencesListViewDto>> success = null, Action<Exception> error = null);
 
 		void LoginWithTekConf(string userName, string password, Action<bool> success = null, Action<Exception> error = null);
 

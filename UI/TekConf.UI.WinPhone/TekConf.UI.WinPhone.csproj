@@ -224,8 +224,8 @@
     <Compile Include="Bootstrap\VisibilityPluginBootstrap.cs" />
     <Compile Include="Bootstrap\WebBrowserPluginBootstrap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PushSharpClient.cs" />
-    <Compile Include="Setup.cs" />
+    <Compile Include="Classes\PushSharpClient.cs" />
+    <Compile Include="Classes\Setup.cs" />
     <Compile Include="ValueConverters\Converter.cs" />
     <Compile Include="Views\BitmapImageExtensions.cs" />
     <Compile Include="Views\ConferenceDetailView.xaml.cs">
@@ -253,7 +253,7 @@
       <DependentUpon>TekConfLoginView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Users.cs" />
-    <Compile Include="WinPhoneAnalytics.cs" />
+    <Compile Include="Classes\WinPhoneAnalytics.cs" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -374,6 +374,7 @@
     <Content Include="SplashScreenImage.screen-720p.jpg" />
     <Content Include="SplashScreenImage.screen-WVGA.jpg" />
     <Content Include="SplashScreenImage.screen-WXGA.jpg" />
+    <Content Include="StoreImages\LargeTile.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Check.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Delete.png" />
@@ -383,6 +384,10 @@
     <ProjectReference Include="..\..\Core\TekConf.Core\TekConf.Core.csproj">
       <Project>{E740F915-A0FC-4C66-9FD3-1D9A0DDA527A}</Project>
       <Name>TekConf.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TekConf.UI.WinPhone.BackgroundAgent\TekConf.UI.WinPhone.BackgroundAgent.csproj">
+      <Project>{5F5402E5-BB3D-4E8E-B9E9-BD33972D7079}</Project>
+      <Name>TekConf.UI.WinPhone.BackgroundAgent</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

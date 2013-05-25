@@ -6,6 +6,7 @@ using System.Net;
 using Cirrious.CrossCore.Core;
 using Cirrious.MvvmCross.Plugins.File;
 using Newtonsoft.Json;
+using TekConf.Core.Repositories;
 using TekConf.Core.Services;
 using TekConf.Core.ViewModels;
 using TekConf.RemoteData.Dtos.v1;
@@ -21,7 +22,8 @@ namespace TekConf.Core.Models
 		private const string RemoveFromScheduleUrl = "http://api.tekconf.com/v1/conferences/{1}/schedule?userName={0}&conferenceSlug={1}&sessionSlug=&format=json";
 
 		private readonly IMvxFileStore _fileStore;
-		private readonly Action<IEnumerable<FullConferenceDto>> _getSchedulesSuccess;
+		private readonly ILocalScheduleRepository _localScheduleRepository;
+		private readonly Action<IEnumerable<ConferencesListViewDto>> _getSchedulesSuccess;
 		private readonly Action<ScheduleDto> _getScheduleSuccess;
 
 		private readonly Action<Exception> _getSchedulesError;
@@ -37,9 +39,10 @@ namespace TekConf.Core.Models
 		private readonly ICacheService _cache;
 		private readonly string _conferenceSlug;
 
-		private ScheduleService(IMvxFileStore fileStore, string userName, bool isRefreshing, ICacheService cache, Action<IEnumerable<FullConferenceDto>> success, Action<Exception> error)
+		private ScheduleService(IMvxFileStore fileStore, ILocalScheduleRepository localScheduleRepository, string userName, bool isRefreshing, ICacheService cache, Action<IEnumerable<ConferencesListViewDto>> success, Action<Exception> error)
 		{
 			_fileStore = fileStore;
+			_localScheduleRepository = localScheduleRepository;
 			_getSchedulesSuccess = success;
 			_getSchedulesError = error;
 			_userName = userName;
@@ -47,9 +50,10 @@ namespace TekConf.Core.Models
 			_cache = cache;
 		}
 
-		private ScheduleService(IMvxFileStore fileStore, string userName, string conferenceSlug, bool isRefreshing, ICacheService cache, Action<ScheduleDto> success, Action<Exception> error)
+		private ScheduleService(IMvxFileStore fileStore, ILocalScheduleRepository localScheduleRepository, string userName, string conferenceSlug, bool isRefreshing, ICacheService cache, Action<ScheduleDto> success, Action<Exception> error)
 		{
 			_fileStore = fileStore;
+			_localScheduleRepository = localScheduleRepository;
 
 			_addToScheduleSuccess = success;
 			_removeFromScheduleSuccess = success;
@@ -67,47 +71,47 @@ namespace TekConf.Core.Models
 			_conferenceSlug = conferenceSlug;
 		}
 
-		public static void GetSchedulesAsync(IMvxFileStore fileStore, string userName, bool isRefreshing, ICacheService cache, Action<IEnumerable<FullConferenceDto>> success, Action<Exception> error)
+		public static void GetSchedulesAsync(IMvxFileStore fileStore, ILocalScheduleRepository localScheduleRepository, string userName, bool isRefreshing, ICacheService cache, Action<IEnumerable<ConferencesListViewDto>> success, Action<Exception> error)
 		{
-			MvxAsyncDispatcher.BeginAsync(() => DoAsyncGetSchedules(fileStore, userName, isRefreshing, cache, success, error));
+			MvxAsyncDispatcher.BeginAsync(() => DoAsyncGetSchedules(fileStore, localScheduleRepository, userName, isRefreshing, cache, success, error));
 		}
 
-		public static void AddToScheduleAsync(IMvxFileStore fileStore, string userName, string conferenceSlug, bool isRefreshing, ICacheService cache, Action<ScheduleDto> success, Action<Exception> error)
+		public static void AddToScheduleAsync(IMvxFileStore fileStore, ILocalScheduleRepository localScheduleRepository, string userName, string conferenceSlug, bool isRefreshing, ICacheService cache, Action<ScheduleDto> success, Action<Exception> error)
 		{
-			MvxAsyncDispatcher.BeginAsync(() => DoAsyncAddToScheduleSchedule(fileStore, userName, conferenceSlug, isRefreshing, cache, success, error));
+			MvxAsyncDispatcher.BeginAsync(() => DoAsyncAddToScheduleSchedule(fileStore, localScheduleRepository, userName, conferenceSlug, isRefreshing, cache, success, error));
 		}
 
-		public static void RemoveFromScheduleAsync(IMvxFileStore fileStore, string userName, string conferenceSlug, bool isRefreshing, ICacheService cache, Action<ScheduleDto> success, Action<Exception> error)
+		public static void RemoveFromScheduleAsync(IMvxFileStore fileStore, ILocalScheduleRepository localScheduleRepository, string userName, string conferenceSlug, bool isRefreshing, ICacheService cache, Action<ScheduleDto> success, Action<Exception> error)
 		{
-			MvxAsyncDispatcher.BeginAsync(() => DoAsyncRemoveFromScheduleSchedule(fileStore, userName, conferenceSlug, isRefreshing, cache, success, error));
+			MvxAsyncDispatcher.BeginAsync(() => DoAsyncRemoveFromScheduleSchedule(fileStore, localScheduleRepository, userName, conferenceSlug, isRefreshing, cache, success, error));
 		}
 
-		public static void GetScheduleAsync(IMvxFileStore fileStore, string userName, string conferenceSlug, bool isRefreshing, ICacheService cache, Action<ScheduleDto> success, Action<Exception> error)
+		public static void GetScheduleAsync(IMvxFileStore fileStore, ILocalScheduleRepository localScheduleRepository, string userName, string conferenceSlug, bool isRefreshing, ICacheService cache, Action<ScheduleDto> success, Action<Exception> error)
 		{
-			MvxAsyncDispatcher.BeginAsync(() => DoAsyncGetSchedule(fileStore, userName, conferenceSlug, isRefreshing, cache, success, error));
+			MvxAsyncDispatcher.BeginAsync(() => DoAsyncGetSchedule(fileStore, localScheduleRepository, userName, conferenceSlug, isRefreshing, cache, success, error));
 		}
 
-		private static void DoAsyncGetSchedules(IMvxFileStore fileStore, string userName, bool isRefreshing, ICacheService cache, Action<IEnumerable<FullConferenceDto>> success, Action<Exception> error)
+		private static void DoAsyncGetSchedules(IMvxFileStore fileStore, ILocalScheduleRepository localScheduleRepository, string userName, bool isRefreshing, ICacheService cache, Action<IEnumerable<ConferencesListViewDto>> success, Action<Exception> error)
 		{
-			var search = new ScheduleService(fileStore, userName, isRefreshing, cache, success, error);
+			var search = new ScheduleService(fileStore, localScheduleRepository, userName, isRefreshing, cache, success, error);
 			search.GetSchedules();
 		}
 
-		private static void DoAsyncGetSchedule(IMvxFileStore fileStore, string userName, string conferenceSlug, bool isRefreshing, ICacheService cache, Action<ScheduleDto> success, Action<Exception> error)
+		private static void DoAsyncGetSchedule(IMvxFileStore fileStore, ILocalScheduleRepository localScheduleRepository, string userName, string conferenceSlug, bool isRefreshing, ICacheService cache, Action<ScheduleDto> success, Action<Exception> error)
 		{
-			var search = new ScheduleService(fileStore, userName, conferenceSlug, isRefreshing, cache, success, error);
+			var search = new ScheduleService(fileStore, localScheduleRepository, userName, conferenceSlug, isRefreshing, cache, success, error);
 			search.GetSchedule();
 		}
 
-		private static void DoAsyncAddToScheduleSchedule(IMvxFileStore fileStore, string userName, string conferenceSlug, bool isRefreshing, ICacheService cache, Action<ScheduleDto> success, Action<Exception> error)
+		private static void DoAsyncAddToScheduleSchedule(IMvxFileStore fileStore, ILocalScheduleRepository localScheduleRepository, string userName, string conferenceSlug, bool isRefreshing, ICacheService cache, Action<ScheduleDto> success, Action<Exception> error)
 		{
-			var search = new ScheduleService(fileStore, userName, conferenceSlug, isRefreshing, cache, success, error);
+			var search = new ScheduleService(fileStore, localScheduleRepository, userName, conferenceSlug, isRefreshing, cache, success, error);
 			search.StartAddToSchedule();
 		}
 
-		private static void DoAsyncRemoveFromScheduleSchedule(IMvxFileStore fileStore, string userName, string conferenceSlug, bool isRefreshing, ICacheService cache, Action<ScheduleDto> success, Action<Exception> error)
+		private static void DoAsyncRemoveFromScheduleSchedule(IMvxFileStore fileStore, ILocalScheduleRepository localScheduleRepository, string userName, string conferenceSlug, bool isRefreshing, ICacheService cache, Action<ScheduleDto> success, Action<Exception> error)
 		{
-			var search = new ScheduleService(fileStore, userName, conferenceSlug, isRefreshing, cache, success, error);
+			var search = new ScheduleService(fileStore, localScheduleRepository, userName, conferenceSlug, isRefreshing, cache, success, error);
 			search.StartRemoveFromSchedule();
 		}
 
@@ -118,21 +122,17 @@ namespace TekConf.Core.Models
 				const string path = "schedules.json";
 
 				//var cachedSchedules = _cache.Get<string, List<FullConferenceDto>>("schedules");
-				List<FullConferenceDto> cachedSchedules = null;
-				if (cachedSchedules != null && !_isRefreshing)
+				//List<FullConferenceDto> cachedSchedules = null;
+				//if (cachedSchedules != null && !_isRefreshing)
+				//{
+				//	_getSchedulesSuccess(cachedSchedules);
+				//}
+				//else 
+
+				var list = _localScheduleRepository.GetConferencesList();
+				if (list != null && !_isRefreshing)
 				{
-					_getSchedulesSuccess(cachedSchedules);
-				}
-				else if (_fileStore.Exists(path) && !_isRefreshing)
-				{
-					string response;
-					if (_fileStore.TryReadTextFile(path, out response))
-					{
-						var conferences = JsonConvert.DeserializeObject<List<FullConferenceDto>>(response).OrderBy(x => x.start).ToList();
-						_cache.Add("schedules", conferences, new TimeSpan(0, 0, 15));
-			
-						_getSchedulesSuccess(conferences);
-					}
+					_getSchedulesSuccess(list);
 				}
 				else
 				{
@@ -188,7 +188,7 @@ namespace TekConf.Core.Models
 		private void GetScheduleFromWeb()
 		{
 			string uri = string.Format(GetScheduleUrl, _userName, _conferenceSlug);
-			var request = (HttpWebRequest) WebRequest.Create(new Uri(uri));
+			var request = (HttpWebRequest)WebRequest.Create(new Uri(uri));
 			request.Accept = "application/json";
 
 			request.BeginGetResponse(ReadGetScheduleCallback, request);
@@ -198,7 +198,7 @@ namespace TekConf.Core.Models
 		{
 			var schedule = JsonConvert.DeserializeObject<ScheduleDto>(response);
 			schedule.sessions = schedule.sessions.OrderBy(x => x.start).ToList();
-			_cache.Add("schedule", schedule, new TimeSpan(0, 0, 15));
+			//_cache.Add("schedule", schedule, new TimeSpan(0, 0, 15));
 			_getScheduleSuccess(schedule);
 		}
 
@@ -320,32 +320,11 @@ namespace TekConf.Core.Models
 
 		private void HandleGetSchedulesResponse(string response)
 		{
-			const string schedulesLastUpdatedPath = "scheduleLastUpdated.json";
-			if (_fileStore.Exists(schedulesLastUpdatedPath))
-			{
-				_fileStore.DeleteFile(schedulesLastUpdatedPath);
-			}
-
-			if (!_fileStore.Exists(schedulesLastUpdatedPath))
-			{
-				var schedulesLastUpdated = new DataLastUpdated { LastUpdated = DateTime.Now };
-				var json = JsonConvert.SerializeObject(schedulesLastUpdated);
-				_fileStore.WriteFile(schedulesLastUpdatedPath, json);
-			}
-
-			const string schedulesPath = "schedules.json";
-			if (_fileStore.Exists(schedulesPath))
-			{
-				_fileStore.DeleteFile(schedulesPath);
-			}
-			if (!_fileStore.Exists(schedulesPath))
-			{
-				_fileStore.WriteFile(schedulesPath, response);
-			}
-			
-			var conferences = JsonConvert.DeserializeObject<List<FullConferenceDto>>(response).OrderBy(x => x.start).ToList();
-			_cache.Add("schedules", conferences, new TimeSpan(0, 0, 15));
-			_getSchedulesSuccess(conferences);
+			var scheduledConferences = JsonConvert.DeserializeObject<List<FullConferenceDto>>(response).OrderBy(x => x.start).ToList();
+			_localScheduleRepository.SaveSchedules(scheduledConferences);
+			scheduledConferences = null;
+			var list = _localScheduleRepository.GetConferencesList();
+			_getSchedulesSuccess(list);
 		}
 
 		private void HandleGetScheduleResponse(string response)
@@ -362,12 +341,12 @@ namespace TekConf.Core.Models
 					_fileStore.WriteFile(path, response);
 				}
 				var schedule = JsonConvert.DeserializeObject<ScheduleDto>(response);
-				
+
 				if (schedule.IsNull())
 					schedule = new ScheduleDto();
 
 				schedule.sessions = schedule.sessions.OrderBy(x => x.start).ToList();
-				_cache.Add(path, schedule, new TimeSpan(0, 0, 15));
+				//_cache.Add(path, schedule, new TimeSpan(0, 0, 15));
 
 				_getScheduleSuccess(schedule);
 			}
