@@ -6,6 +6,7 @@ using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 using TekConf.Core.Interfaces;
 using TekConf.Core.Models;
+using TekConf.Core.Repositories;
 using TekConf.Core.Services;
 using TekConf.RemoteData.Dtos.v1;
 
@@ -44,7 +45,7 @@ namespace TekConf.Core.ViewModels
 
 			IsLoading = true;
 			_analytics.SendView("ConferenceDetail-" + slug);
-			_remoteDataService.GetConference(slug, isRefreshing, Success, Error);
+			_remoteDataService.GetConferenceDetail(slug, isRefreshing, Success, Error);
 		}
 
 		private void Error(Exception exception)
@@ -54,12 +55,12 @@ namespace TekConf.Core.ViewModels
 			IsLoading = false;
 		}
 
-		private void Success(FullConferenceDto conference)
+		private void Success(ConferenceDetailViewDto conference)
 		{
 			InvokeOnMainThread(() => DisplayConference(conference));
 		}
 
-		private void DisplayConference(FullConferenceDto conference)
+		private void DisplayConference(ConferenceDetailViewDto conference)
 		{
 			 
 			IsAuthenticated = _authentication.IsAuthenticated;
@@ -78,7 +79,7 @@ namespace TekConf.Core.ViewModels
 		{
 			get
 			{
-				return Conference != null && Conference.sessions != null && Conference.sessions.Any();
+				return Conference != null && Conference.hasSessions;
 			}
 		}
 
@@ -110,8 +111,8 @@ namespace TekConf.Core.ViewModels
 			}
 		}
 
-		private FullConferenceDto _conference;
-		public FullConferenceDto Conference
+		private ConferenceDetailViewDto _conference;
+		public ConferenceDetailViewDto Conference
 		{
 			get
 			{

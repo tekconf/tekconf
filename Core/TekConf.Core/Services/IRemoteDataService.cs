@@ -21,12 +21,14 @@ namespace TekConf.Core.Services
 					double? latitude = null,
 					double? longitude = null,
 					double? distance = null,
-					Action<IEnumerable<FullConferenceDto>> success = null,
+					Action<IEnumerable<ConferencesListViewDto>> success = null,
 					Action<Exception> error = null);
 
+		void GetConferenceSessionsList(string slug, bool isRefreshing,
+			Action<ConferenceSessionsListViewDto> success = null, Action<Exception> error = null);
 
-		void GetConference(string slug, bool isRefreshing,
-			Action<FullConferenceDto> success = null,
+		void GetConferenceDetail(string slug, bool isRefreshing,
+			Action<ConferenceDetailViewDto> success = null,
 			Action<Exception> error = null);
 
 		void GetSchedule(string userName, string conferenceSlug, bool isRefreshing, Action<ScheduleDto> success = null, Action<Exception> error = null);

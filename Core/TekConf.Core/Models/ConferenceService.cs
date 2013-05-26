@@ -21,11 +21,12 @@ namespace TekConf.Core.Models
 		private readonly ICacheService _cache;
 		private readonly IAuthentication _authentication;
 		private readonly ILocalScheduleRepository _localScheduleRepository;
-		private readonly Action<FullConferenceDto> _success;
+		private readonly ILocalConferencesRepository _localConferencesRepository;
+		private readonly Action<ConferenceDetailViewDto> _success;
 		private readonly Action<Exception> _error;
 		private string _slug;
 
-		private ConferenceService(IMvxFileStore fileStore, IMvxReachability reachability, bool isRefreshing, ICacheService cache, IAuthentication authentication, ILocalScheduleRepository localScheduleRepository, Action<FullConferenceDto> success, Action<Exception> error)
+		private ConferenceService(IMvxFileStore fileStore, IMvxReachability reachability, bool isRefreshing, ICacheService cache, IAuthentication authentication, ILocalScheduleRepository localScheduleRepository, ILocalConferencesRepository localConferencesRepository, Action<ConferenceDetailViewDto> success, Action<Exception> error)
 		{
 			_fileStore = fileStore;
 			_reachability = reachability;
@@ -33,30 +34,31 @@ namespace TekConf.Core.Models
 			_cache = cache;
 			_authentication = authentication;
 			_localScheduleRepository = localScheduleRepository;
+			_localConferencesRepository = localConferencesRepository;
 			_success = success;
 			_error = error;
 		}
 
-		public static void GetConferenceAsync(IMvxFileStore fileStore, ILocalScheduleRepository localScheduleRepository, IMvxReachability reachability, string slug, bool isRefreshing, ICacheService cache, IAuthentication authentication, Action<FullConferenceDto> success, Action<Exception> error)
+		public static void GetConferenceDetailAsync(IMvxFileStore fileStore, ILocalScheduleRepository localScheduleRepository, ILocalConferencesRepository localConferencesRepository, IMvxReachability reachability, string slug, bool isRefreshing, ICacheService cache, IAuthentication authentication, Action<ConferenceDetailViewDto> success, Action<Exception> error)
 		{
-			MvxAsyncDispatcher.BeginAsync(() => 
-				DoAsyncGetConference(fileStore, localScheduleRepository, reachability, slug, isRefreshing, cache, authentication, success, error)
+			MvxAsyncDispatcher.BeginAsync(() =>
+				DoAsyncGetConferenceDetail(fileStore, localScheduleRepository, localConferencesRepository, reachability, slug, isRefreshing, cache, authentication, success, error)
 				);
 		}
 
-		private static void DoAsyncGetConference(IMvxFileStore fileStore, ILocalScheduleRepository localScheduleRepository, IMvxReachability reachability, string slug, bool isRefreshing, ICacheService cache, IAuthentication authentication, Action<FullConferenceDto> success, Action<Exception> error)
+		private static void DoAsyncGetConferenceDetail(IMvxFileStore fileStore, ILocalScheduleRepository localScheduleRepository, ILocalConferencesRepository localConferencesRepository, IMvxReachability reachability, string slug, bool isRefreshing, ICacheService cache, IAuthentication authentication, Action<ConferenceDetailViewDto> success, Action<Exception> error)
 		{
-			var search = new ConferenceService(fileStore, reachability, isRefreshing, cache, authentication, localScheduleRepository, success, error);
-			search.StartGetConferenceSearch(slug);
+			var search = new ConferenceService(fileStore, reachability, isRefreshing, cache, authentication, localScheduleRepository, localConferencesRepository, success, error);
+			search.StartGetConferenceDetail(slug);
 		}
 
-		private FullConferenceDto _conference;
-		private void GetConferenceSuccess(FullConferenceDto conference)
+		private ConferenceDetailViewDto _conference;
+		private void GetConferenceDetailSuccess(ConferenceDetailViewDto conference)
 		{
 			if (_authentication.IsAuthenticated)
 			{
 				_conference = conference;
-				ScheduleService.GetScheduleAsync(_fileStore,_localScheduleRepository, _authentication.UserName, conference.slug, false, _cache, GetScheduleSuccess, GetScheduleError);
+				ScheduleService.GetScheduleAsync(_fileStore, _localScheduleRepository, _authentication.UserName, conference.slug, false, _cache, GetScheduleSuccess, GetScheduleError);
 			}
 			else
 			{
@@ -80,7 +82,7 @@ namespace TekConf.Core.Models
 			_success(_conference);
 		}
 
-		private void StartGetConferenceSearch(string slug)
+		private void StartGetConferenceDetail(string slug)
 		{
 			_slug = slug;
 
@@ -88,41 +90,15 @@ namespace TekConf.Core.Models
 			{
 				var path = _slug + ".json";
 
-				//var json = _cache.Get<string, string>("conferences.json");
-				//string json = null;
-				List<FullConferenceDto> cachedConferences = null;
-				//if (!string.IsNullOrWhiteSpace(json) && !_isRefreshing)
-				//{
-				//	cachedConferences = JsonConvert.DeserializeObject<List<FullConferenceDto>>(json);
-				//}
-
-				if (cachedConferences != null)
+				var conferenceDetail = _localConferencesRepository.GetConferenceDetail(slug);
+				if (conferenceDetail != null && !_isRefreshing)
 				{
-					var conference = cachedConferences.FirstOrDefault(c => c.slug == slug);
-					if (conference == null)
-					{
-						GetRemoteConference(slug);
-					}
-					else
-					{
-						GetConferenceSuccess(conference);
-					}
-				}
-				else if (_fileStore.Exists(path) && !_isRefreshing)
-				{
-					string response;
-					if (_fileStore.TryReadTextFile(path, out response))
-					{
-						var conference = JsonConvert.DeserializeObject<FullConferenceDto>(response);
-						GetConferenceSuccess(conference);
-					}
+					GetConferenceDetailSuccess(conferenceDetail);
 				}
 				else
 				{
 					GetRemoteConference(slug);
 				}
-
-
 			}
 			catch (Exception exception)
 			{
@@ -133,11 +109,10 @@ namespace TekConf.Core.Models
 		private void GetRemoteConference(string slug)
 		{
 			var uri = string.Format("http://api.tekconf.com/v1/conferences/{0}?format=json", slug);
-			var request = (HttpWebRequest) WebRequest.Create(new Uri(uri));
+			var request = (HttpWebRequest)WebRequest.Create(new Uri(uri));
 			request.Accept = "application/json";
 			request.BeginGetResponse(ReadGetConferenceCallback, request);
 		}
-
 
 		private void ReadGetConferenceCallback(IAsyncResult asynchronousResult)
 		{
@@ -157,38 +132,17 @@ namespace TekConf.Core.Models
 			}
 		}
 
-
 		private void HandleGetConferenceResponse(string response)
 		{
-			var path = _slug + ".json";
-			if (_fileStore.Exists(path))
-			{
-				_fileStore.DeleteFile(path);
-			}
-			if (!_fileStore.Exists(path))
-			{
-				_fileStore.WriteFile(path, response);
-			}
-
 			var conference = JsonConvert.DeserializeObject<FullConferenceDto>(response);
-			//var json = _cache.Get<string, string>("conferences.json");
-			//string json = null;
-			//List<FullConferenceDto> cachedConferences = null;
-			//if (!string.IsNullOrWhiteSpace(json))
-			//{
-			//	cachedConferences = JsonConvert.DeserializeObject<List<FullConferenceDto>>(json);
-			//}
 
-			//if (cachedConferences != null && conference != null && !cachedConferences.Any(x => x.slug == conference.slug))
-			//{
-			//	cachedConferences.Add(conference);
-				
-			//	_cache.Add("conferences.json", response, new TimeSpan(0, 8, 0));
-			//}
-			GetConferenceSuccess(conference);
+			_localConferencesRepository.SaveConference(conference);
+
+			var conferenceDetail = _localConferencesRepository.GetConferenceDetail(conference.slug);
+
+
+			GetConferenceDetailSuccess(conferenceDetail);
 		}
-
-
 
 	}
 }

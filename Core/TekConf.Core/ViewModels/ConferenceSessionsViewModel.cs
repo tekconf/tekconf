@@ -5,6 +5,7 @@ using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 using TekConf.Core.Interfaces;
 using TekConf.Core.Models;
+using TekConf.Core.Repositories;
 using TekConf.Core.Services;
 using TekConf.RemoteData.Dtos.v1;
 
@@ -68,7 +69,7 @@ namespace TekConf.Core.ViewModels
 
 			IsLoadingConference = true;
 			_analytics.SendView("ConferenceSessions-" + slug);
-			_remoteDataService.GetConference(slug, isRefreshing, GetConferenceSuccess, GetConferenceError);
+			_remoteDataService.GetConferenceSessionsList(slug, isRefreshing, GetConferenceSuccess, GetConferenceError);
 		}
 
 		private void GetConferenceError(Exception exception)
@@ -78,12 +79,12 @@ namespace TekConf.Core.ViewModels
 			IsLoadingConference = false;
 		}
 
-		private void GetConferenceSuccess(FullConferenceDto conference)
+		private void GetConferenceSuccess(ConferenceSessionsListViewDto conference)
 		{
 			InvokeOnMainThread(() => DisplayConference(conference));
 		}
 
-		private void DisplayConference(FullConferenceDto conference)
+		private void DisplayConference(ConferenceSessionsListViewDto conference)
 		{
 			IsLoadingConference = false;
 			Conference = conference;
@@ -96,8 +97,8 @@ namespace TekConf.Core.ViewModels
 			set { _isLoadingConference = value; RaisePropertyChanged(() => IsLoadingConference); }
 		}
 
-		private FullConferenceDto _conference;
-		public FullConferenceDto Conference
+		private ConferenceSessionsListViewDto _conference;
+		public ConferenceSessionsListViewDto Conference
 		{
 			get
 			{
@@ -157,7 +158,7 @@ namespace TekConf.Core.ViewModels
 				if (Conference.IsNull())
 					return false;
 
-				return Conference.sessions.Any();
+				return Conference.Sessions.Any();
 			}
 			set
 			{

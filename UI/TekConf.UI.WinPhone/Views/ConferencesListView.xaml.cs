@@ -8,6 +8,7 @@ using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.WindowsPhone.Views;
 using Microsoft.Phone.Scheduler;
 using Microsoft.Phone.Shell;
+using TekConf.Core.Repositories;
 using TekConf.Core.ViewModels;
 using TekConf.RemoteData.Dtos.v1;
 
@@ -30,7 +31,7 @@ namespace TekConf.UI.WinPhone.Views
 			var stackPanel = sender as StackPanel;
 			if (stackPanel == null) 
 				return;
-			var conference = (stackPanel.DataContext) as FullConferenceDto;
+			var conference = (stackPanel.DataContext) as ConferencesListViewDto;
 			if (vm != null && conference != null) 
 				vm.ShowDetailCommand.Execute(conference.slug);
 		}

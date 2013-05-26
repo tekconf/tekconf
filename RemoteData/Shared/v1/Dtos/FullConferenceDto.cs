@@ -32,9 +32,9 @@ namespace TekConf.RemoteData.Dtos.v1
 		public string tagline { get; set; }
 
 
-		private byte[] _imageBytes;
 		private string _imageUrl;
 
+		private byte[] _imageBytes;
 		public byte[] ImageBytes
 		{
 			get

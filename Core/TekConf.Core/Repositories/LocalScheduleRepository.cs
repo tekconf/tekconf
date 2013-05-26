@@ -9,23 +9,6 @@ using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.Core.Repositories
 {
-	public interface ILocalScheduleRepository
-	{
-		FullSessionDto NextScheduledSession { get; }
-		void SaveSchedules(IEnumerable<FullConferenceDto> scheduledConferences);
-		IEnumerable<ConferencesListViewDto> GetConferencesList();
-
-	}
-
-	public class ConferencesListViewDto
-	{
-		public string name { get; set; }
-		public string DateRange { get; set; }
-		public string slug { get; set; }
-		public string FormattedAddress { get; set; }
-		public string imageUrl { get; set; }
-	}
-
 	public class LocalScheduleRepository : ILocalScheduleRepository
 	{
 		private readonly IMvxFileStore _fileStore;
@@ -43,15 +26,15 @@ namespace TekConf.Core.Repositories
 			SaveSchedulesLastUpdated();
 		}
 
-		private const string _conferencesListViewPath = "conferencesListView.json";
+		private const string _conferencesListViewSchedulesPath = "conferencesListViewSchedules.json";
 
 		public IEnumerable<ConferencesListViewDto> GetConferencesList()
 		{
 			IEnumerable<ConferencesListViewDto> conferencesListViewDtos = null;
-			if (_fileStore.Exists(_conferencesListViewPath))
+			if (_fileStore.Exists(_conferencesListViewSchedulesPath))
 			{
 				string json;
-				if (_fileStore.TryReadTextFile(_conferencesListViewPath, out json))
+				if (_fileStore.TryReadTextFile(_conferencesListViewSchedulesPath, out json))
 				{
 					conferencesListViewDtos = JsonConvert.DeserializeObject<List<ConferencesListViewDto>>(json);
 				}
@@ -62,15 +45,15 @@ namespace TekConf.Core.Repositories
 
 		private void SaveSchedulesToFileStore(IEnumerable<FullConferenceDto> scheduledConferences)
 		{
-			if (_fileStore.Exists(_conferencesListViewPath))
+			if (_fileStore.Exists(_conferencesListViewSchedulesPath))
 			{
-				_fileStore.DeleteFile(_conferencesListViewPath);
+				_fileStore.DeleteFile(_conferencesListViewSchedulesPath);
 			}
-			if (!_fileStore.Exists(_conferencesListViewPath))
+			if (!_fileStore.Exists(_conferencesListViewSchedulesPath))
 			{
-				var filteredSchedules = scheduledConferences.Select(x => new ConferencesListViewDto { slug = x.slug, name = x.name, DateRange = x.DateRange, FormattedAddress = x.FormattedAddress, imageUrl = x.imageUrl }).ToList();
+				var filteredSchedules = scheduledConferences.Select(x => new ConferencesListViewDto(x, _fileStore)).ToList();
 				var json = JsonConvert.SerializeObject(filteredSchedules);
-				_fileStore.WriteFile(_conferencesListViewPath, json);
+				_fileStore.WriteFile(_conferencesListViewSchedulesPath, json);
 			}
 		}
 
@@ -94,21 +77,20 @@ namespace TekConf.Core.Repositories
 		{
 			get
 			{
-
-				if (_fileStore.Exists(_schedulesPath))
+				var scheduledConferences = GetConferencesList();
+				if (scheduledConferences != null)
 				{
-					string json;
-
-					var ss = _fileStore.NativePath(_schedulesPath);
-					if (_fileStore.TryReadTextFile(_schedulesPath, out json))
+					var conference = scheduledConferences.FirstOrDefault(x => x.start > DateTime.Now);
+					if (conference != null)
 					{
-						var conferences = JsonConvert.DeserializeObject<List<FullConferenceDto>>(json);
-						var sessions = conferences.SelectMany(x => x.sessions);
-						var session = sessions.Where(x => x.isAddedToSchedule == true).Where(x => x.start >= DateTime.Now).OrderBy(x => x.start).FirstOrDefault();
-					}
-				}
+						return new FullSessionDto() {title = conference.name};
 
-				return null;
+					}
+					//var session = sessions.Where(x => x.isAddedToSchedule == true).Where(x => x.start >= DateTime.Now).OrderBy(x => x.start).FirstOrDefault();
+				}
+				
+
+				return new FullSessionDto() { title = "None"};
 			}
 		}
 	}

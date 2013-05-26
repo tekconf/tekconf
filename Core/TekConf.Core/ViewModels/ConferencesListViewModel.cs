@@ -16,16 +16,14 @@ namespace TekConf.Core.ViewModels
 		private readonly IRemoteDataService _remoteDataService;
 		private readonly IAnalytics _analytics;
 		private readonly IAuthentication _authentication;
-		private readonly ICacheService _cache;
 		private readonly IMvxMessenger _messenger;
 		private MvxSubscriptionToken _token;
 
-		public ConferencesListViewModel(IRemoteDataService remoteDataService, IAnalytics analytics, IAuthentication authentication, ICacheService cache, IMvxMessenger messenger)
+		public ConferencesListViewModel(IRemoteDataService remoteDataService, IAnalytics analytics, IAuthentication authentication, IMvxMessenger messenger)
 		{
 			_remoteDataService = remoteDataService;
 			_analytics = analytics;
 			_authentication = authentication;
-			_cache = cache;
 			_messenger = messenger;
 			_token = _messenger.Subscribe<AuthenticationMessage>(OnAuthenticateMessage);
 		}
@@ -94,9 +92,9 @@ namespace TekConf.Core.ViewModels
 			IsLoadingFavorites = false;
 		}
 
-		private void GetAllSuccess(IEnumerable<FullConferenceDto> enumerable)
+		private void GetAllSuccess(IEnumerable<ConferencesListViewDto> conferences)
 		{
-			InvokeOnMainThread(() => DisplayAllConferences(enumerable));
+			InvokeOnMainThread(() => DisplayAllConferences(conferences));
 		}
 
 		private void GetFavoritesSuccess(IEnumerable<ConferencesListViewDto> conferences)
@@ -122,9 +120,9 @@ namespace TekConf.Core.ViewModels
 			//}
 		}
 
-		private void DisplayAllConferences(IEnumerable<FullConferenceDto> enumerable)
+		private void DisplayAllConferences(IEnumerable<ConferencesListViewDto> conferences)
 		{
-			Conferences = enumerable.ToList();
+			Conferences = conferences.ToList();
 		}
 
 		private void DisplayFavoritesConferences(IEnumerable<ConferencesListViewDto> favorites)
@@ -168,8 +166,8 @@ namespace TekConf.Core.ViewModels
 			}
 		}
 
-		private List<FullConferenceDto> _conferences;
-		public List<FullConferenceDto> Conferences
+		private List<ConferencesListViewDto> _conferences;
+		public List<ConferencesListViewDto> Conferences
 		{
 			get
 			{
@@ -207,11 +205,6 @@ namespace TekConf.Core.ViewModels
 			set
 			{
 				_favorites = value;
-				//_cache.Remove("schedules");
-				//_cache.Add("schedules", value, new TimeSpan(0, 0, 15));
-				//if (_favorites != null)
-				//	SelectedFavorite = _favorites.FirstOrDefault(x => x.start >= DateTime.Now);
-
 				RaisePropertyChanged(() => Favorites);
 				IsLoadingFavorites = false;
 			}

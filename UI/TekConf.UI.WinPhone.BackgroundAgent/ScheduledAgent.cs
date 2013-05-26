@@ -1,11 +1,13 @@
 ﻿using System.Diagnostics;
 using System.IO;
 using System.IO.IsolatedStorage;
+using System.Linq;
 using System.Windows;
 using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Plugins.File;
 using Cirrious.MvvmCross.Plugins.File.WindowsPhone;
 using Microsoft.Phone.Scheduler;
+using Microsoft.Phone.Shell;
 using TekConf.Core.Repositories;
 
 namespace TekConf.UI.WinPhone.BackgroundAgent
@@ -45,19 +47,21 @@ namespace TekConf.UI.WinPhone.BackgroundAgent
 		/// </remarks>
 		protected override void OnInvoke(ScheduledTask task)
 		{
-			IsolatedStorageFile myIsolatedStorage = IsolatedStorageFile.GetUserStoreForApplication();
-			IsolatedStorageFileStream fileStream = myIsolatedStorage.OpenFile("schedules.json", FileMode.Open, FileAccess.Read);
-			using (var reader = new StreamReader(fileStream))
-			{    //Visualize the text data in a TextBlock text
-				var json = reader.ReadToEnd();
-			}
-
-			//TODO: Add code to perform your task in background
-			MvxIsolatedStorageFileStore fileStore = new MvxIsolatedStorageFileStore();
-			//string json = "";
-			//fileStore.TryReadTextFile("schedules.json", out json);
+			var fileStore = new MvxIsolatedStorageFileStore();
 			var scheduleRepository = new LocalScheduleRepository(fileStore);
-			var xx = scheduleRepository.NextScheduledSession;
+			var nextSession = scheduleRepository.NextScheduledSession;
+
+			ShellTile appTile = ShellTile.ActiveTiles.First();
+
+			var tileData = new FlipTileData()
+			{
+				BackContent = "BackContent",
+				BackTitle = "BackTitle",
+				Title = "Title",
+				WideBackContent = "WideBackContent"
+			};
+
+			appTile.Update(tileData);
 			NotifyComplete();
 		}
 	}

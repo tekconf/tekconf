@@ -15,14 +15,16 @@ namespace TekConf.Core.Services
 		private readonly ICacheService _cache;
 		private readonly IAuthentication _authentication;
 		private readonly ILocalScheduleRepository _localScheduleRepository;
+		private readonly ILocalConferencesRepository _localConferencesRepository;
 		private readonly IMvxReachability _reachability;
 
-		public RemoteDataService(IMvxFileStore fileStore, ICacheService cache, IAuthentication authentication, ILocalScheduleRepository localScheduleRepository)
+		public RemoteDataService(IMvxFileStore fileStore, ICacheService cache, IAuthentication authentication, ILocalScheduleRepository localScheduleRepository, ILocalConferencesRepository localConferencesRepository)
 		{
 			_fileStore = fileStore;
 			_cache = cache;
 			_authentication = authentication;
 			_localScheduleRepository = localScheduleRepository;
+			_localConferencesRepository = localConferencesRepository;
 			//_reachability = reachability;
 			_reachability = null;
 		}
@@ -41,15 +43,20 @@ namespace TekConf.Core.Services
 			double? latitude = null,
 			double? longitude = null,
 			double? distance = null,
-			Action<IEnumerable<FullConferenceDto>> success = null,
+			Action<IEnumerable<ConferencesListViewDto>> success = null,
 			Action<Exception> error = null)
 		{
-			ConferencesService.GetConferencesAsync(search, _fileStore, isRefreshing, _cache, success, error);
+			ConferencesService.GetConferencesAsync(search, _fileStore, _localConferencesRepository, isRefreshing, _cache, success, error);
 		}
 
-		public void GetConference(string slug, bool isRefreshing, Action<FullConferenceDto> success = null, Action<Exception> error = null)
+		public void GetConferenceSessionsList(string slug, bool isRefreshing, Action<ConferenceSessionsListViewDto> success = null, Action<Exception> error = null)
 		{
-			ConferenceService.GetConferenceAsync(_fileStore, _localScheduleRepository, _reachability, slug, isRefreshing, _cache, _authentication, success, error);
+			ConferenceSessionsService.GetConferenceSessionsAsync(_fileStore, _localScheduleRepository, _localConferencesRepository, _reachability, slug, isRefreshing, null, _authentication, success, error);
+		}
+
+		public void GetConferenceDetail(string slug, bool isRefreshing, Action<ConferenceDetailViewDto> success = null, Action<Exception> error = null)
+		{
+			ConferenceService.GetConferenceDetailAsync(_fileStore, _localScheduleRepository, _localConferencesRepository, _reachability, slug, isRefreshing, _cache, _authentication, success, error);
 		}
 
 		public void GetSchedule(string userName, string conferenceSlug, bool isRefreshing, Action<ScheduleDto> success = null, Action<Exception> error = null)

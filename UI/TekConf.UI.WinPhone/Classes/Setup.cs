@@ -26,6 +26,7 @@ namespace TekConf.UI.WinPhone
 			Mvx.RegisterSingleton(typeof(IAuthentication), new Authentication());
 			Mvx.RegisterType<ICacheService, CacheService>();
 			Mvx.RegisterType<ILocalNotificationsRepository, LocalNotificationsRepository>();
+			Mvx.RegisterType<ILocalConferencesRepository, LocalConferencesRepository>();
 			Mvx.RegisterType<ILocalScheduleRepository, LocalScheduleRepository>();
 			Mvx.RegisterType<IPushSharpClient, PushSharpClient>();
 			return new Core.App();
