@@ -6,6 +6,7 @@ using System.Net;
 using Cirrious.CrossCore.Core;
 using Cirrious.MvvmCross.Plugins.File;
 using Newtonsoft.Json;
+using TekConf.Core.Repositories;
 using TekConf.Core.Services;
 using TekConf.RemoteData.Dtos.v1;
 
@@ -16,28 +17,30 @@ namespace TekConf.Core.Models
 		private readonly bool _isRefreshing;
 		private readonly IMvxFileStore _fileStore;
 		private readonly ICacheService _cache;
-		private readonly Action<FullSessionDto> _success;
+		private readonly ILocalSessionRepository _localSessionRepository;
+		private readonly Action<SessionDetailDto> _success;
 		private readonly Action<Exception> _error;
 		private string _conferenceSlug;
 		private string _sessionSlug;
 
-		private SessionService(bool isRefreshing, IMvxFileStore fileStore, ICacheService cache, Action<FullSessionDto> success, Action<Exception> error)
+		private SessionService(bool isRefreshing, IMvxFileStore fileStore, ICacheService cache, ILocalSessionRepository localSessionRepository, Action<SessionDetailDto> success, Action<Exception> error)
 		{
 			_isRefreshing = isRefreshing;
 			_fileStore = fileStore;
 			_cache = cache;
+			_localSessionRepository = localSessionRepository;
 			_success = success;
 			_error = error;
 		}
 
-		public static void GetSessionAsync(IMvxFileStore fileStore, string conferenceSlug, string sessionSlug, bool isRefreshing, ICacheService cache, Action<FullSessionDto> getSessionSuccess, Action<Exception> getSessionError)
+		public static void GetSessionAsync(IMvxFileStore fileStore, string conferenceSlug, string sessionSlug, bool isRefreshing, ICacheService cache, ILocalSessionRepository localSessionRepository, Action<SessionDetailDto> getSessionSuccess, Action<Exception> getSessionError)
 		{
-			MvxAsyncDispatcher.BeginAsync(() => DoAsyncGetSession(fileStore, conferenceSlug, sessionSlug, isRefreshing, cache, getSessionSuccess, getSessionError));
+			MvxAsyncDispatcher.BeginAsync(() => DoAsyncGetSession(fileStore, conferenceSlug, sessionSlug, isRefreshing, cache, localSessionRepository, getSessionSuccess, getSessionError));
 		}
 
-		private static void DoAsyncGetSession(IMvxFileStore fileStore, string conferenceSlug, string sessionSlug, bool isRefreshing, ICacheService cache, Action<FullSessionDto> getSessionSuccess, Action<Exception> getSessionError)
+		private static void DoAsyncGetSession(IMvxFileStore fileStore, string conferenceSlug, string sessionSlug, bool isRefreshing, ICacheService cache, ILocalSessionRepository localSessionRepository, Action<SessionDetailDto> getSessionSuccess, Action<Exception> getSessionError)
 		{
-			var search = new SessionService(isRefreshing, fileStore, cache, getSessionSuccess, getSessionError);
+			var search = new SessionService(isRefreshing, fileStore, cache, localSessionRepository, getSessionSuccess, getSessionError);
 			search.StartGetSession(conferenceSlug, sessionSlug);
 		}
 
@@ -48,52 +51,31 @@ namespace TekConf.Core.Models
 				_conferenceSlug = conferenceSlug;
 				_sessionSlug = sessionSlug;
 
-				var path = conferenceSlug + "-" + sessionSlug + ".json";
+				var session = _localSessionRepository.GetSession(conferenceSlug, sessionSlug);
 
-				//var json = _cache.Get<string, string>("conferences.json");
-				//string json = null;
-				List<FullConferenceDto> cachedConferences = null;
-				//if (!string.IsNullOrWhiteSpace(json) && !_isRefreshing)
-				//{
-				//	cachedConferences = JsonConvert.DeserializeObject<List<FullConferenceDto>>(json);
-				//}
-
-				if (cachedConferences != null)
+				if (session != null && !_isRefreshing)
 				{
-					var conference = cachedConferences.FirstOrDefault(c => c.slug == conferenceSlug);
-					if (conference != null)
-					{
-						var session = conference.sessions.FirstOrDefault(s => s.slug == sessionSlug);
-						_success(session);
-					}
-					else
-					{
-						_error(new Exception("Session not found"));
-					}
-				}
-				else if (_fileStore.Exists(path) && !_isRefreshing)
-				{
-					string response;
-					if (_fileStore.TryReadTextFile(path, out response))
-					{
-						var session = JsonConvert.DeserializeObject<FullSessionDto>(response);
-						_success(session);
-					}
+					_success(session);
 				}
 				else
 				{
-					var uri = string.Format("http://api.tekconf.com/v1/conferences/{0}/sessions/{1}?format=json", conferenceSlug,
-						sessionSlug);
-					var request = (HttpWebRequest) WebRequest.Create(new Uri(uri));
-					request.Accept = "application/json";
-
-					request.BeginGetResponse(ReadGetSessionCallback, request);
+					GetSessionFromWeb(conferenceSlug, sessionSlug);
 				}
 			}
 			catch (Exception exception)
 			{
 				_error(exception);
 			}
+		}
+
+		private void GetSessionFromWeb(string conferenceSlug, string sessionSlug)
+		{
+			var uri = string.Format("http://api.tekconf.com/v1/conferences/{0}/sessions/{1}?format=json", conferenceSlug,
+				sessionSlug);
+			var request = (HttpWebRequest) WebRequest.Create(new Uri(uri));
+			request.Accept = "application/json";
+
+			request.BeginGetResponse(ReadGetSessionCallback, request);
 		}
 
 		private void ReadGetSessionCallback(IAsyncResult asynchronousResult)
@@ -117,19 +99,26 @@ namespace TekConf.Core.Models
 
 		private void HandleGetSessionResponse(string response)
 		{
-			var path = _conferenceSlug + "-" + _sessionSlug + ".json";
-
-			if (_fileStore.Exists(path))
+			if (!string.IsNullOrWhiteSpace(response))
 			{
-				_fileStore.DeleteFile(path);
+				var fullSession = JsonConvert.DeserializeObject<FullSessionDto>(response);
+				_localSessionRepository.SaveSession(_conferenceSlug, fullSession);
+				var session = _localSessionRepository.GetSession(_conferenceSlug, _sessionSlug);
+				if (session != null)
+				{
+					_success(session);
+				}
+				else
+				{
+					_error(new Exception("Session not found"));
+				}
 			}
-			if (!_fileStore.Exists(path))
+			else
 			{
-				_fileStore.WriteFile(path, response);
+				_error(new Exception("Session not downloaded"));
+
 			}
 
-			var session = JsonConvert.DeserializeObject<FullSessionDto>(response);
-			_success(session);
 		}
 
 

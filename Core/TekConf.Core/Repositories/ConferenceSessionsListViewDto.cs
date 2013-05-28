@@ -16,6 +16,7 @@ namespace TekConf.Core.Repositories
 			start = fullSession.start;
 			tags = fullSession.tags;
 			room = fullSession.room;
+			slug = fullSession.slug;
 		}
 
 		public string room { get; set; }
@@ -24,6 +25,7 @@ namespace TekConf.Core.Repositories
 		public string startDescription { get; set; }
 		public string speakerNames { get; set; }
 		public DateTime start { get; set; }
+		public string slug { get; set; }
 	}
 
 	public class ConferenceSessionsListViewDto

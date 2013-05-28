@@ -17,7 +17,8 @@ namespace TekConf.Core.ViewModels
 		private readonly IAnalytics _analytics;
 		private readonly IAuthentication _authentication;
 		private readonly IMvxMessenger _messenger;
-		private MvxSubscriptionToken _token;
+		private MvxSubscriptionToken _authenticationMessageToken;
+		private MvxSubscriptionToken _favoriteAddedMessageToken;
 
 		public ConferencesListViewModel(IRemoteDataService remoteDataService, IAnalytics analytics, IAuthentication authentication, IMvxMessenger messenger)
 		{
@@ -25,7 +26,14 @@ namespace TekConf.Core.ViewModels
 			_analytics = analytics;
 			_authentication = authentication;
 			_messenger = messenger;
-			_token = _messenger.Subscribe<AuthenticationMessage>(OnAuthenticateMessage);
+			_authenticationMessageToken = _messenger.Subscribe<AuthenticationMessage>(OnAuthenticateMessage);
+			_favoriteAddedMessageToken = _messenger.Subscribe<FavoriteAddedMessage>(OnFavoriteAddedMessage);
+
+		}
+
+		private void OnFavoriteAddedMessage(FavoriteAddedMessage message)
+		{
+			StartGetFavorites(true);			
 		}
 
 		private void OnAuthenticateMessage(AuthenticationMessage message)

@@ -222,6 +222,21 @@ namespace TekConf.Core.ViewModels
 
 		public ICommand AddFavoriteCommand { get; set; }
 
+		private void RefreshFavorites()
+		{
+			var userName = _authentication.UserName;
+			_remoteDataService.GetSchedules(userName, true, GetFavoritesSuccess, GetFavoritesError);
+		}
+
+		private void GetFavoritesError(Exception exception)
+		{
+			
+		}
+
+		private void GetFavoritesSuccess(IEnumerable<ConferencesListViewDto> conferences)
+		{
+		}
+
 
 		private void AddConferenceToFavorites()
 		{
@@ -231,30 +246,37 @@ namespace TekConf.Core.ViewModels
 				{
 					Conference.isAddedToSchedule = true;
 					RaisePropertyChanged(() => Conference);
+					_messenger.Publish(new FavoriteAddedMessage(this, dto));
 				});
+
 				var addError = new Action<Exception>(ex =>
 				{
 					Conference.isAddedToSchedule = false;
 					RaisePropertyChanged(() => Conference);
+					RefreshFavorites();
 				});
 
 				var removeSuccess = new Action<ScheduleDto>(dto =>
 				{
 					Conference.isAddedToSchedule = false;
 					RaisePropertyChanged(() => Conference);
+					RefreshFavorites();
 				});
 				var removeError = new Action<Exception>(ex =>
 				{
 					Conference.isAddedToSchedule = true;
 					RaisePropertyChanged(() => Conference);
+					RefreshFavorites();
 				});
 
 				if (Conference.isAddedToSchedule == true)
 				{
+					removeSuccess(null);
 					_remoteDataService.RemoveFromSchedule(_authentication.UserName, Conference.slug, removeSuccess, removeError);					
 				}
 				else
 				{
+					addSuccess(null);
 					_remoteDataService.AddToSchedule(_authentication.UserName, Conference.slug, addSuccess, addError);					
 				}
 			}

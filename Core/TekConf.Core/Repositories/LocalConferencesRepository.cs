@@ -11,11 +11,13 @@ namespace TekConf.Core.Repositories
 	public class LocalConferencesRepository : ILocalConferencesRepository
 	{
 		private readonly IMvxFileStore _fileStore;
+		private readonly ILocalSessionRepository _localSessionRepository;
 		private const string _conferencesListViewPath = "conferencesListView.json";
 
-		public LocalConferencesRepository(IMvxFileStore fileStore)
+		public LocalConferencesRepository(IMvxFileStore fileStore, ILocalSessionRepository localSessionRepository)
 		{
 			_fileStore = fileStore;
+			_localSessionRepository = localSessionRepository;
 		}
 
 		#region Save
@@ -77,6 +79,39 @@ namespace TekConf.Core.Repositories
 					var json = JsonConvert.SerializeObject(conference);
 					_fileStore.WriteFile(conferenceJsonPath, json);
 				}
+
+				SaveConferenceDetail(conference);
+				SaveConferenceSessions(conference);
+			}
+		}
+
+		private void SaveConferenceDetail(FullConferenceDto conference)
+		{
+			if (conference != null)
+			{
+				var conferenceJsonPath = conference.slug + "-detail.json";
+				if (_fileStore.Exists(conferenceJsonPath))
+				{
+					_fileStore.DeleteFile(conferenceJsonPath);
+				}
+
+				if (!_fileStore.Exists(conferenceJsonPath))
+				{
+					var conferenceDetail = new ConferenceDetailViewDto(conference);
+					var json = JsonConvert.SerializeObject(conferenceDetail);
+					_fileStore.WriteFile(conferenceJsonPath, json);
+				}
+			}
+		}
+
+		private void SaveConferenceSessions(FullConferenceDto conference)
+		{
+			if (conference.sessions != null && conference.sessions.Any())
+			{
+				foreach (var session in conference.sessions)
+				{
+					_localSessionRepository.SaveSession(conference.slug, session);
+				}
 			}
 		}
 
@@ -117,33 +152,40 @@ namespace TekConf.Core.Repositories
 
 		public ConferenceDetailViewDto GetConferenceDetail(string slug)
 		{
-			var fullConference = GetFullConference(slug);
-
-			if (fullConference != null)
+			if (!string.IsNullOrWhiteSpace(slug))
 			{
-				var conferenceDetailViewDto = new ConferenceDetailViewDto(fullConference);
-				return conferenceDetailViewDto;
-			}
+				var conferenceJsonPath = slug + "-detail.json";
 
-			return null;
-		}
-
-		private FullConferenceDto GetFullConference(string slug)
-		{
-			var conferenceJsonPath = slug + ".json";
-
-			if (_fileStore.Exists(conferenceJsonPath))
-			{
-				string json;
-				if (_fileStore.TryReadTextFile(conferenceJsonPath, out json))
+				if (_fileStore.Exists(conferenceJsonPath))
 				{
-					var fullConference = JsonConvert.DeserializeObject<FullConferenceDto>(json);
-					return fullConference;
+					string json;
+					if (_fileStore.TryReadTextFile(conferenceJsonPath, out json))
+					{
+						var conferenceDetail = JsonConvert.DeserializeObject<ConferenceDetailViewDto>(json);
+						return conferenceDetail;
+					}
 				}
 			}
 
 			return null;
 		}
+
+		//private FullConferenceDto GetFullConference(string slug)
+		//{
+		//	var conferenceJsonPath = slug + ".json";
+
+		//	if (_fileStore.Exists(conferenceJsonPath))
+		//	{
+		//		string json;
+		//		if (_fileStore.TryReadTextFile(conferenceJsonPath, out json))
+		//		{
+		//			var fullConference = JsonConvert.DeserializeObject<FullConferenceDto>(json);
+		//			return fullConference;
+		//		}
+		//	}
+
+		//	return null;
+		//}
 
 		#endregion
 

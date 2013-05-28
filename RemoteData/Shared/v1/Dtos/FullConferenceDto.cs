@@ -1,22 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Cirrious.CrossCore;
-using Cirrious.MvvmCross.Plugins.File;
-using Cirrious.MvvmCross.ViewModels;
-using TekConf.Core.Models;
+
 
 namespace TekConf.RemoteData.Dtos.v1
 {
-	public class FullConferenceDto : MvxViewModel
+	public class FullConferenceDto
 	{
-		private readonly IMvxFileStore _fileStore;
-
-		public FullConferenceDto()
-		{
-			_fileStore = Mvx.Resolve<IMvxFileStore>();
-		}
-
 		public string slug { get; set; }
 
 		public string name { get; set; }
@@ -30,48 +20,8 @@ namespace TekConf.RemoteData.Dtos.v1
 		public string location { get; set; }
 		public AddressDto address { get; set; }
 		public string tagline { get; set; }
-
-
-		private string _imageUrl;
-
-		private byte[] _imageBytes;
-		public byte[] ImageBytes
-		{
-			get
-			{
-				return _imageBytes;
-			}
-			set
-			{
-				_imageBytes = value;
-				RaisePropertyChanged(() => ImageBytes);
-			}
-		}
-
-		private void GetImageError(Exception obj)
-		{
-
-		}
-
-		private void GetImageSuccess(byte[] image)
-		{
-			InvokeOnMainThread(() => 
-				ImageBytes = image
-				);			
-		}
-
-		public string imageUrl
-		{
-			get { return _imageUrl; }
-			set
-			{
-				_imageUrl = value;
-				ImageService.GetImageAsync(_fileStore, null, _imageUrl, GetImageSuccess, GetImageError);
-			}
-		}
-
+		public string imageUrl { get; set; }
 		public bool isLive { get; set; }
-
 		public string facebookUrl { get; set; }
 		public string homepageUrl { get; set; }
 		public string lanyrdUrl { get; set; }
@@ -90,31 +40,6 @@ namespace TekConf.RemoteData.Dtos.v1
 		public List<string> sessionTypes { get; set; }
 		public List<string> subjects { get; set; }
 		public List<string> tags { get; set; }
-
-		public List<FullSessionDto> SessionsByTime
-		{
-			get { return sessions == null ? new List<FullSessionDto>() : sessions.OrderBy(x => x.start).ThenBy(t => t.title).ToList(); }
-		}
-
-		public List<FullSessionDto> SessionsByTitle
-		{
-			get { return sessions == null ? new List<FullSessionDto>() : sessions.OrderBy(x => x.title).ToList(); }
-		}
-
-		public List<FullSessionDto> SessionsBySpeaker
-		{
-			get { return sessions == null ? new List<FullSessionDto>() : sessions.OrderBy(x => x.speakers.OrderBy(s => s.lastName).Select(l => l.fullName).FirstOrDefault()).ThenBy(t => t.title).ToList(); }
-		}
-
-		public List<FullSessionDto> SessionsByTag
-		{
-			get { return sessions == null ? new List<FullSessionDto>() : sessions.OrderBy(x => x.tags.OrderBy(s => s).FirstOrDefault()).ThenBy(t => t.title).ToList(); }
-		}
-
-		public List<FullSessionDto> SessionsByRoom
-		{
-			get { return sessions == null ? new List<FullSessionDto>() : sessions.OrderBy(x => x.room).ThenBy(t => t.title).ToList(); }
-		}
 
 		public List<FullSessionDto> sessions { get; set; }
 
@@ -208,6 +133,7 @@ namespace TekConf.RemoteData.Dtos.v1
 				return formattedAddress;
 			}
 		}
+
 		public string CalculateConferenceDates(FullConferenceDto conference)
 		{
 			string conferenceDates = "No dates scheduled";

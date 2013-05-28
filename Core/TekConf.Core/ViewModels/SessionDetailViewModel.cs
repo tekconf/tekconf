@@ -3,6 +3,7 @@ using System.Windows.Input;
 using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 using TekConf.Core.Interfaces;
+using TekConf.Core.Repositories;
 using TekConf.Core.Services;
 using TekConf.RemoteData.Dtos.v1;
 
@@ -50,12 +51,12 @@ namespace TekConf.Core.ViewModels
 			IsLoading = false;
 		}
 
-		private void GetSessionSuccess(FullSessionDto session)
+		private void GetSessionSuccess(SessionDetailDto session)
 		{
 			InvokeOnMainThread(() => DisplaySession(session));
 		}
 
-		private void DisplaySession(FullSessionDto session)
+		private void DisplaySession(SessionDetailDto session)
 		{
 			IsLoading = false;
 			Session = session;
@@ -68,8 +69,8 @@ namespace TekConf.Core.ViewModels
 			set { _isLoading = value; RaisePropertyChanged(() => IsLoading); }
 		}
 
-		private FullSessionDto _session;
-		public FullSessionDto Session
+		private SessionDetailDto _session;
+		public SessionDetailDto Session
 		{
 			get
 			{

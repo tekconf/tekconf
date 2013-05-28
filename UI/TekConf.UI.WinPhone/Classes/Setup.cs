@@ -28,6 +28,8 @@ namespace TekConf.UI.WinPhone
 			Mvx.RegisterType<ILocalNotificationsRepository, LocalNotificationsRepository>();
 			Mvx.RegisterType<ILocalConferencesRepository, LocalConferencesRepository>();
 			Mvx.RegisterType<ILocalScheduleRepository, LocalScheduleRepository>();
+			Mvx.RegisterType<ILocalSessionRepository, LocalSessionRepository>();
+
 			Mvx.RegisterType<IPushSharpClient, PushSharpClient>();
 			return new Core.App();
 		}

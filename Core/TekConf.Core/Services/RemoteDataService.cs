@@ -16,15 +16,17 @@ namespace TekConf.Core.Services
 		private readonly IAuthentication _authentication;
 		private readonly ILocalScheduleRepository _localScheduleRepository;
 		private readonly ILocalConferencesRepository _localConferencesRepository;
+		private readonly ILocalSessionRepository _localSessionRepository;
 		private readonly IMvxReachability _reachability;
 
-		public RemoteDataService(IMvxFileStore fileStore, ICacheService cache, IAuthentication authentication, ILocalScheduleRepository localScheduleRepository, ILocalConferencesRepository localConferencesRepository)
+		public RemoteDataService(IMvxFileStore fileStore, ICacheService cache, IAuthentication authentication, ILocalScheduleRepository localScheduleRepository, ILocalConferencesRepository localConferencesRepository, ILocalSessionRepository localSessionRepository)
 		{
 			_fileStore = fileStore;
 			_cache = cache;
 			_authentication = authentication;
 			_localScheduleRepository = localScheduleRepository;
 			_localConferencesRepository = localConferencesRepository;
+			_localSessionRepository = localSessionRepository;
 			//_reachability = reachability;
 			_reachability = null;
 		}
@@ -84,9 +86,9 @@ namespace TekConf.Core.Services
 			ScheduleService.RemoveFromScheduleAsync(_fileStore, _localScheduleRepository, userName, conferenceSlug, false, _cache, success, error);
 		}
 
-		public void GetSession(string conferenceSlug, string sessionSlug, bool isRefreshing, Action<FullSessionDto> success, Action<Exception> error)
+		public void GetSession(string conferenceSlug, string sessionSlug, bool isRefreshing, Action<SessionDetailDto> success, Action<Exception> error)
 		{
-			SessionService.GetSessionAsync(_fileStore, conferenceSlug, sessionSlug, isRefreshing, _cache, success, error);
+			SessionService.GetSessionAsync(_fileStore, conferenceSlug, sessionSlug, isRefreshing, _cache, _localSessionRepository, success, error);
 		}
 
 		public void GetIsOauthUserRegistered(string userId, Action<string> success, Action<Exception> error)

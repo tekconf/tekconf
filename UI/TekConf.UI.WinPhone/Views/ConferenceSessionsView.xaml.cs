@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Cirrious.MvvmCross.Plugins.Messenger;
+using TekConf.Core.Repositories;
 using TekConf.Core.ViewModels;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.UI.WinPhone.Bootstrap;
@@ -38,7 +39,7 @@ namespace TekConf.UI.WinPhone.Views
 			var button = (sender as Button);
 			if (button != null)
 			{
-				var session = button.DataContext as FullSessionDto;
+				var session = button.DataContext as ConferenceSessionListDto;
 				var vm = DataContext as ConferenceSessionsViewModel;
 				if (vm != null && session != null)
 					vm.ShowSessionDetailCommand.Execute(new SessionDetailViewModel.Navigation { ConferenceSlug = vm.Conference.slug, SessionSlug = session.slug });

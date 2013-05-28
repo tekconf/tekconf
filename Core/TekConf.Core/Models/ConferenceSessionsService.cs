@@ -83,5 +83,7 @@ namespace TekConf.Core.Models
 
 			return new FullConferenceDto();
 		}
+
+
 	}
 }

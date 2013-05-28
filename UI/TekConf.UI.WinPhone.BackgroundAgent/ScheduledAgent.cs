@@ -48,7 +48,9 @@ namespace TekConf.UI.WinPhone.BackgroundAgent
 		protected override void OnInvoke(ScheduledTask task)
 		{
 			var fileStore = new MvxIsolatedStorageFileStore();
-			var scheduleRepository = new LocalScheduleRepository(fileStore);
+			ILocalSessionRepository localSessionRepository = new LocalSessionRepository(fileStore);
+			ILocalConferencesRepository localConferencesRepository = new LocalConferencesRepository(fileStore, localSessionRepository);
+			var scheduleRepository = new LocalScheduleRepository(fileStore, localConferencesRepository);
 			var nextSession = scheduleRepository.NextScheduledSession;
 
 			ShellTile appTile = ShellTile.ActiveTiles.First();

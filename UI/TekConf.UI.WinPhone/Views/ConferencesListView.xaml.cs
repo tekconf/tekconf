@@ -29,17 +29,17 @@ namespace TekConf.UI.WinPhone.Views
 		{
 			var vm = DataContext as ConferencesListViewModel;
 			var stackPanel = sender as StackPanel;
-			if (stackPanel == null) 
+			if (stackPanel == null)
 				return;
 			var conference = (stackPanel.DataContext) as ConferencesListViewDto;
-			if (vm != null && conference != null) 
+			if (vm != null && conference != null)
 				vm.ShowDetailCommand.Execute(conference.slug);
 		}
 
 		private void ConferenceName_OnSizeChanged(object sender, SizeChangedEventArgs e)
 		{
 			var textBlock = (sender as TextBlock);
-			if (textBlock != null) 
+			if (textBlock != null)
 				textBlock.MaxWidth = ActualWidth - 20;
 		}
 
@@ -83,11 +83,13 @@ namespace TekConf.UI.WinPhone.Views
 
 		public static void UpdatePrimaryTile(int count, string content)
 		{
-			FlipTileData primaryTileData = new FlipTileData();
-			primaryTileData.Count = count;
-			primaryTileData.BackContent = content;
+			var primaryTileData = new FlipTileData
+			{
+				Count = count,
+				BackContent = content
+			};
 
-			ShellTile primaryTile = ShellTile.ActiveTiles.First();
+			var primaryTile = ShellTile.ActiveTiles.First();
 			primaryTile.Update(primaryTileData);
 		}
 
@@ -111,11 +113,10 @@ namespace TekConf.UI.WinPhone.Views
 				RemoveAgent(periodicTaskName);
 			}
 
-			periodicTask = new PeriodicTask(periodicTaskName);
+			periodicTask = new PeriodicTask(periodicTaskName) { Description = "This demonstrates a periodic task." };
 
 			// The description is required for periodic agents. This is the string that the user
 			// will see in the background services Settings page on the device.
-			periodicTask.Description = "This demonstrates a periodic task.";
 
 			// Place the call to Add in a try block in case the user has disabled agents.
 			try

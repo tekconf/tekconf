@@ -18,13 +18,18 @@ namespace TekConf.Core.ViewModels
 		private readonly IAnalytics _analytics;
 		private readonly IMvxMessenger _messenger;
 		private readonly IAuthentication _authentication;
+		private readonly ILocalScheduleRepository _localScheduleRepository;
+		private readonly ILocalSessionRepository _localSessionRepository;
 
-		public ConferenceSessionsViewModel(IRemoteDataService remoteDataService, IAnalytics analytics, IMvxMessenger messenger, IAuthentication authentication)
+		public ConferenceSessionsViewModel(IRemoteDataService remoteDataService, IAnalytics analytics, IMvxMessenger messenger, 
+																															IAuthentication authentication, ILocalScheduleRepository localScheduleRepository, ILocalSessionRepository localSessionRepository)
 		{
 			_remoteDataService = remoteDataService;
 			_analytics = analytics;
 			_messenger = messenger;
 			_authentication = authentication;
+			_localScheduleRepository = localScheduleRepository;
+			_localSessionRepository = localSessionRepository;
 		}
 
 		private string _pageTitle;

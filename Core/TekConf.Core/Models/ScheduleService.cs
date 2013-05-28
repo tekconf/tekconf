@@ -347,7 +347,7 @@ namespace TekConf.Core.Models
 
 				schedule.sessions = schedule.sessions.OrderBy(x => x.start).ToList();
 				//_cache.Add(path, schedule, new TimeSpan(0, 0, 15));
-
+				_localScheduleRepository.SaveScheduleDetail(schedule);
 				_getScheduleSuccess(schedule);
 			}
 			catch (Exception ex)
