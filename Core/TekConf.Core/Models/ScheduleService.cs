@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using Cirrious.CrossCore.Core;
 using Cirrious.MvvmCross.Plugins.File;
+using Cirrious.MvvmCross.ViewModels;
 using Newtonsoft.Json;
 using TekConf.Core.Repositories;
 using TekConf.Core.Services;
@@ -154,24 +155,13 @@ namespace TekConf.Core.Models
 		{
 			try
 			{
-				string path = _conferenceSlug + "-schedule.json";
+				var schedule = _localScheduleRepository.GetSchedule(_conferenceSlug);
 
-				//var cachedSchedule = _cache.Get<string, ScheduleDto>(path);
-				ScheduleDto cachedSchedule = null;
-				if (cachedSchedule != null && !_isRefreshing)
+				if (schedule != null && !_isRefreshing)
 				{
-					_getScheduleSuccess(cachedSchedule);
-				}
-				else if (_fileStore.Exists(path) && !_isRefreshing)
-				{
-					string response;
-					if (_fileStore.TryReadTextFile(path, out response))
-					{
-						if (!response.IsNullOrWhiteSpace())
-							GetScheduleFromFileSystem(response);
-						else
-							GetScheduleFromWeb();
-					}
+
+					_getScheduleSuccess(schedule);
+
 				}
 				else
 				{
@@ -192,14 +182,6 @@ namespace TekConf.Core.Models
 			request.Accept = "application/json";
 
 			request.BeginGetResponse(ReadGetScheduleCallback, request);
-		}
-
-		private void GetScheduleFromFileSystem(string response)
-		{
-			var schedule = JsonConvert.DeserializeObject<ScheduleDto>(response);
-			schedule.sessions = schedule.sessions.OrderBy(x => x.start).ToList();
-			//_cache.Add("schedule", schedule, new TimeSpan(0, 0, 15));
-			_getScheduleSuccess(schedule);
 		}
 
 		private void StartAddToSchedule()
@@ -321,6 +303,12 @@ namespace TekConf.Core.Models
 		private void HandleGetSchedulesResponse(string response)
 		{
 			var scheduledConferences = JsonConvert.DeserializeObject<List<FullConferenceDto>>(response).OrderBy(x => x.start).ToList();
+			foreach (var scheduleConference in scheduledConferences)
+			{
+				var scheduleDto = new ScheduleDto() { conferenceSlug = scheduleConference.slug, sessions = scheduleConference.sessions };
+				_localScheduleRepository.SaveSchedule(scheduleDto);
+			}
+
 			_localScheduleRepository.SaveSchedules(scheduledConferences);
 			scheduledConferences = null;
 			var list = _localScheduleRepository.GetConferencesList();
@@ -331,23 +319,10 @@ namespace TekConf.Core.Models
 		{
 			try
 			{
-				var path = _conferenceSlug + "-schedule.json";
-				if (_fileStore.Exists(path))
-				{
-					_fileStore.DeleteFile(path);
-				}
-				if (!_fileStore.Exists(path))
-				{
-					_fileStore.WriteFile(path, response);
-				}
 				var schedule = JsonConvert.DeserializeObject<ScheduleDto>(response);
 
-				if (schedule.IsNull())
-					schedule = new ScheduleDto();
+				_localScheduleRepository.SaveSchedule(schedule);
 
-				schedule.sessions = schedule.sessions.OrderBy(x => x.start).ToList();
-				//_cache.Add(path, schedule, new TimeSpan(0, 0, 15));
-				_localScheduleRepository.SaveScheduleDetail(schedule);
 				_getScheduleSuccess(schedule);
 			}
 			catch (Exception ex)
@@ -360,7 +335,7 @@ namespace TekConf.Core.Models
 		private void HandleAddToScheduleResponse(string response)
 		{
 			var scheduleDto = JsonConvert.DeserializeObject<ScheduleDto>(response);
-			_localScheduleRepository.SaveScheduleDetail(scheduleDto);
+			_localScheduleRepository.SaveSchedule(scheduleDto);
 
 			_addToScheduleSuccess(scheduleDto);
 		}
@@ -368,7 +343,7 @@ namespace TekConf.Core.Models
 		private void HandleRemoveFromScheduleResponse(string response)
 		{
 			var scheduleDto = JsonConvert.DeserializeObject<ScheduleDto>(response);
-			_localScheduleRepository.SaveScheduleDetail(scheduleDto);
+			_localScheduleRepository.SaveSchedule(scheduleDto);
 
 			_removeFromScheduleSuccess(scheduleDto);
 		}

@@ -5,9 +5,10 @@ namespace TekConf.Core.Repositories
 {
 	public interface ILocalScheduleRepository
 	{
-		ConferenceFavoriteSessionDto NextScheduledSession { get; }
+		FullSessionDto NextScheduledSession { get; }
 		void SaveSchedules(IEnumerable<FullConferenceDto> scheduledConferences);
 		IEnumerable<ConferencesListViewDto> GetConferencesList();
-		void SaveScheduleDetail(ScheduleDto schedule);
+		void SaveSchedule(ScheduleDto schedule);
+		ScheduleDto GetSchedule(string conferenceSlug);
 	}
 }

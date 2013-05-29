@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Cirrious.MvvmCross.Plugins.File;
 using Newtonsoft.Json;
+using TekConf.Core.Models;
 using TekConf.Core.ViewModels;
 using TekConf.RemoteData.Dtos.v1;
 
@@ -45,47 +46,43 @@ namespace TekConf.Core.Repositories
 			return conferencesListViewDtos;
 		}
 
-		public void SaveScheduleDetail(ScheduleDto schedule)
+		public void SaveSchedule(ScheduleDto schedule)
 		{
+			string path = schedule.conferenceSlug + "-schedule.json";
+
 			if (schedule != null)
 			{
-				ConferenceFavoritesDto favoriteConference = null;
-				var path = schedule.conferenceSlug + "-favorites.json";
-				if (_fileStore.Exists(path))
-				{
-					string json;
-					if (_fileStore.TryReadTextFile(path, out json))
-					{
-						favoriteConference = JsonConvert.DeserializeObject<ConferenceFavoritesDto>(json);
-					}
-				}
-				if (favoriteConference == null)
-					favoriteConference = new ConferenceFavoritesDto() { slug = schedule.conferenceSlug };
-
-				var favorites = schedule.sessions.Where(x => x.isAddedToSchedule == true).ToList();
-				foreach (var favorite in favorites)
-				{
-					if (favoriteConference.sessions.All(x => x.slug != favorite.slug))
-					{
-						favoriteConference.sessions.Add(new ConferenceFavoriteSessionDto()
-						{
-							room = favorite.room,
-							slug = favorite.slug,
-							startDescription = favorite.startDescription,
-							start = favorite.start,
-							title = favorite.title
-						});
-					}
-				}
-
 				if (_fileStore.Exists(path))
 				{
 					_fileStore.DeleteFile(path);
 				}
 
-				string serializedFavorites = JsonConvert.SerializeObject(favoriteConference);
+				if (schedule.IsNull())
+					schedule = new ScheduleDto();
+
+				schedule.sessions = schedule.sessions.OrderBy(x => x.start).ToList();
+
+				string serializedFavorites = JsonConvert.SerializeObject(schedule);
 				_fileStore.WriteFile(path, serializedFavorites);
 			}
+		}
+
+		public ScheduleDto GetSchedule(string conferenceSlug)
+		{
+			string path = conferenceSlug + "-schedule.json";
+
+			if (_fileStore.Exists(path))
+			{
+				string json;
+				if (_fileStore.TryReadTextFile(path, out json))
+				{
+					var schedule = JsonConvert.DeserializeObject<ScheduleDto>(json);
+					schedule.sessions = schedule.sessions.OrderBy(x => x.start).ToList();
+					return schedule;
+				}
+			}
+
+			return null;
 		}
 
 		private void SaveSchedulesToFileStore(IEnumerable<FullConferenceDto> scheduledConferences)
@@ -118,7 +115,7 @@ namespace TekConf.Core.Repositories
 			}
 		}
 
-		public ConferenceFavoriteSessionDto NextScheduledSession
+		public FullSessionDto NextScheduledSession
 		{
 			get
 			{
@@ -128,20 +125,13 @@ namespace TekConf.Core.Repositories
 					var conference = scheduledConferences.FirstOrDefault(x => x.start > DateTime.Now);
 					if (conference != null)
 					{
-						var path = conference.slug + "-favorites.json";
-						if (_fileStore.Exists(path))
+						var schedule = GetSchedule(conference.slug);
+						if (schedule != null)
 						{
-							string json;
-							if (_fileStore.TryReadTextFile(path, out json))
-							{
-								var favoriteConference = JsonConvert.DeserializeObject<ConferenceFavoritesDto>(json);
-								if (favoriteConference != null)
-								{
-									var session = favoriteConference.sessions.FirstOrDefault(x => x.start >= DateTime.Now.AddMinutes(-30));
-									if (session != null)
-										return session;
-								}
-							}
+							var sessions = schedule.sessions;
+							var session = sessions.OrderBy(x => x.start).FirstOrDefault(x => x.start >= DateTime.Now.AddMinutes(-10));
+							return session;
+						
 						}
 					}
 				}

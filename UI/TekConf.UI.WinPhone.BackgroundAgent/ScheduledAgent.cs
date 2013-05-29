@@ -9,6 +9,7 @@ using Cirrious.MvvmCross.Plugins.File.WindowsPhone;
 using Microsoft.Phone.Scheduler;
 using Microsoft.Phone.Shell;
 using TekConf.Core.Repositories;
+using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.UI.WinPhone.BackgroundAgent
 {
@@ -55,12 +56,15 @@ namespace TekConf.UI.WinPhone.BackgroundAgent
 
 			ShellTile appTile = ShellTile.ActiveTiles.First();
 
+			if (nextSession == null)
+				nextSession = new FullSessionDto();
+
 			var tileData = new FlipTileData()
 			{
-				BackContent = "BackContent",
-				BackTitle = "BackTitle",
-				Title = "Title",
-				WideBackContent = "WideBackContent"
+				BackContent = nextSession.title,
+				BackTitle = nextSession.startDescription + (string.IsNullOrWhiteSpace(nextSession.room) ? "" : " - ") + nextSession.room,
+				Title = "",
+				WideBackContent = nextSession.title
 			};
 
 			appTile.Update(tileData);

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using AutoMapper;
 using ServiceStack.CacheAccess;
 using TekConf.RemoteData.Dtos.v1;
@@ -39,6 +40,12 @@ namespace TekConf.UI.Api.v1
 																								 .AsQueryable()
 																								 .FirstOrDefault(c => c.slug == schedule.ConferenceSlug);
 				var conferenceDto = Mapper.Map<ConferenceEntity, FullConferenceDto>(conference);
+
+				conferenceDto.sessions.RemoveAll(x => !schedule.SessionSlugs.Contains(x.slug));
+				foreach (var session in conferenceDto.sessions)
+				{
+						session.isAddedToSchedule = true;
+				}
 
 				conferences.Add(conferenceDto);
 			}
