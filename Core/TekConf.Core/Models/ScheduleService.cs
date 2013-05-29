@@ -360,12 +360,16 @@ namespace TekConf.Core.Models
 		private void HandleAddToScheduleResponse(string response)
 		{
 			var scheduleDto = JsonConvert.DeserializeObject<ScheduleDto>(response);
+			_localScheduleRepository.SaveScheduleDetail(scheduleDto);
+
 			_addToScheduleSuccess(scheduleDto);
 		}
 
 		private void HandleRemoveFromScheduleResponse(string response)
 		{
 			var scheduleDto = JsonConvert.DeserializeObject<ScheduleDto>(response);
+			_localScheduleRepository.SaveScheduleDetail(scheduleDto);
+
 			_removeFromScheduleSuccess(scheduleDto);
 		}
 

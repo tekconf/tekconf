@@ -39,6 +39,7 @@ namespace TekConf.UI.Api.v1
 																								 .AsQueryable()
 																								 .FirstOrDefault(c => c.slug == schedule.ConferenceSlug);
 				var conferenceDto = Mapper.Map<ConferenceEntity, FullConferenceDto>(conference);
+
 				conferences.Add(conferenceDto);
 			}
 

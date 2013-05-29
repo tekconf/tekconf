@@ -128,7 +128,10 @@ namespace TekConf.UI.Api.v1
 												 .FirstOrDefault(s => s.UserName.ToLower() == request.userName.ToLower());
 
 			var scheduleDto = Mapper.Map<ScheduleEntity, ScheduleDto>(schedule);
-
+			foreach (var sessionDto in scheduleDto.sessions)
+			{
+				sessionDto.isAddedToSchedule = true;
+			}
 			return scheduleDto;
 		}
 	}
