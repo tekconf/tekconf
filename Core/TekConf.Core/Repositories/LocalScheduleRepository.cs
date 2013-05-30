@@ -115,7 +115,7 @@ namespace TekConf.Core.Repositories
 			}
 		}
 
-		public FullSessionDto NextScheduledSession
+		public ConferencesListViewDto NextScheduledConference
 		{
 			get
 			{
@@ -123,19 +123,28 @@ namespace TekConf.Core.Repositories
 				if (scheduledConferences != null)
 				{
 					var conference = scheduledConferences.FirstOrDefault(x => x.start > DateTime.Now);
-					if (conference != null)
-					{
-						var schedule = GetSchedule(conference.slug);
-						if (schedule != null)
-						{
-							var sessions = schedule.sessions;
-							var session = sessions.OrderBy(x => x.start).FirstOrDefault(x => x.start >= DateTime.Now.AddMinutes(-10));
-							return session;
-						
-						}
-					}
+					return conference;
 				}
 
+				return null;
+			}
+		}
+		public FullSessionDto NextScheduledSession
+		{
+			get
+			{
+				var conference = NextScheduledConference;
+
+				if (conference != null)
+				{
+					var schedule = GetSchedule(conference.slug);
+					if (schedule != null)
+					{
+						var sessions = schedule.sessions;
+						var session = sessions.OrderBy(x => x.start).FirstOrDefault(x => x.start >= DateTime.Now.AddMinutes(-10));
+						return session;
+					}
+				}
 
 				return null;
 			}

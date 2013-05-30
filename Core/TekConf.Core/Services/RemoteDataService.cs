@@ -71,7 +71,7 @@ namespace TekConf.Core.Services
 			ScheduleService.GetSchedulesAsync(_fileStore, _localScheduleRepository, userName, isRefreshing, _cache, success, error);
 		}
 
-		public void LoginWithTekConf(string userName, string password, Action<bool> success = null, Action<Exception> error = null)
+		public void LoginWithTekConf(string userName, string password, Action<bool, string> success = null, Action<Exception> error = null)
 		{
 			UserService.GetAuthenticationAsync(userName, password, success, error);
 		}

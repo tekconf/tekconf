@@ -34,7 +34,7 @@
 			<!--Pivot item one-->
 			<controls:PivotItem>
 				<controls:PivotItem.Header>
-					<TextBlock Text="conferences" Foreground="#FF81994D" DoubleTap="Conferences_OnDoubleTap" />
+					<TextBlock Text="conferences" Foreground="#FF81994D" />
 				</controls:PivotItem.Header>
 				<Grid>
 					<Grid.RowDefinitions>
@@ -125,7 +125,7 @@
 	<phone:PhoneApplicationPage.ApplicationBar>
 		<shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" BackgroundColor="#FF81994D" ForegroundColor="White">
 			<shell:ApplicationBarIconButton IconUri="/img/Synchronize.png" Text="refresh" Click="Refresh_OnClick" />
-			<shell:ApplicationBarIconButton IconUri="/img/feature.search.png" Text="search" Click="Search_OnClick" />
+			<!--<shell:ApplicationBarIconButton IconUri="/img/feature.search.png" Text="search" Click="Search_OnClick" />-->
 			<shell:ApplicationBarIconButton IconUri="/img/settings.png" Text="settings" Click="Settings_OnClick" />
 		</shell:ApplicationBar>
 	</phone:PhoneApplicationPage.ApplicationBar>

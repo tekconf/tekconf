@@ -31,7 +31,7 @@ namespace TekConf.Core.Models
 		{
 			try
 			{
-				var uri = string.Format("http://api.tekconf.com/v1/push/{0}/wp?endpointUri={1}", userName, endpointUri);
+				var uri = string.Format(App.ApiRootUri + "push/{0}/wp?endpointUri={1}", userName, endpointUri);
 				var request = (HttpWebRequest)WebRequest.Create(new Uri(uri));
 				request.Method = "POST";
 				request.Accept = "application/json";

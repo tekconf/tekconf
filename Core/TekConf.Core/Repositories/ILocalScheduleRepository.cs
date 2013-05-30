@@ -10,5 +10,6 @@ namespace TekConf.Core.Repositories
 		IEnumerable<ConferencesListViewDto> GetConferencesList();
 		void SaveSchedule(ScheduleDto schedule);
 		ScheduleDto GetSchedule(string conferenceSlug);
+		ConferencesListViewDto NextScheduledConference { get; }
 	}
 }

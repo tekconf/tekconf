@@ -12,7 +12,6 @@ namespace TekConf.UI.WinPhone.ValueConverters
 {
 	public class NativeBitmapImageValueConverter : MvxNativeValueConverter<BitmapImageValueConverter>
 	{
-		
 	}
 
 	public class NativeSocialImageValueConverter : MvxNativeValueConverter<SocialImageValueConverter>
@@ -60,7 +59,6 @@ namespace TekConf.UI.WinPhone.ValueConverters
 	{
 		protected override BitmapImage Convert(byte[] value, Type targetType, object parameter, CultureInfo culture)
 		{
-
 			var bitmapImage = new BitmapImage();
 			try
 			{

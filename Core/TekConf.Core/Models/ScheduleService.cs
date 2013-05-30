@@ -17,10 +17,10 @@ namespace TekConf.Core.Models
 	public class ScheduleService
 	{
 
-		private const string GetSchedulesUrl = "http://api.tekconf.com/v1/conferences/schedules?userName={0}&format=json";
-		private const string GetScheduleUrl = "http://api.tekconf.com/v1/conferences/{1}/schedule?userName={0}&conferenceSlug={1}&format=json";
-		private const string AddToScheduleUrl = "http://api.tekconf.com/v1/conferences/{1}/schedule?userName={0}&conferenceSlug={1}&sessionSlug=&format=json";
-		private const string RemoveFromScheduleUrl = "http://api.tekconf.com/v1/conferences/{1}/schedule?userName={0}&conferenceSlug={1}&sessionSlug=&format=json";
+		private readonly string GetSchedulesUrl = App.ApiRootUri + "conferences/schedules?userName={0}&format=json";
+		private readonly string GetScheduleUrl = App.ApiRootUri + "conferences/{1}/schedule?userName={0}&conferenceSlug={1}&format=json";
+		private readonly string AddToScheduleUrl = App.ApiRootUri + "conferences/{1}/schedule?userName={0}&conferenceSlug={1}&sessionSlug=&format=json";
+		private readonly string RemoveFromScheduleUrl = App.ApiRootUri + "conferences/{1}/schedule?userName={0}&conferenceSlug={1}&sessionSlug=&format=json";
 
 		private readonly IMvxFileStore _fileStore;
 		private readonly ILocalScheduleRepository _localScheduleRepository;

@@ -34,7 +34,7 @@ namespace TekConf.Core.Services
 		void GetSchedule(string userName, string conferenceSlug, bool isRefreshing, Action<ScheduleDto> success = null, Action<Exception> error = null);
 		void GetSchedules(string userName, bool isRefreshing, Action<IEnumerable<ConferencesListViewDto>> success = null, Action<Exception> error = null);
 
-		void LoginWithTekConf(string userName, string password, Action<bool> success = null, Action<Exception> error = null);
+		void LoginWithTekConf(string userName, string password, Action<bool, string> success = null, Action<Exception> error = null);
 
 		void AddToSchedule(string userName, string conferenceSlug, Action<ScheduleDto> success = null, Action<Exception> error = null);
 		void RemoveFromSchedule(string userName, string conferenceSlug, Action<ScheduleDto> success = null, Action<Exception> error = null);

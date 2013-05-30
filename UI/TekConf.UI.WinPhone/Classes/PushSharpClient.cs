@@ -74,8 +74,7 @@ namespace TekConf.UI.WinPhone
 
 			if (_authentication.IsAuthenticated && !string.IsNullOrWhiteSpace(_authentication.UserName))
 			{
-				// The name of our push channel.
-				//const string channelName = "http://api.tekconf.com/push/wp/register";
+
 				// Try to find the push channel.
 				var pushChannel = HttpNotificationChannel.Find(_toastChannelName);
 				
@@ -168,7 +167,6 @@ namespace TekConf.UI.WinPhone
 
 		//	// The name of our push channel.
 		//	const string channelName = "TekConf.NotificationChannel.Tile";
-		//	//const string channelName = "http://api.tekconf.com/push/wp/register";
 		//	// Try to find the push channel.
 		//	var pushChannel = HttpNotificationChannel.Find(channelName);
 

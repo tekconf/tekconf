@@ -9,7 +9,7 @@ namespace TekConf.Core.Models
 	public class UserService
 	{
 		private readonly Action<string> _success;
-		private readonly Action<bool> _loginSuccess;
+		private readonly Action<bool, string> _loginSuccess;
 
 		private readonly Action<Exception> _error;
 
@@ -19,13 +19,13 @@ namespace TekConf.Core.Models
 			_error = error;
 		}
 
-		private UserService(Action<bool> success, Action<Exception> error)
+		private UserService(Action<bool, string> success, Action<Exception> error)
 		{
 			_loginSuccess = success;
 			_error = error;
 		}
 
-		public static void GetAuthenticationAsync(string userName, string password, Action<bool> getAuthenticationSuccess, Action<Exception> getAuthenticationError)
+		public static void GetAuthenticationAsync(string userName, string password, Action<bool, string> getAuthenticationSuccess, Action<Exception> getAuthenticationError)
 		{
 			MvxAsyncDispatcher.BeginAsync(() => DoAsyncGetAuthentication(userName, password, getAuthenticationSuccess, getAuthenticationError));
 		}
@@ -35,7 +35,7 @@ namespace TekConf.Core.Models
 			MvxAsyncDispatcher.BeginAsync(() => DoAsyncGetIsOauthUserRegistered(userId, getIsOauthUserRegisteredSuccess, getIsOauthUserRegisteredError));
 		}
 
-		private static void DoAsyncGetAuthentication(string userName, string password, Action<bool> getAuthenticationSuccess, Action<Exception> getAuthenticationError)
+		private static void DoAsyncGetAuthentication(string userName, string password, Action<bool, string> getAuthenticationSuccess, Action<Exception> getAuthenticationError)
 		{
 			var search = new UserService(getAuthenticationSuccess, getAuthenticationError);
 			search.StartGetAuthentication(userName, password);
@@ -59,7 +59,7 @@ namespace TekConf.Core.Models
 					userName = providerId.ToLower().Replace("twitter:", "");
 				}
 
-				var uri = string.Format("http://www.tekconf.com/account/IsOAuthUserRegistered?providerName={0}&userId={1}", providerName, userName);
+				var uri = string.Format(App.WebRootUri + "account/IsOAuthUserRegistered?providerName={0}&userId={1}", providerName, userName);
 				var request = (HttpWebRequest)WebRequest.Create(new Uri(uri));
 				request.Method = "GET";
 				request.Accept = "application/json";
@@ -72,14 +72,18 @@ namespace TekConf.Core.Models
 			}
 		}
 
+		private string _userName;
+		
 		private void StartGetAuthentication(string userName, string password)
 		{
 			try
 			{
-				var uri = string.Format("http://www.tekconf.com/account/Login?UserName={0}&Password={1}&RememberMe={2}&returnUrl=", userName, password, true);
+				_userName = userName;
+				var uri = string.Format(App.WebRootUri + "account/Login?UserName={0}&Password={1}&RememberMe={2}&returnUrl=", userName, password, true);
 				var request = (HttpWebRequest)WebRequest.Create(new Uri(uri));
 				request.Method = "POST";
-				request.Accept = "application/json";
+				request.ContentType = "application/x-www-form-urlencoded";
+				//request.Accept = "application/json";
 
 				request.BeginGetResponse(ReadGetAuthenticationCallback, request);
 			}
@@ -138,13 +142,7 @@ namespace TekConf.Core.Models
 
 		private void HandleGetIsAuthenticationResponse(string response)
 		{
-			var message = JsonConvert.DeserializeObject<UserRegistration>(response);
-
-			if (message != null && message.username != null)
-				_success(message.username);
-			else
-				_success("");
-
+			_loginSuccess(true, _userName);
 		}
 
 		private class UserRegistration

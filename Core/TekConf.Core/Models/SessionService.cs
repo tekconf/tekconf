@@ -70,7 +70,7 @@ namespace TekConf.Core.Models
 
 		private void GetSessionFromWeb(string conferenceSlug, string sessionSlug)
 		{
-			var uri = string.Format("http://api.tekconf.com/v1/conferences/{0}/sessions/{1}?format=json", conferenceSlug,
+			var uri = string.Format(App.ApiRootUri + "conferences/{0}/sessions/{1}?format=json", conferenceSlug,
 				sessionSlug);
 			var request = (HttpWebRequest) WebRequest.Create(new Uri(uri));
 			request.Accept = "application/json";

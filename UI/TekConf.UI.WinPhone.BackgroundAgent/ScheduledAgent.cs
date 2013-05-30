@@ -1,10 +1,7 @@
-﻿using System.Diagnostics;
-using System.IO;
-using System.IO.IsolatedStorage;
+﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
-using Cirrious.CrossCore;
-using Cirrious.MvvmCross.Plugins.File;
 using Cirrious.MvvmCross.Plugins.File.WindowsPhone;
 using Microsoft.Phone.Scheduler;
 using Microsoft.Phone.Shell;
@@ -52,22 +49,26 @@ namespace TekConf.UI.WinPhone.BackgroundAgent
 			ILocalSessionRepository localSessionRepository = new LocalSessionRepository(fileStore);
 			ILocalConferencesRepository localConferencesRepository = new LocalConferencesRepository(fileStore, localSessionRepository);
 			var scheduleRepository = new LocalScheduleRepository(fileStore, localConferencesRepository);
+			var conference = scheduleRepository.NextScheduledConference;
 			var nextSession = scheduleRepository.NextScheduledSession;
 
-			ShellTile appTile = ShellTile.ActiveTiles.First();
+			var appTile = ShellTile.ActiveTiles.First();
 
-			if (nextSession == null)
-				nextSession = new FullSessionDto();
+			if (conference == null)
+				conference = new ConferencesListViewDto(null, null);
 
-			var tileData = new FlipTileData()
+			if (nextSession != null)
 			{
-				BackContent = nextSession.title,
-				BackTitle = nextSession.startDescription + (string.IsNullOrWhiteSpace(nextSession.room) ? "" : " - ") + nextSession.room,
-				Title = "",
-				WideBackContent = nextSession.title
-			};
+				var tileData = new FlipTileData()
+				{
+					BackContent = nextSession.title,
+					BackTitle = nextSession.startDescription + (string.IsNullOrWhiteSpace(nextSession.room) ? "" : Environment.NewLine) + nextSession.room,
+					Title = "",
+					WideBackContent = nextSession.title + (string.IsNullOrWhiteSpace(conference.name) ? "" : " - " + conference.name)
+				};
 
-			appTile.Update(tileData);
+				appTile.Update(tileData);
+			}
 			NotifyComplete();
 		}
 	}

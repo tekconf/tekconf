@@ -15,7 +15,7 @@ namespace TekConf.Core.Models
 {
 	public class ConferencesService
 	{
-		private const string ConferencesUrl = "http://api.tekconf.com/v1/conferences?format=json";
+		private string ConferencesUrl = App.ApiRootUri + "conferences?format=json";
 
 		private readonly string _searchTerm;
 		private readonly IMvxFileStore _fileStore;
@@ -71,8 +71,7 @@ namespace TekConf.Core.Models
 
 		private void GetConferencesFromWeb()
 		{
-// perform the search
-			const string uri = ConferencesUrl;
+			string uri = ConferencesUrl;
 			var request = (HttpWebRequest) WebRequest.Create(new Uri(uri));
 			request.Accept = "application/json";
 			request.BeginGetResponse(ReadCallback, request);

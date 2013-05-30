@@ -8,10 +8,12 @@ namespace TekConf.Core.ViewModels
 	public class TekConfLoginViewModel : MvxViewModel
 	{
 		private readonly IRemoteDataService _remoteDataService;
+		private readonly IAuthentication _authentication;
 
-		public TekConfLoginViewModel(IRemoteDataService remoteDataService)
+		public TekConfLoginViewModel(IRemoteDataService remoteDataService, IAuthentication authentication)
 		{
 			_remoteDataService = remoteDataService;
+			_authentication = authentication;
 		}
 
 		public void Init()
@@ -33,10 +35,12 @@ namespace TekConf.Core.ViewModels
 			}
 		}
 
-		private void LoginSuccess(bool isLoggedIn)
+		private void LoginSuccess(bool isLoggedIn, string userName)
 		{
 			IsLoggingIn = false;
 			ShowSettingsCommand.Execute(null);
+			UserName = userName;
+			_authentication.UserName = userName;
 		}
 
 		private void LoginError(Exception exception)

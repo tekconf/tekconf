@@ -23,12 +23,10 @@
 		<valueConverters:NativeSocialImageValueConverter x:Key="SocialImage"></valueConverters:NativeSocialImageValueConverter>
 
 		<DataTemplate x:Key="ConnectItemTemplate">
-			<!-- <Button BorderThickness="0" HorizontalAlignment="Left"> -->
-				<StackPanel Orientation="Horizontal" Margin="0,0,0,0" HorizontalAlignment="Left">
+				<StackPanel Orientation="Horizontal" Margin="0,0,0,10" HorizontalAlignment="Left">
 					<Image Source="{Binding Name, Converter={StaticResource SocialImage}}" Margin="0,0,10,0"></Image>
 					<TextBlock Text="{Binding Value}" Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" HorizontalAlignment="Left"></TextBlock>
 				</StackPanel>
-			<!-- </Button> -->
 		</DataTemplate>		
 		
 	</navigation:Page.Resources>

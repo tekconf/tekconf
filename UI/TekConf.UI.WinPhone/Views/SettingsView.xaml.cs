@@ -8,6 +8,7 @@ using Microsoft.WindowsAzure.MobileServices;
 using TekConf.Core.Models;
 using TekConf.Core.ViewModels;
 using Cirrious.CrossCore;
+using TekConf.UI.WinPhone.Classes;
 
 namespace TekConf.UI.WinPhone.Views
 {
@@ -116,13 +117,13 @@ namespace TekConf.UI.WinPhone.Views
 
 			if (_user != null)
 			{
+				LiveTileAgent.StartPeriodicAgent();
 				var vm = DataContext as SettingsViewModel;
 				if (vm != null) 
 					vm.IsOauthUserRegistered(_user.UserId);
 			}
 			SetLoggedInState();
 		}
-
 
 		private async Task AuthenticateWithFacebook()
 		{
@@ -136,6 +137,14 @@ namespace TekConf.UI.WinPhone.Views
 				{
 					//MessageBox.Show(ex.Message);
 				}
+			}
+
+			if (_user != null)
+			{
+				LiveTileAgent.StartPeriodicAgent();
+				var vm = DataContext as SettingsViewModel;
+				if (vm != null)
+					vm.IsOauthUserRegistered(_user.UserId);
 			}
 			SetLoggedInState();
 
@@ -153,6 +162,14 @@ namespace TekConf.UI.WinPhone.Views
 				{
 					//MessageBox.Show(ex.Message);
 				}
+			}
+
+			if (_user != null)
+			{
+				LiveTileAgent.StartPeriodicAgent();
+				var vm = DataContext as SettingsViewModel;
+				if (vm != null)
+					vm.IsOauthUserRegistered(_user.UserId);
 			}
 			SetLoggedInState();
 
@@ -198,7 +215,6 @@ namespace TekConf.UI.WinPhone.Views
 					vm.IsOptedInToNotifications = false;
 			}
 		}
-
 
 		private void Logout_OnClick(object sender, RoutedEventArgs e)
 		{

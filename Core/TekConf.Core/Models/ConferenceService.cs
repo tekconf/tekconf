@@ -108,9 +108,8 @@ namespace TekConf.Core.Models
 
 		private void GetRemoteConference(string slug)
 		{
-			var uri = string.Format("http://api.tekconf.com/v1/conferences/{0}?format=json", slug);
+			var uri = string.Format(App.ApiRootUri + "conferences/{0}?format=json", slug);
 
-			//var uri = string.Format("http://api.tekconf.com/v1/conferences/{0}?format=json", slug);
 			var request = (HttpWebRequest)WebRequest.Create(new Uri(uri));
 			request.Accept = "application/json";
 			request.BeginGetResponse(ReadGetConferenceCallback, request);
