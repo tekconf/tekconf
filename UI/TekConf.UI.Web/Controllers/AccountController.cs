@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Security;
 using DotNetOpenAuth.AspNet;
@@ -12,6 +13,10 @@ using MvcApplication2.Models;
 
 namespace MvcApplication2.Controllers
 {
+	public class MobileLoginResult
+	{
+		
+	}
 	[Authorize]
 	[InitializeSimpleMembership]
 	public class AccountController : Controller
@@ -24,6 +29,20 @@ namespace MvcApplication2.Controllers
 		{
 			ViewBag.ReturnUrl = returnUrl;
 			return View();
+		}
+
+		[HttpPost]
+		[AllowAnonymous]
+		public JsonResult MobileLogin(LoginModel model)
+		{
+			if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
+			{
+				return Json(new { UserName = model.UserName, IsLoggedIn = true });
+			}
+			else
+			{
+				return Json(new { UserName = "", IsLoggedIn = false });				
+			}
 		}
 
 		[HttpPost]

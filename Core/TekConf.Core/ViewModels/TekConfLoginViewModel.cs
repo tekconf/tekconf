@@ -27,20 +27,20 @@ namespace TekConf.Core.ViewModels
 			_remoteDataService.LoginWithTekConf(UserName, Password, LoginSuccess, LoginError);
 		}
 
-		public ICommand ShowSettingsCommand
+		public ICommand ShowConferencesListCommand
 		{
 			get
 			{
-				return new MvxCommand(() => ShowViewModel<SettingsViewModel>());
+				return new MvxCommand(() => ShowViewModel<ConferencesListViewModel>());
 			}
 		}
 
 		private void LoginSuccess(bool isLoggedIn, string userName)
 		{
 			IsLoggingIn = false;
-			ShowSettingsCommand.Execute(null);
 			UserName = userName;
 			_authentication.UserName = userName;
+			ShowConferencesListCommand.Execute(null);
 		}
 
 		private void LoginError(Exception exception)

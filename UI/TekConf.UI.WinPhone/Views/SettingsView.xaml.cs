@@ -6,6 +6,7 @@ using System.Xml.Linq;
 using Cirrious.MvvmCross.Plugins.Messenger;
 using Microsoft.WindowsAzure.MobileServices;
 using TekConf.Core.Models;
+using TekConf.Core.Services;
 using TekConf.Core.ViewModels;
 using Cirrious.CrossCore;
 using TekConf.UI.WinPhone.Classes;
@@ -14,17 +15,22 @@ namespace TekConf.UI.WinPhone.Views
 {
 	public partial class SettingsView
 	{
-		private MvxSubscriptionToken _token;
+		private MvxSubscriptionToken _exceptionMessageToken;
+		private MvxSubscriptionToken _authenticationMessageToken;
+		private IAuthentication _authentication;
 
 		public SettingsView()
 		{
 			InitializeComponent();
 
 			var messenger = Mvx.Resolve<IMvxMessenger>();
+			_authentication = Mvx.Resolve<IAuthentication>();
 
-			_token = messenger.Subscribe<ExceptionMessage>(message => Dispatcher.BeginInvoke(() => MessageBox.Show(message.ExceptionObject == null ? "An exception occurred but was not caught" : message.ExceptionObject.Message)));
-
+			_exceptionMessageToken = messenger.Subscribe<ExceptionMessage>(message => Dispatcher.BeginInvoke(() => MessageBox.Show(message.ExceptionObject == null ? "An exception occurred but was not caught" : message.ExceptionObject.Message)));
+			_authenticationMessageToken = messenger.Subscribe<AuthenticationMessage>(OnAuthenticateMessage);
+			
 			SetLoggedInState();
+
 			Loaded += (sender, args) =>
 			{
 				var xmlDocument = XDocument.Load("WMAppManifest.xml");
@@ -42,6 +48,11 @@ namespace TekConf.UI.WinPhone.Views
 					}
 				}
 			};
+		}
+
+		private void OnAuthenticateMessage(AuthenticationMessage message)
+		{
+			App.UserName = message.UserName;
 		}
 
 		private void VmOnPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
@@ -177,7 +188,7 @@ namespace TekConf.UI.WinPhone.Views
 
 		private void SetLoggedInState()
 		{
-			var isLoggedIn = App.MobileService.CurrentUser != null;
+			var isLoggedIn = _authentication.IsAuthenticated;
 
 			LoginInWithFacebookButton.Visibility = isLoggedIn ? Visibility.Collapsed : Visibility.Visible;
 			LoginInWithGoogleButton.Visibility = isLoggedIn ? Visibility.Collapsed : Visibility.Visible;
@@ -186,6 +197,7 @@ namespace TekConf.UI.WinPhone.Views
 			RegisterButton.Visibility = isLoggedIn ? Visibility.Collapsed : Visibility.Visible;
 			LogoutButton.Visibility = isLoggedIn ? Visibility.Visible : Visibility.Collapsed;
 			LoginName.Visibility = isLoggedIn ? Visibility.Visible : Visibility.Collapsed;
+			LoginName.Text = isLoggedIn ? "Logged in as " + App.UserName : "";
 
 			if (isLoggedIn)
 			{
@@ -221,7 +233,8 @@ namespace TekConf.UI.WinPhone.Views
 			App.MobileService.Logout();
 			App.UserName = "";
 			_user = null;
-
+			_authentication.UserName = "";
+			
 			SetLoggedInState();
 		}
 

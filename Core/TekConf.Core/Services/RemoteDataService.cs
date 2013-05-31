@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Cirrious.MvvmCross.Plugins.File;
+using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.Plugins.Network.Reachability;
 using TekConf.Core.Models;
 using TekConf.Core.Repositories;
@@ -17,9 +18,12 @@ namespace TekConf.Core.Services
 		private readonly ILocalScheduleRepository _localScheduleRepository;
 		private readonly ILocalConferencesRepository _localConferencesRepository;
 		private readonly ILocalSessionRepository _localSessionRepository;
+		private readonly IMvxMessenger _messenger;
 		private readonly IMvxReachability _reachability;
 
-		public RemoteDataService(IMvxFileStore fileStore, ICacheService cache, IAuthentication authentication, ILocalScheduleRepository localScheduleRepository, ILocalConferencesRepository localConferencesRepository, ILocalSessionRepository localSessionRepository)
+		public RemoteDataService(IMvxFileStore fileStore, ICacheService cache, IAuthentication authentication, ILocalScheduleRepository localScheduleRepository, 
+																										ILocalConferencesRepository localConferencesRepository, ILocalSessionRepository localSessionRepository,
+																										IMvxMessenger messenger)
 		{
 			_fileStore = fileStore;
 			_cache = cache;
@@ -27,6 +31,7 @@ namespace TekConf.Core.Services
 			_localScheduleRepository = localScheduleRepository;
 			_localConferencesRepository = localConferencesRepository;
 			_localSessionRepository = localSessionRepository;
+			_messenger = messenger;
 			//_reachability = reachability;
 			_reachability = null;
 		}
@@ -73,7 +78,7 @@ namespace TekConf.Core.Services
 
 		public void LoginWithTekConf(string userName, string password, Action<bool, string> success = null, Action<Exception> error = null)
 		{
-			UserService.GetAuthenticationAsync(userName, password, success, error);
+			UserService.GetAuthenticationAsync(userName, password, _messenger, success, error);
 		}
 
 		public void AddToSchedule(string userName, string conferenceSlug, Action<ScheduleDto> success = null, Action<Exception> error = null)
@@ -93,7 +98,7 @@ namespace TekConf.Core.Services
 
 		public void GetIsOauthUserRegistered(string userId, Action<string> success, Action<Exception> error)
 		{
-			UserService.GetIsOauthUserRegisteredAsync(userId, success, error);
+			UserService.GetIsOauthUserRegisteredAsync(userId, _messenger, success, error);
 		}
 	}
 }

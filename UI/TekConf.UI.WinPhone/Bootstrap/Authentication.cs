@@ -7,18 +7,19 @@ namespace TekConf.UI.WinPhone.Bootstrap
 		public bool IsAuthenticated { 
 			get
 			{
-				return App.MobileService.CurrentUser != null;
+				return App.MobileService.CurrentUser != null || !string.IsNullOrWhiteSpace(UserName);
 			}
 		}
-		public string UserId { 
-			get
-			{
-				if (IsAuthenticated)
-					return App.MobileService.CurrentUser.UserId.Split(':')[1];
+
+		//public string UserId { 
+		//	get
+		//	{
+		//		if (IsAuthenticated)
+		//			return App.MobileService.CurrentUser.UserId.Split(':')[1];
 				
-				return string.Empty;
-			}
-		}
+		//		return string.Empty;
+		//	}
+		//}
 
 		public string OAuthProvider
 		{
@@ -30,6 +31,7 @@ namespace TekConf.UI.WinPhone.Bootstrap
 				return string.Empty;
 			}
 		}
+
 		public string UserName { get; set; }
 	}
 }

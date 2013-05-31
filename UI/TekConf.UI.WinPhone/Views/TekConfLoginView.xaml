@@ -29,7 +29,7 @@
 					<TextBlock Text=""></TextBlock>
 
 					<TextBlock Text="Password"></TextBlock>
-					<TextBox Text="{Binding Password, Mode=TwoWay}"></TextBox>
+					<PasswordBox Password="{Binding Password, Mode=TwoWay}"></PasswordBox>
 
 					<TextBlock Text=""></TextBlock>
 

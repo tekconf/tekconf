@@ -2,48 +2,53 @@
 using System.IO;
 using System.Net;
 using Cirrious.CrossCore.Core;
+using Cirrious.MvvmCross.Plugins.Messenger;
 using Newtonsoft.Json;
+using TekConf.Core.ViewModels;
 
 namespace TekConf.Core.Models
 {
 	public class UserService
 	{
+		private readonly IMvxMessenger _messenger;
 		private readonly Action<string> _success;
 		private readonly Action<bool, string> _loginSuccess;
 
 		private readonly Action<Exception> _error;
 
-		private UserService(Action<string> success, Action<Exception> error)
+		private UserService(IMvxMessenger messenger, Action<string> success, Action<Exception> error)
 		{
+			_messenger = messenger;
 			_success = success;
 			_error = error;
 		}
 
-		private UserService(Action<bool, string> success, Action<Exception> error)
+		private UserService(IMvxMessenger messenger, Action<bool, string> success, Action<Exception> error)
 		{
+			_messenger = messenger;
 			_loginSuccess = success;
 			_error = error;
 		}
 
-		public static void GetAuthenticationAsync(string userName, string password, Action<bool, string> getAuthenticationSuccess, Action<Exception> getAuthenticationError)
+		public static void GetAuthenticationAsync(string userName, string password, IMvxMessenger messenger, Action<bool, string> getAuthenticationSuccess, Action<Exception> getAuthenticationError)
 		{
-			MvxAsyncDispatcher.BeginAsync(() => DoAsyncGetAuthentication(userName, password, getAuthenticationSuccess, getAuthenticationError));
+			MvxAsyncDispatcher.BeginAsync(() => DoAsyncGetAuthentication(userName, password, messenger, getAuthenticationSuccess, getAuthenticationError));
 		}
 
-		public static void GetIsOauthUserRegisteredAsync(string userId, Action<string> getIsOauthUserRegisteredSuccess, Action<Exception> getIsOauthUserRegisteredError)
+		public static void GetIsOauthUserRegisteredAsync(string userId, IMvxMessenger messenger, Action<string> getIsOauthUserRegisteredSuccess, Action<Exception> getIsOauthUserRegisteredError)
 		{
-			MvxAsyncDispatcher.BeginAsync(() => DoAsyncGetIsOauthUserRegistered(userId, getIsOauthUserRegisteredSuccess, getIsOauthUserRegisteredError));
+			MvxAsyncDispatcher.BeginAsync(() => DoAsyncGetIsOauthUserRegistered(userId, messenger, getIsOauthUserRegisteredSuccess, getIsOauthUserRegisteredError));
 		}
 
-		private static void DoAsyncGetAuthentication(string userName, string password, Action<bool, string> getAuthenticationSuccess, Action<Exception> getAuthenticationError)
+		private static void DoAsyncGetAuthentication(string userName, string password, IMvxMessenger messenger, Action<bool, string> getAuthenticationSuccess, Action<Exception> getAuthenticationError)
 		{
-			var search = new UserService(getAuthenticationSuccess, getAuthenticationError);
+			var search = new UserService(messenger, getAuthenticationSuccess, getAuthenticationError);
 			search.StartGetAuthentication(userName, password);
 		}
 
-		private static void DoAsyncGetIsOauthUserRegistered(string userName, Action<string> getIsOauthUserRegisteredSuccess, Action<Exception> getIsOauthUserRegisteredError)
+		private static void DoAsyncGetIsOauthUserRegistered(string userName, IMvxMessenger messenger, Action<string> getIsOauthUserRegisteredSuccess, Action<Exception> getIsOauthUserRegisteredError)
 		{
-			var search = new UserService(getIsOauthUserRegisteredSuccess, getIsOauthUserRegisteredError);
+			var search = new UserService(messenger, getIsOauthUserRegisteredSuccess, getIsOauthUserRegisteredError);
 			search.StartGetIsOauthUserRegistered(userName);
 		}
 
@@ -79,10 +84,10 @@ namespace TekConf.Core.Models
 			try
 			{
 				_userName = userName;
-				var uri = string.Format(App.WebRootUri + "account/Login?UserName={0}&Password={1}&RememberMe={2}&returnUrl=", userName, password, true);
+				var uri = string.Format(App.WebRootUri + "account/MobileLogin?UserName={0}&Password={1}", userName, password);
 				var request = (HttpWebRequest)WebRequest.Create(new Uri(uri));
 				request.Method = "POST";
-				request.ContentType = "application/x-www-form-urlencoded";
+				//request.ContentType = "application/x-www-form-urlencoded";
 				//request.Accept = "application/json";
 
 				request.BeginGetResponse(ReadGetAuthenticationCallback, request);
@@ -142,6 +147,7 @@ namespace TekConf.Core.Models
 
 		private void HandleGetIsAuthenticationResponse(string response)
 		{
+			_messenger.Publish(new AuthenticationMessage(this, _userName));
 			_loginSuccess(true, _userName);
 		}
 
