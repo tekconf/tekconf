@@ -147,8 +147,16 @@ namespace TekConf.Core.Models
 
 		private void HandleGetIsAuthenticationResponse(string response)
 		{
-			_messenger.Publish(new AuthenticationMessage(this, _userName));
-			_loginSuccess(true, _userName);
+			var result = JsonConvert.DeserializeObject<MobileLoginResult>(response);
+			if (result.IsLoggedIn)
+			{
+				_messenger.Publish(new AuthenticationMessage(this, result.UserName));
+				_loginSuccess(true, result.UserName);
+			}
+			else
+			{
+				_error(new Exception("Login Failed"));
+			}
 		}
 
 		private class UserRegistration
@@ -156,5 +164,10 @@ namespace TekConf.Core.Models
 			public string username { get; set; }
 		}
 
+		public class MobileLoginResult
+		{
+			public string UserName { get; set; }
+			public bool IsLoggedIn { get; set; }
+		}
 	}
 }

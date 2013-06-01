@@ -182,6 +182,7 @@ namespace TekConf.UI.WinPhone.Views
 				if (vm != null)
 					vm.IsOauthUserRegistered(_user.UserId);
 			}
+
 			SetLoggedInState();
 
 		}

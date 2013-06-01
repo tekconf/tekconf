@@ -13,17 +13,11 @@ using MvcApplication2.Models;
 
 namespace MvcApplication2.Controllers
 {
-	public class MobileLoginResult
-	{
-		
-	}
+
 	[Authorize]
 	[InitializeSimpleMembership]
 	public class AccountController : Controller
 	{
-		//
-		// GET: /Account/Login
-
 		[AllowAnonymous]
 		public ActionResult Login(string returnUrl)
 		{
@@ -41,7 +35,7 @@ namespace MvcApplication2.Controllers
 			}
 			else
 			{
-				return Json(new { UserName = "", IsLoggedIn = false });				
+				return Json(new { UserName = "", IsLoggedIn = false });
 			}
 		}
 
@@ -78,9 +72,16 @@ namespace MvcApplication2.Controllers
 		[HttpGet]
 		public JsonResult IsOAuthUserRegistered(string providerName, string userId)
 		{
-			//var username = OAuthWebSecurity.GetUserName("twitter", "17351920");
 			var username = OAuthWebSecurity.GetUserName(providerName, userId);
 			return Json(new { username = username }, JsonRequestBehavior.AllowGet);
+		}
+
+		[AllowAnonymous]
+		[HttpPost]
+		public JsonResult CreateOAuthUser(string providerName, string userId, string userName)
+		{
+			OAuthWebSecurity.CreateOrUpdateAccount(providerName, userId, userName);
+			return IsOAuthUserRegistered(providerName, userId);
 		}
 
 		[HttpPost]
