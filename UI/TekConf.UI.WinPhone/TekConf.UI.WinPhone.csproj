@@ -244,6 +244,9 @@
     <Compile Include="Views\ConferencesSearchView.xaml.cs">
       <DependentUpon>ConferencesSearchView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\OAuthRegisterView.xaml.cs">
+      <DependentUpon>OAuthRegisterView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SessionDetailView.xaml.cs">
       <DependentUpon>SessionDetailView.xaml</DependentUpon>
     </Compile>
@@ -409,6 +412,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ConferencesSearchView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OAuthRegisterView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -100,5 +100,10 @@ namespace TekConf.Core.Services
 		{
 			UserService.GetIsOauthUserRegisteredAsync(userId, _messenger, success, error);
 		}
+
+		public void CreateOauthUser(string userId, string userName, Action<string> success, Action<Exception> error)
+		{
+			UserService.CreateOauthUserAsync(userId, userName, _messenger, success, error);
+		}
 	}
 }

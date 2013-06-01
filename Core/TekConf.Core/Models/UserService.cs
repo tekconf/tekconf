@@ -40,6 +40,11 @@ namespace TekConf.Core.Models
 			MvxAsyncDispatcher.BeginAsync(() => DoAsyncGetIsOauthUserRegistered(userId, messenger, getIsOauthUserRegisteredSuccess, getIsOauthUserRegisteredError));
 		}
 
+		public static void CreateOauthUserAsync(string userId, string userName, IMvxMessenger messenger, Action<string> getIsOauthUserRegisteredSuccess, Action<Exception> getIsOauthUserRegisteredError)
+		{
+			MvxAsyncDispatcher.BeginAsync(() => DoAsyncCreateOauthUser(userId, userName, messenger, getIsOauthUserRegisteredSuccess, getIsOauthUserRegisteredError));
+		}
+
 		private static void DoAsyncGetAuthentication(string userName, string password, IMvxMessenger messenger, Action<bool, string> getAuthenticationSuccess, Action<Exception> getAuthenticationError)
 		{
 			var search = new UserService(messenger, getAuthenticationSuccess, getAuthenticationError);
@@ -50,6 +55,12 @@ namespace TekConf.Core.Models
 		{
 			var search = new UserService(messenger, getIsOauthUserRegisteredSuccess, getIsOauthUserRegisteredError);
 			search.StartGetIsOauthUserRegistered(userName);
+		}
+
+		private static void DoAsyncCreateOauthUser(string userId, string userName, IMvxMessenger messenger, Action<string> getIsOauthUserRegisteredSuccess, Action<Exception> getIsOauthUserRegisteredError)
+		{
+			var search = new UserService(messenger, getIsOauthUserRegisteredSuccess, getIsOauthUserRegisteredError);
+			search.StartCreateOauthUser(userId, userName);
 		}
 
 		private void StartGetIsOauthUserRegistered(string providerId)
@@ -68,6 +79,32 @@ namespace TekConf.Core.Models
 				var request = (HttpWebRequest)WebRequest.Create(new Uri(uri));
 				request.Method = "GET";
 				request.Accept = "application/json";
+
+				request.BeginGetResponse(ReadGetIsOauthUserRegisteredCallback, request);
+			}
+			catch (Exception exception)
+			{
+				_error(exception);
+			}
+		}
+
+		private void StartCreateOauthUser(string providerId, string userName)
+		{
+			try
+			{
+				string providerName = "";
+				string userId = "";
+				if (providerId.ToLower().Contains("twitter"))
+				{
+					providerName = "twitter";
+					userId = providerId.ToLower().Replace("twitter:", "");
+				}
+				//TODO : Test Facebook, Google+
+
+				var uri = string.Format(App.WebRootUri + "account/CreateOauthUser?providerName={0}&userId={1}&userName={2}", providerName, userId, userName);
+				var request = (HttpWebRequest)WebRequest.Create(new Uri(uri));
+				request.Method = "POST";
+				//request.Accept = "application/json";
 
 				request.BeginGetResponse(ReadGetIsOauthUserRegisteredCallback, request);
 			}

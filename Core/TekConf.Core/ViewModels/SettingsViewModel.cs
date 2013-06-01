@@ -39,8 +39,10 @@ namespace TekConf.Core.ViewModels
 
 		}
 
+		private string _userProviderId;
 		public void IsOauthUserRegistered(string userId)
 		{
+			_userProviderId = userId;
 			_remoteDataService.GetIsOauthUserRegistered(userId, GetIsOauthUserRegisteredSuccess, GetIsOauthUserRegisteredError);
 		}
 
@@ -114,8 +116,15 @@ namespace TekConf.Core.ViewModels
 
 		private void GetIsOauthUserRegisteredSuccess(string userName)
 		{
-			_messenger.Publish(new AuthenticationMessage(this, userName));
-			UserName = userName;
+			if (!string.IsNullOrWhiteSpace(userName))
+			{
+				_messenger.Publish(new AuthenticationMessage(this, userName));
+				UserName = userName;
+			}
+			else
+			{
+				ShowOAuthRegisterCommand.Execute(null);
+			}
 		}
 
 		private void GetIsOauthUserRegisteredError(Exception exception)
@@ -125,11 +134,21 @@ namespace TekConf.Core.ViewModels
 			_messenger.Publish(new ExceptionMessage(this, exception));
 		}
 
+		public ICommand ShowOAuthRegisterCommand
+		{
+			get
+			{
+				return new MvxCommand(() =>
+					ShowViewModel<OAuthRegisterViewModel>(new { providerId = _userProviderId })
+					);
+			}
+		}
+
 		public ICommand ShowTekConfLoginCommand
 		{
 			get
 			{
-				return new MvxCommand(() => 
+				return new MvxCommand(() =>
 					ShowViewModel<TekConfLoginViewModel>()
 					);
 			}

@@ -80,6 +80,15 @@ namespace MvcApplication2.Controllers
 		[HttpPost]
 		public JsonResult CreateOAuthUser(string providerName, string userId, string userName)
 		{
+			using (var context = new UsersContext())
+			{
+				if (!context.UserProfiles.Any(x => x.UserName == userName))
+				{
+					context.UserProfiles.Add(new UserProfile {UserName = userName});
+					context.SaveChanges();
+				}
+			}
+			
 			OAuthWebSecurity.CreateOrUpdateAccount(providerName, userId, userName);
 			return IsOAuthUserRegistered(providerName, userId);
 		}

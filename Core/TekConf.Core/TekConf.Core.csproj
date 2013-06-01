@@ -83,6 +83,7 @@
     <Compile Include="ViewModels\ConferenceSearchViewModel.cs" />
     <Compile Include="Messages\ExceptionMessage.cs" />
     <Compile Include="Messages\FavoriteAddedMessage.cs" />
+    <Compile Include="ViewModels\OAuthRegisterViewModel.cs" />
     <Compile Include="ViewModels\SessionDetailViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\TekConfLoginViewModel.cs" />
