@@ -12,12 +12,23 @@ namespace TekConf.UI.WinPhone.Views
 {
 	public partial class ConferenceDetailView
 	{
-		private MvxSubscriptionToken _token;
+		private MvxSubscriptionToken _conferenceDetailExceptionMessageToken;
 		public ConferenceDetailView()
 		{
 			InitializeComponent();
 			var messenger = Mvx.Resolve<IMvxMessenger>();
-			_token = messenger.Subscribe<ExceptionMessage>(message => Dispatcher.BeginInvoke(() => MessageBox.Show(message.ExceptionObject == null ? "An exception occurred but was not caught" : message.ExceptionObject.Message)));
+
+			_conferenceDetailExceptionMessageToken = messenger.Subscribe<ConferenceDetailExceptionMessage>(message =>
+					Dispatcher.BeginInvoke(() =>
+					{
+						if (message.ExceptionObject.Message == "The remote server returned an error: NotFound.")
+						{
+							const string errorMessage = "Could not connect to remote server. Please check your network connection and try again.";
+							MessageBox.Show(errorMessage);
+							//ConferenceDetailExceptionMessage.Text = "Could not connect to remote server. Please check your network connection and try again.";
+							//ConferenceDetailExceptionMessage.Visibility = Visibility.Visible;
+						}
+					}));			
 			Loaded += OnLoaded;
 		}
 

@@ -129,9 +129,7 @@ namespace TekConf.Core.ViewModels
 
 		private void GetIsOauthUserRegisteredError(Exception exception)
 		{
-			// for now we just hide the error...
-			//IsLoadingConferences = false;
-			_messenger.Publish(new ExceptionMessage(this, exception));
+			_messenger.Publish(new SettingsIsOauthUserRegisteredExceptionMessage(this, exception));
 		}
 
 		public ICommand ShowOAuthRegisterCommand

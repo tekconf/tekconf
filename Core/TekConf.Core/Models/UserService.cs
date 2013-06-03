@@ -74,6 +74,16 @@ namespace TekConf.Core.Models
 					providerName = "twitter";
 					userName = providerId.ToLower().Replace("twitter:", "");
 				}
+				else if (providerId.ToLower().Contains("facebook"))
+				{
+					providerName = "facebook";
+					userName = providerId.ToLower().Replace("facebook:", "");
+				}
+				else if (providerId.ToLower().Contains("google"))
+				{
+					providerName = "google";
+					userName = providerId.ToLower().Replace("google:", "");
+				}
 
 				var uri = string.Format(App.WebRootUri + "account/IsOAuthUserRegistered?providerName={0}&userId={1}", providerName, userName);
 				var request = (HttpWebRequest)WebRequest.Create(new Uri(uri));
@@ -99,7 +109,16 @@ namespace TekConf.Core.Models
 					providerName = "twitter";
 					userId = providerId.ToLower().Replace("twitter:", "");
 				}
-				//TODO : Test Facebook, Google+
+				else if (providerId.ToLower().Contains("facebook"))
+				{
+					providerName = "facebook";
+					userName = providerId.ToLower().Replace("facebook:", "");
+				}
+				else if (providerId.ToLower().Contains("google"))
+				{
+					providerName = "google";
+					userName = providerId.ToLower().Replace("google:", "");
+				}
 
 				var uri = string.Format(App.WebRootUri + "account/CreateOauthUser?providerName={0}&userId={1}&userName={2}", providerName, userId, userName);
 				var request = (HttpWebRequest)WebRequest.Create(new Uri(uri));

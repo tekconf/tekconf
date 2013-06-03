@@ -1,69 +1,69 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Web;
-using MongoDB.Driver;
-using ServiceStack.Configuration;
-using ServiceStack.ServiceInterface.Auth;
-using TekConf.UI.Api.Services.v1;
+﻿//using System;
+//using System.Collections.Generic;
+//using System.Configuration;
+//using System.Linq;
+//using System.Web;
+//using MongoDB.Driver;
+//using ServiceStack.Configuration;
+//using ServiceStack.ServiceInterface.Auth;
+//using TekConf.UI.Api.Services.v1;
 
-namespace TekConf.UI.Web.App_Code
-{
-    public class Class1
-    {
-    }
+//namespace TekConf.UI.Web.App_Code
+//{
+//		public class Class1
+//		{
+//		}
 
-	public class Rootobject
-    {
-        public Result[] results { get; set; }
-        public string status { get; set; }
-    }
+//	public class Rootobject
+//		{
+//				public Result[] results { get; set; }
+//				public string status { get; set; }
+//		}
 
-    public class Result
-    {
-        public Address_Components[] address_components { get; set; }
-        public string formatted_address { get; set; }
-        public Geometry geometry { get; set; }
-        public string[] types { get; set; }
-    }
+//		public class Result
+//		{
+//				public Address_Components[] address_components { get; set; }
+//				public string formatted_address { get; set; }
+//				public Geometry geometry { get; set; }
+//				public string[] types { get; set; }
+//		}
 
-    public class Geometry
-    {
-        public Location location { get; set; }
-        public string location_type { get; set; }
-        public Viewport viewport { get; set; }
-    }
+//		public class Geometry
+//		{
+//				public Location location { get; set; }
+//				public string location_type { get; set; }
+//				public Viewport viewport { get; set; }
+//		}
 
-    public class Location
-    {
-        public float lat { get; set; }
-        public float lng { get; set; }
-    }
+//		public class Location
+//		{
+//				public float lat { get; set; }
+//				public float lng { get; set; }
+//		}
 
-    public class Viewport
-    {
-        public Northeast northeast { get; set; }
-        public Southwest southwest { get; set; }
-    }
+//		public class Viewport
+//		{
+//				public Northeast northeast { get; set; }
+//				public Southwest southwest { get; set; }
+//		}
 
-    public class Northeast
-    {
-        public float lat { get; set; }
-        public float lng { get; set; }
-    }
+//		public class Northeast
+//		{
+//				public float lat { get; set; }
+//				public float lng { get; set; }
+//		}
 
-    public class Southwest
-    {
-        public float lat { get; set; }
-        public float lng { get; set; }
-    }
+//		public class Southwest
+//		{
+//				public float lat { get; set; }
+//				public float lng { get; set; }
+//		}
 
-    public class Address_Components
-    {
-        public string long_name { get; set; }
-        public string short_name { get; set; }
-        public string[] types { get; set; }
-    }
+//		public class Address_Components
+//		{
+//				public string long_name { get; set; }
+//				public string short_name { get; set; }
+//				public string[] types { get; set; }
+//		}
 
-}
+//}

@@ -42,7 +42,9 @@
 							<ColumnDefinition></ColumnDefinition>
 						</Grid.ColumnDefinitions>
 
-						<TextBlock Name="LoginName" Visibility="Collapsed" Text="{Binding UserName}"></TextBlock>
+						<TextBlock Name="SettingsExceptionMessage" Visibility="Collapsed" TextWrapping="Wrap"></TextBlock>
+
+						<TextBlock Name="LoginName" Visibility="Collapsed" Text="{Binding UserName, Mode=TwoWay}"></TextBlock>
 
 						<Button Click="LoginWithTekConf_OnClick" 
 										Name="LoginInWithTekConfButton" 

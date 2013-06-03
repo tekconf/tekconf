@@ -45,6 +45,8 @@
                 IsIndeterminate="True"
                 Foreground="#FF81994D"
                          Visibility="{Binding IsLoadingConferences, Converter={StaticResource Visibility}}"></ProgressBar>
+					
+					<TextBlock Name="ConferencesExceptionMessage" Visibility="Collapsed" TextWrapping="Wrap"></TextBlock>
 
 					<ScrollViewer>
 
@@ -91,6 +93,12 @@
 
 						<TextBlock Visibility="{Binding IsAuthenticated, Converter={StaticResource InvertedVisibility}}" 
 											 Style="{StaticResource PhoneTextNormalStyle}">You must login to see your favorite conferences</TextBlock>
+
+						<TextBlock Visibility="{Binding ShouldAddFavorites, Converter={StaticResource Visibility}}" TextWrapping="Wrap"
+											 Style="{StaticResource PhoneTextNormalStyle}">Tap the heart icon on a conference to add a favorite</TextBlock>
+
+						<TextBlock Name="ConferencesFavoritesExceptionMessage" Visibility="Collapsed" TextWrapping="Wrap"></TextBlock>
+
 						<ListBox ItemsSource="{Binding Favorites}" 
 										 Name="Favorites"
 										 ScrollViewer.VerticalScrollBarVisibility="Disabled"

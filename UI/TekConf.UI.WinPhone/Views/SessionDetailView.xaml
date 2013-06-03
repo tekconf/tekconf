@@ -48,6 +48,9 @@
                 IsIndeterminate="True"
                 Foreground="#FF81994D"
                          Visibility="{Binding IsLoading, Converter={StaticResource Visibility}}"></ProgressBar>
+					
+					<TextBlock Name="SessionDetailExceptionMessage" Visibility="Collapsed" TextWrapping="Wrap"></TextBlock>
+
 					<ScrollViewer>
 						<StackPanel ScrollViewer.VerticalScrollBarVisibility="Disabled" 
 												Visibility="{Binding IsLoading, Converter={StaticResource InvertedVisibility}}">
@@ -72,7 +75,10 @@
 						<RowDefinition Height="*"></RowDefinition>
 					</Grid.RowDefinitions>
 
+					<TextBlock Name="SessionDetailSpeakersExceptionMessage" Visibility="Collapsed" TextWrapping="Wrap"></TextBlock>
+
 					<ScrollViewer>
+						
 						<ListBox ItemsSource="{Binding Session.speakers}" 
 										 ItemTemplate="{StaticResource SpeakerItemTemplate}"
 										 ScrollViewer.VerticalScrollBarVisibility="Disabled">

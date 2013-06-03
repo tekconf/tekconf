@@ -83,9 +83,8 @@ namespace TekConf.Core.ViewModels
 
 		private void GetCreateOAuthUserError(Exception exception)
 		{
-			// for now we just hide the error...
 			//IsLoadingConferences = false;
-			_messenger.Publish(new ExceptionMessage(this, exception));
+			_messenger.Publish(new CreateOAuthUserExceptionMessage(this, exception));
 		}
 	}
 }

@@ -58,9 +58,16 @@
                 IsIndeterminate="True"
                 Foreground="#FF81994D"
                          Visibility="{Binding IsLoadingSchedule, Converter={StaticResource Visibility}}"></ProgressBar>
+
+					<TextBlock Name="ConferenceSessionsFavoritesExceptionMessage" Visibility="Collapsed" TextWrapping="Wrap"></TextBlock>
+
 					<ScrollViewer>
 						<StackPanel>
-							<TextBlock Visibility="{Binding HasSessions, Converter={StaticResource InvertedVisibility}}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" Text="No sessions to display. Either sessions have not been released, or sessions have not been added to TekConf."></TextBlock>
+							<TextBlock Visibility="{Binding IsAuthenticated, Converter={StaticResource InvertedVisibility}}" 
+											 Style="{StaticResource PhoneTextNormalStyle}">You must login to see your favorite conferences</TextBlock>
+							
+							<TextBlock Visibility="{Binding ShouldAddFavorites, Converter={StaticResource Visibility}}" TextWrapping="Wrap"
+											 Style="{StaticResource PhoneTextNormalStyle}">Tap the heart icon on a session to add a favorite</TextBlock>
 							<ListBox ItemsSource="{Binding Schedule.sessions}" 
 										 ItemTemplate="{StaticResource SessionItemTemplate}" 
 										 ScrollViewer.VerticalScrollBarVisibility="Disabled"
@@ -85,6 +92,9 @@
                 IsIndeterminate="True"
                 Foreground="#FF81994D"
                          Visibility="{Binding IsLoadingConference, Converter={StaticResource Visibility}}"></ProgressBar>
+
+					<TextBlock Name="ConferenceSessionsTimeExceptionMessage" Visibility="Collapsed" TextWrapping="Wrap"></TextBlock>
+
 					<ScrollViewer>
 						<StackPanel>
 														<TextBlock Visibility="{Binding HasSessions, Converter={StaticResource InvertedVisibility}}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" Text="No sessions to display. Either sessions have not been released, or sessions have not been added to TekConf."></TextBlock>
@@ -112,6 +122,9 @@
                 IsIndeterminate="True"
                 Foreground="#FF81994D"
                          Visibility="{Binding IsLoadingConference, Converter={StaticResource Visibility}}"></ProgressBar>
+
+					<TextBlock Name="ConferenceSessionsTitleExceptionMessage" Visibility="Collapsed" TextWrapping="Wrap"></TextBlock>
+
 					<ScrollViewer>
 						<StackPanel>
 														<TextBlock Visibility="{Binding HasSessions, Converter={StaticResource InvertedVisibility}}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" Text="No sessions to display. Either sessions have not been released, or sessions have not been added to TekConf."></TextBlock>
@@ -139,6 +152,9 @@
                 IsIndeterminate="True"
                 Foreground="#FF81994D"
                          Visibility="{Binding IsLoadingConference, Converter={StaticResource Visibility}}"></ProgressBar>
+
+					<TextBlock Name="ConferenceSessionsSpeakerExceptionMessage" Visibility="Collapsed" TextWrapping="Wrap"></TextBlock>
+
 					<ScrollViewer>
 						<StackPanel>
 														<TextBlock Visibility="{Binding HasSessions, Converter={StaticResource InvertedVisibility}}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" Text="No sessions to display. Either sessions have not been released, or sessions have not been added to TekConf."></TextBlock>
@@ -166,6 +182,9 @@
                 IsIndeterminate="True"
                 Foreground="#FF81994D"
                          Visibility="{Binding IsLoadingConference, Converter={StaticResource Visibility}}"></ProgressBar>
+
+					<TextBlock Name="ConferenceSessionsTagExceptionMessage" Visibility="Collapsed" TextWrapping="Wrap"></TextBlock>
+
 					<ScrollViewer>
 						<StackPanel>
 														<TextBlock Visibility="{Binding HasSessions, Converter={StaticResource InvertedVisibility}}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" Text="No sessions to display. Either sessions have not been released, or sessions have not been added to TekConf."></TextBlock>
@@ -194,6 +213,9 @@
                 IsIndeterminate="True"
                 Foreground="#FF81994D"
                          Visibility="{Binding IsLoadingConference, Converter={StaticResource Visibility}}"></ProgressBar>
+
+					<TextBlock Name="ConferenceSessionsRoomExceptionMessage" Visibility="Collapsed" TextWrapping="Wrap"></TextBlock>
+
 					<ScrollViewer>
 						<StackPanel>
 														<TextBlock Visibility="{Binding HasSessions, Converter={StaticResource InvertedVisibility}}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" Text="No sessions to display. Either sessions have not been released, or sessions have not been added to TekConf."></TextBlock>
@@ -213,7 +235,7 @@
 	<phone:PhoneApplicationPage.ApplicationBar>
 		<shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" BackgroundColor="#FF81994D" ForegroundColor="White">
 			<shell:ApplicationBarIconButton IconUri="/img/Synchronize.png" Text="refresh" Click="Refresh_OnClick" />
-			<shell:ApplicationBarIconButton IconUri="/img/feature.search.png" Text="search" Click="Search_OnClick" />
+			<!--<shell:ApplicationBarIconButton IconUri="/img/feature.search.png" Text="search" Click="Search_OnClick" />-->
 			<shell:ApplicationBarIconButton IconUri="/img/settings.png" Text="settings" Click="Settings_OnClick" />
 
 		</shell:ApplicationBar>

@@ -52,22 +52,27 @@ namespace TekConf.UI.WinPhone.BackgroundAgent
 			var conference = scheduleRepository.NextScheduledConference;
 			var nextSession = scheduleRepository.NextScheduledSession;
 
-			var appTile = ShellTile.ActiveTiles.First();
-
-			if (conference == null)
-				conference = new ConferencesListViewDto(null, null);
-
-			if (nextSession != null)
+			if (ShellTile.ActiveTiles != null)
 			{
-				var tileData = new FlipTileData()
-				{
-					BackContent = nextSession.title,
-					BackTitle = nextSession.startDescription + (string.IsNullOrWhiteSpace(nextSession.room) ? "" : Environment.NewLine) + nextSession.room,
-					Title = "",
-					WideBackContent = nextSession.title + (string.IsNullOrWhiteSpace(conference.name) ? "" : " - " + conference.name)
-				};
+				var appTile = ShellTile.ActiveTiles.First();
 
-				appTile.Update(tileData);
+				if (conference == null)
+					conference = new ConferencesListViewDto(null, null);
+
+				if (nextSession != null)
+				{
+					var tileData = new FlipTileData()
+					{
+						BackContent = nextSession.title,
+						BackTitle =
+							nextSession.startDescription + (string.IsNullOrWhiteSpace(nextSession.room) ? "" : Environment.NewLine) +
+							nextSession.room,
+						Title = "",
+						WideBackContent = nextSession.title + (string.IsNullOrWhiteSpace(conference.name) ? "" : " - " + conference.name)
+					};
+
+					appTile.Update(tileData);
+				}
 			}
 			NotifyComplete();
 		}

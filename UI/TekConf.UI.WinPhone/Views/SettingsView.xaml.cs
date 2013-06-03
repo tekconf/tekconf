@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.ServiceModel.Channels;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Xml.Linq;
@@ -17,6 +18,7 @@ namespace TekConf.UI.WinPhone.Views
 	{
 		private MvxSubscriptionToken _exceptionMessageToken;
 		private MvxSubscriptionToken _authenticationMessageToken;
+		private MvxSubscriptionToken _settingsExceptionToken;
 		private IAuthentication _authentication;
 
 		public SettingsView()
@@ -28,6 +30,19 @@ namespace TekConf.UI.WinPhone.Views
 
 			_exceptionMessageToken = messenger.Subscribe<ExceptionMessage>(message => Dispatcher.BeginInvoke(() => MessageBox.Show(message.ExceptionObject == null ? "An exception occurred but was not caught" : message.ExceptionObject.Message)));
 			_authenticationMessageToken = messenger.Subscribe<AuthenticationMessage>(OnAuthenticateMessage);
+
+			_settingsExceptionToken = messenger.Subscribe<SettingsIsOauthUserRegisteredExceptionMessage>(message =>
+					Dispatcher.BeginInvoke(() =>
+					{
+						if (message.ExceptionObject.Message == "The remote server returned an error: NotFound.")
+						{
+							const string errorMessage = "Could not connect to remote server. Please check your network connection and try again.";
+							MessageBox.Show(errorMessage);
+							//SettingsExceptionMessage.Text = errorMessage;
+							//SettingsExceptionMessage.Visibility = Visibility.Visible;
+						}
+					}));
+
 			
 			SetLoggedInState();
 

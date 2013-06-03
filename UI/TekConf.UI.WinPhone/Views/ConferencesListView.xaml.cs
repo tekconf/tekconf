@@ -16,13 +16,37 @@ namespace TekConf.UI.WinPhone.Views
 {
 	public partial class ConferencesListView : MvxPhonePage
 	{
-		private MvxSubscriptionToken _token;
+		private MvxSubscriptionToken _conferencesListAllExceptionToken;
+		private MvxSubscriptionToken _conferencesListFavoritesExceptionToken;
 
 		public ConferencesListView()
 		{
 			InitializeComponent();
 			var messenger = Mvx.Resolve<IMvxMessenger>();
-			_token = messenger.Subscribe<ExceptionMessage>(message => Dispatcher.BeginInvoke(() => MessageBox.Show(message.ExceptionObject == null ? "An exception occurred but was not caught" : message.ExceptionObject.Message)));
+
+			_conferencesListAllExceptionToken = messenger.Subscribe<ConferencesListAllExceptionMessage>(message =>
+					Dispatcher.BeginInvoke(() =>
+					{
+						if (message.ExceptionObject.Message == "The remote server returned an error: NotFound.")
+						{
+							const string errorMessage = "Could not connect to remote server. Please check your network connection and try again.";
+							MessageBox.Show(errorMessage);
+							//ConferencesExceptionMessage.Text = "Could not connect to remote server. Please check your network connection and try again.";
+							//ConferencesExceptionMessage.Visibility = Visibility.Visible;
+						}
+					}));
+
+			_conferencesListFavoritesExceptionToken = messenger.Subscribe<ConferencesListFavoritesExceptionMessage>(message =>
+		Dispatcher.BeginInvoke(() =>
+		{
+			if (message.ExceptionObject.Message == "The remote server returned an error: NotFound.")
+			{
+				const string errorMessage = "Could not connect to remote server. Please check your network connection and try again.";
+				MessageBox.Show(errorMessage);
+				//ConferencesFavoritesExceptionMessage.Text = "Could not connect to remote server. Please check your network connection and try again.";
+				//ConferencesFavoritesExceptionMessage.Visibility = Visibility.Visible;
+			}
+		}));
 		}
 
 		private void Conference_OnSelected(object sender, GestureEventArgs e)

@@ -21,7 +21,7 @@ namespace TekConf.Core.ViewModels
 		private readonly ILocalScheduleRepository _localScheduleRepository;
 		private readonly ILocalSessionRepository _localSessionRepository;
 
-		public ConferenceSessionsViewModel(IRemoteDataService remoteDataService, IAnalytics analytics, IMvxMessenger messenger, 
+		public ConferenceSessionsViewModel(IRemoteDataService remoteDataService, IAnalytics analytics, IMvxMessenger messenger,
 																															IAuthentication authentication, ILocalScheduleRepository localScheduleRepository, ILocalSessionRepository localSessionRepository)
 		{
 			_remoteDataService = remoteDataService;
@@ -57,6 +57,20 @@ namespace TekConf.Core.ViewModels
 			}
 		}
 
+		private bool _isAuthenticated;
+		public bool IsAuthenticated
+		{
+			get
+			{
+				return _isAuthenticated;
+			}
+			set
+			{
+				_isAuthenticated = value;
+				RaisePropertyChanged(() => IsAuthenticated);
+			}
+		}
+
 		public void Refresh(string slug)
 		{
 			StartGetConference(slug, true);
@@ -64,6 +78,20 @@ namespace TekConf.Core.ViewModels
 			{
 				var userName = _authentication.UserName;
 				StartGetSchedule(userName, slug, true);
+			}
+		}
+
+		public bool ShouldAddFavorites
+		{
+			get
+			{
+				bool shouldAddFavorites = false;
+				if (_authentication.IsAuthenticated)
+				{
+					shouldAddFavorites = HasSessions && (Schedule == null || Schedule.sessions == null || !Schedule.sessions.Any());
+				}
+
+				return shouldAddFavorites;
 			}
 		}
 
@@ -80,7 +108,7 @@ namespace TekConf.Core.ViewModels
 		private void GetConferenceError(Exception exception)
 		{
 			// for now we just hide the error...
-			_messenger.Publish(new ExceptionMessage(this, exception));
+			_messenger.Publish(new ConferenceSessionsExceptionMessage(this, exception));
 			IsLoadingConference = false;
 		}
 
@@ -99,7 +127,12 @@ namespace TekConf.Core.ViewModels
 		public bool IsLoadingConference
 		{
 			get { return _isLoadingConference; }
-			set { _isLoadingConference = value; RaisePropertyChanged(() => IsLoadingConference); }
+			set
+			{
+				_isLoadingConference = value;
+				IsAuthenticated = _authentication.IsAuthenticated;
+				RaisePropertyChanged(() => IsLoadingConference);
+			}
 		}
 
 		private ConferenceSessionsListViewDto _conference;
@@ -133,7 +166,7 @@ namespace TekConf.Core.ViewModels
 		private void GetScheduleError(Exception exception)
 		{
 			// for now we just hide the error...
-			_messenger.Publish(new ExceptionMessage(this, exception));
+			_messenger.Publish(new ConferenceSessionsExceptionMessage(this, exception));
 
 			IsLoadingSchedule = false;
 		}
@@ -182,6 +215,7 @@ namespace TekConf.Core.ViewModels
 			{
 				_schedule = value;
 				RaisePropertyChanged(() => Schedule);
+				RaisePropertyChanged(() => ShouldAddFavorites);
 				IsLoadingSchedule = false;
 			}
 		}

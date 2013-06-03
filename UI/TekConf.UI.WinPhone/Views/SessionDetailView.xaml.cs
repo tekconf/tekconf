@@ -10,20 +10,32 @@ namespace TekConf.UI.WinPhone.Views
 {
 	public partial class SessionDetailView
 	{
-		private MvxSubscriptionToken _token;
+		private MvxSubscriptionToken _sessionDetailExceptionToken;
 
 		public SessionDetailView()
 		{
 			InitializeComponent();
 			var messenger = Mvx.Resolve<IMvxMessenger>();
-			_token = messenger.Subscribe<ExceptionMessage>(message => Dispatcher.BeginInvoke(() => MessageBox.Show(message.ExceptionObject == null ? "An exception occurred but was not caught" : message.ExceptionObject.Message)));
+			_sessionDetailExceptionToken = messenger.Subscribe<SessionDetailExceptionMessage>(message =>
+					Dispatcher.BeginInvoke(() =>
+					{
+						if (message.ExceptionObject.Message == "The remote server returned an error: NotFound.")
+						{
+							const string errorMessage = "Could not connect to remote server. Please check your network connection and try again.";
+							MessageBox.Show(errorMessage);
+							//SessionDetailExceptionMessage.Text = "Could not connect to remote server. Please check your network connection and try again.";
+							//SessionDetailExceptionMessage.Visibility = Visibility.Visible;
 
+							//SessionDetailSpeakersExceptionMessage.Text = "Could not connect to remote server. Please check your network connection and try again.";
+							//SessionDetailSpeakersExceptionMessage.Visibility = Visibility.Visible;
+						}
+					}));
 		}
 
 		private void Settings_OnClick(object sender, EventArgs e)
 		{
 			var vm = DataContext as SessionDetailViewModel;
-			if (vm != null) 
+			if (vm != null)
 				vm.ShowSettingsCommand.Execute(null);
 		}
 
@@ -45,7 +57,7 @@ namespace TekConf.UI.WinPhone.Views
 		private void SpeakerFullName_OnSizeChanged(object sender, SizeChangedEventArgs e)
 		{
 			var title = (sender as TextBlock);
-			if (title != null) 
+			if (title != null)
 				title.MaxWidth = ActualWidth;
 		}
 
@@ -56,7 +68,7 @@ namespace TekConf.UI.WinPhone.Views
 			{
 				throw new NotImplementedException();
 			}
-			
+
 			MessageBox.Show("You must be logged in to favorite a session");
 		}
 	}

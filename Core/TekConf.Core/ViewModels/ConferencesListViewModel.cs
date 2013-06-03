@@ -33,7 +33,7 @@ namespace TekConf.Core.ViewModels
 
 		private void OnFavoriteAddedMessage(FavoriteAddedMessage message)
 		{
-			StartGetFavorites(true);			
+			StartGetFavorites(true);
 		}
 
 		private void OnAuthenticateMessage(AuthenticationMessage message)
@@ -87,7 +87,7 @@ namespace TekConf.Core.ViewModels
 		private void GetAllError(Exception exception)
 		{
 			// for now we just hide the error...
-			_messenger.Publish(new ExceptionMessage(this, exception));
+			_messenger.Publish(new ConferencesListAllExceptionMessage(this, exception));
 
 			IsLoadingConferences = false;
 		}
@@ -95,8 +95,8 @@ namespace TekConf.Core.ViewModels
 		private void GetFavoritesError(Exception exception)
 		{
 			// for now we just hide the error...
-			_messenger.Publish(new ExceptionMessage(this, exception));
-
+			_messenger.Publish(new ConferencesListFavoritesExceptionMessage(this, exception));
+			
 			IsLoadingFavorites = false;
 		}
 
@@ -153,11 +153,29 @@ namespace TekConf.Core.ViewModels
 			}
 		}
 
+		public bool ShouldAddFavorites
+		{
+			get
+			{
+				bool shouldAddFavorites = false;
+				if (_authentication.IsAuthenticated)
+				{
+					shouldAddFavorites = Favorites == null || !Favorites.Any();
+				}
+
+				return shouldAddFavorites;
+			}
+		}
+
 		private bool _isLoadingFavorites;
 		public bool IsLoadingFavorites
 		{
 			get { return _isLoadingFavorites; }
-			set { _isLoadingFavorites = value; RaisePropertyChanged(() => IsLoadingFavorites); }
+			set
+			{
+				_isLoadingFavorites = value;
+				RaisePropertyChanged(() => IsLoadingFavorites);
+			}
 		}
 
 		private bool _isAuthenticated;
@@ -214,6 +232,7 @@ namespace TekConf.Core.ViewModels
 			{
 				_favorites = value;
 				RaisePropertyChanged(() => Favorites);
+				RaisePropertyChanged(() => ShouldAddFavorites);
 				IsLoadingFavorites = false;
 			}
 		}
@@ -238,7 +257,7 @@ namespace TekConf.Core.ViewModels
 		{
 			get
 			{
-				return new MvxCommand<string>(slug => ShowViewModel<ConferenceDetailViewModel>(new {slug }));
+				return new MvxCommand<string>(slug => ShowViewModel<ConferenceDetailViewModel>(new { slug }));
 			}
 		}
 	}

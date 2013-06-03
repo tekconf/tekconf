@@ -46,7 +46,7 @@ namespace TekConf.Core.ViewModels
 		private void GetConferenceError(Exception exception)
 		{
 			// for now we just hide the error...
-			_messenger.Publish(new ExceptionMessage(this, exception));
+			_messenger.Publish(new SessionDetailExceptionMessage(this, exception));
 
 			IsLoading = false;
 		}

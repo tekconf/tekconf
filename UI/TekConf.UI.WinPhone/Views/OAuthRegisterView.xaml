@@ -45,7 +45,8 @@
                 IsIndeterminate="True"
                 Foreground="#FF81994D"
                          Visibility="{Binding IsRegistering, Converter={StaticResource Visibility}}"></ProgressBar>
-						
+						<TextBlock Name="OAuthExceptionMessage" Visibility="Collapsed" TextWrapping="Wrap"></TextBlock>
+
 						<StackPanel ScrollViewer.VerticalScrollBarVisibility="Disabled" Visibility="{Binding IsRegistering, Converter={StaticResource InvertedVisibility}}">
 							
 							<TextBlock Text="User Name" Style="{StaticResource PhoneTextLargeStyle}"></TextBlock>

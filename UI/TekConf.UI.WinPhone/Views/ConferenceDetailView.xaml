@@ -53,6 +53,9 @@
                 IsIndeterminate="True"
                 Foreground="#FF81994D"
                          Visibility="{Binding IsLoading, Converter={StaticResource Visibility}}"></ProgressBar>
+						
+						<TextBlock Name="ConferenceDetailExceptionMessage" Visibility="Collapsed" TextWrapping="Wrap"></TextBlock>
+
 						<StackPanel ScrollViewer.VerticalScrollBarVisibility="Disabled" Visibility="{Binding IsLoading, Converter={StaticResource InvertedVisibility}}">
 							<Image Source="{Binding Conference.imageUrl}" SizeChanged="ConferenceImage_OnSizeChanged"></Image>
 							<TextBlock Text="{Binding Conference.DateRange}" Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"></TextBlock>
