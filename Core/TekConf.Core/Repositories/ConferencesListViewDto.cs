@@ -1,4 +1,5 @@
 using System;
+using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Plugins.File;
 using Cirrious.MvvmCross.ViewModels;
 using TekConf.Core.Models;
@@ -12,7 +13,13 @@ namespace TekConf.Core.Repositories
 
 		public ConferencesListViewDto(FullConferenceDto fullConference, IMvxFileStore fileStore)
 		{
-			_fileStore = fileStore;
+			try
+			{
+				_fileStore = fileStore ?? Mvx.Resolve<IMvxFileStore>();
+			}
+			catch (Exception)
+			{
+			}
 
 			if (fullConference != null)
 			{
@@ -22,7 +29,7 @@ namespace TekConf.Core.Repositories
 				DateRange = fullConference.DateRange;
 				FormattedAddress = fullConference.FormattedAddress;
 				imageUrl = fullConference.imageUrl;
-				ImageBytes = fullConference.ImageBytes;
+				//ImageBytes = fullConference.ImageBytes;
 			}
 		}
 
@@ -66,7 +73,8 @@ namespace TekConf.Core.Repositories
 			set
 			{
 				_imageUrl = value;
-				ImageService.GetImageAsync(_fileStore, null, _imageUrl, GetImageSuccess, GetImageError);
+				if (_fileStore != null)
+					ImageService.GetImageAsync(_fileStore, null, _imageUrl, GetImageSuccess, GetImageError);
 			}
 		}
 

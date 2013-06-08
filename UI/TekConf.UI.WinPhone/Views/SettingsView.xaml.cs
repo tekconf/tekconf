@@ -210,7 +210,7 @@ namespace TekConf.UI.WinPhone.Views
 			LoginInWithGoogleButton.Visibility = isLoggedIn ? Visibility.Collapsed : Visibility.Visible;
 			LoginInWithTekConfButton.Visibility = isLoggedIn ? Visibility.Collapsed : Visibility.Visible;
 			LoginInWithTwitterButton.Visibility = isLoggedIn ? Visibility.Collapsed : Visibility.Visible;
-			RegisterButton.Visibility = isLoggedIn ? Visibility.Collapsed : Visibility.Visible;
+			//RegisterButton.Visibility = isLoggedIn ? Visibility.Collapsed : Visibility.Visible;
 			LogoutButton.Visibility = isLoggedIn ? Visibility.Visible : Visibility.Collapsed;
 			LoginName.Visibility = isLoggedIn ? Visibility.Visible : Visibility.Collapsed;
 			LoginName.Text = isLoggedIn ? "Logged in as " + App.UserName : "";

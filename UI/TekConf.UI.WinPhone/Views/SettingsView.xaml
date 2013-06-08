@@ -88,9 +88,7 @@
 							</StackPanel>
 						</Button>
 
-
-
-						<Button Click="Register_OnClick" Name="RegisterButton" HorizontalAlignment="Center" FontSize="22" Grid.Row="2" Grid.ColumnSpan="2" Margin="0,80,0,0">Register With TekConf</Button>
+						<!--<Button Click="Register_OnClick" Name="RegisterButton" HorizontalAlignment="Center" FontSize="22" Grid.Row="2" Grid.ColumnSpan="2" Margin="0,80,0,0">Register With TekConf</Button>-->
 						<Button Click="Logout_OnClick" Name="LogoutButton" HorizontalAlignment="Center" FontSize="22"  Grid.Row="3" Grid.ColumnSpan="2" Margin="0,80,0,0">Logout</Button>
 
 					</Grid>

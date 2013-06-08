@@ -68,9 +68,10 @@
 							
 							<TextBlock Visibility="{Binding ShouldAddFavorites, Converter={StaticResource Visibility}}" TextWrapping="Wrap"
 											 Style="{StaticResource PhoneTextNormalStyle}">Tap the heart icon on a session to add a favorite</TextBlock>
-							<ListBox ItemsSource="{Binding Schedule.sessions}" 
+							<ListBox ItemsSource="{Binding Sessions, Mode=TwoWay}" 
 										 ItemTemplate="{StaticResource SessionItemTemplate}" 
 										 ScrollViewer.VerticalScrollBarVisibility="Disabled"
+										Name="favoritesList"
 										 Visibility="{Binding IsLoadingSchedule, Converter={StaticResource InvertedVisibility}}">
 							</ListBox>
 						</StackPanel>

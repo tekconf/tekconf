@@ -2,6 +2,8 @@
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
+using Cirrious.CrossCore;
+using Cirrious.MvvmCross.Plugins.File;
 using Cirrious.MvvmCross.Plugins.File.WindowsPhone;
 using Microsoft.Phone.Scheduler;
 using Microsoft.Phone.Shell;
@@ -46,6 +48,8 @@ namespace TekConf.UI.WinPhone.BackgroundAgent
 		protected override void OnInvoke(ScheduledTask task)
 		{
 			var fileStore = new MvxIsolatedStorageFileStore();
+			//Mvx.RegisterSingleton(typeof(IMvxFileStore), fileStore);
+			//Mvx.RegisterType<IMvxFileStore, MvxIsolatedStorageFileStore>();
 			ILocalSessionRepository localSessionRepository = new LocalSessionRepository(fileStore);
 			ILocalConferencesRepository localConferencesRepository = new LocalConferencesRepository(fileStore, localSessionRepository);
 			var scheduleRepository = new LocalScheduleRepository(fileStore, localConferencesRepository);
@@ -57,7 +61,7 @@ namespace TekConf.UI.WinPhone.BackgroundAgent
 				var appTile = ShellTile.ActiveTiles.First();
 
 				if (conference == null)
-					conference = new ConferencesListViewDto(null, null);
+					conference = new ConferencesListViewDto(null, fileStore);
 
 				if (nextSession != null)
 				{

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using Cirrious.MvvmCross.Plugins.Messenger;
@@ -204,6 +205,17 @@ namespace TekConf.Core.ViewModels
 			}
 		}
 
+		public List<FullSessionDto> Sessions
+		{
+			get
+			{
+				if (Schedule != null && Schedule.sessions != null)
+					return Schedule.sessions;
+				else
+					return new List<FullSessionDto>();
+			}
+		}
+
 		private ScheduleDto _schedule;
 		public ScheduleDto Schedule
 		{
@@ -215,6 +227,7 @@ namespace TekConf.Core.ViewModels
 			{
 				_schedule = value;
 				RaisePropertyChanged(() => Schedule);
+				RaisePropertyChanged(() => Sessions);
 				RaisePropertyChanged(() => ShouldAddFavorites);
 				IsLoadingSchedule = false;
 			}

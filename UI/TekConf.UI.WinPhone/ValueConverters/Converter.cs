@@ -51,7 +51,6 @@ namespace TekConf.UI.WinPhone.ValueConverters
 		protected override string Convert(string value, Type targetType, object parameter, CultureInfo culture)
 		{
 			return "/img/social/" + value + ".png";
-
 		}
 	}
 

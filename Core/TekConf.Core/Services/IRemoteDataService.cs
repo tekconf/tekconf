@@ -37,7 +37,9 @@ namespace TekConf.Core.Services
 		void LoginWithTekConf(string userName, string password, Action<bool, string> success = null, Action<Exception> error = null);
 
 		void AddToSchedule(string userName, string conferenceSlug, Action<ScheduleDto> success = null, Action<Exception> error = null);
+		void AddSessionToSchedule(string userName, string conferenceSlug, string sessionSlug, Action<ScheduleDto> success = null, Action<Exception> error = null);
 		void RemoveFromSchedule(string userName, string conferenceSlug, Action<ScheduleDto> success = null, Action<Exception> error = null);
+		void RemoveSessionFromSchedule(string userName, string conferenceSlug, string sessionSlug, Action<ScheduleDto> success = null, Action<Exception> error = null);
 		void GetSession(string conferenceSlug, string sessionSlug, bool isRefreshing, Action<SessionDetailDto> success, Action<Exception> error);
 		void GetIsOauthUserRegistered(string userId, Action<string> success, Action<Exception> error);
 		void CreateOauthUser(string userId, string userName, Action<string> success, Action<Exception> error);

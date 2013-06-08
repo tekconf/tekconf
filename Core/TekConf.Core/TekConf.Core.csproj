@@ -45,6 +45,8 @@
     <Compile Include="Dtos\ScheduleDto.cs" />
     <Compile Include="Dtos\SpeakerDto.cs" />
     <Compile Include="Interfaces\IAnalytics.cs" />
+    <Compile Include="Messages\FavoriteRefreshMessage.cs" />
+    <Compile Include="Messages\FavoriteSessionAddedMessage.cs" />
     <Compile Include="Models\ConferenceService.cs" />
     <Compile Include="Models\ConferenceSessionsService.cs" />
     <Compile Include="Models\ConferencesService.cs" />

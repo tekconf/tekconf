@@ -13,12 +13,16 @@ namespace TekConf.UI.WinPhone.Views
 	public partial class ConferenceDetailView
 	{
 		private MvxSubscriptionToken _conferenceDetailExceptionMessageToken;
+		private MvxSubscriptionToken _favoriteRefreshMessageToken;
+
 		public ConferenceDetailView()
 		{
 			InitializeComponent();
 			var messenger = Mvx.Resolve<IMvxMessenger>();
 
-			_conferenceDetailExceptionMessageToken = messenger.Subscribe<ConferenceDetailExceptionMessage>(message =>
+			_favoriteRefreshMessageToken = messenger.Subscribe<FavoriteRefreshMessage>(message => Dispatcher.BeginInvoke(RefreshFavoriteIcon));
+
+		_conferenceDetailExceptionMessageToken = messenger.Subscribe<ConferenceDetailExceptionMessage>(message =>
 					Dispatcher.BeginInvoke(() =>
 					{
 						if (message.ExceptionObject.Message == "The remote server returned an error: NotFound.")
@@ -28,33 +32,31 @@ namespace TekConf.UI.WinPhone.Views
 							//ConferenceDetailExceptionMessage.Text = "Could not connect to remote server. Please check your network connection and try again.";
 							//ConferenceDetailExceptionMessage.Visibility = Visibility.Visible;
 						}
-					}));			
+					}));
+
 			Loaded += OnLoaded;
 		}
 
 		private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
 		{
+			RefreshFavoriteIcon();
+		}
 
-			var vm = DataContext as INotifyPropertyChanged;
+		private void RefreshFavoriteIcon()
+		{
+			var vm = DataContext as ConferenceDetailViewModel;
 			if (vm != null)
 			{
-				vm.PropertyChanged += (o, args) =>
+				string imageUrl = "/img/appbar.heart.png";
+				if (vm.Conference != null)
 				{
-					if (args.PropertyName == "Conference")
+					if (vm.Conference.isAddedToSchedule == true)
 					{
-						string imageUrl = "/img/appbar.heart.png";
-						var viewModel = DataContext as ConferenceDetailViewModel;
-						if (viewModel != null && viewModel.Conference != null)
-						{
-							if (viewModel.Conference.isAddedToSchedule == true)
-							{
-								imageUrl = "/img/appbar.heart.cross.png";
-							}
-						}
-
-						((ApplicationBarIconButton)ApplicationBar.Buttons[1]).IconUri = new Uri(imageUrl, UriKind.Relative);
+						imageUrl = "/img/appbar.heart.cross.png";
 					}
-				};
+				}
+
+				((ApplicationBarIconButton)ApplicationBar.Buttons[1]).IconUri = new Uri(imageUrl, UriKind.Relative);
 			}
 		}
 
@@ -72,7 +74,7 @@ namespace TekConf.UI.WinPhone.Views
 		{
 			var vm = DataContext as ConferenceDetailViewModel;
 
-			if (vm != null) 
+			if (vm != null)
 				vm.ShowSessionsCommand.Execute(vm.Conference.slug);
 		}
 

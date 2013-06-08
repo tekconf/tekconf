@@ -32,46 +32,45 @@ namespace TekConf.RemoteData.Dtos.v1
 		public string tagline { get; set; }
 
 
+
+		//private byte[] _imageBytes;
+		//public byte[] ImageBytes
+		//{
+		//	get
+		//	{
+		//		return _imageBytes;
+		//	}
+		//	set
+		//	{
+		//		_imageBytes = value;
+		//		RaisePropertyChanged(() => ImageBytes);
+		//	}
+		//}
+
+		//private void GetImageError(Exception obj)
+		//{
+
+		//}
+
+		//private void GetImageSuccess(byte[] image)
+		//{
+		//	InvokeOnMainThread(() => 
+		//		ImageBytes = image
+		//		);			
+		//}
+
 		private string _imageUrl;
-
-		private byte[] _imageBytes;
-		public byte[] ImageBytes
-		{
-			get
-			{
-				return _imageBytes;
-			}
-			set
-			{
-				_imageBytes = value;
-				RaisePropertyChanged(() => ImageBytes);
-			}
-		}
-
-		private void GetImageError(Exception obj)
-		{
-
-		}
-
-		private void GetImageSuccess(byte[] image)
-		{
-			InvokeOnMainThread(() => 
-				ImageBytes = image
-				);			
-		}
-
 		public string imageUrl
 		{
 			get { return _imageUrl; }
 			set
 			{
 				_imageUrl = value;
-				ImageService.GetImageAsync(_fileStore, null, _imageUrl, GetImageSuccess, GetImageError);
+				//ImageService.GetImageAsync(_fileStore, null, _imageUrl, GetImageSuccess, GetImageError);
 			}
 		}
 
 		public bool isLive { get; set; }
-
 		public string facebookUrl { get; set; }
 		public string homepageUrl { get; set; }
 		public string lanyrdUrl { get; set; }

@@ -32,6 +32,7 @@ namespace TekConf.Core.Repositories
 				startDescription = fullSession.startDescription;
 				room = fullSession.room;
 				description = fullSession.description;
+				isAddedToSchedule = fullSession.isAddedToSchedule.HasValue && fullSession.isAddedToSchedule.Value;
 				speakers = fullSession.speakers.Select(x => new SpeakerDetailViewDto(x)).ToList();
 			}
 		}
@@ -41,5 +42,7 @@ namespace TekConf.Core.Repositories
 		public string room { get; set; }
 		public string description { get; set; }
 		public IEnumerable<SpeakerDetailViewDto> speakers { get; set; }
+
+		public bool isAddedToSchedule { get; set; }
 	}
 }

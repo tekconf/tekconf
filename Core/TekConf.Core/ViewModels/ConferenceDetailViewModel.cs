@@ -129,6 +129,7 @@ namespace TekConf.Core.ViewModels
 					RaisePropertyChanged(() => Conference);
 					RaisePropertyChanged(() => ConnectItems);
 					RaisePropertyChanged(() => HasConnectItems);
+					_messenger.Publish(new FavoriteRefreshMessage(this));
 				}
 			}
 		}

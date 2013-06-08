@@ -86,9 +86,19 @@ namespace TekConf.Core.Services
 			ScheduleService.AddToScheduleAsync(_fileStore, _localScheduleRepository, userName, conferenceSlug, false, _cache, success, error);
 		}
 
+		public void AddSessionToSchedule(string userName, string conferenceSlug, string sessionSlug, Action<ScheduleDto> success = null, Action<Exception> error = null)
+		{
+			ScheduleService.AddSessionToScheduleAsync(_fileStore, _localScheduleRepository, userName, conferenceSlug, sessionSlug, false, _cache, success, error);
+		}
+
 		public void RemoveFromSchedule(string userName, string conferenceSlug, Action<ScheduleDto> success = null, Action<Exception> error = null)
 		{
 			ScheduleService.RemoveFromScheduleAsync(_fileStore, _localScheduleRepository, userName, conferenceSlug, false, _cache, success, error);
+		}
+
+		public void RemoveSessionFromSchedule(string userName, string conferenceSlug, string sessionSlug, Action<ScheduleDto> success = null, Action<Exception> error = null)
+		{
+			ScheduleService.RemoveSessionFromScheduleAsync(_fileStore, _localScheduleRepository, userName, conferenceSlug, sessionSlug, false, _cache, success, error);
 		}
 
 		public void GetSession(string conferenceSlug, string sessionSlug, bool isRefreshing, Action<SessionDetailDto> success, Action<Exception> error)

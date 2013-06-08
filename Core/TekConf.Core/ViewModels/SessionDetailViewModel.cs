@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows.Input;
 using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
@@ -14,12 +15,16 @@ namespace TekConf.Core.ViewModels
 		private readonly IRemoteDataService _remoteDataService;
 		private readonly IAnalytics _analytics;
 		private readonly IMvxMessenger _messenger;
+		private readonly IAuthentication _authentication;
 
-		public SessionDetailViewModel(IRemoteDataService remoteDataService, IAnalytics analytics, IMvxMessenger messenger)
+		public SessionDetailViewModel(IRemoteDataService remoteDataService, IAnalytics analytics, IMvxMessenger messenger, IAuthentication authentication)
 		{
 			_remoteDataService = remoteDataService;
 			_analytics = analytics;
 			_messenger = messenger;
+			_authentication = authentication;
+			AddFavoriteCommand = new ActionCommand(AddSessionToFavorites);
+
 		}
 
 		public void Init(Navigation navigation)
@@ -27,6 +32,7 @@ namespace TekConf.Core.ViewModels
 			StartGetSession(navigation);
 		}
 
+		public ICommand AddFavoriteCommand { get; set; }
 		public void Refresh(Navigation navigation)
 		{
 			StartGetSession(navigation, true);
@@ -62,6 +68,74 @@ namespace TekConf.Core.ViewModels
 			Session = session;
 		}
 
+		private void AddSessionToFavorites()
+		{
+			if (_authentication.IsAuthenticated)
+			{
+				var addSuccess = new Action<ScheduleDto>(dto =>
+				{
+					Session.isAddedToSchedule = true;
+					RefreshFavorites();
+					RaisePropertyChanged(() => Session);
+					_messenger.Publish(new FavoriteSessionAddedMessage(this));
+					_messenger.Publish(new FavoriteRefreshMessage(this));
+				});
+
+				var addError = new Action<Exception>(ex =>
+				{
+					Session.isAddedToSchedule = false;
+					RefreshFavorites();
+					RaisePropertyChanged(() => Session);
+					_messenger.Publish(new FavoriteRefreshMessage(this));
+				});
+
+				var removeSuccess = new Action<ScheduleDto>(dto =>
+				{
+					Session.isAddedToSchedule = false;
+					RefreshFavorites();
+					RaisePropertyChanged(() => Session);
+					_messenger.Publish(new FavoriteRefreshMessage(this));
+
+				});
+
+				var removeError = new Action<Exception>(ex =>
+				{
+					Session.isAddedToSchedule = true;
+					RefreshFavorites();
+					RaisePropertyChanged(() => Session);
+					_messenger.Publish(new FavoriteRefreshMessage(this));
+
+				});
+
+				if (Session.isAddedToSchedule == true)
+				{
+					removeSuccess(null);
+					_remoteDataService.RemoveSessionFromSchedule(_authentication.UserName, ConferenceSlug, Session.slug, removeSuccess, removeError);
+				}
+				else
+				{
+					addSuccess(null);
+					_remoteDataService.AddSessionToSchedule(_authentication.UserName, ConferenceSlug, Session.slug, addSuccess, addError);
+				}
+			}
+		}
+
+		private void RefreshFavorites()
+		{
+			var userName = _authentication.UserName;
+			_remoteDataService.GetSchedules(userName, true, GetFavoritesSuccess, GetFavoritesError);
+		}
+
+
+		private void GetFavoritesError(Exception exception)
+		{
+
+		}
+
+		private void GetFavoritesSuccess(IEnumerable<ConferencesListViewDto> conferences)
+		{
+		}
+
 		private bool _isLoading;
 		public bool IsLoading
 		{
@@ -81,6 +155,7 @@ namespace TekConf.Core.ViewModels
 				_session = value;
 				PageTitle = _session.title;
 				RaisePropertyChanged(() => Session);
+				_messenger.Publish(new FavoriteRefreshMessage(this));
 
 			}
 		}
