@@ -24,9 +24,5 @@
     <dependencies>
       <dependency id="ServiceStack.Text" />
     </dependencies>
-    <references>
-      <reference file="ServiceStack.Common.dll" />
-      <reference file="ServiceStack.Interfaces.dll" />
-    </references>
   </metadata>
 </package>
