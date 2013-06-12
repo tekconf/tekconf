@@ -15,6 +15,7 @@ namespace RemoteData.Shared.Tests.Int
     private const string _baseUrl = "http://localhost:25825/v1";
     //private const string _baseUrl = "http://api.tekconf.com/v1";
     [Test]
+		[Ignore]
     public async Task GetSessions()
     {
       const string slug = "Android-Pro-Tips";
@@ -41,6 +42,7 @@ namespace RemoteData.Shared.Tests.Int
     }
 
     [Test]
+		[Ignore]
     public async Task GetSession()
     {
       var remoteData = new RemoteDataRepository(_baseUrl);

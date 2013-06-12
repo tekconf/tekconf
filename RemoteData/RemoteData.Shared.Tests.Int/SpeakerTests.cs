@@ -16,6 +16,7 @@ namespace RemoteData.Shared.Tests.Int
     //private const string _baseUrl = "http://api.tekconf.com/v1";
     
     [Test]
+		[Ignore]
     public async Task GetSpeakers()
     {
       const string slug = "Speaker-Slug2";
@@ -42,6 +43,7 @@ namespace RemoteData.Shared.Tests.Int
     }
 
     [Test]
+		[Ignore]
     public async Task GetSpeaker()
     {
       var remoteData = new RemoteDataRepository(_baseUrl);

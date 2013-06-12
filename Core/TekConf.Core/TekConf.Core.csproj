@@ -85,6 +85,7 @@
     <Compile Include="ViewModels\ConferenceSearchViewModel.cs" />
     <Compile Include="Messages\ExceptionMessage.cs" />
     <Compile Include="Messages\FavoriteAddedMessage.cs" />
+    <Compile Include="ViewModels\FirstViewModel.cs" />
     <Compile Include="ViewModels\OAuthRegisterViewModel.cs" />
     <Compile Include="ViewModels\SessionDetailViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
@@ -92,40 +93,42 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Cirrious.CrossCore">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.6\lib\portable-win+net45+MonoAndroid16+MonoTouch40+sl40+wp71\Cirrious.CrossCore.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.8.1\lib\portable-win+net45+MonoAndroid16+MonoTouch40+sl40+wp71\Cirrious.CrossCore.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.StarterPack.3.0.6\lib\portable-win+net45+MonoAndroid16+MonoTouch40+sl40+wp71\Cirrious.MvvmCross.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.StarterPack.3.0.8.1\lib\portable-win+net45+MonoAndroid16+MonoTouch40+sl40+wp71\Cirrious.MvvmCross.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Localization">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.6\lib\portable-win+net45+MonoAndroid16+MonoTouch40+sl40+wp71\Cirrious.MvvmCross.Localization.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.8.1\lib\portable-win+net45+MonoAndroid16+MonoTouch40+sl40+wp71\Cirrious.MvvmCross.Localization.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.File">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.File.3.0.6\lib\portable-win+net45+MonoAndroid16+MonoTouch40+sl40+wp71\Cirrious.MvvmCross.Plugins.File.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.File.3.0.8.1\lib\portable-win+net45+MonoAndroid16+MonoTouch40+sl40+wp71\Cirrious.MvvmCross.Plugins.File.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.Json">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Json.3.0.6\lib\portable-win+net45+MonoAndroid16+MonoTouch40+sl40+wp71\Cirrious.MvvmCross.Plugins.Json.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Json.3.0.8.1\lib\portable-win+net45+MonoAndroid16+MonoTouch40+sl40+wp71\Cirrious.MvvmCross.Plugins.Json.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.Location">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Location.3.0.6\lib\portable-win+net45+MonoAndroid16+MonoTouch40+sl40+wp71\Cirrious.MvvmCross.Plugins.Location.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Location.3.0.8.1\lib\portable-win+net45+MonoAndroid16+MonoTouch40+sl40+wp71\Cirrious.MvvmCross.Plugins.Location.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.Messenger">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Messenger.3.0.6\lib\portable-win+net45+MonoAndroid16+MonoTouch40+sl40+wp71\Cirrious.MvvmCross.Plugins.Messenger.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Messenger.3.0.8.1\lib\portable-win+net45+MonoAndroid16+MonoTouch40+sl40+wp71\Cirrious.MvvmCross.Plugins.Messenger.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.Network">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Network.3.0.6\lib\portable-win+net45+MonoAndroid16+MonoTouch40+sl40+wp71\Cirrious.MvvmCross.Plugins.Network.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Network.3.0.8.1\lib\portable-win+net45+MonoAndroid16+MonoTouch40+sl40+wp71\Cirrious.MvvmCross.Plugins.Network.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.WebBrowser">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.WebBrowser.3.0.6\lib\portable-win+net45+MonoAndroid16+MonoTouch40+sl40+wp71\Cirrious.MvvmCross.Plugins.WebBrowser.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.WebBrowser.3.0.8.1\lib\portable-win+net45+MonoAndroid16+MonoTouch40+sl40+wp71\Cirrious.MvvmCross.Plugins.WebBrowser.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Json.3.0.6\lib\portable-win+net45+MonoAndroid16+MonoTouch40+sl40+wp71\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Json.3.0.8.1\lib\portable-win+net45+MonoAndroid16+MonoTouch40+sl40+wp71\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="ToDo-MvvmCross\_ Core.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

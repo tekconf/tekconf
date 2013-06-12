@@ -159,6 +159,7 @@
     <Content Include="Assets\LightGray.png" />
     <Content Include="Assets\MediumGray.png" />
     <Content Include="Assets\DarkGray.png" />
+    <Content Include="ToDo-MvvmCross\_ Windows Store UI.txt" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -183,50 +184,61 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Cirrious.CrossCore">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.5\lib\netcore45\Cirrious.CrossCore.dll</HintPath>
+    <Reference Include="Cirrious.CrossCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=e16445fd9b451819, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.8.1\lib\netcore45\Cirrious.CrossCore.dll</HintPath>
     </Reference>
-    <Reference Include="Cirrious.CrossCore.WindowsStore">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.5\lib\netcore45\Cirrious.CrossCore.WindowsStore.dll</HintPath>
+    <Reference Include="Cirrious.CrossCore.WindowsStore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.8.1\lib\netcore45\Cirrious.CrossCore.WindowsStore.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross, Version=1.0.0.0, Culture=neutral, PublicKeyToken=e16445fd9b451819, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.StarterPack.3.0.5\lib\netcore45\Cirrious.MvvmCross.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.StarterPack.3.0.8.1\lib\netcore45\Cirrious.MvvmCross.dll</HintPath>
     </Reference>
-    <Reference Include="Cirrious.MvvmCross.Localization">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.5\lib\netcore45\Cirrious.MvvmCross.Localization.dll</HintPath>
+    <Reference Include="Cirrious.MvvmCross.Localization, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.8.1\lib\netcore45\Cirrious.MvvmCross.Localization.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.File, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.File.3.0.5\lib\netcore45\Cirrious.MvvmCross.Plugins.File.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.File.3.0.8.1\lib\netcore45\Cirrious.MvvmCross.Plugins.File.dll</HintPath>
     </Reference>
-    <Reference Include="Cirrious.MvvmCross.Plugins.File.WindowsStore">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.File.3.0.5\lib\netcore45\Cirrious.MvvmCross.Plugins.File.WindowsStore.dll</HintPath>
+    <Reference Include="Cirrious.MvvmCross.Plugins.File.WindowsStore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.File.3.0.8.1\lib\netcore45\Cirrious.MvvmCross.Plugins.File.WindowsStore.dll</HintPath>
     </Reference>
-    <Reference Include="Cirrious.MvvmCross.Plugins.Location">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Location.3.0.5\lib\netcore45\Cirrious.MvvmCross.Plugins.Location.dll</HintPath>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Location, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Location.3.0.8.1\lib\netcore45\Cirrious.MvvmCross.Plugins.Location.dll</HintPath>
     </Reference>
-    <Reference Include="Cirrious.MvvmCross.Plugins.Location.WindowsStore">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Location.3.0.5\lib\netcore45\Cirrious.MvvmCross.Plugins.Location.WindowsStore.dll</HintPath>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Location.WindowsStore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Location.3.0.8.1\lib\netcore45\Cirrious.MvvmCross.Plugins.Location.WindowsStore.dll</HintPath>
     </Reference>
-    <Reference Include="Cirrious.MvvmCross.Plugins.Messenger">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Messenger.3.0.5\lib\netcore45\Cirrious.MvvmCross.Plugins.Messenger.dll</HintPath>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Messenger, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Messenger.3.0.8.1\lib\netcore45\Cirrious.MvvmCross.Plugins.Messenger.dll</HintPath>
     </Reference>
-    <Reference Include="Cirrious.MvvmCross.Plugins.Share">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Share.3.0.5\lib\netcore45\Cirrious.MvvmCross.Plugins.Share.dll</HintPath>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Share, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Share.3.0.8.1\lib\netcore45\Cirrious.MvvmCross.Plugins.Share.dll</HintPath>
     </Reference>
-    <Reference Include="Cirrious.MvvmCross.Plugins.Share.WindowsStore">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Share.3.0.5\lib\netcore45\Cirrious.MvvmCross.Plugins.Share.WindowsStore.dll</HintPath>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Share.WindowsStore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Share.3.0.8.1\lib\netcore45\Cirrious.MvvmCross.Plugins.Share.WindowsStore.dll</HintPath>
     </Reference>
-    <Reference Include="Cirrious.MvvmCross.Plugins.WebBrowser">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.WebBrowser.3.0.5\lib\netcore45\Cirrious.MvvmCross.Plugins.WebBrowser.dll</HintPath>
+    <Reference Include="Cirrious.MvvmCross.Plugins.WebBrowser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.WebBrowser.3.0.8.1\lib\netcore45\Cirrious.MvvmCross.Plugins.WebBrowser.dll</HintPath>
     </Reference>
-    <Reference Include="Cirrious.MvvmCross.Plugins.WebBrowser.WindowsStore">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.WebBrowser.3.0.5\lib\netcore45\Cirrious.MvvmCross.Plugins.WebBrowser.WindowsStore.dll</HintPath>
+    <Reference Include="Cirrious.MvvmCross.Plugins.WebBrowser.WindowsStore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.WebBrowser.3.0.8.1\lib\netcore45\Cirrious.MvvmCross.Plugins.WebBrowser.WindowsStore.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.WindowsStore, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.StarterPack.3.0.5\lib\netcore45\Cirrious.MvvmCross.WindowsStore.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.StarterPack.3.0.8.1\lib\netcore45\Cirrious.MvvmCross.WindowsStore.dll</HintPath>
     </Reference>
     <Reference Include="GoogleAnalytics">
       <HintPath>..\..\packages\GoogleAnalyticsSDK.1.0.13-beta\lib\windows8\GoogleAnalytics.winmd</HintPath>

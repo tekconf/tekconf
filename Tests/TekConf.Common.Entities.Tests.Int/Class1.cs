@@ -11,6 +11,7 @@ namespace TekConf.Common.Entities.Tests.Int
 	public class ConferenceRepositoryTests
 	{
 		[Test]
+		[Ignore]
 		public void Should_return_geo_results()
 		{
 			IEntityConfiguration entityConfiguration = new EntityConfiguration();
@@ -23,6 +24,7 @@ namespace TekConf.Common.Entities.Tests.Int
 		}
 
 		[Test]
+		[Ignore]
 		public void Should_find_conferences_near_city_name()
 		{
 			IEntityConfiguration entityConfiguration = new EntityConfiguration();
