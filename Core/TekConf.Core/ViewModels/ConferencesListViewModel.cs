@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Input;
 using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
+using PropertyChanged;
 using TekConf.Core.Interfaces;
 using TekConf.Core.Repositories;
 using TekConf.Core.Services;
@@ -11,6 +12,7 @@ using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.Core.ViewModels
 {
+	//[ImplementPropertyChanged]
 	public class ConferencesListViewModel : MvxViewModel
 	{
 		private readonly IRemoteDataService _remoteDataService;
@@ -19,6 +21,7 @@ namespace TekConf.Core.ViewModels
 		private readonly IMvxMessenger _messenger;
 		private MvxSubscriptionToken _authenticationMessageToken;
 		private MvxSubscriptionToken _favoriteAddedMessageToken;
+		private MvxSubscriptionToken _favoritesUpdatedMessageToken;
 
 		public ConferencesListViewModel(IRemoteDataService remoteDataService, IAnalytics analytics, IAuthentication authentication, IMvxMessenger messenger)
 		{
@@ -28,7 +31,12 @@ namespace TekConf.Core.ViewModels
 			_messenger = messenger;
 			_authenticationMessageToken = _messenger.Subscribe<AuthenticationMessage>(OnAuthenticateMessage);
 			_favoriteAddedMessageToken = _messenger.Subscribe<FavoriteAddedMessage>(OnFavoriteAddedMessage);
+			_favoritesUpdatedMessageToken = _messenger.Subscribe<FavoriteConferencesUpdatedMessage>(OnFavoritesUpdatedMessage);
+		}
 
+		private void OnFavoritesUpdatedMessage(FavoriteConferencesUpdatedMessage message)
+		{
+			DisplayFavoritesConferences(message.Conferences);
 		}
 
 		private void OnFavoriteAddedMessage(FavoriteAddedMessage message)
@@ -167,6 +175,7 @@ namespace TekConf.Core.ViewModels
 			}
 		}
 
+		//public bool IsLoadingFavorites { get; set; }
 		private bool _isLoadingFavorites;
 		public bool IsLoadingFavorites
 		{
@@ -178,6 +187,7 @@ namespace TekConf.Core.ViewModels
 			}
 		}
 
+		//public bool IsAuthenticated { get; set; }
 		private bool _isAuthenticated;
 		public bool IsAuthenticated
 		{
@@ -207,6 +217,7 @@ namespace TekConf.Core.ViewModels
 			}
 		}
 
+		//public FullConferenceDto SelectedFavorite { get; set; }
 		private FullConferenceDto _selectedFavorite;
 		public FullConferenceDto SelectedFavorite
 		{

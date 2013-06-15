@@ -18,13 +18,15 @@ namespace TekConf.Core.ViewModels
 		private readonly IAnalytics _analytics;
 		private readonly IAuthentication _authentication;
 		private readonly IMvxMessenger _messenger;
+		private readonly ILocalScheduleRepository _localScheduleRepository;
 
-		public ConferenceDetailViewModel(IRemoteDataService remoteDataService, IAnalytics analytics, IAuthentication authentication, IMvxMessenger messenger)
+		public ConferenceDetailViewModel(IRemoteDataService remoteDataService, IAnalytics analytics, IAuthentication authentication, IMvxMessenger messenger, ILocalScheduleRepository localScheduleRepository)
 		{
 			_remoteDataService = remoteDataService;
 			_analytics = analytics;
 			_authentication = authentication;
 			_messenger = messenger;
+			_localScheduleRepository = localScheduleRepository;
 			AddFavoriteCommand = new ActionCommand(AddConferenceToFavorites);
 		}
 
@@ -62,7 +64,7 @@ namespace TekConf.Core.ViewModels
 
 		private void DisplayConference(ConferenceDetailViewDto conference)
 		{
-			 
+
 			IsAuthenticated = _authentication.IsAuthenticated;
 			IsLoading = false;
 			Conference = conference;
@@ -167,7 +169,7 @@ namespace TekConf.Core.ViewModels
 				if (Conference != null)
 				{
 					if (!Conference.facebookUrl.IsNullOrWhiteSpace() && _connectItems.All(x => x.Name != "facebookUrl"))
-						_connectItems.Add(new ConnectItem { Name ="facebookUrl", Value = Conference.facebookUrl});
+						_connectItems.Add(new ConnectItem { Name = "facebookUrl", Value = Conference.facebookUrl });
 
 					if (!Conference.homepageUrl.IsNullOrWhiteSpace() && _connectItems.All(x => x.Name != "homepageUrl"))
 						_connectItems.Add(new ConnectItem { Name = "homepageUrl", Value = Conference.homepageUrl });
@@ -208,7 +210,7 @@ namespace TekConf.Core.ViewModels
 		{
 			get
 			{
-				return new MvxCommand<string>(slug => ShowViewModel<ConferenceSessionsViewModel>(new {slug }));
+				return new MvxCommand<string>(slug => ShowViewModel<ConferenceSessionsViewModel>(new { slug }));
 			}
 		}
 
@@ -231,7 +233,7 @@ namespace TekConf.Core.ViewModels
 
 		private void GetFavoritesError(Exception exception)
 		{
-			
+
 		}
 
 		private void GetFavoritesSuccess(IEnumerable<ConferencesListViewDto> conferences)
@@ -263,6 +265,7 @@ namespace TekConf.Core.ViewModels
 					RaisePropertyChanged(() => Conference);
 					RefreshFavorites();
 				});
+
 				var removeError = new Action<Exception>(ex =>
 				{
 					Conference.isAddedToSchedule = true;
@@ -273,12 +276,16 @@ namespace TekConf.Core.ViewModels
 				if (Conference.isAddedToSchedule == true)
 				{
 					removeSuccess(null);
-					_remoteDataService.RemoveFromSchedule(_authentication.UserName, Conference.slug, removeSuccess, removeError);					
+					_remoteDataService.RemoveFromSchedule(_authentication.UserName, Conference.slug, removeSuccess, removeError);
 				}
 				else
 				{
-					addSuccess(null);
-					_remoteDataService.AddToSchedule(_authentication.UserName, Conference.slug, addSuccess, addError);					
+					var schedule = new ScheduleDto() { conferenceSlug = Conference.slug, sessions = new List<FullSessionDto>(), url = "", userSlug = _authentication.UserName };
+					_localScheduleRepository.SaveSchedule(schedule);
+					var conferences = _localScheduleRepository.GetConferencesList();
+					_messenger.Publish(new FavoriteConferencesUpdatedMessage(this, conferences));
+					addSuccess(schedule);
+					_remoteDataService.AddToSchedule(_authentication.UserName, Conference.slug, addSuccess, addError);
 				}
 			}
 		}

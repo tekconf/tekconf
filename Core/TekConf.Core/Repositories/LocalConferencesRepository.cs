@@ -135,6 +135,23 @@ namespace TekConf.Core.Repositories
 
 		#region Get
 
+		public FullConferenceDto GetConference(string conferenceSlug)
+		{
+			FullConferenceDto conference = null;
+			var conferenceJsonPath = conferenceSlug + ".json";
+			if (_fileStore != null)
+			{
+				if (_fileStore.Exists(conferenceJsonPath))
+				{
+					string json;
+					_fileStore.TryReadTextFile(conferenceJsonPath, out json);
+					conference = JsonConvert.DeserializeObject<FullConferenceDto>(json);
+				}
+			}
+
+			return conference;
+		}
+
 		public IEnumerable<ConferencesListViewDto> GetConferencesListView()
 		{
 			IEnumerable<ConferencesListViewDto> conferencesListViewDtos = null;

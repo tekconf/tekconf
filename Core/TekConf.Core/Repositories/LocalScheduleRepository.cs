@@ -22,6 +22,12 @@ namespace TekConf.Core.Repositories
 			_localConferencesRepository = localConferencesRepository;
 		}
 
+		public void SaveSchedules(IEnumerable<ConferencesListViewDto> scheduledConferences)
+		{
+			SaveSchedulesToFileStore(scheduledConferences);
+
+			SaveSchedulesLastUpdated();
+		}
 		public void SaveSchedules(IEnumerable<FullConferenceDto> scheduledConferences)
 		{
 			SaveSchedulesToFileStore(scheduledConferences);
@@ -64,7 +70,22 @@ namespace TekConf.Core.Repositories
 
 				string serializedFavorites = JsonConvert.SerializeObject(schedule);
 				_fileStore.WriteFile(path, serializedFavorites);
+
+				IEnumerable<ConferencesListViewDto> conferences = GetConferencesList();
+				if (conferences != null)
+				{
+					var conferenceList = conferences.ToList();
+					if (conferenceList.All(x => x.slug != schedule.conferenceSlug))
+					{
+						var fullConference = _localConferencesRepository.GetConference(schedule.conferenceSlug);
+						conferenceList.Add(new ConferencesListViewDto(fullConference, _fileStore));
+						SaveSchedules(conferenceList);
+					}
+				}
+
 			}
+
+			
 		}
 
 		public ScheduleDto GetSchedule(string conferenceSlug)
@@ -87,14 +108,19 @@ namespace TekConf.Core.Repositories
 
 		private void SaveSchedulesToFileStore(IEnumerable<FullConferenceDto> scheduledConferences)
 		{
+			var filteredSchedules = scheduledConferences.Select(x => new ConferencesListViewDto(x, _fileStore)).ToList();
+			SaveSchedulesToFileStore(filteredSchedules);
+		}
+
+		private void SaveSchedulesToFileStore(IEnumerable<ConferencesListViewDto> scheduledConferences)
+		{
 			if (_fileStore.Exists(_conferencesListViewSchedulesPath))
 			{
 				_fileStore.DeleteFile(_conferencesListViewSchedulesPath);
 			}
 			if (!_fileStore.Exists(_conferencesListViewSchedulesPath))
 			{
-				var filteredSchedules = scheduledConferences.Select(x => new ConferencesListViewDto(x, _fileStore)).ToList();
-				var json = JsonConvert.SerializeObject(filteredSchedules);
+				var json = JsonConvert.SerializeObject(scheduledConferences);
 				_fileStore.WriteFile(_conferencesListViewSchedulesPath, json);
 			}
 		}

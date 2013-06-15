@@ -10,5 +10,6 @@ namespace TekConf.Core.Repositories
 		IEnumerable<ConferencesListViewDto> GetConferencesListView();
 		ConferenceDetailViewDto GetConferenceDetail(string slug);
 		void SaveConference(FullConferenceDto conference);
+		FullConferenceDto GetConference(string conferenceSlug);
 	}
 }

@@ -145,14 +145,6 @@ namespace TekConf.Core.Models
 			{
 				const string path = "schedules.json";
 
-				//var cachedSchedules = _cache.Get<string, List<FullConferenceDto>>("schedules");
-				//List<FullConferenceDto> cachedSchedules = null;
-				//if (cachedSchedules != null && !_isRefreshing)
-				//{
-				//	_getSchedulesSuccess(cachedSchedules);
-				//}
-				//else 
-
 				var list = _localScheduleRepository.GetConferencesList();
 				if (list != null && !_isRefreshing)
 				{
@@ -368,7 +360,7 @@ namespace TekConf.Core.Models
 			}
 
 			_localScheduleRepository.SaveSchedules(scheduledConferences);
-			scheduledConferences = null;
+			//scheduledConferences = null;
 			var list = _localScheduleRepository.GetConferencesList();
 			_getSchedulesSuccess(list);
 		}
@@ -393,7 +385,7 @@ namespace TekConf.Core.Models
 		private void HandleAddToScheduleResponse(string response)
 		{
 			var scheduleDto = JsonConvert.DeserializeObject<ScheduleDto>(response);
-			_localScheduleRepository.SaveSchedule(scheduleDto);
+			//_localScheduleRepository.SaveSchedule(scheduleDto);
 
 			_addToScheduleSuccess(scheduleDto);
 		}
