@@ -2,14 +2,14 @@ using Cirrious.MvvmCross.ViewModels;
 
 namespace TekConf.Core.ViewModels
 {
-    public class FirstViewModel 
+		public class FirstViewModel 
 		: MvxViewModel
-    {
+		{
 		private string _hello = "Hello MvvmCross";
-        public string Hello
+				public string Hello
 		{ 
 			get { return _hello; }
 			set { _hello = value; RaisePropertyChanged(() => Hello); }
 		}
-    }
+		}
 }

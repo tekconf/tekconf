@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1C4B1284-5B72-4ADB-AC5B-739F778233BD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cirrious.MvvmCross.Test</RootNamespace>
+    <AssemblyName>Cirrious.MvvmCross.Test</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Cirrious.MvvmCross.Localization">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.8.1\lib\net45\Cirrious.MvvmCross.Localization.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Messenger">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Messenger.3.0.8.1\lib\portable-win+net45+MonoAndroid16+MonoTouch40+sl40+wp71\Cirrious.MvvmCross.Plugins.Messenger.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Wpf">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.StarterPack.3.0.8.1\lib\net45\Cirrious.MvvmCross.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Moq">
+      <HintPath>..\..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Should">
+      <HintPath>..\..\packages\Should.1.1.19\lib\Should.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Mocks\Dispatchers\CountingMockMainThreadDispatcher.cs" />
+    <Compile Include="Mocks\Dispatchers\InlineMockMainThreadDispatcher.cs" />
+    <Compile Include="Mocks\Dispatchers\CallbackMockMainThreadDispatcher.cs" />
+    <Compile Include="Mocks\TestViewModels\ITestThing.cs" />
+    <Compile Include="Mocks\TestViewModels\MockTestThing.cs" />
+    <Compile Include="Mocks\TestViews\AbstractTest1View.cs" />
+    <Compile Include="Mocks\TestViews\NotReallyAView.cs" />
+    <Compile Include="Mocks\TestViews\NotTest2View.cs" />
+    <Compile Include="Mocks\TestViews\NotTest3View.cs" />
+    <Compile Include="Parse\MvxStringDictionaryTextSerializerTest.cs" />
+    <Compile Include="Platform\MvxStringToTypeParserTest.cs" />
+    <Compile Include="Platform\MvxViewModelViewLookupBuilderTest.cs" />
+    <Compile Include="Platform\MvxViewModelViewTypeFinderTest.cs" />
+    <Compile Include="Mocks\TestViewModels\AbstractTest1ViewModel.cs" />
+    <Compile Include="Mocks\TestViewModels\Test1ViewModel.cs" />
+    <Compile Include="Platform\MvxViewModelByNameLookupTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Mocks\TestViewModels\Test2ViewModel.cs" />
+    <Compile Include="Mocks\TestViewModels\Test3ViewModel.cs" />
+    <Compile Include="Mocks\TestViews\Test1View.cs" />
+    <Compile Include="Mocks\TestViewModels\BundleObject.cs" />
+    <Compile Include="TestBase.cs" />
+    <Compile Include="ViewModels\MvxBundleTest.cs" />
+    <Compile Include="ViewModels\MvxCommandCollectionTest.cs" />
+    <Compile Include="ViewModels\MvxDefaultViewModelLocatorTest.cs" />
+    <Compile Include="ViewModels\MvxNotifyPropertyChangedTest.cs" />
+    <Compile Include="ViewModels\MvxSaveStateTest.cs" />
+    <Compile Include="ViewModels\MvxViewModelLoaderTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\MvvmCross\Cirrious\Cirrious.MvvmCross.Console\Cirrious.MvvmCross.Console.csproj">
+      <Project>{cf9e4c49-4d40-4375-a522-25d33233b0e9}</Project>
+      <Name>Cirrious.MvvmCross.Console</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\MvvmCross\Cirrious\Cirrious.MvvmCross\Cirrious.MvvmCross.csproj">
+      <Project>{b6e27475-e7d0-448c-a5cc-5097dca1e2dd}</Project>
+      <Name>Cirrious.MvvmCross</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\MvvmCross\CrossCore\Cirrious.CrossCore\Cirrious.CrossCore.csproj">
+      <Project>{cff6f25a-3c3b-44ee-a54c-2ed4aaff3adb}</Project>
+      <Name>Cirrious.CrossCore</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\TekConf.Core\TekConf.Core.csproj">
+      <Project>{e740f915-a0fc-4c66-9fd3-1d9a0dda527a}</Project>
+      <Name>TekConf.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Cirrious.MvvmCross.Test.Core\Cirrious.MvvmCross.Test.Core.csproj">
+      <Project>{8e788346-a72b-4939-9d95-a44ac5f46d9d}</Project>
+      <Name>Cirrious.MvvmCross.Test.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
