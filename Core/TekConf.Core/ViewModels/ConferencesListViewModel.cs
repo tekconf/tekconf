@@ -16,6 +16,11 @@ namespace TekConf.Core.ViewModels
 	public class ConferencesListViewModel : MvxViewModel
 	{
 		private readonly IRemoteDataService _remoteDataService;
+
+		private readonly ILocalConferencesRepository _localConferencesRepository;
+
+		private readonly ILocalScheduleRepository _localScheduleRepository;
+
 		private readonly IAnalytics _analytics;
 		private readonly IAuthentication _authentication;
 		private readonly IMvxMessenger _messenger;
@@ -23,9 +28,16 @@ namespace TekConf.Core.ViewModels
 		private MvxSubscriptionToken _favoriteAddedMessageToken;
 		private MvxSubscriptionToken _favoritesUpdatedMessageToken;
 
-		public ConferencesListViewModel(IRemoteDataService remoteDataService, IAnalytics analytics, IAuthentication authentication, IMvxMessenger messenger)
+		public ConferencesListViewModel(IRemoteDataService remoteDataService, 
+																		ILocalConferencesRepository localConferencesRepository,
+																		ILocalScheduleRepository localScheduleRepository,
+																		IAnalytics analytics, 
+																		IAuthentication authentication, 
+																		IMvxMessenger messenger)
 		{
 			_remoteDataService = remoteDataService;
+			_localConferencesRepository = localConferencesRepository;
+			_localScheduleRepository = localScheduleRepository;
 			_analytics = analytics;
 			_authentication = authentication;
 			_messenger = messenger;
@@ -74,7 +86,15 @@ namespace TekConf.Core.ViewModels
 			IsLoadingConferences = true;
 			_analytics.SendView("ConferencesList");
 
-			_remoteDataService.GetConferences(search: searchTerm, isRefreshing: isRefreshing, success: GetAllSuccess, error: GetAllError);
+			var conferences = _localConferencesRepository.GetConferencesListView();
+			if (conferences != null && conferences.Any())
+			{
+				this.GetAllSuccess(conferences);
+			}
+			else
+			{
+				_remoteDataService.GetConferences(search: searchTerm, isRefreshing: isRefreshing, success: GetAllSuccess, error: GetAllError);
+			}
 		}
 
 		private void StartGetFavorites(bool isRefreshing = false)
@@ -88,7 +108,15 @@ namespace TekConf.Core.ViewModels
 
 				var userName = _authentication.UserName;
 				_analytics.SendView("ConferencesListSchedule-" + userName);
-				_remoteDataService.GetSchedules(userName, isRefreshing, GetFavoritesSuccess, GetFavoritesError);
+				var schedule = _localScheduleRepository.GetConferencesList();
+				if (schedule != null && schedule.Any())
+				{
+					GetFavoritesSuccess(schedule);
+				}
+				else
+				{
+					_remoteDataService.GetSchedules(userName, isRefreshing, GetFavoritesSuccess, GetFavoritesError);
+				}
 			}
 		}
 

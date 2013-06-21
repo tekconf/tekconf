@@ -10,14 +10,14 @@ using Cirrious.CrossCore.Core;
 
 namespace Cirrious.MvvmCross.Test.Mocks.Dispatchers
 {
-    public class InlineMockMainThreadDispatcher
-        : MvxMainThreadDispatcher
-          , IMvxMainThreadDispatcher
-    {
-        public virtual bool RequestMainThreadAction(Action action)
-        {
-            action();
-            return true;
-        }
-    }
+	public class InlineMockMainThreadDispatcher
+			: MvxMainThreadDispatcher
+				, IMvxMainThreadDispatcher
+	{
+		public virtual bool RequestMainThreadAction(Action action)
+		{
+			action();
+			return true;
+		}
+	}
 }
