@@ -51,30 +51,15 @@ namespace TekConf.Core.Models
 		{
 			try
 			{
-				var conferences = _localConferencesRepository.GetConferencesListView();
-				
-				if (conferences != null && !_isRefreshing)
-				{
-					//var results = SearchConferences(conferences);
-					_success(conferences);
-				}
-				else
-				{
-					GetConferencesFromWeb();
-				}
+				string uri = ConferencesUrl;
+				var request = (HttpWebRequest)WebRequest.Create(new Uri(uri));
+				request.Accept = "application/json";
+				request.BeginGetResponse(ReadCallback, request);
 			}
 			catch (Exception exception)
 			{
 				_error(exception);
 			}
-		}
-
-		private void GetConferencesFromWeb()
-		{
-			string uri = ConferencesUrl;
-			var request = (HttpWebRequest) WebRequest.Create(new Uri(uri));
-			request.Accept = "application/json";
-			request.BeginGetResponse(ReadCallback, request);
 		}
 
 		//private IEnumerable<FullConferenceDto> SearchConferences(List<FullConferenceDto> conferences)

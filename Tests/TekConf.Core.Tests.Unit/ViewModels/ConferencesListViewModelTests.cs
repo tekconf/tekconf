@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Cirrious.CrossCore.Core;
+using Cirrious.MvvmCross.Plugins.File;
 using Cirrious.MvvmCross.Plugins.Messenger;
+using Cirrious.MvvmCross.Test.Mocks.Dispatchers;
 using Moq;
 using NUnit.Framework;
+using Ploeh.AutoFixture;
 using Should;
 using TekConf.Core.Interfaces;
 using TekConf.Core.Repositories;
@@ -11,12 +15,6 @@ using TekConf.Core.ViewModels;
 
 namespace TekConf.Core.Tests.Unit.ViewModels
 {
-	using Cirrious.CrossCore.Core;
-	using Cirrious.MvvmCross.Plugins.File;
-	using Cirrious.MvvmCross.Test.Mocks.Dispatchers;
-
-	using Ploeh.AutoFixture;
-
 	[TestFixture]
 	public class ConferencesListViewModelTests : TestBase
 	{
@@ -59,21 +57,21 @@ namespace TekConf.Core.Tests.Unit.ViewModels
 			vm.Init("");
 
 			remoteDataService.Verify(x => x.GetConferences(
-						It.IsAny<bool>(),
-						It.IsAny<string>(),
-						It.IsAny<string>(),
-						It.IsAny<bool?>(),
-						It.IsAny<bool?>(),
-						It.IsAny<bool?>(),
-						It.IsAny<string>(),
-						It.IsAny<string>(),
-						It.IsAny<string>(),
-						It.IsAny<string>(),
-						It.IsAny<double?>(),
-						It.IsAny<double?>(),
-						It.IsAny<double?>(),
-						It.IsAny<Action<IEnumerable<ConferencesListViewDto>>>(),
-						It.IsAny<Action<Exception>>()
+				It.IsAny<bool>(),
+				It.IsAny<string>(),
+				It.IsAny<string>(),
+				It.IsAny<bool?>(),
+				It.IsAny<bool?>(),
+				It.IsAny<bool?>(),
+				It.IsAny<string>(),
+				It.IsAny<string>(),
+				It.IsAny<string>(),
+				It.IsAny<string>(),
+				It.IsAny<double?>(),
+				It.IsAny<double?>(),
+				It.IsAny<double?>(),
+				It.IsAny<Action<IEnumerable<ConferencesListViewDto>>>(),
+				It.IsAny<Action<Exception>>()
 				), Times.Once());
 			vm.ShouldNotBeNull();
 		}
@@ -123,8 +121,11 @@ namespace TekConf.Core.Tests.Unit.ViewModels
 		[Test]
 		public void ConferencesList_should_not_call_remote_if_local_conferences_cache()
 		{
-			var dispatcher = new InlineMockMainThreadDispatcher();
-			Ioc.RegisterSingleton<IMvxMainThreadDispatcher>(dispatcher);
+			if (!Ioc.CanResolve<IMvxMainThreadDispatcher>())
+			{
+				var dispatcher = new InlineMockMainThreadDispatcher();
+				Ioc.RegisterSingleton<IMvxMainThreadDispatcher>(dispatcher);
+			}
 			var fileStore = new Mock<IMvxFileStore>();
 			Ioc.RegisterSingleton(typeof(IMvxFileStore), fileStore.Object);
 			_fixture.Register<IMvxFileStore>(() => fileStore.Object);
@@ -142,21 +143,21 @@ namespace TekConf.Core.Tests.Unit.ViewModels
 			vm.Conferences.ShouldBeNull();
 			vm.Init("");
 			remoteDataService.Verify(x => x.GetConferences(
-						It.IsAny<bool>(),
-						It.IsAny<string>(),
-						It.IsAny<string>(),
-						It.IsAny<bool?>(),
-						It.IsAny<bool?>(),
-						It.IsAny<bool?>(),
-						It.IsAny<string>(),
-						It.IsAny<string>(),
-						It.IsAny<string>(),
-						It.IsAny<string>(),
-						It.IsAny<double?>(),
-						It.IsAny<double?>(),
-						It.IsAny<double?>(),
-						It.IsAny<Action<IEnumerable<ConferencesListViewDto>>>(),
-						It.IsAny<Action<Exception>>()
+				It.IsAny<bool>(),
+				It.IsAny<string>(),
+				It.IsAny<string>(),
+				It.IsAny<bool?>(),
+				It.IsAny<bool?>(),
+				It.IsAny<bool?>(),
+				It.IsAny<string>(),
+				It.IsAny<string>(),
+				It.IsAny<string>(),
+				It.IsAny<string>(),
+				It.IsAny<double?>(),
+				It.IsAny<double?>(),
+				It.IsAny<double?>(),
+				It.IsAny<Action<IEnumerable<ConferencesListViewDto>>>(),
+				It.IsAny<Action<Exception>>()
 				), Times.Never());
 		}
 
@@ -177,10 +178,10 @@ namespace TekConf.Core.Tests.Unit.ViewModels
 			vm.Init("");
 
 			remoteDataService.Verify(x => x.GetSchedules(
-						It.IsAny<string>(),
-						It.IsAny<bool>(),
-						It.IsAny<Action<IEnumerable<ConferencesListViewDto>>>(),
-						It.IsAny<Action<Exception>>()
+				It.IsAny<string>(),
+				It.IsAny<bool>(),
+				It.IsAny<Action<IEnumerable<ConferencesListViewDto>>>(),
+				It.IsAny<Action<Exception>>()
 				), Times.Once());
 			vm.ShouldNotBeNull();
 		}
@@ -206,8 +207,11 @@ namespace TekConf.Core.Tests.Unit.ViewModels
 		[Test]
 		public void ConferencesList_should_display_schedule_if_local_cache()
 		{
-			var dispatcher = new InlineMockMainThreadDispatcher();
-			Ioc.RegisterSingleton<IMvxMainThreadDispatcher>(dispatcher);
+			if (!Ioc.CanResolve<IMvxMainThreadDispatcher>())
+			{
+				var dispatcher = new InlineMockMainThreadDispatcher();
+				Ioc.RegisterSingleton<IMvxMainThreadDispatcher>(dispatcher);
+			}
 			var fileStore = new Mock<IMvxFileStore>();
 			Ioc.RegisterSingleton(typeof(IMvxFileStore), fileStore.Object);
 			_fixture.Register<IMvxFileStore>(() => fileStore.Object);
@@ -232,8 +236,11 @@ namespace TekConf.Core.Tests.Unit.ViewModels
 		[Test]
 		public void ConferencesList_should_not_call_remote_if_local_schedule_cache()
 		{
-			var dispatcher = new InlineMockMainThreadDispatcher();
-			Ioc.RegisterSingleton<IMvxMainThreadDispatcher>(dispatcher);
+			if (!Ioc.CanResolve<IMvxMainThreadDispatcher>())
+			{
+				var dispatcher = new InlineMockMainThreadDispatcher();
+				Ioc.RegisterSingleton<IMvxMainThreadDispatcher>(dispatcher);
+			}
 			var fileStore = new Mock<IMvxFileStore>();
 			Ioc.RegisterSingleton(typeof(IMvxFileStore), fileStore.Object);
 			_fixture.Register<IMvxFileStore>(() => fileStore.Object);
@@ -251,12 +258,53 @@ namespace TekConf.Core.Tests.Unit.ViewModels
 			vm.Conferences.ShouldBeNull();
 			vm.Init("");
 			remoteDataService.Verify(x => x.GetSchedules(
-						It.IsAny<string>(),
-						It.IsAny<bool>(),
-						It.IsAny<Action<IEnumerable<ConferencesListViewDto>>>(),
-						It.IsAny<Action<Exception>>()
+				It.IsAny<string>(),
+				It.IsAny<bool>(),
+				It.IsAny<Action<IEnumerable<ConferencesListViewDto>>>(),
+				It.IsAny<Action<Exception>>()
 				), Times.Never());
 		}
 
+		[Test]
+		public void Should_not_get_conferences_when_loading()
+		{
+			Assert.Fail();
+		}
+
+		[Test]
+		public void Should_not_get_favorites_when_loading()
+		{
+			Assert.Fail();
+		}
+
+		[Test]
+		public void Should_get_remote_conferences_when_refreshing_even_when_cache()
+		{
+			Assert.Fail();
+		}
+
+		[Test]
+		public void Should_get_remote_favorites_even_when_cache()
+		{
+			Assert.Fail();
+		}
+
+		[Test]
+		public void Should_navigate_to_settings_view_model()
+		{
+			Assert.Fail();
+		}
+
+		[Test]
+		public void Should_navigate_to_conferences_search_view_model()
+		{
+			Assert.Fail();
+		}
+
+		[Test]
+		public void Should_navigate_to_conference_detail_view_model()
+		{
+			Assert.Fail();
+		}
 	}
 }

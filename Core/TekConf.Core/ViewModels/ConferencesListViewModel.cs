@@ -16,11 +16,8 @@ namespace TekConf.Core.ViewModels
 	public class ConferencesListViewModel : MvxViewModel
 	{
 		private readonly IRemoteDataService _remoteDataService;
-
 		private readonly ILocalConferencesRepository _localConferencesRepository;
-
 		private readonly ILocalScheduleRepository _localScheduleRepository;
-
 		private readonly IAnalytics _analytics;
 		private readonly IAuthentication _authentication;
 		private readonly IMvxMessenger _messenger;
@@ -28,11 +25,11 @@ namespace TekConf.Core.ViewModels
 		private MvxSubscriptionToken _favoriteAddedMessageToken;
 		private MvxSubscriptionToken _favoritesUpdatedMessageToken;
 
-		public ConferencesListViewModel(IRemoteDataService remoteDataService, 
+		public ConferencesListViewModel(IRemoteDataService remoteDataService,
 																		ILocalConferencesRepository localConferencesRepository,
 																		ILocalScheduleRepository localScheduleRepository,
-																		IAnalytics analytics, 
-																		IAuthentication authentication, 
+																		IAnalytics analytics,
+																		IAuthentication authentication,
 																		IMvxMessenger messenger)
 		{
 			_remoteDataService = remoteDataService;
@@ -86,15 +83,18 @@ namespace TekConf.Core.ViewModels
 			IsLoadingConferences = true;
 			_analytics.SendView("ConferencesList");
 
-			var conferences = _localConferencesRepository.GetConferencesListView();
-			if (conferences != null && conferences.Any())
+			if (!isRefreshing)
 			{
-				this.GetAllSuccess(conferences);
+				var conferences = _localConferencesRepository.GetConferencesListView();
+				if (conferences != null && conferences.Any())
+				{
+					this.GetAllSuccess(conferences);
+					return;
+				}
 			}
-			else
-			{
-				_remoteDataService.GetConferences(search: searchTerm, isRefreshing: isRefreshing, success: GetAllSuccess, error: GetAllError);
-			}
+
+			_remoteDataService.GetConferences(search: searchTerm, isRefreshing: isRefreshing, success: GetAllSuccess, error: GetAllError);
+
 		}
 
 		private void StartGetFavorites(bool isRefreshing = false)
@@ -132,7 +132,7 @@ namespace TekConf.Core.ViewModels
 		{
 			// for now we just hide the error...
 			_messenger.Publish(new ConferencesListFavoritesExceptionMessage(this, exception));
-			
+
 			IsLoadingFavorites = false;
 		}
 

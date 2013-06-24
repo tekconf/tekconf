@@ -32,15 +32,15 @@ namespace TekConf.Core.ViewModels
 
 		public void Init(string slug)
 		{
-			StartSearch(slug);
+			StartGetConference(slug);
 		}
 
 		public void Refresh(string slug)
 		{
-			StartSearch(slug, true);
+			StartGetConference(slug, true);
 		}
 
-		private void StartSearch(string slug, bool isRefreshing = false)
+		private void StartGetConference(string slug, bool isRefreshing = false)
 		{
 			if (IsLoading)
 				return;
