@@ -9,7 +9,7 @@ using TekConf.Core.Repositories;
 using TekConf.Core.Services;
 using TekConf.Core.ViewModels;
 
-namespace Cirrious.MvvmCross.Test.ViewModels
+namespace TekConf.Core.Tests.Unit.ViewModels
 {
 	using Cirrious.CrossCore.Core;
 	using Cirrious.MvvmCross.Plugins.File;

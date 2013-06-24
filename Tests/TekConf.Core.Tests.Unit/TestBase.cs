@@ -4,7 +4,7 @@ using TekConf.Core.Interfaces;
 using TekConf.Core.Repositories;
 using TekConf.Core.Services;
 
-namespace Cirrious.MvvmCross.Test
+namespace TekConf.Core.Tests.Unit
 {
 	public class TestBase : MvxIoCSupportingTest
 	{
