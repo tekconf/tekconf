@@ -87,6 +87,7 @@
     <Compile Include="TestBase.cs" />
     <Compile Include="ViewModels\ConferenceDetailViewModelTests.cs" />
     <Compile Include="ViewModels\ConferencesListViewModelTests.cs" />
+    <Compile Include="ViewModels\MockDispatcher.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Core\TekConf.Core\TekConf.Core.csproj">

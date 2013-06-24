@@ -27,7 +27,7 @@ namespace TekConf.Core.ViewModels
 			_authentication = authentication;
 			_messenger = messenger;
 			_localScheduleRepository = localScheduleRepository;
-			AddFavoriteCommand = new ActionCommand(AddConferenceToFavorites);
+			//AddFavoriteCommand = new ActionCommand(AddConferenceToFavorites);
 		}
 
 		public void Init(string slug)
@@ -64,7 +64,6 @@ namespace TekConf.Core.ViewModels
 
 		private void DisplayConference(ConferenceDetailViewDto conference)
 		{
-
 			IsAuthenticated = _authentication.IsAuthenticated;
 			IsLoading = false;
 			Conference = conference;
@@ -222,8 +221,13 @@ namespace TekConf.Core.ViewModels
 			}
 		}
 
-
-		public ICommand AddFavoriteCommand { get; set; }
+		public ICommand AddFavoriteCommand
+		{
+			get
+			{
+				return new ActionCommand(AddConferenceToFavorites);
+			}
+		}
 
 		private void RefreshFavorites()
 		{

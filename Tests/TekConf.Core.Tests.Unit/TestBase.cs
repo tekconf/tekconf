@@ -6,10 +6,24 @@ using TekConf.Core.Services;
 
 namespace TekConf.Core.Tests.Unit
 {
+	using Cirrious.CrossCore.Core;
+	using Cirrious.MvvmCross.Views;
+
+	using TekConf.Core.Tests.Unit.ViewModels;
+
 	public class TestBase : MvxIoCSupportingTest
 	{
+		protected MockDispatcher MockDispatcher { get; private set; }
 		protected override void AdditionalSetup()
 		{
+			MockDispatcher = new MockDispatcher();
+
+			if (!Ioc.CanResolve<IMvxMainThreadDispatcher>())
+			{
+				Ioc.RegisterSingleton<IMvxViewDispatcher>(MockDispatcher);
+				Ioc.RegisterSingleton<IMvxMainThreadDispatcher>(MockDispatcher);
+			}
+
 			var analytics = new Mock<IAnalytics>();
 			var authentication = new Mock<IAuthentication>();
 			var pushSharp = new Mock<IPushSharpClient>();

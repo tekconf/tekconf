@@ -15,6 +15,10 @@ using TekConf.Core.ViewModels;
 
 namespace TekConf.Core.Tests.Unit.ViewModels
 {
+	using System.Linq;
+
+	using Cirrious.MvvmCross.Views;
+
 	[TestFixture]
 	public class ConferencesListViewModelTests : TestBase
 	{
@@ -27,7 +31,7 @@ namespace TekConf.Core.Tests.Unit.ViewModels
 		}
 
 		[Test]
-		public void ConferencesList_should_not_be_null()
+		public void Should_not_be_null()
 		{
 			var remoteDataService = new Mock<IRemoteDataService>();
 			var localConferencesRepository = new Mock<ILocalConferencesRepository>();
@@ -44,7 +48,7 @@ namespace TekConf.Core.Tests.Unit.ViewModels
 
 		//CONFERENCES
 		[Test]
-		public void ConferencesList_should_get_conferences_from_remote_data()
+		public void Should_get_remote_conferences()
 		{
 			var remoteDataService = new Mock<IRemoteDataService>();
 			var localConferencesRepository = new Mock<ILocalConferencesRepository>();
@@ -73,11 +77,11 @@ namespace TekConf.Core.Tests.Unit.ViewModels
 				It.IsAny<Action<IEnumerable<ConferencesListViewDto>>>(),
 				It.IsAny<Action<Exception>>()
 				), Times.Once());
-			vm.ShouldNotBeNull();
+
 		}
 
 		[Test]
-		public void ConferencesList_should_check_local_conferences_cache_before_calling_remote()
+		public void Should_check_local_conferences_cache_before_calling_remote()
 		{
 			var remoteDataService = new Mock<IRemoteDataService>();
 			var localConferencesRepository = new Mock<ILocalConferencesRepository>();
@@ -94,10 +98,13 @@ namespace TekConf.Core.Tests.Unit.ViewModels
 		}
 
 		[Test]
-		public void ConferencesList_should_display_conferences_if_local_cache()
+		public void Should_display_conferences_if_local_cache()
 		{
-			var dispatcher = new InlineMockMainThreadDispatcher();
-			Ioc.RegisterSingleton<IMvxMainThreadDispatcher>(dispatcher);
+			if (!Ioc.CanResolve<IMvxMainThreadDispatcher>())
+			{
+				var dispatcher = new InlineMockMainThreadDispatcher();
+				Ioc.RegisterSingleton<IMvxMainThreadDispatcher>(dispatcher);
+			}
 			var fileStore = new Mock<IMvxFileStore>();
 			Ioc.RegisterSingleton(typeof(IMvxFileStore), fileStore.Object);
 			_fixture.Register<IMvxFileStore>(() => fileStore.Object);
@@ -119,7 +126,7 @@ namespace TekConf.Core.Tests.Unit.ViewModels
 		}
 
 		[Test]
-		public void ConferencesList_should_not_call_remote_if_local_conferences_cache()
+		public void Should_not_call_remote_if_local_conferences_cache()
 		{
 			if (!Ioc.CanResolve<IMvxMainThreadDispatcher>())
 			{
@@ -164,7 +171,7 @@ namespace TekConf.Core.Tests.Unit.ViewModels
 		//SCHEDULE
 
 		[Test]
-		public void ConferencesList_should_get_schedule_from_remote_data()
+		public void Should_get_remote_favorites()
 		{
 			var remoteDataService = new Mock<IRemoteDataService>();
 			var localConferencesRepository = new Mock<ILocalConferencesRepository>();
@@ -183,11 +190,10 @@ namespace TekConf.Core.Tests.Unit.ViewModels
 				It.IsAny<Action<IEnumerable<ConferencesListViewDto>>>(),
 				It.IsAny<Action<Exception>>()
 				), Times.Once());
-			vm.ShouldNotBeNull();
 		}
 
 		[Test]
-		public void ConferencesList_should_check_local_schedule_cache_before_calling_remote()
+		public void Should_check_local_schedule_cache_before_calling_remote()
 		{
 			var remoteDataService = new Mock<IRemoteDataService>();
 			var localConferencesRepository = new Mock<ILocalConferencesRepository>();
@@ -205,7 +211,7 @@ namespace TekConf.Core.Tests.Unit.ViewModels
 		}
 
 		[Test]
-		public void ConferencesList_should_display_schedule_if_local_cache()
+		public void Should_display_schedule_if_local_cache()
 		{
 			if (!Ioc.CanResolve<IMvxMainThreadDispatcher>())
 			{
@@ -234,7 +240,7 @@ namespace TekConf.Core.Tests.Unit.ViewModels
 		}
 
 		[Test]
-		public void ConferencesList_should_not_call_remote_if_local_schedule_cache()
+		public void Should_not_call_remote_if_local_schedule_cache()
 		{
 			if (!Ioc.CanResolve<IMvxMainThreadDispatcher>())
 			{
@@ -268,43 +274,208 @@ namespace TekConf.Core.Tests.Unit.ViewModels
 		[Test]
 		public void Should_not_get_conferences_when_loading()
 		{
-			Assert.Fail();
+			if (!Ioc.CanResolve<IMvxMainThreadDispatcher>())
+			{
+				var dispatcher = new InlineMockMainThreadDispatcher();
+				Ioc.RegisterSingleton<IMvxMainThreadDispatcher>(dispatcher);
+			}
+			var fileStore = new Mock<IMvxFileStore>();
+			Ioc.RegisterSingleton(typeof(IMvxFileStore), fileStore.Object);
+			_fixture.Register<IMvxFileStore>(() => fileStore.Object);
+
+			var remoteDataService = new Mock<IRemoteDataService>();
+			var localConferencesRepository = new Mock<ILocalConferencesRepository>();
+			var localScheduleRepository = new Mock<ILocalScheduleRepository>();
+
+			var conferences = _fixture.CreateMany<ConferencesListViewDto>();
+			localConferencesRepository.Setup(x => x.GetConferencesListView()).Returns(conferences);
+			var analytics = new Mock<IAnalytics>();
+			var authentication = new Mock<IAuthentication>();
+			var messenger = new Mock<IMvxMessenger>();
+
+			var vm = new ConferencesListViewModel(remoteDataService.Object, localConferencesRepository.Object, localScheduleRepository.Object, analytics.Object, authentication.Object, messenger.Object);
+			vm.IsLoadingConferences = true;
+			vm.Init("");
+
+			remoteDataService.Verify(x => x.GetConferences(
+				It.IsAny<bool>(),
+				It.IsAny<string>(),
+				It.IsAny<string>(),
+				It.IsAny<bool?>(),
+				It.IsAny<bool?>(),
+				It.IsAny<bool?>(),
+				It.IsAny<string>(),
+				It.IsAny<string>(),
+				It.IsAny<string>(),
+				It.IsAny<string>(),
+				It.IsAny<double?>(),
+				It.IsAny<double?>(),
+				It.IsAny<double?>(),
+				It.IsAny<Action<IEnumerable<ConferencesListViewDto>>>(),
+				It.IsAny<Action<Exception>>()
+				), Times.Never());
+
+			localConferencesRepository.Verify(x => x.GetConferencesListView(), Times.Never());
 		}
 
 		[Test]
 		public void Should_not_get_favorites_when_loading()
 		{
-			Assert.Fail();
+			if (!Ioc.CanResolve<IMvxMainThreadDispatcher>())
+			{
+				var dispatcher = new InlineMockMainThreadDispatcher();
+				Ioc.RegisterSingleton<IMvxMainThreadDispatcher>(dispatcher);
+			}
+			var fileStore = new Mock<IMvxFileStore>();
+			Ioc.RegisterSingleton(typeof(IMvxFileStore), fileStore.Object);
+			_fixture.Register<IMvxFileStore>(() => fileStore.Object);
+
+			var remoteDataService = new Mock<IRemoteDataService>();
+			var localConferencesRepository = new Mock<ILocalConferencesRepository>();
+			var localScheduleRepository = new Mock<ILocalScheduleRepository>();
+
+			var conferences = _fixture.CreateMany<ConferencesListViewDto>();
+			localConferencesRepository.Setup(x => x.GetConferencesListView()).Returns(conferences);
+			var analytics = new Mock<IAnalytics>();
+			var authentication = new Mock<IAuthentication>();
+			var messenger = new Mock<IMvxMessenger>();
+
+			var vm = new ConferencesListViewModel(remoteDataService.Object, localConferencesRepository.Object, localScheduleRepository.Object, analytics.Object, authentication.Object, messenger.Object);
+			vm.IsLoadingFavorites = true;
+			vm.Init("");
+
+			remoteDataService.Verify(x => x.GetSchedules(
+				It.IsAny<string>(),
+				It.IsAny<bool>(),
+				It.IsAny<Action<IEnumerable<ConferencesListViewDto>>>(),
+				It.IsAny<Action<Exception>>()
+				), Times.Never());
+
+			localScheduleRepository.Verify(x => x.GetConferencesList(), Times.Never());
 		}
 
 		[Test]
 		public void Should_get_remote_conferences_when_refreshing_even_when_cache()
 		{
-			Assert.Fail();
+			var fileStore = new Mock<IMvxFileStore>();
+			Ioc.RegisterSingleton(typeof(IMvxFileStore), fileStore.Object);
+			_fixture.Register<IMvxFileStore>(() => fileStore.Object);
+			var remoteDataService = new Mock<IRemoteDataService>();
+			var localConferencesRepository = new Mock<ILocalConferencesRepository>();
+			var conferences = _fixture.CreateMany<ConferencesListViewDto>();
+			localConferencesRepository.Setup(x => x.GetConferencesListView()).Returns(conferences);
+			var localScheduleRepository = new Mock<ILocalScheduleRepository>();
+			var analytics = new Mock<IAnalytics>();
+			var authentication = new Mock<IAuthentication>();
+			var messenger = new Mock<IMvxMessenger>();
+
+			var vm = new ConferencesListViewModel(remoteDataService.Object, localConferencesRepository.Object, localScheduleRepository.Object, analytics.Object, authentication.Object, messenger.Object);
+			vm.Init("");
+			vm.Refresh();
+			remoteDataService.Verify(x => x.GetConferences(
+				It.IsAny<bool>(),
+				It.IsAny<string>(),
+				It.IsAny<string>(),
+				It.IsAny<bool?>(),
+				It.IsAny<bool?>(),
+				It.IsAny<bool?>(),
+				It.IsAny<string>(),
+				It.IsAny<string>(),
+				It.IsAny<string>(),
+				It.IsAny<string>(),
+				It.IsAny<double?>(),
+				It.IsAny<double?>(),
+				It.IsAny<double?>(),
+				It.IsAny<Action<IEnumerable<ConferencesListViewDto>>>(),
+				It.IsAny<Action<Exception>>()
+				), Times.Once());
 		}
 
 		[Test]
-		public void Should_get_remote_favorites_even_when_cache()
+		public void Should_get_remote_favorites_when_refreshing_even_when_cache()
 		{
-			Assert.Fail();
+			var fileStore = new Mock<IMvxFileStore>();
+			Ioc.RegisterSingleton(typeof(IMvxFileStore), fileStore.Object);
+			_fixture.Register<IMvxFileStore>(() => fileStore.Object);
+			var remoteDataService = new Mock<IRemoteDataService>();
+			var localConferencesRepository = new Mock<ILocalConferencesRepository>();
+			var localScheduleRepository = new Mock<ILocalScheduleRepository>();
+			var conferences = _fixture.CreateMany<ConferencesListViewDto>();
+			localScheduleRepository.Setup(x => x.GetConferencesList()).Returns(conferences);
+
+			var analytics = new Mock<IAnalytics>();
+			var authentication = new Mock<IAuthentication>();
+			authentication.Setup(x => x.IsAuthenticated).Returns(true);
+		
+			var messenger = new Mock<IMvxMessenger>();
+
+			var vm = new ConferencesListViewModel(remoteDataService.Object, localConferencesRepository.Object, localScheduleRepository.Object, analytics.Object, authentication.Object, messenger.Object);
+			vm.Init("");
+			vm.IsLoadingFavorites = false;
+			vm.Refresh();
+			remoteDataService.Verify(x => x.GetSchedules(
+				It.IsAny<string>(),
+				It.IsAny<bool>(),
+				It.IsAny<Action<IEnumerable<ConferencesListViewDto>>>(),
+				It.IsAny<Action<Exception>>()
+				), Times.Once());
 		}
 
 		[Test]
 		public void Should_navigate_to_settings_view_model()
 		{
-			Assert.Fail();
+			var remoteDataService = new Mock<IRemoteDataService>();
+			var localConferencesRepository = new Mock<ILocalConferencesRepository>();
+			var localScheduleRepository = new Mock<ILocalScheduleRepository>();
+
+			var analytics = new Mock<IAnalytics>();
+			var authentication = new Mock<IAuthentication>();
+			var messenger = new Mock<IMvxMessenger>();
+
+			var vm = new ConferencesListViewModel(remoteDataService.Object, localConferencesRepository.Object, localScheduleRepository.Object, analytics.Object, authentication.Object, messenger.Object);
+			MockDispatcher.Requests.Count.ShouldEqual(0);
+			
+			vm.ShowSettingsCommand.Execute(null);
+			MockDispatcher.Requests.Count.ShouldEqual(1);
+			MockDispatcher.Requests.First().ViewModelType.ShouldEqual(typeof(SettingsViewModel));
 		}
 
 		[Test]
 		public void Should_navigate_to_conferences_search_view_model()
 		{
-			Assert.Fail();
+			var remoteDataService = new Mock<IRemoteDataService>();
+			var localConferencesRepository = new Mock<ILocalConferencesRepository>();
+			var localScheduleRepository = new Mock<ILocalScheduleRepository>();
+
+			var analytics = new Mock<IAnalytics>();
+			var authentication = new Mock<IAuthentication>();
+			var messenger = new Mock<IMvxMessenger>();
+
+			var vm = new ConferencesListViewModel(remoteDataService.Object, localConferencesRepository.Object, localScheduleRepository.Object, analytics.Object, authentication.Object, messenger.Object);
+			MockDispatcher.Requests.Count.ShouldEqual(0);
+
+			vm.ShowSearchCommand.Execute(null);
+			MockDispatcher.Requests.Count.ShouldEqual(1);
+			MockDispatcher.Requests.First().ViewModelType.ShouldEqual(typeof(ConferencesSearchViewModel));
 		}
 
 		[Test]
 		public void Should_navigate_to_conference_detail_view_model()
 		{
-			Assert.Fail();
+			var remoteDataService = new Mock<IRemoteDataService>();
+			var localConferencesRepository = new Mock<ILocalConferencesRepository>();
+			var localScheduleRepository = new Mock<ILocalScheduleRepository>();
+
+			var analytics = new Mock<IAnalytics>();
+			var authentication = new Mock<IAuthentication>();
+			var messenger = new Mock<IMvxMessenger>();
+
+			var vm = new ConferencesListViewModel(remoteDataService.Object, localConferencesRepository.Object, localScheduleRepository.Object, analytics.Object, authentication.Object, messenger.Object);
+			MockDispatcher.Requests.Count.ShouldEqual(0);
+
+			vm.ShowDetailCommand.Execute(null);
+			MockDispatcher.Requests.Count.ShouldEqual(1);
+			MockDispatcher.Requests.First().ViewModelType.ShouldEqual(typeof(ConferenceDetailViewModel));
 		}
 	}
 }

@@ -43,26 +43,6 @@ namespace TekConf.Core.ViewModels
 			_favoritesUpdatedMessageToken = _messenger.Subscribe<FavoriteConferencesUpdatedMessage>(OnFavoritesUpdatedMessage);
 		}
 
-		private void OnFavoritesUpdatedMessage(FavoriteConferencesUpdatedMessage message)
-		{
-			DisplayFavoritesConferences(message.Conferences);
-		}
-
-		private void OnFavoriteAddedMessage(FavoriteAddedMessage message)
-		{
-			StartGetFavorites(true);
-		}
-
-		private void OnAuthenticateMessage(AuthenticationMessage message)
-		{
-			if (message != null && !string.IsNullOrWhiteSpace(message.UserName))
-			{
-				_authentication.UserName = message.UserName;
-				IsAuthenticated = true;
-				StartGetFavorites(isRefreshing: true);
-			}
-		}
-
 		public void Init(string searchTerm)
 		{
 			StartGetAll(searchTerm);
@@ -105,18 +85,21 @@ namespace TekConf.Core.ViewModels
 			if (_authentication.IsAuthenticated)
 			{
 				IsLoadingFavorites = true;
-
 				var userName = _authentication.UserName;
 				_analytics.SendView("ConferencesListSchedule-" + userName);
-				var schedule = _localScheduleRepository.GetConferencesList();
-				if (schedule != null && schedule.Any())
+
+				if (!isRefreshing)
 				{
-					GetFavoritesSuccess(schedule);
+					var schedule = _localScheduleRepository.GetConferencesList();
+
+					if (schedule != null && schedule.Any())
+					{
+						GetFavoritesSuccess(schedule);
+						return;
+					}
 				}
-				else
-				{
-					_remoteDataService.GetSchedules(userName, isRefreshing, GetFavoritesSuccess, GetFavoritesError);
-				}
+
+				_remoteDataService.GetSchedules(userName, isRefreshing, GetFavoritesSuccess, GetFavoritesError);
 			}
 		}
 
@@ -167,6 +150,7 @@ namespace TekConf.Core.ViewModels
 		private void DisplayAllConferences(IEnumerable<ConferencesListViewDto> conferences)
 		{
 			Conferences = conferences.ToList();
+			IsLoadingConferences = false;
 		}
 
 		private void DisplayFavoritesConferences(IEnumerable<ConferencesListViewDto> favorites)
@@ -241,7 +225,6 @@ namespace TekConf.Core.ViewModels
 			{
 				_conferences = value;
 				RaisePropertyChanged(() => Conferences);
-				IsLoadingConferences = false;
 			}
 		}
 
@@ -297,6 +280,26 @@ namespace TekConf.Core.ViewModels
 			get
 			{
 				return new MvxCommand<string>(slug => ShowViewModel<ConferenceDetailViewModel>(new { slug }));
+			}
+		}
+
+		private void OnFavoritesUpdatedMessage(FavoriteConferencesUpdatedMessage message)
+		{
+			DisplayFavoritesConferences(message.Conferences);
+		}
+
+		private void OnFavoriteAddedMessage(FavoriteAddedMessage message)
+		{
+			StartGetFavorites(true);
+		}
+
+		private void OnAuthenticateMessage(AuthenticationMessage message)
+		{
+			if (message != null && !string.IsNullOrWhiteSpace(message.UserName))
+			{
+				_authentication.UserName = message.UserName;
+				IsAuthenticated = true;
+				StartGetFavorites(isRefreshing: true);
 			}
 		}
 	}
