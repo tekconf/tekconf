@@ -214,34 +214,34 @@ namespace TekConf.Core.ViewModels
 			}
 		}
 
-		private List<ConferencesListViewDto> _conferences;
-		public List<ConferencesListViewDto> Conferences
-		{
-			get
-			{
-				return _conferences;
-			}
-			set
-			{
-				_conferences = value;
-				RaisePropertyChanged(() => Conferences);
-			}
-		}
+		//private List<ConferencesListViewDto> _conferences;
+		public List<ConferencesListViewDto> Conferences { get; set; }
+		//{
+		//	get
+		//	{
+		//		return _conferences;
+		//	}
+		//	set
+		//	{
+		//		_conferences = value;
+		//		RaisePropertyChanged(() => Conferences);
+		//	}
+		//}
 
 		//public FullConferenceDto SelectedFavorite { get; set; }
-		private FullConferenceDto _selectedFavorite;
-		public FullConferenceDto SelectedFavorite
-		{
-			get
-			{
-				return _selectedFavorite;
-			}
-			set
-			{
-				_selectedFavorite = value;
-				RaisePropertyChanged(() => SelectedFavorite);
-			}
-		}
+		//private FullConferenceDto _selectedFavorite;
+		public FullConferenceDto SelectedFavorite { get; set; }
+		//{
+		//	get
+		//	{
+		//		return _selectedFavorite;
+		//	}
+		//	set
+		//	{
+		//		_selectedFavorite = value;
+		//		RaisePropertyChanged(() => SelectedFavorite);
+		//	}
+		//}
 
 		private List<ConferencesListViewDto> _favorites;
 		public List<ConferencesListViewDto> Favorites

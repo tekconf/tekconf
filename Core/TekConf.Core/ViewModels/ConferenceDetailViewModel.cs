@@ -15,14 +15,16 @@ namespace TekConf.Core.ViewModels
 	public class ConferenceDetailViewModel : MvxViewModel
 	{
 		private readonly IRemoteDataService _remoteDataService;
+		private readonly ILocalConferencesRepository _localConferencesRepository;
 		private readonly IAnalytics _analytics;
 		private readonly IAuthentication _authentication;
 		private readonly IMvxMessenger _messenger;
 		private readonly ILocalScheduleRepository _localScheduleRepository;
 
-		public ConferenceDetailViewModel(IRemoteDataService remoteDataService, IAnalytics analytics, IAuthentication authentication, IMvxMessenger messenger, ILocalScheduleRepository localScheduleRepository)
+		public ConferenceDetailViewModel(IRemoteDataService remoteDataService, ILocalConferencesRepository localConferencesRepository, IAnalytics analytics, IAuthentication authentication, IMvxMessenger messenger, ILocalScheduleRepository localScheduleRepository)
 		{
 			_remoteDataService = remoteDataService;
+			_localConferencesRepository = localConferencesRepository;
 			_analytics = analytics;
 			_authentication = authentication;
 			_messenger = messenger;
@@ -47,6 +49,17 @@ namespace TekConf.Core.ViewModels
 
 			IsLoading = true;
 			_analytics.SendView("ConferenceDetail-" + slug);
+
+			if (!isRefreshing)
+			{
+				var conference = _localConferencesRepository.GetConferenceDetail(slug);
+				if (conference != null)
+				{
+					this.Success(conference);
+					return;
+				}
+			}
+		
 			_remoteDataService.GetConferenceDetail(slug, isRefreshing, Success, Error);
 		}
 

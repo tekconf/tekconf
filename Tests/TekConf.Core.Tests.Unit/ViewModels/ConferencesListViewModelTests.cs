@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Threading;
 using Cirrious.CrossCore.Core;
 using Cirrious.MvvmCross.Plugins.File;
 using Cirrious.MvvmCross.Plugins.Messenger;
@@ -100,11 +102,6 @@ namespace TekConf.Core.Tests.Unit.ViewModels
 		[Test]
 		public void Should_display_conferences_if_local_cache()
 		{
-			if (!Ioc.CanResolve<IMvxMainThreadDispatcher>())
-			{
-				var dispatcher = new InlineMockMainThreadDispatcher();
-				Ioc.RegisterSingleton<IMvxMainThreadDispatcher>(dispatcher);
-			}
 			var fileStore = new Mock<IMvxFileStore>();
 			Ioc.RegisterSingleton(typeof(IMvxFileStore), fileStore.Object);
 			_fixture.Register<IMvxFileStore>(() => fileStore.Object);
@@ -126,13 +123,42 @@ namespace TekConf.Core.Tests.Unit.ViewModels
 		}
 
 		[Test]
+		public void Should_raise_property_changed_when_conferences_loaded()
+		{
+			var fileStore = new Mock<IMvxFileStore>();
+			Ioc.RegisterSingleton(typeof(IMvxFileStore), fileStore.Object);
+			_fixture.Register<IMvxFileStore>(() => fileStore.Object);
+			var remoteDataService = new Mock<IRemoteDataService>();
+			var localConferencesRepository = new Mock<ILocalConferencesRepository>();
+			var localScheduleRepository = new Mock<ILocalScheduleRepository>();
+
+			var conferences = _fixture.CreateMany<ConferencesListViewDto>();
+			localConferencesRepository.Setup(x => x.GetConferencesListView()).Returns(conferences);
+			var analytics = new Mock<IAnalytics>();
+			var authentication = new Mock<IAuthentication>();
+			var messenger = new Mock<IMvxMessenger>();
+
+			var vm = new ConferencesListViewModel(remoteDataService.Object, localConferencesRepository.Object, localScheduleRepository.Object, analytics.Object, authentication.Object, messenger.Object);
+			vm.Conferences.ShouldBeNull();
+			int propertyChangedCount = 0;
+			vm.PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == "Conferences")
+				{
+					propertyChangedCount++;
+				}
+			};
+			vm.Init("");
+			Thread.Sleep(20);
+			vm.Conferences.ShouldNotBeNull();
+			vm.Conferences.ShouldEqual(conferences);
+			propertyChangedCount.ShouldEqual(1);
+		}
+
+
+		[Test]
 		public void Should_not_call_remote_if_local_conferences_cache()
 		{
-			if (!Ioc.CanResolve<IMvxMainThreadDispatcher>())
-			{
-				var dispatcher = new InlineMockMainThreadDispatcher();
-				Ioc.RegisterSingleton<IMvxMainThreadDispatcher>(dispatcher);
-			}
 			var fileStore = new Mock<IMvxFileStore>();
 			Ioc.RegisterSingleton(typeof(IMvxFileStore), fileStore.Object);
 			_fixture.Register<IMvxFileStore>(() => fileStore.Object);
@@ -213,11 +239,6 @@ namespace TekConf.Core.Tests.Unit.ViewModels
 		[Test]
 		public void Should_display_schedule_if_local_cache()
 		{
-			if (!Ioc.CanResolve<IMvxMainThreadDispatcher>())
-			{
-				var dispatcher = new InlineMockMainThreadDispatcher();
-				Ioc.RegisterSingleton<IMvxMainThreadDispatcher>(dispatcher);
-			}
 			var fileStore = new Mock<IMvxFileStore>();
 			Ioc.RegisterSingleton(typeof(IMvxFileStore), fileStore.Object);
 			_fixture.Register<IMvxFileStore>(() => fileStore.Object);
@@ -242,11 +263,6 @@ namespace TekConf.Core.Tests.Unit.ViewModels
 		[Test]
 		public void Should_not_call_remote_if_local_schedule_cache()
 		{
-			if (!Ioc.CanResolve<IMvxMainThreadDispatcher>())
-			{
-				var dispatcher = new InlineMockMainThreadDispatcher();
-				Ioc.RegisterSingleton<IMvxMainThreadDispatcher>(dispatcher);
-			}
 			var fileStore = new Mock<IMvxFileStore>();
 			Ioc.RegisterSingleton(typeof(IMvxFileStore), fileStore.Object);
 			_fixture.Register<IMvxFileStore>(() => fileStore.Object);
@@ -274,11 +290,6 @@ namespace TekConf.Core.Tests.Unit.ViewModels
 		[Test]
 		public void Should_not_get_conferences_when_loading()
 		{
-			if (!Ioc.CanResolve<IMvxMainThreadDispatcher>())
-			{
-				var dispatcher = new InlineMockMainThreadDispatcher();
-				Ioc.RegisterSingleton<IMvxMainThreadDispatcher>(dispatcher);
-			}
 			var fileStore = new Mock<IMvxFileStore>();
 			Ioc.RegisterSingleton(typeof(IMvxFileStore), fileStore.Object);
 			_fixture.Register<IMvxFileStore>(() => fileStore.Object);
@@ -321,11 +332,6 @@ namespace TekConf.Core.Tests.Unit.ViewModels
 		[Test]
 		public void Should_not_get_favorites_when_loading()
 		{
-			if (!Ioc.CanResolve<IMvxMainThreadDispatcher>())
-			{
-				var dispatcher = new InlineMockMainThreadDispatcher();
-				Ioc.RegisterSingleton<IMvxMainThreadDispatcher>(dispatcher);
-			}
 			var fileStore = new Mock<IMvxFileStore>();
 			Ioc.RegisterSingleton(typeof(IMvxFileStore), fileStore.Object);
 			_fixture.Register<IMvxFileStore>(() => fileStore.Object);

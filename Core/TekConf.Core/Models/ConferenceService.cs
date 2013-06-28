@@ -88,17 +88,7 @@ namespace TekConf.Core.Models
 
 			try
 			{
-				var path = _slug + ".json";
-
-				var conferenceDetail = _localConferencesRepository.GetConferenceDetail(slug);
-				if (conferenceDetail != null && !_isRefreshing)
-				{
-					GetConferenceDetailSuccess(conferenceDetail);
-				}
-				else
-				{
-					GetRemoteConference(slug);
-				}
+				GetRemoteConference(slug);
 			}
 			catch (Exception exception)
 			{
