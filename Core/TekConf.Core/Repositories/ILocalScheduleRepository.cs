@@ -11,5 +11,7 @@ namespace TekConf.Core.Repositories
 		void SaveSchedule(ScheduleDto schedule);
 		ScheduleDto GetSchedule(string conferenceSlug);
 		ConferencesListViewDto NextScheduledConference { get; }
+
+		void RemoveFromSchedule(string p);
 	}
 }

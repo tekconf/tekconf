@@ -88,6 +88,7 @@ namespace TekConf.Core.ViewModels
 			IsAuthenticated = _authentication.IsAuthenticated;
 			IsLoading = false;
 			Conference = conference;
+			_messenger.Publish(new FavoriteRefreshMessage(this));
 		}
 
 		public bool IsLoading { get; set; }
@@ -122,7 +123,6 @@ namespace TekConf.Core.ViewModels
 					RaisePropertyChanged(() => Conference);
 					RaisePropertyChanged(() => ConnectItems);
 					RaisePropertyChanged(() => HasConnectItems);
-					_messenger.Publish(new FavoriteRefreshMessage(this));
 				}
 			}
 		}
@@ -262,6 +262,7 @@ namespace TekConf.Core.ViewModels
 				{
 					Conference.isAddedToSchedule = false;
 					RaisePropertyChanged(() => Conference);
+					_messenger.Publish(new FavoriteRefreshMessage(this));
 					RefreshFavorites();
 				});
 
@@ -269,12 +270,16 @@ namespace TekConf.Core.ViewModels
 				{
 					Conference.isAddedToSchedule = true;
 					RaisePropertyChanged(() => Conference);
+					_messenger.Publish(new FavoriteRefreshMessage(this));
 					RefreshFavorites();
 				});
 
 				if (Conference.isAddedToSchedule == true)
 				{
 					removeSuccess(null);
+					_localScheduleRepository.RemoveFromSchedule(Conference.slug);
+					var conferences = _localScheduleRepository.GetConferencesList();
+					_messenger.Publish(new FavoriteConferencesUpdatedMessage(this, conferences));
 					_remoteDataService.RemoveFromSchedule(_authentication.UserName, Conference.slug, removeSuccess, removeError);
 				}
 				else

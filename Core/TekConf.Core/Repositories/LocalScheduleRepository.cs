@@ -175,5 +175,13 @@ namespace TekConf.Core.Repositories
 				return null;
 			}
 		}
+
+
+		public void RemoveFromSchedule(string slug)
+		{
+			var conferences = GetConferencesList();
+			conferences = conferences.Where(x => x.slug != slug).ToList();
+			SaveSchedules(conferences);
+		}
 	}
 }
