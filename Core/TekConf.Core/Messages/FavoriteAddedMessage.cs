@@ -1,7 +1,7 @@
 using Cirrious.MvvmCross.Plugins.Messenger;
 using TekConf.RemoteData.Dtos.v1;
 
-namespace TekConf.Core.ViewModels
+namespace TekConf.Core.Messages
 {
 	public class FavoriteAddedMessage : MvxMessage
 	{

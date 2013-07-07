@@ -1,8 +1,4 @@
-﻿using UberImporter.Importers.CodeMash2013;
-using UberImporter.Importers.CodeStock2012;
-using UberImporter.Importers.MonkeySpace2012;
-using UberImporter.Importers.OneDevDay2012;
-using UberImporter.Importers.RailsConf2012;
+﻿using UberImporter.Importers.MonkeySpace2012;
 
 namespace UberImporter
 {
@@ -32,16 +28,16 @@ namespace UberImporter
             
 
             var monkeySpace = new MonkeySpaceImporter();
-            var railsConf = new RailsConfImporter();
-            var codestock = new CodeStockImporter();
-            var oneDevDayDetroit = new OneDevDayDetroitImporter();
-            var codeMash2013 = new CodeMash2013Importer();
+						//var railsConf = new RailsConfImporter();
+						//var codestock = new CodeStockImporter();
+						//var oneDevDayDetroit = new OneDevDayDetroitImporter();
+						//var codeMash2013 = new CodeMash2013Importer();
 
             //oneDevDayDetroit.Import();
-            //monkeySpace.Import();
+            monkeySpace.Import();
             //railsConf.Import();
             //codestock.Import();
-            codeMash2013.Import();
+            //codeMash2013.Import();
         }
     }
 }

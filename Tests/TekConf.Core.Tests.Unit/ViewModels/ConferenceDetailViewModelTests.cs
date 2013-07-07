@@ -4,6 +4,7 @@ using Moq;
 using NUnit.Framework;
 using Should;
 using TekConf.Core.Interfaces;
+using TekConf.Core.Messages;
 using TekConf.Core.Repositories;
 using TekConf.Core.Services;
 using TekConf.Core.ViewModels;
@@ -100,6 +101,35 @@ namespace TekConf.Core.Tests.Unit.ViewModels
 		}
 
 		[Test]
+		public void Should_publish_exception_message_when_exception_getting_conference_from_remote()
+		{
+			var remoteDataService = new Mock<IRemoteDataService>();
+			remoteDataService.Setup(
+				x =>
+					x.GetConferenceDetail(It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<Action<ConferenceDetailViewDto>>(),
+						It.IsAny<Action<Exception>>())).Throws(new Exception());
+
+			var localScheduleRepository = new Mock<ILocalScheduleRepository>();
+			var localConferencesRepository = new Mock<ILocalConferencesRepository>();
+
+			var analytics = new Mock<IAnalytics>();
+			var authentication = new Mock<IAuthentication>();
+			var messenger = new Mock<IMvxMessenger>();
+
+			var vm = new ConferenceDetailViewModel(remoteDataService.Object,
+				localConferencesRepository.Object,
+				analytics.Object,
+				authentication.Object,
+				messenger.Object,
+				localScheduleRepository.Object);
+			var slug = _fixture.Create<string>();
+			vm.Init(slug);
+
+			messenger.Verify(x => x.Publish(It.IsAny<ConferenceDetailExceptionMessage>()), Times.Once());
+			vm.IsLoading.ShouldEqual(false);
+		}
+
+		[Test]
 		public void Should_get_conference_from_remote_when_refreshing()
 		{
 			var slug = _fixture.Create<string>();
@@ -188,6 +218,508 @@ namespace TekConf.Core.Tests.Unit.ViewModels
 		public void Should_update_conference()
 		{
 			Assert.Fail();
+		}
+
+		[Test]
+		public void Should_notify_when_authentication_changes()
+		{
+			var remoteDataService = new Mock<IRemoteDataService>();
+			var localScheduleRepository = new Mock<ILocalScheduleRepository>();
+			var localConferencesRepository = new Mock<ILocalConferencesRepository>();
+			var analytics = new Mock<IAnalytics>();
+			var authentication = new Mock<IAuthentication>();
+			var messenger = new Mock<IMvxMessenger>();
+
+			var vm = new ConferenceDetailViewModel(remoteDataService.Object,
+				localConferencesRepository.Object,
+				analytics.Object,
+				authentication.Object,
+				messenger.Object,
+				localScheduleRepository.Object);
+
+			int propertyChangedCount = 0;
+			vm.PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == "IsAuthenticated")
+				{
+					propertyChangedCount++;
+				}
+			};
+
+			vm.IsAuthenticated = true;
+			propertyChangedCount.ShouldEqual(1);
+
+		}
+
+		[Test]
+		public void Should_notify_when_page_title_changes()
+		{
+			var remoteDataService = new Mock<IRemoteDataService>();
+			var localScheduleRepository = new Mock<ILocalScheduleRepository>();
+			var localConferencesRepository = new Mock<ILocalConferencesRepository>();
+			var analytics = new Mock<IAnalytics>();
+			var authentication = new Mock<IAuthentication>();
+			var messenger = new Mock<IMvxMessenger>();
+
+			var vm = new ConferenceDetailViewModel(remoteDataService.Object,
+				localConferencesRepository.Object,
+				analytics.Object,
+				authentication.Object,
+				messenger.Object,
+				localScheduleRepository.Object);
+
+			int propertyChangedCount = 0;
+			vm.PropertyChanged += (sender, args) =>
+			{
+				if (args.PropertyName == "PageTitle")
+				{
+					propertyChangedCount++;
+				}
+			};
+
+			vm.PageTitle = _fixture.Create<string>();
+			propertyChangedCount.ShouldEqual(1);
+
+		}
+
+		[Test]
+		public void Should_include_facebook_in_connectItems()
+		{
+			var remoteDataService = new Mock<IRemoteDataService>();
+			var localScheduleRepository = new Mock<ILocalScheduleRepository>();
+			var localConferencesRepository = new Mock<ILocalConferencesRepository>();
+			var analytics = new Mock<IAnalytics>();
+			var authentication = new Mock<IAuthentication>();
+			var messenger = new Mock<IMvxMessenger>();
+			var connectItem = _fixture.Create<string>();
+
+			var conference = _fixture.Build<ConferenceDetailViewDto>()
+				.With(x => x.facebookUrl, connectItem)
+				.With(x => x.homepageUrl, "")
+				.With(x => x.lanyrdUrl, "")
+				.With(x => x.meetupUrl, "")
+				.With(x => x.googlePlusUrl, "")
+				.With(x => x.vimeoUrl, "")
+				.With(x => x.youtubeUrl, "")
+				.With(x => x.githubUrl, "")
+				.With(x => x.linkedInUrl, "")
+				.With(x => x.twitterHashTag, "")
+				.With(x => x.twitterName, "")
+				.Create();
+
+
+			var vm = new ConferenceDetailViewModel(remoteDataService.Object,
+				localConferencesRepository.Object,
+				analytics.Object,
+				authentication.Object,
+				messenger.Object,
+				localScheduleRepository.Object)
+			{
+				Conference = conference
+			};
+			vm.ConnectItems.Count.ShouldEqual(1);
+			vm.ConnectItems.First().Name.ShouldEqual("facebookUrl");
+			vm.ConnectItems.First().Value.ShouldEqual(connectItem);
+		}
+
+		[Test]
+		public void Should_include_homepageUrl_in_connectItems()
+		{
+			var remoteDataService = new Mock<IRemoteDataService>();
+			var localScheduleRepository = new Mock<ILocalScheduleRepository>();
+			var localConferencesRepository = new Mock<ILocalConferencesRepository>();
+			var analytics = new Mock<IAnalytics>();
+			var authentication = new Mock<IAuthentication>();
+			var messenger = new Mock<IMvxMessenger>();
+			var connectItem = _fixture.Create<string>();
+
+			var conference = _fixture.Build<ConferenceDetailViewDto>()
+				.With(x => x.facebookUrl, "")
+				.With(x => x.homepageUrl, connectItem)
+				.With(x => x.lanyrdUrl, "")
+				.With(x => x.meetupUrl, "")
+				.With(x => x.googlePlusUrl, "")
+				.With(x => x.vimeoUrl, "")
+				.With(x => x.youtubeUrl, "")
+				.With(x => x.githubUrl, "")
+				.With(x => x.linkedInUrl, "")
+				.With(x => x.twitterHashTag, "")
+				.With(x => x.twitterName, "")
+				.Create();
+
+
+			var vm = new ConferenceDetailViewModel(remoteDataService.Object,
+				localConferencesRepository.Object,
+				analytics.Object,
+				authentication.Object,
+				messenger.Object,
+				localScheduleRepository.Object)
+			{
+				Conference = conference
+			};
+			vm.ConnectItems.Count.ShouldEqual(1);
+			vm.ConnectItems.First().Name.ShouldEqual("homepageUrl");
+			vm.ConnectItems.First().Value.ShouldEqual(connectItem);
+		}
+
+		[Test]
+		public void Should_include_lanyrdUrl_in_connectItems()
+		{
+			var remoteDataService = new Mock<IRemoteDataService>();
+			var localScheduleRepository = new Mock<ILocalScheduleRepository>();
+			var localConferencesRepository = new Mock<ILocalConferencesRepository>();
+			var analytics = new Mock<IAnalytics>();
+			var authentication = new Mock<IAuthentication>();
+			var messenger = new Mock<IMvxMessenger>();
+			var connectItem = _fixture.Create<string>();
+
+			var conference = _fixture.Build<ConferenceDetailViewDto>()
+				.With(x => x.facebookUrl, "")
+				.With(x => x.homepageUrl, "")
+				.With(x => x.lanyrdUrl, connectItem)
+				.With(x => x.meetupUrl, "")
+				.With(x => x.googlePlusUrl, "")
+				.With(x => x.vimeoUrl, "")
+				.With(x => x.youtubeUrl, "")
+				.With(x => x.githubUrl, "")
+				.With(x => x.linkedInUrl, "")
+				.With(x => x.twitterHashTag, "")
+				.With(x => x.twitterName, "")
+				.Create();
+
+
+			var vm = new ConferenceDetailViewModel(remoteDataService.Object,
+				localConferencesRepository.Object,
+				analytics.Object,
+				authentication.Object,
+				messenger.Object,
+				localScheduleRepository.Object)
+			{
+				Conference = conference
+			};
+			vm.ConnectItems.Count.ShouldEqual(1);
+			vm.ConnectItems.First().Name.ShouldEqual("lanyrdUrl");
+			vm.ConnectItems.First().Value.ShouldEqual(connectItem);
+		}
+
+		[Test]
+		public void Should_include_meetupUrl_in_connectItems()
+		{
+			var remoteDataService = new Mock<IRemoteDataService>();
+			var localScheduleRepository = new Mock<ILocalScheduleRepository>();
+			var localConferencesRepository = new Mock<ILocalConferencesRepository>();
+			var analytics = new Mock<IAnalytics>();
+			var authentication = new Mock<IAuthentication>();
+			var messenger = new Mock<IMvxMessenger>();
+			var connectItem = _fixture.Create<string>();
+
+			var conference = _fixture.Build<ConferenceDetailViewDto>()
+				.With(x => x.facebookUrl, "")
+				.With(x => x.homepageUrl, "")
+				.With(x => x.lanyrdUrl, "")
+				.With(x => x.meetupUrl, connectItem)
+				.With(x => x.googlePlusUrl, "")
+				.With(x => x.vimeoUrl, "")
+				.With(x => x.youtubeUrl, "")
+				.With(x => x.githubUrl, "")
+				.With(x => x.linkedInUrl, "")
+				.With(x => x.twitterHashTag, "")
+				.With(x => x.twitterName, "")
+				.Create();
+
+
+			var vm = new ConferenceDetailViewModel(remoteDataService.Object,
+				localConferencesRepository.Object,
+				analytics.Object,
+				authentication.Object,
+				messenger.Object,
+				localScheduleRepository.Object)
+			{
+				Conference = conference
+			};
+			vm.ConnectItems.Count.ShouldEqual(1);
+			vm.ConnectItems.First().Name.ShouldEqual("meetupUrl");
+			vm.ConnectItems.First().Value.ShouldEqual(connectItem);
+		}
+
+		[Test]
+		public void Should_include_googlePlusUrl_in_connectItems()
+		{
+			var remoteDataService = new Mock<IRemoteDataService>();
+			var localScheduleRepository = new Mock<ILocalScheduleRepository>();
+			var localConferencesRepository = new Mock<ILocalConferencesRepository>();
+			var analytics = new Mock<IAnalytics>();
+			var authentication = new Mock<IAuthentication>();
+			var messenger = new Mock<IMvxMessenger>();
+			var connectItem = _fixture.Create<string>();
+
+			var conference = _fixture.Build<ConferenceDetailViewDto>()
+				.With(x => x.facebookUrl, "")
+				.With(x => x.homepageUrl, "")
+				.With(x => x.lanyrdUrl, "")
+				.With(x => x.meetupUrl, "")
+				.With(x => x.googlePlusUrl, connectItem)
+				.With(x => x.vimeoUrl, "")
+				.With(x => x.youtubeUrl, "")
+				.With(x => x.githubUrl, "")
+				.With(x => x.linkedInUrl, "")
+				.With(x => x.twitterHashTag, "")
+				.With(x => x.twitterName, "")
+				.Create();
+
+
+			var vm = new ConferenceDetailViewModel(remoteDataService.Object,
+				localConferencesRepository.Object,
+				analytics.Object,
+				authentication.Object,
+				messenger.Object,
+				localScheduleRepository.Object)
+			{
+				Conference = conference
+			};
+			vm.ConnectItems.Count.ShouldEqual(1);
+			vm.ConnectItems.First().Name.ShouldEqual("googlePlusUrl");
+			vm.ConnectItems.First().Value.ShouldEqual(connectItem);
+		}
+
+		[Test]
+		public void Should_include_vimeoUrl_in_connectItems()
+		{
+			var remoteDataService = new Mock<IRemoteDataService>();
+			var localScheduleRepository = new Mock<ILocalScheduleRepository>();
+			var localConferencesRepository = new Mock<ILocalConferencesRepository>();
+			var analytics = new Mock<IAnalytics>();
+			var authentication = new Mock<IAuthentication>();
+			var messenger = new Mock<IMvxMessenger>();
+			var connectItem = _fixture.Create<string>();
+
+			var conference = _fixture.Build<ConferenceDetailViewDto>()
+				.With(x => x.facebookUrl, "")
+				.With(x => x.homepageUrl, "")
+				.With(x => x.lanyrdUrl, "")
+				.With(x => x.meetupUrl, "")
+				.With(x => x.googlePlusUrl, "")
+				.With(x => x.vimeoUrl, connectItem)
+				.With(x => x.youtubeUrl, "")
+				.With(x => x.githubUrl, "")
+				.With(x => x.linkedInUrl, "")
+				.With(x => x.twitterHashTag, "")
+				.With(x => x.twitterName, "")
+				.Create();
+
+
+			var vm = new ConferenceDetailViewModel(remoteDataService.Object,
+				localConferencesRepository.Object,
+				analytics.Object,
+				authentication.Object,
+				messenger.Object,
+				localScheduleRepository.Object)
+			{
+				Conference = conference
+			};
+			vm.ConnectItems.Count.ShouldEqual(1);
+			vm.ConnectItems.First().Name.ShouldEqual("vimeoUrl");
+			vm.ConnectItems.First().Value.ShouldEqual(connectItem);
+		}
+
+		[Test]
+		public void Should_include_youtubeUrl_in_connectItems()
+		{
+			var remoteDataService = new Mock<IRemoteDataService>();
+			var localScheduleRepository = new Mock<ILocalScheduleRepository>();
+			var localConferencesRepository = new Mock<ILocalConferencesRepository>();
+			var analytics = new Mock<IAnalytics>();
+			var authentication = new Mock<IAuthentication>();
+			var messenger = new Mock<IMvxMessenger>();
+			var connectItem = _fixture.Create<string>();
+
+			var conference = _fixture.Build<ConferenceDetailViewDto>()
+				.With(x => x.facebookUrl, "")
+				.With(x => x.homepageUrl, "")
+				.With(x => x.lanyrdUrl, "")
+				.With(x => x.meetupUrl, "")
+				.With(x => x.googlePlusUrl, "")
+				.With(x => x.vimeoUrl, "")
+				.With(x => x.youtubeUrl, connectItem)
+				.With(x => x.githubUrl, "")
+				.With(x => x.linkedInUrl, "")
+				.With(x => x.twitterHashTag, "")
+				.With(x => x.twitterName, "")
+				.Create();
+
+
+			var vm = new ConferenceDetailViewModel(remoteDataService.Object,
+				localConferencesRepository.Object,
+				analytics.Object,
+				authentication.Object,
+				messenger.Object,
+				localScheduleRepository.Object)
+			{
+				Conference = conference
+			};
+			vm.ConnectItems.Count.ShouldEqual(1);
+			vm.ConnectItems.First().Name.ShouldEqual("youtubeUrl");
+			vm.ConnectItems.First().Value.ShouldEqual(connectItem);
+		}
+
+		[Test]
+		public void Should_include_githubUrl_in_connectItems()
+		{
+			var remoteDataService = new Mock<IRemoteDataService>();
+			var localScheduleRepository = new Mock<ILocalScheduleRepository>();
+			var localConferencesRepository = new Mock<ILocalConferencesRepository>();
+			var analytics = new Mock<IAnalytics>();
+			var authentication = new Mock<IAuthentication>();
+			var messenger = new Mock<IMvxMessenger>();
+			var connectItem = _fixture.Create<string>();
+
+			var conference = _fixture.Build<ConferenceDetailViewDto>()
+				.With(x => x.facebookUrl, "")
+				.With(x => x.homepageUrl, "")
+				.With(x => x.lanyrdUrl, "")
+				.With(x => x.meetupUrl, "")
+				.With(x => x.googlePlusUrl, "")
+				.With(x => x.vimeoUrl, "")
+				.With(x => x.youtubeUrl, "")
+				.With(x => x.githubUrl, connectItem)
+				.With(x => x.linkedInUrl, "")
+				.With(x => x.twitterHashTag, "")
+				.With(x => x.twitterName, "")
+				.Create();
+
+
+			var vm = new ConferenceDetailViewModel(remoteDataService.Object,
+				localConferencesRepository.Object,
+				analytics.Object,
+				authentication.Object,
+				messenger.Object,
+				localScheduleRepository.Object)
+			{
+				Conference = conference
+			};
+			vm.ConnectItems.Count.ShouldEqual(1);
+			vm.ConnectItems.First().Name.ShouldEqual("githubUrl");
+			vm.ConnectItems.First().Value.ShouldEqual(connectItem);
+		}
+
+		[Test]
+		public void Should_include_linkedInUrl_in_connectItems()
+		{
+			var remoteDataService = new Mock<IRemoteDataService>();
+			var localScheduleRepository = new Mock<ILocalScheduleRepository>();
+			var localConferencesRepository = new Mock<ILocalConferencesRepository>();
+			var analytics = new Mock<IAnalytics>();
+			var authentication = new Mock<IAuthentication>();
+			var messenger = new Mock<IMvxMessenger>();
+			var connectItem = _fixture.Create<string>();
+
+			var conference = _fixture.Build<ConferenceDetailViewDto>()
+				.With(x => x.facebookUrl, "")
+				.With(x => x.homepageUrl, "")
+				.With(x => x.lanyrdUrl, "")
+				.With(x => x.meetupUrl, "")
+				.With(x => x.googlePlusUrl, "")
+				.With(x => x.vimeoUrl, "")
+				.With(x => x.youtubeUrl, "")
+				.With(x => x.githubUrl, "")
+				.With(x => x.linkedInUrl, connectItem)
+				.With(x => x.twitterHashTag, "")
+				.With(x => x.twitterName, "")
+				.Create();
+
+
+			var vm = new ConferenceDetailViewModel(remoteDataService.Object,
+				localConferencesRepository.Object,
+				analytics.Object,
+				authentication.Object,
+				messenger.Object,
+				localScheduleRepository.Object)
+			{
+				Conference = conference
+			};
+			vm.ConnectItems.Count.ShouldEqual(1);
+			vm.ConnectItems.First().Name.ShouldEqual("linkedInUrl");
+			vm.ConnectItems.First().Value.ShouldEqual(connectItem);
+		}
+
+		[Test]
+		public void Should_include_twitterHashTag_in_connectItems()
+		{
+			var remoteDataService = new Mock<IRemoteDataService>();
+			var localScheduleRepository = new Mock<ILocalScheduleRepository>();
+			var localConferencesRepository = new Mock<ILocalConferencesRepository>();
+			var analytics = new Mock<IAnalytics>();
+			var authentication = new Mock<IAuthentication>();
+			var messenger = new Mock<IMvxMessenger>();
+			var connectItem = _fixture.Create<string>();
+
+			var conference = _fixture.Build<ConferenceDetailViewDto>()
+				.With(x => x.facebookUrl, "")
+				.With(x => x.homepageUrl, "")
+				.With(x => x.lanyrdUrl, "")
+				.With(x => x.meetupUrl, "")
+				.With(x => x.googlePlusUrl, "")
+				.With(x => x.vimeoUrl, "")
+				.With(x => x.youtubeUrl, "")
+				.With(x => x.githubUrl, "")
+				.With(x => x.linkedInUrl, "")
+				.With(x => x.twitterHashTag, connectItem)
+				.With(x => x.twitterName, "")
+				.Create();
+
+
+			var vm = new ConferenceDetailViewModel(remoteDataService.Object,
+				localConferencesRepository.Object,
+				analytics.Object,
+				authentication.Object,
+				messenger.Object,
+				localScheduleRepository.Object)
+			{
+				Conference = conference
+			};
+			vm.ConnectItems.Count.ShouldEqual(1);
+			vm.ConnectItems.First().Name.ShouldEqual("twitterHashTag");
+			vm.ConnectItems.First().Value.ShouldEqual(connectItem);
+		}
+
+		[Test]
+		public void Should_include_twitterName_in_connectItems()
+		{
+			var remoteDataService = new Mock<IRemoteDataService>();
+			var localScheduleRepository = new Mock<ILocalScheduleRepository>();
+			var localConferencesRepository = new Mock<ILocalConferencesRepository>();
+			var analytics = new Mock<IAnalytics>();
+			var authentication = new Mock<IAuthentication>();
+			var messenger = new Mock<IMvxMessenger>();
+			var connectItem = _fixture.Create<string>();
+
+			var conference = _fixture.Build<ConferenceDetailViewDto>()
+				.With(x => x.facebookUrl, "")
+				.With(x => x.homepageUrl, "")
+				.With(x => x.lanyrdUrl, "")
+				.With(x => x.meetupUrl, "")
+				.With(x => x.googlePlusUrl, "")
+				.With(x => x.vimeoUrl, "")
+				.With(x => x.youtubeUrl, "")
+				.With(x => x.githubUrl, "")
+				.With(x => x.linkedInUrl, "")
+				.With(x => x.twitterHashTag, "")
+				.With(x => x.twitterName, connectItem)
+				.Create();
+
+
+			var vm = new ConferenceDetailViewModel(remoteDataService.Object,
+				localConferencesRepository.Object,
+				analytics.Object,
+				authentication.Object,
+				messenger.Object,
+				localScheduleRepository.Object)
+			{
+				Conference = conference
+			};
+			vm.ConnectItems.Count.ShouldEqual(1);
+			vm.ConnectItems.First().Name.ShouldEqual("twitterName");
+			vm.ConnectItems.First().Value.ShouldEqual(connectItem);
 		}
 
 		[Test]

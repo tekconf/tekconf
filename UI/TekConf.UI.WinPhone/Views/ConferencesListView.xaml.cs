@@ -8,6 +8,7 @@ using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.WindowsPhone.Views;
 using Microsoft.Phone.Scheduler;
 using Microsoft.Phone.Shell;
+using TekConf.Core.Messages;
 using TekConf.Core.Repositories;
 using TekConf.Core.ViewModels;
 using TekConf.RemoteData.Dtos.v1;

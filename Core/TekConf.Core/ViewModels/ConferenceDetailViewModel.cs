@@ -5,6 +5,7 @@ using System.Windows.Input;
 using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 using TekConf.Core.Interfaces;
+using TekConf.Core.Messages;
 using TekConf.Core.Models;
 using TekConf.Core.Repositories;
 using TekConf.Core.Services;
@@ -59,8 +60,15 @@ namespace TekConf.Core.ViewModels
 					return;
 				}
 			}
-		
-			_remoteDataService.GetConferenceDetail(slug, isRefreshing, Success, Error);
+
+			try
+			{
+				_remoteDataService.GetConferenceDetail(slug, isRefreshing, Success, Error);
+			}
+			catch (Exception ex)
+			{
+				Error(ex);
+			}
 		}
 
 		private void Error(Exception exception)
@@ -82,12 +90,8 @@ namespace TekConf.Core.ViewModels
 			Conference = conference;
 		}
 
-		private bool _isLoading;
-		public bool IsLoading
-		{
-			get { return _isLoading; }
-			set { _isLoading = value; RaisePropertyChanged(() => IsLoading); }
-		}
+		public bool IsLoading { get; set; }
+		
 
 		public bool HasSessions
 		{
@@ -97,33 +101,8 @@ namespace TekConf.Core.ViewModels
 			}
 		}
 
-		private bool _isAuthenticated;
-		public bool IsAuthenticated
-		{
-			get
-			{
-				return _isAuthenticated;
-			}
-			set
-			{
-				_isAuthenticated = value;
-				RaisePropertyChanged(() => IsAuthenticated);
-			}
-		}
-
-		private string _pageTitle;
-		public string PageTitle
-		{
-			get
-			{
-				return _pageTitle;
-			}
-			set
-			{
-				_pageTitle = value.ToUpper();
-				RaisePropertyChanged(() => PageTitle);
-			}
-		}
+		public bool IsAuthenticated { get; set; }
+		public string PageTitle { get; set; }
 
 		private ConferenceDetailViewDto _conference;
 		public ConferenceDetailViewDto Conference
@@ -267,12 +246,15 @@ namespace TekConf.Core.ViewModels
 					Conference.isAddedToSchedule = true;
 					RaisePropertyChanged(() => Conference);
 					_messenger.Publish(new FavoriteAddedMessage(this, dto));
+					_messenger.Publish(new FavoriteRefreshMessage(this));
+
 				});
 
 				var addError = new Action<Exception>(ex =>
 				{
 					Conference.isAddedToSchedule = false;
 					RaisePropertyChanged(() => Conference);
+					_messenger.Publish(new FavoriteRefreshMessage(this));
 					RefreshFavorites();
 				});
 

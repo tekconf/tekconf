@@ -6,6 +6,7 @@ using System.Windows;
 using System.Xml.Linq;
 using Cirrious.MvvmCross.Plugins.Messenger;
 using Microsoft.WindowsAzure.MobileServices;
+using TekConf.Core.Messages;
 using TekConf.Core.Models;
 using TekConf.Core.Services;
 using TekConf.Core.ViewModels;

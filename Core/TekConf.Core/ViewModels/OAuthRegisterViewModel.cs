@@ -3,6 +3,7 @@ using Cirrious.MvvmCross.Plugins.File;
 using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 using TekConf.Core.Interfaces;
+using TekConf.Core.Messages;
 using TekConf.Core.Repositories;
 using TekConf.Core.Services;
 

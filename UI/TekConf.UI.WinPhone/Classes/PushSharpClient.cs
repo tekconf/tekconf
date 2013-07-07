@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows;
 using Cirrious.MvvmCross.Plugins.Messenger;
 using Microsoft.Phone.Notification;
+using TekConf.Core.Messages;
 using TekConf.Core.Models;
 using TekConf.Core.Services;
 using TekConf.Core.ViewModels;

@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using Cirrious.MvvmCross.Plugins.Messenger;
+using TekConf.Core.Messages;
 using TekConf.Core.ViewModels;
 using TekConf.UI.WinPhone.Bootstrap;
 using Cirrious.CrossCore;

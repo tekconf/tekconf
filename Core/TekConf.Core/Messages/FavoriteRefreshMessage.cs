@@ -1,6 +1,6 @@
 using Cirrious.MvvmCross.Plugins.Messenger;
 
-namespace TekConf.Core.ViewModels
+namespace TekConf.Core.Messages
 {
 	public class FavoriteRefreshMessage :MvxMessage
 	{

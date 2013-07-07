@@ -4,6 +4,7 @@ using System.Net;
 using Cirrious.CrossCore.Core;
 using Cirrious.MvvmCross.Plugins.Messenger;
 using Newtonsoft.Json;
+using TekConf.Core.Messages;
 using TekConf.Core.ViewModels;
 
 namespace TekConf.Core.Models

@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.WindowsPhone.Views;
+using TekConf.Core.Messages;
 using TekConf.Core.ViewModels;
 using Cirrious.CrossCore;
 

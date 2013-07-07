@@ -6,7 +6,8 @@ using FluentMongo.Linq;
 using MongoDB.Driver;
 using MongoDB.Driver.Builders;
 using ServiceStack.Text;
-using TekConf.UI.Api;
+using TekConf.Common.Entities;
+using TinyMessenger;
 
 namespace UberImporter.Importers.MonkeySpace2012
 {
@@ -23,23 +24,41 @@ namespace UberImporter.Importers.MonkeySpace2012
             var root = json.FromJson<root>();
             if (root != null)
             {
-                if (!collection.AsQueryable().Any(c => c.slug == "MonkeySpace-2012"))
+                if (!collection.AsQueryable().Any(c => c.slug == "monkeyspace-2013"))
                 {
-                    var conference = new ConferenceEntity()
+	                ITinyMessengerHub hub = new TinyMessengerHub();
+	                IEntityConfiguration configuration = new EntityConfiguration();
+	                var repository = new ConferenceRepository(configuration);
+	                var conference = new ConferenceEntity(hub, repository)
                     {
                         //_id = Guid.NewGuid(),
+												_id = Guid.NewGuid(),
+												dateAdded = DateTime.Now,
+												defaultTalkLength = 60,
+
                         description = @"MonkeySpace, formerly known as Monospace, is the official cross platform and open-source .NET conference. Want to learn more about developing for the iPhone, Android, Mac, and *nix platforms using .NET technologies? How about developing games or learning more about open-source projects using .NET technologies? MonkeySpace has provided an annual venue to collaborate, share, and socialize around these topics and more.",
-                        end = new DateTime(2012, 10, 19),
+												start = new DateTime(2013, 07, 22),
+												end = new DateTime(2013, 07, 25),
+												registrationOpens = DateTime.Now.AddDays(-1),
+												registrationCloses = new DateTime(2013, 07, 25),
+												slug = "monkeyspace-2013",
                         facebookUrl = "",
                         homepageUrl = "http://monkeyspace.org",
                         imageUrl = "/img/conferences/MonkeySpace.jpg",
                         lanyrdUrl = "",
-                        location = "Boston, MA",
+                        location = "Columbia College",
+												address = new AddressEntity()
+												{
+													
+													City = "Chicago",
+													Country = "US",
+													State = "IL",
+													StreetNumber = 600,
+													StreetName = "S. Michigan Ave",
+													PostalArea = "60605"
+												},
                         meetupUrl = "",
-                        name = "MonkeySpace",
-                        //sessions = new List<SessionEntity>(),
-                        //slug = "MonkeySpace-2012",
-                        start = new DateTime(2012, 10, 17),
+                        name = "MonkeySpace 2013",
                         tagLine = ".net. Everywhere.",
                         twitterHashTag = "#monkeySpace",
                         twitterName = "@monkeySpaceConf"
@@ -53,13 +72,15 @@ namespace UberImporter.Importers.MonkeySpace2012
                             {
                                 _id = Guid.NewGuid(),
                                 description = session.@abstract,
-                                start = session.begins,
-                                end = session.ends,
+                                start = session.begins.AddHours(-4),
+                                end = session.ends.AddHours(-4),
                                 title = session.title,
                                 room = session.location,
                                 slug = session.title.ToLower().GenerateSlug(),
                                 twitterHashTag = "#ms-" + session.title.ToLower().Trim().Replace(" ", "-").SafeSubstring(0, 10)
                             };
+														conference.AddSession(sessionEntity);
+
                             sessionEntity.speakers = new List<SpeakerEntity>();
                             foreach (var speaker in session.speakers)
                             {
@@ -79,14 +100,12 @@ namespace UberImporter.Importers.MonkeySpace2012
                                     profileImageUrl = speaker.headshotUrl,
                                     slug = speaker.name.ToLower().GenerateSlug()
                                 };
-                                sessionEntity.speakers.Add(speakerEntity);
+                                conference.AddSpeakerToSession(sessionEntity.slug, speakerEntity);
                             }
-
-                            conference.AddSession(sessionEntity);
                         }
                     }
 
-                    conference.Save(collection);
+                    conference.Save();
                 }
             }
         

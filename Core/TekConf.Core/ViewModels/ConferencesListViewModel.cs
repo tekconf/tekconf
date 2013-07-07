@@ -6,6 +6,7 @@ using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 using PropertyChanged;
 using TekConf.Core.Interfaces;
+using TekConf.Core.Messages;
 using TekConf.Core.Repositories;
 using TekConf.Core.Services;
 using TekConf.RemoteData.Dtos.v1;
@@ -155,7 +156,7 @@ namespace TekConf.Core.ViewModels
 
 		private void DisplayFavoritesConferences(IEnumerable<ConferencesListViewDto> favorites)
 		{
-			Favorites = favorites.ToList();
+			Favorites = favorites.OrderByDescending(x => x.start).ToList();
 		}
 
 		private bool _isLoadingConferences;

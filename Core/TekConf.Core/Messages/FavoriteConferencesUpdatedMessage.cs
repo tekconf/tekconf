@@ -3,7 +3,7 @@ using Cirrious.MvvmCross.Plugins.Messenger;
 using TekConf.Core.Repositories;
 using TekConf.RemoteData.Dtos.v1;
 
-namespace TekConf.Core.ViewModels
+namespace TekConf.Core.Messages
 {
 	public class FavoriteConferencesUpdatedMessage : MvxMessage
 	{

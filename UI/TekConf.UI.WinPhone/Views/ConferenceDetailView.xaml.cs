@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Plugins.Messenger;
 using Microsoft.Phone.Shell;
+using TekConf.Core.Messages;
 using TekConf.Core.ViewModels;
 using TekConf.Core.Services;
 
