@@ -2,6 +2,7 @@ using System;
 using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Plugins.File;
 using Cirrious.MvvmCross.ViewModels;
+using TekConf.Core.Entities;
 using TekConf.Core.Models;
 using TekConf.RemoteData.Dtos.v1;
 
@@ -10,6 +11,29 @@ namespace TekConf.Core.Repositories
 	public class ConferencesListViewDto : MvxViewModel
 	{
 		private readonly IMvxFileStore _fileStore;
+
+		public ConferencesListViewDto(ConferenceEntity entity, IMvxFileStore fileStore)
+		{
+			try
+			{
+				_fileStore = fileStore ?? Mvx.Resolve<IMvxFileStore>();
+			}
+			catch (Exception)
+			{
+			}
+
+			if (entity != null)
+			{
+				slug = entity.Slug;
+				name = entity.Name;
+				start = entity.Start;
+				DateRange = entity.DateRange();
+				FormattedAddress = entity.FormattedAddress();
+				imageUrl = entity.ImageUrl;
+				//ImageBytes = entity.ImageBytes;
+			}
+		}
+
 
 		public ConferencesListViewDto(FullConferenceDto fullConference, IMvxFileStore fileStore)
 		{

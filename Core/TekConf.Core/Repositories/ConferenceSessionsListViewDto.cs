@@ -2,12 +2,24 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TekConf.Core.Entities;
 using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.Core.Repositories
 {
 	public class ConferenceSessionListDto
 	{
+		public ConferenceSessionListDto(SessionEntity entity)
+		{
+			title = entity.Title;
+			//TODO : startDescription = entity.StartDescription;
+			//TODO : speakerNames = entity.SpeakerNames;
+			start = entity.Start;
+			//TODO : tags = entity.Tags;
+			room = entity.Room;
+			slug = entity.Slug;
+		}
+
 		public ConferenceSessionListDto(FullSessionDto fullSession)
 		{
 			title = fullSession.title;
@@ -30,6 +42,19 @@ namespace TekConf.Core.Repositories
 
 	public class ConferenceSessionsListViewDto
 	{
+
+		public ConferenceSessionsListViewDto(IEnumerable<SessionEntity> sessions)
+		{
+			if (sessions != null)
+			{
+				Sessions = sessions.Select(x => new ConferenceSessionListDto(x));
+			}
+			else
+			{
+				Sessions = new List<ConferenceSessionListDto>();
+			}
+		}
+
 		public ConferenceSessionsListViewDto(IEnumerable<FullSessionDto> sessions)
 		{
 			if (sessions != null)

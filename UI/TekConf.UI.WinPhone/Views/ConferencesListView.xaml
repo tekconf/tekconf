@@ -99,7 +99,7 @@
 
 						<TextBlock Name="ConferencesFavoritesExceptionMessage" Visibility="Collapsed" TextWrapping="Wrap"></TextBlock>
 
-						<ListBox ItemsSource="{Binding Favorites}" 
+						<ListBox ItemsSource="{Binding Favorites, Mode=TwoWay}" 
 										 Name="Favorites"
 										 ScrollViewer.VerticalScrollBarVisibility="Disabled"
 										 Visibility="{Binding IsLoadingFavorites, Converter={StaticResource InvertedVisibility}}">

@@ -35,7 +35,7 @@ namespace TekConf.Core.Tests.Unit
 			Ioc.RegisterType<ILocalNotificationsRepository, LocalNotificationsRepository>();
 			Ioc.RegisterType<ILocalConferencesRepository, LocalConferencesRepository>();
 			Ioc.RegisterType<ILocalScheduleRepository, LocalScheduleRepository>();
-			Ioc.RegisterType<ILocalSessionRepository, LocalSessionRepository>();
+			//Ioc.RegisterType<ILocalSessionRepository, LocalSessionRepository>();
 
 			Ioc.RegisterSingleton(typeof(IPushSharpClient), pushSharp.Object);
 

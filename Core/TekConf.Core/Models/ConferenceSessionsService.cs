@@ -6,6 +6,7 @@ using System.Net;
 using Cirrious.CrossCore.Core;
 using Cirrious.MvvmCross.Plugins.File;
 using Cirrious.MvvmCross.Plugins.Network.Reachability;
+using Cirrious.MvvmCross.Plugins.Sqlite;
 using Newtonsoft.Json;
 using TekConf.Core.Repositories;
 using TekConf.Core.Services;
@@ -22,12 +23,13 @@ namespace TekConf.Core.Models
 		private readonly IAuthentication _authentication;
 		private readonly ILocalScheduleRepository _localScheduleRepository;
 		private readonly ILocalConferencesRepository _localConferencesRepository;
+		private readonly ISQLiteConnectionFactory _factory;
 		private readonly Action<ConferenceSessionsListViewDto> _success;
 		private readonly Action<Exception> _error;
 		private string _slug;
 
 		private ConferenceSessionsService(IMvxFileStore fileStore, IMvxReachability reachability, bool isRefreshing, ICacheService cache, IAuthentication authentication, 
-			ILocalScheduleRepository localScheduleRepository, ILocalConferencesRepository localConferencesRepository,
+			ILocalScheduleRepository localScheduleRepository, ILocalConferencesRepository localConferencesRepository, ISQLiteConnectionFactory factory,
 			Action<ConferenceSessionsListViewDto> success, Action<Exception> error)
 		{
 			_fileStore = fileStore;
@@ -37,6 +39,7 @@ namespace TekConf.Core.Models
 			_authentication = authentication;
 			_localScheduleRepository = localScheduleRepository;
 			_localConferencesRepository = localConferencesRepository;
+			_factory = factory;
 			_success = success;
 			_error = error;
 		}
@@ -44,46 +47,28 @@ namespace TekConf.Core.Models
 
 		public static void GetConferenceSessionsAsync(IMvxFileStore fileStore, ILocalScheduleRepository localScheduleRepository, 
 			ILocalConferencesRepository localConferencesRepository, IMvxReachability reachability, string slug, bool isRefreshing,
-			ICacheService cache, IAuthentication authentication, Action<ConferenceSessionsListViewDto> success, Action<Exception> error)
+			ICacheService cache, IAuthentication authentication, ISQLiteConnectionFactory factory, Action<ConferenceSessionsListViewDto> success, Action<Exception> error)
 		{
 			MvxAsyncDispatcher.BeginAsync(() =>
-				DoAsyncGetConferenceSessions(fileStore, localScheduleRepository, localConferencesRepository, reachability, slug, isRefreshing, cache, authentication, success, error)
+				DoAsyncGetConferenceSessions(fileStore, localScheduleRepository, localConferencesRepository, reachability, slug, isRefreshing, cache, authentication, factory, success, error)
 				);
 		}
 
 		private static void DoAsyncGetConferenceSessions(IMvxFileStore fileStore, ILocalScheduleRepository localScheduleRepository, 
 																											ILocalConferencesRepository localConferencesRepository, IMvxReachability reachability, string slug, bool isRefreshing,
-																											ICacheService cache, IAuthentication authentication, Action<ConferenceSessionsListViewDto> success, Action<Exception> error)
+																											ICacheService cache, IAuthentication authentication, ISQLiteConnectionFactory factory, Action<ConferenceSessionsListViewDto> success, Action<Exception> error)
 		{
-			var conference = GetFullConference(fileStore, slug);
-			
-			var sessions = conference.sessions;
+			var conference = localConferencesRepository.Get(slug);
+			var connection = factory.Create("conferences.db");
+			var sessions = conference.Sessions(connection);
 			var conferenceSessionListView = new ConferenceSessionsListViewDto(sessions)
 			{
-				name = conference.name,
-				slug = conference.slug
+				name = conference.Name,
+				slug = conference.Slug
 			};
 			
 			success(conferenceSessionListView);
 		}
-
-		private static FullConferenceDto GetFullConference(IMvxFileStore fileStore, string slug)
-		{
-			var conferenceJsonPath = slug + ".json";
-
-			if (fileStore.Exists(conferenceJsonPath))
-			{
-				string json;
-				if (fileStore.TryReadTextFile(conferenceJsonPath, out json))
-				{
-					var fullConference = JsonConvert.DeserializeObject<FullConferenceDto>(json);
-					return fullConference;
-				}
-			}
-
-			return new FullConferenceDto();
-		}
-
 
 	}
 }

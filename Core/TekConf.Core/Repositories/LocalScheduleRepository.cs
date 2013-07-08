@@ -77,7 +77,7 @@ namespace TekConf.Core.Repositories
 					var conferenceList = conferences.ToList();
 					if (conferenceList.All(x => x.slug != schedule.conferenceSlug))
 					{
-						var fullConference = _localConferencesRepository.GetConference(schedule.conferenceSlug);
+						var fullConference = _localConferencesRepository.Get(schedule.conferenceSlug);
 						conferenceList.Add(new ConferencesListViewDto(fullConference, _fileStore));
 						SaveSchedules(conferenceList);
 					}

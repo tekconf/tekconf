@@ -27,9 +27,9 @@ namespace TekConf.Core.Services
 		void GetConferenceSessionsList(string slug, bool isRefreshing,
 			Action<ConferenceSessionsListViewDto> success = null, Action<Exception> error = null);
 
-		void GetConferenceDetail(string slug, bool isRefreshing,
-			Action<ConferenceDetailViewDto> success = null,
-			Action<Exception> error = null);
+		//void GetConferenceDetail(string slug, bool isRefreshing,
+		//	Action<ConferenceDetailViewDto> success = null,
+		//	Action<Exception> error = null);
 
 		void GetSchedule(string userName, string conferenceSlug, bool isRefreshing, Action<ScheduleDto> success = null, Action<Exception> error = null);
 		void GetSchedules(string userName, bool isRefreshing, Action<IEnumerable<ConferencesListViewDto>> success = null, Action<Exception> error = null);
@@ -40,7 +40,7 @@ namespace TekConf.Core.Services
 		void AddSessionToSchedule(string userName, string conferenceSlug, string sessionSlug, Action<ScheduleDto> success = null, Action<Exception> error = null);
 		void RemoveFromSchedule(string userName, string conferenceSlug, Action<ScheduleDto> success = null, Action<Exception> error = null);
 		void RemoveSessionFromSchedule(string userName, string conferenceSlug, string sessionSlug, Action<ScheduleDto> success = null, Action<Exception> error = null);
-		void GetSession(string conferenceSlug, string sessionSlug, bool isRefreshing, Action<SessionDetailDto> success, Action<Exception> error);
+		//void GetSession(string conferenceSlug, string sessionSlug, bool isRefreshing, Action<SessionDetailDto> success, Action<Exception> error);
 		void GetIsOauthUserRegistered(string userId, Action<string> success, Action<Exception> error);
 		void CreateOauthUser(string userId, string userName, Action<string> success, Action<Exception> error);
 

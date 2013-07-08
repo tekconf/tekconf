@@ -44,9 +44,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="FakeItEasy, Version=1.12.0.0, Culture=neutral, PublicKeyToken=eff28e2146d5fd2c, processorArchitecture=MSIL">
+    <Reference Include="FakeItEasy, Version=1.13.0.0, Culture=neutral, PublicKeyToken=eff28e2146d5fd2c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\FakeItEasy.1.12.0\lib\net40\FakeItEasy.dll</HintPath>
+      <HintPath>..\..\packages\FakeItEasy.1.13.0\lib\net40\FakeItEasy.dll</HintPath>
     </Reference>
     <Reference Include="MongoDB.Bson">
       <HintPath>..\..\packages\mongocsharpdriver.1.8.1\lib\net35\MongoDB.Bson.dll</HintPath>
@@ -61,21 +61,21 @@
     <Reference Include="nunit.framework">
       <HintPath>..\..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="Ploeh.AutoFixture, Version=3.2.1.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
+    <Reference Include="Ploeh.AutoFixture, Version=3.5.1.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\AutoFixture.3.2.1\lib\net40\Ploeh.AutoFixture.dll</HintPath>
+      <HintPath>..\..\packages\AutoFixture.3.5.1\lib\net40\Ploeh.AutoFixture.dll</HintPath>
     </Reference>
-    <Reference Include="Ploeh.AutoFixture.AutoFakeItEasy, Version=3.2.1.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
+    <Reference Include="Ploeh.AutoFixture.AutoFakeItEasy, Version=3.5.1.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\AutoFixture.AutoFakeItEasy.3.2.1\lib\net40\Ploeh.AutoFixture.AutoFakeItEasy.dll</HintPath>
+      <HintPath>..\..\packages\AutoFixture.AutoFakeItEasy.3.5.1\lib\net40\Ploeh.AutoFixture.AutoFakeItEasy.dll</HintPath>
     </Reference>
-    <Reference Include="Ploeh.AutoFixture.AutoMoq, Version=3.2.1.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
+    <Reference Include="Ploeh.AutoFixture.AutoMoq, Version=3.5.1.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\AutoFixture.AutoMoq.3.2.1\lib\net40\Ploeh.AutoFixture.AutoMoq.dll</HintPath>
+      <HintPath>..\..\packages\AutoFixture.AutoMoq.3.5.1\lib\net40\Ploeh.AutoFixture.AutoMoq.dll</HintPath>
     </Reference>
-    <Reference Include="Ploeh.AutoFixture.Xunit, Version=3.2.1.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
+    <Reference Include="Ploeh.AutoFixture.Xunit, Version=3.5.1.0, Culture=neutral, PublicKeyToken=b24654c590009d4f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\AutoFixture.Xunit.3.2.1\lib\net40\Ploeh.AutoFixture.Xunit.dll</HintPath>
+      <HintPath>..\..\packages\AutoFixture.Xunit.3.5.1\lib\net40\Ploeh.AutoFixture.Xunit.dll</HintPath>
     </Reference>
     <Reference Include="Should, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

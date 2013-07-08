@@ -53,10 +53,11 @@ namespace TekConf.Core.ViewModels
 
 			if (!isRefreshing)
 			{
-				var conference = _localConferencesRepository.GetConferenceDetail(slug);
+				var conference = _localConferencesRepository.Get(slug);
 				if (conference != null)
 				{
-					this.Success(conference);
+					var conferenceDetailView = new ConferenceDetailViewDto(conference);
+					this.Success(conferenceDetailView);
 					return;
 				}
 			}

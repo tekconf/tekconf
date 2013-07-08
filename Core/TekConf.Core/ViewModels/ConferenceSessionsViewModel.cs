@@ -21,17 +21,26 @@ namespace TekConf.Core.ViewModels
 		private readonly IMvxMessenger _messenger;
 		private readonly IAuthentication _authentication;
 		private readonly ILocalScheduleRepository _localScheduleRepository;
-		private readonly ILocalSessionRepository _localSessionRepository;
 
 		public ConferenceSessionsViewModel(IRemoteDataService remoteDataService, IAnalytics analytics, IMvxMessenger messenger,
-																															IAuthentication authentication, ILocalScheduleRepository localScheduleRepository, ILocalSessionRepository localSessionRepository)
+																															IAuthentication authentication, ILocalScheduleRepository localScheduleRepository)
 		{
 			_remoteDataService = remoteDataService;
 			_analytics = analytics;
 			_messenger = messenger;
 			_authentication = authentication;
 			_localScheduleRepository = localScheduleRepository;
-			_localSessionRepository = localSessionRepository;
+		}
+
+		public void Init(string slug)
+		{
+			HasSessions = true;
+			StartGetConference(slug);
+			if (_authentication.IsAuthenticated)
+			{
+				var userName = _authentication.UserName;
+				StartGetSchedule(userName, slug, false);
+			}
 		}
 
 		private string _pageTitle;
@@ -45,17 +54,6 @@ namespace TekConf.Core.ViewModels
 			{
 				_pageTitle = value.ToUpper();
 				RaisePropertyChanged(() => PageTitle);
-			}
-		}
-
-		public void Init(string slug)
-		{
-			HasSessions = true;
-			StartGetConference(slug);
-			if (_authentication.IsAuthenticated)
-			{
-				var userName = _authentication.UserName;
-				StartGetSchedule(userName, slug, false);
 			}
 		}
 

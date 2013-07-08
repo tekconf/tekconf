@@ -7,6 +7,7 @@ using Cirrious.MvvmCross.Plugins.File;
 using Cirrious.MvvmCross.Plugins.File.WindowsPhone;
 using Microsoft.Phone.Scheduler;
 using Microsoft.Phone.Shell;
+using TekConf.Core.Entities;
 using TekConf.Core.Repositories;
 using TekConf.RemoteData.Dtos.v1;
 
@@ -48,10 +49,11 @@ namespace TekConf.UI.WinPhone.BackgroundAgent
 		protected override void OnInvoke(ScheduledTask task)
 		{
 			var fileStore = new MvxIsolatedStorageFileStore();
+			var factory = new Cirrious.MvvmCross.Plugins.Sqlite.WindowsPhone.MvxWindowsPhoneSQLiteConnectionFactory();
 			//Mvx.RegisterSingleton(typeof(IMvxFileStore), fileStore);
 			//Mvx.RegisterType<IMvxFileStore, MvxIsolatedStorageFileStore>();
-			ILocalSessionRepository localSessionRepository = new LocalSessionRepository(fileStore);
-			ILocalConferencesRepository localConferencesRepository = new LocalConferencesRepository(fileStore, localSessionRepository);
+			//ILocalSessionRepository localSessionRepository = new LocalSessionRepository(fileStore);
+			ILocalConferencesRepository localConferencesRepository = new LocalConferencesRepository(factory);
 			var scheduleRepository = new LocalScheduleRepository(fileStore, localConferencesRepository);
 			var conference = scheduleRepository.NextScheduledConference;
 			var nextSession = scheduleRepository.NextScheduledSession;
@@ -61,7 +63,7 @@ namespace TekConf.UI.WinPhone.BackgroundAgent
 				var appTile = ShellTile.ActiveTiles.First();
 
 				if (conference == null)
-					conference = new ConferencesListViewDto(null, fileStore);
+					conference = new ConferencesListViewDto((ConferenceEntity) null, fileStore);
 
 				if (nextSession != null)
 				{

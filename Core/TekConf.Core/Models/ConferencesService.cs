@@ -6,6 +6,7 @@ using System.Net;
 using Cirrious.CrossCore.Core;
 using Cirrious.MvvmCross.Plugins.File;
 using Newtonsoft.Json;
+using TekConf.Core.Entities;
 using TekConf.Core.Repositories;
 using TekConf.Core.Services;
 using TekConf.Core.ViewModels;
@@ -111,12 +112,24 @@ namespace TekConf.Core.Models
 		{
 			var conferences = JsonConvert.DeserializeObject<List<FullConferenceDto>>(response).OrderBy(x => x.start).ToList();
 
-			_localConferencesRepository.SaveConferences(conferences);
-			var results = _localConferencesRepository.GetConferencesListView();
+			foreach (var conference in conferences)
+			{
+				var entity = new ConferenceEntity(conference);
+				_localConferencesRepository.Save(entity);
+				var conferenceEntity = _localConferencesRepository.Get(entity.Slug);
+				
+				foreach (var session in conference.sessions)
+				{
+					var sessionEntity = new SessionEntity(conferenceEntity.Id, session);
+					_localConferencesRepository.AddSession(sessionEntity);
+				}
+			}
 
-			//TODO : var results = SearchConferences(conferences);
+			var results = _localConferencesRepository.List();
 
-			_success(results);
+			var list = results.Select(entity => new ConferencesListViewDto(entity, _fileStore)).ToList();
+
+			_success(list);
 		}
 
 	}

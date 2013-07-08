@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using TekConf.Core.Entities;
 using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.Core.Repositories
@@ -23,6 +24,20 @@ namespace TekConf.Core.Repositories
 
 	public class SessionDetailDto
 	{
+		public SessionDetailDto(SessionEntity entity)
+		{
+			if (entity != null)
+			{
+				slug = entity.Slug;
+				title = entity.Title;
+				//startDescription = entity.StartDescription;
+				room = entity.Room;
+				description = entity.Description;
+				isAddedToSchedule = entity.IsAddedToSchedule.HasValue && entity.IsAddedToSchedule.Value;
+				//speakers = entity.Speakers.Select(x => new SpeakerDetailViewDto(x)).ToList();
+			}
+		}
+
 		public SessionDetailDto(FullSessionDto fullSession)
 		{
 			if (fullSession != null)
@@ -36,6 +51,7 @@ namespace TekConf.Core.Repositories
 				speakers = fullSession.speakers.Select(x => new SpeakerDetailViewDto(x)).ToList();
 			}
 		}
+
 		public string slug { get; set; }
 		public string title { get; set; }
 		public string startDescription { get; set; }

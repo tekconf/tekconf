@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using TekConf.Core.Entities;
 using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.Core.Repositories
@@ -9,6 +10,33 @@ namespace TekConf.Core.Repositories
 		public ConferenceDetailViewDto()
 		{
 			
+		}
+
+		public ConferenceDetailViewDto(ConferenceEntity entity)
+		{
+			if (entity != null)
+			{
+				name = entity.Name;
+				//TODO : DateRange = entity.DateRange;
+				slug = entity.Slug;
+				//TODO : FormattedAddress = entity.FormattedAddress;
+				imageUrl = entity.ImageUrl;
+				description = entity.Description;
+
+				facebookUrl = entity.FacebookUrl;
+				homepageUrl = entity.HomepageUrl;
+				lanyrdUrl = entity.LanyrdUrl;
+				meetupUrl = entity.MeetupUrl;
+				googlePlusUrl = entity.GooglePlusUrl;
+				vimeoUrl = entity.VimeoUrl;
+				youtubeUrl = entity.YoutubeUrl;
+				githubUrl = entity.GithubUrl;
+				linkedInUrl = entity.LinkedInUrl;
+				twitterHashTag = entity.TwitterHashTag;
+				twitterName = entity.TwitterName;
+				//TODO : hasSessions = entity.Sessions.Any();
+				isAddedToSchedule = entity.IsAddedToSchedule;
+			}
 		}
 		public ConferenceDetailViewDto(FullConferenceDto fullConference)
 		{

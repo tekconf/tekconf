@@ -13,6 +13,7 @@
         <xs:element name="reportUncaughtExceptions" type="xs:boolean" minOccurs="0" maxOccurs="1" />
         <xs:element name="sessionTimeout" type="xs:integer" minOccurs="0" maxOccurs="1" />
         <xs:element name="autoAppLifetimeTracking" type="xs:boolean" minOccurs="0" maxOccurs="1" />
+        <xs:element name="autoAppLifetimeMonitoring" type="xs:boolean" minOccurs="0" maxOccurs="1" />
         <xs:element name="autoActivityTracking" type="xs:boolean" minOccurs="0" maxOccurs="1" />
       </xs:all>
     </xs:complexType>

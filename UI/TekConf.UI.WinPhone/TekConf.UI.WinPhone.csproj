@@ -101,94 +101,102 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BindableApplicationBar, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\libs\BindableApplicationBar.dll</HintPath>
-    </Reference>
     <Reference Include="Cirrious.CrossCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=e16445fd9b451819, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.8.1\lib\sl4-wp71\Cirrious.CrossCore.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.9-beta6\lib\sl4-wp71\Cirrious.CrossCore.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.CrossCore.WindowsPhone, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.8.1\lib\sl4-wp71\Cirrious.CrossCore.WindowsPhone.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.9-beta6\lib\sl4-wp71\Cirrious.CrossCore.WindowsPhone.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross, Version=1.0.0.0, Culture=neutral, PublicKeyToken=e16445fd9b451819, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.StarterPack.3.0.8.1\lib\sl4-wp71\Cirrious.MvvmCross.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.MvvmCrossLibraries.3.0.9-beta6\lib\sl4-wp71\Cirrious.MvvmCross.dll</HintPath>
     </Reference>
-    <Reference Include="Cirrious.MvvmCross.Binding">
-      <HintPath>..\..\packages\MvvmCross.BindingEx.3.0.8.1\lib\sl4-wp71\Cirrious.MvvmCross.Binding.dll</HintPath>
+    <Reference Include="Cirrious.MvvmCross.Binding, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\MvvmCross.BindingEx.3.0.9-beta6\lib\sl4-wp71\Cirrious.MvvmCross.Binding.dll</HintPath>
     </Reference>
-    <Reference Include="Cirrious.MvvmCross.BindingEx.WindowsPhone">
-      <HintPath>..\..\packages\MvvmCross.BindingEx.3.0.8.1\lib\sl4-wp71\Cirrious.MvvmCross.BindingEx.WindowsPhone.dll</HintPath>
+    <Reference Include="Cirrious.MvvmCross.BindingEx.WindowsPhone, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\MvvmCross.BindingEx.3.0.9-beta6\lib\sl4-wp71\Cirrious.MvvmCross.BindingEx.WindowsPhone.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Localization, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.8.1\lib\sl4-wp71\Cirrious.MvvmCross.Localization.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.9-beta6\lib\sl4-wp71\Cirrious.MvvmCross.Localization.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.File, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.File.3.0.8.1\lib\sl4-wp71\Cirrious.MvvmCross.Plugins.File.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.File.3.0.9-beta6\lib\sl4-wp71\Cirrious.MvvmCross.Plugins.File.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.File.WindowsPhone, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.File.3.0.8.1\lib\sl4-wp71\Cirrious.MvvmCross.Plugins.File.WindowsPhone.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.File.3.0.9-beta6\lib\sl4-wp71\Cirrious.MvvmCross.Plugins.File.WindowsPhone.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.Json, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Json.3.0.8.1\lib\sl4-wp71\Cirrious.MvvmCross.Plugins.Json.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Json.3.0.9-beta6\lib\sl4-wp71\Cirrious.MvvmCross.Plugins.Json.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.Location, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Location.3.0.8.1\lib\sl4-wp71\Cirrious.MvvmCross.Plugins.Location.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Location.3.0.9-beta6\lib\sl4-wp71\Cirrious.MvvmCross.Plugins.Location.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.Location.WindowsPhone, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Location.3.0.8.1\lib\sl4-wp71\Cirrious.MvvmCross.Plugins.Location.WindowsPhone.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Location.3.0.9-beta6\lib\sl4-wp71\Cirrious.MvvmCross.Plugins.Location.WindowsPhone.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.Messenger, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Messenger.3.0.8.1\lib\sl4-wp71\Cirrious.MvvmCross.Plugins.Messenger.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Messenger.3.0.9-beta6\lib\sl4-wp71\Cirrious.MvvmCross.Plugins.Messenger.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.Network, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Network.3.0.8.1\lib\sl4-wp71\Cirrious.MvvmCross.Plugins.Network.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Network.3.0.9-beta6\lib\sl4-wp71\Cirrious.MvvmCross.Plugins.Network.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.Network.WindowsPhone, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Network.3.0.8.1\lib\sl4-wp71\Cirrious.MvvmCross.Plugins.Network.WindowsPhone.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Network.3.0.9-beta6\lib\sl4-wp71\Cirrious.MvvmCross.Plugins.Network.WindowsPhone.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.Share, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Share.3.0.8.1\lib\sl4-wp71\Cirrious.MvvmCross.Plugins.Share.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Share.3.0.9-beta6\lib\sl4-wp71\Cirrious.MvvmCross.Plugins.Share.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.Share.WindowsPhone, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Share.3.0.8.1\lib\sl4-wp71\Cirrious.MvvmCross.Plugins.Share.WindowsPhone.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Share.3.0.9-beta6\lib\sl4-wp71\Cirrious.MvvmCross.Plugins.Share.WindowsPhone.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Sqlite">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Sqlite.3.0.9-beta6\lib\sl4-wp71\Cirrious.MvvmCross.Plugins.Sqlite.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Sqlite.WindowsPhone">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Sqlite.3.0.9-beta6\lib\sl4-wp71\Cirrious.MvvmCross.Plugins.Sqlite.WindowsPhone.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.Visibility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Visibility.3.0.8.1\lib\sl4-wp71\Cirrious.MvvmCross.Plugins.Visibility.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Visibility.3.0.9-beta6\lib\sl4-wp71\Cirrious.MvvmCross.Plugins.Visibility.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.Visibility.WindowsPhone, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Visibility.3.0.8.1\lib\sl4-wp71\Cirrious.MvvmCross.Plugins.Visibility.WindowsPhone.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Visibility.3.0.9-beta6\lib\sl4-wp71\Cirrious.MvvmCross.Plugins.Visibility.WindowsPhone.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.WebBrowser, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.WebBrowser.3.0.8.1\lib\sl4-wp71\Cirrious.MvvmCross.Plugins.WebBrowser.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.WebBrowser.3.0.9-beta6\lib\sl4-wp71\Cirrious.MvvmCross.Plugins.WebBrowser.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.WebBrowser.WindowsPhone, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.WebBrowser.3.0.8.1\lib\sl4-wp71\Cirrious.MvvmCross.Plugins.WebBrowser.WindowsPhone.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.WebBrowser.3.0.9-beta6\lib\sl4-wp71\Cirrious.MvvmCross.Plugins.WebBrowser.WindowsPhone.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.WindowsPhone, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.StarterPack.3.0.8.1\lib\sl4-wp71\Cirrious.MvvmCross.WindowsPhone.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.MvvmCrossLibraries.3.0.9-beta6\lib\sl4-wp71\Cirrious.MvvmCross.WindowsPhone.dll</HintPath>
     </Reference>
-    <Reference Include="GoogleAnalytics">
-      <HintPath>..\..\packages\GoogleAnalyticsSDK.1.0.13-beta\lib\wp71\GoogleAnalytics.dll</HintPath>
+    <Reference Include="Community.CsharpSqlite.WP7">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Sqlite.3.0.9-beta6\lib\sl4-wp71\Community.CsharpSqlite.WP7.dll</HintPath>
+    </Reference>
+    <Reference Include="GoogleAnalytics, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\GoogleAnalyticsSDK.1.0.17\lib\windowsphone8\GoogleAnalytics.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Phone.Controls, Version=8.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Phone.Controls.Toolkit, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b772ad94eb9ca604, processorArchitecture=MSIL">
@@ -206,31 +214,31 @@
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.Mobile, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\WindowsAzure.MobileServices.1.0.0\lib\wp8\Microsoft.WindowsAzure.Mobile.dll</HintPath>
+      <HintPath>..\..\packages\WindowsAzure.MobileServices.1.0.1\lib\wp8\Microsoft.WindowsAzure.Mobile.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.Mobile.Ext, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\WindowsAzure.MobileServices.1.0.0\lib\wp8\Microsoft.WindowsAzure.Mobile.Ext.dll</HintPath>
+      <HintPath>..\..\packages\WindowsAzure.MobileServices.1.0.1\lib\wp8\Microsoft.WindowsAzure.Mobile.Ext.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.WindowsAzure.Mobile.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\WindowsAzure.MobileServices.1.0.0\lib\wp8\Microsoft.WindowsAzure.Mobile.UI.dll</HintPath>
+      <HintPath>..\..\packages\WindowsAzure.MobileServices.1.0.1\lib\wp8\Microsoft.WindowsAzure.Mobile.UI.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Newtonsoft.Json.5.0.6\lib\portable-net45+wp80+win8\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Json.3.0.9-beta6\lib\sl4-wp71\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http, Version=1.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.Net.Http.2.1.10\lib\sl4-windowsphone71\System.Net.Http.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.Net.Http.2.2.7-beta\lib\sl4-windowsphone71\System.Net.Http.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http.Extensions, Version=1.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.Net.Http.2.1.10\lib\sl4-windowsphone71\System.Net.Http.Extensions.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.Net.Http.2.2.7-beta\lib\sl4-windowsphone71\System.Net.Http.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http.Primitives, Version=1.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Microsoft.Net.Http.2.1.10\lib\sl4-windowsphone71\System.Net.Http.Primitives.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.Net.Http.2.2.7-beta\lib\sl4-windowsphone71\System.Net.Http.Primitives.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -244,9 +252,11 @@
     <Compile Include="Bootstrap\MessengerPluginBootstrap.cs" />
     <Compile Include="Bootstrap\NetworkPluginBootstrap.cs" />
     <Compile Include="Bootstrap\SharePluginBootstrap.cs" />
+    <Compile Include="Bootstrap\SqlitePluginBootstrap.cs" />
     <Compile Include="Bootstrap\VisibilityPluginBootstrap.cs" />
     <Compile Include="Bootstrap\WebBrowserPluginBootstrap.cs" />
     <Compile Include="Classes\LiveTileAgent.cs" />
+    <Compile Include="DebugTrace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Classes\PushSharpClient.cs" />
     <Compile Include="Setup.cs" />

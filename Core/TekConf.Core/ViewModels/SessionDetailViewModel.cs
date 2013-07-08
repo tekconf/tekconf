@@ -15,13 +15,15 @@ namespace TekConf.Core.ViewModels
 	{
 		private readonly IRemoteDataService _remoteDataService;
 		private readonly IAnalytics _analytics;
+		private readonly ILocalConferencesRepository _localConferencesRepository;
 		private readonly IMvxMessenger _messenger;
 		private readonly IAuthentication _authentication;
 
-		public SessionDetailViewModel(IRemoteDataService remoteDataService, IAnalytics analytics, IMvxMessenger messenger, IAuthentication authentication)
+		public SessionDetailViewModel(IRemoteDataService remoteDataService, IAnalytics analytics, ILocalConferencesRepository localConferencesRepository, IMvxMessenger messenger, IAuthentication authentication)
 		{
 			_remoteDataService = remoteDataService;
 			_analytics = analytics;
+			_localConferencesRepository = localConferencesRepository;
 			_messenger = messenger;
 			_authentication = authentication;
 			AddFavoriteCommand = new ActionCommand(AddSessionToFavorites);
@@ -47,7 +49,10 @@ namespace TekConf.Core.ViewModels
 			IsLoading = true;
 			ConferenceSlug = navigation.ConferenceSlug;
 			_analytics.SendView("SessionDetail-" + navigation.ConferenceSlug + "-" + navigation.SessionSlug);
-			_remoteDataService.GetSession(navigation.ConferenceSlug, navigation.SessionSlug, isRefreshing, GetSessionSuccess, GetConferenceError);
+			var sessionEntity = _localConferencesRepository.Get(ConferenceSlug, navigation.SessionSlug);
+			var sessionDetailDto = new SessionDetailDto(sessionEntity);
+			GetSessionSuccess(sessionDetailDto);
+			//_remoteDataService.GetSession(navigation.ConferenceSlug, navigation.SessionSlug, isRefreshing, GetSessionSuccess, GetConferenceError);
 		}
 
 		private void GetConferenceError(Exception exception)

@@ -50,6 +50,16 @@ namespace TekConf.UI.WinPhone.Views
 		}));
 		}
 
+		protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+		{
+			var vm = this.Favorites.DataContext as ConferencesListViewModel;
+			if (vm != null && vm.Favorites != null)
+			{
+				var x = vm.Favorites.Count;
+			}
+			base.OnNavigatedTo(e);
+		}
+
 		private void Conference_OnSelected(object sender, GestureEventArgs e)
 		{
 			var vm = DataContext as ConferencesListViewModel;

@@ -33,7 +33,6 @@ namespace TekConf.RemoteData.Dtos.v1
 		public List<string> resources { get; set; }
 		public List<string> prerequisites { get; set; }
 		public List<FullSpeakerDto> speakers { get; set; }
-
 		public string speakerNames
 		{
 			get
@@ -51,7 +50,6 @@ namespace TekConf.RemoteData.Dtos.v1
 				return names;
 			}
 		}
-
 		public bool? isAddedToSchedule { get; set; }
 		public string startDescription
 		{

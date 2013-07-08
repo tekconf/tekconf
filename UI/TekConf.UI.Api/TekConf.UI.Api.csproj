@@ -66,17 +66,29 @@
     <Reference Include="Common.Logging.Log4Net">
       <HintPath>..\..\packages\Common.Logging.Log4Net.2.0.1\lib\net20\Common.Logging.Log4Net.dll</HintPath>
     </Reference>
-    <Reference Include="DotNetOpenAuth.AspNet">
-      <HintPath>..\..\packages\DotNetOpenAuth.AspNet.4.3.0.13117\lib\net45-full\DotNetOpenAuth.AspNet.dll</HintPath>
+    <Reference Include="DotNetOpenAuth.AspNet, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\DotNetOpenAuth.AspNet.4.3.1.13153\lib\net45-full\DotNetOpenAuth.AspNet.dll</HintPath>
     </Reference>
-    <Reference Include="DotNetOpenAuth.OAuth">
-      <HintPath>..\..\packages\DotNetOpenAuth.OAuth.Core.4.3.0.13117\lib\net45-full\DotNetOpenAuth.OAuth.dll</HintPath>
+    <Reference Include="DotNetOpenAuth.Core, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\DotNetOpenAuth.Core.4.3.1.13153\lib\net45-full\DotNetOpenAuth.Core.dll</HintPath>
     </Reference>
-    <Reference Include="DotNetOpenAuth.OAuth.Consumer">
-      <HintPath>..\..\packages\DotNetOpenAuth.OAuth.Consumer.4.3.0.13117\lib\net45-full\DotNetOpenAuth.OAuth.Consumer.dll</HintPath>
+    <Reference Include="DotNetOpenAuth.OAuth, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\DotNetOpenAuth.OAuth.Core.4.3.1.13153\lib\net45-full\DotNetOpenAuth.OAuth.dll</HintPath>
     </Reference>
-    <Reference Include="DotNetOpenAuth.OpenId.RelyingParty">
-      <HintPath>..\..\packages\DotNetOpenAuth.OpenId.RelyingParty.4.3.0.13117\lib\net45-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
+    <Reference Include="DotNetOpenAuth.OAuth.Consumer, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\DotNetOpenAuth.OAuth.Consumer.4.3.1.13153\lib\net45-full\DotNetOpenAuth.OAuth.Consumer.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\DotNetOpenAuth.OpenId.Core.4.3.1.13153\lib\net45-full\DotNetOpenAuth.OpenId.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId.RelyingParty, Version=4.3.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\DotNetOpenAuth.OpenId.RelyingParty.4.3.1.13153\lib\net45-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
     </Reference>
     <Reference Include="Elmah">
       <HintPath>..\..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
@@ -123,41 +135,41 @@
     <Reference Include="SendGridMail">
       <HintPath>..\..\packages\Sendgrid.1.1.1\lib\net40\SendGridMail.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack, Version=3.9.49.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack, Version=3.9.54.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\ServiceStack.3.9.49\lib\net35\ServiceStack.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.3.9.54\lib\net35\ServiceStack.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Api.Swagger, Version=3.9.49.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Api.Swagger, Version=3.9.54.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\ServiceStack.Api.Swagger.3.9.49\lib\net35\ServiceStack.Api.Swagger.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.Api.Swagger.3.9.54\lib\net35\ServiceStack.Api.Swagger.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Common, Version=3.9.49.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Common, Version=3.9.54.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\ServiceStack.Common.3.9.49\lib\net35\ServiceStack.Common.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.Common.3.9.54\lib\net35\ServiceStack.Common.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Interfaces, Version=3.9.49.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Interfaces, Version=3.9.54.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\ServiceStack.Common.3.9.49\lib\net35\ServiceStack.Interfaces.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.Common.3.9.54\lib\net35\ServiceStack.Interfaces.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.OrmLite, Version=3.9.49.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.OrmLite, Version=3.9.54.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\ServiceStack.OrmLite.SqlServer.3.9.49\lib\ServiceStack.OrmLite.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.OrmLite.SqlServer.3.9.54\lib\ServiceStack.OrmLite.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.OrmLite.SqlServer, Version=3.9.49.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.OrmLite.SqlServer, Version=3.9.54.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\ServiceStack.OrmLite.SqlServer.3.9.49\lib\ServiceStack.OrmLite.SqlServer.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.OrmLite.SqlServer.3.9.54\lib\ServiceStack.OrmLite.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Redis, Version=3.9.49.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Redis, Version=3.9.54.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\ServiceStack.Redis.3.9.49\lib\net35\ServiceStack.Redis.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.Redis.3.9.54\lib\net35\ServiceStack.Redis.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.ServiceInterface, Version=3.9.49.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.ServiceInterface, Version=3.9.54.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\ServiceStack.3.9.49\lib\net35\ServiceStack.ServiceInterface.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.3.9.54\lib\net35\ServiceStack.ServiceInterface.dll</HintPath>
     </Reference>
-    <Reference Include="ServiceStack.Text, Version=3.9.45.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="ServiceStack.Text, Version=3.9.54.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\ServiceStack.Text.3.9.49\lib\net35\ServiceStack.Text.dll</HintPath>
+      <HintPath>..\..\packages\ServiceStack.Text.3.9.54\lib\net35\ServiceStack.Text.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -195,12 +207,6 @@
     </Reference>
     <Reference Include="CommonCore.Collections">
       <HintPath>..\..\packages\CommonCore.1.0.0.7\lib\net35\CommonCore.Collections.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.Core">
-      <HintPath>..\..\packages\DotNetOpenAuth.Core.4.3.0.13117\lib\net45-full\DotNetOpenAuth.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="DotNetOpenAuth.OpenId">
-      <HintPath>..\..\packages\DotNetOpenAuth.OpenId.Core.4.3.0.13117\lib\net45-full\DotNetOpenAuth.OpenId.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>

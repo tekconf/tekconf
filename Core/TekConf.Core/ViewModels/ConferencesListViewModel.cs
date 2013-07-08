@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
+using Cirrious.MvvmCross.Plugins.File;
 using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
 using PropertyChanged;
@@ -21,6 +22,7 @@ namespace TekConf.Core.ViewModels
 		private readonly ILocalScheduleRepository _localScheduleRepository;
 		private readonly IAnalytics _analytics;
 		private readonly IAuthentication _authentication;
+		private readonly IMvxFileStore _fileStore;
 		private readonly IMvxMessenger _messenger;
 		private MvxSubscriptionToken _authenticationMessageToken;
 		private MvxSubscriptionToken _favoriteAddedMessageToken;
@@ -31,6 +33,7 @@ namespace TekConf.Core.ViewModels
 																		ILocalScheduleRepository localScheduleRepository,
 																		IAnalytics analytics,
 																		IAuthentication authentication,
+																		IMvxFileStore fileStore,
 																		IMvxMessenger messenger)
 		{
 			_remoteDataService = remoteDataService;
@@ -38,6 +41,7 @@ namespace TekConf.Core.ViewModels
 			_localScheduleRepository = localScheduleRepository;
 			_analytics = analytics;
 			_authentication = authentication;
+			_fileStore = fileStore;
 			_messenger = messenger;
 			_authenticationMessageToken = _messenger.Subscribe<AuthenticationMessage>(OnAuthenticateMessage);
 			_favoriteAddedMessageToken = _messenger.Subscribe<FavoriteAddedMessage>(OnFavoriteAddedMessage);
@@ -66,10 +70,17 @@ namespace TekConf.Core.ViewModels
 
 			if (!isRefreshing)
 			{
-				var conferences = _localConferencesRepository.GetConferencesListView();
-				if (conferences != null && conferences.Any())
+				var conferences = _localConferencesRepository.List().ToList();
+				if (conferences.Any())
 				{
-					this.GetAllSuccess(conferences);
+					var list = new List<ConferencesListViewDto>();
+					foreach (var conference in conferences)
+					{
+						var listItem = new ConferencesListViewDto(conference, _fileStore);
+						list.Add(listItem);
+					}
+					
+					this.GetAllSuccess(list);
 					return;
 				}
 			}

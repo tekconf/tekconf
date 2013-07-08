@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Cirrious.MvvmCross.Plugins.File;
 using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.Plugins.Network.Reachability;
+using Cirrious.MvvmCross.Plugins.Sqlite;
 using TekConf.Core.Models;
 using TekConf.Core.Repositories;
 using TekConf.RemoteData.Dtos.v1;
@@ -17,12 +18,13 @@ namespace TekConf.Core.Services
 		private readonly IAuthentication _authentication;
 		private readonly ILocalScheduleRepository _localScheduleRepository;
 		private readonly ILocalConferencesRepository _localConferencesRepository;
-		private readonly ILocalSessionRepository _localSessionRepository;
+		private readonly ISQLiteConnectionFactory _factory;
 		private readonly IMvxMessenger _messenger;
 		private readonly IMvxReachability _reachability;
 
 		public RemoteDataService(IMvxFileStore fileStore, ICacheService cache, IAuthentication authentication, ILocalScheduleRepository localScheduleRepository, 
-																										ILocalConferencesRepository localConferencesRepository, ILocalSessionRepository localSessionRepository,
+																										ILocalConferencesRepository localConferencesRepository,
+																										ISQLiteConnectionFactory factory, 
 																										IMvxMessenger messenger)
 		{
 			_fileStore = fileStore;
@@ -30,7 +32,7 @@ namespace TekConf.Core.Services
 			_authentication = authentication;
 			_localScheduleRepository = localScheduleRepository;
 			_localConferencesRepository = localConferencesRepository;
-			_localSessionRepository = localSessionRepository;
+			_factory = factory;
 			_messenger = messenger;
 			//_reachability = reachability;
 			_reachability = null;
@@ -58,13 +60,13 @@ namespace TekConf.Core.Services
 
 		public void GetConferenceSessionsList(string slug, bool isRefreshing, Action<ConferenceSessionsListViewDto> success = null, Action<Exception> error = null)
 		{
-			ConferenceSessionsService.GetConferenceSessionsAsync(_fileStore, _localScheduleRepository, _localConferencesRepository, _reachability, slug, isRefreshing, null, _authentication, success, error);
+			ConferenceSessionsService.GetConferenceSessionsAsync(_fileStore, _localScheduleRepository, _localConferencesRepository, _reachability, slug, isRefreshing, null, _authentication, _factory, success, error);
 		}
 
-		public void GetConferenceDetail(string slug, bool isRefreshing, Action<ConferenceDetailViewDto> success = null, Action<Exception> error = null)
-		{
-			ConferenceService.GetConferenceDetailAsync(_fileStore, _localScheduleRepository, _localConferencesRepository, _reachability, slug, isRefreshing, _cache, _authentication, success, error);
-		}
+		//public void GetConferenceDetail(string slug, bool isRefreshing, Action<ConferenceDetailViewDto> success = null, Action<Exception> error = null)
+		//{
+		//	ConferenceService.GetConferenceDetailAsync(_fileStore, _localScheduleRepository, _localConferencesRepository, _reachability, slug, isRefreshing, _cache, _authentication, success, error);
+		//}
 
 		public void GetSchedule(string userName, string conferenceSlug, bool isRefreshing, Action<ScheduleDto> success = null, Action<Exception> error = null)
 		{
@@ -101,10 +103,10 @@ namespace TekConf.Core.Services
 			ScheduleService.RemoveSessionFromScheduleAsync(_fileStore, _localScheduleRepository, userName, conferenceSlug, sessionSlug, false, _cache, success, error);
 		}
 
-		public void GetSession(string conferenceSlug, string sessionSlug, bool isRefreshing, Action<SessionDetailDto> success, Action<Exception> error)
-		{
-			SessionService.GetSessionAsync(_fileStore, conferenceSlug, sessionSlug, isRefreshing, _cache, _localSessionRepository, success, error);
-		}
+		//public void GetSession(string conferenceSlug, string sessionSlug, bool isRefreshing, Action<SessionDetailDto> success, Action<Exception> error)
+		//{
+		//	SessionService.GetSessionAsync(_fileStore, conferenceSlug, sessionSlug, isRefreshing, _localConferencesRepository, _factory, _cache, success, error);
+		//}
 
 		public void GetIsOauthUserRegistered(string userId, Action<string> success, Action<Exception> error)
 		{
