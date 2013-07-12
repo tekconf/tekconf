@@ -63,10 +63,10 @@ namespace TekConf.Core.Services
 			ConferenceSessionsService.GetConferenceSessionsAsync(_fileStore, _localScheduleRepository, _localConferencesRepository, _reachability, slug, isRefreshing, null, _authentication, _factory, success, error);
 		}
 
-		//public void GetConferenceDetail(string slug, bool isRefreshing, Action<ConferenceDetailViewDto> success = null, Action<Exception> error = null)
-		//{
-		//	ConferenceService.GetConferenceDetailAsync(_fileStore, _localScheduleRepository, _localConferencesRepository, _reachability, slug, isRefreshing, _cache, _authentication, success, error);
-		//}
+		public void GetConferenceDetail(string slug, bool isRefreshing, Action<ConferenceDetailViewDto> success = null, Action<Exception> error = null)
+		{
+			ConferenceService.GetConferenceDetailAsync(_fileStore, _localScheduleRepository, _localConferencesRepository, _reachability, slug, isRefreshing, _cache, _authentication, success, error);
+		}
 
 		public void GetSchedule(string userName, string conferenceSlug, bool isRefreshing, Action<ScheduleDto> success = null, Action<Exception> error = null)
 		{
@@ -103,10 +103,10 @@ namespace TekConf.Core.Services
 			ScheduleService.RemoveSessionFromScheduleAsync(_fileStore, _localScheduleRepository, userName, conferenceSlug, sessionSlug, false, _cache, success, error);
 		}
 
-		//public void GetSession(string conferenceSlug, string sessionSlug, bool isRefreshing, Action<SessionDetailDto> success, Action<Exception> error)
-		//{
-		//	SessionService.GetSessionAsync(_fileStore, conferenceSlug, sessionSlug, isRefreshing, _localConferencesRepository, _factory, _cache, success, error);
-		//}
+		public void GetSession(string conferenceSlug, string sessionSlug, bool isRefreshing, Action<SessionDetailDto> success, Action<Exception> error)
+		{
+			SessionService.GetSessionAsync(_fileStore, conferenceSlug, sessionSlug, isRefreshing, _localConferencesRepository, _factory, _cache, success, error);
+		}
 
 		public void GetIsOauthUserRegistered(string userId, Action<string> success, Action<Exception> error)
 		{

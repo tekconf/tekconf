@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using Cirrious.MvvmCross.Plugins.Messenger;
+using Cirrious.MvvmCross.Plugins.Sqlite;
 using Cirrious.MvvmCross.ViewModels;
 using TekConf.Core.Interfaces;
 using TekConf.Core.Messages;
@@ -21,15 +22,22 @@ namespace TekConf.Core.ViewModels
 		private readonly IMvxMessenger _messenger;
 		private readonly IAuthentication _authentication;
 		private readonly ILocalScheduleRepository _localScheduleRepository;
+		private readonly ILocalConferencesRepository _localConferencesRepository;
+		private readonly ISQLiteConnectionFactory _sqLiteConnectionFactory;
 
 		public ConferenceSessionsViewModel(IRemoteDataService remoteDataService, IAnalytics analytics, IMvxMessenger messenger,
-																															IAuthentication authentication, ILocalScheduleRepository localScheduleRepository)
+																			IAuthentication authentication, 
+																			ILocalScheduleRepository localScheduleRepository, 
+																			ILocalConferencesRepository localConferencesRepository,
+																			ISQLiteConnectionFactory sqLiteConnectionFactory)
 		{
 			_remoteDataService = remoteDataService;
 			_analytics = analytics;
 			_messenger = messenger;
 			_authentication = authentication;
 			_localScheduleRepository = localScheduleRepository;
+			_localConferencesRepository = localConferencesRepository;
+			_sqLiteConnectionFactory = sqLiteConnectionFactory;
 		}
 
 		public void Init(string slug)
@@ -102,7 +110,37 @@ namespace TekConf.Core.ViewModels
 
 			IsLoadingConference = true;
 			_analytics.SendView("ConferenceSessions-" + slug);
-			_remoteDataService.GetConferenceSessionsList(slug, isRefreshing, GetConferenceSuccess, GetConferenceError);
+			
+			if (!isRefreshing)
+			{
+				var connection = _sqLiteConnectionFactory.Create("conferences.db");
+				var conference = _localConferencesRepository.Get(slug);
+				if (conference != null)
+				{
+					var sessions = conference.Sessions(connection);
+					if (sessions != null)
+					{
+						var conferenceSessionsListViewDto = new ConferenceSessionsListViewDto(sessions)
+						{
+							name = conference.Name,
+							slug = conference.Slug
+						};
+						GetConferenceSuccess(conferenceSessionsListViewDto);
+					}
+					else
+					{
+						_remoteDataService.GetConferenceSessionsList(slug, isRefreshing, GetConferenceSuccess, GetConferenceError);						
+					}
+				}
+				else
+				{
+					_remoteDataService.GetConferenceSessionsList(slug, isRefreshing, GetConferenceSuccess, GetConferenceError);
+				}
+			}
+			else
+			{
+				_remoteDataService.GetConferenceSessionsList(slug, isRefreshing, GetConferenceSuccess, GetConferenceError);				
+			}
 		}
 
 		private void GetConferenceError(Exception exception)

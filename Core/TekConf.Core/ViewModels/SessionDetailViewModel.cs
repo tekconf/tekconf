@@ -49,10 +49,23 @@ namespace TekConf.Core.ViewModels
 			IsLoading = true;
 			ConferenceSlug = navigation.ConferenceSlug;
 			_analytics.SendView("SessionDetail-" + navigation.ConferenceSlug + "-" + navigation.SessionSlug);
-			var sessionEntity = _localConferencesRepository.Get(ConferenceSlug, navigation.SessionSlug);
-			var sessionDetailDto = new SessionDetailDto(sessionEntity);
-			GetSessionSuccess(sessionDetailDto);
-			//_remoteDataService.GetSession(navigation.ConferenceSlug, navigation.SessionSlug, isRefreshing, GetSessionSuccess, GetConferenceError);
+			if (!isRefreshing)
+			{
+				var sessionEntity = _localConferencesRepository.Get(ConferenceSlug, navigation.SessionSlug);
+				if (sessionEntity != null)
+				{
+					var sessionDetailDto = new SessionDetailDto(sessionEntity);
+					GetSessionSuccess(sessionDetailDto);
+				}
+				else
+				{
+					_remoteDataService.GetSession(navigation.ConferenceSlug, navigation.SessionSlug, isRefreshing, GetSessionSuccess, GetConferenceError);					
+				}
+			}
+			else
+			{
+				_remoteDataService.GetSession(navigation.ConferenceSlug, navigation.SessionSlug, isRefreshing, GetSessionSuccess, GetConferenceError);
+			}
 		}
 
 		private void GetConferenceError(Exception exception)
