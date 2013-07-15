@@ -87,7 +87,7 @@ namespace TekConf.Core.Repositories
 		public IList<ConferenceEntity> List()
 		{
 			var filterDate = DateTime.Now.Date.AddDays(-1);
-			var conferences = this._connection.Table<ConferenceEntity>().Where(x => x.End >= filterDate).ToList();
+			var conferences = _connection.Table<ConferenceEntity>().Where(x => x.End >= filterDate).OrderBy(x => x.Start).ToList();
 			return conferences;
 		}
 	}
