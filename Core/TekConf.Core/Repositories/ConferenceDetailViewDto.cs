@@ -17,9 +17,9 @@ namespace TekConf.Core.Repositories
 			if (entity != null)
 			{
 				name = entity.Name;
-				//TODO : DateRange = entity.DateRange;
+				DateRange = entity.DateRange();
 				slug = entity.Slug;
-				//TODO : FormattedAddress = entity.FormattedAddress;
+				FormattedAddress = entity.FormattedAddress();
 				imageUrl = entity.ImageUrl;
 				description = entity.Description;
 

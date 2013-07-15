@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,39 +6,6 @@ using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.Core.Repositories
 {
-	public class ConferenceSessionListDto
-	{
-		public ConferenceSessionListDto(SessionEntity entity)
-		{
-			title = entity.Title;
-			//TODO : startDescription = entity.StartDescription;
-			//TODO : speakerNames = entity.SpeakerNames;
-			start = entity.Start;
-			//TODO : tags = entity.Tags;
-			room = entity.Room;
-			slug = entity.Slug;
-		}
-
-		public ConferenceSessionListDto(FullSessionDto fullSession)
-		{
-			title = fullSession.title;
-			startDescription = fullSession.startDescription;
-			speakerNames = fullSession.speakerNames;
-			start = fullSession.start;
-			tags = fullSession.tags;
-			room = fullSession.room;
-			slug = fullSession.slug;
-		}
-
-		public string room { get; set; }
-		public List<string> tags { get; set; }
-		public string title { get; set; }
-		public string startDescription { get; set; }
-		public string speakerNames { get; set; }
-		public DateTime start { get; set; }
-		public string slug { get; set; }
-	}
-
 	public class ConferenceSessionsListViewDto
 	{
 
@@ -74,7 +40,10 @@ namespace TekConf.Core.Repositories
 
 		public List<ConferenceSessionListDto> SessionsByTime
 		{
-			get { return Sessions == null ? new List<ConferenceSessionListDto>() : Sessions.OrderBy(x => x.start).ThenBy(t => t.title).ToList(); }
+			get
+			{
+				return Sessions == null ? new List<ConferenceSessionListDto>() : Sessions.OrderBy(x => x.start).ThenBy(t => t.title).ToList();
+			}
 		}
 
 		public List<ConferenceSessionListDto> SessionsByTitle

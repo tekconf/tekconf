@@ -8,7 +8,7 @@ namespace TekConf.Core.Entities
 	{
 		public SessionEntity()
 		{
-			
+
 		}
 		public SessionEntity(int conferenceId, FullSessionDto session)
 		{
@@ -64,17 +64,14 @@ namespace TekConf.Core.Entities
 		//		return names;
 		//	}
 		//}
-		//public string StartDescription
-		//{
-		//	get
-		//	{
-		//		if (Start == default(DateTime))
-		//		{
-		//			return "Not scheduled yet";
-		//		}
+		public string StartDescription()
+		{
+			if (Start == default(DateTime))
+			{
+				return "Not scheduled yet";
+			}
 
-		//		return Start.ToString("dddd h:mm tt");
-		//	}
-		//}
+			return Start.ToString("dddd h:mm tt");
+		}
 	}
 }

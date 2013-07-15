@@ -26,7 +26,7 @@
 					</TextBlock>
 					<TextBlock Text="{Binding startDescription}" Style="{StaticResource PhoneTextNormalStyle}" HorizontalAlignment="Left"></TextBlock>
 					<TextBlock Text="{Binding room}" Style="{StaticResource PhoneTextNormalStyle}" HorizontalAlignment="Left"></TextBlock>
-					<TextBlock Text="{Binding speakerNames}" Style="{StaticResource PhoneTextNormalStyle}" HorizontalAlignment="Left"></TextBlock>
+					<!--<TextBlock Text="{Binding speakerNames}" Style="{StaticResource PhoneTextNormalStyle}" HorizontalAlignment="Left"></TextBlock>-->
 				</StackPanel>
 			</Button>
 		</DataTemplate>
