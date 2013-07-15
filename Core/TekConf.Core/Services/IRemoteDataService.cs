@@ -5,6 +5,8 @@ using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.Core.Services
 {
+	using Cirrious.MvvmCross.Plugins.Sqlite;
+
 	public interface IRemoteDataService
 	{
 		void GetConferences(
@@ -31,7 +33,7 @@ namespace TekConf.Core.Services
 			Action<ConferenceDetailViewDto> success = null,
 			Action<Exception> error = null);
 
-		void GetSchedule(string userName, string conferenceSlug, bool isRefreshing, Action<ScheduleDto> success = null, Action<Exception> error = null);
+		void GetSchedule(string userName, string conferenceSlug, bool isRefreshing, ISQLiteConnection connection, Action<ScheduleDto> success = null, Action<Exception> error = null);
 		void GetSchedules(string userName, bool isRefreshing, Action<IEnumerable<ConferencesListViewDto>> success = null, Action<Exception> error = null);
 
 		void LoginWithTekConf(string userName, string password, Action<bool, string> success = null, Action<Exception> error = null);

@@ -19,7 +19,6 @@ namespace TekConf.Core.ViewModels
 	{
 		private readonly IRemoteDataService _remoteDataService;
 		private readonly ILocalConferencesRepository _localConferencesRepository;
-		private readonly ILocalScheduleRepository _localScheduleRepository;
 		private readonly IAnalytics _analytics;
 		private readonly IAuthentication _authentication;
 		private readonly IMvxFileStore _fileStore;
@@ -30,7 +29,6 @@ namespace TekConf.Core.ViewModels
 
 		public ConferencesListViewModel(IRemoteDataService remoteDataService,
 																		ILocalConferencesRepository localConferencesRepository,
-																		ILocalScheduleRepository localScheduleRepository,
 																		IAnalytics analytics,
 																		IAuthentication authentication,
 																		IMvxFileStore fileStore,
@@ -38,7 +36,6 @@ namespace TekConf.Core.ViewModels
 		{
 			_remoteDataService = remoteDataService;
 			_localConferencesRepository = localConferencesRepository;
-			_localScheduleRepository = localScheduleRepository;
 			_analytics = analytics;
 			_authentication = authentication;
 			_fileStore = fileStore;
@@ -102,11 +99,12 @@ namespace TekConf.Core.ViewModels
 
 				if (!isRefreshing)
 				{
-					var schedule = _localScheduleRepository.GetConferencesList();
+					var conferences = _localConferencesRepository.GetFavorites();
 
-					if (schedule != null && schedule.Any())
+					if (conferences != null && conferences.Any())
 					{
-						GetFavoritesSuccess(schedule);
+						var dtos = conferences.Select(conference => new ConferencesListViewDto(conference, this._fileStore)).ToList();
+						GetFavoritesSuccess(dtos);
 						return;
 					}
 				}

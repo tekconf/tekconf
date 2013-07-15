@@ -23,14 +23,12 @@ namespace TekConf.Core.ViewModels
 		private readonly IAnalytics _analytics;
 		private readonly IMvxMessenger _messenger;
 		private readonly IAuthentication _authentication;
-		private readonly ILocalScheduleRepository _localScheduleRepository;
 		private readonly ILocalConferencesRepository _localConferencesRepository;
 
 		private readonly ISQLiteConnection _connection;
 
 		public ConferenceSessionsViewModel(IRemoteDataService remoteDataService, IAnalytics analytics, IMvxMessenger messenger,
 																			IAuthentication authentication, 
-																			ILocalScheduleRepository localScheduleRepository, 
 																			ILocalConferencesRepository localConferencesRepository,
 																			ISQLiteConnection connection)
 		{
@@ -38,7 +36,6 @@ namespace TekConf.Core.ViewModels
 			_analytics = analytics;
 			_messenger = messenger;
 			_authentication = authentication;
-			_localScheduleRepository = localScheduleRepository;
 			_localConferencesRepository = localConferencesRepository;
 			this._connection = connection;
 		}
@@ -201,7 +198,7 @@ namespace TekConf.Core.ViewModels
 				return;
 
 			IsLoadingSchedule = true;
-			_remoteDataService.GetSchedule(userName, slug, isRefreshing, GetScheduleSuccess, GetScheduleError);
+			_remoteDataService.GetSchedule(userName, slug, isRefreshing, _connection, GetScheduleSuccess, GetScheduleError);
 		}
 
 		private void GetScheduleError(Exception exception)

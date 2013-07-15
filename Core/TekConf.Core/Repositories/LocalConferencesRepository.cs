@@ -41,7 +41,8 @@ namespace TekConf.Core.Repositories
 			}
 			else
 			{
-				_connection.Update(conference);
+				_connection.Delete(entity);
+				_connection.Insert(conference);
 			}
 		}
 
@@ -75,13 +76,19 @@ namespace TekConf.Core.Repositories
 			conference = _connection.Table<ConferenceEntity>().FirstOrDefault(x => x.Slug == conferenceSlug);
 			return conference;
 		}
-
-		public IList<ConferenceEntity> List()
+		public IList<ConferenceEntity> GetFavorites()
 		{
-			IList<ConferenceEntity> conferences = null;
-			conferences = _connection.Table<ConferenceEntity>().ToList();
+			var conferences = _connection.Table<ConferenceEntity>().Where(x => x.IsAddedToSchedule).ToList();
+
 			return conferences;
 		}
 
+
+		public IList<ConferenceEntity> List()
+		{
+			var filterDate = DateTime.Now.Date.AddDays(-1);
+			var conferences = this._connection.Table<ConferenceEntity>().Where(x => x.End >= filterDate).ToList();
+			return conferences;
+		}
 	}
 }

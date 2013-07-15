@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
   <DefaultLanguage xmlns="" code="en-US" />
-  <App xmlns="" ProductID="{4b4cd4ac-f8c5-4d40-bccb-7366359a3086}" Title="TekConf" RuntimeType="Silverlight" Version="1.0.1.0" Genre="apps.normal" Author="Artek Software, LLC" Description="Meet. Connect. Learn." Publisher="Artek Software, LLC" BitsPerPixel="16" PublisherID="{8f5bc42d-e9c4-43a1-9485-bd11c1558643}">
+  <App xmlns="" ProductID="{4b4cd4ac-f8c5-4d40-bccb-7366359a3086}" Title="TekConf" RuntimeType="Silverlight" Version="1.0.4.0" Genre="apps.normal" Author="Artek Software, LLC" Description="Meet. Connect. Learn." Publisher="Artek Software, LLC" BitsPerPixel="16" PublisherID="{8f5bc42d-e9c4-43a1-9485-bd11c1558643}">
     <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_LOCATION" />
@@ -12,13 +12,9 @@
     </Capabilities>
     <Tasks>
       <DefaultTask Name="_default" NavigationPage="MainPage.xaml" />
-			<ExtendedTask Name="BackgroundTask">
-				<BackgroundServiceAgent 
-						Specifier="ScheduledTaskAgent" 
-						Name="BackgroundAgent"
-						Source="TekConf.UI.WinPhone.BackgroundAgent" 
-						Type="TekConf.UI.WinPhone.BackgroundAgent.ScheduledAgent" />
-			</ExtendedTask>
+      <ExtendedTask Name="BackgroundTask">
+        <BackgroundServiceAgent Specifier="ScheduledTaskAgent" Name="BackgroundAgent" Source="TekConf.UI.WinPhone.BackgroundAgent" Type="TekConf.UI.WinPhone.BackgroundAgent.ScheduledAgent" />
+      </ExtendedTask>
     </Tasks>
     <Tokens>
       <PrimaryToken TokenID="TekConf.UI.WinPhoneToken" TaskName="_default">
@@ -44,11 +40,11 @@
         </TemplateFlip>
       </PrimaryToken>
     </Tokens>
-		<Extensions>
-			<Extension ExtensionName="LockScreen_Notification_IconCount" ConsumerID="{111DFF24-AA15-4A96-8006-2BFF8122084F}" TaskID="_default" />
-			<Extension ExtensionName="LockScreen_Notification_TextField" ConsumerID="{111DFF24-AA15-4A96-8006-2BFF8122084F}" TaskID="_default" />
-		</Extensions>
-		<ScreenResolutions>
+    <Extensions>
+      <Extension ExtensionName="LockScreen_Notification_IconCount" ConsumerID="{111DFF24-AA15-4A96-8006-2BFF8122084F}" TaskID="_default" />
+      <Extension ExtensionName="LockScreen_Notification_TextField" ConsumerID="{111DFF24-AA15-4A96-8006-2BFF8122084F}" TaskID="_default" />
+    </Extensions>
+    <ScreenResolutions>
       <ScreenResolution Name="ID_RESOLUTION_WVGA" />
       <ScreenResolution Name="ID_RESOLUTION_WXGA" />
       <ScreenResolution Name="ID_RESOLUTION_HD720P" />

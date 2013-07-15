@@ -12,42 +12,46 @@ using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.Core.Models
 {
+	using Cirrious.MvvmCross.Plugins.Sqlite;
+
 	public class ConferenceService
 	{
 		private readonly IMvxFileStore _fileStore;
 		private readonly IMvxReachability _reachability;
 		private readonly bool _isRefreshing;
 		private readonly ICacheService _cache;
+
+		private readonly ISQLiteConnection _connection;
+
 		private readonly IAuthentication _authentication;
-		private readonly ILocalScheduleRepository _localScheduleRepository;
 		private readonly ILocalConferencesRepository _localConferencesRepository;
 		private readonly Action<ConferenceDetailViewDto> _success;
 		private readonly Action<Exception> _error;
 		private string _slug;
 
-		private ConferenceService(IMvxFileStore fileStore, IMvxReachability reachability, bool isRefreshing, ICacheService cache, IAuthentication authentication, ILocalScheduleRepository localScheduleRepository, ILocalConferencesRepository localConferencesRepository, Action<ConferenceDetailViewDto> success, Action<Exception> error)
+		private ConferenceService(IMvxFileStore fileStore, IMvxReachability reachability, bool isRefreshing, ICacheService cache, ISQLiteConnection connection, IAuthentication authentication, ILocalConferencesRepository localConferencesRepository, Action<ConferenceDetailViewDto> success, Action<Exception> error)
 		{
 			_fileStore = fileStore;
 			_reachability = reachability;
 			_isRefreshing = isRefreshing;
 			_cache = cache;
+			this._connection = connection;
 			_authentication = authentication;
-			_localScheduleRepository = localScheduleRepository;
 			_localConferencesRepository = localConferencesRepository;
 			_success = success;
 			_error = error;
 		}
 
-		public static void GetConferenceDetailAsync(IMvxFileStore fileStore, ILocalScheduleRepository localScheduleRepository, ILocalConferencesRepository localConferencesRepository, IMvxReachability reachability, string slug, bool isRefreshing, ICacheService cache, IAuthentication authentication, Action<ConferenceDetailViewDto> success, Action<Exception> error)
+		public static void GetConferenceDetailAsync(IMvxFileStore fileStore, ILocalConferencesRepository localConferencesRepository, IMvxReachability reachability, string slug, bool isRefreshing, ICacheService cache, IAuthentication authentication, ISQLiteConnection connection, Action<ConferenceDetailViewDto> success, Action<Exception> error)
 		{
 			MvxAsyncDispatcher.BeginAsync(() =>
-				DoAsyncGetConferenceDetail(fileStore, localScheduleRepository, localConferencesRepository, reachability, slug, isRefreshing, cache, authentication, success, error)
+				DoAsyncGetConferenceDetail(fileStore, localConferencesRepository, reachability, slug, isRefreshing, cache, authentication,connection, success, error)
 				);
 		}
 
-		private static void DoAsyncGetConferenceDetail(IMvxFileStore fileStore, ILocalScheduleRepository localScheduleRepository, ILocalConferencesRepository localConferencesRepository, IMvxReachability reachability, string slug, bool isRefreshing, ICacheService cache, IAuthentication authentication, Action<ConferenceDetailViewDto> success, Action<Exception> error)
+		private static void DoAsyncGetConferenceDetail(IMvxFileStore fileStore, ILocalConferencesRepository localConferencesRepository, IMvxReachability reachability, string slug, bool isRefreshing, ICacheService cache, IAuthentication authentication, ISQLiteConnection connection, Action<ConferenceDetailViewDto> success, Action<Exception> error)
 		{
-			var search = new ConferenceService(fileStore, reachability, isRefreshing, cache, authentication, localScheduleRepository, localConferencesRepository, success, error);
+			var search = new ConferenceService(fileStore, reachability, isRefreshing, cache, connection, authentication, localConferencesRepository, success, error);
 			search.StartGetConferenceDetail(slug);
 		}
 
@@ -57,7 +61,7 @@ namespace TekConf.Core.Models
 			if (_authentication.IsAuthenticated)
 			{
 				_conference = conference;
-				ScheduleService.GetScheduleAsync(_fileStore, _localScheduleRepository, _authentication.UserName, conference.slug, false, _cache, GetScheduleSuccess, GetScheduleError);
+				ScheduleService.GetScheduleAsync(_fileStore, _localConferencesRepository, _authentication.UserName, conference.slug, false, _cache, _connection, GetScheduleSuccess, GetScheduleError);
 			}
 			else
 			{

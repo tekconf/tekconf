@@ -28,7 +28,7 @@ namespace TekConf.Core.Entities
 			GooglePlusUrl = conference.googlePlusUrl;
 			HomepageUrl = conference.homepageUrl;
 			ImageUrl = conference.imageUrl;
-			IsAddedToSchedule = conference.isAddedToSchedule;
+			IsAddedToSchedule = conference.isAddedToSchedule.HasValue && conference.isAddedToSchedule.Value;
 			IsLive = conference.isLive;
 			IsOnline = conference.isOnline;
 			LanyrdUrl = conference.lanyrdUrl;
@@ -94,7 +94,7 @@ namespace TekConf.Core.Entities
 		public string TwitterName { get; set; }
 		public int DefaultTalkLength { get; set; }
 		public int NumberOfSessions { get; set; }
-		public bool? IsAddedToSchedule { get; set; }
+		public bool IsAddedToSchedule { get; set; }
 		public bool? IsOnline { get; set; }
 
 		public int StreetNumber { get; set; }

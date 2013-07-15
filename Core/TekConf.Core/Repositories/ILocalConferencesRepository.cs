@@ -13,5 +13,6 @@ namespace TekConf.Core.Repositories
 		ConferenceEntity Get(string conferenceSlug);
 		void AddSession(SessionEntity session);
 		SessionEntity Get(string conferenceSlug, string sessionSlug);
+		IList<ConferenceEntity> GetFavorites();
 	}
 }

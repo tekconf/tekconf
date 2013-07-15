@@ -55,31 +55,31 @@ namespace TekConf.UI.WinPhone.BackgroundAgent
 				var fileStore = Mvx.Resolve<IMvxFileStore>();
 				var connection = Mvx.Resolve<ISQLiteConnection>();
 				ILocalConferencesRepository localConferencesRepository = new LocalConferencesRepository(connection);
-				var scheduleRepository = new LocalScheduleRepository(fileStore, localConferencesRepository);
-				var conference = scheduleRepository.NextScheduledConference;
-				var nextSession = scheduleRepository.NextScheduledSession;
+				//var scheduleRepository = new LocalScheduleRepository(fileStore, localConferencesRepository);
+				//var conference = scheduleRepository.NextScheduledConference;
+				//var nextSession = scheduleRepository.NextScheduledSession;
 
 				if (ShellTile.ActiveTiles != null)
 				{
 					var appTile = ShellTile.ActiveTiles.First();
 
-					if (conference == null)
-						conference = new ConferencesListViewDto((ConferenceEntity)null, fileStore);
+					//if (conference == null)
+					//	conference = new ConferencesListViewDto((ConferenceEntity)null, fileStore);
 
-					if (nextSession != null)
-					{
-						var tileData = new FlipTileData()
-						{
-							BackContent = nextSession.title,
-							BackTitle =
-								nextSession.startDescription + (string.IsNullOrWhiteSpace(nextSession.room) ? "" : Environment.NewLine) +
-								nextSession.room,
-							Title = "",
-							WideBackContent = nextSession.title + (string.IsNullOrWhiteSpace(conference.name) ? "" : " - " + conference.name)
-						};
+					//if (nextSession != null)
+					//{
+					//	var tileData = new FlipTileData()
+					//	{
+					//		BackContent = nextSession.title,
+					//		BackTitle =
+					//			nextSession.startDescription + (string.IsNullOrWhiteSpace(nextSession.room) ? "" : Environment.NewLine) +
+					//			nextSession.room,
+					//		Title = "",
+					//		WideBackContent = nextSession.title + (string.IsNullOrWhiteSpace(conference.name) ? "" : " - " + conference.name)
+					//	};
 
-						appTile.Update(tileData);
-					}
+					//	appTile.Update(tileData);
+					//}
 				}
 				NotifyComplete();
 			}

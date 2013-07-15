@@ -29,13 +29,10 @@ namespace TekConf.Core.Tests.Unit
 			var pushSharp = new Mock<IPushSharpClient>();
 
 			Ioc.RegisterSingleton(typeof(IAuthentication), analytics.Object);
-			//Mvx.RegisterType<IAuthentication, Authentication>();
 			Ioc.RegisterSingleton(typeof(IAuthentication), authentication.Object);
 			Ioc.RegisterType<ICacheService, CacheService>();
 			Ioc.RegisterType<ILocalNotificationsRepository, LocalNotificationsRepository>();
 			Ioc.RegisterType<ILocalConferencesRepository, LocalConferencesRepository>();
-			Ioc.RegisterType<ILocalScheduleRepository, LocalScheduleRepository>();
-			//Ioc.RegisterType<ILocalSessionRepository, LocalSessionRepository>();
 
 			Ioc.RegisterSingleton(typeof(IPushSharpClient), pushSharp.Object);
 

@@ -25,13 +25,10 @@ namespace TekConf.UI.WinPhone
 			Mvx.RegisterSingleton<ISQLiteConnection>(connection);
 			//MvxBindingTrace.TraceBindingLevel = MvxTraceLevel.Diagnostic;
 			Mvx.RegisterType<IAnalytics, WinPhoneAnalytics>();
-			//Mvx.RegisterType<IAuthentication, Authentication>();
 			Mvx.RegisterSingleton(typeof(IAuthentication), new Authentication());
 			Mvx.RegisterType<ICacheService, CacheService>();
 			Mvx.RegisterType<ILocalNotificationsRepository, LocalNotificationsRepository>();
 			Mvx.RegisterType<ILocalConferencesRepository, LocalConferencesRepository>();
-			Mvx.RegisterType<ILocalScheduleRepository, LocalScheduleRepository>();
-			//Mvx.RegisterType<ILocalSessionRepository, LocalSessionRepository>();
 
 			Mvx.RegisterType<IPushSharpClient, PushSharpClient>();
 			return new Core.App();

@@ -16,7 +16,6 @@ namespace TekConf.Core.Services
 		private readonly IMvxFileStore _fileStore;
 		private readonly ICacheService _cache;
 		private readonly IAuthentication _authentication;
-		private readonly ILocalScheduleRepository _localScheduleRepository;
 		private readonly ILocalConferencesRepository _localConferencesRepository;
 
 		private readonly ISQLiteConnection _connection;
@@ -24,17 +23,15 @@ namespace TekConf.Core.Services
 		private readonly IMvxMessenger _messenger;
 		private readonly IMvxReachability _reachability;
 
-		public RemoteDataService(IMvxFileStore fileStore, ICacheService cache, IAuthentication authentication, ILocalScheduleRepository localScheduleRepository, 
+		public RemoteDataService(IMvxFileStore fileStore, ICacheService cache, IAuthentication authentication, ILocalConferencesRepository localScheduleRepository, 
 																										ILocalConferencesRepository localConferencesRepository, ISQLiteConnection connection, IMvxMessenger messenger)
 		{
 			_fileStore = fileStore;
 			_cache = cache;
 			_authentication = authentication;
-			_localScheduleRepository = localScheduleRepository;
 			_localConferencesRepository = localConferencesRepository;
-			this._connection = connection;
+			_connection = connection;
 			_messenger = messenger;
-			//_reachability = reachability;
 			_reachability = null;
 		}
 
@@ -60,22 +57,22 @@ namespace TekConf.Core.Services
 
 		public void GetConferenceSessionsList(string slug, bool isRefreshing, Action<ConferenceSessionsListViewDto> success = null, Action<Exception> error = null)
 		{
-			ConferenceSessionsService.GetConferenceSessionsAsync(_fileStore, _localScheduleRepository, _localConferencesRepository, _reachability, slug, isRefreshing, null, _authentication, _connection, success, error);
+			ConferenceSessionsService.GetConferenceSessionsAsync(_fileStore, _localConferencesRepository, _reachability, slug, isRefreshing, null, _authentication, _connection, success, error);
 		}
 
 		public void GetConferenceDetail(string slug, bool isRefreshing, Action<ConferenceDetailViewDto> success = null, Action<Exception> error = null)
 		{
-			ConferenceService.GetConferenceDetailAsync(_fileStore, _localScheduleRepository, _localConferencesRepository, _reachability, slug, isRefreshing, _cache, _authentication, success, error);
+			ConferenceService.GetConferenceDetailAsync(_fileStore, _localConferencesRepository, _reachability, slug, isRefreshing, _cache, _authentication, _connection, success, error);
 		}
 
-		public void GetSchedule(string userName, string conferenceSlug, bool isRefreshing, Action<ScheduleDto> success = null, Action<Exception> error = null)
+		public void GetSchedule(string userName, string conferenceSlug, bool isRefreshing, ISQLiteConnection connection, Action<ScheduleDto> success = null, Action<Exception> error = null)
 		{
-			ScheduleService.GetScheduleAsync(_fileStore, _localScheduleRepository, userName, conferenceSlug, isRefreshing, _cache, success, error);
+			ScheduleService.GetScheduleAsync(_fileStore, _localConferencesRepository, userName, conferenceSlug, isRefreshing, _cache, connection, success, error);
 		}
 
 		public void GetSchedules(string userName, bool isRefreshing, Action<IEnumerable<ConferencesListViewDto>> success = null, Action<Exception> error = null)
 		{
-			ScheduleService.GetSchedulesAsync(_fileStore, _localScheduleRepository, userName, isRefreshing, _cache, success, error);
+			ScheduleService.GetSchedulesAsync(_fileStore, _localConferencesRepository, userName, isRefreshing, _cache, _connection, success, error);
 		}
 
 		public void LoginWithTekConf(string userName, string password, Action<bool, string> success = null, Action<Exception> error = null)
@@ -85,22 +82,22 @@ namespace TekConf.Core.Services
 
 		public void AddToSchedule(string userName, string conferenceSlug, Action<ScheduleDto> success = null, Action<Exception> error = null)
 		{
-			ScheduleService.AddToScheduleAsync(_fileStore, _localScheduleRepository, userName, conferenceSlug, false, _cache, success, error);
+			ScheduleService.AddToScheduleAsync(_fileStore, _localConferencesRepository, userName, conferenceSlug, false, _cache, _connection, success, error);
 		}
 
 		public void AddSessionToSchedule(string userName, string conferenceSlug, string sessionSlug, Action<ScheduleDto> success = null, Action<Exception> error = null)
 		{
-			ScheduleService.AddSessionToScheduleAsync(_fileStore, _localScheduleRepository, userName, conferenceSlug, sessionSlug, false, _cache, success, error);
+			ScheduleService.AddSessionToScheduleAsync(_fileStore, _localConferencesRepository, userName, conferenceSlug, sessionSlug, false, _cache, _connection, success, error);
 		}
 
 		public void RemoveFromSchedule(string userName, string conferenceSlug, Action<ScheduleDto> success = null, Action<Exception> error = null)
 		{
-			ScheduleService.RemoveFromScheduleAsync(_fileStore, _localScheduleRepository, userName, conferenceSlug, false, _cache, success, error);
+			ScheduleService.RemoveFromScheduleAsync(_fileStore, _localConferencesRepository, userName, conferenceSlug, false, _cache, _connection, success, error);
 		}
 
 		public void RemoveSessionFromSchedule(string userName, string conferenceSlug, string sessionSlug, Action<ScheduleDto> success = null, Action<Exception> error = null)
 		{
-			ScheduleService.RemoveSessionFromScheduleAsync(_fileStore, _localScheduleRepository, userName, conferenceSlug, sessionSlug, false, _cache, success, error);
+			ScheduleService.RemoveSessionFromScheduleAsync(_fileStore, _localConferencesRepository, userName, conferenceSlug, sessionSlug, false, _cache, _connection, success, error);
 		}
 
 		public void GetSession(string conferenceSlug, string sessionSlug, bool isRefreshing, Action<SessionDetailDto> success, Action<Exception> error)

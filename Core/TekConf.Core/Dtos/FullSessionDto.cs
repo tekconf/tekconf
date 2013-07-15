@@ -4,8 +4,33 @@ using System.Linq;
 
 namespace TekConf.RemoteData.Dtos.v1
 {
+	using TekConf.Core.Entities;
+
 	public class FullSessionDto
 	{
+		public FullSessionDto()
+		{
+			
+		}
+		public FullSessionDto(SessionEntity entity)
+		{
+			this.slug = entity.Slug;
+			this.description = entity.Description;
+			this.difficulty = entity.Difficulty;
+			this.end = entity.End;
+			this.isAddedToSchedule = entity.IsAddedToSchedule;
+			this.links = new List<string>(); //TODO
+			this.prerequisites = new List<string>(); //TODO
+			this.resources = new List<string>(); //TODO
+			this.room = entity.Room;
+			this.sessionType = entity.SessionType;
+			this.speakers = new List<FullSpeakerDto>(); //TODO
+			this.start = entity.Start;
+			this.subjects = new List<string>(); //TODO
+			this.tags = new List<string>(); //TODO
+			this.title = entity.Title;
+			this.twitterHashTag = entity.TwitterHashTag;
+		}
 		private string _room;
 		public string slug { get; set; }
 		public string title { get; set; }

@@ -46,6 +46,7 @@
     <Compile Include="Dtos\ScheduleDto.cs" />
     <Compile Include="Dtos\SpeakerDto.cs" />
     <Compile Include="Entities\ConferenceEntity.cs" />
+    <Compile Include="Entities\ScheduleEntity.cs" />
     <Compile Include="Entities\SessionEntity.cs" />
     <Compile Include="Interfaces\IAnalytics.cs" />
     <Compile Include="Messages\FavoriteConferencesUpdatedMessage.cs" />
@@ -90,7 +91,6 @@
     <Compile Include="ViewModels\ConferenceSearchViewModel.cs" />
     <Compile Include="Messages\ExceptionMessage.cs" />
     <Compile Include="Messages\FavoriteAddedMessage.cs" />
-    <Compile Include="ViewModels\FirstViewModel.cs" />
     <Compile Include="ViewModels\OAuthRegisterViewModel.cs" />
     <Compile Include="ViewModels\SessionDetailViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
@@ -143,7 +143,6 @@
     <Content Include="FodyWeavers.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="ToDo-MvvmCross\_ Core.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

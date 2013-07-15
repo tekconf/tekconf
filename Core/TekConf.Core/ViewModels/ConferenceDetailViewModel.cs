@@ -13,6 +13,8 @@ using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.Core.ViewModels
 {
+	using Cirrious.MvvmCross.Plugins.File;
+
 	public class ConferenceDetailViewModel : MvxViewModel
 	{
 		private readonly IRemoteDataService _remoteDataService;
@@ -20,16 +22,17 @@ namespace TekConf.Core.ViewModels
 		private readonly IAnalytics _analytics;
 		private readonly IAuthentication _authentication;
 		private readonly IMvxMessenger _messenger;
-		private readonly ILocalScheduleRepository _localScheduleRepository;
+		private readonly IMvxFileStore _fileStore;
 
-		public ConferenceDetailViewModel(IRemoteDataService remoteDataService, ILocalConferencesRepository localConferencesRepository, IAnalytics analytics, IAuthentication authentication, IMvxMessenger messenger, ILocalScheduleRepository localScheduleRepository)
+		public ConferenceDetailViewModel(IRemoteDataService remoteDataService, ILocalConferencesRepository localConferencesRepository, 
+			IAnalytics analytics, IAuthentication authentication, IMvxMessenger messenger, IMvxFileStore fileStore)
 		{
 			_remoteDataService = remoteDataService;
 			_localConferencesRepository = localConferencesRepository;
 			_analytics = analytics;
 			_authentication = authentication;
 			_messenger = messenger;
-			_localScheduleRepository = localScheduleRepository;
+			this._fileStore = fileStore;
 			//AddFavoriteCommand = new ActionCommand(AddConferenceToFavorites);
 		}
 
@@ -275,20 +278,38 @@ namespace TekConf.Core.ViewModels
 					RefreshFavorites();
 				});
 
+				var conference = _localConferencesRepository.Get(Conference.slug);
+
 				if (Conference.isAddedToSchedule == true)
 				{
 					removeSuccess(null);
-					_localScheduleRepository.RemoveFromSchedule(Conference.slug);
-					var conferences = _localScheduleRepository.GetConferencesList();
-					_messenger.Publish(new FavoriteConferencesUpdatedMessage(this, conferences));
+					
+					conference.IsAddedToSchedule = false;
+					_localConferencesRepository.Save(conference);
+
+					var conferences = _localConferencesRepository.GetFavorites();
+
+					if (conferences != null && conferences.Any())
+					{
+						var dtos = conferences.Select(c => new ConferencesListViewDto(c, _fileStore)).ToList();
+						_messenger.Publish(new FavoriteConferencesUpdatedMessage(this, dtos));
+
+					}
+
 					_remoteDataService.RemoveFromSchedule(_authentication.UserName, Conference.slug, removeSuccess, removeError);
 				}
 				else
 				{
 					var schedule = new ScheduleDto() { conferenceSlug = Conference.slug, sessions = new List<FullSessionDto>(), url = "", userSlug = _authentication.UserName };
-					_localScheduleRepository.SaveSchedule(schedule);
-					var conferences = _localScheduleRepository.GetConferencesList();
-					_messenger.Publish(new FavoriteConferencesUpdatedMessage(this, conferences));
+					conference.IsAddedToSchedule = true;
+					_localConferencesRepository.Save(conference);
+					var conferences = _localConferencesRepository.GetFavorites();
+					if (conferences != null && conferences.Any())
+					{
+						var dtos = conferences.Select(c => new ConferencesListViewDto(c, _fileStore)).ToList();
+						_messenger.Publish(new FavoriteConferencesUpdatedMessage(this, dtos));
+					}
+
 					addSuccess(schedule);
 					_remoteDataService.AddToSchedule(_authentication.UserName, Conference.slug, addSuccess, addError);
 				}
