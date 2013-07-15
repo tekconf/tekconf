@@ -22,13 +22,13 @@ namespace TekConf.Core.Repositories
 			_localConferencesRepository = localConferencesRepository;
 		}
 
-		public void SaveSchedules(IEnumerable<ConferencesListViewDto> scheduledConferences)
+		public void SaveSchedules(IList<ConferencesListViewDto> scheduledConferences)
 		{
 			SaveSchedulesToFileStore(scheduledConferences);
 
 			SaveSchedulesLastUpdated();
 		}
-		public void SaveSchedules(IEnumerable<FullConferenceDto> scheduledConferences)
+		public void SaveSchedules(IList<FullConferenceDto> scheduledConferences)
 		{
 			SaveSchedulesToFileStore(scheduledConferences);
 
@@ -37,9 +37,9 @@ namespace TekConf.Core.Repositories
 
 		private const string _conferencesListViewSchedulesPath = "conferencesListViewSchedules.json";
 
-		public IEnumerable<ConferencesListViewDto> GetConferencesList()
+		public IList<ConferencesListViewDto> GetConferencesList()
 		{
-			IEnumerable<ConferencesListViewDto> conferencesListViewDtos = null;
+			IList<ConferencesListViewDto> conferencesListViewDtos = null;
 			if (_fileStore.Exists(_conferencesListViewSchedulesPath))
 			{
 				string json;
@@ -71,7 +71,7 @@ namespace TekConf.Core.Repositories
 				string serializedFavorites = JsonConvert.SerializeObject(schedule);
 				_fileStore.WriteFile(path, serializedFavorites);
 
-				IEnumerable<ConferencesListViewDto> conferences = GetConferencesList();
+				IList<ConferencesListViewDto> conferences = GetConferencesList();
 				if (conferences != null)
 				{
 					var conferenceList = conferences.ToList();
@@ -106,13 +106,13 @@ namespace TekConf.Core.Repositories
 			return null;
 		}
 
-		private void SaveSchedulesToFileStore(IEnumerable<FullConferenceDto> scheduledConferences)
+		private void SaveSchedulesToFileStore(IList<FullConferenceDto> scheduledConferences)
 		{
 			var filteredSchedules = scheduledConferences.Select(x => new ConferencesListViewDto(x, _fileStore)).ToList();
 			SaveSchedulesToFileStore(filteredSchedules);
 		}
 
-		private void SaveSchedulesToFileStore(IEnumerable<ConferencesListViewDto> scheduledConferences)
+		private void SaveSchedulesToFileStore(IList<ConferencesListViewDto> scheduledConferences)
 		{
 			if (_fileStore.Exists(_conferencesListViewSchedulesPath))
 			{

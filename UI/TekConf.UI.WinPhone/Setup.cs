@@ -9,6 +9,8 @@ using TekConf.UI.WinPhone.Bootstrap;
 
 namespace TekConf.UI.WinPhone
 {
+	using Cirrious.MvvmCross.Plugins.Sqlite;
+
 	public class Setup : MvxPhoneSetup
 	{
 		public Setup(PhoneApplicationFrame rootFrame)
@@ -18,6 +20,9 @@ namespace TekConf.UI.WinPhone
 
 		protected override IMvxApplication CreateApp()
 		{
+			var factory = Mvx.Resolve<ISQLiteConnectionFactory>();
+			var connection = factory.Create("tekconf.db");
+			Mvx.RegisterSingleton<ISQLiteConnection>(connection);
 			//MvxBindingTrace.TraceBindingLevel = MvxTraceLevel.Diagnostic;
 			Mvx.RegisterType<IAnalytics, WinPhoneAnalytics>();
 			//Mvx.RegisterType<IAuthentication, Authentication>();

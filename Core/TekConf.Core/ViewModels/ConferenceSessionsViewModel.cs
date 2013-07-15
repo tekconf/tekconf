@@ -14,6 +14,8 @@ using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.Core.ViewModels
 {
+	using TekConf.Core.Entities;
+
 	public class ConferenceSessionsViewModel : MvxViewModel
 	{
 
@@ -23,13 +25,14 @@ namespace TekConf.Core.ViewModels
 		private readonly IAuthentication _authentication;
 		private readonly ILocalScheduleRepository _localScheduleRepository;
 		private readonly ILocalConferencesRepository _localConferencesRepository;
-		private readonly ISQLiteConnectionFactory _sqLiteConnectionFactory;
+
+		private readonly ISQLiteConnection _connection;
 
 		public ConferenceSessionsViewModel(IRemoteDataService remoteDataService, IAnalytics analytics, IMvxMessenger messenger,
 																			IAuthentication authentication, 
 																			ILocalScheduleRepository localScheduleRepository, 
 																			ILocalConferencesRepository localConferencesRepository,
-																			ISQLiteConnectionFactory sqLiteConnectionFactory)
+																			ISQLiteConnection connection)
 		{
 			_remoteDataService = remoteDataService;
 			_analytics = analytics;
@@ -37,7 +40,7 @@ namespace TekConf.Core.ViewModels
 			_authentication = authentication;
 			_localScheduleRepository = localScheduleRepository;
 			_localConferencesRepository = localConferencesRepository;
-			_sqLiteConnectionFactory = sqLiteConnectionFactory;
+			this._connection = connection;
 		}
 
 		public void Init(string slug)
@@ -113,11 +116,11 @@ namespace TekConf.Core.ViewModels
 			
 			if (!isRefreshing)
 			{
-				var connection = _sqLiteConnectionFactory.Create("conferences.db");
 				var conference = _localConferencesRepository.Get(slug);
 				if (conference != null)
 				{
-					var sessions = conference.Sessions(connection);
+					IEnumerable<SessionEntity> sessions = null;
+					sessions = conference.Sessions(_connection);
 					if (sessions != null)
 					{
 						var conferenceSessionsListViewDto = new ConferenceSessionsListViewDto(sessions)

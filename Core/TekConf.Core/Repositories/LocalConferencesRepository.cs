@@ -14,14 +14,14 @@ namespace TekConf.Core.Repositories
 	{
 		private readonly ISQLiteConnection _connection;
 
-		public LocalConferencesRepository(ISQLiteConnectionFactory factory)
+		public LocalConferencesRepository(ISQLiteConnection connection)
 		{
-			_connection = factory.Create("conferences.db");
+			_connection = connection;
 			_connection.CreateTable<ConferenceEntity>();
 			_connection.CreateTable<SessionEntity>();
 		}
 
-		public void Save(IEnumerable<ConferenceEntity> conferences)
+		public void Save(IList<ConferenceEntity> conferences)
 		{
 			if (conferences != null)
 			{
@@ -37,18 +37,17 @@ namespace TekConf.Core.Repositories
 			var entity = _connection.Table<ConferenceEntity>().FirstOrDefault(x => x.Slug == conference.Slug);
 			if (entity == null)
 			{
-				_connection.Insert(conference);				
+				_connection.Insert(conference);
 			}
 			else
 			{
 				_connection.Update(conference);
 			}
-
 		}
 
 		public void AddSession(SessionEntity session)
 		{
-			if (session != null && session.ConferenceId != default (int))
+			if (session != null && session.ConferenceId != default(int))
 			{
 				var entity = _connection.Table<SessionEntity>().Where(x => x.Id == session.Id).FirstOrDefault(x => x.Slug == session.Slug);
 				if (entity == null)
@@ -64,18 +63,24 @@ namespace TekConf.Core.Repositories
 
 		public SessionEntity Get(string conferenceSlug, string sessionSlug)
 		{
+			SessionEntity returnValue = null;
 			var conference = _connection.Table<ConferenceEntity>().FirstOrDefault(x => x.Slug == conferenceSlug);
-			return _connection.Table<SessionEntity>().Where(x => x.ConferenceId == conference.Id).FirstOrDefault(x => x.Slug == sessionSlug);
+			returnValue = _connection.Table<SessionEntity>().Where(x => x.ConferenceId == conference.Id).FirstOrDefault(x => x.Slug == sessionSlug);
+			return returnValue;
 		}
 
 		public ConferenceEntity Get(string conferenceSlug)
 		{
-			return _connection.Table<ConferenceEntity>().FirstOrDefault(x => x.Slug == conferenceSlug);
+			ConferenceEntity conference = null;
+			conference = _connection.Table<ConferenceEntity>().FirstOrDefault(x => x.Slug == conferenceSlug);
+			return conference;
 		}
 
-		public IEnumerable<ConferenceEntity> List()
+		public IList<ConferenceEntity> List()
 		{
-			return _connection.Table<ConferenceEntity>();
+			IList<ConferenceEntity> conferences = null;
+			conferences = _connection.Table<ConferenceEntity>().ToList();
+			return conferences;
 		}
 
 	}

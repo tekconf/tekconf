@@ -70,7 +70,7 @@ namespace TekConf.Core.ViewModels
 
 			if (!isRefreshing)
 			{
-				var conferences = _localConferencesRepository.List().ToList();
+				var conferences = _localConferencesRepository.List();
 				if (conferences.Any())
 				{
 					var list = new List<ConferencesListViewDto>();

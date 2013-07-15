@@ -18,21 +18,21 @@ namespace TekConf.Core.Services
 		private readonly IAuthentication _authentication;
 		private readonly ILocalScheduleRepository _localScheduleRepository;
 		private readonly ILocalConferencesRepository _localConferencesRepository;
-		private readonly ISQLiteConnectionFactory _factory;
+
+		private readonly ISQLiteConnection _connection;
+
 		private readonly IMvxMessenger _messenger;
 		private readonly IMvxReachability _reachability;
 
 		public RemoteDataService(IMvxFileStore fileStore, ICacheService cache, IAuthentication authentication, ILocalScheduleRepository localScheduleRepository, 
-																										ILocalConferencesRepository localConferencesRepository,
-																										ISQLiteConnectionFactory factory, 
-																										IMvxMessenger messenger)
+																										ILocalConferencesRepository localConferencesRepository, ISQLiteConnection connection, IMvxMessenger messenger)
 		{
 			_fileStore = fileStore;
 			_cache = cache;
 			_authentication = authentication;
 			_localScheduleRepository = localScheduleRepository;
 			_localConferencesRepository = localConferencesRepository;
-			_factory = factory;
+			this._connection = connection;
 			_messenger = messenger;
 			//_reachability = reachability;
 			_reachability = null;
@@ -60,7 +60,7 @@ namespace TekConf.Core.Services
 
 		public void GetConferenceSessionsList(string slug, bool isRefreshing, Action<ConferenceSessionsListViewDto> success = null, Action<Exception> error = null)
 		{
-			ConferenceSessionsService.GetConferenceSessionsAsync(_fileStore, _localScheduleRepository, _localConferencesRepository, _reachability, slug, isRefreshing, null, _authentication, _factory, success, error);
+			ConferenceSessionsService.GetConferenceSessionsAsync(_fileStore, _localScheduleRepository, _localConferencesRepository, _reachability, slug, isRefreshing, null, _authentication, _connection, success, error);
 		}
 
 		public void GetConferenceDetail(string slug, bool isRefreshing, Action<ConferenceDetailViewDto> success = null, Action<Exception> error = null)
@@ -105,7 +105,7 @@ namespace TekConf.Core.Services
 
 		public void GetSession(string conferenceSlug, string sessionSlug, bool isRefreshing, Action<SessionDetailDto> success, Action<Exception> error)
 		{
-			SessionService.GetSessionAsync(_fileStore, conferenceSlug, sessionSlug, isRefreshing, _localConferencesRepository, _factory, _cache, success, error);
+			SessionService.GetSessionAsync(_fileStore, conferenceSlug, sessionSlug, isRefreshing, _localConferencesRepository, _cache, _connection, success, error);
 		}
 
 		public void GetIsOauthUserRegistered(string userId, Action<string> success, Action<Exception> error)

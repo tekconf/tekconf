@@ -7,8 +7,8 @@ namespace TekConf.Core.Repositories
 {
 	public interface ILocalConferencesRepository
 	{
-		void Save(IEnumerable<ConferenceEntity> conferences);
-		IEnumerable<ConferenceEntity> List();
+		void Save(IList<ConferenceEntity> conferences);
+		IList<ConferenceEntity> List();
 		void Save(ConferenceEntity conference);
 		ConferenceEntity Get(string conferenceSlug);
 		void AddSession(SessionEntity session);

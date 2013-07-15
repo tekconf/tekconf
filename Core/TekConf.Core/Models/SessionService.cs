@@ -19,36 +19,37 @@ namespace TekConf.Core.Models
 		private readonly bool _isRefreshing;
 		private readonly IMvxFileStore _fileStore;
 		private readonly ILocalConferencesRepository _localConferencesRepository;
-		private readonly ISQLiteConnectionFactory _factory;
 		private readonly ICacheService _cache;
+
+		private readonly ISQLiteConnection _connection;
+
 		private readonly Action<SessionDetailDto> _success;
 		private readonly Action<Exception> _error;
 		private string _conferenceSlug;
 		private string _sessionSlug;
 
-		private SessionService(bool isRefreshing, IMvxFileStore fileStore, 
-			ILocalConferencesRepository localConferencesRepository, 
-			ISQLiteConnectionFactory factory, 
-			ICacheService cache, 
+		private SessionService(bool isRefreshing, IMvxFileStore fileStore,
+			ILocalConferencesRepository localConferencesRepository,
+			ICacheService cache, ISQLiteConnection connection,
 			Action<SessionDetailDto> success, Action<Exception> error)
 		{
 			_isRefreshing = isRefreshing;
 			_fileStore = fileStore;
 			_localConferencesRepository = localConferencesRepository;
-			_factory = factory;
 			_cache = cache;
+			this._connection = connection;
 			_success = success;
 			_error = error;
 		}
 
-		public static void GetSessionAsync(IMvxFileStore fileStore, string conferenceSlug, string sessionSlug, bool isRefreshing, ILocalConferencesRepository localConferencesRepository, ISQLiteConnectionFactory factory, ICacheService cache, Action<SessionDetailDto> getSessionSuccess, Action<Exception> getSessionError)
+		public static void GetSessionAsync(IMvxFileStore fileStore, string conferenceSlug, string sessionSlug, bool isRefreshing, ILocalConferencesRepository localConferencesRepository, ICacheService cache, ISQLiteConnection connection, Action<SessionDetailDto> getSessionSuccess, Action<Exception> getSessionError)
 		{
-			MvxAsyncDispatcher.BeginAsync(() => DoAsyncGetSession(fileStore, conferenceSlug, sessionSlug, isRefreshing, localConferencesRepository, factory, cache, getSessionSuccess, getSessionError));
+			MvxAsyncDispatcher.BeginAsync(() => DoAsyncGetSession(fileStore, conferenceSlug, sessionSlug, isRefreshing, localConferencesRepository, cache, connection, getSessionSuccess, getSessionError));
 		}
 
-		private static void DoAsyncGetSession(IMvxFileStore fileStore, string conferenceSlug, string sessionSlug, bool isRefreshing, ILocalConferencesRepository localConferencesRepository, ISQLiteConnectionFactory factory, ICacheService cache, Action<SessionDetailDto> getSessionSuccess, Action<Exception> getSessionError)
+		private static void DoAsyncGetSession(IMvxFileStore fileStore, string conferenceSlug, string sessionSlug, bool isRefreshing, ILocalConferencesRepository localConferencesRepository, ICacheService cache, ISQLiteConnection connection, Action<SessionDetailDto> getSessionSuccess, Action<Exception> getSessionError)
 		{
-			var search = new SessionService(isRefreshing, fileStore, localConferencesRepository, factory, cache, getSessionSuccess, getSessionError);
+			var search = new SessionService(isRefreshing, fileStore, localConferencesRepository, cache, connection, getSessionSuccess, getSessionError);
 			search.StartGetSession(conferenceSlug, sessionSlug);
 		}
 
@@ -60,9 +61,8 @@ namespace TekConf.Core.Models
 				_sessionSlug = sessionSlug;
 
 				var conference = _localConferencesRepository.Get(conferenceSlug);
-				var connection = _factory.Create("conferences.db");
-				var session = conference.Sessions(connection).FirstOrDefault(x => x.Slug == sessionSlug);
-
+				SessionEntity session = null;
+				session = conference.Sessions(_connection).FirstOrDefault(x => x.Slug == sessionSlug);
 				var sessionDetailDto = new SessionDetailDto(session);
 				if (session != null && !_isRefreshing)
 				{
@@ -115,14 +115,14 @@ namespace TekConf.Core.Models
 				var fullSession = JsonConvert.DeserializeObject<FullSessionDto>(response);
 				var conference = _localConferencesRepository.Get(_conferenceSlug);
 				var sessionEntity = new SessionEntity(conference.Id, fullSession);
-				var connection = _factory.Create("conferences.db");
-				var existingSession = connection.Table<SessionEntity>().Where(x => x.ConferenceId == conference.Id).FirstOrDefault(x => x.Slug == fullSession.slug);
+				var existingSession = _connection.Table<SessionEntity>().Where(x => x.ConferenceId == conference.Id).FirstOrDefault(x => x.Slug == fullSession.slug);
+
 				if (existingSession != null)
 				{
-					connection.Delete(existingSession);
+					_connection.Delete(existingSession);
 				}
 
-				connection.Insert(sessionEntity);
+				_connection.Insert(sessionEntity);
 				var sessionDetailDto = new SessionDetailDto(sessionEntity);
 				_success(sessionDetailDto);
 			}

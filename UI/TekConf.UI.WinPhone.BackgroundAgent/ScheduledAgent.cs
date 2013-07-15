@@ -13,6 +13,8 @@ using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.UI.WinPhone.BackgroundAgent
 {
+	using Cirrious.MvvmCross.Plugins.Sqlite;
+
 	public class ScheduledAgent : ScheduledTaskAgent
 	{
 		/// <remarks>
@@ -48,39 +50,43 @@ namespace TekConf.UI.WinPhone.BackgroundAgent
 		/// </remarks>
 		protected override void OnInvoke(ScheduledTask task)
 		{
-			var fileStore = new MvxIsolatedStorageFileStore();
-			var factory = new Cirrious.MvvmCross.Plugins.Sqlite.WindowsPhone.MvxWindowsPhoneSQLiteConnectionFactory();
-			//Mvx.RegisterSingleton(typeof(IMvxFileStore), fileStore);
-			//Mvx.RegisterType<IMvxFileStore, MvxIsolatedStorageFileStore>();
-			//ILocalSessionRepository localSessionRepository = new LocalSessionRepository(fileStore);
-			ILocalConferencesRepository localConferencesRepository = new LocalConferencesRepository(factory);
-			var scheduleRepository = new LocalScheduleRepository(fileStore, localConferencesRepository);
-			var conference = scheduleRepository.NextScheduledConference;
-			var nextSession = scheduleRepository.NextScheduledSession;
-
-			if (ShellTile.ActiveTiles != null)
+			try
 			{
-				var appTile = ShellTile.ActiveTiles.First();
+				var fileStore = Mvx.Resolve<IMvxFileStore>();
+				var connection = Mvx.Resolve<ISQLiteConnection>();
+				ILocalConferencesRepository localConferencesRepository = new LocalConferencesRepository(connection);
+				var scheduleRepository = new LocalScheduleRepository(fileStore, localConferencesRepository);
+				var conference = scheduleRepository.NextScheduledConference;
+				var nextSession = scheduleRepository.NextScheduledSession;
 
-				if (conference == null)
-					conference = new ConferencesListViewDto((ConferenceEntity) null, fileStore);
-
-				if (nextSession != null)
+				if (ShellTile.ActiveTiles != null)
 				{
-					var tileData = new FlipTileData()
-					{
-						BackContent = nextSession.title,
-						BackTitle =
-							nextSession.startDescription + (string.IsNullOrWhiteSpace(nextSession.room) ? "" : Environment.NewLine) +
-							nextSession.room,
-						Title = "",
-						WideBackContent = nextSession.title + (string.IsNullOrWhiteSpace(conference.name) ? "" : " - " + conference.name)
-					};
+					var appTile = ShellTile.ActiveTiles.First();
 
-					appTile.Update(tileData);
+					if (conference == null)
+						conference = new ConferencesListViewDto((ConferenceEntity)null, fileStore);
+
+					if (nextSession != null)
+					{
+						var tileData = new FlipTileData()
+						{
+							BackContent = nextSession.title,
+							BackTitle =
+								nextSession.startDescription + (string.IsNullOrWhiteSpace(nextSession.room) ? "" : Environment.NewLine) +
+								nextSession.room,
+							Title = "",
+							WideBackContent = nextSession.title + (string.IsNullOrWhiteSpace(conference.name) ? "" : " - " + conference.name)
+						};
+
+						appTile.Update(tileData);
+					}
 				}
+				NotifyComplete();
 			}
-			NotifyComplete();
+			catch (Exception)
+			{
+			}
+
 		}
 	}
 }
