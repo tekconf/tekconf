@@ -5,16 +5,15 @@ using System.Windows.Input;
 using Cirrious.MvvmCross.Plugins.File;
 using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
-using PropertyChanged;
 using TekConf.Core.Interfaces;
 using TekConf.Core.Messages;
 using TekConf.Core.Repositories;
 using TekConf.Core.Services;
 using TekConf.RemoteData.Dtos.v1;
+using System.Threading.Tasks;
 
 namespace TekConf.Core.ViewModels
 {
-	//[ImplementPropertyChanged]
 	public class ConferencesListViewModel : MvxViewModel
 	{
 		private readonly IRemoteDataService _remoteDataService;
@@ -45,51 +44,74 @@ namespace TekConf.Core.ViewModels
 			_favoritesUpdatedMessageToken = _messenger.Subscribe<FavoriteConferencesUpdatedMessage>(OnFavoritesUpdatedMessage);
 		}
 
-		public void Init(string searchTerm)
+		public async void Init(string searchTerm)
 		{
-			StartGetAll(searchTerm);
-			StartGetFavorites();
+			var allConferences = await StartGetAll();
+			var favorites = await StartGetFavorites();
+
+			InvokeOnMainThread(() => {
+						DisplayAllConferences(allConferences);
+						DisplayFavoritesConferences(favorites);
+					}
+				);
 		}
 
-		public void Refresh()
+		public async void Refresh()
 		{
-			StartGetAll(isRefreshing: true);
-			StartGetFavorites(isRefreshing: true);
+			var allConferences = await StartGetAll(isRefreshing: true);
+			var favorites = await StartGetFavorites(isRefreshing: true);
+
+			InvokeOnMainThread(() =>
+				{
+					DisplayAllConferences(allConferences);
+					DisplayFavoritesConferences(favorites);
+				}
+			);
 		}
 
-		private void StartGetAll(string searchTerm = "", bool isRefreshing = false)
+		private async Task<IList<ConferencesListViewDto>> StartGetAll(string searchTerm = "", bool isRefreshing = false)
 		{
+			IEnumerable<ConferencesListViewDto> conferences = null;
 			if (IsLoadingConferences)
-				return;
+				return new List<ConferencesListViewDto>();
 
 			IsLoadingConferences = true;
 			_analytics.SendView("ConferencesList");
 
 			if (!isRefreshing)
 			{
-				var conferences = _localConferencesRepository.List();
-				if (conferences.Any())
+				var localConferences = await _localConferencesRepository.ListAsync();
+				if (localConferences.Any())
 				{
-					var list = new List<ConferencesListViewDto>();
-					foreach (var conference in conferences)
+					conferences = localConferences.Select(conference => new ConferencesListViewDto(conference, this._fileStore)).ToList();
+				}
+				else
+				{
+					var remoteConferences = await _remoteDataService.GetConferencesAsync();
+					if (remoteConferences != null)
 					{
-						var listItem = new ConferencesListViewDto(conference, _fileStore);
-						list.Add(listItem);
+						conferences = remoteConferences;
 					}
-					
-					this.GetAllSuccess(list);
-					return;
+				}
+			}
+			else
+			{
+				var remoteConferences = await _remoteDataService.GetConferencesAsync();
+				if (remoteConferences != null)
+				{
+					conferences = remoteConferences;
 				}
 			}
 
-			_remoteDataService.GetConferences(search: searchTerm, isRefreshing: isRefreshing, success: GetAllSuccess, error: GetAllError);
-
+			return conferences.ToList();
 		}
 
-		private void StartGetFavorites(bool isRefreshing = false)
+		private async Task<IList<ConferencesListViewDto>> StartGetFavorites(bool isRefreshing = false)
 		{
+			IEnumerable<ConferencesListViewDto> conferences = new List<ConferencesListViewDto>();
+
 			if (IsLoadingFavorites)
-				return;
+				return new List<ConferencesListViewDto>();
 
 			if (_authentication.IsAuthenticated)
 			{
@@ -99,62 +121,43 @@ namespace TekConf.Core.ViewModels
 
 				if (!isRefreshing)
 				{
-					var conferences = _localConferencesRepository.GetFavorites();
+					var localConferences = await _localConferencesRepository.ListFavoritesAsync();
 
-					if (conferences != null && conferences.Any())
+					if (localConferences != null && localConferences.Any())
 					{
-						var dtos = conferences.Select(conference => new ConferencesListViewDto(conference, this._fileStore)).ToList();
-						GetFavoritesSuccess(dtos);
-						return;
+						conferences = localConferences.Select(conference => new ConferencesListViewDto(conference, this._fileStore)).ToList();
 					}
 				}
-
-				_remoteDataService.GetSchedules(userName, isRefreshing, GetFavoritesSuccess, GetFavoritesError);
+				else
+				{
+					var remoteConferences = await _remoteDataService.GetFavoritesAsync(userName, isRefreshing: true);
+					if (remoteConferences != null)
+					{
+						conferences = remoteConferences;
+					}
+				}
 			}
+
+			return conferences.ToList();
 		}
 
 		private void GetAllError(Exception exception)
 		{
-			// for now we just hide the error...
 			_messenger.Publish(new ConferencesListAllExceptionMessage(this, exception));
-
 			IsLoadingConferences = false;
 		}
 
 		private void GetFavoritesError(Exception exception)
 		{
-			// for now we just hide the error...
 			_messenger.Publish(new ConferencesListFavoritesExceptionMessage(this, exception));
-
 			IsLoadingFavorites = false;
-		}
-
-		private void GetAllSuccess(IEnumerable<ConferencesListViewDto> conferences)
-		{
-			InvokeOnMainThread(() => DisplayAllConferences(conferences));
 		}
 
 		private void GetFavoritesSuccess(IEnumerable<ConferencesListViewDto> conferences)
 		{
 			var conferencesList = conferences.ToList();
 
-			UpdateConferenceFavorites();
 			InvokeOnMainThread(() => DisplayFavoritesConferences(conferencesList));
-		}
-
-		private void UpdateConferenceFavorites()
-		{
-			//var json = _cache.Get<string, string>("conferences.json");
-			//string json = null;
-			//List<FullConferenceDto> cachedConferences = null;
-			//if (!string.IsNullOrWhiteSpace(json))
-			//{
-			//	cachedConferences = JsonConvert.DeserializeObject<List<FullConferenceDto>>(json);
-			//	foreach (var conference in conferences)
-			//	{
-			//		//TODO : Set isAddedToSchedule
-			//	}
-			//}
 		}
 
 		private void DisplayAllConferences(IEnumerable<ConferencesListViewDto> conferences)
@@ -197,63 +200,12 @@ namespace TekConf.Core.ViewModels
 			}
 		}
 
-		//public bool IsLoadingFavorites { get; set; }
-		private bool _isLoadingFavorites;
-		public bool IsLoadingFavorites
-		{
-			get { return _isLoadingFavorites; }
-			set
-			{
-				_isLoadingFavorites = value;
-				RaisePropertyChanged(() => IsLoadingFavorites);
-			}
-		}
-
-		//public bool IsAuthenticated { get; set; }
-		private bool _isAuthenticated;
-		public bool IsAuthenticated
-		{
-			get
-			{
-				return _isAuthenticated;
-			}
-			set
-			{
-				_isAuthenticated = value;
-				RaisePropertyChanged(() => IsAuthenticated);
-			}
-		}
-
-		//private List<ConferencesListViewDto> _conferences;
+		public bool IsLoadingFavorites { get; set; }
+		public bool IsAuthenticated { get; set; }
 		public List<ConferencesListViewDto> Conferences { get; set; }
-		//{
-		//	get
-		//	{
-		//		return _conferences;
-		//	}
-		//	set
-		//	{
-		//		_conferences = value;
-		//		RaisePropertyChanged(() => Conferences);
-		//	}
-		//}
-
-		//public FullConferenceDto SelectedFavorite { get; set; }
-		//private FullConferenceDto _selectedFavorite;
 		public FullConferenceDto SelectedFavorite { get; set; }
-		//{
-		//	get
-		//	{
-		//		return _selectedFavorite;
-		//	}
-		//	set
-		//	{
-		//		_selectedFavorite = value;
-		//		RaisePropertyChanged(() => SelectedFavorite);
-		//	}
-		//}
-
 		private List<ConferencesListViewDto> _favorites;
+
 		public List<ConferencesListViewDto> Favorites
 		{
 			get
@@ -269,47 +221,29 @@ namespace TekConf.Core.ViewModels
 			}
 		}
 
-		public ICommand ShowSettingsCommand
-		{
-			get
-			{
-				return new MvxCommand(() => ShowViewModel<SettingsViewModel>());
-			}
-		}
-
-		public ICommand ShowSearchCommand
-		{
-			get
-			{
-				return new MvxCommand(() => ShowViewModel<ConferencesSearchViewModel>());
-			}
-		}
-
-		public ICommand ShowDetailCommand
-		{
-			get
-			{
-				return new MvxCommand<string>(slug => ShowViewModel<ConferenceDetailViewModel>(new { slug }));
-			}
-		}
+		public ICommand ShowSettingsCommand { get { return new MvxCommand(() => ShowViewModel<SettingsViewModel>()); } }
+		public ICommand ShowSearchCommand { get { return new MvxCommand(() => ShowViewModel<ConferencesSearchViewModel>()); } }
+		public ICommand ShowDetailCommand { get { return new MvxCommand<string>(slug => ShowViewModel<ConferenceDetailViewModel>(new { slug })); } }
 
 		private void OnFavoritesUpdatedMessage(FavoriteConferencesUpdatedMessage message)
 		{
 			DisplayFavoritesConferences(message.Conferences);
 		}
 
-		private void OnFavoriteAddedMessage(FavoriteAddedMessage message)
+		private async void OnFavoriteAddedMessage(FavoriteAddedMessage message)
 		{
-			StartGetFavorites(true);
+			var favorites = await StartGetFavorites(true);
+			InvokeOnMainThread(() => DisplayFavoritesConferences(favorites));
 		}
 
-		private void OnAuthenticateMessage(AuthenticationMessage message)
+		private async void OnAuthenticateMessage(AuthenticationMessage message)
 		{
 			if (message != null && !string.IsNullOrWhiteSpace(message.UserName))
 			{
 				_authentication.UserName = message.UserName;
 				IsAuthenticated = true;
-				StartGetFavorites(isRefreshing: true);
+				var favorites = await StartGetFavorites(true);
+				InvokeOnMainThread(() => DisplayFavoritesConferences(favorites));
 			}
 		}
 	}

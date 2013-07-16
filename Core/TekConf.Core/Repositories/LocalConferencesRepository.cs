@@ -1,15 +1,13 @@
 using System;
 using System.Collections.Generic;
-using Cirrious.MvvmCross.Plugins.File;
 using Cirrious.MvvmCross.Plugins.Sqlite;
-using Newtonsoft.Json;
 using TekConf.Core.Entities;
-using TekConf.Core.ViewModels;
-using TekConf.RemoteData.Dtos.v1;
 using System.Linq;
 
 namespace TekConf.Core.Repositories
 {
+	using System.Threading.Tasks;
+
 	public class LocalConferencesRepository : ILocalConferencesRepository
 	{
 		private readonly ISQLiteConnection _connection;
@@ -76,19 +74,32 @@ namespace TekConf.Core.Repositories
 			conference = _connection.Table<ConferenceEntity>().FirstOrDefault(x => x.Slug == conferenceSlug);
 			return conference;
 		}
-		public IList<ConferenceEntity> GetFavorites()
+		private IList<ConferenceEntity> GetFavorites()
 		{
 			var conferences = _connection.Table<ConferenceEntity>().Where(x => x.IsAddedToSchedule).ToList();
 
 			return conferences;
 		}
 
+		public Task<IList<ConferenceEntity>> ListFavoritesAsync()
+		{
+			var taskSource = new TaskCompletionSource<IList<ConferenceEntity>>();
+			taskSource.SetResult(GetFavorites());
+			return taskSource.Task;
+		}
 
-		public IList<ConferenceEntity> List()
+		private IList<ConferenceEntity> List()
 		{
 			var filterDate = DateTime.Now.Date.AddDays(-1);
 			var conferences = _connection.Table<ConferenceEntity>().Where(x => x.End >= filterDate).OrderBy(x => x.Start).ToList();
 			return conferences;
+		}
+
+		public Task<IList<ConferenceEntity>> ListAsync()
+		{
+			var taskSource = new TaskCompletionSource<IList<ConferenceEntity>>();
+			taskSource.SetResult(List());
+			return taskSource.Task;
 		}
 	}
 }

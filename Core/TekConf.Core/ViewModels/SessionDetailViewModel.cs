@@ -139,10 +139,15 @@ namespace TekConf.Core.ViewModels
 			}
 		}
 
-		private void RefreshFavorites()
+		private async void RefreshFavorites()
 		{
 			var userName = _authentication.UserName;
-			_remoteDataService.GetSchedules(userName, true, GetFavoritesSuccess, GetFavoritesError);
+
+			var remoteConferences = await _remoteDataService.GetFavoritesAsync(userName, isRefreshing:true);
+			if (remoteConferences != null)
+			{
+				GetFavoritesSuccess(remoteConferences);
+			}
 		}
 
 

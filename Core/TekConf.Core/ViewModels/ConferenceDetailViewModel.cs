@@ -13,6 +13,8 @@ using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.Core.ViewModels
 {
+	using System.Threading.Tasks;
+
 	using Cirrious.MvvmCross.Plugins.File;
 
 	public class ConferenceDetailViewModel : MvxViewModel
@@ -36,20 +38,23 @@ namespace TekConf.Core.ViewModels
 			//AddFavoriteCommand = new ActionCommand(AddConferenceToFavorites);
 		}
 
-		public void Init(string slug)
+		public async void Init(string slug)
 		{
-			StartGetConference(slug);
+			var conference = await StartGetConference(slug, isRefreshing: false);
+			Success(conference);
 		}
 
-		public void Refresh(string slug)
+		public async void Refresh(string slug)
 		{
-			StartGetConference(slug, true);
+			var conference = await StartGetConference(slug, isRefreshing: true);
+			Success(conference);
 		}
 
-		private void StartGetConference(string slug, bool isRefreshing = false)
+		private async Task<ConferenceDetailViewDto> StartGetConference(string slug, bool isRefreshing = false)
 		{
+			ConferenceDetailViewDto conferenceDto = null;
 			if (IsLoading)
-				return;
+				return null;
 
 			IsLoading = true;
 			_analytics.SendView("ConferenceDetail-" + slug);
@@ -59,20 +64,19 @@ namespace TekConf.Core.ViewModels
 				var conference = _localConferencesRepository.Get(slug);
 				if (conference != null)
 				{
-					var conferenceDetailView = new ConferenceDetailViewDto(conference);
-					this.Success(conferenceDetailView);
-					return;
+					conferenceDto = new ConferenceDetailViewDto(conference);
+				}
+				else
+				{
+					conferenceDto = await _remoteDataService.GetConferenceDetailAsync(slug, isRefreshing: false);
 				}
 			}
+			else
+			{
+				conferenceDto = await _remoteDataService.GetConferenceDetailAsync(slug, isRefreshing: true);
+			}
 
-			try
-			{
-				_remoteDataService.GetConferenceDetail(slug, isRefreshing, Success, Error);
-			}
-			catch (Exception ex)
-			{
-				Error(ex);
-			}
+			return conferenceDto;
 		}
 
 		private void Error(Exception exception)
@@ -225,12 +229,6 @@ namespace TekConf.Core.ViewModels
 			}
 		}
 
-		private void RefreshFavorites()
-		{
-			var userName = _authentication.UserName;
-			_remoteDataService.GetSchedules(userName, true, GetFavoritesSuccess, GetFavoritesError);
-		}
-
 		private void GetFavoritesError(Exception exception)
 		{
 
@@ -241,7 +239,7 @@ namespace TekConf.Core.ViewModels
 		}
 
 
-		private void AddConferenceToFavorites()
+		private async void AddConferenceToFavorites()
 		{
 			if (_authentication.IsAuthenticated)
 			{
@@ -249,33 +247,24 @@ namespace TekConf.Core.ViewModels
 				{
 					Conference.isAddedToSchedule = true;
 					RaisePropertyChanged(() => Conference);
-					//_messenger.Publish(new FavoriteAddedMessage(this, dto));
-					//_messenger.Publish(new FavoriteRefreshMessage(this));
-
 				});
 
 				var addError = new Action<Exception>(ex =>
 				{
 					Conference.isAddedToSchedule = false;
 					RaisePropertyChanged(() => Conference);
-					//_messenger.Publish(new FavoriteRefreshMessage(this));
-					//RefreshFavorites();
 				});
 
 				var removeSuccess = new Action<ScheduleDto>(dto =>
 				{
 					Conference.isAddedToSchedule = false;
 					RaisePropertyChanged(() => Conference);
-					//_messenger.Publish(new FavoriteRefreshMessage(this));
-					//RefreshFavorites();
 				});
 
 				var removeError = new Action<Exception>(ex =>
 				{
 					Conference.isAddedToSchedule = true;
 					RaisePropertyChanged(() => Conference);
-					//_messenger.Publish(new FavoriteRefreshMessage(this));
-					//RefreshFavorites();
 				});
 
 				var conference = _localConferencesRepository.Get(Conference.slug);
@@ -287,7 +276,7 @@ namespace TekConf.Core.ViewModels
 					conference.IsAddedToSchedule = false;
 					_localConferencesRepository.Save(conference);
 
-					var conferences = _localConferencesRepository.GetFavorites();
+					var conferences = await _localConferencesRepository.ListFavoritesAsync();
 
 					if (conferences != null && conferences.Any())
 					{
@@ -302,7 +291,7 @@ namespace TekConf.Core.ViewModels
 					var schedule = new ScheduleDto() { conferenceSlug = Conference.slug, sessions = new List<FullSessionDto>(), url = "", userSlug = _authentication.UserName };
 					conference.IsAddedToSchedule = true;
 					_localConferencesRepository.Save(conference);
-					var conferences = _localConferencesRepository.GetFavorites();
+					var conferences = await _localConferencesRepository.ListFavoritesAsync();
 					if (conferences != null && conferences.Any())
 					{
 						var dtos = conferences.Select(c => new ConferencesListViewDto(c, _fileStore)).ToList();

@@ -5,11 +5,12 @@ using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.Core.Services
 {
+	using System.Threading.Tasks;
 	using Cirrious.MvvmCross.Plugins.Sqlite;
 
 	public interface IRemoteDataService
 	{
-		void GetConferences(
+		Task<IEnumerable<ConferencesListViewDto>> GetConferencesAsync(
 					bool isRefreshing = false,
 					string userName = null,
 					string sortBy = "end",
@@ -22,19 +23,17 @@ namespace TekConf.Core.Services
 					string country = null,
 					double? latitude = null,
 					double? longitude = null,
-					double? distance = null,
-					Action<IEnumerable<ConferencesListViewDto>> success = null,
-					Action<Exception> error = null);
+					double? distance = null);
+
+		Task<IEnumerable<ConferencesListViewDto>> GetFavoritesAsync(string userName, bool isRefreshing);
 
 		void GetConferenceSessionsList(string slug, bool isRefreshing,
 			Action<ConferenceSessionsListViewDto> success = null, Action<Exception> error = null);
 
-		void GetConferenceDetail(string slug, bool isRefreshing,
-			Action<ConferenceDetailViewDto> success = null,
-			Action<Exception> error = null);
+		Task<ConferenceDetailViewDto> GetConferenceDetailAsync(string slug, bool isRefreshing);
+
 
 		void GetSchedule(string userName, string conferenceSlug, bool isRefreshing, ISQLiteConnection connection, Action<ScheduleDto> success = null, Action<Exception> error = null);
-		void GetSchedules(string userName, bool isRefreshing, Action<IEnumerable<ConferencesListViewDto>> success = null, Action<Exception> error = null);
 
 		void LoginWithTekConf(string userName, string password, Action<bool, string> success = null, Action<Exception> error = null);
 

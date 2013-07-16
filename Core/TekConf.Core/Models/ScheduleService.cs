@@ -54,13 +54,13 @@ namespace TekConf.Core.Models
 			Action<IEnumerable<ConferencesListViewDto>> success, Action<Exception> error)
 		{
 			_fileStore = fileStore;
-			this._localConferencesRepository = localConferencesRepository;
+			_localConferencesRepository = localConferencesRepository;
 			_getSchedulesSuccess = success;
 			_getSchedulesError = error;
 			_userName = userName;
 			_isRefreshing = isRefreshing;
 			_cache = cache;
-			this._connection = connection;
+			_connection = connection;
 		}
 
 		private ScheduleService(IMvxFileStore fileStore, ILocalConferencesRepository localConferencesRepository,
@@ -68,7 +68,7 @@ namespace TekConf.Core.Models
 			Action<ScheduleDto> success, Action<Exception> error)
 		{
 			_fileStore = fileStore;
-			this._localConferencesRepository = localConferencesRepository;
+			_localConferencesRepository = localConferencesRepository;
 
 			_addToScheduleSuccess = success;
 			_removeFromScheduleSuccess = success;
@@ -83,13 +83,10 @@ namespace TekConf.Core.Models
 			_userName = userName;
 			_isRefreshing = isRefreshing;
 			_cache = cache;
-			this._connection = connection;
+			_connection = connection;
 		}
 
-		public static void GetSchedulesAsync(IMvxFileStore fileStore, ILocalConferencesRepository localScheduleRepository, string userName, bool isRefreshing, ICacheService cache, ISQLiteConnection connection, Action<IEnumerable<ConferencesListViewDto>> success, Action<Exception> error)
-		{
-			MvxAsyncDispatcher.BeginAsync(() => DoAsyncGetSchedules(fileStore, localScheduleRepository, userName, isRefreshing, cache, connection, success, error));
-		}
+
 
 		public static void AddToScheduleAsync(IMvxFileStore fileStore, ILocalConferencesRepository localScheduleRepository, string userName, string conferenceSlug, bool isRefreshing, ICacheService cache, ISQLiteConnection connection, Action<ScheduleDto> success, Action<Exception> error)
 		{
@@ -116,11 +113,7 @@ namespace TekConf.Core.Models
 			MvxAsyncDispatcher.BeginAsync(() => DoAsyncGetSchedule(fileStore, localScheduleRepository, userName, conferenceSlug, isRefreshing, cache, connection, success, error));
 		}
 
-		private static void DoAsyncGetSchedules(IMvxFileStore fileStore, ILocalConferencesRepository localScheduleRepository, string userName, bool isRefreshing, ICacheService cache, ISQLiteConnection connection, Action<IEnumerable<ConferencesListViewDto>> success, Action<Exception> error)
-		{
-			var search = new ScheduleService(fileStore, localScheduleRepository, userName, isRefreshing, cache, connection, success, error);
-			search.GetSchedules();
-		}
+
 
 		private static void DoAsyncGetSchedule(IMvxFileStore fileStore, ILocalConferencesRepository localScheduleRepository, string userName, string conferenceSlug, bool isRefreshing, ICacheService cache, ISQLiteConnection connection, Action<ScheduleDto> success, Action<Exception> error)
 		{
@@ -152,47 +145,9 @@ namespace TekConf.Core.Models
 			search.StartRemoveSessionFromSchedule(conferenceSlug, sessionSlug);
 		}
 
-		private void GetSchedules()
-		{
-			try
-			{
-				if (_isRefreshing)
-				{
-					this.GetSchedulesFromWeb();
-				}
-				else
-				{
-					var conferences = _localConferencesRepository.GetFavorites();
 
-					if (conferences == null || !conferences.Any())
-					{
-						this.GetSchedulesFromWeb();
-					}
-					else
-					{
-						if (conferences.Any())
-						{
-							var dtos = conferences.Select(conference => new ConferencesListViewDto(conference, this._fileStore)).ToList();
-							_getSchedulesSuccess(dtos);
-						}
-					}
-				}
-			}
-			catch (Exception exception)
-			{
-				_getSchedulesError(exception);
-			}
-		}
 
-		private void GetSchedulesFromWeb()
-		{
-			// perform the search
-			string uri = string.Format(this.GetSchedulesUrl, this._userName);
-			var request = (HttpWebRequest)WebRequest.Create(new Uri(uri));
-			request.Accept = "application/json";
 
-			request.BeginGetResponse(this.ReadGetSchedulesCallback, request);
-		}
 
 		private void GetSchedule(string conferenceSlug)
 		{
@@ -377,13 +332,12 @@ namespace TekConf.Core.Models
 			}
 		}
 
-		private void HandleGetSchedulesResponse(string response)
+		private async void HandleGetSchedulesResponse(string response)
 		{
 			var scheduledConferences = JsonConvert.DeserializeObject<List<FullConferenceDto>>(response).OrderBy(x => x.start).ToList();
 			
 			foreach (var scheduleConference in scheduledConferences)
 			{
-				var scheduleDto = new ScheduleDto() { conferenceSlug = scheduleConference.slug, sessions = scheduleConference.sessions };
 				var conference = _localConferencesRepository.Get(scheduleConference.slug);
 				if (conference != null)
 				{
@@ -392,15 +346,12 @@ namespace TekConf.Core.Models
 				}
 				else
 				{
-					var entity = new ConferenceEntity(scheduleConference)
-											{
-												IsAddedToSchedule = true
-											};
+					var entity = new ConferenceEntity(scheduleConference) { IsAddedToSchedule = true };
 					_localConferencesRepository.Save(entity);
 				}
 			}
 
-			var conferences = _localConferencesRepository.GetFavorites();
+			var conferences = await _localConferencesRepository.ListFavoritesAsync();
 			if (conferences != null && conferences.Any())
 			{
 				var dtos = conferences.Select(c => new ConferencesListViewDto(c, _fileStore)).ToList();

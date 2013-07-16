@@ -11,6 +11,8 @@ namespace TekConf.UI.WinPhone
 {
 	using Cirrious.MvvmCross.Plugins.Sqlite;
 
+	using TekConf.Core.Models;
+
 	public class Setup : MvxPhoneSetup
 	{
 		public Setup(PhoneApplicationFrame rootFrame)
@@ -29,7 +31,7 @@ namespace TekConf.UI.WinPhone
 			Mvx.RegisterType<ICacheService, CacheService>();
 			Mvx.RegisterType<ILocalNotificationsRepository, LocalNotificationsRepository>();
 			Mvx.RegisterType<ILocalConferencesRepository, LocalConferencesRepository>();
-
+			Mvx.RegisterType<IRestService, RestService>();
 			Mvx.RegisterType<IPushSharpClient, PushSharpClient>();
 			return new Core.App();
 		}

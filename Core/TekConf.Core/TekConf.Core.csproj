@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
-    <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
+    <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{E740F915-A0FC-4C66-9FD3-1D9A0DDA527A}</ProjectGuid>
@@ -10,8 +10,8 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TekConf.Core</RootNamespace>
     <AssemblyName>TekConf.Core</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Profile104</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Profile78</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
@@ -52,12 +52,12 @@
     <Compile Include="Messages\FavoriteConferencesUpdatedMessage.cs" />
     <Compile Include="Messages\FavoriteRefreshMessage.cs" />
     <Compile Include="Messages\FavoriteSessionAddedMessage.cs" />
-    <Compile Include="Models\ConferenceService.cs" />
     <Compile Include="Models\ConferenceSessionsService.cs" />
-    <Compile Include="Models\ConferencesService.cs" />
     <Compile Include="Models\Extensions.cs" />
     <Compile Include="Models\ImageService.cs" />
+    <Compile Include="Models\IRestService.cs" />
     <Compile Include="Models\PushService.cs" />
+    <Compile Include="Models\RestService.cs" />
     <Compile Include="Models\ScheduleService.cs" />
     <Compile Include="Models\SessionService.cs" />
     <Compile Include="Models\UserService.cs" />
@@ -68,9 +68,7 @@
     <Compile Include="Repositories\ConferenceSessionsListViewDto.cs" />
     <Compile Include="Repositories\ConferencesListViewDto.cs" />
     <Compile Include="Repositories\ILocalConferencesRepository.cs" />
-    <Compile Include="Repositories\ILocalScheduleRepository.cs" />
     <Compile Include="Repositories\LocalConferencesRepository.cs" />
-    <Compile Include="Repositories\LocalScheduleRepository.cs" />
     <Compile Include="Repositories\LocalNotificationsRepository.cs" />
     <Compile Include="Repositories\LocalSessionRepository.cs" />
     <Compile Include="Repositories\SessionDetailDto.cs" />
@@ -134,6 +132,15 @@
       <HintPath>..\..\packages\PropertyChanged.Fody.1.40.1\Lib\portable-net4+sl4+wp7+win8+MonoAndroid16+MonoTouch40\PropertyChanged.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Net.Http">
+      <HintPath>..\..\packages\Microsoft.Net.Http.2.2.10-rc\lib\portable-net40+sl4+win8+wp71\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Extensions">
+      <HintPath>..\..\packages\Microsoft.Net.Http.2.2.10-rc\lib\portable-net40+sl4+win8+wp71\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives">
+      <HintPath>..\..\packages\Microsoft.Net.Http.2.2.10-rc\lib\portable-net40+sl4+win8+wp71\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Fody.targets" />
@@ -147,6 +154,7 @@
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Import Project="Fody.targets" />
+  <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.7\tools\Microsoft.Bcl.Build.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
