@@ -42,20 +42,7 @@ namespace TekConf.Core.Services
 
 
 
-		public async Task<IEnumerable<ConferencesListViewDto>> GetConferencesAsync(
-			bool isRefreshing = false,
-			string userName = null,
-			string sortBy = "end",
-			bool? showPastConferences = null,
-			bool? showOnlyOpenCalls = null,
-			bool? showOnlyOnSale = null,
-			string search = null,
-			string city = null,
-			string state = null,
-			string country = null,
-			double? latitude = null,
-			double? longitude = null,
-			double? distance = null)
+		public async Task<IEnumerable<ConferencesListViewDto>> GetConferencesAsync()
 		{
 			string conferencesUrl = App.ApiRootUri + "conferences?format=json";
 			

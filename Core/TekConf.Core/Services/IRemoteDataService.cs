@@ -10,27 +10,12 @@ namespace TekConf.Core.Services
 
 	public interface IRemoteDataService
 	{
-		Task<IEnumerable<ConferencesListViewDto>> GetConferencesAsync(
-					bool isRefreshing = false,
-					string userName = null,
-					string sortBy = "end",
-					bool? showPastConferences = false,
-					bool? showOnlyOpenCalls = false,
-					bool? showOnlyOnSale = false,
-					string search = null,
-					string city = null,
-					string state = null,
-					string country = null,
-					double? latitude = null,
-					double? longitude = null,
-					double? distance = null);
-
+		Task<IEnumerable<ConferencesListViewDto>> GetConferencesAsync();
 		Task<IEnumerable<ConferencesListViewDto>> GetFavoritesAsync(string userName, bool isRefreshing);
-
-		void GetConferenceSessionsList(string slug, bool isRefreshing,
-			Action<ConferenceSessionsListViewDto> success = null, Action<Exception> error = null);
-
 		Task<ConferenceDetailViewDto> GetConferenceDetailAsync(string slug, bool isRefreshing);
+
+		void GetConferenceSessionsList(string slug, bool isRefreshing, Action<ConferenceSessionsListViewDto> success = null, Action<Exception> error = null);
+
 
 
 		void GetSchedule(string userName, string conferenceSlug, bool isRefreshing, ISQLiteConnection connection, Action<ScheduleDto> success = null, Action<Exception> error = null);

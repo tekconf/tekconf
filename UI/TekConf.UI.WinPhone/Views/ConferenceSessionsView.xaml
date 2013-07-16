@@ -61,21 +61,19 @@
 
 					<TextBlock Name="ConferenceSessionsFavoritesExceptionMessage" Visibility="Collapsed" TextWrapping="Wrap"></TextBlock>
 
-					<ScrollViewer>
-						<StackPanel>
-							<TextBlock Visibility="{Binding IsAuthenticated, Converter={StaticResource InvertedVisibility}}" 
+					<StackPanel>
+						<TextBlock Visibility="{Binding IsAuthenticated, Converter={StaticResource InvertedVisibility}}" 
 											 Style="{StaticResource PhoneTextNormalStyle}">You must login to see your favorite conferences</TextBlock>
-							
-							<TextBlock Visibility="{Binding ShouldAddFavorites, Converter={StaticResource Visibility}}" TextWrapping="Wrap"
+
+						<TextBlock Visibility="{Binding ShouldAddFavorites, Converter={StaticResource Visibility}}" TextWrapping="Wrap"
 											 Style="{StaticResource PhoneTextNormalStyle}">Tap the heart icon on a session to add a favorite</TextBlock>
-							<ListBox ItemsSource="{Binding Sessions, Mode=TwoWay}" 
+						<phone:LongListSelector ItemsSource="{Binding Sessions, Mode=TwoWay}" 
 										 ItemTemplate="{StaticResource SessionItemTemplate}" 
 										 ScrollViewer.VerticalScrollBarVisibility="Disabled"
 										Name="favoritesList"
 										 Visibility="{Binding IsLoadingSchedule, Converter={StaticResource InvertedVisibility}}">
-							</ListBox>
-						</StackPanel>
-					</ScrollViewer>
+						</phone:LongListSelector>
+					</StackPanel>
 				</Grid>
 			</controls:PivotItem>
 
@@ -96,17 +94,15 @@
 
 					<TextBlock Name="ConferenceSessionsTimeExceptionMessage" Visibility="Collapsed" TextWrapping="Wrap"></TextBlock>
 
-					<ScrollViewer>
-						<StackPanel>
-														<TextBlock Visibility="{Binding HasSessions, Converter={StaticResource InvertedVisibility}}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" Text="No sessions to display. Either sessions have not been released, or sessions have not been added to TekConf."></TextBlock>
 
-							<ListBox ItemsSource="{Binding Conference.SessionsByTime}" 
+					<TextBlock Visibility="{Binding HasSessions, Converter={StaticResource InvertedVisibility}}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" Text="No sessions to display. Either sessions have not been released, or sessions have not been added to TekConf."></TextBlock>
+
+					<phone:LongListSelector ItemsSource="{Binding Conference.SessionsByTime}" 
 										 ItemTemplate="{StaticResource SessionItemTemplate}"
 										 ScrollViewer.VerticalScrollBarVisibility="Disabled"
 										 Visibility="{Binding IsLoadingConference, Converter={StaticResource InvertedVisibility}}">
-							</ListBox>
-						</StackPanel>
-					</ScrollViewer>
+					</phone:LongListSelector>
+
 				</Grid>
 			</controls:PivotItem>
 
@@ -126,17 +122,15 @@
 
 					<TextBlock Name="ConferenceSessionsTitleExceptionMessage" Visibility="Collapsed" TextWrapping="Wrap"></TextBlock>
 
-					<ScrollViewer>
-						<StackPanel>
-														<TextBlock Visibility="{Binding HasSessions, Converter={StaticResource InvertedVisibility}}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" Text="No sessions to display. Either sessions have not been released, or sessions have not been added to TekConf."></TextBlock>
+					<StackPanel>
+						<TextBlock Visibility="{Binding HasSessions, Converter={StaticResource InvertedVisibility}}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" Text="No sessions to display. Either sessions have not been released, or sessions have not been added to TekConf."></TextBlock>
 
-							<ListBox ItemsSource="{Binding Conference.SessionsByTitle}" 
+						<phone:LongListSelector ItemsSource="{Binding Conference.SessionsByTitle}" 
 										 ItemTemplate="{StaticResource SessionItemTemplate}"
 										 ScrollViewer.VerticalScrollBarVisibility="Disabled"
 										 Visibility="{Binding IsLoadingConference, Converter={StaticResource InvertedVisibility}}">
-							</ListBox>
-						</StackPanel>
-					</ScrollViewer>
+						</phone:LongListSelector>
+					</StackPanel>
 				</Grid>
 			</controls:PivotItem>
 
@@ -156,17 +150,14 @@
 
 					<TextBlock Name="ConferenceSessionsSpeakerExceptionMessage" Visibility="Collapsed" TextWrapping="Wrap"></TextBlock>
 
-					<ScrollViewer>
 						<StackPanel>
-														<TextBlock Visibility="{Binding HasSessions, Converter={StaticResource InvertedVisibility}}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" Text="No sessions to display. Either sessions have not been released, or sessions have not been added to TekConf."></TextBlock>
-							<ListBox ItemsSource="{Binding Conference.SessionsBySpeaker}" 
+							<TextBlock Visibility="{Binding HasSessions, Converter={StaticResource InvertedVisibility}}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" Text="No sessions to display. Either sessions have not been released, or sessions have not been added to TekConf."></TextBlock>
+						<phone:LongListSelector ItemsSource="{Binding Conference.SessionsBySpeaker}" 
 										 ItemTemplate="{StaticResource SessionItemTemplate}"
 										 ScrollViewer.VerticalScrollBarVisibility="Disabled"
 										 Visibility="{Binding IsLoadingConference, Converter={StaticResource InvertedVisibility}}">
-							</ListBox>
+							</phone:LongListSelector>
 						</StackPanel>
-
-					</ScrollViewer>
 				</Grid>
 			</controls:PivotItem>
 
@@ -186,18 +177,16 @@
 
 					<TextBlock Name="ConferenceSessionsTagExceptionMessage" Visibility="Collapsed" TextWrapping="Wrap"></TextBlock>
 
-					<ScrollViewer>
 						<StackPanel>
-														<TextBlock Visibility="{Binding HasSessions, Converter={StaticResource InvertedVisibility}}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" Text="No sessions to display. Either sessions have not been released, or sessions have not been added to TekConf."></TextBlock>
+							<TextBlock Visibility="{Binding HasSessions, Converter={StaticResource InvertedVisibility}}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" Text="No sessions to display. Either sessions have not been released, or sessions have not been added to TekConf."></TextBlock>
 
-							<ListBox ItemsSource="{Binding Conference.SessionsByTag}" 
+						<phone:LongListSelector ItemsSource="{Binding Conference.SessionsByTag}" 
 										 ItemTemplate="{StaticResource SessionItemTemplate}"
 										 ScrollViewer.VerticalScrollBarVisibility="Disabled"
 										Visibility="{Binding IsLoadingConference, Converter={StaticResource InvertedVisibility}}">
-							</ListBox>
+							</phone:LongListSelector>
 						</StackPanel>
 
-					</ScrollViewer>
 				</Grid>
 			</controls:PivotItem>
 
@@ -217,17 +206,15 @@
 
 					<TextBlock Name="ConferenceSessionsRoomExceptionMessage" Visibility="Collapsed" TextWrapping="Wrap"></TextBlock>
 
-					<ScrollViewer>
 						<StackPanel>
-														<TextBlock Visibility="{Binding HasSessions, Converter={StaticResource InvertedVisibility}}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" Text="No sessions to display. Either sessions have not been released, or sessions have not been added to TekConf."></TextBlock>
+							<TextBlock Visibility="{Binding HasSessions, Converter={StaticResource InvertedVisibility}}" TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" Text="No sessions to display. Either sessions have not been released, or sessions have not been added to TekConf."></TextBlock>
 
-							<ListBox ItemsSource="{Binding Conference.SessionsByRoom}" 
+						<phone:LongListSelector ItemsSource="{Binding Conference.SessionsByRoom}" 
 										 ItemTemplate="{StaticResource SessionItemTemplate}"
 										 ScrollViewer.VerticalScrollBarVisibility="Disabled"
 										Visibility="{Binding IsLoadingConference, Converter={StaticResource InvertedVisibility}}">
-							</ListBox>
+							</phone:LongListSelector>
 						</StackPanel>
-					</ScrollViewer>
 				</Grid>
 			</controls:PivotItem>
 		</controls:Pivot>

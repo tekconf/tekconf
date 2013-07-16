@@ -48,13 +48,11 @@
 					
 					<TextBlock Name="ConferencesExceptionMessage" Visibility="Collapsed" TextWrapping="Wrap"></TextBlock>
 
-					<ScrollViewer>
-
-						<ListBox ItemsSource="{Binding Conferences}"
-										 Name="ConferencesList"
-										 ScrollViewer.VerticalScrollBarVisibility="Disabled"
+						<phone:LongListSelector ItemsSource="{Binding Conferences}"
+																		Name="ConferencesList"
+																		ScrollViewer.VerticalScrollBarVisibility="Disabled"
 										 Visibility="{Binding IsLoadingConferences, Converter={StaticResource InvertedVisibility}}">
-							<ListBox.ItemTemplate>
+							<phone:LongListSelector.ItemTemplate>
 								<DataTemplate>
 									<StackPanel Tap="Conference_OnSelected">
 										<Border BorderBrush="#FF81994D" BorderThickness="2" Background="White">
@@ -69,9 +67,9 @@
 										</StackPanel>
 									</StackPanel>
 								</DataTemplate>
-							</ListBox.ItemTemplate>
-						</ListBox>
-					</ScrollViewer>
+							</phone:LongListSelector.ItemTemplate>
+						</phone:LongListSelector>
+
 
 				</Grid>
 			</controls:PivotItem>
@@ -80,7 +78,7 @@
 				<controls:PivotItem.Header>
 					<TextBlock Text="favorites" Foreground="#FF81994D" />
 				</controls:PivotItem.Header>
-				<ScrollViewer>
+				<!--<ScrollViewer>-->
 					<Grid>
 						<Grid.RowDefinitions>
 							<RowDefinition Height="*"></RowDefinition>
@@ -99,11 +97,11 @@
 
 						<TextBlock Name="ConferencesFavoritesExceptionMessage" Visibility="Collapsed" TextWrapping="Wrap"></TextBlock>
 
-						<ListBox ItemsSource="{Binding Favorites, Mode=TwoWay}" 
+						<phone:LongListSelector ItemsSource="{Binding Favorites, Mode=TwoWay}" 
 										 Name="Favorites"
 										 ScrollViewer.VerticalScrollBarVisibility="Disabled"
 										 Visibility="{Binding IsLoadingFavorites, Converter={StaticResource InvertedVisibility}}">
-							<ListBox.ItemTemplate>
+							<phone:LongListSelector.ItemTemplate>
 								<DataTemplate>
 									<StackPanel Tap="Conference_OnSelected">
 										<Border BorderBrush="#FF81994D" BorderThickness="2" Background="White">
@@ -116,10 +114,10 @@
 										</StackPanel>
 									</StackPanel>
 								</DataTemplate>
-							</ListBox.ItemTemplate>
-						</ListBox>
+							</phone:LongListSelector.ItemTemplate>
+						</phone:LongListSelector>
 					</Grid>
-				</ScrollViewer>
+				<!--</ScrollViewer>-->
 			</controls:PivotItem>
 
 			<!--<controls:PivotItem>

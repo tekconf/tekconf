@@ -1,17 +1,14 @@
 ﻿using System;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.WindowsPhone.Views;
-using Microsoft.Phone.Scheduler;
-using Microsoft.Phone.Shell;
+
 using TekConf.Core.Messages;
 using TekConf.Core.Repositories;
 using TekConf.Core.ViewModels;
-using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.UI.WinPhone.Views
 {

@@ -55,7 +55,8 @@ namespace TekConf.Core.Repositories
 				}
 				else
 				{
-					_connection.Update(session);
+					_connection.Delete(session);
+					_connection.Insert(session);
 				}
 			}
 		}

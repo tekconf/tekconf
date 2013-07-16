@@ -104,13 +104,13 @@
                 Foreground="#FF81994D"
                          Visibility="{Binding IsLoading, Converter={StaticResource Visibility}}"></ProgressBar>
 
-						<ScrollViewer>
-							<ListBox ItemsSource="{Binding ConnectItems}" 
+						<!--<ScrollViewer>-->
+						<phone:LongListSelector ItemsSource="{Binding ConnectItems}" 
 										 ItemTemplate="{StaticResource ConnectItemTemplate}" 
 										 ScrollViewer.VerticalScrollBarVisibility="Disabled"
 										 Visibility="{Binding IsLoading, Converter={StaticResource InvertedVisibility}}">
-							</ListBox>
-						</ScrollViewer>
+							</phone:LongListSelector>
+						<!--</ScrollViewer>-->
 					</Grid>
 				</ScrollViewer>
 			</controls:PivotItem>

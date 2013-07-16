@@ -19,10 +19,10 @@
 
 	<views:MvxPhonePage.Resources>
 		<DataTemplate x:Key="SpeakerItemTemplate">
-				<StackPanel Orientation="Vertical" Margin="0,0,0,10">
-					<TextBlock Text="{Binding fullName}" Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap" SizeChanged="SpeakerFullName_OnSizeChanged"></TextBlock>
-					<TextBlock Text="{Binding description}" Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" SizeChanged="SpeakerFullName_OnSizeChanged"></TextBlock>
-				</StackPanel>
+			<StackPanel Orientation="Vertical" Margin="0,0,0,10">
+				<TextBlock Text="{Binding fullName}" Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap" SizeChanged="SpeakerFullName_OnSizeChanged"></TextBlock>
+				<TextBlock Text="{Binding description}" Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" SizeChanged="SpeakerFullName_OnSizeChanged"></TextBlock>
+			</StackPanel>
 		</DataTemplate>
 
 		<valueConverters:NativeVisibilityConverter x:Key="Visibility"></valueConverters:NativeVisibilityConverter>
@@ -48,7 +48,7 @@
                 IsIndeterminate="True"
                 Foreground="#FF81994D"
                          Visibility="{Binding IsLoading, Converter={StaticResource Visibility}}"></ProgressBar>
-					
+
 					<TextBlock Name="SessionDetailExceptionMessage" Visibility="Collapsed" TextWrapping="Wrap"></TextBlock>
 
 					<ScrollViewer>
@@ -77,13 +77,10 @@
 
 					<TextBlock Name="SessionDetailSpeakersExceptionMessage" Visibility="Collapsed" TextWrapping="Wrap"></TextBlock>
 
-					<ScrollViewer>
-						
-						<ListBox ItemsSource="{Binding Session.speakers}" 
+					<phone:LongListSelector ItemsSource="{Binding Session.speakers}" 
 										 ItemTemplate="{StaticResource SpeakerItemTemplate}"
 										 ScrollViewer.VerticalScrollBarVisibility="Disabled">
-						</ListBox>
-					</ScrollViewer>
+					</phone:LongListSelector>
 				</Grid>
 			</controls:PivotItem>
 		</controls:Pivot>
