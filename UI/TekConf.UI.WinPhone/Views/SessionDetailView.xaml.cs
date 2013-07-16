@@ -11,6 +11,8 @@ using System.ComponentModel;
 
 namespace TekConf.UI.WinPhone.Views
 {
+	using Cirrious.MvvmCross.Plugins.Sqlite;
+
 	public partial class SessionDetailView
 	{
 		private MvxSubscriptionToken _sessionDetailExceptionToken;
@@ -92,7 +94,7 @@ namespace TekConf.UI.WinPhone.Views
 
 		private void AddFavorite_OnClick(object sender, EventArgs e)
 		{
-			var authentication = new Authentication();
+			var authentication = new Authentication(Mvx.Resolve<ISQLiteConnection>());
 			if (authentication.IsAuthenticated)
 			{
 				var vm = this.DataContext as SessionDetailViewModel;

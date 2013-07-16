@@ -48,6 +48,7 @@
     <Compile Include="Entities\ConferenceEntity.cs" />
     <Compile Include="Entities\ScheduleEntity.cs" />
     <Compile Include="Entities\SessionEntity.cs" />
+    <Compile Include="Entities\UserEntity.cs" />
     <Compile Include="Interfaces\IAnalytics.cs" />
     <Compile Include="Messages\FavoriteConferencesUpdatedMessage.cs" />
     <Compile Include="Messages\FavoriteRefreshMessage.cs" />

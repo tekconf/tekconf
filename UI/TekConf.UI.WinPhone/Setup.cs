@@ -11,6 +11,7 @@ namespace TekConf.UI.WinPhone
 {
 	using Cirrious.MvvmCross.Plugins.Sqlite;
 
+	using TekConf.Core.Entities;
 	using TekConf.Core.Models;
 
 	public class Setup : MvxPhoneSetup
@@ -24,10 +25,11 @@ namespace TekConf.UI.WinPhone
 		{
 			var factory = Mvx.Resolve<ISQLiteConnectionFactory>();
 			var connection = factory.Create("tekconf.db");
+			
+			Mvx.RegisterSingleton(typeof(IAuthentication), new Authentication(connection));
 			Mvx.RegisterSingleton<ISQLiteConnection>(connection);
 			//MvxBindingTrace.TraceBindingLevel = MvxTraceLevel.Diagnostic;
 			Mvx.RegisterType<IAnalytics, WinPhoneAnalytics>();
-			Mvx.RegisterSingleton(typeof(IAuthentication), new Authentication());
 			Mvx.RegisterType<ICacheService, CacheService>();
 			Mvx.RegisterType<ILocalNotificationsRepository, LocalNotificationsRepository>();
 			Mvx.RegisterType<ILocalConferencesRepository, LocalConferencesRepository>();

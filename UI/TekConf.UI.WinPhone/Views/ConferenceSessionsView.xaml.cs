@@ -13,6 +13,10 @@ using Cirrious.CrossCore;
 
 namespace TekConf.UI.WinPhone.Views
 {
+	using Cirrious.MvvmCross.Plugins.Sqlite;
+
+	using TekConf.Core.Services;
+
 	public partial class ConferenceSessionsView
 	{
 		private MvxSubscriptionToken _conferenceSessionExceptionMessageToken;
@@ -22,7 +26,7 @@ namespace TekConf.UI.WinPhone.Views
 		{
 			InitializeComponent();
 
-			var authentication = new Authentication();
+			var authentication = new Authentication(Mvx.Resolve<ISQLiteConnection>());
 			if (!authentication.IsAuthenticated)
 				SessionsPivot.SelectedIndex = 1;
 
