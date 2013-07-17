@@ -98,15 +98,6 @@ namespace TekConf.Core.Models
 			MvxAsyncDispatcher.BeginAsync(() => DoAsyncAddSessionToScheduleSchedule(fileStore, localScheduleRepository, userName, conferenceSlug, sessionSlug, isRefreshing, cache, connection, success, error));
 		}
 
-		public static void RemoveFromScheduleAsync(IMvxFileStore fileStore, ILocalConferencesRepository localScheduleRepository, string userName, string conferenceSlug, bool isRefreshing, ICacheService cache, ISQLiteConnection connection, Action<ScheduleDto> success, Action<Exception> error)
-		{
-			MvxAsyncDispatcher.BeginAsync(() => DoAsyncRemoveFromSchedule(fileStore, localScheduleRepository, userName, conferenceSlug, isRefreshing, cache,connection, success, error));
-		}
-
-		public static void RemoveSessionFromScheduleAsync(IMvxFileStore fileStore, ILocalConferencesRepository localScheduleRepository, string userName, string conferenceSlug, string sessionSlug, bool isRefreshing, ICacheService cache, ISQLiteConnection connection, Action<ScheduleDto> success, Action<Exception> error)
-		{
-			MvxAsyncDispatcher.BeginAsync(() => DoAsyncRemoveSessionFromSchedule(fileStore, localScheduleRepository, userName, conferenceSlug, sessionSlug, isRefreshing, cache, connection, success, error));
-		}
 
 		public static void GetScheduleAsync(IMvxFileStore fileStore, ILocalConferencesRepository localScheduleRepository, string userName, string conferenceSlug, bool isRefreshing, ICacheService cache, ISQLiteConnection connection, Action<ScheduleDto> success, Action<Exception> error)
 		{
@@ -132,19 +123,6 @@ namespace TekConf.Core.Models
 			var search = new ScheduleService(fileStore, localScheduleRepository, userName, isRefreshing, cache, connection, success, error);
 			search.StartAddSessionToSchedule(conferenceSlug, sessionSlug);
 		}
-
-		private static void DoAsyncRemoveFromSchedule(IMvxFileStore fileStore, ILocalConferencesRepository localScheduleRepository, string userName, string conferenceSlug, bool isRefreshing, ICacheService cache, ISQLiteConnection connection, Action<ScheduleDto> success, Action<Exception> error)
-		{
-			var search = new ScheduleService(fileStore, localScheduleRepository, userName, isRefreshing, cache, connection, success, error);
-			search.StartRemoveFromSchedule(conferenceSlug);
-		}
-
-		private static void DoAsyncRemoveSessionFromSchedule(IMvxFileStore fileStore, ILocalConferencesRepository localScheduleRepository, string userName, string conferenceSlug, string sessionSlug, bool isRefreshing, ICacheService cache, ISQLiteConnection connection, Action<ScheduleDto> success, Action<Exception> error)
-		{
-			var search = new ScheduleService(fileStore, localScheduleRepository, userName, isRefreshing, cache, connection, success, error);
-			search.StartRemoveSessionFromSchedule(conferenceSlug, sessionSlug);
-		}
-
 
 
 
@@ -216,41 +194,9 @@ namespace TekConf.Core.Models
 			}
 		}
 
-		private void StartRemoveFromSchedule(string conferenceSlug)
-		{
-			try
-			{
-				// perform the search
-				string uri = string.Format(RemoveFromScheduleUrl, _userName, conferenceSlug);
-				var request = (HttpWebRequest)WebRequest.Create(new Uri(uri));
-				request.Accept = "application/json";
 
-				request.Method = "DELETE";
-				request.BeginGetResponse(ReadRemoveFromScheduleCallback, request);
-			}
-			catch (Exception exception)
-			{
-				_getSchedulesError(exception);
-			}
-		}
 
-		private void StartRemoveSessionFromSchedule(string conferenceSlug, string sessionSlug)
-		{
-			try
-			{
-				// perform the search
-				string uri = string.Format(RemoveSessionFromScheduleUrl, _userName, conferenceSlug, sessionSlug);
-				var request = (HttpWebRequest)WebRequest.Create(new Uri(uri));
-				request.Accept = "application/json";
 
-				request.Method = "DELETE";
-				request.BeginGetResponse(ReadRemoveFromScheduleCallback, request);
-			}
-			catch (Exception exception)
-			{
-				_getSchedulesError(exception);
-			}
-		}
 
 		private void ReadGetSchedulesCallback(IAsyncResult asynchronousResult)
 		{
@@ -306,31 +252,7 @@ namespace TekConf.Core.Models
 			}
 		}
 
-		private void ReadRemoveFromScheduleCallback(IAsyncResult asynchronousResult)
-		{
-			try
-			{
-				var request = (HttpWebRequest)asynchronousResult.AsyncState;
-				var response = (HttpWebResponse)request.EndGetResponse(asynchronousResult);
-				if (response.StatusCode != HttpStatusCode.OK)
-				{
-					_getSchedulesError(new Exception("Could not remove conference from schedule"));
-				}
-				else
-				{
-					using (var streamReader1 = new StreamReader(response.GetResponseStream()))
-					{
-						string resultString = streamReader1.ReadToEnd();
-						HandleRemoveFromScheduleResponse(resultString);
-					}
-				}
 
-			}
-			catch (Exception exception)
-			{
-				_getSchedulesError(exception);
-			}
-		}
 
 		private async void HandleGetSchedulesResponse(string response)
 		{
@@ -393,18 +315,7 @@ namespace TekConf.Core.Models
 			_addToScheduleSuccess(scheduleDto);
 		}
 
-		private void HandleRemoveFromScheduleResponse(string response)
-		{
-			var scheduleDto = JsonConvert.DeserializeObject<ScheduleDto>(response);
-			var conference = _localConferencesRepository.Get(scheduleDto.conferenceSlug);
-			if (conference != null)
-			{
-				conference.IsAddedToSchedule = false;
-				_localConferencesRepository.Save(conference);
-			}
 
-			_removeFromScheduleSuccess(scheduleDto);
-		}
 
 
 	}

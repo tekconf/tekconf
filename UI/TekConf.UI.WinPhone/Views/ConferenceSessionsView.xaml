@@ -61,7 +61,6 @@
 
 					<TextBlock Name="ConferenceSessionsFavoritesExceptionMessage" Visibility="Collapsed" TextWrapping="Wrap"></TextBlock>
 
-					<StackPanel>
 						<TextBlock Visibility="{Binding IsAuthenticated, Converter={StaticResource InvertedVisibility}}" 
 											 Style="{StaticResource PhoneTextNormalStyle}">You must login to see your favorite conferences</TextBlock>
 
@@ -73,7 +72,6 @@
 										Name="favoritesList"
 										 Visibility="{Binding IsLoadingSchedule, Converter={StaticResource InvertedVisibility}}">
 						</phone:LongListSelector>
-					</StackPanel>
 				</Grid>
 			</controls:PivotItem>
 

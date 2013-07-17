@@ -13,6 +13,9 @@ using Cirrious.CrossCore;
 
 namespace TekConf.UI.WinPhone.Views
 {
+	using System.Collections.Generic;
+	using System.Linq;
+
 	using Cirrious.MvvmCross.Plugins.Sqlite;
 
 	using TekConf.Core.Services;
@@ -32,8 +35,6 @@ namespace TekConf.UI.WinPhone.Views
 
 			var messenger = Mvx.Resolve<IMvxMessenger>();
 
-			_sessionAddedToken = messenger.Subscribe<FavoriteSessionAddedMessage>(message => Dispatcher.BeginInvoke(() => Refresh_OnClick(null, null)));
-
 			_conferenceSessionExceptionMessageToken = messenger.Subscribe<ConferenceSessionsExceptionMessage>(message =>
 								Dispatcher.BeginInvoke(() =>
 								{
@@ -48,7 +49,7 @@ namespace TekConf.UI.WinPhone.Views
 		private void SessionTitle_OnSizeChanged(object sender, SizeChangedEventArgs e)
 		{
 			var title = (sender as TextBlock);
-			if (title != null) 
+			if (title != null)
 				title.MaxWidth = ActualWidth;
 		}
 
@@ -57,29 +58,43 @@ namespace TekConf.UI.WinPhone.Views
 			var button = (sender as Button);
 			if (button != null)
 			{
+				string sessionSlug = "";
 				var session = button.DataContext as ConferenceSessionListDto;
+				if (session != null)
+				{
+					sessionSlug = session.slug;
+				}
+				else
+				{
+					var fullSession = button.DataContext as FullSessionDto;
+					if (fullSession != null)
+					{
+						sessionSlug = fullSession.slug;
+					}
+				}
 				var vm = DataContext as ConferenceSessionsViewModel;
-				if (vm != null && session != null)
-					vm.ShowSessionDetailCommand.Execute(new SessionDetailViewModel.Navigation { ConferenceSlug = vm.Conference.slug, SessionSlug = session.slug });
+				if (vm != null && !string.IsNullOrWhiteSpace(sessionSlug))
+					vm.ShowSessionDetailCommand.Execute(
+						new SessionDetailViewModel.Navigation { ConferenceSlug = vm.Conference.slug, SessionSlug = sessionSlug });
 			}
 		}
 
 		private void Settings_OnClick(object sender, EventArgs e)
 		{
 			var vm = DataContext as ConferenceSessionsViewModel;
-			if (vm != null) 
+			if (vm != null)
 				vm.ShowSettingsCommand.Execute(null);
 		}
 
 		private void Refresh_OnClick(object sender, EventArgs e)
 		{
-			
+
 			var vm = DataContext as ConferenceSessionsViewModel;
 			if (vm != null && vm.Conference != null)
 			{
 				vm.Refresh(vm.Conference.slug);
 			}
-			
+
 		}
 
 		private void Search_OnClick(object sender, EventArgs e)
@@ -88,5 +103,7 @@ namespace TekConf.UI.WinPhone.Views
 			if (vm != null)
 				vm.ShowSearchCommand.Execute(null);
 		}
+
+
 	}
 }

@@ -26,6 +26,7 @@ namespace TekConf.Core.ViewModels
 		private readonly ILocalConferencesRepository _localConferencesRepository;
 
 		private readonly ISQLiteConnection _connection;
+		private MvxSubscriptionToken _favoritesUpdatedMessageToken;
 
 		public ConferenceSessionsViewModel(IRemoteDataService remoteDataService, IAnalytics analytics, IMvxMessenger messenger,
 																			IAuthentication authentication, 
@@ -37,7 +38,9 @@ namespace TekConf.Core.ViewModels
 			_messenger = messenger;
 			_authentication = authentication;
 			_localConferencesRepository = localConferencesRepository;
-			this._connection = connection;
+			_connection = connection;
+
+			_favoritesUpdatedMessageToken = _messenger.Subscribe<FavoriteSessionAddedMessage>(OnFavoritesUpdatedMessage);
 		}
 
 		public void Init(string slug)
@@ -101,6 +104,16 @@ namespace TekConf.Core.ViewModels
 
 				return shouldAddFavorites;
 			}
+		}
+
+		private void OnFavoritesUpdatedMessage(FavoriteSessionAddedMessage message)
+		{
+			this.DisplayFavoriteSessions(message.Schedule);
+		}
+
+		private void DisplayFavoriteSessions(ScheduleDto schedule)
+		{
+			Schedule = schedule;
 		}
 
 		private void StartGetConference(string slug, bool isRefreshing = false)
@@ -192,13 +205,33 @@ namespace TekConf.Core.ViewModels
 			}
 		}
 
-		private void StartGetSchedule(string userName, string slug, bool isRefreshing)
+		private async void StartGetSchedule(string userName, string conferenceSlug, bool isRefreshing)
 		{
 			if (IsLoadingSchedule)
 				return;
 
 			IsLoadingSchedule = true;
-			_remoteDataService.GetSchedule(userName, slug, isRefreshing, _connection, GetScheduleSuccess, GetScheduleError);
+			if (!isRefreshing)
+			{
+				var favorites = await _localConferencesRepository.ListFavoriteSessionsAsync(conferenceSlug);
+				if (favorites != null && favorites.Any())
+				{
+					var dtos = favorites.Select(s => new FullSessionDto(s)).ToList();
+					var schedule = new ScheduleDto() { conferenceSlug = conferenceSlug, sessions = dtos, url = "", userSlug = _authentication.UserName };
+
+					GetScheduleSuccess(schedule);
+				}
+				else
+				{
+					//TODO : Make async call
+					_remoteDataService.GetSchedule(userName, conferenceSlug, isRefreshing: false, connection: _connection, success: GetScheduleSuccess, error: GetScheduleError);
+				}
+			}
+			else
+			{
+				//TODO : Make async call
+				_remoteDataService.GetSchedule(userName, conferenceSlug, isRefreshing: true, connection: _connection, success: GetScheduleSuccess, error: GetScheduleError);
+			}
 		}
 
 		private void GetScheduleError(Exception exception)

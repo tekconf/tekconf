@@ -23,7 +23,6 @@ namespace TekConf.Core.ViewModels
 		private readonly IMvxFileStore _fileStore;
 		private readonly IMvxMessenger _messenger;
 		private MvxSubscriptionToken _authenticationMessageToken;
-		private MvxSubscriptionToken _favoriteAddedMessageToken;
 		private MvxSubscriptionToken _favoritesUpdatedMessageToken;
 
 		public ConferencesListViewModel(IRemoteDataService remoteDataService,
@@ -40,7 +39,6 @@ namespace TekConf.Core.ViewModels
 			_fileStore = fileStore;
 			_messenger = messenger;
 			_authenticationMessageToken = _messenger.Subscribe<AuthenticationMessage>(OnAuthenticateMessage);
-			_favoriteAddedMessageToken = _messenger.Subscribe<FavoriteAddedMessage>(OnFavoriteAddedMessage);
 			_favoritesUpdatedMessageToken = _messenger.Subscribe<FavoriteConferencesUpdatedMessage>(OnFavoritesUpdatedMessage);
 		}
 
@@ -228,12 +226,6 @@ namespace TekConf.Core.ViewModels
 		private void OnFavoritesUpdatedMessage(FavoriteConferencesUpdatedMessage message)
 		{
 			DisplayFavoritesConferences(message.Conferences);
-		}
-
-		private async void OnFavoriteAddedMessage(FavoriteAddedMessage message)
-		{
-			var favorites = await StartGetFavorites(true);
-			InvokeOnMainThread(() => DisplayFavoritesConferences(favorites));
 		}
 
 		private async void OnAuthenticateMessage(AuthenticationMessage message)

@@ -51,8 +51,9 @@
     <Compile Include="Entities\UserEntity.cs" />
     <Compile Include="Interfaces\IAnalytics.cs" />
     <Compile Include="Messages\FavoriteConferencesUpdatedMessage.cs" />
-    <Compile Include="Messages\FavoriteRefreshMessage.cs" />
+    <Compile Include="Messages\RefreshSessionFavoriteIconMessage.cs" />
     <Compile Include="Messages\FavoriteSessionAddedMessage.cs" />
+    <Compile Include="Messages\RefreshConferenceFavoriteIconMessage.cs" />
     <Compile Include="Models\ConferenceSessionsService.cs" />
     <Compile Include="Models\Extensions.cs" />
     <Compile Include="Models\ImageService.cs" />
@@ -89,7 +90,6 @@
     <Compile Include="Messages\DownloadConferenceImageMessage.cs" />
     <Compile Include="ViewModels\ConferenceSearchViewModel.cs" />
     <Compile Include="Messages\ExceptionMessage.cs" />
-    <Compile Include="Messages\FavoriteAddedMessage.cs" />
     <Compile Include="ViewModels\OAuthRegisterViewModel.cs" />
     <Compile Include="ViewModels\SessionDetailViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />

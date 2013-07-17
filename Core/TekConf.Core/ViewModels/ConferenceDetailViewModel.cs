@@ -34,8 +34,7 @@ namespace TekConf.Core.ViewModels
 			_analytics = analytics;
 			_authentication = authentication;
 			_messenger = messenger;
-			this._fileStore = fileStore;
-			//AddFavoriteCommand = new ActionCommand(AddConferenceToFavorites);
+			_fileStore = fileStore;
 		}
 
 		public async void Init(string slug)
@@ -96,7 +95,7 @@ namespace TekConf.Core.ViewModels
 			IsAuthenticated = _authentication.IsAuthenticated;
 			IsLoading = false;
 			Conference = conference;
-			_messenger.Publish(new FavoriteRefreshMessage(this));
+			_messenger.Publish(new RefreshConferenceFavoriteIconMessage(this));
 		}
 
 		public bool IsLoading { get; set; }
@@ -247,28 +246,28 @@ namespace TekConf.Core.ViewModels
 				{
 					Conference.isAddedToSchedule = true;
 					RaisePropertyChanged(() => Conference);
-					_messenger.Publish(new FavoriteRefreshMessage(this));
+					_messenger.Publish(new RefreshConferenceFavoriteIconMessage(this));
 				});
 
 				var addError = new Action<Exception>(ex =>
 				{
 					Conference.isAddedToSchedule = false;
 					RaisePropertyChanged(() => Conference);
-					_messenger.Publish(new FavoriteRefreshMessage(this));
+					_messenger.Publish(new RefreshConferenceFavoriteIconMessage(this));
 				});
 
 				var removeSuccess = new Action<ScheduleDto>(dto =>
 				{
 					Conference.isAddedToSchedule = false;
 					RaisePropertyChanged(() => Conference);
-					_messenger.Publish(new FavoriteRefreshMessage(this));
+					_messenger.Publish(new RefreshConferenceFavoriteIconMessage(this));
 				});
 
 				var removeError = new Action<Exception>(ex =>
 				{
 					Conference.isAddedToSchedule = true;
 					RaisePropertyChanged(() => Conference);
-					_messenger.Publish(new FavoriteRefreshMessage(this));
+					_messenger.Publish(new RefreshConferenceFavoriteIconMessage(this));
 				});
 
 				var conference = _localConferencesRepository.Get(Conference.slug);
@@ -286,10 +285,10 @@ namespace TekConf.Core.ViewModels
 					{
 						var dtos = conferences.Select(c => new ConferencesListViewDto(c, _fileStore)).ToList();
 						_messenger.Publish(new FavoriteConferencesUpdatedMessage(this, dtos));
-						_messenger.Publish(new FavoriteRefreshMessage(this));
+						_messenger.Publish(new RefreshConferenceFavoriteIconMessage(this));
 					}
 
-					_remoteDataService.RemoveFromSchedule(_authentication.UserName, Conference.slug, removeSuccess, removeError);
+					var scheduleDto = await _remoteDataService.RemoveFromScheduleAsync(_authentication.UserName, Conference.slug);
 				}
 				else
 				{
@@ -301,7 +300,7 @@ namespace TekConf.Core.ViewModels
 					{
 						var dtos = conferences.Select(c => new ConferencesListViewDto(c, _fileStore)).ToList();
 						_messenger.Publish(new FavoriteConferencesUpdatedMessage(this, dtos));
-						_messenger.Publish(new FavoriteRefreshMessage(this));
+						_messenger.Publish(new RefreshConferenceFavoriteIconMessage(this));
 					}
 
 					addSuccess(schedule);

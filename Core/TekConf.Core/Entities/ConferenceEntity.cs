@@ -114,7 +114,8 @@ namespace TekConf.Core.Entities
 
 		public IEnumerable<SessionEntity> Sessions(ISQLiteConnection connection)
 		{
-			return connection.Table<SessionEntity>().Where(x => x.ConferenceId == this.Id);
+			var sessions =  connection.Table<SessionEntity>().Where(x => x.ConferenceId == this.Id).ToList();
+			return sessions.AsEnumerable();
 		}
 
 		//public double[] Position { get; set; }

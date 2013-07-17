@@ -27,7 +27,7 @@ namespace TekConf.Core.Services
 		private readonly IRestService _restService;
 		private readonly IMvxReachability _reachability;
 
-		public RemoteDataService(IMvxFileStore fileStore, ICacheService cache, IAuthentication authentication, ILocalConferencesRepository localScheduleRepository, 
+		public RemoteDataService(IMvxFileStore fileStore, ICacheService cache, IAuthentication authentication, ILocalConferencesRepository localScheduleRepository,
 																										ILocalConferencesRepository localConferencesRepository, ISQLiteConnection connection, IMvxMessenger messenger, IRestService restService)
 		{
 			_fileStore = fileStore;
@@ -45,7 +45,7 @@ namespace TekConf.Core.Services
 		public async Task<IEnumerable<ConferencesListViewDto>> GetConferencesAsync()
 		{
 			string conferencesUrl = App.ApiRootUri + "conferences?format=json";
-			
+
 			var token = new CancellationToken();
 			var conferences = await _restService.GetAsync<List<FullConferenceDto>>(conferencesUrl, token);
 
@@ -53,7 +53,7 @@ namespace TekConf.Core.Services
 			foreach (var conference in conferences)
 			{
 				var entity = new ConferenceEntity(conference);
-				_localConferencesRepository.Save(entity);
+				var conferenceId = _localConferencesRepository.Save(entity);
 				var conferenceEntity = _localConferencesRepository.Get(entity.Slug);
 
 				foreach (var session in conference.sessions)
@@ -69,7 +69,6 @@ namespace TekConf.Core.Services
 
 			return list;
 		}
-
 		public async Task<IEnumerable<ConferencesListViewDto>> GetFavoritesAsync(string userName, bool isRefreshing)
 		{
 			IEnumerable<ConferencesListViewDto> favorites = null;
@@ -105,13 +104,7 @@ namespace TekConf.Core.Services
 
 			return favorites;
 		}
-
 		
-		public void GetConferenceSessionsList(string slug, bool isRefreshing, Action<ConferenceSessionsListViewDto> success = null, Action<Exception> error = null)
-		{
-			ConferenceSessionsService.GetConferenceSessionsAsync(_fileStore, _localConferencesRepository, _reachability, slug, isRefreshing, null, _authentication, _connection, success, error);
-		}
-
 		public async Task<ConferenceDetailViewDto> GetConferenceDetailAsync(string slug, bool isRefreshing)
 		{
 			var uri = string.Format(App.ApiRootUri + "conferences/{0}?format=json", slug);
@@ -126,6 +119,43 @@ namespace TekConf.Core.Services
 			return conferenceDetail;
 		}
 
+		public async Task<ScheduleDto> RemoveFromScheduleAsync(string userName, string conferenceSlug)
+		{
+			string removeFromScheduleUrl = App.ApiRootUri + "conferences/{1}/schedule?userName={0}&conferenceSlug={1}&sessionSlug=&format=json";
+			string uri = string.Format(removeFromScheduleUrl, userName, conferenceSlug);
+
+			var token = new CancellationToken();
+			var scheduleDto = await _restService.DeleteAsync<ScheduleDto>(uri, token);
+
+			return scheduleDto;
+		}
+
+		public async Task<ScheduleDto> RemoveSessionFromScheduleAsync(string userName, string conferenceSlug, string sessionSlug)
+		{
+			string removeSessionFromScheduleUrl = App.ApiRootUri + "conferences/{1}/schedule?userName={0}&conferenceSlug={1}&sessionSlug={2}&format=json";
+			string uri = string.Format(removeSessionFromScheduleUrl, userName, conferenceSlug, sessionSlug);
+
+			var token = new CancellationToken();
+			var scheduleDto = await _restService.DeleteAsync<ScheduleDto>(uri, token);
+
+			return scheduleDto;
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+		public void GetConferenceSessionsList(string slug, bool isRefreshing, Action<ConferenceSessionsListViewDto> success = null, Action<Exception> error = null)
+		{
+			ConferenceSessionsService.GetConferenceSessionsAsync(_fileStore, _localConferencesRepository, _reachability, slug, isRefreshing, null, _authentication, _connection, success, error);
+		}
 		public void GetSchedule(string userName, string conferenceSlug, bool isRefreshing, ISQLiteConnection connection, Action<ScheduleDto> success = null, Action<Exception> error = null)
 		{
 			ScheduleService.GetScheduleAsync(_fileStore, _localConferencesRepository, userName, conferenceSlug, isRefreshing, _cache, connection, success, error);
@@ -146,15 +176,7 @@ namespace TekConf.Core.Services
 			ScheduleService.AddSessionToScheduleAsync(_fileStore, _localConferencesRepository, userName, conferenceSlug, sessionSlug, false, _cache, _connection, success, error);
 		}
 
-		public void RemoveFromSchedule(string userName, string conferenceSlug, Action<ScheduleDto> success = null, Action<Exception> error = null)
-		{
-			ScheduleService.RemoveFromScheduleAsync(_fileStore, _localConferencesRepository, userName, conferenceSlug, false, _cache, _connection, success, error);
-		}
 
-		public void RemoveSessionFromSchedule(string userName, string conferenceSlug, string sessionSlug, Action<ScheduleDto> success = null, Action<Exception> error = null)
-		{
-			ScheduleService.RemoveSessionFromScheduleAsync(_fileStore, _localConferencesRepository, userName, conferenceSlug, sessionSlug, false, _cache, _connection, success, error);
-		}
 
 		public void GetSession(string conferenceSlug, string sessionSlug, bool isRefreshing, Action<SessionDetailDto> success, Action<Exception> error)
 		{

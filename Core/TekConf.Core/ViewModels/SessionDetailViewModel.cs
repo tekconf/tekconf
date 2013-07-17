@@ -11,6 +11,8 @@ using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.Core.ViewModels
 {
+	using System.Linq;
+
 	public class SessionDetailViewModel : MvxViewModel
 	{
 		private readonly IRemoteDataService _remoteDataService;
@@ -87,55 +89,76 @@ namespace TekConf.Core.ViewModels
 			Session = session;
 		}
 
-		private void AddSessionToFavorites()
+		private async void AddSessionToFavorites()
 		{
 			if (_authentication.IsAuthenticated)
 			{
 				var addSuccess = new Action<ScheduleDto>(dto =>
 				{
 					Session.isAddedToSchedule = true;
-					RefreshFavorites();
 					RaisePropertyChanged(() => Session);
-					_messenger.Publish(new FavoriteSessionAddedMessage(this));
-					_messenger.Publish(new FavoriteRefreshMessage(this));
+					_messenger.Publish(new RefreshSessionFavoriteIconMessage(this));
 				});
 
 				var addError = new Action<Exception>(ex =>
 				{
 					Session.isAddedToSchedule = false;
-					RefreshFavorites();
 					RaisePropertyChanged(() => Session);
-					_messenger.Publish(new FavoriteRefreshMessage(this));
+					_messenger.Publish(new RefreshSessionFavoriteIconMessage(this));
 				});
 
 				var removeSuccess = new Action<ScheduleDto>(dto =>
 				{
 					Session.isAddedToSchedule = false;
-					RefreshFavorites();
 					RaisePropertyChanged(() => Session);
-					_messenger.Publish(new FavoriteRefreshMessage(this));
+					_messenger.Publish(new RefreshSessionFavoriteIconMessage(this));
 
 				});
 
 				var removeError = new Action<Exception>(ex =>
 				{
 					Session.isAddedToSchedule = true;
-					RefreshFavorites();
 					RaisePropertyChanged(() => Session);
-					_messenger.Publish(new FavoriteRefreshMessage(this));
+					_messenger.Publish(new RefreshSessionFavoriteIconMessage(this));
 
 				});
 
-				if (Session.isAddedToSchedule == true)
+				var session = _localConferencesRepository.Get(_conferenceSlug, _session.slug);
+				if (session.IsAddedToSchedule == true)
 				{
 					removeSuccess(null);
-					_remoteDataService.RemoveSessionFromSchedule(_authentication.UserName, ConferenceSlug, Session.slug, removeSuccess, removeError);
+					session.IsAddedToSchedule = false;
+					_localConferencesRepository.Save(_conferenceSlug, session);
+					var favorites = await _localConferencesRepository.ListFavoriteSessionsAsync(_conferenceSlug);
+					if (favorites != null && favorites.Any())
+					{
+						var dtos = favorites.Select(s => new FullSessionDto(s)).ToList();
+						var schedule = new ScheduleDto() { conferenceSlug = _conferenceSlug, sessions = dtos, url = "", userSlug = _authentication.UserName };
+
+						_messenger.Publish(new FavoriteSessionAddedMessage(this, schedule));
+						_messenger.Publish(new RefreshSessionFavoriteIconMessage(this));
+					}
+					var scheduleDto = await _remoteDataService.RemoveSessionFromScheduleAsync(_authentication.UserName, ConferenceSlug, Session.slug);
 				}
 				else
 				{
-					addSuccess(null);
+					session.IsAddedToSchedule = true;
+					_localConferencesRepository.Save(_conferenceSlug, session);
+
+					var favorites = await _localConferencesRepository.ListFavoriteSessionsAsync(_conferenceSlug);
+					if (favorites != null && favorites.Any())
+					{
+						var dtos = favorites.Select(s => new FullSessionDto(s)).ToList();
+						var schedule = new ScheduleDto() { conferenceSlug = _conferenceSlug, sessions = dtos, url = "", userSlug = _authentication.UserName };
+						_messenger.Publish(new FavoriteSessionAddedMessage(this, schedule));
+						_messenger.Publish(new RefreshSessionFavoriteIconMessage(this));
+					}
+
+					addSuccess(null); //TODO : addSuccess(schedule);
 					_remoteDataService.AddSessionToSchedule(_authentication.UserName, ConferenceSlug, Session.slug, addSuccess, addError);
+
 				}
+
 			}
 		}
 
@@ -179,7 +202,7 @@ namespace TekConf.Core.ViewModels
 				_session = value;
 				PageTitle = _session.title;
 				RaisePropertyChanged(() => Session);
-				_messenger.Publish(new FavoriteRefreshMessage(this));
+				_messenger.Publish(new RefreshSessionFavoriteIconMessage(this));
 
 			}
 		}

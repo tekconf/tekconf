@@ -21,7 +21,7 @@ namespace TekConf.UI.WinPhone.Views
 			InitializeComponent();
 			var messenger = Mvx.Resolve<IMvxMessenger>();
 
-			_favoriteRefreshMessageToken = messenger.Subscribe<FavoriteRefreshMessage>(message => Dispatcher.BeginInvoke(RefreshFavoriteIcon));
+			_favoriteRefreshMessageToken = messenger.Subscribe<RefreshConferenceFavoriteIconMessage>(message => Dispatcher.BeginInvoke(RefreshFavoriteIcon));
 
 		_conferenceDetailExceptionMessageToken = messenger.Subscribe<ConferenceDetailExceptionMessage>(message =>
 					Dispatcher.BeginInvoke(() =>

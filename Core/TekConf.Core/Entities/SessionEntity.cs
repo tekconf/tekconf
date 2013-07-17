@@ -19,7 +19,7 @@ namespace TekConf.Core.Entities
 				this.Description = session.description;
 				this.Difficulty = session.difficulty;
 				this.End = session.end;
-				this.IsAddedToSchedule = session.isAddedToSchedule;
+				this.IsAddedToSchedule = session.isAddedToSchedule ?? false;
 				this.Room = session.room;
 				this.SessionType = session.sessionType;
 				this.Start = session.start;
@@ -40,7 +40,7 @@ namespace TekConf.Core.Entities
 		public string Description { get; set; }
 		public string TwitterHashTag { get; set; }
 		public string SessionType { get; set; }
-		public bool? IsAddedToSchedule { get; set; }
+		public bool IsAddedToSchedule { get; set; }
 		//public List<string> Links { get; set; }
 		//public List<string> Tags { get; set; }
 		//public List<string> Subjects { get; set; }

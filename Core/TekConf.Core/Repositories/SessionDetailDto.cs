@@ -33,7 +33,7 @@ namespace TekConf.Core.Repositories
 				//startDescription = entity.StartDescription;
 				room = entity.Room;
 				description = entity.Description;
-				isAddedToSchedule = entity.IsAddedToSchedule.HasValue && entity.IsAddedToSchedule.Value;
+				isAddedToSchedule = entity.IsAddedToSchedule;
 				//speakers = entity.Speakers.Select(x => new SpeakerDetailViewDto(x)).ToList();
 			}
 		}

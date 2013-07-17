@@ -26,6 +26,16 @@
 			return result;
 		}
 
+		public async Task<T> DeleteAsync<T>(string url, CancellationToken cancellationToken) where T : new()
+		{
+			var client = new HttpClient();
+			var response = await client.DeleteAsync(url, cancellationToken);
+			var responseString = await response.Content.ReadAsStringAsync();
+
+			var result = this._converter.DeserializeObject<T>(responseString);
+			return result;
+		}
+
 		public async Task<T> PostAsync<T>(string url, object postContent, CancellationToken cancellationToken) where T : new()
 		{
 			var client = new HttpClient();

@@ -9,13 +9,17 @@ namespace TekConf.Core.Repositories
 
 	public interface ILocalConferencesRepository
 	{
-		void Save(IList<ConferenceEntity> conferences);
+		ConferenceEntity Get(string conferenceSlug);
+		SessionEntity Get(string conferenceSlug, string sessionSlug);
+
 		Task<IList<ConferenceEntity>> ListFavoritesAsync();
+
+		Task<IList<SessionEntity>> ListFavoriteSessionsAsync(string conferenceSlug);
 		Task<IList<ConferenceEntity>> ListAsync();
 
-		void Save(ConferenceEntity conference);
-		ConferenceEntity Get(string conferenceSlug);
+		int Save(ConferenceEntity conference);
+		int Save(string conferenceSlug, SessionEntity session);
+		void Save(IList<ConferenceEntity> conferences);
 		void AddSession(SessionEntity session);
-		SessionEntity Get(string conferenceSlug, string sessionSlug);
 	}
 }

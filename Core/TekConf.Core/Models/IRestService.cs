@@ -6,6 +6,7 @@
 	public interface IRestService
 	{
 		Task<T> GetAsync<T>(string url, CancellationToken cancellationToken) where T : new();
+		Task<T> DeleteAsync<T>(string url, CancellationToken cancellationToken) where T : new();
 
 		Task<T> PostAsync<T>(string url, object postContent, CancellationToken cancellationToken) where T : new();
 	}
