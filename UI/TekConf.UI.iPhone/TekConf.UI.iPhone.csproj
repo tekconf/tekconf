@@ -11,6 +11,8 @@
     <RootNamespace>TekConf.UI.iPhone</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <AssemblyName>TekConfUIiPhone</AssemblyName>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
     <DebugSymbols>true</DebugSymbols>
@@ -86,20 +88,111 @@
     <AssemblyName>TekConfUIiPhone</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Bootstrap\FilePluginBootstrap.cs" />
+    <Compile Include="Bootstrap\JsonPluginBootstrap.cs" />
+    <Compile Include="Bootstrap\MessengerPluginBootstrap.cs" />
+    <Compile Include="Bootstrap\NetworkPluginBootstrap.cs" />
+    <Compile Include="Bootstrap\SqlitePluginBootstrap.cs" />
+    <Compile Include="Bootstrap\VisibilityPluginBootstrap.cs" />
+    <Compile Include="DebugTrace.cs" />
+    <Compile Include="LinkerPleaseInclude.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="Setup.cs" />
+    <Compile Include="Views\FirstView.cs" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AppDelegate.cs.txt" />
+    <Content Include="ToDo-MvvmCross\_ Touch UI.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Core\TekConf.Core\TekConf.Core.csproj">
+      <Project>{e740f915-a0fc-4c66-9fd3-1d9a0dda527a}</Project>
+      <Name>TekConf.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Cirrious.CrossCore">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.9\lib\MonoTouch40\Cirrious.CrossCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.CrossCore.Touch">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.9\lib\MonoTouch40\Cirrious.CrossCore.Touch.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.MvvmCrossLibraries.3.0.9\lib\MonoTouch40\Cirrious.MvvmCross.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Binding">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.9\lib\MonoTouch40\Cirrious.MvvmCross.Binding.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Binding.Touch">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.9\lib\MonoTouch40\Cirrious.MvvmCross.Binding.Touch.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Dialog.Touch">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Touch.Dialog.3.0.9\lib\MonoTouch40\Cirrious.MvvmCross.Dialog.Touch.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Localization">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.9\lib\MonoTouch40\Cirrious.MvvmCross.Localization.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.File">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.File.3.0.9\lib\MonoTouch40\Cirrious.MvvmCross.Plugins.File.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.File.Touch">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.File.3.0.9\lib\MonoTouch40\Cirrious.MvvmCross.Plugins.File.Touch.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Json">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Json.3.0.9\lib\MonoTouch40\Cirrious.MvvmCross.Plugins.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Messenger">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Messenger.3.0.9\lib\MonoTouch40\Cirrious.MvvmCross.Plugins.Messenger.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Network">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Network.3.0.9\lib\MonoTouch40\Cirrious.MvvmCross.Plugins.Network.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Network.Touch">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Network.3.0.9\lib\MonoTouch40\Cirrious.MvvmCross.Plugins.Network.Touch.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Sqlite">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Sqlite.3.0.9\lib\MonoTouch40\Cirrious.MvvmCross.Plugins.Sqlite.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Sqlite.Touch">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Sqlite.3.0.9\lib\MonoTouch40\Cirrious.MvvmCross.Plugins.Sqlite.Touch.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Visibility">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Visibility.3.0.9\lib\MonoTouch40\Cirrious.MvvmCross.Plugins.Visibility.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Visibility.Touch">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Visibility.3.0.9\lib\MonoTouch40\Cirrious.MvvmCross.Plugins.Visibility.Touch.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Touch">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.MvvmCrossLibraries.3.0.9\lib\MonoTouch40\Cirrious.MvvmCross.Touch.dll</HintPath>
+    </Reference>
+    <Reference Include="CrossUI.Core">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Touch.Dialog.3.0.9\lib\MonoTouch40\CrossUI.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="CrossUI.Touch">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Touch.Dialog.3.0.9\lib\MonoTouch40\CrossUI.Touch.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Json.3.0.9\lib\MonoTouch40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Net, Version=2.0.5.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\MvvmCross.PortableSupport.3.0.9\lib\MonoTouch40\System.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Windows">
+      <HintPath>..\..\packages\MvvmCross.PortableSupport.3.0.9\lib\MonoTouch40\System.Windows.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="monotouch" />
+    <Reference Include="System.Xml.Serialization">
+      <HintPath>..\..\packages\MvvmCross.PortableSupport.3.0.9\lib\MonoTouch40\System.Xml.Serialization.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
 </Project>

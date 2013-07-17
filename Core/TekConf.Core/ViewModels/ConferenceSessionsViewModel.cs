@@ -223,14 +223,14 @@ namespace TekConf.Core.ViewModels
 				}
 				else
 				{
-					//TODO : Make async call
-					_remoteDataService.GetSchedule(userName, conferenceSlug, isRefreshing: false, connection: _connection, success: GetScheduleSuccess, error: GetScheduleError);
+					var schedule = await _remoteDataService.GetScheduleAsync(userName, conferenceSlug, isRefreshing: false, connection: _connection);
+					GetScheduleSuccess(schedule);
 				}
 			}
 			else
 			{
-				//TODO : Make async call
-				_remoteDataService.GetSchedule(userName, conferenceSlug, isRefreshing: true, connection: _connection, success: GetScheduleSuccess, error: GetScheduleError);
+				var schedule = await _remoteDataService.GetScheduleAsync(userName, conferenceSlug, isRefreshing: true, connection: _connection);
+				GetScheduleSuccess(schedule);
 			}
 		}
 

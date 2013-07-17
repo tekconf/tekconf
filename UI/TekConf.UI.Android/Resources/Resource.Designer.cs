@@ -107,16 +107,13 @@ namespace TekConf.UI.Android
 			public const int ConferencesListView = 2130903042;
 			
 			// aapt resource value: 0x7f030003
-			public const int FirstView = 2130903043;
+			public const int Item_Conference = 2130903043;
 			
 			// aapt resource value: 0x7f030004
-			public const int Item_Conference = 2130903044;
+			public const int SessionDetailView = 2130903044;
 			
 			// aapt resource value: 0x7f030005
-			public const int SessionDetailView = 2130903045;
-			
-			// aapt resource value: 0x7f030006
-			public const int SplashScreen = 2130903046;
+			public const int SplashScreen = 2130903045;
 			
 			static Layout()
 			{
@@ -131,11 +128,11 @@ namespace TekConf.UI.Android
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f050001
-			public const int ApplicationName = 2131034113;
+			// aapt resource value: 0x7f060001
+			public const int ApplicationName = 2131099649;
 			
-			// aapt resource value: 0x7f050000
-			public const int Hello = 2131034112;
+			// aapt resource value: 0x7f060000
+			public const int Hello = 2131099648;
 			
 			static String()
 			{
@@ -150,8 +147,8 @@ namespace TekConf.UI.Android
 		public partial class Style
 		{
 			
-			// aapt resource value: 0x7f060000
-			public const int Theme_Splash = 2131099648;
+			// aapt resource value: 0x7f050000
+			public const int Theme_Splash = 2131034112;
 			
 			static Style()
 			{
