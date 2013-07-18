@@ -24,18 +24,18 @@
 
 	<!--LayoutRoot is the root grid where all page content is placed-->
 	<Grid x:Name="LayoutRoot" Background="Transparent">
-		<controls:Pivot>
-			<controls:Pivot.TitleTemplate>
+		<phone:Pivot>
+			<phone:Pivot.TitleTemplate>
 				<DataTemplate>
 					<TextBlock Text="TEKCONF" Foreground="#FF81994D" />
 				</DataTemplate>
-			</controls:Pivot.TitleTemplate>
+			</phone:Pivot.TitleTemplate>
 
 			<!--Pivot item one-->
-			<controls:PivotItem>
-				<controls:PivotItem.Header>
+			<phone:PivotItem>
+				<phone:PivotItem.Header>
 					<TextBlock Text="conferences" Foreground="#FF81994D" />
-				</controls:PivotItem.Header>
+				</phone:PivotItem.Header>
 				<Grid>
 					<Grid.RowDefinitions>
 						<RowDefinition Height="*"></RowDefinition>
@@ -72,9 +72,9 @@
 
 
 				</Grid>
-			</controls:PivotItem>
+			</phone:PivotItem>
 
-			<controls:PivotItem>
+			<phone:PivotItem>
 				<controls:PivotItem.Header>
 					<TextBlock Text="favorites" Foreground="#FF81994D" />
 				</controls:PivotItem.Header>
@@ -118,14 +118,14 @@
 						</phone:LongListSelector>
 					</Grid>
 				<!--</ScrollViewer>-->
-			</controls:PivotItem>
+			</phone:PivotItem>
 
 			<!--<controls:PivotItem>
 				<controls:PivotItem.Header>
 					<TextBlock Text="nearby" Foreground="#FF81994D" />
 				</controls:PivotItem.Header>
 			</controls:PivotItem>-->
-		</controls:Pivot>
+		</phone:Pivot>
 	</Grid>
 
 	<phone:PhoneApplicationPage.ApplicationBar>

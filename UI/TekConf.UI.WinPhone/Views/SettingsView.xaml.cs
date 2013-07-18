@@ -19,6 +19,7 @@ namespace TekConf.UI.WinPhone.Views
 	{
 		private MvxSubscriptionToken _exceptionMessageToken;
 		private MvxSubscriptionToken _authenticationMessageToken;
+		private MvxSubscriptionToken _userNameChangedMessageToken;
 		private MvxSubscriptionToken _settingsExceptionToken;
 		private IAuthentication _authentication;
 
@@ -30,8 +31,8 @@ namespace TekConf.UI.WinPhone.Views
 			_authentication = Mvx.Resolve<IAuthentication>();
 
 			_exceptionMessageToken = messenger.Subscribe<ExceptionMessage>(message => Dispatcher.BeginInvoke(() => MessageBox.Show(message.ExceptionObject == null ? "An exception occurred but was not caught" : message.ExceptionObject.Message)));
-			_authenticationMessageToken = messenger.Subscribe<AuthenticationMessage>(OnAuthenticateMessage);
-
+			_authenticationMessageToken = messenger.Subscribe<AuthenticationMessage>(message => Dispatcher.BeginInvoke(()=> OnAuthenticateMessage(message)));
+			_userNameChangedMessageToken = messenger.Subscribe<UserNameChangedMessage>(message => Dispatcher.BeginInvoke(()=> OnUserNameChanged(message)));
 			_settingsExceptionToken = messenger.Subscribe<SettingsIsOauthUserRegisteredExceptionMessage>(message =>
 					Dispatcher.BeginInvoke(() =>
 					{
@@ -46,7 +47,7 @@ namespace TekConf.UI.WinPhone.Views
 
 			
 			SetLoggedInState();
-
+			
 			Loaded += (sender, args) =>
 			{
 				var xmlDocument = XDocument.Load("WMAppManifest.xml");
@@ -64,6 +65,11 @@ namespace TekConf.UI.WinPhone.Views
 					}
 				}
 			};
+		}
+
+		private void OnUserNameChanged(UserNameChangedMessage obj)
+		{
+			SetLoggedInState();
 		}
 
 		private void OnAuthenticateMessage(AuthenticationMessage message)
@@ -206,6 +212,10 @@ namespace TekConf.UI.WinPhone.Views
 		private void SetLoggedInState()
 		{
 			var isLoggedIn = _authentication.IsAuthenticated;
+			if (!string.IsNullOrWhiteSpace(App.UserName) && string.IsNullOrWhiteSpace(_authentication.UserName))
+			{
+				_authentication.UserName = App.UserName;
+			}
 
 			LoginInWithFacebookButton.Visibility = isLoggedIn ? Visibility.Collapsed : Visibility.Visible;
 			LoginInWithGoogleButton.Visibility = isLoggedIn ? Visibility.Collapsed : Visibility.Visible;
@@ -213,8 +223,8 @@ namespace TekConf.UI.WinPhone.Views
 			LoginInWithTwitterButton.Visibility = isLoggedIn ? Visibility.Collapsed : Visibility.Visible;
 			//RegisterButton.Visibility = isLoggedIn ? Visibility.Collapsed : Visibility.Visible;
 			LogoutButton.Visibility = isLoggedIn ? Visibility.Visible : Visibility.Collapsed;
-			LoginName.Visibility = isLoggedIn ? Visibility.Visible : Visibility.Collapsed;
-			LoginName.Text = isLoggedIn ? "Logged in as " + App.UserName : "";
+			LoginName.Visibility = (isLoggedIn && !string.IsNullOrWhiteSpace(_authentication.UserName)) ? Visibility.Visible : Visibility.Collapsed;
+			LoginName.Text = (isLoggedIn && !string.IsNullOrWhiteSpace(_authentication.UserName)) ? "Logged in as " + _authentication.UserName : "";
 
 			if (isLoggedIn)
 			{

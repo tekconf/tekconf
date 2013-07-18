@@ -11,15 +11,37 @@ using TekConf.UI.WinPhone.Views;
 
 namespace TekConf.UI.WinPhone
 {
+	using Cirrious.MvvmCross.Plugins.Messenger;
+
+	using TekConf.Core.Messages;
+
 	public partial class App
 	{
-
 		public static MobileServiceClient MobileService = new MobileServiceClient(
 			"https://tekconfauth.azure-mobile.net/",
 			"NeMPYjchPdsFKlUqDdyAJYZtdrOPiJ11"
 		);
 
-		public static string UserName { get; set; }
+		private static string _userName;
+
+		public static string UserName
+		{
+			get
+			{
+				return _userName;
+			}
+			set
+			{
+				var messenger = Mvx.Resolve<IMvxMessenger>();
+				if (_userName != value && messenger != null)
+				{
+					var obj = new object();
+					messenger.Publish(new UserNameChangedMessage(obj) { UserName = value });
+				}
+				_userName = value;
+			}
+		}
+
 		/// <summary>
 		/// Provides easy access to the root frame of the Phone Application.
 		/// </summary>
@@ -61,7 +83,6 @@ namespace TekConf.UI.WinPhone
 
 			var setup = new Setup(RootFrame);
 			setup.Initialize();
-			
 			SaveDefaultImage();
 		}
 

@@ -89,7 +89,7 @@
 						</Button>
 
 						<!--<Button Click="Register_OnClick" Name="RegisterButton" HorizontalAlignment="Center" FontSize="22" Grid.Row="2" Grid.ColumnSpan="2" Margin="0,80,0,0">Register With TekConf</Button>-->
-						<Button Click="Logout_OnClick" Name="LogoutButton" HorizontalAlignment="Center" FontSize="22"  Grid.Row="3" Grid.ColumnSpan="2" Margin="0,80,0,0">Logout</Button>
+						<Button Click="Logout_OnClick" Name="LogoutButton" Background="#FF81994D" Foreground="White" HorizontalAlignment="Center" FontSize="22"  Grid.Row="3" Grid.ColumnSpan="2" Margin="104,0,104,34" Width="248">Logout</Button>
 
 					</Grid>
 
@@ -105,13 +105,13 @@
 						<TextBlock Text="App Version" Style="{StaticResource PhoneTextNormalStyle}"></TextBlock>
 						<TextBlock Style="{StaticResource PhoneTextNormalStyle}" Name="AppVersion"></TextBlock>
 					</StackPanel>
-					
-					
+
+
 					<StackPanel>
 						<TextBlock Text="Conferences Last Updated" Style="{StaticResource PhoneTextNormalStyle}"></TextBlock>
 						<TextBlock Text="{Binding ConferenceUpdated}" Style="{StaticResource PhoneTextNormalStyle}"></TextBlock>
 					</StackPanel>
-					
+
 					<TextBlock Text="" Style="{StaticResource PhoneTextNormalStyle}"></TextBlock>
 
 					<StackPanel Visibility="{Binding IsAuthenticated, Converter={StaticResource Visibility}}">
@@ -121,11 +121,17 @@
 
 					<TextBlock Text="" Style="{StaticResource PhoneTextNormalStyle}"></TextBlock>
 
-					<StackPanel Orientation="Horizontal" VerticalAlignment="Center" Visibility="{Binding IsAuthenticated, Converter={StaticResource Visibility}}">
-						<TextBlock Text="Push Notifications?" Style="{StaticResource PhoneTextNormalStyle}"></TextBlock>
-						<CheckBox IsChecked="{Binding IsOptedInToNotifications, Mode=TwoWay}"></CheckBox>
-					</StackPanel>
+					<CheckBox IsChecked="{Binding IsOptedInToNotifications, Mode=TwoWay}" 
+										Visibility="{Binding IsAuthenticated, Converter={StaticResource Visibility}}" >
+						<ContentControl>
+							<TextBlock  Style="{StaticResource PhoneTextNormalStyle}">Enable Push Notifications?</TextBlock>
+						</ContentControl>
+					</CheckBox>
 
+					<StackPanel>
+						<TextBlock TextWrapping="Wrap">TekConf is open source software.</TextBlock>
+						<TextBlock TextWrapping="Wrap">Visit TekConf.com for more information.</TextBlock>
+					</StackPanel>
 				</StackPanel>
 			</phone:PivotItem>
 		</phone:Pivot>

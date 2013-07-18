@@ -54,6 +54,7 @@
     <Compile Include="Messages\RefreshSessionFavoriteIconMessage.cs" />
     <Compile Include="Messages\FavoriteSessionAddedMessage.cs" />
     <Compile Include="Messages\RefreshConferenceFavoriteIconMessage.cs" />
+    <Compile Include="Messages\UserNameChangedMessage.cs" />
     <Compile Include="Models\ConferenceSessionsService.cs" />
     <Compile Include="Models\Extensions.cs" />
     <Compile Include="Models\ImageService.cs" />
