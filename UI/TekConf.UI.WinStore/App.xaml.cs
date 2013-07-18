@@ -4,8 +4,8 @@ using Windows.ApplicationModel.Activation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Cirrious.MvvmCross.ViewModels;
-
 // The Grid App template is documented at http://go.microsoft.com/fwlink/?LinkId=234226
+using Microsoft.WindowsAzure.MobileServices;
 
 namespace TekConf.UI.WinStore
 {
@@ -14,6 +14,13 @@ namespace TekConf.UI.WinStore
     /// </summary>
     sealed partial class App : Application
     {
+
+			public static MobileServiceClient MobileService = new MobileServiceClient(
+				"https://tekconfauth.azure-mobile.net/",
+				"NeMPYjchPdsFKlUqDdyAJYZtdrOPiJ11"
+			);
+
+			public static string UserName { get; set; }
         /// <summary>
         /// Initializes the singleton Application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().

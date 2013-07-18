@@ -44,7 +44,7 @@
 
 						<TextBlock Name="SettingsExceptionMessage" Visibility="Collapsed" TextWrapping="Wrap"></TextBlock>
 
-						<TextBlock Name="LoginName" Visibility="Collapsed" Text="{Binding UserName, Mode=TwoWay}"></TextBlock>
+						<TextBlock Name="LoginName" Visibility="Collapsed"></TextBlock>
 
 						<Button Click="LoginWithTekConf_OnClick" 
 										Name="LoginInWithTekConfButton" 

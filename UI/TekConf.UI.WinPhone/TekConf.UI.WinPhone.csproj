@@ -248,7 +248,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Bootstrap\Authentication.cs" />
+    <Compile Include="Classes\Authentication.cs" />
     <Compile Include="Bootstrap\FilePluginBootstrap.cs" />
     <Compile Include="Bootstrap\JsonPluginBootstrap.cs" />
     <Compile Include="Bootstrap\LocationPluginBootstrap.cs" />
@@ -265,7 +265,7 @@
     <Compile Include="Classes\PushSharpClient.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="ValueConverters\Converter.cs" />
-    <Compile Include="Views\BitmapImageExtensions.cs" />
+    <Compile Include="Classes\BitmapImageExtensions.cs" />
     <Compile Include="Views\ConferenceDetailView.xaml.cs">
       <DependentUpon>ConferenceDetailView.xaml</DependentUpon>
     </Compile>
@@ -293,7 +293,7 @@
     <Compile Include="Views\TekConfLoginView.xaml.cs">
       <DependentUpon>TekConfLoginView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Users.cs" />
+    <Compile Include="Classes\Users.cs" />
     <Compile Include="Classes\WinPhoneAnalytics.cs" />
   </ItemGroup>
   <ItemGroup>
