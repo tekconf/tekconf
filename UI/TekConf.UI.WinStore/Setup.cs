@@ -13,13 +13,15 @@ using TekConf.Core.Services;
 
 namespace TekConf.UI.WinStore
 {
+	using System;
+
 	public class Setup : MvxStoreSetup
 	{
 		public Setup(Frame rootFrame)
 			: base(rootFrame)
 		{
 		}
-
+		protected override IMvxTrace CreateDebugTrace() { return new MyDebugTrace(); }
 		protected override IMvxApplication CreateApp()
 		{
 			MvxBindingTrace.TraceBindingLevel = MvxTraceLevel.Diagnostic;
@@ -49,6 +51,31 @@ namespace TekConf.UI.WinStore
 
 
 			return new TekConf.Core.App();
+		}
+	}
+
+	public class MyDebugTrace : IMvxTrace
+	{
+		public void Trace(MvxTraceLevel level, string tag, Func<string> message)
+		{
+			Debug.WriteLine(tag + ":" + level + ":" + message());
+		}
+
+		public void Trace(MvxTraceLevel level, string tag, string message)
+		{
+			Debug.WriteLine(tag + ":" + level + ":" + message);
+		}
+
+		public void Trace(MvxTraceLevel level, string tag, string message, params object[] args)
+		{
+			try
+			{
+				Debug.WriteLine(string.Format(tag + ":" + level + ":" + message, args));
+			}
+			catch (FormatException)
+			{
+				Trace(MvxTraceLevel.Error, tag, "Exception during trace of {0} {1} {2}", level, message);
+			}
 		}
 	}
 }

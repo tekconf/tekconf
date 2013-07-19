@@ -54,9 +54,18 @@ namespace TekConf.UI.WinStore.Views
 		private void Session_OnTap(object sender, TappedRoutedEventArgs e)
 		{
 			var gridView = (sender as GridView);
-			var session = gridView.SelectedItem as FullSessionDto;
-			var vm = this.DataContext as ConferenceDetailViewModel;
-			vm.ShowSessionDetailCommand.Execute(new SessionDetailViewModel.Navigation() { ConferenceSlug = vm.Conference.slug, SessionSlug = session.slug });
+			if (gridView != null)
+			{
+				var session = gridView.SelectedItem as FullSessionDto;
+				if (session != null)
+				{
+					var vm = this.DataContext as ConferenceDetailViewModel;
+					if (vm != null)
+					{
+						vm.ShowSessionDetailCommand.Execute(new SessionDetailViewModel.Navigation() { ConferenceSlug = vm.Conference.slug, SessionSlug = session.slug });
+					}
+				}
+			}
 		}
 	}
 }
