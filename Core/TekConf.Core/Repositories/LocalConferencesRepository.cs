@@ -11,7 +11,7 @@ namespace TekConf.Core.Repositories
 	public class LocalConferencesRepository : ILocalConferencesRepository
 	{
 		private readonly ISQLiteConnection _connection;
-
+		
 		public LocalConferencesRepository(ISQLiteConnection connection)
 		{
 			_connection = connection;
