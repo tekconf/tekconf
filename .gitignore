@@ -51,3 +51,6 @@ _ReSharper*/
 *.cache
 *.testsettings
 DesignTimeResolveAssemblyReferencesInput.cache
+
+!/packages/  
+!/packages/*
