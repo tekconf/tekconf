@@ -54,5 +54,5 @@ DesignTimeResolveAssemblyReferencesInput.cache
 
 !/packages/  
 !/packages/*
-!/.nuget/  
+!/.nuget/
 !/.nuget/*

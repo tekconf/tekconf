@@ -207,6 +207,46 @@ namespace TekConf.RemoteData.Dtos.v1
 				return formattedAddress;
 			}
 		}
+
+		public string FormattedCity
+		{
+			get
+			{
+				string formattedAddress;
+				if (isOnline == true)
+				{
+					formattedAddress = "online";
+				}
+				else if (address == null)
+				{
+					formattedAddress = "No location set";
+				}
+				else if (address.StreetNumber != default(int) && !string.IsNullOrWhiteSpace(address.StreetName) && !string.IsNullOrWhiteSpace(address.City) &&
+						 !string.IsNullOrWhiteSpace(address.State))
+				{
+					formattedAddress = address.StreetNumber + " " + address.StreetName + "\n" + address.City + ", " + address.State + " " + address.PostalArea;
+				}
+				else if (!string.IsNullOrWhiteSpace(address.City) && !string.IsNullOrWhiteSpace(address.State))
+				{
+					formattedAddress = address.City + ", " + address.State;
+				}
+				else if (!string.IsNullOrWhiteSpace(address.City) && !string.IsNullOrWhiteSpace(address.Country))
+				{
+					formattedAddress = address.City + ", " + address.Country;
+				}
+				else if (!string.IsNullOrWhiteSpace(address.City))
+				{
+					formattedAddress = address.City;
+				}
+				else
+				{
+					formattedAddress = "No location set";
+				}
+
+				return formattedAddress;
+			}
+		}
+
 		public string CalculateConferenceDates(FullConferenceDto conference)
 		{
 			string conferenceDates = "No dates scheduled";

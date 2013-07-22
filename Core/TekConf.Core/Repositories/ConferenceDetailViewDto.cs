@@ -20,6 +20,9 @@ namespace TekConf.Core.Repositories
 				DateRange = entity.DateRange();
 				slug = entity.Slug;
 				FormattedAddress = entity.FormattedAddress();
+				FormattedCity = entity.FormattedCity();
+				longitude = entity.Longitude;
+				latitude = entity.Latitude;
 				imageUrl = entity.ImageUrl;
 				description = entity.Description;
 
@@ -38,6 +41,7 @@ namespace TekConf.Core.Repositories
 				isAddedToSchedule = entity.IsAddedToSchedule;
 			}
 		}
+
 		public ConferenceDetailViewDto(FullConferenceDto fullConference)
 		{
 			if (fullConference != null)
@@ -46,6 +50,10 @@ namespace TekConf.Core.Repositories
 				DateRange = fullConference.DateRange;
 				slug = fullConference.slug;
 				FormattedAddress = fullConference.FormattedAddress;
+				FormattedCity = fullConference.FormattedCity;
+				longitude = fullConference.position[0];
+				latitude = fullConference.position[1];
+
 				imageUrl = fullConference.imageUrl;
 				description = fullConference.description;
 
@@ -70,6 +78,7 @@ namespace TekConf.Core.Repositories
 		public string DateRange { get; set; }
 		public string slug { get; set; }
 		public string FormattedAddress { get; set; }
+		public string FormattedCity { get; set; }
 		public string imageUrl { get; set; }
 		public DateTime start { get; set; }
 		public bool? isAddedToSchedule { get; set; }
@@ -85,5 +94,7 @@ namespace TekConf.Core.Repositories
 		public string twitterHashTag { get; set; }
 		public string twitterName { get; set; }
 		public bool hasSessions { get; set; }
+		public double latitude { get; set; }
+		public double longitude { get; set; }
 	}
 }

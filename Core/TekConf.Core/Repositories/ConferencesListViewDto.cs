@@ -29,6 +29,7 @@ namespace TekConf.Core.Repositories
 				start = entity.Start;
 				DateRange = entity.DateRange();
 				FormattedAddress = entity.FormattedAddress();
+				FormattedCity = entity.FormattedCity();
 				imageUrl = entity.ImageUrl;
 				//ImageBytes = entity.ImageBytes;
 			}
@@ -52,6 +53,7 @@ namespace TekConf.Core.Repositories
 				start = fullConference.start;
 				DateRange = fullConference.DateRange;
 				FormattedAddress = fullConference.FormattedAddress;
+				FormattedCity = fullConference.FormattedCity;
 				imageUrl = fullConference.imageUrl;
 				//ImageBytes = fullConference.ImageBytes;
 			}
@@ -61,6 +63,7 @@ namespace TekConf.Core.Repositories
 		public string DateRange { get; set; }
 		public string slug { get; set; }
 		public string FormattedAddress { get; set; }
+		public string FormattedCity { get; set; }
 		public DateTime start { get; set; }
 
 		private string _imageUrl;

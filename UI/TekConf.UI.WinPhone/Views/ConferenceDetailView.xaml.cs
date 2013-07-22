@@ -1,7 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Device.Location;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Navigation;
 using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Plugins.Messenger;
 using Microsoft.Phone.Shell;
@@ -23,17 +25,17 @@ namespace TekConf.UI.WinPhone.Views
 
 			_favoriteRefreshMessageToken = messenger.Subscribe<RefreshConferenceFavoriteIconMessage>(message => Dispatcher.BeginInvoke(RefreshFavoriteIcon));
 
-		_conferenceDetailExceptionMessageToken = messenger.Subscribe<ConferenceDetailExceptionMessage>(message =>
-					Dispatcher.BeginInvoke(() =>
-					{
-						if (message.ExceptionObject.Message == "The remote server returned an error: NotFound.")
+			_conferenceDetailExceptionMessageToken = messenger.Subscribe<ConferenceDetailExceptionMessage>(message =>
+						Dispatcher.BeginInvoke(() =>
 						{
-							const string errorMessage = "Could not connect to remote server. Please check your network connection and try again.";
-							MessageBox.Show(errorMessage);
-							//ConferenceDetailExceptionMessage.Text = "Could not connect to remote server. Please check your network connection and try again.";
-							//ConferenceDetailExceptionMessage.Visibility = Visibility.Visible;
-						}
-					}));
+							if (message.ExceptionObject.Message == "The remote server returned an error: NotFound.")
+							{
+								const string errorMessage = "Could not connect to remote server. Please check your network connection and try again.";
+								MessageBox.Show(errorMessage);
+								//ConferenceDetailExceptionMessage.Text = "Could not connect to remote server. Please check your network connection and try again.";
+								//ConferenceDetailExceptionMessage.Visibility = Visibility.Visible;
+							}
+						}));
 
 			Loaded += OnLoaded;
 		}
@@ -41,6 +43,17 @@ namespace TekConf.UI.WinPhone.Views
 		private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
 		{
 			RefreshFavoriteIcon();
+		}
+
+		protected override void OnNavigatedTo(NavigationEventArgs e)
+		{
+			base.OnNavigatedTo(e);
+			var vm = DataContext as ConferenceDetailViewModel;
+			if (vm != null && vm.Conference != null && vm.Conference.latitude != default(double) && vm.Conference.longitude != default(double))
+			{
+				LocationMap.Center = new GeoCoordinate(vm.Conference.latitude, vm.Conference.longitude);				
+			}
+
 		}
 
 		private void RefreshFavoriteIcon()

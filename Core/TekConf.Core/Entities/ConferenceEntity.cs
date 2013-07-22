@@ -64,6 +64,11 @@ namespace TekConf.Core.Entities
 				Country = conference.address.Country;
 			}
 
+			if (conference.position != null && conference.position.Length == 2)
+			{
+				Longitude = conference.position[0];
+				Latitude = conference.position[1];
+			}
 		}
 
 		[PrimaryKey, AutoIncrement]
@@ -111,6 +116,8 @@ namespace TekConf.Core.Entities
 		public string GoverningDistrict { get; set; }
 		public string PostalArea { get; set; }
 		public string Country { get; set; }
+		public double Longitude { get; set; }
+		public double Latitude { get; set; }
 
 		public IEnumerable<SessionEntity> Sessions(ISQLiteConnection connection)
 		{
@@ -159,12 +166,44 @@ namespace TekConf.Core.Entities
 			return range;
 		}
 
+		public string FormattedCity()
+		{
+			string formattedAddress;
+			if (IsOnline == true)
+			{
+				formattedAddress = "online";
+			}
+			else if (!string.IsNullOrWhiteSpace(City) && !string.IsNullOrWhiteSpace(State))
+			{
+				formattedAddress = City + ", " + State;
+			}
+			else if (!string.IsNullOrWhiteSpace(City) && !string.IsNullOrWhiteSpace(Country))
+			{
+				formattedAddress = City + ", " + Country;
+			}
+			else if (!string.IsNullOrWhiteSpace(City))
+			{
+				formattedAddress = City;
+			}
+			else
+			{
+				formattedAddress = "No location set";
+			}
+
+			return formattedAddress;
+		}
+
 		public string FormattedAddress()
 		{
 			string formattedAddress;
 			if (IsOnline == true)
 			{
 				formattedAddress = "online";
+			}
+			else if (StreetNumber != default(int) && !string.IsNullOrWhiteSpace(StreetName) && !string.IsNullOrWhiteSpace(City) &&
+			         !string.IsNullOrWhiteSpace(State))
+			{
+				formattedAddress = StreetNumber + " " + StreetName + "\n" + City + ", " + State + " " + PostalArea;
 			}
 			else if (!string.IsNullOrWhiteSpace(City) && !string.IsNullOrWhiteSpace(State))
 			{

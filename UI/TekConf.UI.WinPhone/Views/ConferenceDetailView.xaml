@@ -10,6 +10,7 @@
 		xmlns:views="clr-namespace:Cirrious.MvvmCross.WindowsPhone.Views;assembly=Cirrious.MvvmCross.WindowsPhone"
 		xmlns:navigation="clr-namespace:System.Windows.Controls;assembly=Microsoft.Phone"
 		xmlns:valueConverters="clr-namespace:TekConf.UI.WinPhone.ValueConverters"
+		xmlns:maps="clr-namespace:Microsoft.Phone.Maps.Controls;assembly=Microsoft.Phone.Maps"
 		mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="768"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -23,12 +24,12 @@
 		<valueConverters:NativeSocialImageValueConverter x:Key="SocialImage"></valueConverters:NativeSocialImageValueConverter>
 
 		<DataTemplate x:Key="ConnectItemTemplate">
-				<StackPanel Orientation="Horizontal" Margin="0,0,0,10" HorizontalAlignment="Left">
-					<Image Source="{Binding Name, Converter={StaticResource SocialImage}}" Margin="0,0,10,0"></Image>
-					<TextBlock Text="{Binding Value}" Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" HorizontalAlignment="Left"></TextBlock>
-				</StackPanel>
-		</DataTemplate>		
-		
+			<StackPanel Orientation="Horizontal" Margin="0,0,0,10" HorizontalAlignment="Left">
+				<Image Source="{Binding Name, Converter={StaticResource SocialImage}}" Margin="0,0,10,0"></Image>
+				<TextBlock Text="{Binding Value}" Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" HorizontalAlignment="Left"></TextBlock>
+			</StackPanel>
+		</DataTemplate>
+
 	</navigation:Page.Resources>
 
 	<Grid x:Name="LayoutRoot" Background="Transparent">
@@ -53,13 +54,13 @@
                 IsIndeterminate="True"
                 Foreground="#FF81994D"
                          Visibility="{Binding IsLoading, Converter={StaticResource Visibility}}"></ProgressBar>
-						
+
 						<TextBlock Name="ConferenceDetailExceptionMessage" Visibility="Collapsed" TextWrapping="Wrap"></TextBlock>
 
 						<StackPanel ScrollViewer.VerticalScrollBarVisibility="Disabled" Visibility="{Binding IsLoading, Converter={StaticResource InvertedVisibility}}">
 							<Image Source="{Binding Conference.imageUrl}" SizeChanged="ConferenceImage_OnSizeChanged"></Image>
 							<TextBlock Text="{Binding Conference.DateRange}" Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"></TextBlock>
-							<TextBlock Text="{Binding Conference.FormattedAddress}" Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"></TextBlock>
+							<TextBlock Text="{Binding Conference.FormattedCity}" Style="{StaticResource PhoneTextLargeStyle}" TextWrapping="Wrap"></TextBlock>
 							<TextBlock Text="{Binding Conference.description}" TextWrapping="Wrap" Margin="0,10,0,20"></TextBlock>
 						</StackPanel>
 					</Grid>
@@ -73,6 +74,7 @@
 				<ScrollViewer>
 					<Grid>
 						<Grid.RowDefinitions>
+							<RowDefinition Height="80"></RowDefinition>
 							<RowDefinition Height="*"></RowDefinition>
 						</Grid.RowDefinitions>
 						<ProgressBar 
@@ -81,9 +83,14 @@
                 Foreground="#FF81994D"
                          Visibility="{Binding IsLoading, Converter={StaticResource Visibility}}"></ProgressBar>
 						<StackPanel ScrollViewer.VerticalScrollBarVisibility="Disabled" 
-												Visibility="{Binding IsLoading, Converter={StaticResource InvertedVisibility}}">
+												Visibility="{Binding IsLoading, Converter={StaticResource InvertedVisibility}}" Grid.Row="0">
 							<TextBlock Text="{Binding Conference.FormattedAddress}" TextWrapping="Wrap" Margin="0,10,0,0"></TextBlock>
 						</StackPanel>
+
+						<Grid x:Name="ContentPanel" Margin="12,20,12,0" Grid.Row="1">
+							<maps:Map Name="LocationMap" ZoomLevel="17" />
+						</Grid>
+
 					</Grid>
 				</ScrollViewer>
 			</controls:PivotItem>
@@ -109,7 +116,7 @@
 										 ItemTemplate="{StaticResource ConnectItemTemplate}" 
 										 ScrollViewer.VerticalScrollBarVisibility="Disabled"
 										 Visibility="{Binding IsLoading, Converter={StaticResource InvertedVisibility}}">
-							</phone:LongListSelector>
+						</phone:LongListSelector>
 						<!--</ScrollViewer>-->
 					</Grid>
 				</ScrollViewer>
@@ -123,7 +130,7 @@
 	<phone:PhoneApplicationPage.ApplicationBar>
 		<shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" BackgroundColor="#FF81994D" ForegroundColor="White">
 			<shell:ApplicationBarIconButton IconUri="/img/feature.calendar.png" Text="sessions" Click="BrowseSessions_OnClick" />
-			<shell:ApplicationBarIconButton IconUri="/img/appbar.heart.png" Text="favorite" Click="AddFavorite_OnClick" /> 
+			<shell:ApplicationBarIconButton IconUri="/img/appbar.heart.png" Text="favorite" Click="AddFavorite_OnClick" />
 			<shell:ApplicationBarIconButton IconUri="/img/Synchronize.png" Text="refresh" Click="Refresh_OnClick" />
 			<shell:ApplicationBarIconButton IconUri="/img/settings.png" Text="settings" Click="Settings_OnClick" />
 		</shell:ApplicationBar>
