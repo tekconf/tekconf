@@ -3,9 +3,12 @@ using System.ComponentModel;
 using System.Device.Location;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Navigation;
 using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Plugins.Messenger;
+using Microsoft.Phone.Maps.Controls;
+using Microsoft.Phone.Maps.Toolkit;
 using Microsoft.Phone.Shell;
 using TekConf.Core.Messages;
 using TekConf.Core.ViewModels;
@@ -22,6 +25,7 @@ namespace TekConf.UI.WinPhone.Views
 		{
 			InitializeComponent();
 			var messenger = Mvx.Resolve<IMvxMessenger>();
+
 
 			_favoriteRefreshMessageToken = messenger.Subscribe<RefreshConferenceFavoriteIconMessage>(message => Dispatcher.BeginInvoke(RefreshFavoriteIcon));
 
@@ -51,7 +55,24 @@ namespace TekConf.UI.WinPhone.Views
 			var vm = DataContext as ConferenceDetailViewModel;
 			if (vm != null && vm.Conference != null && vm.Conference.latitude != default(double) && vm.Conference.longitude != default(double))
 			{
-				LocationMap.Center = new GeoCoordinate(vm.Conference.latitude, vm.Conference.longitude);				
+
+				LocationMap.Center = new GeoCoordinate(vm.Conference.latitude, vm.Conference.longitude);
+
+
+				MapLayer layer0 = new MapLayer();
+
+				var conferenceLocationPin = new Pushpin
+				{
+					GeoCoordinate = new GeoCoordinate(vm.Conference.latitude, vm.Conference.longitude),
+					Content = vm.Conference.FormattedAddress
+				};
+				var overlay0 = new MapOverlay
+				{
+					Content = conferenceLocationPin,
+					GeoCoordinate = new GeoCoordinate(vm.Conference.latitude, vm.Conference.longitude)
+				};
+				layer0.Add(overlay0);
+				LocationMap.Layers.Add(layer0);
 			}
 
 		}
@@ -203,6 +224,16 @@ namespace TekConf.UI.WinPhone.Views
 			if (vm != null && vm.Conference != null)
 			{
 				vm.Refresh(vm.Conference.slug);
+			}
+		}
+
+		private void ConferenceLocationTapped(object sender, GestureEventArgs e)
+		{
+			var vm = DataContext as ConferenceDetailViewModel;
+			if (vm != null && vm.Conference != null && vm.Conference.latitude != default(double) && vm.Conference.longitude != default(double))
+			{
+
+				LocationMap.Center = new GeoCoordinate(vm.Conference.latitude, vm.Conference.longitude);
 			}
 		}
 	}

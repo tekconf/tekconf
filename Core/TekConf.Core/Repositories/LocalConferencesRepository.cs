@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Cirrious.MvvmCross.Plugins.Sqlite;
 using TekConf.Core.Entities;
 using System.Linq;
@@ -82,14 +83,15 @@ namespace TekConf.Core.Repositories
 		{
 			if (session != null && session.ConferenceId != default(int))
 			{
-				var sessionEntity = _connection.Table<SessionEntity>().Where(x => x.Id == session.Id).FirstOrDefault(x => x.Slug == session.Slug);
+				var sessionEntity = _connection.Table<SessionEntity>().Where(x => x.ConferenceId == session.ConferenceId).FirstOrDefault(x => x.Slug == session.Slug);
 				if (sessionEntity == null)
 				{
 					_connection.Insert(session);
 				}
 				else
 				{
-					_connection.Delete(session);
+					session.Id = sessionEntity.Id;
+					_connection.Delete(sessionEntity);
 					_connection.Insert(session);
 				}
 			}
