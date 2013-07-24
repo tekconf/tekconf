@@ -1,12 +1,15 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Device.Location;
+using System.Linq;
+using System.Net;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
 using Cirrious.CrossCore;
 using Cirrious.MvvmCross.Plugins.Messenger;
+using Cirrious.MvvmCross.Plugins.WebBrowser;
 using Microsoft.Phone.Maps.Controls;
 using Microsoft.Phone.Maps.Toolkit;
 using Microsoft.Phone.Shell;
@@ -235,6 +238,59 @@ namespace TekConf.UI.WinPhone.Views
 
 				LocationMap.Center = new GeoCoordinate(vm.Conference.latitude, vm.Conference.longitude);
 			}
+		}
+
+		private void ConnectItemTap(object sender, GestureEventArgs e)
+		{
+			var button = sender as Button;
+			
+			if (button != null)
+			{
+				var connectItem = button.DataContext as ConnectItem;
+				if (connectItem != null)
+				{
+					string text = connectItem.Value;
+					ShowConnectItemUrl(text);
+				}
+			}
+			
+		}
+
+		private void ShowConnectItemUrl(string text)
+		{
+			var vm = DataContext as ConferenceDetailViewModel;
+			if (vm != null && vm.Conference != null)
+			{
+				string url = "";
+
+				if (text.StartsWith("http"))
+				{
+					url = text;
+				}
+				else if (text.StartsWith("@"))
+				{
+					url = string.Format("http://mobile.twitter.com/{0}", text.Replace("@", ""));
+				}
+				else if (text.StartsWith("#"))
+				{
+					url = string.Format("http://mobile.twitter.com/search?q={0}", HttpUtility.UrlEncode(text));
+				}
+
+				var webBrowser = Mvx.Resolve<IMvxWebBrowserTask>();
+				webBrowser.ShowWebPage(url);
+			}
+		}
+
+		private void ConnectItemImageTap(object sender, GestureEventArgs e)
+		{
+			var image = sender as Image;
+			string text = "";
+			//if (image != null)
+			//{
+			//	text = image.Text;
+			//}
+
+			//ShowConnectItemUrl(text);
 		}
 	}
 }

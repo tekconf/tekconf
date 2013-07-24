@@ -25,10 +25,18 @@
 		<valueConverters:NativeSocialImageValueConverter x:Key="SocialImage"></valueConverters:NativeSocialImageValueConverter>
 
 		<DataTemplate x:Key="ConnectItemTemplate">
-			<StackPanel Orientation="Horizontal" Margin="0,0,0,10" HorizontalAlignment="Left">
-				<Image Source="{Binding Name, Converter={StaticResource SocialImage}}" Margin="0,0,10,0"></Image>
-				<TextBlock Text="{Binding Value}" Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" HorizontalAlignment="Left"></TextBlock>
-			</StackPanel>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="*"/>
+				</Grid.ColumnDefinitions>
+
+				<Button BorderThickness="0" Tap="ConnectItemTap" HorizontalAlignment="Left" Margin="0,0,0,0" Padding="0,0,0,0" Grid.Column="0">
+					<StackPanel Orientation="Horizontal" Margin="0,0,0,0" HorizontalAlignment="Left">
+						<Image Source="{Binding Name, Converter={StaticResource SocialImage}}" Margin="0,0,10,0"></Image>
+						<TextBlock Text="{Binding Value}" Style="{StaticResource PhoneTextNormalStyle}" TextWrapping="Wrap" HorizontalAlignment="Left"></TextBlock>
+					</StackPanel>
+				</Button>
+			</Grid>
 		</DataTemplate>
 
 	</navigation:Page.Resources>
@@ -116,9 +124,10 @@
 
 						<!--<ScrollViewer>-->
 						<phone:LongListSelector ItemsSource="{Binding ConnectItems}" 
-										 ItemTemplate="{StaticResource ConnectItemTemplate}" 
+								ItemTemplate="{StaticResource ConnectItemTemplate}"
 										 ScrollViewer.VerticalScrollBarVisibility="Disabled"
-										 Visibility="{Binding IsLoading, Converter={StaticResource InvertedVisibility}}">
+										 Visibility="{Binding IsLoading, Converter={StaticResource InvertedVisibility}}" 
+										 HorizontalContentAlignment="Stretch">
 						</phone:LongListSelector>
 						<!--</ScrollViewer>-->
 					</Grid>
