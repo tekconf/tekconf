@@ -21,5 +21,7 @@ namespace TekConf.Core.Repositories
 		int Save(string conferenceSlug, SessionEntity session);
 		void Save(IList<ConferenceEntity> conferences);
 		void AddSession(SessionEntity session);
+
+		int Delete(ConferenceEntity conference);
 	}
 }

@@ -79,6 +79,11 @@ namespace TekConf.Core.Repositories
 			return conferenceId;
 		}
 
+		public int Delete(ConferenceEntity conference)
+		{
+			return _connection.Delete(conference);
+		}
+
 		public void AddSession(SessionEntity session)
 		{
 			if (session != null && session.ConferenceId != default(int))

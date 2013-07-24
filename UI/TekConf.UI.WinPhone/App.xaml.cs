@@ -19,31 +19,6 @@ namespace TekConf.UI.WinPhone
 
 	public partial class App
 	{
-		public static MobileServiceClient MobileService = new MobileServiceClient(
-			"https://tekconfauth.azure-mobile.net/",
-			"NeMPYjchPdsFKlUqDdyAJYZtdrOPiJ11"
-		);
-
-		private static string _userName;
-
-		public static string UserName
-		{
-			get
-			{
-				return _userName;
-			}
-			set
-			{
-				var messenger = Mvx.Resolve<IMvxMessenger>();
-				if (_userName != value && messenger != null)
-				{
-					var obj = new object();
-					messenger.Publish(new UserNameChangedMessage(obj) { UserName = value });
-				}
-				_userName = value;
-			}
-		}
-
 		/// <summary>
 		/// Provides easy access to the root frame of the Phone Application.
 		/// </summary>
@@ -85,24 +60,31 @@ namespace TekConf.UI.WinPhone
 
 			var setup = new Setup(RootFrame);
 			setup.Initialize();
-			SaveDefaultImage();
 
 		}
 
-		private void SaveDefaultImage()
-		{
-			var fileStore = Mvx.Resolve<IMvxFileStore>();
-			const string imageName = "DefaultConference.jpg";
+		public static MobileServiceClient MobileService = new MobileServiceClient(
+	"https://tekconfauth.azure-mobile.net/",
+	"NeMPYjchPdsFKlUqDdyAJYZtdrOPiJ11"
+);
 
-			if (!fileStore.Exists(imageName))
+		private static string _userName;
+
+		public static string UserName
+		{
+			get
 			{
-				var uri = new Uri("/img/" + imageName, UriKind.Relative);
-				var imgSource = new BitmapImage(uri) {CreateOptions = BitmapCreateOptions.None};
-				imgSource.ImageOpened += delegate
+				return _userName;
+			}
+			set
+			{
+				var messenger = Mvx.Resolve<IMvxMessenger>();
+				if (_userName != value && messenger != null)
 				{
-					var bytes = imgSource.ConvertToBytes();
-					fileStore.WriteFile(imageName, bytes);
-				};
+					var obj = new object();
+					messenger.Publish(new UserNameChangedMessage(obj) { UserName = value });
+				}
+				_userName = value;
 			}
 		}
 
@@ -188,7 +170,7 @@ namespace TekConf.UI.WinPhone
 		private void CompleteInitializePhoneApplication(object sender, NavigationEventArgs e)
 		{
 			// Set the root visual to allow the application to render
-				RootVisual = RootFrame;
+			RootVisual = RootFrame;
 
 			// Remove this handler since it is no longer needed
 			RootFrame.Navigated -= CompleteInitializePhoneApplication;

@@ -67,9 +67,11 @@ namespace TekConf.UI.WinPhone.ValueConverters
 					bitmapImage.SetSource(ms);
 				}
 			}
-			catch
+			catch (Exception exception)
 			{
-
+#if DEBUG
+				throw;
+#endif
 			}
 
 			return bitmapImage;

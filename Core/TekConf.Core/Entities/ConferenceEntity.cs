@@ -225,5 +225,19 @@ namespace TekConf.Core.Entities
 			return formattedAddress;
 		}
 
+		public override bool Equals(object conference)
+		{
+			return Equals(conference as ConferenceEntity);
+		}
+
+		public bool Equals(ConferenceEntity conference)
+		{
+			return conference != null && this.Slug == conference.Slug;
+		}
+
+		public override int GetHashCode()
+		{
+			return this.Slug.GetHashCode();
+		}
 	}
 }

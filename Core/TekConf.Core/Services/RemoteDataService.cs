@@ -47,25 +47,34 @@ namespace TekConf.Core.Services
 			string conferencesUrl = App.ApiRootUri + "conferences?format=json";
 
 			var token = new CancellationToken();
-			var conferences = await _restService.GetAsync<List<FullConferenceDto>>(conferencesUrl, token);
+			var remoteConferences = await _restService.GetAsync<List<FullConferenceDto>>(conferencesUrl, token);
 
-			conferences = conferences.OrderBy(x => x.start).ToList();
-			foreach (var conference in conferences)
+			remoteConferences = remoteConferences.OrderBy(x => x.start).ToList();
+			foreach (var remoteConference in remoteConferences)
 			{
-				var entity = new ConferenceEntity(conference);
-				var conferenceId = _localConferencesRepository.Save(entity);
-				var conferenceEntity = _localConferencesRepository.Get(entity.Slug);
+				var localConference = new ConferenceEntity(remoteConference);
+				var conferenceId = _localConferencesRepository.Save(localConference);
+				var conferenceEntity = _localConferencesRepository.Get(localConference.Slug);
 
-				foreach (var session in conference.sessions)
+				foreach (var session in remoteConference.sessions)
 				{
 					var sessionEntity = new SessionEntity(conferenceEntity.Id, session);
 					_localConferencesRepository.AddSession(sessionEntity);
 				}
 			}
 
-			var results = await _localConferencesRepository.ListAsync();
+			var localConferences = await _localConferencesRepository.ListAsync();
+			foreach (var localConference in localConferences)
+			{
+				var existsInRemote = remoteConferences.Any(x => x.slug == localConference.Slug);
+				if (!existsInRemote)
+				{
+					_localConferencesRepository.Delete(localConference);
+				}
+			}
 
-			var list = results.Select(entity => new ConferencesListViewDto(entity, _fileStore)).ToList();
+			localConferences = await _localConferencesRepository.ListAsync();
+			var list = localConferences.Select(entity => new ConferencesListViewDto(entity, _fileStore)).ToList();
 
 			return list;
 		}
@@ -75,12 +84,12 @@ namespace TekConf.Core.Services
 			string getSchedulesUrl = App.ApiRootUri + "conferences/schedules?userName={0}&format=json";
 			string uri = string.Format(getSchedulesUrl, userName);
 			var token = new CancellationToken();
-			var scheduledConferences = await _restService.GetAsync<List<FullConferenceDto>>(uri, token);
+			var remoteFavorites = await _restService.GetAsync<List<FullConferenceDto>>(uri, token);
 
-			if (scheduledConferences != null)
+			if (remoteFavorites != null)
 			{
-				scheduledConferences = scheduledConferences.OrderBy(x => x.start).ToList();
-				foreach (var scheduleConference in scheduledConferences)
+				remoteFavorites = remoteFavorites.OrderBy(x => x.start).ToList();
+				foreach (var scheduleConference in remoteFavorites)
 				{
 					var conference = _localConferencesRepository.Get(scheduleConference.slug);
 					if (conference != null)
@@ -95,10 +104,21 @@ namespace TekConf.Core.Services
 					}
 				}
 
-				var conferences = await _localConferencesRepository.ListFavoritesAsync();
-				if (conferences != null && conferences.Any())
+				var localFavorites = await _localConferencesRepository.ListFavoritesAsync();
+				foreach (var localConference in localFavorites)
 				{
-					favorites = conferences.Select(c => new ConferencesListViewDto(c, _fileStore)).ToList();
+					var existsInRemote = remoteFavorites.Any(x => x.slug == localConference.Slug);
+					if (!existsInRemote)
+					{
+						localConference.IsAddedToSchedule = false;
+						_localConferencesRepository.Save(localConference);
+					}
+				}
+
+				localFavorites = await _localConferencesRepository.ListFavoritesAsync();
+				if (localFavorites != null && localFavorites.Any())
+				{
+					favorites = localFavorites.Select(c => new ConferencesListViewDto(c, _fileStore)).ToList();
 				}
 			}
 

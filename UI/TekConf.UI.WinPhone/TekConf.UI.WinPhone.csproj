@@ -332,9 +332,7 @@
     </Content>
     <Content Include="img\appbar.heart.cross.png" />
     <Content Include="img\appbar.heart.png" />
-    <Content Include="img\DefaultConference.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <None Include="img\DefaultConference.jpg" />
     <Content Include="img\DefaultSpeaker.jpg" />
     <Content Include="img\DefaultSpeaker.png" />
     <Content Include="img\facebook-512-black.png" />
