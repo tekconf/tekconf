@@ -75,6 +75,7 @@
     <Compile Include="Repositories\LocalNotificationsRepository.cs" />
     <Compile Include="Repositories\LocalSessionRepository.cs" />
     <Compile Include="Repositories\SessionDetailDto.cs" />
+    <Compile Include="Repositories\SpeakerDetailViewDto.cs" />
     <Compile Include="Services\IAuthentication.cs" />
     <Compile Include="Services\ICacheProvider.cs" />
     <Compile Include="Services\IPushSharpClient.cs" />

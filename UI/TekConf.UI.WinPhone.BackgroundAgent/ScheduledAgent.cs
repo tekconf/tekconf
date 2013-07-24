@@ -3,17 +3,15 @@ using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using Cirrious.CrossCore;
-using Cirrious.MvvmCross.Plugins.File;
-using Cirrious.MvvmCross.Plugins.File.WindowsPhone;
 using Microsoft.Phone.Scheduler;
 using Microsoft.Phone.Shell;
-using TekConf.Core.Entities;
+
 using TekConf.Core.Repositories;
-using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.UI.WinPhone.BackgroundAgent
 {
 	using Cirrious.MvvmCross.Plugins.Sqlite;
+	using Cirrious.MvvmCross.Plugins.Sqlite.WindowsPhone;
 
 	public class ScheduledAgent : ScheduledTaskAgent
 	{
@@ -48,44 +46,75 @@ namespace TekConf.UI.WinPhone.BackgroundAgent
 		/// <remarks>
 		/// This method is called when a periodic or resource intensive task is invoked
 		/// </remarks>
-		protected override void OnInvoke(ScheduledTask task)
+		protected override async void OnInvoke(ScheduledTask task)
 		{
-			try
-			{
-				var fileStore = Mvx.Resolve<IMvxFileStore>();
-				var connection = Mvx.Resolve<ISQLiteConnection>();
-				ILocalConferencesRepository localConferencesRepository = new LocalConferencesRepository(connection);
-				//var scheduleRepository = new LocalScheduleRepository(fileStore, localConferencesRepository);
-				//var conference = scheduleRepository.NextScheduledConference;
-				//var nextSession = scheduleRepository.NextScheduledSession;
+			//try
+			//{
+			//	if (ShellTile.ActiveTiles != null)
+			//	{
+			//		var factory = new MvxWindowsPhoneSQLiteConnectionFactory();
+			//		using (var connection = factory.Create("tekconf.db"))
+			//		{
+			//			var localConferencesRepository = new LocalConferencesRepository(connection);
+			//			var favorites = await localConferencesRepository.ListFavoritesAsync();
+			//			var nextFavoriteConference = favorites.Where(x => x.End >= DateTime.Now).OrderBy(x => x.End).FirstOrDefault();
+			//			if (nextFavoriteConference != null)
+			//			{
+			//				var appTile = ShellTile.ActiveTiles.First();
 
-				if (ShellTile.ActiveTiles != null)
-				{
-					var appTile = ShellTile.ActiveTiles.First();
+			//				var sessions = nextFavoriteConference.Sessions(connection).ToList();
 
-					//if (conference == null)
-					//	conference = new ConferencesListViewDto((ConferenceEntity)null, fileStore);
+			//				if (sessions.Any())
+			//				{
+			//					var nextSession = sessions.Where(x => x.End >= DateTime.Now).OrderBy(x => x.End).FirstOrDefault();
 
-					//if (nextSession != null)
-					//{
-					//	var tileData = new FlipTileData()
-					//	{
-					//		BackContent = nextSession.title,
-					//		BackTitle =
-					//			nextSession.startDescription + (string.IsNullOrWhiteSpace(nextSession.room) ? "" : Environment.NewLine) +
-					//			nextSession.room,
-					//		Title = "",
-					//		WideBackContent = nextSession.title + (string.IsNullOrWhiteSpace(conference.name) ? "" : " - " + conference.name)
-					//	};
+			//					if (nextSession != null)
+			//					{
+			//						var tileData = new FlipTileData()
+			//													{
+			//														BackContent = nextSession.Title,
+			//														BackTitle = nextSession.StartDescription() + (string.IsNullOrWhiteSpace(nextSession.Room) ? "" : Environment.NewLine) + nextSession.Room,
+			//														Title = "",
+			//														WideBackContent = nextSession.Title + (string.IsNullOrWhiteSpace(nextFavoriteConference.Name) ? "" : " - " + nextFavoriteConference.Name)
+			//													};
 
-					//	appTile.Update(tileData);
-					//}
-				}
-				NotifyComplete();
-			}
-			catch (Exception)
-			{
-			}
+			//						appTile.Update(tileData);
+			//					}
+			//					else
+			//					{
+			//						var tileData = new FlipTileData()
+			//													{
+			//														BackContent = nextFavoriteConference.Name,
+			//														BackTitle = nextFavoriteConference.DateRange(),
+			//														Title = "",
+			//														WideBackContent = nextFavoriteConference.Name + " " + nextFavoriteConference.DateRange() + " " + nextFavoriteConference.FormattedCity()
+			//													};
+
+			//						appTile.Update(tileData);
+			//					}
+			//				}
+			//				else
+			//				{
+			//					var tileData = new FlipTileData()
+			//												{
+			//													BackContent = nextFavoriteConference.Name,
+			//													BackTitle = nextFavoriteConference.DateRange(),
+			//													Title = "",
+			//													WideBackContent = nextFavoriteConference.Name + " " + nextFavoriteConference.DateRange() + " " + nextFavoriteConference.FormattedCity()
+			//												};
+
+			//					appTile.Update(tileData);
+
+			//				}
+			//			}
+			//		}
+
+			//		NotifyComplete();
+			//	}
+			//}
+			//catch (Exception ex)
+			//{
+			//}
 
 		}
 	}

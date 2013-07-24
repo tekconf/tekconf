@@ -83,16 +83,17 @@ namespace TekConf.UI.Api.v1
 
 		public object Delete(RemoveSessionFromSchedule request)
 		{
-			if (string.IsNullOrWhiteSpace(request.userName) || string.IsNullOrWhiteSpace(request.conferenceSlug))
-				return new HttpResult(HttpStatusCode.NotFound);
-
+			if (string.IsNullOrWhiteSpace(request.userName))
+				return new HttpError(HttpStatusCode.NotFound, "", "UserName is required");
+			if (string.IsNullOrWhiteSpace(request.conferenceSlug))
+				return new HttpError(HttpStatusCode.NotFound, "", "ConferenceSlug is required");
 
 			var schedule = _scheduleRepository.AsQueryable()
 												.Where(x => x.UserName == request.userName)
 												.FirstOrDefault(s => s.ConferenceSlug.ToLower() == request.conferenceSlug.ToLower());
 
 			if (schedule.IsNull())
-				return new HttpResult(HttpStatusCode.NotFound);
+				return new HttpError(HttpStatusCode.NotFound, "", "Could not find conference schedule. ConferenceSlug:" + request.conferenceSlug + " UserName:" + request.userName);
 
 			if (string.IsNullOrWhiteSpace(request.sessionSlug))
 			{
@@ -101,7 +102,7 @@ namespace TekConf.UI.Api.v1
 			else
 			{
 				if (schedule.SessionSlugs.IsNull() || !schedule.SessionSlugs.Any(s => s == request.sessionSlug))
-					return new HttpResult(HttpStatusCode.NotFound);
+					return new HttpError(HttpStatusCode.NotFound, "Could not find session schedule. ConferenceSlug:" + request.conferenceSlug + " SessionSlug:" + request.sessionSlug + " UserName:"  + request.userName);
 
 				schedule.SessionSlugs.Remove(request.sessionSlug);
 				_scheduleRepository.Save(schedule);

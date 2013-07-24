@@ -13,6 +13,8 @@ namespace TekConf.UI.WinPhone
 {
 	using Cirrious.MvvmCross.Plugins.Messenger;
 
+	using Microsoft.Phone.Scheduler;
+
 	using TekConf.Core.Messages;
 
 	public partial class App
@@ -84,6 +86,7 @@ namespace TekConf.UI.WinPhone
 			var setup = new Setup(RootFrame);
 			setup.Initialize();
 			SaveDefaultImage();
+
 		}
 
 		private void SaveDefaultImage()

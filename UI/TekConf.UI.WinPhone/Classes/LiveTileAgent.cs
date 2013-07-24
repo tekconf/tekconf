@@ -56,7 +56,7 @@ namespace TekConf.UI.WinPhone.Classes
 
 				// If debugging is enabled, use LaunchForTest to launch the agent in one minute.
 #if(DEBUG)
-    ScheduledActionService.LaunchForTest(periodicTaskName, TimeSpan.FromSeconds(1));
+    ScheduledActionService.LaunchForTest(periodicTaskName, new TimeSpan(0, 0, 0, 20));
 #endif
 			}
 			catch (InvalidOperationException exception)

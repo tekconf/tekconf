@@ -25,9 +25,9 @@ namespace TekConf.UI.WinPhone
 		{
 			var factory = Mvx.Resolve<ISQLiteConnectionFactory>();
 			var connection = factory.Create("tekconf.db");
-			
-			Mvx.RegisterSingleton(typeof(IAuthentication), new Authentication(connection));
 			Mvx.RegisterSingleton<ISQLiteConnection>(connection);
+
+			Mvx.RegisterSingleton(typeof(IAuthentication), new Authentication(connection));
 			//MvxBindingTrace.TraceBindingLevel = MvxTraceLevel.Diagnostic;
 			Mvx.RegisterType<IAnalytics, WinPhoneAnalytics>();
 			Mvx.RegisterType<ICacheService, CacheService>();

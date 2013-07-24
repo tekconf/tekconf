@@ -5,6 +5,7 @@ namespace TekConf.UI.WinPhone.Bootstrap
 	using Cirrious.MvvmCross.Plugins.Sqlite;
 
 	using TekConf.Core.Entities;
+	using TekConf.UI.WinPhone.Classes;
 
 	public class Authentication : IAuthentication
 	{
@@ -59,6 +60,7 @@ namespace TekConf.UI.WinPhone.Bootstrap
 			if (userEntity != null && !string.IsNullOrWhiteSpace(userEntity.UserName))
 			{
 				_userName = userEntity.UserName;
+				LiveTileAgent.StartPeriodicAgent();
 			}
 		}
 

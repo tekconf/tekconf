@@ -5,23 +5,6 @@ using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.Core.Repositories
 {
-	public class SpeakerDetailViewDto
-	{
-		public SpeakerDetailViewDto(FullSpeakerDto fullSpeaker)
-		{
-			if (fullSpeaker != null)
-			{
-				fullName = fullSpeaker.fullName;
-				description = fullSpeaker.description;
-				slug = fullSpeaker.slug;
-			}
-		}
-
-		public string fullName { get; set; }
-		public string description { get; set; }
-		public string slug { get; set; }
-	}
-
 	public class SessionDetailDto
 	{
 		public SessionDetailDto(SessionEntity entity)
@@ -30,11 +13,11 @@ namespace TekConf.Core.Repositories
 			{
 				slug = entity.Slug;
 				title = entity.Title;
-				//startDescription = entity.StartDescription;
+				startDescription = entity.StartDescription();
 				room = entity.Room;
 				description = entity.Description;
 				isAddedToSchedule = entity.IsAddedToSchedule;
-				//speakers = entity.Speakers.Select(x => new SpeakerDetailViewDto(x)).ToList();
+				//TODO speakers = entity.Speakers.Select(x => new SpeakerDetailViewDto(x)).ToList();
 			}
 		}
 

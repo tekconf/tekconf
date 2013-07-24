@@ -133,88 +133,6 @@ namespace TekConf.UI.WinPhone.Views
 			}
 		}
 
-		//private void ShowWebBrowser(string uri)
-		//{
-		//	if (!string.IsNullOrWhiteSpace(uri))
-		//	{
-		//		var webBrowserTask = new WebBrowserTask { Uri = new Uri(uri) };
-		//		webBrowserTask.Show();
-		//	}
-		//}
-
-		//private void FacebookNavigate_OnClick(object sender, RoutedEventArgs e)
-		//{
-		//	var vm = DataContext as ConferenceDetailViewModel;
-		//	if (vm != null)
-		//		ShowWebBrowser(vm.Conference.facebookUrl);
-		//}
-
-		//private void HomepageNavigate_OnClick(object sender, RoutedEventArgs e)
-		//{
-		//	var vm = DataContext as ConferenceDetailViewModel;
-		//	if (vm != null)
-		//		ShowWebBrowser(vm.Conference.homepageUrl);
-		//}
-
-		//private void LanyrdNavigate_OnClick(object sender, RoutedEventArgs e)
-		//{
-		//	var vm = DataContext as ConferenceDetailViewModel;
-		//	if (vm != null)
-		//		ShowWebBrowser(vm.Conference.lanyrdUrl);
-		//}
-
-		//private void MeetupNavigate_OnClick(object sender, RoutedEventArgs e)
-		//{
-		//	var vm = DataContext as ConferenceDetailViewModel;
-		//	if (vm != null)
-		//		ShowWebBrowser(vm.Conference.meetupUrl);
-		//}
-
-		//private void GooglePlusNavigate_OnClick(object sender, RoutedEventArgs e)
-		//{
-		//	var vm = DataContext as ConferenceDetailViewModel;
-		//	if (vm != null)
-		//		ShowWebBrowser(vm.Conference.googlePlusUrl);
-		//}
-
-		//private void VimeoNavigate_OnClick(object sender, RoutedEventArgs e)
-		//{
-		//	var vm = DataContext as ConferenceDetailViewModel;
-		//	if (vm != null)
-		//		ShowWebBrowser(vm.Conference.vimeoUrl);
-		//}
-
-		//private void YouTubeNavigate_OnClick(object sender, RoutedEventArgs e)
-		//{
-		//	var vm = DataContext as ConferenceDetailViewModel;
-		//	if (vm != null)
-		//		ShowWebBrowser(vm.Conference.youtubeUrl);
-		//}
-
-		//private void GitHubNavigate_OnClick(object sender, RoutedEventArgs e)
-		//{
-		//	var vm = DataContext as ConferenceDetailViewModel;
-		//	if (vm != null)
-		//		ShowWebBrowser(vm.Conference.githubUrl);
-		//}
-
-		//private void LinkedInNavigate_OnClick(object sender, RoutedEventArgs e)
-		//{
-		//	var vm = DataContext as ConferenceDetailViewModel;
-		//	if (vm != null)
-		//		ShowWebBrowser(vm.Conference.linkedInUrl);
-		//}
-
-		//private void TwitterHashTagNavigate_OnClick(object sender, RoutedEventArgs e)
-		//{
-		//	throw new NotImplementedException();
-		//}
-
-		//private void TwitterNameNavigate_OnClick(object sender, RoutedEventArgs e)
-		//{
-		//	throw new NotImplementedException();
-		//}
-
 		private void Settings_OnClick(object sender, EventArgs e)
 		{
 			var vm = DataContext as ConferenceDetailViewModel;
@@ -279,18 +197,6 @@ namespace TekConf.UI.WinPhone.Views
 				var webBrowser = Mvx.Resolve<IMvxWebBrowserTask>();
 				webBrowser.ShowWebPage(url);
 			}
-		}
-
-		private void ConnectItemImageTap(object sender, GestureEventArgs e)
-		{
-			var image = sender as Image;
-			string text = "";
-			//if (image != null)
-			//{
-			//	text = image.Text;
-			//}
-
-			//ShowConnectItemUrl(text);
 		}
 	}
 }
