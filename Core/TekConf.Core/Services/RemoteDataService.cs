@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using Cirrious.MvvmCross.Plugins.File;
 using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.Plugins.Network.Reachability;
 using Cirrious.MvvmCross.Plugins.Sqlite;
+using TekConf.Core.Messages;
 using TekConf.Core.Models;
 using TekConf.Core.Repositories;
 using TekConf.RemoteData.Dtos.v1;
@@ -45,82 +47,100 @@ namespace TekConf.Core.Services
 		public async Task<IEnumerable<ConferencesListViewDto>> GetConferencesAsync()
 		{
 			string conferencesUrl = App.ApiRootUri + "conferences?format=json";
-
+			List<ConferencesListViewDto> list = null;
 			var token = new CancellationToken();
-			var remoteConferences = await _restService.GetAsync<List<FullConferenceDto>>(conferencesUrl, token);
 
-			remoteConferences = remoteConferences.OrderBy(x => x.start).ToList();
-			foreach (var remoteConference in remoteConferences)
+			try
 			{
-				var localConference = new ConferenceEntity(remoteConference);
-				var conferenceId = _localConferencesRepository.Save(localConference);
-				var conferenceEntity = _localConferencesRepository.Get(localConference.Slug);
+				var remoteConferences = await _restService.GetAsync<List<FullConferenceDto>>(conferencesUrl, token);
 
-				foreach (var session in remoteConference.sessions)
+				remoteConferences = remoteConferences.OrderBy(x => x.start).ToList();
+				foreach (var remoteConference in remoteConferences)
 				{
-					var sessionEntity = new SessionEntity(conferenceEntity.Id, session);
-					_localConferencesRepository.AddSession(sessionEntity);
-				}
-			}
+					var localConference = new ConferenceEntity(remoteConference);
+					var conferenceId = _localConferencesRepository.Save(localConference);
+					var conferenceEntity = _localConferencesRepository.Get(localConference.Slug);
 
-			var localConferences = await _localConferencesRepository.ListAsync();
-			foreach (var localConference in localConferences)
+					foreach (var session in remoteConference.sessions)
+					{
+						var sessionEntity = new SessionEntity(conferenceEntity.Id, session);
+						_localConferencesRepository.AddSession(sessionEntity);
+					}
+				}
+
+				var localConferences = await _localConferencesRepository.ListAsync();
+				foreach (var localConference in localConferences)
+				{
+					var existsInRemote = remoteConferences.Any(x => x.slug == localConference.Slug);
+					if (!existsInRemote)
+					{
+						_localConferencesRepository.Delete(localConference);
+					}
+				}
+
+				localConferences = await _localConferencesRepository.ListAsync();
+				list = localConferences.Select(entity => new ConferencesListViewDto(entity, _fileStore)).ToList();
+			}
+			catch (Exception)
 			{
-				var existsInRemote = remoteConferences.Any(x => x.slug == localConference.Slug);
-				if (!existsInRemote)
-				{
-					_localConferencesRepository.Delete(localConference);
-				}
-			}
 
-			localConferences = await _localConferencesRepository.ListAsync();
-			var list = localConferences.Select(entity => new ConferencesListViewDto(entity, _fileStore)).ToList();
+			}
 
 			return list;
 		}
+
 		public async Task<IEnumerable<ConferencesListViewDto>> GetFavoritesAsync(string userName, bool isRefreshing)
 		{
 			IEnumerable<ConferencesListViewDto> favorites = null;
 			string getSchedulesUrl = App.ApiRootUri + "conferences/schedules?userName={0}&format=json";
 			string uri = string.Format(getSchedulesUrl, userName);
 			var token = new CancellationToken();
-			var remoteFavorites = await _restService.GetAsync<List<FullConferenceDto>>(uri, token);
 
-			if (remoteFavorites != null)
+			try
 			{
-				remoteFavorites = remoteFavorites.OrderBy(x => x.start).ToList();
-				foreach (var scheduleConference in remoteFavorites)
-				{
-					var conference = _localConferencesRepository.Get(scheduleConference.slug);
-					if (conference != null)
-					{
-						conference.IsAddedToSchedule = true;
-						_localConferencesRepository.Save(conference);
-					}
-					else
-					{
-						var entity = new ConferenceEntity(scheduleConference) { IsAddedToSchedule = true };
-						_localConferencesRepository.Save(entity);
-					}
-				}
+				var remoteFavorites = await _restService.GetAsync<List<FullConferenceDto>>(uri, token);
 
-				var localFavorites = await _localConferencesRepository.ListFavoritesAsync();
-				foreach (var localConference in localFavorites)
+				if (remoteFavorites != null)
 				{
-					var existsInRemote = remoteFavorites.Any(x => x.slug == localConference.Slug);
-					if (!existsInRemote)
+					remoteFavorites = remoteFavorites.OrderBy(x => x.start).ToList();
+					foreach (var scheduleConference in remoteFavorites)
 					{
-						localConference.IsAddedToSchedule = false;
-						_localConferencesRepository.Save(localConference);
+						var conference = _localConferencesRepository.Get(scheduleConference.slug);
+						if (conference != null)
+						{
+							conference.IsAddedToSchedule = true;
+							_localConferencesRepository.Save(conference);
+						}
+						else
+						{
+							var entity = new ConferenceEntity(scheduleConference) { IsAddedToSchedule = true };
+							_localConferencesRepository.Save(entity);
+						}
 					}
-				}
 
-				localFavorites = await _localConferencesRepository.ListFavoritesAsync();
-				if (localFavorites != null && localFavorites.Any())
-				{
-					favorites = localFavorites.Select(c => new ConferencesListViewDto(c, _fileStore)).ToList();
+					var localFavorites = await _localConferencesRepository.ListFavoritesAsync();
+					foreach (var localConference in localFavorites)
+					{
+						var existsInRemote = remoteFavorites.Any(x => x.slug == localConference.Slug);
+						if (!existsInRemote)
+						{
+							localConference.IsAddedToSchedule = false;
+							_localConferencesRepository.Save(localConference);
+						}
+					}
+
+					localFavorites = await _localConferencesRepository.ListFavoritesAsync();
+					if (localFavorites != null && localFavorites.Any())
+					{
+						favorites = localFavorites.Select(c => new ConferencesListViewDto(c, _fileStore)).ToList();
+					}
 				}
 			}
+			catch (Exception)
+			{
+
+			}
+
 
 			return favorites;
 		}
@@ -129,12 +149,19 @@ namespace TekConf.Core.Services
 		{
 			var uri = string.Format(App.ApiRootUri + "conferences/{0}?format=json", slug);
 			var token = new CancellationToken();
-			var conference = await _restService.GetAsync<FullConferenceDto>(uri, token);
 
-			var conferenceEntity = new ConferenceEntity(conference);
-			_localConferencesRepository.Save(conferenceEntity);
+			ConferenceDetailViewDto conferenceDetail = null;
+			try
+			{
+				var conference = await _restService.GetAsync<FullConferenceDto>(uri, token);
+				var conferenceEntity = new ConferenceEntity(conference);
+				_localConferencesRepository.Save(conferenceEntity);
 
-			var conferenceDetail = new ConferenceDetailViewDto(conferenceEntity);
+				conferenceDetail = new ConferenceDetailViewDto(conferenceEntity);
+			}
+			catch (Exception)
+			{
+			}
 
 			return conferenceDetail;
 		}
@@ -145,7 +172,15 @@ namespace TekConf.Core.Services
 			string uri = string.Format(removeFromScheduleUrl, userName, conferenceSlug);
 
 			var token = new CancellationToken();
-			var scheduleDto = await _restService.DeleteAsync<ScheduleDto>(uri, token);
+
+			ScheduleDto scheduleDto = null;
+			try
+			{
+				scheduleDto = await _restService.DeleteAsync<ScheduleDto>(uri, token);
+			}
+			catch (Exception)
+			{
+			}
 
 			return scheduleDto;
 		}
@@ -156,8 +191,15 @@ namespace TekConf.Core.Services
 			string uri = string.Format(removeSessionFromScheduleUrl, userName, conferenceSlug, sessionSlug);
 
 			var token = new CancellationToken();
-			var scheduleDto = await _restService.DeleteAsync<ScheduleDto>(uri, token);
+			ScheduleDto scheduleDto = null;
+			try
+			{
+				scheduleDto = await _restService.DeleteAsync<ScheduleDto>(uri, token);
+			}
+			catch
+			{
 
+			}
 			return scheduleDto;
 		}
 
@@ -167,26 +209,120 @@ namespace TekConf.Core.Services
 
 			string uri = string.Format(getScheduleUrl, userName, conferenceSlug);
 			var token = new CancellationToken();
-			var schedule = await _restService.GetAsync<ScheduleDto>(uri, token);
 
-			var conference = _localConferencesRepository.Get(conferenceSlug);
-			if (conference != null)
+			ScheduleDto schedule = null;
+			try
 			{
-				conference.IsAddedToSchedule = true;
-				_localConferencesRepository.Save(conference);
+				schedule = await _restService.GetAsync<ScheduleDto>(uri, token);
+				var conference = _localConferencesRepository.Get(conferenceSlug);
+				if (conference != null)
+				{
+					conference.IsAddedToSchedule = true;
+					_localConferencesRepository.Save(conference);
+				}
+			}
+			catch (Exception)
+			{
+
 			}
 
 			return schedule;
 		}
 
+		public async Task<string> GetIsOauthUserRegistered(string providerId)
+		{
+			string tekConfName = "";
+			try
+			{
+				var token = new CancellationToken();
+
+				string providerName = "";
+				string userName = "";
+				if (providerId.ToLower().Contains("twitter"))
+				{
+					providerName = "twitter";
+					userName = providerId.ToLower().Replace("twitter:", "");
+				}
+				else if (providerId.ToLower().Contains("facebook"))
+				{
+					providerName = "facebook";
+					userName = providerId.ToLower().Replace("facebook:", "");
+				}
+				else if (providerId.ToLower().Contains("google"))
+				{
+					providerName = "google";
+					userName = providerId.ToLower().Replace("google:", "");
+				}
+
+				var uri = string.Format(App.WebRootUri + "account/IsOAuthUserRegistered?providerName={0}&userId={1}", providerName, userName);
+
+				var oauthUser = await _restService.GetAsync<OAuthUserDto>(uri, token);
+				tekConfName = oauthUser.username;
+			}
+			catch (Exception exception)
+			{
+
+			}
+
+			return tekConfName;
+		}
+
+		public async Task<string> CreateOauthUser(string providerId, string userName)
+		{
+			string tekConfName = "";
+			try
+			{
+				var token = new CancellationToken();
+
+				string providerName = "";
+				string userId = "";
+				if (providerId.ToLower().Contains("twitter"))
+				{
+					providerName = "twitter";
+					userId = providerId.ToLower().Replace("twitter:", "");
+				}
+				else if (providerId.ToLower().Contains("facebook"))
+				{
+					providerName = "facebook";
+					userName = providerId.ToLower().Replace("facebook:", "");
+				}
+				else if (providerId.ToLower().Contains("google"))
+				{
+					providerName = "google";
+					userName = providerId.ToLower().Replace("google:", "");
+				}
+
+				var uri = string.Format(App.WebRootUri + "account/CreateOauthUser?providerName={0}&userId={1}&userName={2}", providerName, userId, userName);
+
+				var oAuthUser = await _restService.PostAsync<OAuthUserDto>(uri, null, token);
+				tekConfName = oAuthUser.username;
+
+			}
+			catch (Exception exception)
+			{
+
+			}
+
+			return tekConfName;
+
+		}
 
 
+		public async Task<MobileLoginResultDto> LoginWithTekConf(string userName, string password)
+		{
+			MobileLoginResultDto result = null;
+			try
+			{
+				var token = new CancellationToken();
+				var uri = string.Format(App.WebRootUri + "account/MobileLogin?UserName={0}&Password={1}", userName, password);
+				result = await _restService.PostAsync<MobileLoginResultDto>(uri, null, token);
+			}
+			catch (Exception exception)
+			{
+			}
 
-
-
-
-
-
+			return result;
+		}
 
 		public void GetConferenceSessionsList(string slug, bool isRefreshing, Action<ConferenceSessionsListViewDto> success = null, Action<Exception> error = null)
 		{
@@ -194,10 +330,7 @@ namespace TekConf.Core.Services
 		}
 
 
-		public void LoginWithTekConf(string userName, string password, Action<bool, string> success = null, Action<Exception> error = null)
-		{
-			UserService.GetAuthenticationAsync(userName, password, _messenger, success, error);
-		}
+
 
 		public void AddToSchedule(string userName, string conferenceSlug, Action<ScheduleDto> success = null, Action<Exception> error = null)
 		{
@@ -216,14 +349,8 @@ namespace TekConf.Core.Services
 			SessionService.GetSessionAsync(_fileStore, conferenceSlug, sessionSlug, isRefreshing, _localConferencesRepository, _cache, _connection, success, error);
 		}
 
-		public void GetIsOauthUserRegistered(string userId, Action<string> success, Action<Exception> error)
-		{
-			UserService.GetIsOauthUserRegisteredAsync(userId, _messenger, success, error);
-		}
 
-		public void CreateOauthUser(string userId, string userName, Action<string> success, Action<Exception> error)
-		{
-			UserService.CreateOauthUserAsync(userId, userName, _messenger, success, error);
-		}
+
+
 	}
 }

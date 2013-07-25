@@ -91,16 +91,20 @@
 								IsIndeterminate="True"
 								Foreground="#FF81994D"
 												 Visibility="{Binding IsLoading, Converter={StaticResource Visibility}}"></ProgressBar>
+						
 						<StackPanel ScrollViewer.VerticalScrollBarVisibility="Disabled" 
 												Visibility="{Binding IsLoading, Converter={StaticResource InvertedVisibility}}" Grid.Row="0">
 							<TextBlock Text="{Binding Conference.FormattedAddress}" TextWrapping="Wrap" Margin="0,10,0,0" Tap="ConferenceLocationTapped" Style="{StaticResource PhoneTextLargeStyle}"></TextBlock>
 						</StackPanel>
 
-						<Grid x:Name="ContentPanel" Margin="12,20,12,0" Grid.Row="1">
+						<Grid x:Name="ContentPanel" Margin="12,20,12,0" Grid.Row="1" Visibility="{Binding IsOnline, Converter={StaticResource InvertedVisibility}}">
 							<maps:Map Name="LocationMap" ZoomLevel="17">
-
 							</maps:Map>
 						</Grid>
+
+						<Image Name="OnlineImage" Stretch="None" Width="182" Height="126" Grid.Row="1" 
+									 Visibility="{Binding IsOnline, Converter={StaticResource Visibility}}" 
+									 Source="/img/OnlineConference.png"></Image>
 
 					</Grid>
 				</ScrollViewer>
@@ -140,7 +144,7 @@
 	</Grid>
 
 	<phone:PhoneApplicationPage.ApplicationBar>
-		<shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" BackgroundColor="#FF81994D" ForegroundColor="White">
+		<shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" BackgroundColor="#333333" ForegroundColor="White">
 			<shell:ApplicationBarIconButton IconUri="/img/feature.calendar.png" Text="sessions" Click="BrowseSessions_OnClick" />
 			<shell:ApplicationBarIconButton IconUri="/img/appbar.heart.png" Text="favorite" Click="AddFavorite_OnClick" />
 			<shell:ApplicationBarIconButton IconUri="/img/Synchronize.png" Text="refresh" Click="Refresh_OnClick" />

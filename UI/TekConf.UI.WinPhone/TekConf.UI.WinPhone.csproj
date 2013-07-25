@@ -349,6 +349,7 @@
     </Content>
     <Content Include="img\linkedin-512-black.png" />
     <Content Include="img\meetup-240.png" />
+    <Content Include="img\OnlineConference.png" />
     <Content Include="img\Refresh.png" />
     <Content Include="img\settings.png" />
     <Content Include="img\social\facebookUrl.png">

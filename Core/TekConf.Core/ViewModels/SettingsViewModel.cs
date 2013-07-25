@@ -41,10 +41,12 @@ namespace TekConf.Core.ViewModels
 		}
 
 		private string _userProviderId;
-		public void IsOauthUserRegistered(string userId)
+		public async void IsOauthUserRegistered(string userId)
 		{
 			_userProviderId = userId;
-			_remoteDataService.GetIsOauthUserRegistered(userId, GetIsOauthUserRegisteredSuccess, GetIsOauthUserRegisteredError);
+			var userName = await _remoteDataService.GetIsOauthUserRegistered(userId);
+
+			GetIsOauthUserRegisteredSuccess(userName);
 		}
 
 		public bool IsAuthenticated
@@ -120,7 +122,8 @@ namespace TekConf.Core.ViewModels
 			if (!string.IsNullOrWhiteSpace(userName))
 			{
 				_messenger.Publish(new AuthenticationMessage(this, userName));
-				UserName = userName;
+				//UserName = userName;
+				ShowViewModel<ConferencesListViewModel>();
 			}
 			else
 			{

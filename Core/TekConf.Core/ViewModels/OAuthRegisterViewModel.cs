@@ -64,9 +64,10 @@ namespace TekConf.Core.ViewModels
 		}
 
 		private string _userProviderId;
-		public void CreateOAuthUser()
+		public async void CreateOAuthUser()
 		{
-			_remoteDataService.CreateOauthUser(_userProviderId, UserName, GetCreateOAuthUserSuccess, GetCreateOAuthUserError);
+			var userName = await _remoteDataService.CreateOauthUser(_userProviderId, UserName);
+			GetCreateOAuthUserSuccess(userName);
 		}
 
 		private void GetCreateOAuthUserSuccess(string userName)
@@ -75,6 +76,7 @@ namespace TekConf.Core.ViewModels
 			{
 				_messenger.Publish(new AuthenticationMessage(this, userName));
 				UserName = userName;
+				ShowViewModel<ConferencesListViewModel>();
 			}
 			else
 			{

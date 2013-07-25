@@ -109,6 +109,13 @@ namespace TekConf.Core.ViewModels
 			}
 		}
 
+		public bool IsOnline
+		{
+			get
+			{
+				return Conference != null && !string.IsNullOrWhiteSpace(Conference.FormattedAddress) && Conference.FormattedAddress.ToLower() == "online";
+			}
+		}
 		public bool IsAuthenticated { get; set; }
 		public string PageTitle { get; set; }
 

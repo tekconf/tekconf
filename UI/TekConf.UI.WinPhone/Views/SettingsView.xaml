@@ -56,6 +56,7 @@
 								<!--<TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource PhoneTextSmallStyle}" TextWrapping="Wrap">Login with TekConf</TextBlock>-->
 							</StackPanel>
 						</Button>
+						
 						<Button Click="LoginWithTwitter_OnClick" 
 										Name="LoginInWithTwitterButton" 
 										HorizontalAlignment="Left" 
@@ -77,6 +78,7 @@
 								<!--<TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource PhoneTextSmallStyle}" TextWrapping="Wrap">Login with Facebook</TextBlock>-->
 							</StackPanel>
 						</Button>
+						
 						<Button Click="LoginWithGoogle_OnClick" 
 										Name="LoginInWithGoogleButton" 
 										HorizontalAlignment="Left" 
@@ -106,6 +108,7 @@
 						<TextBlock Style="{StaticResource PhoneTextNormalStyle}" Name="AppVersion"></TextBlock>
 					</StackPanel>
 
+					<TextBlock Text="" Style="{StaticResource PhoneTextNormalStyle}"></TextBlock>
 
 					<StackPanel>
 						<TextBlock Text="Conferences Last Updated" Style="{StaticResource PhoneTextNormalStyle}"></TextBlock>

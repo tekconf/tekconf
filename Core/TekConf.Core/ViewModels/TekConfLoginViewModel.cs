@@ -21,10 +21,11 @@ namespace TekConf.Core.ViewModels
 			
 		}
 
-		public void Login()
+		public async void Login()
 		{
 			IsLoggingIn = true;
-			_remoteDataService.LoginWithTekConf(UserName, Password, LoginSuccess, LoginError);
+			var result = await _remoteDataService.LoginWithTekConf(UserName, Password);
+			LoginSuccess(result.IsLoggedIn, result.UserName);
 		}
 
 		public ICommand ShowConferencesListCommand

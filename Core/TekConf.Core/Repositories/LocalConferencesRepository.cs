@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Cirrious.MvvmCross.Plugins.File;
 using Cirrious.MvvmCross.Plugins.Sqlite;
+using Newtonsoft.Json;
 using TekConf.Core.Entities;
 using System.Linq;
+using TekConf.Core.ViewModels;
 
 namespace TekConf.Core.Repositories
 {
@@ -12,10 +15,12 @@ namespace TekConf.Core.Repositories
 	public class LocalConferencesRepository : ILocalConferencesRepository
 	{
 		private readonly ISQLiteConnection _connection;
-		
-		public LocalConferencesRepository(ISQLiteConnection connection)
+		private readonly IMvxFileStore _fileStore;
+
+		public LocalConferencesRepository(ISQLiteConnection connection, IMvxFileStore fileStore)
 		{
 			_connection = connection;
+			_fileStore = fileStore;
 			_connection.CreateTable<ConferenceEntity>();
 			_connection.CreateTable<SessionEntity>();
 		}
@@ -26,7 +31,7 @@ namespace TekConf.Core.Repositories
 			var conference = _connection.Table<ConferenceEntity>().FirstOrDefault(x => x.Slug == conferenceSlug);
 			var conferenceId = conference.Id;
 			var sessionEntity = _connection.Table<SessionEntity>().Where(x => x.ConferenceId == conferenceId).FirstOrDefault(x => x.Slug == session.Slug);
-			
+
 			if (sessionEntity != null)
 			{
 				session.Id = sessionEntity.Id;
@@ -53,7 +58,7 @@ namespace TekConf.Core.Repositories
 
 		public int Save(ConferenceEntity conference)
 		{
-			int conferenceId  = 0 ;
+			int conferenceId = 0;
 			var conferenceEntity = _connection.Table<ConferenceEntity>().FirstOrDefault(x => x.Slug == conference.Slug);
 			if (conferenceEntity == null)
 			{
@@ -76,7 +81,25 @@ namespace TekConf.Core.Repositories
 				}
 			}
 
+			UpdateConferences();
+			UpdateFavorites();
 			return conferenceId;
+		}
+
+		private void UpdateConferences()
+		{
+			const string path = "conferencesLastUpdated.json";
+			var data = new DataLastUpdated() { LastUpdated = DateTime.Now };
+			var json = JsonConvert.SerializeObject(data);
+			_fileStore.WriteFile(path, json);
+		}
+
+		private void UpdateFavorites()
+		{
+			const string path = "scheduleLastUpdated.json";
+			var data = new DataLastUpdated() { LastUpdated = DateTime.Now };
+			var json = JsonConvert.SerializeObject(data);
+			_fileStore.WriteFile(path, json);
 		}
 
 		public int Delete(ConferenceEntity conference)
