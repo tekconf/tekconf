@@ -16,6 +16,8 @@ using TinyMessenger;
 
 namespace TekConf.UI.Web
 {
+	using global::Common.Logging;
+
 	public class AppHost : AppHostBase
 	{
 		public AppHost()
@@ -93,6 +95,8 @@ namespace TekConf.UI.Web
 
 			container.Register<ISessionFactory>(c =>
 				new SessionFactory(c.Resolve<ICacheClient>()));
+
+			container.Register(LogManager.GetLogger(typeof(AppHost)));
 
 			var bootstrapper = new Bootstrapper(container);
 			bootstrapper.BootstrapAutomapper();

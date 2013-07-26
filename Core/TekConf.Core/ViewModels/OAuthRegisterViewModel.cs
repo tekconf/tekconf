@@ -35,33 +35,8 @@ namespace TekConf.Core.ViewModels
 			_userProviderId = providerId;
 		}
 
-		private bool _isRegistering;
-		public bool IsRegistering
-		{
-			get
-			{
-				return _isRegistering;
-			}
-			set
-			{
-				_isRegistering = value;
-				RaisePropertyChanged(() => IsRegistering);
-			}
-		}
-
-		private string _userName;
-		public string UserName
-		{
-			get
-			{
-				return _userName;
-			}
-			set
-			{
-				_userName = value;
-				RaisePropertyChanged(() => UserName);
-			}
-		}
+		public bool IsRegistering { get; set; }
+		public string UserName { get; set; }
 
 		private string _userProviderId;
 		public async void CreateOAuthUser()
@@ -74,8 +49,8 @@ namespace TekConf.Core.ViewModels
 		{
 			if (!string.IsNullOrWhiteSpace(userName))
 			{
-				_messenger.Publish(new AuthenticationMessage(this, userName));
-				UserName = userName;
+				_messenger.Publish(new AuthenticationMessage(this, this.UserName));
+				//UserName = userName;
 				ShowViewModel<ConferencesListViewModel>();
 			}
 			else

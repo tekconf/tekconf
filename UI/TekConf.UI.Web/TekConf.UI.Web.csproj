@@ -517,6 +517,9 @@
     <Content Include="js\typeahead.js" />
     <Content Include="js\typeahead.min.css" />
     <Content Include="js\typeahead.min.js" />
+    <Content Include="logs\DoNotDelete.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="PostDeploy.ps1" />
     <Content Include="HOWTO.html" />
     <Content Include="img\android.png" />
