@@ -22,6 +22,8 @@ namespace TekConf.Core.ViewModels
 		private readonly IAuthentication _authentication;
 		private readonly IMvxFileStore _fileStore;
 		private readonly IMvxMessenger _messenger;
+		private readonly INetworkConnection _networkConnection;
+		private readonly IMessageBox _messageBox;
 		private MvxSubscriptionToken _authenticationMessageToken;
 		private MvxSubscriptionToken _favoritesUpdatedMessageToken;
 
@@ -30,7 +32,9 @@ namespace TekConf.Core.ViewModels
 																		IAnalytics analytics,
 																		IAuthentication authentication,
 																		IMvxFileStore fileStore,
-																		IMvxMessenger messenger)
+																		IMvxMessenger messenger,
+																		INetworkConnection networkConnection,
+																		IMessageBox messageBox)
 		{
 			_remoteDataService = remoteDataService;
 			_localConferencesRepository = localConferencesRepository;
@@ -38,6 +42,8 @@ namespace TekConf.Core.ViewModels
 			_authentication = authentication;
 			_fileStore = fileStore;
 			_messenger = messenger;
+			_networkConnection = networkConnection;
+			_messageBox = messageBox;
 			_authenticationMessageToken = _messenger.Subscribe<AuthenticationMessage>(OnAuthenticateMessage);
 			_favoritesUpdatedMessageToken = _messenger.Subscribe<FavoriteConferencesUpdatedMessage>(OnFavoritesUpdatedMessage);
 		}
@@ -47,29 +53,32 @@ namespace TekConf.Core.ViewModels
 			var allConferences = await StartGetAll();
 			var favorites = await StartGetFavorites();
 
-			InvokeOnMainThread(() => {
-						DisplayAllConferences(allConferences);
-						DisplayFavoritesConferences(favorites);
-					}
-				);
-		}
-
-		public async void Refresh()
-		{
-			var allConferences = await StartGetAll(isRefreshing: true);
-			var favorites = await StartGetFavorites(isRefreshing: true);
-
 			InvokeOnMainThread(() =>
 				{
 					DisplayAllConferences(allConferences);
 					DisplayFavoritesConferences(favorites);
 				}
 			);
+
+		}
+
+		public async void Refresh()
+		{
+
+			var allConferences = await StartGetAll(isRefreshing: true);
+			var favorites = await StartGetFavorites(isRefreshing: true);
+
+			InvokeOnMainThread(() =>
+			{
+				DisplayAllConferences(allConferences);
+				DisplayFavoritesConferences(favorites);
+			}
+				);
 		}
 
 		private async Task<IList<ConferencesListViewDto>> StartGetAll(string searchTerm = "", bool isRefreshing = false)
 		{
-			IEnumerable<ConferencesListViewDto> conferences = null;
+			IEnumerable<ConferencesListViewDto> conferences = new List<ConferencesListViewDto>();
 			if (IsLoadingConferences)
 				return new List<ConferencesListViewDto>();
 
@@ -85,19 +94,33 @@ namespace TekConf.Core.ViewModels
 				}
 				else
 				{
-					var remoteConferences = await _remoteDataService.GetConferencesAsync();
-					if (remoteConferences != null)
+					if (!_networkConnection.IsNetworkConnected())
 					{
-						conferences = remoteConferences;
+						InvokeOnMainThread(() => _messageBox.Show(_networkConnection.NetworkDownMessage));
+					}
+					else
+					{
+						var remoteConferences = await _remoteDataService.GetConferencesAsync();
+						if (remoteConferences != null)
+						{
+							conferences = remoteConferences;
+						}
 					}
 				}
 			}
 			else
 			{
-				var remoteConferences = await _remoteDataService.GetConferencesAsync();
-				if (remoteConferences != null)
+				if (!_networkConnection.IsNetworkConnected())
 				{
-					conferences = remoteConferences;
+					InvokeOnMainThread(() => _messageBox.Show(_networkConnection.NetworkDownMessage));
+				}
+				else
+				{
+					var remoteConferences = await _remoteDataService.GetConferencesAsync();
+					if (remoteConferences != null)
+					{
+						conferences = remoteConferences;
+					}
 				}
 			}
 
@@ -128,34 +151,22 @@ namespace TekConf.Core.ViewModels
 				}
 				else
 				{
-					var remoteConferences = await _remoteDataService.GetFavoritesAsync(userName, isRefreshing: true);
-					if (remoteConferences != null)
+					if (!_networkConnection.IsNetworkConnected())
 					{
-						conferences = remoteConferences;
+						InvokeOnMainThread(() => _messageBox.Show(_networkConnection.NetworkDownMessage));
+					}
+					else
+					{
+						var remoteConferences = await _remoteDataService.GetFavoritesAsync(userName, isRefreshing: true);
+						if (remoteConferences != null)
+						{
+							conferences = remoteConferences;
+						}
 					}
 				}
 			}
 
 			return conferences.ToList();
-		}
-
-		private void GetAllError(Exception exception)
-		{
-			_messenger.Publish(new ConferencesListAllExceptionMessage(this, exception));
-			IsLoadingConferences = false;
-		}
-
-		private void GetFavoritesError(Exception exception)
-		{
-			_messenger.Publish(new ConferencesListFavoritesExceptionMessage(this, exception));
-			IsLoadingFavorites = false;
-		}
-
-		private void GetFavoritesSuccess(IEnumerable<ConferencesListViewDto> conferences)
-		{
-			var conferencesList = conferences.ToList();
-
-			InvokeOnMainThread(() => DisplayFavoritesConferences(conferencesList));
 		}
 
 		private void DisplayAllConferences(IEnumerable<ConferencesListViewDto> conferences)

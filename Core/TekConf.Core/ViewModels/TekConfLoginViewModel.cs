@@ -9,11 +9,16 @@ namespace TekConf.Core.ViewModels
 	{
 		private readonly IRemoteDataService _remoteDataService;
 		private readonly IAuthentication _authentication;
+		private readonly IMessageBox _messageBox;
+		private readonly INetworkConnection _networkConnection;
 
-		public TekConfLoginViewModel(IRemoteDataService remoteDataService, IAuthentication authentication)
+		public TekConfLoginViewModel(IRemoteDataService remoteDataService, IAuthentication authentication, IMessageBox messageBox, 
+			INetworkConnection networkConnection)
 		{
 			_remoteDataService = remoteDataService;
 			_authentication = authentication;
+			_messageBox = messageBox;
+			_networkConnection = networkConnection;
 		}
 
 		public void Init()
@@ -24,8 +29,15 @@ namespace TekConf.Core.ViewModels
 		public async void Login()
 		{
 			IsLoggingIn = true;
-			var result = await _remoteDataService.LoginWithTekConf(UserName, Password);
-			LoginSuccess(result.IsLoggedIn, result.UserName);
+			if (!_networkConnection.IsNetworkConnected())
+			{
+				InvokeOnMainThread(() => _messageBox.Show(_networkConnection.NetworkDownMessage));
+			}
+			else
+			{
+				var result = await _remoteDataService.LoginWithTekConf(UserName, Password);
+				LoginSuccess(result.IsLoggedIn, result.UserName);
+			}
 		}
 
 		public ICommand ShowConferencesListCommand

@@ -260,6 +260,8 @@
     <Compile Include="Bootstrap\MessengerPluginBootstrap.cs" />
     <Compile Include="Classes\AlphaKeyGroup.cs" />
     <Compile Include="Classes\LiveTileAgent.cs" />
+    <Compile Include="Classes\WinPhoneMessageBox.cs" />
+    <Compile Include="Classes\WinPhoneNetworkConnection.cs" />
     <Compile Include="DebugTrace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Classes\PushSharpClient.cs" />

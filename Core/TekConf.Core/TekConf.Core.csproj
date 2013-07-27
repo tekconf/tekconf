@@ -79,6 +79,8 @@
     <Compile Include="Repositories\SpeakerDetailViewDto.cs" />
     <Compile Include="Services\IAuthentication.cs" />
     <Compile Include="Services\ICacheProvider.cs" />
+    <Compile Include="Services\IMessageBox.cs" />
+    <Compile Include="Services\INetworkConnection.cs" />
     <Compile Include="Services\IPushSharpClient.cs" />
     <Compile Include="Services\IRemoteDataService.cs" />
     <Compile Include="Services\RemoteDataService.cs" />

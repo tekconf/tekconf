@@ -24,8 +24,6 @@ namespace TekConf.UI.WinPhone.Views
 					{
 						const string errorMessage = "Could not connect to remote server. Please check your network connection and try again.";
 						MessageBox.Show(errorMessage);
-						//OAuthExceptionMessage.Text = "Could not connect to remote server. Please check your network connection and try again.";
-						//OAuthExceptionMessage.Visibility = Visibility.Visible;
 					}
 				}));
 		}

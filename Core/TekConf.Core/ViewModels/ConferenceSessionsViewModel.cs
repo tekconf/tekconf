@@ -26,12 +26,14 @@ namespace TekConf.Core.ViewModels
 		private readonly ILocalConferencesRepository _localConferencesRepository;
 
 		private readonly ISQLiteConnection _connection;
+		private readonly IMessageBox _messageBox;
+		private readonly INetworkConnection _networkConnection;
 		private MvxSubscriptionToken _favoritesUpdatedMessageToken;
 
 		public ConferenceSessionsViewModel(IRemoteDataService remoteDataService, IAnalytics analytics, IMvxMessenger messenger,
 																			IAuthentication authentication, 
 																			ILocalConferencesRepository localConferencesRepository,
-																			ISQLiteConnection connection)
+																			ISQLiteConnection connection, IMessageBox messageBox, INetworkConnection networkConnection)
 		{
 			_remoteDataService = remoteDataService;
 			_analytics = analytics;
@@ -39,6 +41,8 @@ namespace TekConf.Core.ViewModels
 			_authentication = authentication;
 			_localConferencesRepository = localConferencesRepository;
 			_connection = connection;
+			_messageBox = messageBox;
+			_networkConnection = networkConnection;
 
 			_favoritesUpdatedMessageToken = _messenger.Subscribe<FavoriteSessionAddedMessage>(OnFavoritesUpdatedMessage);
 		}
@@ -142,17 +146,38 @@ namespace TekConf.Core.ViewModels
 					}
 					else
 					{
-						_remoteDataService.GetConferenceSessionsList(slug, isRefreshing, GetConferenceSuccess, GetConferenceError);						
+						if (!_networkConnection.IsNetworkConnected())
+						{
+							InvokeOnMainThread(() => _messageBox.Show(_networkConnection.NetworkDownMessage));
+						}
+						else
+						{
+							_remoteDataService.GetConferenceSessionsList(slug, isRefreshing, GetConferenceSuccess, GetConferenceError);
+						}
 					}
+				}
+				else
+				{
+					if (!_networkConnection.IsNetworkConnected())
+					{
+						InvokeOnMainThread(() => _messageBox.Show(_networkConnection.NetworkDownMessage));
+					}
+					else
+					{
+						_remoteDataService.GetConferenceSessionsList(slug, isRefreshing, GetConferenceSuccess, GetConferenceError);
+					}
+				}
+			}
+			else
+			{
+				if (!_networkConnection.IsNetworkConnected())
+				{
+					InvokeOnMainThread(() => _messageBox.Show(_networkConnection.NetworkDownMessage));
 				}
 				else
 				{
 					_remoteDataService.GetConferenceSessionsList(slug, isRefreshing, GetConferenceSuccess, GetConferenceError);
 				}
-			}
-			else
-			{
-				_remoteDataService.GetConferenceSessionsList(slug, isRefreshing, GetConferenceSuccess, GetConferenceError);				
 			}
 		}
 
@@ -223,23 +248,29 @@ namespace TekConf.Core.ViewModels
 				}
 				else
 				{
-					var schedule = await _remoteDataService.GetScheduleAsync(userName, conferenceSlug, isRefreshing: false, connection: _connection);
-					GetScheduleSuccess(schedule);
+					if (!_networkConnection.IsNetworkConnected())
+					{
+						InvokeOnMainThread(() => _messageBox.Show(_networkConnection.NetworkDownMessage));
+					}
+					else
+					{
+						var schedule = await _remoteDataService.GetScheduleAsync(userName, conferenceSlug, isRefreshing: false, connection: _connection);
+						GetScheduleSuccess(schedule);
+					}
 				}
 			}
 			else
 			{
-				var schedule = await _remoteDataService.GetScheduleAsync(userName, conferenceSlug, isRefreshing: true, connection: _connection);
-				GetScheduleSuccess(schedule);
+				if (!_networkConnection.IsNetworkConnected())
+				{
+					InvokeOnMainThread(() => _messageBox.Show(_networkConnection.NetworkDownMessage));
+				}
+				else
+				{
+					var schedule = await _remoteDataService.GetScheduleAsync(userName, conferenceSlug, isRefreshing: true, connection: _connection);
+					GetScheduleSuccess(schedule);
+				}
 			}
-		}
-
-		private void GetScheduleError(Exception exception)
-		{
-			// for now we just hide the error...
-			_messenger.Publish(new ConferenceSessionsExceptionMessage(this, exception));
-
-			IsLoadingSchedule = false;
 		}
 
 		private void GetScheduleSuccess(ScheduleDto conference)

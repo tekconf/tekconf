@@ -47,39 +47,42 @@ namespace TekConf.Core.Services
 		public async Task<IEnumerable<ConferencesListViewDto>> GetConferencesAsync()
 		{
 			string conferencesUrl = App.ApiRootUri + "conferences?format=json";
-			List<ConferencesListViewDto> list = null;
+			var list = new List<ConferencesListViewDto>();
 			var token = new CancellationToken();
 
 			try
 			{
 				var remoteConferences = await _restService.GetAsync<List<FullConferenceDto>>(conferencesUrl, token);
 
-				remoteConferences = remoteConferences.OrderBy(x => x.start).ToList();
-				foreach (var remoteConference in remoteConferences)
+				if (remoteConferences != null)
 				{
-					var localConference = new ConferenceEntity(remoteConference);
-					var conferenceId = _localConferencesRepository.Save(localConference);
-					var conferenceEntity = _localConferencesRepository.Get(localConference.Slug);
-
-					foreach (var session in remoteConference.sessions)
+					remoteConferences = remoteConferences.OrderBy(x => x.start).ToList();
+					foreach (var remoteConference in remoteConferences)
 					{
-						var sessionEntity = new SessionEntity(conferenceEntity.Id, session);
-						_localConferencesRepository.AddSession(sessionEntity);
-					}
-				}
+						var localConference = new ConferenceEntity(remoteConference);
+						var conferenceId = _localConferencesRepository.Save(localConference);
+						var conferenceEntity = _localConferencesRepository.Get(localConference.Slug);
 
-				var localConferences = await _localConferencesRepository.ListAsync();
-				foreach (var localConference in localConferences)
-				{
-					var existsInRemote = remoteConferences.Any(x => x.slug == localConference.Slug);
-					if (!existsInRemote)
+						foreach (var session in remoteConference.sessions)
+						{
+							var sessionEntity = new SessionEntity(conferenceEntity.Id, session);
+							_localConferencesRepository.AddSession(sessionEntity);
+						}
+					}
+
+					var localConferences = await _localConferencesRepository.ListAsync();
+					foreach (var localConference in localConferences)
 					{
-						_localConferencesRepository.Delete(localConference);
+						var existsInRemote = remoteConferences.Any(x => x.slug == localConference.Slug);
+						if (!existsInRemote)
+						{
+							_localConferencesRepository.Delete(localConference);
+						}
 					}
-				}
 
-				localConferences = await _localConferencesRepository.ListAsync();
-				list = localConferences.Select(entity => new ConferencesListViewDto(entity, _fileStore)).ToList();
+					localConferences = await _localConferencesRepository.ListAsync();
+					list = localConferences.Select(entity => new ConferencesListViewDto(entity, _fileStore)).ToList();
+				}
 			}
 			catch (Exception)
 			{
@@ -91,7 +94,7 @@ namespace TekConf.Core.Services
 
 		public async Task<IEnumerable<ConferencesListViewDto>> GetFavoritesAsync(string userName, bool isRefreshing)
 		{
-			IEnumerable<ConferencesListViewDto> favorites = null;
+			IEnumerable<ConferencesListViewDto> favorites = new List<ConferencesListViewDto>();
 			string getSchedulesUrl = App.ApiRootUri + "conferences/schedules?userName={0}&format=json";
 			string uri = string.Format(getSchedulesUrl, userName);
 			var token = new CancellationToken();
@@ -150,14 +153,17 @@ namespace TekConf.Core.Services
 			var uri = string.Format(App.ApiRootUri + "conferences/{0}?format=json", slug);
 			var token = new CancellationToken();
 
-			ConferenceDetailViewDto conferenceDetail = null;
+			var conferenceDetail = new ConferenceDetailViewDto();
 			try
 			{
 				var conference = await _restService.GetAsync<FullConferenceDto>(uri, token);
-				var conferenceEntity = new ConferenceEntity(conference);
-				_localConferencesRepository.Save(conferenceEntity);
+				if (conference != null)
+				{
+					var conferenceEntity = new ConferenceEntity(conference);
+					_localConferencesRepository.Save(conferenceEntity);
 
-				conferenceDetail = new ConferenceDetailViewDto(conferenceEntity);
+					conferenceDetail = new ConferenceDetailViewDto(conferenceEntity);
+				}
 			}
 			catch (Exception)
 			{
@@ -173,7 +179,7 @@ namespace TekConf.Core.Services
 
 			var token = new CancellationToken();
 
-			ScheduleDto scheduleDto = null;
+			var scheduleDto = new ScheduleDto();
 			try
 			{
 				scheduleDto = await _restService.DeleteAsync<ScheduleDto>(uri, token);
@@ -191,7 +197,7 @@ namespace TekConf.Core.Services
 			string uri = string.Format(removeSessionFromScheduleUrl, userName, conferenceSlug, sessionSlug);
 
 			var token = new CancellationToken();
-			ScheduleDto scheduleDto = null;
+			var scheduleDto = new ScheduleDto();
 			try
 			{
 				scheduleDto = await _restService.DeleteAsync<ScheduleDto>(uri, token);
@@ -210,7 +216,7 @@ namespace TekConf.Core.Services
 			string uri = string.Format(getScheduleUrl, userName, conferenceSlug);
 			var token = new CancellationToken();
 
-			ScheduleDto schedule = null;
+			var schedule = new ScheduleDto();
 			try
 			{
 				schedule = await _restService.GetAsync<ScheduleDto>(uri, token);
@@ -257,7 +263,10 @@ namespace TekConf.Core.Services
 				var uri = string.Format(App.WebRootUri + "account/IsOAuthUserRegistered?providerName={0}&userId={1}", providerName, userName);
 
 				var oauthUser = await _restService.GetAsync<OAuthUserDto>(uri, token);
-				tekConfName = oauthUser.username;
+				if (oauthUser != null)
+				{
+					tekConfName = oauthUser.username;
+				}
 			}
 			catch (Exception exception)
 			{
@@ -295,8 +304,10 @@ namespace TekConf.Core.Services
 				var uri = string.Format(App.WebRootUri + "account/CreateOauthUser?providerName={0}&userId={1}&userName={2}", providerName, userId, userName);
 
 				var oAuthUser = await _restService.PostAsync<OAuthUserDto>(uri, null, token);
-				tekConfName = oAuthUser.username;
-
+				if (oAuthUser != null)
+				{
+					tekConfName = oAuthUser.username;
+				}
 			}
 			catch (Exception exception)
 			{
@@ -310,7 +321,7 @@ namespace TekConf.Core.Services
 
 		public async Task<MobileLoginResultDto> LoginWithTekConf(string userName, string password)
 		{
-			MobileLoginResultDto result = null;
+			var result = new MobileLoginResultDto();
 			try
 			{
 				var token = new CancellationToken();

@@ -20,14 +20,21 @@ namespace TekConf.Core.ViewModels
 		private readonly ILocalConferencesRepository _localConferencesRepository;
 		private readonly IMvxMessenger _messenger;
 		private readonly IAuthentication _authentication;
+		private readonly IMessageBox _messageBox;
+		private readonly INetworkConnection _networkConnection;
 
-		public SessionDetailViewModel(IRemoteDataService remoteDataService, IAnalytics analytics, ILocalConferencesRepository localConferencesRepository, IMvxMessenger messenger, IAuthentication authentication)
+		public SessionDetailViewModel(IRemoteDataService remoteDataService, IAnalytics analytics, 
+			ILocalConferencesRepository localConferencesRepository, 
+			IMvxMessenger messenger, IAuthentication authentication,
+			IMessageBox messageBox, INetworkConnection networkConnection)
 		{
 			_remoteDataService = remoteDataService;
 			_analytics = analytics;
 			_localConferencesRepository = localConferencesRepository;
 			_messenger = messenger;
 			_authentication = authentication;
+			_messageBox = messageBox;
+			_networkConnection = networkConnection;
 			AddFavoriteCommand = new ActionCommand(AddSessionToFavorites);
 
 		}
@@ -61,12 +68,26 @@ namespace TekConf.Core.ViewModels
 				}
 				else
 				{
-					_remoteDataService.GetSession(navigation.ConferenceSlug, navigation.SessionSlug, isRefreshing, GetSessionSuccess, GetConferenceError);					
+					if (!_networkConnection.IsNetworkConnected())
+					{
+						InvokeOnMainThread(() => _messageBox.Show(_networkConnection.NetworkDownMessage));
+					}
+					else
+					{
+						_remoteDataService.GetSession(navigation.ConferenceSlug, navigation.SessionSlug, isRefreshing, GetSessionSuccess,GetConferenceError);
+					}
 				}
 			}
 			else
 			{
-				_remoteDataService.GetSession(navigation.ConferenceSlug, navigation.SessionSlug, isRefreshing, GetSessionSuccess, GetConferenceError);
+				if (!_networkConnection.IsNetworkConnected())
+				{
+					InvokeOnMainThread(() => _messageBox.Show(_networkConnection.NetworkDownMessage));
+				}
+				else
+				{
+					_remoteDataService.GetSession(navigation.ConferenceSlug, navigation.SessionSlug, isRefreshing, GetSessionSuccess, GetConferenceError);
+				}
 			}
 		}
 
@@ -123,72 +144,61 @@ namespace TekConf.Core.ViewModels
 
 				});
 
-				var session = _localConferencesRepository.Get(_conferenceSlug, _session.slug);
+				var session = _localConferencesRepository.Get(ConferenceSlug, _session.slug);
 				if (session.IsAddedToSchedule == true)
 				{
 					removeSuccess(null);
 					session.IsAddedToSchedule = false;
-					_localConferencesRepository.Save(_conferenceSlug, session);
-					var favorites = await _localConferencesRepository.ListFavoriteSessionsAsync(_conferenceSlug);
+					_localConferencesRepository.Save(ConferenceSlug, session);
+					var favorites = await _localConferencesRepository.ListFavoriteSessionsAsync(ConferenceSlug);
 					if (favorites != null && favorites.Any())
 					{
 						var dtos = favorites.Select(s => new FullSessionDto(s)).ToList();
-						var schedule = new ScheduleDto() { conferenceSlug = _conferenceSlug, sessions = dtos, url = "", userSlug = _authentication.UserName };
+						var schedule = new ScheduleDto() { conferenceSlug = ConferenceSlug, sessions = dtos, url = "", userSlug = _authentication.UserName };
 
 						_messenger.Publish(new FavoriteSessionAddedMessage(this, schedule));
 						_messenger.Publish(new RefreshSessionFavoriteIconMessage(this));
 					}
-					var scheduleDto = await _remoteDataService.RemoveSessionFromScheduleAsync(_authentication.UserName, ConferenceSlug, Session.slug);
+					if (!_networkConnection.IsNetworkConnected())
+					{
+						InvokeOnMainThread(() => _messageBox.Show(_networkConnection.NetworkDownMessage));
+					}
+					else
+					{
+						var scheduleDto = await _remoteDataService.RemoveSessionFromScheduleAsync(_authentication.UserName, ConferenceSlug, Session.slug);
+					}
 				}
 				else
 				{
 					session.IsAddedToSchedule = true;
-					_localConferencesRepository.Save(_conferenceSlug, session);
+					_localConferencesRepository.Save(ConferenceSlug, session);
 
-					var favorites = await _localConferencesRepository.ListFavoriteSessionsAsync(_conferenceSlug);
+					var favorites = await _localConferencesRepository.ListFavoriteSessionsAsync(ConferenceSlug);
 					if (favorites != null && favorites.Any())
 					{
 						var dtos = favorites.Select(s => new FullSessionDto(s)).ToList();
-						var schedule = new ScheduleDto() { conferenceSlug = _conferenceSlug, sessions = dtos, url = "", userSlug = _authentication.UserName };
+						var schedule = new ScheduleDto() { conferenceSlug = ConferenceSlug, sessions = dtos, url = "", userSlug = _authentication.UserName };
 						_messenger.Publish(new FavoriteSessionAddedMessage(this, schedule));
 						_messenger.Publish(new RefreshSessionFavoriteIconMessage(this));
 					}
 
 					addSuccess(null); //TODO : addSuccess(schedule);
-					_remoteDataService.AddSessionToSchedule(_authentication.UserName, ConferenceSlug, Session.slug, addSuccess, addError);
+
+					if (!_networkConnection.IsNetworkConnected())
+					{
+						InvokeOnMainThread(() => _messageBox.Show(_networkConnection.NetworkDownMessage));
+					}
+					else
+					{
+						_remoteDataService.AddSessionToSchedule(_authentication.UserName, ConferenceSlug, Session.slug, addSuccess, addError);
+					}
 
 				}
 
 			}
 		}
 
-		private async void RefreshFavorites()
-		{
-			var userName = _authentication.UserName;
-
-			var remoteConferences = await _remoteDataService.GetFavoritesAsync(userName, isRefreshing:true);
-			if (remoteConferences != null)
-			{
-				GetFavoritesSuccess(remoteConferences);
-			}
-		}
-
-
-		private void GetFavoritesError(Exception exception)
-		{
-
-		}
-
-		private void GetFavoritesSuccess(IEnumerable<ConferencesListViewDto> conferences)
-		{
-		}
-
-		private bool _isLoading;
-		public bool IsLoading
-		{
-			get { return _isLoading; }
-			set { _isLoading = value; RaisePropertyChanged(() => IsLoading); }
-		}
+		public bool IsLoading { get; set; }
 
 		private SessionDetailDto _session;
 		public SessionDetailDto Session
@@ -207,19 +217,7 @@ namespace TekConf.Core.ViewModels
 			}
 		}
 
-		private string _conferenceSlug;
-		public string ConferenceSlug
-		{
-			get
-			{
-				return _conferenceSlug;
-			}
-			set
-			{
-				_conferenceSlug = value;
-				RaisePropertyChanged(() => ConferenceSlug);
-			}
-		}
+		public string ConferenceSlug { get; set; }
 
 		public ICommand ShowSettingsCommand
 		{
@@ -229,26 +227,12 @@ namespace TekConf.Core.ViewModels
 			}
 		}
 
-		private string _pageTitle;
-		public string PageTitle
-		{
-			get
-			{
-				return _pageTitle;
-			}
-			set
-			{
-				_pageTitle = value.ToUpper();
-				//_pageTitle = "TEKCONF";
-				RaisePropertyChanged(() => PageTitle);
-			}
-		}
+		public string PageTitle { get; set; }
 
 		public class Navigation
 		{
 			public string ConferenceSlug { get; set; }
 			public string SessionSlug { get; set; }
-
 		}
 
 	}

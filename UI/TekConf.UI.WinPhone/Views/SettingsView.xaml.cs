@@ -22,6 +22,8 @@ namespace TekConf.UI.WinPhone.Views
 		private MvxSubscriptionToken _userNameChangedMessageToken;
 		private MvxSubscriptionToken _settingsExceptionToken;
 		private IAuthentication _authentication;
+		private INetworkConnection _networkConnection;
+		private IMessageBox _messageBox;
 
 		public SettingsView()
 		{
@@ -29,6 +31,8 @@ namespace TekConf.UI.WinPhone.Views
 
 			var messenger = Mvx.Resolve<IMvxMessenger>();
 			_authentication = Mvx.Resolve<IAuthentication>();
+			_networkConnection = Mvx.Resolve<INetworkConnection>();
+			_messageBox = Mvx.Resolve<IMessageBox>();
 
 			_exceptionMessageToken = messenger.Subscribe<ExceptionMessage>(message => Dispatcher.BeginInvoke(() => MessageBox.Show(message.ExceptionObject == null ? "An exception occurred but was not caught" : message.ExceptionObject.Message)));
 			_authenticationMessageToken = messenger.Subscribe<AuthenticationMessage>(message => Dispatcher.BeginInvoke(()=> OnAuthenticateMessage(message)));
@@ -133,80 +137,100 @@ namespace TekConf.UI.WinPhone.Views
 			await AuthenticateWithGoogle();
 		}
 
+
 		private MobileServiceUser _user;
 		private async Task AuthenticateWithTwitter()
 		{
-			while (_user == null)
+			if (!_networkConnection.IsNetworkConnected())
 			{
-				try
-				{
-					_user = await App.MobileService.LoginAsync(MobileServiceAuthenticationProvider.Twitter);
-				}
-				catch
-				{
-					//MessageBox.Show(ex.Message);
-				}
+				_messageBox.Show(_networkConnection.NetworkDownMessage);
 			}
+			else
+			{
+				while (_user == null)
+				{
+					try
+					{
+						_user = await App.MobileService.LoginAsync(MobileServiceAuthenticationProvider.Twitter);
+					}
+					catch
+					{
+						//MessageBox.Show(ex.Message);
+					}
+				}
 
-			if (_user != null)
-			{
-				LiveTileAgent.StartPeriodicAgent();
-				var vm = DataContext as SettingsViewModel;
-				if (vm != null) 
-					vm.IsOauthUserRegistered(_user.UserId);
+				if (_user != null)
+				{
+					LiveTileAgent.StartPeriodicAgent();
+					var vm = DataContext as SettingsViewModel;
+					if (vm != null)
+						vm.IsOauthUserRegistered(_user.UserId);
+				}
+				SetLoggedInState();
 			}
-			SetLoggedInState();
 		}
 
 		private async Task AuthenticateWithFacebook()
 		{
-			while (_user == null)
+			if (!_networkConnection.IsNetworkConnected())
 			{
-				try
-				{
-					_user = await App.MobileService.LoginAsync(MobileServiceAuthenticationProvider.Facebook);
-				}
-				catch (InvalidOperationException)
-				{
-					//MessageBox.Show(ex.Message);
-				}
+				_messageBox.Show(_networkConnection.NetworkDownMessage);
 			}
-
-			if (_user != null)
+			else
 			{
-				LiveTileAgent.StartPeriodicAgent();
-				var vm = DataContext as SettingsViewModel;
-				if (vm != null)
-					vm.IsOauthUserRegistered(_user.UserId);
-			}
-			SetLoggedInState();
+				while (_user == null)
+				{
+					try
+					{
+						_user = await App.MobileService.LoginAsync(MobileServiceAuthenticationProvider.Facebook);
+					}
+					catch (InvalidOperationException)
+					{
+						//MessageBox.Show(ex.Message);
+					}
+				}
 
+				if (_user != null)
+				{
+					LiveTileAgent.StartPeriodicAgent();
+					var vm = DataContext as SettingsViewModel;
+					if (vm != null)
+						vm.IsOauthUserRegistered(_user.UserId);
+				}
+				SetLoggedInState();
+			}
 		}
 
 		private async Task AuthenticateWithGoogle()
 		{
-			while (_user == null)
+			if (!_networkConnection.IsNetworkConnected())
 			{
-				try
-				{
-					_user = await App.MobileService.LoginAsync(MobileServiceAuthenticationProvider.Google);
-				}
-				catch (InvalidOperationException)
-				{
-					//MessageBox.Show(ex.Message);
-				}
+				_messageBox.Show(_networkConnection.NetworkDownMessage);
 			}
-
-			if (_user != null)
+			else
 			{
-				LiveTileAgent.StartPeriodicAgent();
-				var vm = DataContext as SettingsViewModel;
-				if (vm != null)
-					vm.IsOauthUserRegistered(_user.UserId);
+				while (_user == null)
+				{
+					try
+					{
+						_user = await App.MobileService.LoginAsync(MobileServiceAuthenticationProvider.Google);
+					}
+					catch (InvalidOperationException)
+					{
+						//MessageBox.Show(ex.Message);
+					}
+				}
+
+				if (_user != null)
+				{
+					LiveTileAgent.StartPeriodicAgent();
+					var vm = DataContext as SettingsViewModel;
+					if (vm != null)
+						vm.IsOauthUserRegistered(_user.UserId);
+				}
+
+				SetLoggedInState();
 			}
-
-			SetLoggedInState();
-
 		}
 
 		private void SetLoggedInState()

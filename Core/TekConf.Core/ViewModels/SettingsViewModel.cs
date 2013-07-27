@@ -20,8 +20,13 @@ namespace TekConf.Core.ViewModels
 		private readonly IMvxFileStore _fileStore;
 		private readonly ILocalNotificationsRepository _localNotificationsRepository;
 		private readonly IPushSharpClient _pushSharpClient;
+		private readonly IMessageBox _messageBox;
+		private readonly INetworkConnection _networkConnection;
 
-		public SettingsViewModel(IRemoteDataService remoteDataService, IAnalytics analytics, IAuthentication authentication, IMvxMessenger messenger, IMvxFileStore fileStore, ILocalNotificationsRepository localNotificationsRepository, IPushSharpClient pushSharpClient)
+		public SettingsViewModel(IRemoteDataService remoteDataService, IAnalytics analytics, 
+			IAuthentication authentication, IMvxMessenger messenger, IMvxFileStore fileStore, 
+			ILocalNotificationsRepository localNotificationsRepository, IPushSharpClient pushSharpClient,
+			IMessageBox messageBox, INetworkConnection networkConnection)
 		{
 			_remoteDataService = remoteDataService;
 			_analytics = analytics;
@@ -30,6 +35,8 @@ namespace TekConf.Core.ViewModels
 			_fileStore = fileStore;
 			_localNotificationsRepository = localNotificationsRepository;
 			_pushSharpClient = pushSharpClient;
+			_messageBox = messageBox;
+			_networkConnection = networkConnection;
 		}
 
 		public void Init(string fake)
@@ -44,9 +51,16 @@ namespace TekConf.Core.ViewModels
 		public async void IsOauthUserRegistered(string userId)
 		{
 			_userProviderId = userId;
-			var userName = await _remoteDataService.GetIsOauthUserRegistered(userId);
+			if (!_networkConnection.IsNetworkConnected())
+			{
+				InvokeOnMainThread(() => _messageBox.Show(_networkConnection.NetworkDownMessage));
+			}
+			else
+			{
+				var userName = await _remoteDataService.GetIsOauthUserRegistered(userId);
 
-			GetIsOauthUserRegisteredSuccess(userName);
+				GetIsOauthUserRegisteredSuccess(userName);
+			}
 		}
 
 		public bool IsAuthenticated

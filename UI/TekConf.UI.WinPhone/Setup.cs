@@ -10,8 +10,6 @@ using TekConf.UI.WinPhone.Bootstrap;
 namespace TekConf.UI.WinPhone
 {
 	using Cirrious.MvvmCross.Plugins.Sqlite;
-
-	using TekConf.Core.Entities;
 	using TekConf.Core.Models;
 
 	public class Setup : MvxPhoneSetup
@@ -35,7 +33,8 @@ namespace TekConf.UI.WinPhone
 			Mvx.RegisterType<ILocalConferencesRepository, LocalConferencesRepository>();
 			Mvx.RegisterType<IRestService, RestService>();
 			Mvx.RegisterType<IPushSharpClient, PushSharpClient>();
-
+			Mvx.RegisterType<INetworkConnection, WinPhoneNetworkConnection>();
+			Mvx.RegisterType<IMessageBox, WinPhoneMessageBox>();
 
 			return new Core.App();
 		}

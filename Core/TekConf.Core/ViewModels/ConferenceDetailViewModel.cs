@@ -25,9 +25,12 @@ namespace TekConf.Core.ViewModels
 		private readonly IAuthentication _authentication;
 		private readonly IMvxMessenger _messenger;
 		private readonly IMvxFileStore _fileStore;
+		private readonly IMessageBox _messageBox;
+		private readonly INetworkConnection _networkConnection;
 
 		public ConferenceDetailViewModel(IRemoteDataService remoteDataService, ILocalConferencesRepository localConferencesRepository, 
-			IAnalytics analytics, IAuthentication authentication, IMvxMessenger messenger, IMvxFileStore fileStore)
+			IAnalytics analytics, IAuthentication authentication, IMvxMessenger messenger, IMvxFileStore fileStore, 
+			IMessageBox messageBox, INetworkConnection networkConnection)
 		{
 			_remoteDataService = remoteDataService;
 			_localConferencesRepository = localConferencesRepository;
@@ -35,6 +38,8 @@ namespace TekConf.Core.ViewModels
 			_authentication = authentication;
 			_messenger = messenger;
 			_fileStore = fileStore;
+			_messageBox = messageBox;
+			_networkConnection = networkConnection;
 		}
 
 		public async void Init(string slug)
@@ -67,22 +72,29 @@ namespace TekConf.Core.ViewModels
 				}
 				else
 				{
-					conferenceDto = await _remoteDataService.GetConferenceDetailAsync(slug, isRefreshing: false);
+					if (!_networkConnection.IsNetworkConnected())
+					{
+						InvokeOnMainThread(() => _messageBox.Show(_networkConnection.NetworkDownMessage));
+					}
+					else
+					{
+						conferenceDto = await _remoteDataService.GetConferenceDetailAsync(slug, isRefreshing: false);
+					}
 				}
 			}
 			else
 			{
-				conferenceDto = await _remoteDataService.GetConferenceDetailAsync(slug, isRefreshing: true);
+				if (!_networkConnection.IsNetworkConnected())
+				{
+					InvokeOnMainThread(() => _messageBox.Show(_networkConnection.NetworkDownMessage));
+				}
+				else
+				{
+					conferenceDto = await _remoteDataService.GetConferenceDetailAsync(slug, isRefreshing: true);
+				}
 			}
 
 			return conferenceDto;
-		}
-
-		private void Error(Exception exception)
-		{
-			// for now we just hide the error...
-			_messenger.Publish(new ConferenceDetailExceptionMessage(this, exception));
-			IsLoading = false;
 		}
 
 		private void Success(ConferenceDetailViewDto conference)
@@ -295,7 +307,14 @@ namespace TekConf.Core.ViewModels
 						_messenger.Publish(new RefreshConferenceFavoriteIconMessage(this));
 					}
 
-					var scheduleDto = await _remoteDataService.RemoveFromScheduleAsync(_authentication.UserName, Conference.slug);
+					if (!_networkConnection.IsNetworkConnected())
+					{
+						InvokeOnMainThread(() => _messageBox.Show(_networkConnection.NetworkDownMessage));
+					}
+					else
+					{
+						var scheduleDto = await _remoteDataService.RemoveFromScheduleAsync(_authentication.UserName, Conference.slug);
+					}
 				}
 				else
 				{
@@ -311,7 +330,15 @@ namespace TekConf.Core.ViewModels
 					}
 
 					addSuccess(schedule);
-					_remoteDataService.AddToSchedule(_authentication.UserName, Conference.slug, addSuccess, addError);
+
+					if (!_networkConnection.IsNetworkConnected())
+					{
+						InvokeOnMainThread(() => _messageBox.Show(_networkConnection.NetworkDownMessage));
+					}
+					else
+					{
+						_remoteDataService.AddToSchedule(_authentication.UserName, Conference.slug, addSuccess, addError);
+					}
 				}
 			}
 		}

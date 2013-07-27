@@ -4,7 +4,6 @@
 	using System.Text;
 	using System.Threading;
 	using System.Threading.Tasks;
-
 	using Cirrious.CrossCore.Platform;
 
 	public class RestService : IRestService
@@ -13,7 +12,7 @@
 
 		public RestService(IMvxJsonConverter converter)
 		{
-			this._converter = converter;
+			_converter = converter;
 		}
 
 		public async Task<T> GetAsync<T>(string url, CancellationToken cancellationToken) where T : new()
@@ -22,8 +21,13 @@
 			var response = await client.GetAsync(url, cancellationToken);
 			var responseString = await response.Content.ReadAsStringAsync();
 
-			var result = this._converter.DeserializeObject<T>(responseString);
-			return result;
+			if (!string.IsNullOrWhiteSpace(responseString))
+			{
+				var result = _converter.DeserializeObject<T>(responseString);
+				return result;
+			}
+
+			return default(T);
 		}
 
 		public async Task<T> DeleteAsync<T>(string url, CancellationToken cancellationToken) where T : new()
@@ -32,8 +36,13 @@
 			var response = await client.DeleteAsync(url, cancellationToken);
 			var responseString = await response.Content.ReadAsStringAsync();
 
-			var result = this._converter.DeserializeObject<T>(responseString);
-			return result;
+			if (!string.IsNullOrWhiteSpace(responseString))
+			{
+				var result = _converter.DeserializeObject<T>(responseString);
+				return result;
+			}
+
+			return default(T);
 		}
 
 		public async Task<T> PostAsync<T>(string url, object postContent, CancellationToken cancellationToken) where T : new()
@@ -45,8 +54,13 @@
 			var response = await client.PostAsync(url, httpContent, cancellationToken);
 			var responseString = await response.Content.ReadAsStringAsync();
 
-			var result = this._converter.DeserializeObject<T>(responseString);
-			return result;
+			if (!string.IsNullOrWhiteSpace(responseString))
+			{
+				var result = _converter.DeserializeObject<T>(responseString);
+				return result;
+			}
+
+			return default(T);
 		}
 	}
 }

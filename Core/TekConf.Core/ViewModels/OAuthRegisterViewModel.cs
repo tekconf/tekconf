@@ -18,8 +18,13 @@ namespace TekConf.Core.ViewModels
 		private readonly IMvxFileStore _fileStore;
 		private readonly ILocalNotificationsRepository _localNotificationsRepository;
 		private readonly IPushSharpClient _pushSharpClient;
+		private readonly IMessageBox _messageBox;
+		private readonly INetworkConnection _networkConnection;
 
-		public OAuthRegisterViewModel(IRemoteDataService remoteDataService, IAnalytics analytics, IAuthentication authentication, IMvxMessenger messenger, IMvxFileStore fileStore, ILocalNotificationsRepository localNotificationsRepository, IPushSharpClient pushSharpClient)
+		public OAuthRegisterViewModel(IRemoteDataService remoteDataService, IAnalytics analytics, 
+			IAuthentication authentication, IMvxMessenger messenger, IMvxFileStore fileStore, 
+			ILocalNotificationsRepository localNotificationsRepository, IPushSharpClient pushSharpClient,
+			IMessageBox messageBox, INetworkConnection networkConnection)
 		{
 			_remoteDataService = remoteDataService;
 			_analytics = analytics;
@@ -28,6 +33,8 @@ namespace TekConf.Core.ViewModels
 			_fileStore = fileStore;
 			_localNotificationsRepository = localNotificationsRepository;
 			_pushSharpClient = pushSharpClient;
+			_messageBox = messageBox;
+			_networkConnection = networkConnection;
 		}
 
 		public void Init(string providerId)
@@ -35,39 +42,21 @@ namespace TekConf.Core.ViewModels
 			_userProviderId = providerId;
 		}
 
-		private bool _isRegistering;
-		public bool IsRegistering
-		{
-			get
-			{
-				return _isRegistering;
-			}
-			set
-			{
-				_isRegistering = value;
-				RaisePropertyChanged(() => IsRegistering);
-			}
-		}
-
-		private string _userName;
-		public string UserName
-		{
-			get
-			{
-				return _userName;
-			}
-			set
-			{
-				_userName = value;
-				RaisePropertyChanged(() => UserName);
-			}
-		}
+		public bool IsRegistering { get; set; }
+		public string UserName { get; set; }
 
 		private string _userProviderId;
 		public async void CreateOAuthUser()
 		{
-			var userName = await _remoteDataService.CreateOauthUser(_userProviderId, UserName);
-			GetCreateOAuthUserSuccess(userName);
+			if (!_networkConnection.IsNetworkConnected())
+			{
+				InvokeOnMainThread(() => _messageBox.Show(_networkConnection.NetworkDownMessage));
+			}
+			else
+			{
+				var userName = await _remoteDataService.CreateOauthUser(_userProviderId, UserName);
+				GetCreateOAuthUserSuccess(userName);
+			}
 		}
 
 		private void GetCreateOAuthUserSuccess(string userName)
@@ -78,16 +67,6 @@ namespace TekConf.Core.ViewModels
 				UserName = userName;
 				ShowViewModel<ConferencesListViewModel>();
 			}
-			else
-			{
-				//ShowOAuthRegisterCommand.Execute(null);
-			}
-		}
-
-		private void GetCreateOAuthUserError(Exception exception)
-		{
-			//IsLoadingConferences = false;
-			_messenger.Publish(new CreateOAuthUserExceptionMessage(this, exception));
 		}
 	}
 }
