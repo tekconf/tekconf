@@ -1,5 +1,6 @@
 using System.Configuration;
 using System.Web.Mvc;
+using Common.Logging;
 using ServiceStack.CacheAccess;
 using ServiceStack.CacheAccess.Providers;
 using ServiceStack.Mvc;
@@ -93,6 +94,8 @@ namespace TekConf.UI.Web
 
 			container.Register<ISessionFactory>(c =>
 				new SessionFactory(c.Resolve<ICacheClient>()));
+
+			container.Register(LogManager.GetLogger(typeof(AppHost)));
 
 			var bootstrapper = new Bootstrapper(container);
 			bootstrapper.BootstrapAutomapper();

@@ -5,6 +5,7 @@ using System.Transactions;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Security;
+using Common.Logging;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
@@ -18,6 +19,13 @@ namespace MvcApplication2.Controllers
 	[InitializeSimpleMembership]
 	public class AccountController : Controller
 	{
+		private readonly ILog _log;
+
+		public AccountController(ILog log)
+		{
+			_log = log;
+		}
+
 		[AllowAnonymous]
 		public ActionResult Login(string returnUrl)
 		{
@@ -29,6 +37,7 @@ namespace MvcApplication2.Controllers
 		[AllowAnonymous]
 		public JsonResult MobileLogin(LoginModel model)
 		{
+			_log.InfoFormat("MobileLogin - UserName:{0}  Password:{1}", model.UserName, model.Password);
 			if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
 			{
 				return Json(new { UserName = model.UserName, IsLoggedIn = true });
@@ -72,6 +81,7 @@ namespace MvcApplication2.Controllers
 		[HttpGet]
 		public JsonResult IsOAuthUserRegistered(string providerName, string userId)
 		{
+			_log.InfoFormat("IsOAuthUserRegistered - providerName:{0}  userId:{1}", providerName, userId);
 			var username = OAuthWebSecurity.GetUserName(providerName, userId);
 			return Json(new { username = username }, JsonRequestBehavior.AllowGet);
 		}
@@ -80,6 +90,7 @@ namespace MvcApplication2.Controllers
 		[HttpPost]
 		public JsonResult CreateOAuthUser(string providerName, string userId, string userName)
 		{
+			_log.InfoFormat("CreateOAuthUser - providerName:{0}  userId:{1}  userName:{2}", providerName, userId, userName);
 			using (var context = new UsersContext())
 			{
 				if (!context.UserProfiles.Any(x => x.UserName == userName))

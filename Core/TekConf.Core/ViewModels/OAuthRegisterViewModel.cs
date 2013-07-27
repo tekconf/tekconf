@@ -55,18 +55,13 @@ namespace TekConf.Core.ViewModels
 			else
 			{
 				var userName = await _remoteDataService.CreateOauthUser(_userProviderId, UserName);
-				GetCreateOAuthUserSuccess(userName);
+				if (!string.IsNullOrWhiteSpace(userName))
+				{
+					_messenger.Publish(new AuthenticationMessage(this, userName));
+					ShowViewModel<ConferencesListViewModel>();
+				}
 			}
 		}
 
-		private void GetCreateOAuthUserSuccess(string userName)
-		{
-			if (!string.IsNullOrWhiteSpace(userName))
-			{
-				_messenger.Publish(new AuthenticationMessage(this, userName));
-				UserName = userName;
-				ShowViewModel<ConferencesListViewModel>();
-			}
-		}
 	}
 }
