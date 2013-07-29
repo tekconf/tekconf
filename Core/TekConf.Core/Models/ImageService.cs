@@ -11,6 +11,7 @@ namespace TekConf.Core.Models
 	{
 
 	}
+
 	public class ImageService : IImageService
 	{
 		private readonly IMvxFileStore _fileStore;
@@ -57,7 +58,6 @@ namespace TekConf.Core.Models
 				}
 				else
 				{
-					GetDefaultImage();
 					var request = (HttpWebRequest)WebRequest.Create(new Uri(imageUrl));
 					request.BeginGetResponse(ReadGetImageCallback, request);
 				}
@@ -65,19 +65,6 @@ namespace TekConf.Core.Models
 			catch (Exception exception)
 			{
 				_error(exception);
-			}
-		}
-
-		private void GetDefaultImage()
-		{
-			const string path = "DefaultConference.jpg";
-			if (_fileStore.Exists(path))
-			{
-				byte[] image;
-				if (_fileStore.TryReadBinaryFile(path, out image))
-				{
-					_success(image);
-				}
 			}
 		}
 

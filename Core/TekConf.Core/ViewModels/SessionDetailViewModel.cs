@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Cirrious.MvvmCross.Plugins.Messenger;
 using Cirrious.MvvmCross.ViewModels;
@@ -50,7 +51,7 @@ namespace TekConf.Core.ViewModels
 			StartGetSession(navigation, true);
 		}
 
-		private void StartGetSession(Navigation navigation, bool isRefreshing = false)
+		private async void StartGetSession(Navigation navigation, bool isRefreshing = false)
 		{
 			if (IsLoading)
 				return;
@@ -64,6 +65,12 @@ namespace TekConf.Core.ViewModels
 				if (sessionEntity != null)
 				{
 					var sessionDetailDto = new SessionDetailDto(sessionEntity);
+					var speakers = await _localConferencesRepository.GetSpeakersAsync(sessionEntity.Id);
+					foreach (var speaker in speakers)
+					{
+						var speakerDto = new SpeakerDetailViewDto(speaker);
+						sessionDetailDto.AddSpeaker(speakerDto);
+					}
 					GetSessionSuccess(sessionDetailDto);
 				}
 				else
@@ -74,7 +81,15 @@ namespace TekConf.Core.ViewModels
 					}
 					else
 					{
-						_remoteDataService.GetSession(navigation.ConferenceSlug, navigation.SessionSlug, isRefreshing, GetSessionSuccess,GetConferenceError);
+						var sessionDetailDto = await _remoteDataService.GetSessionAsync(navigation.ConferenceSlug, navigation.SessionSlug);
+						var session = _localConferencesRepository.Get(navigation.ConferenceSlug, sessionDetailDto.slug);
+						var speakers = await _localConferencesRepository.GetSpeakersAsync(session.Id);
+						foreach (var speaker in speakers)
+						{
+							var speakerDto = new SpeakerDetailViewDto(speaker);
+							sessionDetailDto.AddSpeaker(speakerDto);
+						}
+						GetSessionSuccess(sessionDetailDto);	
 					}
 				}
 			}
@@ -86,7 +101,15 @@ namespace TekConf.Core.ViewModels
 				}
 				else
 				{
-					_remoteDataService.GetSession(navigation.ConferenceSlug, navigation.SessionSlug, isRefreshing, GetSessionSuccess, GetConferenceError);
+					var sessionDetailDto = await _remoteDataService.GetSessionAsync(navigation.ConferenceSlug, navigation.SessionSlug);
+					var session = _localConferencesRepository.Get(navigation.ConferenceSlug, sessionDetailDto.slug);
+					var speakers = await _localConferencesRepository.GetSpeakersAsync(session.Id);
+					foreach (var speaker in speakers)
+					{
+						var speakerDto = new SpeakerDetailViewDto(speaker);
+						sessionDetailDto.AddSpeaker(speakerDto);
+					}
+					GetSessionSuccess(sessionDetailDto);	
 				}
 			}
 		}
@@ -182,7 +205,7 @@ namespace TekConf.Core.ViewModels
 						_messenger.Publish(new RefreshSessionFavoriteIconMessage(this));
 					}
 
-					addSuccess(null); //TODO : addSuccess(schedule);
+					addSuccess(null);
 
 					if (!_networkConnection.IsNetworkConnected())
 					{
@@ -210,10 +233,13 @@ namespace TekConf.Core.ViewModels
 			set
 			{
 				_session = value;
-				PageTitle = _session.title;
+				if (_session != null)
+				{
+					PageTitle = _session.title;
+				}
+
 				RaisePropertyChanged(() => Session);
 				_messenger.Publish(new RefreshSessionFavoriteIconMessage(this));
-
 			}
 		}
 

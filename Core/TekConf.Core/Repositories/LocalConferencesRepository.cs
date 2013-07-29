@@ -23,6 +23,7 @@ namespace TekConf.Core.Repositories
 			_fileStore = fileStore;
 			_connection.CreateTable<ConferenceEntity>();
 			_connection.CreateTable<SessionEntity>();
+			_connection.CreateTable<SpeakerEntity>();
 		}
 
 		public int Save(string conferenceSlug, SessionEntity session)
@@ -107,22 +108,66 @@ namespace TekConf.Core.Repositories
 			return _connection.Delete(conference);
 		}
 
-		public void AddSession(SessionEntity session)
+		public int AddSpeaker(SpeakerEntity speaker)
 		{
+			int speakerId = 0;
+			if (speaker != null && speaker.SessionId != default(int))
+			{
+				var sessionEntity = _connection.Table<SpeakerEntity>().Where(x => x.SessionId == speaker.SessionId).FirstOrDefault(x => x.Slug == speaker.Slug);
+				if (sessionEntity == null)
+				{
+					_connection.Insert(speaker);
+					sessionEntity = _connection.Table<SpeakerEntity>().Where(x => x.SessionId == speaker.SessionId).FirstOrDefault(x => x.Slug == speaker.Slug);
+					speakerId = sessionEntity.Id;
+				}
+				else
+				{
+					speaker.Id = sessionEntity.Id;
+					_connection.Update(speaker);
+					sessionEntity = _connection.Table<SpeakerEntity>().Where(x => x.SessionId == speaker.SessionId).FirstOrDefault(x => x.Slug == speaker.Slug);
+					speakerId = sessionEntity.Id;
+				}
+			}
+
+			return speakerId;
+		}
+
+		public Task<IList<SpeakerEntity>> GetSpeakersAsync(int sessionId)
+		{
+			var taskSource = new TaskCompletionSource<IList<SpeakerEntity>>();
+			taskSource.SetResult(GetSpeakers(sessionId));
+			return taskSource.Task;
+		}
+
+		private IList<SpeakerEntity> GetSpeakers(int sessionId)
+		{
+			var speakers = _connection.Table<SpeakerEntity>().Where(x => x.SessionId == sessionId).ToList();
+
+			return speakers;
+		}
+
+		public int AddSession(SessionEntity session)
+		{
+			int sessionId = 0;
 			if (session != null && session.ConferenceId != default(int))
 			{
 				var sessionEntity = _connection.Table<SessionEntity>().Where(x => x.ConferenceId == session.ConferenceId).FirstOrDefault(x => x.Slug == session.Slug);
 				if (sessionEntity == null)
 				{
 					_connection.Insert(session);
+					sessionEntity = _connection.Table<SessionEntity>().Where(x => x.ConferenceId == session.ConferenceId).FirstOrDefault(x => x.Slug == session.Slug);
+					sessionId = sessionEntity.Id;
 				}
 				else
 				{
 					session.Id = sessionEntity.Id;
-					_connection.Delete(sessionEntity);
-					_connection.Insert(session);
+					_connection.Update(session);
+					sessionEntity = _connection.Table<SessionEntity>().Where(x => x.ConferenceId == session.ConferenceId).FirstOrDefault(x => x.Slug == session.Slug);
+					sessionId = sessionEntity.Id;
 				}
 			}
+
+			return sessionId;
 		}
 
 		public SessionEntity Get(string conferenceSlug, string sessionSlug)
@@ -139,6 +184,7 @@ namespace TekConf.Core.Repositories
 			conference = _connection.Table<ConferenceEntity>().FirstOrDefault(x => x.Slug == conferenceSlug);
 			return conference;
 		}
+
 		private IList<ConferenceEntity> GetFavorites()
 		{
 			var conferences = _connection.Table<ConferenceEntity>().Where(x => x.IsAddedToSchedule).ToList();

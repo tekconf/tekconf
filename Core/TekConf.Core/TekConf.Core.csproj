@@ -50,6 +50,7 @@
     <Compile Include="Entities\ConferenceEntity.cs" />
     <Compile Include="Entities\ScheduleEntity.cs" />
     <Compile Include="Entities\SessionEntity.cs" />
+    <Compile Include="Entities\SpeakerEntity.cs" />
     <Compile Include="Entities\UserEntity.cs" />
     <Compile Include="Interfaces\IAnalytics.cs" />
     <Compile Include="Messages\FavoriteConferencesUpdatedMessage.cs" />
@@ -57,14 +58,13 @@
     <Compile Include="Messages\FavoriteSessionAddedMessage.cs" />
     <Compile Include="Messages\RefreshConferenceFavoriteIconMessage.cs" />
     <Compile Include="Messages\UserNameChangedMessage.cs" />
-    <Compile Include="Models\ConferenceSessionsService.cs" />
     <Compile Include="Models\Extensions.cs" />
     <Compile Include="Models\ImageService.cs" />
     <Compile Include="Models\IRestService.cs" />
     <Compile Include="Models\PushService.cs" />
     <Compile Include="Models\RestService.cs" />
     <Compile Include="Models\ScheduleService.cs" />
-    <Compile Include="Models\SessionService.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ConferenceDetailViewDto.cs" />
     <Compile Include="Repositories\ConferenceFavoriteSessionDto.cs" />

@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
   <DefaultLanguage xmlns="" code="en-US" />
-  <App xmlns="" ProductID="{4b4cd4ac-f8c5-4d40-bccb-7366359a3086}" Title="TekConf" RuntimeType="Silverlight" Version="1.0.8.0" Genre="apps.normal" Author="Artek Software, LLC" Description="Meet. Connect. Learn." Publisher="Artek Software, LLC" BitsPerPixel="16" PublisherID="{8f5bc42d-e9c4-43a1-9485-bd11c1558643}">
-    <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
+  <App xmlns="" ProductID="{4b4cd4ac-f8c5-4d40-bccb-7366359a3086}" Title="TekConf" RuntimeType="Silverlight" Version="1.0.9.0" Genre="apps.normal" Author="Artek Software, LLC" Description="Meet. Connect. Learn." Publisher="Artek Software, LLC" BitsPerPixel="16" PublisherID="{8f5bc42d-e9c4-43a1-9485-bd11c1558643}">
+    <IconPath IsRelative="true" IsResource="false">StoreImages\AppTileIcon3.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_LOCATION" />
       <Capability Name="ID_CAP_NETWORKING" />

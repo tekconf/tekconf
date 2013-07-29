@@ -18,12 +18,11 @@ namespace TekConf.Core.Services
 		Task<string> GetIsOauthUserRegistered(string providerId);
 		Task<string> CreateOauthUser(string userId, string userName);
 		Task<MobileLoginResultDto> LoginWithTekConf(string userName, string password);
-
-		void GetConferenceSessionsList(string slug, bool isRefreshing, Action<ConferenceSessionsListViewDto> success = null, Action<Exception> error = null);
+		Task<SessionDetailDto> GetSessionAsync(string conferenceSlug, string sessionSlug);
+		Task<ConferenceSessionsListViewDto> GetConferenceSessionsList(string slug);
 
 		void AddToSchedule(string userName, string conferenceSlug, Action<ScheduleDto> success = null, Action<Exception> error = null);
 		void AddSessionToSchedule(string userName, string conferenceSlug, string sessionSlug, Action<ScheduleDto> success = null, Action<Exception> error = null);
-		void GetSession(string conferenceSlug, string sessionSlug, bool isRefreshing, Action<SessionDetailDto> success, Action<Exception> error);
 
 	}
 }

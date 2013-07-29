@@ -78,8 +78,9 @@
 					<TextBlock Name="SessionDetailSpeakersExceptionMessage" Visibility="Collapsed" TextWrapping="Wrap"></TextBlock>
 
 					<phone:LongListSelector ItemsSource="{Binding Session.speakers}" 
-										 ItemTemplate="{StaticResource SpeakerItemTemplate}"
-										 ScrollViewer.VerticalScrollBarVisibility="Disabled">
+											ItemTemplate="{StaticResource SpeakerItemTemplate}"
+										 ScrollViewer.VerticalScrollBarVisibility="Disabled" 
+										 HorizontalContentAlignment="Stretch">
 					</phone:LongListSelector>
 				</Grid>
 			</controls:PivotItem>

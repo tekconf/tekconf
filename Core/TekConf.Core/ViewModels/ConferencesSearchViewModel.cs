@@ -9,19 +9,7 @@ namespace TekConf.Core.ViewModels
 		{
 		}
 
-		private string _searchText;
-		public string SearchText
-		{
-			get
-			{
-				return _searchText;
-			}
-			set
-			{
-				_searchText = value;
-				RaisePropertyChanged(() => SearchText);
-			}
-		}
+		public string SearchText { get; set; }
 
 		public ICommand SearchCommand
 		{

@@ -31,44 +31,7 @@ namespace TekConf.RemoteData.Dtos.v1
 		public AddressDto address { get; set; }
 		public string tagline { get; set; }
 
-
-
-		//private byte[] _imageBytes;
-		//public byte[] ImageBytes
-		//{
-		//	get
-		//	{
-		//		return _imageBytes;
-		//	}
-		//	set
-		//	{
-		//		_imageBytes = value;
-		//		RaisePropertyChanged(() => ImageBytes);
-		//	}
-		//}
-
-		//private void GetImageError(Exception obj)
-		//{
-
-		//}
-
-		//private void GetImageSuccess(byte[] image)
-		//{
-		//	InvokeOnMainThread(() => 
-		//		ImageBytes = image
-		//		);			
-		//}
-
-		private string _imageUrl;
-		public string imageUrl
-		{
-			get { return _imageUrl; }
-			set
-			{
-				_imageUrl = value;
-				//ImageService.GetImageAsync(_fileStore, null, _imageUrl, GetImageSuccess, GetImageError);
-			}
-		}
+		public string imageUrl { get; set; }
 
 		public bool isLive { get; set; }
 		public string facebookUrl { get; set; }

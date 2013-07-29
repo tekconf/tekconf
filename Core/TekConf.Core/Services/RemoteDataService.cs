@@ -42,8 +42,6 @@ namespace TekConf.Core.Services
 			_reachability = null;
 		}
 
-
-
 		public async Task<IEnumerable<ConferencesListViewDto>> GetConferencesAsync()
 		{
 			string conferencesUrl = App.ApiRootUri + "conferences?format=json";
@@ -59,15 +57,7 @@ namespace TekConf.Core.Services
 					remoteConferences = remoteConferences.OrderBy(x => x.start).ToList();
 					foreach (var remoteConference in remoteConferences)
 					{
-						var localConference = new ConferenceEntity(remoteConference);
-						var conferenceId = _localConferencesRepository.Save(localConference);
-						var conferenceEntity = _localConferencesRepository.Get(localConference.Slug);
-
-						foreach (var session in remoteConference.sessions)
-						{
-							var sessionEntity = new SessionEntity(conferenceEntity.Id, session);
-							_localConferencesRepository.AddSession(sessionEntity);
-						}
+						SaveFullRemoteConferenceToLocalEntities(remoteConference);
 					}
 
 					var localConferences = await _localConferencesRepository.ListAsync();
@@ -90,6 +80,29 @@ namespace TekConf.Core.Services
 			}
 
 			return list;
+		}
+
+		private void SaveFullRemoteConferenceToLocalEntities(FullConferenceDto remoteConference)
+		{
+			var localConference = new ConferenceEntity(remoteConference);
+			var conferenceId = _localConferencesRepository.Save(localConference);
+			var conferenceEntity = _localConferencesRepository.Get(localConference.Slug);
+
+			foreach (var session in remoteConference.sessions)
+			{
+				SaveFullRemoteSessionToLocalEntities(conferenceEntity, session);
+			}
+		}
+
+		private void SaveFullRemoteSessionToLocalEntities(ConferenceEntity conferenceEntity, FullSessionDto session)
+		{
+			var sessionEntity = new SessionEntity(conferenceEntity.Id, session);
+			var sessionId = _localConferencesRepository.AddSession(sessionEntity);
+			foreach (var speaker in session.speakers)
+			{
+				var speakerEntity = new SpeakerEntity(sessionId, speaker);
+				_localConferencesRepository.AddSpeaker(speakerEntity);
+			}
 		}
 
 		public async Task<IEnumerable<ConferencesListViewDto>> GetFavoritesAsync(string userName, bool isRefreshing)
@@ -318,7 +331,6 @@ namespace TekConf.Core.Services
 
 		}
 
-
 		public async Task<MobileLoginResultDto> LoginWithTekConf(string userName, string password)
 		{
 			var result = new MobileLoginResultDto();
@@ -335,13 +347,34 @@ namespace TekConf.Core.Services
 			return result;
 		}
 
-		public void GetConferenceSessionsList(string slug, bool isRefreshing, Action<ConferenceSessionsListViewDto> success = null, Action<Exception> error = null)
+		public async Task<SessionDetailDto> GetSessionAsync(string conferenceSlug, string sessionSlug)
 		{
-			ConferenceSessionsService.GetConferenceSessionsAsync(_fileStore, _localConferencesRepository, _reachability, slug, isRefreshing, null, _authentication, _connection, success, error);
+			var uri = string.Format(App.ApiRootUri + "conferences/{0}/sessions/{1}?format=json", conferenceSlug, sessionSlug);
+			var token = new CancellationToken();
+			var fullSession = await _restService.GetAsync<FullSessionDto>(uri, token);
+			var conference = _localConferencesRepository.Get(conferenceSlug);
+
+			SaveFullRemoteSessionToLocalEntities(conference, fullSession);
+
+			var sessionEntity = _localConferencesRepository.Get(conference.Slug, fullSession.slug);
+			var sessionDetailDto = new SessionDetailDto(sessionEntity);
+
+			return sessionDetailDto;
 		}
 
+		public async Task<ConferenceSessionsListViewDto> GetConferenceSessionsList(string slug)
+		{
+			var conference = _localConferencesRepository.Get(slug);
 
+			var sessions = conference.Sessions(_connection);
+			var conferenceSessionListView = new ConferenceSessionsListViewDto(sessions)
+			{
+				name = conference.Name,
+				slug = conference.Slug
+			};
 
+			return conferenceSessionListView;
+		}
 
 		public void AddToSchedule(string userName, string conferenceSlug, Action<ScheduleDto> success = null, Action<Exception> error = null)
 		{
@@ -352,16 +385,6 @@ namespace TekConf.Core.Services
 		{
 			ScheduleService.AddSessionToScheduleAsync(_fileStore, _localConferencesRepository, userName, conferenceSlug, sessionSlug, false, _cache, _connection, success, error);
 		}
-
-
-
-		public void GetSession(string conferenceSlug, string sessionSlug, bool isRefreshing, Action<SessionDetailDto> success, Action<Exception> error)
-		{
-			SessionService.GetSessionAsync(_fileStore, conferenceSlug, sessionSlug, isRefreshing, _localConferencesRepository, _cache, _connection, success, error);
-		}
-
-
-
 
 	}
 }

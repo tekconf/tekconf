@@ -31,7 +31,6 @@ namespace TekConf.Core.Repositories
 				FormattedAddress = entity.FormattedAddress();
 				FormattedCity = entity.FormattedCity();
 				imageUrl = entity.ImageUrl;
-				//ImageBytes = entity.ImageBytes;
 			}
 		}
 
@@ -68,19 +67,7 @@ namespace TekConf.Core.Repositories
 
 		private string _imageUrl;
 
-		private byte[] _imageBytes;
-		public byte[] ImageBytes
-		{
-			get
-			{
-				return _imageBytes;
-			}
-			set
-			{
-				_imageBytes = value;
-				RaisePropertyChanged(() => ImageBytes);
-			}
-		}
+		public byte[] ImageBytes { get; set; }
 
 		private void GetImageError(Exception exception)
 		{

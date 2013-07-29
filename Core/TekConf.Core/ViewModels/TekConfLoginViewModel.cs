@@ -1,4 +1,3 @@
-using System;
 using System.Windows.Input;
 using Cirrious.MvvmCross.ViewModels;
 using TekConf.Core.Services;
@@ -12,8 +11,7 @@ namespace TekConf.Core.ViewModels
 		private readonly IMessageBox _messageBox;
 		private readonly INetworkConnection _networkConnection;
 
-		public TekConfLoginViewModel(IRemoteDataService remoteDataService, IAuthentication authentication, IMessageBox messageBox, 
-			INetworkConnection networkConnection)
+		public TekConfLoginViewModel(IRemoteDataService remoteDataService, IAuthentication authentication, IMessageBox messageBox, INetworkConnection networkConnection)
 		{
 			_remoteDataService = remoteDataService;
 			_authentication = authentication;
@@ -23,7 +21,6 @@ namespace TekConf.Core.ViewModels
 
 		public void Init()
 		{
-			
 		}
 
 		public async void Login()
@@ -56,51 +53,8 @@ namespace TekConf.Core.ViewModels
 			ShowConferencesListCommand.Execute(null);
 		}
 
-		private void LoginError(Exception exception)
-		{
-			IsLoggingIn = false;
-		}
-
-		private bool _isLoggingIn;
-		public bool IsLoggingIn
-		{
-			get
-			{
-				return _isLoggingIn;
-			}
-			set
-			{
-				_isLoggingIn = value;
-				RaisePropertyChanged(() => IsLoggingIn);
-			}
-		}
-
-		private string _userName;
-		public string UserName
-		{
-			get
-			{
-				return _userName;
-			}
-			set
-			{
-				_userName = value;
-				RaisePropertyChanged(() => UserName);
-			}
-		}
-
-		private string _password;
-		public string Password
-		{
-			get
-			{
-				return _password;
-			}
-			set
-			{
-				_password = value;
-				RaisePropertyChanged(() => Password);
-			}
-		}
+		public bool IsLoggingIn { get; set; }
+		public string UserName { get; set; }
+		public string Password { get; set; }
 	}
 }

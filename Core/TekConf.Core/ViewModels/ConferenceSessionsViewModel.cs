@@ -14,11 +14,10 @@ using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.Core.ViewModels
 {
-	using TekConf.Core.Entities;
+	using Entities;
 
 	public class ConferenceSessionsViewModel : MvxViewModel
 	{
-
 		private readonly IRemoteDataService _remoteDataService;
 		private readonly IAnalytics _analytics;
 		private readonly IMvxMessenger _messenger;
@@ -58,33 +57,9 @@ namespace TekConf.Core.ViewModels
 			}
 		}
 
-		private string _pageTitle;
-		public string PageTitle
-		{
-			get
-			{
-				return _pageTitle;
-			}
-			set
-			{
-				_pageTitle = value.ToUpper();
-				RaisePropertyChanged(() => PageTitle);
-			}
-		}
+		public string PageTitle { get; set; }
 
-		private bool _isAuthenticated;
-		public bool IsAuthenticated
-		{
-			get
-			{
-				return _isAuthenticated;
-			}
-			set
-			{
-				_isAuthenticated = value;
-				RaisePropertyChanged(() => IsAuthenticated);
-			}
-		}
+		public bool IsAuthenticated { get; set; }
 
 		public void Refresh(string slug)
 		{
@@ -120,7 +95,7 @@ namespace TekConf.Core.ViewModels
 			Schedule = schedule;
 		}
 
-		private void StartGetConference(string slug, bool isRefreshing = false)
+		private async void StartGetConference(string slug, bool isRefreshing = false)
 		{
 			if (IsLoadingConference)
 				return;
@@ -152,7 +127,8 @@ namespace TekConf.Core.ViewModels
 						}
 						else
 						{
-							_remoteDataService.GetConferenceSessionsList(slug, isRefreshing, GetConferenceSuccess, GetConferenceError);
+							var sessionsList = await _remoteDataService.GetConferenceSessionsList(slug);
+							GetConferenceSuccess(sessionsList);
 						}
 					}
 				}
@@ -164,7 +140,8 @@ namespace TekConf.Core.ViewModels
 					}
 					else
 					{
-						_remoteDataService.GetConferenceSessionsList(slug, isRefreshing, GetConferenceSuccess, GetConferenceError);
+						var sessionsList = await _remoteDataService.GetConferenceSessionsList(slug);
+						GetConferenceSuccess(sessionsList);
 					}
 				}
 			}
@@ -176,16 +153,10 @@ namespace TekConf.Core.ViewModels
 				}
 				else
 				{
-					_remoteDataService.GetConferenceSessionsList(slug, isRefreshing, GetConferenceSuccess, GetConferenceError);
+					var sessionsList = await _remoteDataService.GetConferenceSessionsList(slug);
+					GetConferenceSuccess(sessionsList);
 				}
 			}
-		}
-
-		private void GetConferenceError(Exception exception)
-		{
-			// for now we just hide the error...
-			_messenger.Publish(new ConferenceSessionsExceptionMessage(this, exception));
-			IsLoadingConference = false;
 		}
 
 		private void GetConferenceSuccess(ConferenceSessionsListViewDto conference)
@@ -284,12 +255,8 @@ namespace TekConf.Core.ViewModels
 			Schedule = conference;
 		}
 
-		private bool _isLoadingSchedule;
-		public bool IsLoadingSchedule
-		{
-			get { return _isLoadingSchedule; }
-			set { _isLoadingSchedule = value; RaisePropertyChanged(() => IsLoadingSchedule); }
-		}
+		public bool IsLoadingSchedule { get; set; }
+		
 
 		public bool HasSessions
 		{
