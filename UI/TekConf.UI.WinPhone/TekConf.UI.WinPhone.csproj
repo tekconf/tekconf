@@ -259,6 +259,7 @@
     <Compile Include="Classes\Authentication.cs" />
     <Compile Include="Bootstrap\MessengerPluginBootstrap.cs" />
     <Compile Include="Classes\AlphaKeyGroup.cs" />
+    <Compile Include="Classes\DatabindingDebugConverter.cs" />
     <Compile Include="Classes\LiveTileAgent.cs" />
     <Compile Include="Classes\WinPhoneMessageBox.cs" />
     <Compile Include="Classes\WinPhoneNetworkConnection.cs" />

@@ -6,18 +6,34 @@ using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.Core.Repositories
 {
+	using System;
+
+	using Cirrious.MvvmCross.ViewModels;
+
 	public class ConferenceSessionsListViewDto
 	{
 
+		private IEnumerable<ConferenceSessionListDto> _sessions; 
 		public ConferenceSessionsListViewDto(IEnumerable<SessionEntity> sessions)
 		{
 			if (sessions != null)
 			{
-				Sessions = sessions.Select(x => new ConferenceSessionListDto(x));
+				_sessions = sessions.Select(x => new ConferenceSessionListDto(x));
+
+				var grouped = _sessions
+								.OrderBy(x => x.start)
+								.GroupBy(session => session.start.ToString("ddd, h:mm tt"))
+								.Select(slot => new SessionGroup(
+																slot.Key,
+																slot.OrderBy(session => session.start).ThenBy(t => t.title)));
+
+				var groupList = grouped.ToList();
+
+				Sessions = groupList;
 			}
 			else
 			{
-				Sessions = new List<ConferenceSessionListDto>();
+				Sessions = new List<SessionGroup>();
 			}
 		}
 
@@ -25,45 +41,114 @@ namespace TekConf.Core.Repositories
 		{
 			if (sessions != null)
 			{
-				Sessions = sessions.Select(x => new ConferenceSessionListDto(x));
+				_sessions = sessions.Select(x => new ConferenceSessionListDto(x));
+
+				var grouped = _sessions
+								.OrderBy(x => x.start)
+								.GroupBy(session => session.start.ToString("ddd, h:mm tt"))
+								.Select(slot => new SessionGroup(
+																slot.Key,
+																slot.OrderBy(session => session.start).ThenBy(t => t.title)));
+
+				var groupList = grouped.ToList();
+
+				Sessions = groupList;
 			}
 			else
 			{
-				Sessions = new List<ConferenceSessionListDto>();
+				Sessions = new List<SessionGroup>();
 			}
 		}
 
 		public string name { get; set; }
 		public string slug { get; set; }
 
-		public IEnumerable<ConferenceSessionListDto> Sessions { get; set; }
+		public IEnumerable<SessionGroup> Sessions { get; set; }
 
-		public List<ConferenceSessionListDto> SessionsByTime
+		public List<SessionGroup> SessionsByTime
 		{
 			get
 			{
-				return Sessions == null ? new List<ConferenceSessionListDto>() : Sessions.OrderBy(x => x.start).ThenBy(t => t.title).ToList();
+				var grouped = _sessions
+												.OrderBy(x => x.start)
+												.GroupBy(session => session.start.ToString("ddd, h:mm tt"))
+												.Select(slot => new SessionGroup(
+																				slot.Key,
+																				slot.OrderBy(session => session.start).ThenBy(t => t.title)));
+
+				var groupList = grouped.ToList();
+				return groupList;
 			}
 		}
 
-		public List<ConferenceSessionListDto> SessionsByTitle
+		public List<SessionGroup> SessionsByTitle
 		{
-			get { return Sessions == null ? new List<ConferenceSessionListDto>() : Sessions.OrderBy(x => x.title).ToList(); }
+			get
+			{
+				var grouped = _sessions
+								.OrderBy(x => x.title)
+								.GroupBy(session => FirstCharacter(session.title))
+								.Select(slot => new SessionGroup(
+																slot.Key,
+																slot.OrderBy(session => session.title)));
+
+				var groupList = grouped.ToList();
+				return groupList;
+			}
 		}
 
-		public List<ConferenceSessionListDto> SessionsBySpeaker
+		private string FirstCharacter(string value)
 		{
-			get { return Sessions == null ? new List<ConferenceSessionListDto>() : Sessions.OrderBy(x => x.speakerNames).ThenBy(t => t.title).ToList(); }
+			string firstCharacter = "";
+			if (!string.IsNullOrWhiteSpace(value) && value.Length >= 1)
+			{
+				firstCharacter = value.Substring(0, 1);
+			}
+			return firstCharacter;
 		}
 
-		public List<ConferenceSessionListDto> SessionsByTag
+		public List<SessionGroup> SessionsByTag
 		{
-			get { return Sessions == null ? new List<ConferenceSessionListDto>() : Sessions.OrderBy(x => x.tags.OrderBy(s => s).FirstOrDefault()).ThenBy(t => t.title).ToList(); }
+			get
+			{
+				var grouped = _sessions
+								.OrderBy(x => x.tagNames)
+								.GroupBy(session => FirstCharacter(session.tagNames))
+								.Select(slot => new SessionGroup(
+								slot.Key,
+								slot.OrderBy(session => session.tagNames)));
+
+				var groupList = grouped.ToList();
+				return groupList;
+			}
 		}
 
-		public List<ConferenceSessionListDto> SessionsByRoom
+		public List<SessionGroup> SessionsByRoom
 		{
-			get { return Sessions == null ? new List<ConferenceSessionListDto>() : Sessions.OrderBy(x => x.room).ThenBy(t => t.title).ToList(); }
+			get
+			{
+				var grouped = _sessions
+								.OrderBy(x => x.room)
+								.GroupBy(session => session.room)
+								.Select(slot => new SessionGroup(
+											slot.Key,
+											slot.OrderBy(session => session.room)));
+
+				var groupList = grouped.ToList();
+				return groupList;
+			}
 		}
 	}
+
+	public class SessionGroup : List<ConferenceSessionListDto>
+	{
+		public string Key { get; set; }
+
+		public SessionGroup(string key, IEnumerable<ConferenceSessionListDto> items)
+			: base(items)
+		{
+			Key = key;
+		}
+	}
+
 }
