@@ -95,7 +95,7 @@ namespace TekConf.RemoteData.Dtos.v1
 
 		public bool IsOpenCallForSpeakers()
 		{
-			var isOpenCall = callForSpeakersOpens > DateTime.Now || callForSpeakersCloses < DateTime.Now;
+			var isOpenCall = callForSpeakersOpens <= DateTime.Now && callForSpeakersCloses >= DateTime.Now;
 
 			return isOpenCall;
 		}
