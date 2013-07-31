@@ -273,14 +273,24 @@ namespace TekConf.Core.ViewModels
 			}
 		}
 
-		public List<FullSessionDto> Sessions
+		public List<FullSessionGroup> Sessions
 		{
 			get
 			{
 				if (Schedule != null && Schedule.sessions != null)
-					return Schedule.sessions;
+				{
+					var grouped = Schedule.sessions
+						.OrderBy(x => x.start)
+						.GroupBy(session => session.start.ToString("ddd, h:mm tt"))
+						.Select(slot => new FullSessionGroup(
+							slot.Key,
+							slot.OrderBy(session => session.start).ThenBy(t => t.title)));
+
+					var groupList = grouped.ToList();
+					return groupList;
+				}
 				else
-					return new List<FullSessionDto>();
+					return new List<FullSessionGroup>();
 			}
 		}
 

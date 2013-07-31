@@ -23,7 +23,7 @@ namespace TekConf.Core.Repositories
 				var grouped = _sessions
 								.OrderBy(x => x.start)
 								.GroupBy(session => session.start.ToString("ddd, h:mm tt"))
-								.Select(slot => new SessionGroup(
+								.Select(slot => new ConferenceSessionGroup(
 																slot.Key,
 																slot.OrderBy(session => session.start).ThenBy(t => t.title)));
 
@@ -33,7 +33,7 @@ namespace TekConf.Core.Repositories
 			}
 			else
 			{
-				Sessions = new List<SessionGroup>();
+				Sessions = new List<ConferenceSessionGroup>();
 			}
 		}
 
@@ -46,7 +46,7 @@ namespace TekConf.Core.Repositories
 				var grouped = _sessions
 								.OrderBy(x => x.start)
 								.GroupBy(session => session.start.ToString("ddd, h:mm tt"))
-								.Select(slot => new SessionGroup(
+								.Select(slot => new ConferenceSessionGroup(
 																slot.Key,
 																slot.OrderBy(session => session.start).ThenBy(t => t.title)));
 
@@ -56,23 +56,23 @@ namespace TekConf.Core.Repositories
 			}
 			else
 			{
-				Sessions = new List<SessionGroup>();
+				Sessions = new List<ConferenceSessionGroup>();
 			}
 		}
 
 		public string name { get; set; }
 		public string slug { get; set; }
 
-		public IEnumerable<SessionGroup> Sessions { get; set; }
+		public IEnumerable<ConferenceSessionGroup> Sessions { get; set; }
 
-		public List<SessionGroup> SessionsByTime
+		public List<ConferenceSessionGroup> SessionsByTime
 		{
 			get
 			{
 				var grouped = _sessions
 												.OrderBy(x => x.start)
 												.GroupBy(session => session.start.ToString("ddd, h:mm tt"))
-												.Select(slot => new SessionGroup(
+												.Select(slot => new ConferenceSessionGroup(
 																				slot.Key,
 																				slot.OrderBy(session => session.start).ThenBy(t => t.title)));
 
@@ -81,14 +81,14 @@ namespace TekConf.Core.Repositories
 			}
 		}
 
-		public List<SessionGroup> SessionsByTitle
+		public List<ConferenceSessionGroup> SessionsByTitle
 		{
 			get
 			{
 				var grouped = _sessions
 								.OrderBy(x => x.title)
 								.GroupBy(session => FirstCharacter(session.title))
-								.Select(slot => new SessionGroup(
+								.Select(slot => new ConferenceSessionGroup(
 																slot.Key,
 																slot.OrderBy(session => session.title)));
 
@@ -107,14 +107,14 @@ namespace TekConf.Core.Repositories
 			return firstCharacter;
 		}
 
-		public List<SessionGroup> SessionsByTag
+		public List<ConferenceSessionGroup> SessionsByTag
 		{
 			get
 			{
 				var grouped = _sessions
 								.OrderBy(x => x.tagNames)
 								.GroupBy(session => FirstCharacter(session.tagNames))
-								.Select(slot => new SessionGroup(
+								.Select(slot => new ConferenceSessionGroup(
 								slot.Key,
 								slot.OrderBy(session => session.tagNames)));
 
@@ -123,14 +123,14 @@ namespace TekConf.Core.Repositories
 			}
 		}
 
-		public List<SessionGroup> SessionsByRoom
+		public List<ConferenceSessionGroup> SessionsByRoom
 		{
 			get
 			{
 				var grouped = _sessions
 								.OrderBy(x => x.room)
 								.GroupBy(session => session.room)
-								.Select(slot => new SessionGroup(
+								.Select(slot => new ConferenceSessionGroup(
 											slot.Key,
 											slot.OrderBy(session => session.room)));
 
@@ -139,16 +139,4 @@ namespace TekConf.Core.Repositories
 			}
 		}
 	}
-
-	public class SessionGroup : List<ConferenceSessionListDto>
-	{
-		public string Key { get; set; }
-
-		public SessionGroup(string key, IEnumerable<ConferenceSessionListDto> items)
-			: base(items)
-		{
-			Key = key;
-		}
-	}
-
 }
