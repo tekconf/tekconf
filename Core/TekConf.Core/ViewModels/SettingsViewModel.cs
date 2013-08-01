@@ -137,7 +137,7 @@ namespace TekConf.Core.ViewModels
 			{
 				_messenger.Publish(new AuthenticationMessage(this, userName));
 				//UserName = userName;
-				ShowViewModel<ConferencesListViewModel>();
+				//ShowViewModel<ConferencesListViewModel>();
 			}
 			else
 			{

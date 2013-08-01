@@ -15,7 +15,9 @@ namespace TekConf.Core.ViewModels
 		{
 			get
 			{
-				return new MvxCommand(() => ShowViewModel<ConferencesListViewModel>(new { searchTerm = SearchText }));
+				return new MvxCommand(() => 
+					ShowViewModel<ConferencesListViewModel>(new { searchTerm = SearchText })
+					);
 			}
 		}
 

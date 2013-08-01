@@ -48,10 +48,10 @@ namespace TekConf.Core.ViewModels
 			_favoritesUpdatedMessageToken = _messenger.Subscribe<FavoriteConferencesUpdatedMessage>(OnFavoritesUpdatedMessage);
 		}
 
-		public async void Init(string searchTerm)
+		public async void Init(Parameters parameters)
 		{
-			var allConferences = await StartGetAll();
-			var favorites = await StartGetFavorites();
+			var allConferences = await StartGetAll(isRefreshing: parameters.IsRefreshing);
+			var favorites = await StartGetFavorites(isRefreshing: parameters.IsRefreshing);
 
 			InvokeOnMainThread(() =>
 				{
@@ -245,9 +245,19 @@ namespace TekConf.Core.ViewModels
 			{
 				_authentication.UserName = message.UserName;
 				IsAuthenticated = true;
-				var favorites = await StartGetFavorites(true);
-				InvokeOnMainThread(() => DisplayFavoritesConferences(favorites));
+				ShowViewModel<ConferencesListViewModel>(new ConferencesListViewModel.Parameters() { IsRefreshing = true } );
+				//var favorites = await StartGetFavorites(true);
+				//InvokeOnMainThread(
+				//	() => 
+				//		DisplayFavoritesConferences(favorites)
+				//);
 			}
 		}
+
+		public class Parameters
+		{
+			public bool IsRefreshing { get; set; }
+		}
 	}
+
 }

@@ -78,7 +78,7 @@ namespace TekConf.Core.ViewModels
 				bool shouldAddFavorites = false;
 				if (_authentication.IsAuthenticated)
 				{
-					shouldAddFavorites = HasSessions && (Schedule == null || Schedule.sessions == null || !Schedule.sessions.Any());
+					shouldAddFavorites = (Schedule == null || Schedule.sessions == null || !Schedule.sessions.Any());
 				}
 
 				return shouldAddFavorites;
