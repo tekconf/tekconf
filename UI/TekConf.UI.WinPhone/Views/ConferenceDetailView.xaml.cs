@@ -27,6 +27,11 @@ namespace TekConf.UI.WinPhone.Views
 		public ConferenceDetailView()
 		{
 			InitializeComponent();
+			LocationMap.Loaded += (sender, args) =>
+			{
+				Microsoft.Phone.Maps.MapsSettings.ApplicationContext.ApplicationId = "9078e309-8113-4ea7-9061-75d1a392743c";
+				Microsoft.Phone.Maps.MapsSettings.ApplicationContext.AuthenticationToken = "Th8jcERPJgUlwBJDdtHs6w";
+			};
 			var messenger = Mvx.Resolve<IMvxMessenger>();
 
 
