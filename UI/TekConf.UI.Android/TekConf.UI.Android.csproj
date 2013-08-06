@@ -42,89 +42,97 @@
   <ItemGroup>
     <Reference Include="Cirrious.CrossCore, Version=1.0.0.0, Culture=neutral, PublicKeyToken=e16445fd9b451819, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.9\lib\MonoAndroid16\Cirrious.CrossCore.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.10\lib\MonoAndroid16\Cirrious.CrossCore.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.CrossCore.Droid, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.9\lib\MonoAndroid16\Cirrious.CrossCore.Droid.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.10\lib\MonoAndroid16\Cirrious.CrossCore.Droid.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross, Version=1.0.0.0, Culture=neutral, PublicKeyToken=e16445fd9b451819, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.MvvmCrossLibraries.3.0.9\lib\MonoAndroid16\Cirrious.MvvmCross.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.MvvmCrossLibraries.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Binding, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.9\lib\MonoAndroid16\Cirrious.MvvmCross.Binding.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.Binding.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Binding.Droid, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.9\lib\MonoAndroid16\Cirrious.MvvmCross.Binding.Droid.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.Binding.Droid.dll</HintPath>
     </Reference>
-    <Reference Include="Cirrious.MvvmCross.Dialog.Droid">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Droid.Dialog.3.0.9\lib\MonoAndroid16\Cirrious.MvvmCross.Dialog.Droid.dll</HintPath>
+    <Reference Include="Cirrious.MvvmCross.Dialog.Droid, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Droid.Dialog.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.Dialog.Droid.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Droid, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.MvvmCrossLibraries.3.0.9\lib\MonoAndroid16\Cirrious.MvvmCross.Droid.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.MvvmCrossLibraries.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.Droid.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Localization, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.9\lib\MonoAndroid16\Cirrious.MvvmCross.Localization.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.Localization.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.DownloadCache, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.DownloadCache.3.0.9\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.DownloadCache.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.DownloadCache.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.DownloadCache.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.DownloadCache.Droid, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.DownloadCache.3.0.9\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.DownloadCache.Droid.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.DownloadCache.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.DownloadCache.Droid.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.File, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.File.3.0.9\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.File.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.File.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.File.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.File.Droid, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.File.3.0.9\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.File.Droid.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.File.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.File.Droid.dll</HintPath>
     </Reference>
-    <Reference Include="Cirrious.MvvmCross.Plugins.Json">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Json.3.0.9\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.Json.dll</HintPath>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Json, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Json.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.Json.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.Messenger, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Messenger.3.0.9\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.Messenger.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Messenger.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.Messenger.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.Network, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Network.3.0.9\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.Network.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Network.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.Network.dll</HintPath>
     </Reference>
-    <Reference Include="Cirrious.MvvmCross.Plugins.Network.Droid">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Network.3.0.9\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.Network.Droid.dll</HintPath>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Network.Droid, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Network.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.Network.Droid.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.Sqlite, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Sqlite.3.0.9\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.Sqlite.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Sqlite.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.Sqlite.dll</HintPath>
     </Reference>
-    <Reference Include="Cirrious.MvvmCross.Plugins.Sqlite.Droid">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Sqlite.3.0.9\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.Sqlite.Droid.dll</HintPath>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Sqlite.Droid, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Sqlite.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.Sqlite.Droid.dll</HintPath>
     </Reference>
-    <Reference Include="Cirrious.MvvmCross.Plugins.Visibility">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Visibility.3.0.9\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.Visibility.dll</HintPath>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Visibility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Visibility.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.Visibility.dll</HintPath>
     </Reference>
-    <Reference Include="Cirrious.MvvmCross.Plugins.Visibility.Droid">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Visibility.3.0.9\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.Visibility.Droid.dll</HintPath>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Visibility.Droid, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Visibility.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.Visibility.Droid.dll</HintPath>
     </Reference>
-    <Reference Include="CrossUI.Core">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Droid.Dialog.3.0.9\lib\MonoAndroid16\CrossUI.Core.dll</HintPath>
+    <Reference Include="CrossUI.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Droid.Dialog.3.0.10\lib\MonoAndroid16\CrossUI.Core.dll</HintPath>
     </Reference>
-    <Reference Include="CrossUI.Droid">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Droid.Dialog.3.0.9\lib\MonoAndroid16\CrossUI.Droid.dll</HintPath>
+    <Reference Include="CrossUI.Droid, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Droid.Dialog.3.0.10\lib\MonoAndroid16\CrossUI.Droid.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Json.3.0.9\lib\MonoAndroid16\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Json.3.0.10\lib\MonoAndroid16\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PushSharp.Android">
       <HintPath>..\..\packages\PushSharp.2.0.4.0\lib\net40\PushSharp.Android.dll</HintPath>
@@ -134,19 +142,19 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Net, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\MvvmCross.PortableSupport.3.0.9\lib\MonoAndroid16\System.Net.dll</HintPath>
+    <Reference Include="System.Net">
+      <Private>True</Private>
+      <HintPath>..\..\packages\MvvmCross.PortableSupport.3.0.10\lib\MonoAndroid16\System.Net.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows">
       <Private>True</Private>
-      <HintPath>..\..\packages\MvvmCross.PortableSupport.3.0.9\lib\MonoAndroid16\System.Windows.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.PortableSupport.3.0.10\lib\MonoAndroid16\System.Windows.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Serialization">
       <Private>True</Private>
-      <HintPath>..\..\packages\MvvmCross.PortableSupport.3.0.9\lib\MonoAndroid16\System.Xml.Serialization.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.PortableSupport.3.0.10\lib\MonoAndroid16\System.Xml.Serialization.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +177,7 @@
     <Compile Include="Views\ConferenceDetailView.cs" />
     <Compile Include="Views\ConferenceSessionsView.cs" />
     <Compile Include="Views\ConferencesListView.cs" />
+    <Compile Include="Views\FirstView.cs" />
     <Compile Include="Views\SessionDetailView.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -193,6 +202,7 @@
     <AndroidResource Include="Resources\Layout\SessionDetailView.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\Layout\FirstView.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Values\Strings.xml" />
