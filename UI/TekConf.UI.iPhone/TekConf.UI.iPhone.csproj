@@ -100,7 +100,6 @@
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="Views\ConferencesListView.cs" />
-    <Compile Include="Views\FirstView.cs" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="packages.config" />
@@ -167,13 +166,76 @@
     <Reference Include="CrossUI.Touch">
       <HintPath>..\..\packages\MvvmCross.HotTuna.Touch.Dialog.3.0.10\lib\MonoTouch40\CrossUI.Touch.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Bcl.Build.Tasks">
+      <HintPath>..\..\packages\Microsoft.Bcl.Build.1.0.8\tools\Microsoft.Bcl.Build.Tasks.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Json.3.0.10\lib\MonoTouch40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Collections">
+      <HintPath>..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\System.Collections.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Collections.Concurrent">
+      <HintPath>..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\System.Collections.Concurrent.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Diagnostics.Debug">
+      <HintPath>..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\System.Diagnostics.Debug.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Globalization">
+      <HintPath>..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\System.Globalization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO">
+      <HintPath>..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\System.IO.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Linq">
+      <HintPath>..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\System.Linq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Linq.Expressions">
+      <HintPath>..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\System.Linq.Expressions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Net">
       <Private>True</Private>
       <HintPath>..\..\packages\MvvmCross.PortableSupport.3.0.10\lib\MonoTouch40\System.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Requests">
+      <HintPath>..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\System.Net.Requests.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ObjectModel">
+      <HintPath>..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\System.ObjectModel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Reflection">
+      <HintPath>..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\System.Reflection.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Resources.ResourceManager">
+      <HintPath>..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\System.Resources.ResourceManager.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime">
+      <HintPath>..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Text.Encoding">
+      <HintPath>..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\System.Text.Encoding.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Threading">
+      <HintPath>..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\System.Threading.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Threading.Tasks">
+      <HintPath>..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Facades\System.Threading.Tasks.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Windows">
       <Private>True</Private>
@@ -192,9 +254,9 @@
     <Content Include="ToDo-MvvmCross\_ Touch UI.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\TekConf.Core.iOS\TekConf.Core.iOS.csproj">
-      <Project>{eb90cbf8-f70d-4cb9-92d4-5a45415b4bfa}</Project>
-      <Name>TekConf.Core.iOS</Name>
+    <ProjectReference Include="..\..\Core\TekConf.Core\TekConf.Core.csproj">
+      <Project>{e740f915-a0fc-4c66-9fd3-1d9a0dda527a}</Project>
+      <Name>TekConf.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />

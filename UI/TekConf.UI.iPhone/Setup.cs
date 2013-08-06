@@ -1,4 +1,5 @@
 using Cirrious.CrossCore;
+using Cirrious.MvvmCross.Binding;
 using Cirrious.MvvmCross.Plugins.Sqlite;
 using MonoTouch.UIKit;
 using Cirrious.CrossCore.Platform;
@@ -11,6 +12,32 @@ using TekConf.Core.Services;
 
 namespace TekConf.UI.iPhone
 {
+	public class iPhoneNetworkConnection : INetworkConnection
+	{
+		public bool IsNetworkConnected()
+		{
+			return true; //TODO
+		}
+
+		public string NetworkDownMessage
+		{
+			get
+			{
+				return "";
+			}
+		}
+	}
+
+	public class iPhoneMessageBox : IMessageBox
+	{
+		public void Show(string message)
+		{
+			var uiAlertView = new UIAlertView();
+			uiAlertView.Message = message;
+			uiAlertView.Show();
+		}
+	}
+
 	public class Setup : MvxTouchSetup
 	{
 		public Setup(MvxApplicationDelegate applicationDelegate, UIWindow window)
@@ -25,14 +52,15 @@ namespace TekConf.UI.iPhone
 
 			Mvx.RegisterSingleton(typeof(IAuthentication), new Authentication(connection));
 			Mvx.RegisterSingleton<ISQLiteConnection>(connection);
-			//MvxBindingTrace.TraceBindingLevel = MvxTraceLevel.Diagnostic;
+			MvxBindingTrace.TraceBindingLevel = MvxTraceLevel.Diagnostic;
 			Mvx.RegisterType<IAnalytics, iPhoneAnalytics>();
 			Mvx.RegisterType<ICacheService, CacheService>();
 			Mvx.RegisterType<ILocalNotificationsRepository, LocalNotificationsRepository>();
 			Mvx.RegisterType<ILocalConferencesRepository, LocalConferencesRepository>();
 			Mvx.RegisterType<IRestService, RestService>();
 			Mvx.RegisterType<IPushSharpClient, PushSharpClient>();
-
+			Mvx.RegisterType<INetworkConnection, iPhoneNetworkConnection>();
+			Mvx.RegisterType<IMessageBox, iPhoneMessageBox>();
 			return new Core.App();
 		}
 
