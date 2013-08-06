@@ -108,8 +108,7 @@ namespace TekConf.Core.ViewModels
 				var conference = _localConferencesRepository.Get(slug);
 				if (conference != null)
 				{
-					IEnumerable<SessionEntity> sessions = null;
-					sessions = conference.Sessions(_connection);
+					IEnumerable<SessionEntity> sessions = conference.Sessions(_connection);
 					if (sessions != null)
 					{
 						var conferenceSessionsListViewDto = new ConferenceSessionsListViewDto(sessions)

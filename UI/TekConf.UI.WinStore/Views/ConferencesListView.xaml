@@ -1,13 +1,10 @@
 ﻿<views:MvxStorePage
 		x:Name="pageRoot"
 		x:Class="TekConf.UI.WinStore.Views.ConferencesListView"
-		DataContext="{Binding DefaultViewModel, RelativeSource={RelativeSource Self}}"
 		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-		xmlns:local="using:TekConf.UI.WinStore.Views"
-		xmlns:common="using:TekConf.UI.WinStore.Common"
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:winStore="using:TekConf.UI.WinStore"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:views="using:Cirrious.MvvmCross.WindowsStore.Views"
 	mc:Ignorable="d">
 
@@ -29,7 +26,8 @@
 				</Border>
 				<StackPanel Grid.Column="1" Margin="10,0,0,0">
 					<TextBlock Text="{Binding name}" Foreground="Black" Style="{StaticResource ItemTextStyle}" MaxHeight="40"/>
-					<TextBlock Text="{Binding tagline}" Foreground="Black" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap"/>
+					<TextBlock Text="{Binding DateRange}" Foreground="Black" Style="{StaticResource CaptionTextStyle}" />
+					<TextBlock Text="{Binding FormattedCity}" Foreground="Black" Style="{StaticResource CaptionTextStyle}" />
 				</StackPanel>
 			</Grid>
 		</DataTemplate>
@@ -37,19 +35,24 @@
 		<DataTemplate x:Key="Conferences250x250ItemTemplate">
 			<Grid HorizontalAlignment="Left" Width="260" Height="250">
 				<Border Background="White">
-					<Image Source="{Binding imageUrl}" Stretch="UniformToFill" Width="260" Height="180" VerticalAlignment="Top" AutomationProperties.Name="{Binding name}"/>
+					<Image Source="{Binding imageUrl}" 
+								 Stretch="UniformToFill" 
+								 Width="260" Height="180" VerticalAlignment="Top" AutomationProperties.Name="{Binding name}"/>
 				</Border>
 				<StackPanel VerticalAlignment="Bottom" Background="{StaticResource ListViewItemOverlayBackgroundThemeBrush}">
 					<TextBlock Text="{Binding name}" 
 										 Foreground="{StaticResource 
 											ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}" 
-											Height="40" 
+											Height="30" 
 											Margin="15,0,15,0"/>
-					<TextBlock Text="{Binding tagline}" 
+					<TextBlock Text="{Binding DateRange}" 
 										 Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" 
 										 Style="{StaticResource CaptionTextStyle}" 
-											TextWrapping="NoWrap" 
-										 Margin="15,0,15,10"/>
+											TextWrapping="Wrap" Margin="15,0,15,0" />
+					<TextBlock Text="{Binding FormattedCity}" 
+										 Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" 
+										 Style="{StaticResource CaptionTextStyle}" 
+											TextWrapping="Wrap" Margin="15,0,15,0" />
 				</StackPanel>
 			</Grid>
 		</DataTemplate>
@@ -75,7 +78,7 @@
 						AutomationProperties.AutomationId="ItemsGridView"
 						AutomationProperties.Name="Items"
 						TabIndex="1"
-						Grid.RowSpan="2"
+						Grid.RowSpan="3"
 						Padding="116,136,116,46"
 						ItemsSource="{Binding Source={StaticResource conferencesListViewSource}}"
 						ItemTemplate="{StaticResource Conferences250x250ItemTemplate}"
@@ -85,7 +88,6 @@
 						Background="White"
 						ItemClick="Conference_OnClick" 
 						Margin="0,60,0,0"
-						
 			/>
 
 		<!-- Vertical scrolling list only used when snapped -->

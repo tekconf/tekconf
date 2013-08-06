@@ -41,16 +41,34 @@ namespace TekConf.UI.WinStore
 			Mvx.RegisterType<IRestService, RestService>();
 			Mvx.RegisterType<IPushSharpClient, PushSharpClient>();
 
-			//IRemoteDataService remoteDataService,
-			//															ILocalConferencesRepository localConferencesRepository,
-			//															IAnalytics analytics,
-			//															IAuthentication authentication,
-			//															IMvxFileStore fileStore,
-			//															IMvxMessenger messenger
-
+			Mvx.RegisterType<INetworkConnection, WinStoreNetworkConnection>();
+			Mvx.RegisterType<IMessageBox, WinStoreMessageBox>();
 
 
 			return new TekConf.Core.App();
+		}
+	}
+	public class WinStoreMessageBox : IMessageBox
+	{
+		public void Show(string message)
+		{
+			//TODO
+		}
+	}
+
+	public class WinStoreNetworkConnection : INetworkConnection
+	{
+		public bool IsNetworkConnected()
+		{
+			return true; //TODO
+		}
+
+		public string NetworkDownMessage
+		{
+			get
+			{
+				return "Could not connect to remote server. Please check your network connection and try again.";
+			}
 		}
 	}
 
