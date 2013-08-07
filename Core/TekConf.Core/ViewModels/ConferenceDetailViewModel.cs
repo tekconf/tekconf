@@ -16,6 +16,9 @@ namespace TekConf.Core.ViewModels
 	using System.Threading.Tasks;
 
 	using Cirrious.MvvmCross.Plugins.File;
+	using Cirrious.MvvmCross.Plugins.Sqlite;
+
+	using TekConf.Core.Entities;
 
 	public class ConferenceDetailViewModel : MvxViewModel
 	{
@@ -28,9 +31,11 @@ namespace TekConf.Core.ViewModels
 		private readonly IMessageBox _messageBox;
 		private readonly INetworkConnection _networkConnection;
 
+		private readonly ISQLiteConnection _sqLiteConnection;
+
 		public ConferenceDetailViewModel(IRemoteDataService remoteDataService, ILocalConferencesRepository localConferencesRepository, 
 			IAnalytics analytics, IAuthentication authentication, IMvxMessenger messenger, IMvxFileStore fileStore, 
-			IMessageBox messageBox, INetworkConnection networkConnection)
+			IMessageBox messageBox, INetworkConnection networkConnection, ISQLiteConnection sqLiteConnection)
 		{
 			_remoteDataService = remoteDataService;
 			_localConferencesRepository = localConferencesRepository;
@@ -40,6 +45,7 @@ namespace TekConf.Core.ViewModels
 			_fileStore = fileStore;
 			_messageBox = messageBox;
 			_networkConnection = networkConnection;
+			_sqLiteConnection = sqLiteConnection;
 		}
 
 		public async void Init(string slug)
@@ -97,8 +103,37 @@ namespace TekConf.Core.ViewModels
 			return conferenceDto;
 		}
 
+		public IEnumerable<SessionEntity> Sessions;
+
+		public List<SessionEntityGroup> SessionsByTime
+		{
+			get
+			{
+				var grouped = Sessions
+												.OrderBy(x => x.Start)
+												.GroupBy(session => session.Start.ToString("ddd, h:mm tt"))
+												.Select(slot => new SessionEntityGroup(
+																				slot.Key,
+																				slot.OrderBy(session => session.Start).ThenBy(t => t.Title)));
+
+				var groupList = grouped.ToList();
+				return groupList;
+			}
+		}
+
 		private void Success(ConferenceDetailViewDto conference)
 		{
+			var conferenceEntity = _localConferencesRepository.Get(conference.slug);
+			if (conferenceEntity != null)
+			{
+				IEnumerable<SessionEntity> sessions = conferenceEntity.Sessions(_sqLiteConnection);
+				if (sessions != null)
+				{
+					InvokeOnMainThread(() => Sessions = sessions);
+
+				}
+			}
+
 			InvokeOnMainThread(() => DisplayConference(conference));
 		}
 

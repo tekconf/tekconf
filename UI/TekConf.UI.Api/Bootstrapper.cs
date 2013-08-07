@@ -141,8 +141,10 @@ namespace TekConf.UI.Api
 	{
 		protected override DateTime ResolveCore(AddSession source)
 		{
-			TimeZoneInfo est = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
-			return TimeZoneInfo.ConvertTimeFromUtc(source.start, est);
+			//TimeZoneInfo est = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+			//return TimeZoneInfo.ConvertTimeFromUtc(source.start, est);
+
+			return source.start;
 		}
 	}
 
@@ -150,8 +152,10 @@ namespace TekConf.UI.Api
 	{
 		protected override DateTime ResolveCore(AddSession source)
 		{
-			TimeZoneInfo est = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
-			return TimeZoneInfo.ConvertTimeFromUtc(source.end, est);
+			//TimeZoneInfo est = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+			//return TimeZoneInfo.ConvertTimeFromUtc(source.end, est);
+
+			return source.end;
 		}
 	}
 
@@ -159,8 +163,9 @@ namespace TekConf.UI.Api
 	{
 		protected override DateTime? ResolveCore(CreateConference source)
 		{
-			TimeZoneInfo est = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
-			return TimeZoneInfo.ConvertTimeFromUtc(source.start, est);
+			//TimeZoneInfo est = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+			//return TimeZoneInfo.ConvertTimeFromUtc(source.start, est);
+			return source.start;
 		}
 	}
 
@@ -169,8 +174,9 @@ namespace TekConf.UI.Api
 		protected override DateTime? ResolveCore(CreateConference source)
 		{
 
-			TimeZoneInfo est = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
-			return TimeZoneInfo.ConvertTimeFromUtc(source.end, est);
+			//TimeZoneInfo est = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+			//return TimeZoneInfo.ConvertTimeFromUtc(source.end, est);
+			return source.end;
 		}
 	}
 

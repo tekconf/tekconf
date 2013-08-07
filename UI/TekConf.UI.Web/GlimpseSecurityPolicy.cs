@@ -9,7 +9,7 @@ namespace TekConf.UI.Web
 		{
 
 			var httpContext = policyContext.GetHttpContext();
-			if (httpContext.User.Identity.Name.ToLower() != "robgibbens")
+			if (httpContext.User == null || httpContext.User.Identity.Name.ToLower() != "robgibbens")
 			{
 				return RuntimePolicy.Off;
 			}
