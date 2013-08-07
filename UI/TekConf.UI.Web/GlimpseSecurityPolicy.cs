@@ -9,7 +9,9 @@ namespace TekConf.UI.Web
 		{
 
 			var httpContext = policyContext.GetHttpContext();
-			if (httpContext.User == null || httpContext.User.Identity.Name.ToLower() != "robgibbens")
+			if (httpContext.User == null 
+					|| httpContext.User.Identity.Name.ToLower() != "robgibbens"
+					|| httpContext.User.Identity.Name.ToLower() != "qconf")
 			{
 				return RuntimePolicy.Off;
 			}
