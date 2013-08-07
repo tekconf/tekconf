@@ -7,6 +7,12 @@ using TekConf.Core.ViewModels;
 namespace TekConf.UI.iPhone.Views
 {
 	[Register("ConferencesListView")]
+	public class ConferenceDetailView : MvxViewController
+	{
+		
+	}
+
+	[Register("ConferencesListView")]
 	public class ConferencesListView : MvxTableViewController
 	{
 		public ConferencesListView()
@@ -23,7 +29,7 @@ namespace TekConf.UI.iPhone.Views
 
 			var set = this.CreateBindingSet<ConferencesListView, ConferencesListViewModel>();
 			set.Bind(source).To(vm => vm.Conferences);
-			//set.Bind(source).For(s => s.SelectionChangedCommand).To(vm => vm.ShowDetailCommand);
+			set.Bind(source).For(s => s.SelectionChangedCommand).To(vm => vm.ShowDetailCommand);
 			set.Apply();
 
 			TableView.ReloadData();

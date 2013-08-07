@@ -232,7 +232,16 @@ namespace TekConf.Core.ViewModels
 
 		public ICommand ShowSettingsCommand { get { return new MvxCommand(() => ShowViewModel<SettingsViewModel>()); } }
 		public ICommand ShowSearchCommand { get { return new MvxCommand(() => ShowViewModel<ConferencesSearchViewModel>()); } }
-		public ICommand ShowDetailCommand { get { return new MvxCommand<string>(slug => ShowViewModel<ConferenceDetailViewModel>(new { slug })); } }
+
+		public ICommand ShowDetailCommand
+		{
+			get
+			{
+				return new MvxCommand(() => ShowViewModel<ConferenceDetailViewModel>());
+				
+				//return new MvxCommand(slug => ShowViewModel<ConferenceDetailViewModel>(new {slug}));
+			}
+		}
 
 		private void OnFavoritesUpdatedMessage(FavoriteConferencesUpdatedMessage message)
 		{

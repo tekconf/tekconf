@@ -111,9 +111,6 @@
     <Reference Include="Cirrious.CrossCore.Touch">
       <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.10\lib\MonoTouch40\Cirrious.CrossCore.Touch.dll</HintPath>
     </Reference>
-    <Reference Include="Cirrious.MvvmCross">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.MvvmCrossLibraries.3.0.10\lib\MonoTouch40\Cirrious.MvvmCross.dll</HintPath>
-    </Reference>
     <Reference Include="Cirrious.MvvmCross.Binding">
       <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.10\lib\MonoTouch40\Cirrious.MvvmCross.Binding.dll</HintPath>
     </Reference>
@@ -254,6 +251,10 @@
     <Content Include="ToDo-MvvmCross\_ Touch UI.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\MvvmCross\Cirrious\Cirrious.MvvmCross\Cirrious.MvvmCross.csproj">
+      <Project>{b6e27475-e7d0-448c-a5cc-5097dca1e2dd}</Project>
+      <Name>Cirrious.MvvmCross</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Core\TekConf.Core\TekConf.Core.csproj">
       <Project>{e740f915-a0fc-4c66-9fd3-1d9a0dda527a}</Project>
       <Name>TekConf.Core</Name>
