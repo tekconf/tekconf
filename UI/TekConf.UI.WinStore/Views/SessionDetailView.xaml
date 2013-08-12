@@ -11,12 +11,20 @@
 		mc:Ignorable="d">
 
 
+	<Page.BottomAppBar>
+		<AppBar x:Name="bottomAppBar" Padding="10,0,10,0" VerticalContentAlignment="Stretch" VerticalAlignment="Bottom" HorizontalContentAlignment="Stretch">
+			<Grid>
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+					<Button Style="{StaticResource FavoriteAppBarButtonStyle}" Click="AddFavorite_OnClick" />
+				</StackPanel>
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+					<Button Style="{StaticResource RefreshAppBarButtonStyle}" Click="Refresh_OnClick" />
+					<Button Style="{StaticResource RepairAppBarButtonStyle}" AutomationProperties.Name="Settings" Click="Settings_OnClick" />
+				</StackPanel>
+			</Grid>
+		</AppBar>
+	</Page.BottomAppBar>
 
-	<!--
-				This grid acts as a root panel for the page that defines two rows:
-				* Row 0 contains the back button and page title
-				* Row 1 contains the rest of the page layout
-		-->
 	<Grid Style="{StaticResource LayoutRootStyle}">
 		<Grid.RowDefinitions>
 			<RowDefinition Height="140"/>
@@ -34,9 +42,20 @@
 			<TextBlock x:Name="pageTitle" Text="{Binding PageTitle}" Style="{StaticResource PageHeaderTextStyle}" Grid.Column="1" IsHitTestVisible="false"/>
 		</Grid>
 
-		<StackPanel Grid.Row="1" Background="White">
-			<TextBlock Text="{Binding Session.description}" Foreground="Black"  Style="{StaticResource BodyTextStyle}"></TextBlock>
-		</StackPanel>
+		<Grid Grid.Row="1" Background="White" >
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
+
+			<StackPanel Grid.Column="0" Grid.Row="0" Margin="10,10,20,10">
+				<TextBlock Text="{Binding Session.startDescription}" Foreground="Black"  Style="{StaticResource PageSubheaderTextStyle}"></TextBlock>
+				<TextBlock Text="{Binding Session.room}" Foreground="Black"  Style="{StaticResource PageSubheaderTextStyle}"></TextBlock>
+			</StackPanel>
+			<StackPanel Grid.Column="1" Grid.Row="0" Margin="10,10,20,10">
+				<TextBlock Text="{Binding Session.description}" Foreground="Black"  Style="{StaticResource BodyTextStyle}" FontSize="20" LineHeight="28"></TextBlock>
+			</StackPanel>
+		</Grid>
 
 		<VisualStateManager.VisualStateGroups>
 

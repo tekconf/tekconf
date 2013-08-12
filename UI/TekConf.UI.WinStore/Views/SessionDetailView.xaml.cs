@@ -9,6 +9,11 @@ using TekConf.UI.WinStore.Common;
 
 namespace TekConf.UI.WinStore.Views
 {
+	using Windows.UI.Xaml;
+
+	using Cirrious.CrossCore;
+	using Cirrious.MvvmCross.Plugins.Sqlite;
+
 	/// <summary>
 	/// A page that displays details for a single item within a group while allowing gestures to
 	/// flip through other items belonging to the same group.
@@ -51,6 +56,44 @@ namespace TekConf.UI.WinStore.Views
 		protected override void SaveState(Dictionary<String, Object> pageState)
 		{
 
+		}
+
+		private void AddFavorite_OnClick(object sender, RoutedEventArgs e)
+		{
+			var authentication = new Authentication(Mvx.Resolve<ISQLiteConnection>());
+			if (authentication.IsAuthenticated)
+			{
+				var vm = this.DataContext as SessionDetailViewModel;
+				if (vm != null)
+					vm.AddFavoriteCommand.Execute(null);
+			}
+			else
+			{
+				var messageDialog = new Windows.UI.Popups.MessageDialog("You must be logged in to favorite a session");
+				messageDialog.ShowAsync();
+			}
+		}
+
+		private void Refresh_OnClick(object sender, RoutedEventArgs e)
+		{
+			var vm = DataContext as SessionDetailViewModel;
+			if (vm != null && vm.Session != null)
+			{
+				var navigation = new SessionDetailViewModel.Navigation
+				{
+					ConferenceSlug = vm.ConferenceSlug,
+					SessionSlug = vm.Session.slug
+				};
+
+				vm.Refresh(navigation);
+			}
+		}
+
+		private void Settings_OnClick(object sender, RoutedEventArgs e)
+		{
+			var vm = DataContext as SessionDetailViewModel;
+			if (vm != null)
+				vm.ShowSettingsCommand.Execute(null);
 		}
 	}
 }

@@ -113,11 +113,6 @@ namespace TekConf.UI.WinStore.Views
 		//}
 	}
 
-	public class ListGroupStyleSelector : GroupStyleSelector
-	{
-		protected override GroupStyle SelectGroupStyleCore(object group, uint level)
-		{
-			return (GroupStyle)App.Current.Resources["listViewGroupStyle"];
-		}
-	}
+
+
 }

@@ -104,21 +104,21 @@ namespace TekConf.Core.ViewModels
 		}
 
 		public IEnumerable<SessionEntity> Sessions { get; set; }
-		public IEnumerable<SessionDetailDto> SessionDtos { get; set; }
 
-		public List<SessionEntityGroup> SessionsByTime
+		public List<FullSessionGroup> SessionsByTime
 		{
 			get
 			{
 				if (Sessions == null)
-					return new List<SessionEntityGroup>();
+					return new List<FullSessionGroup>();
 
-				var grouped = Sessions
-												.OrderBy(x => x.Start)
-												.GroupBy(session => session.Start.ToString("ddd, h:mm tt"))
-												.Select(slot => new SessionEntityGroup(
+				var fullSessions = Sessions.Select(session => new FullSessionDto(session)).ToList();
+				var grouped = fullSessions
+												.OrderBy(x => x.start)
+												.GroupBy(session => session.start.ToString("ddd, h:mm tt"))
+												.Select(slot => new FullSessionGroup(
 																				slot.Key,
-																				slot.OrderBy(session => session.Start).ThenBy(t => t.Title)));
+																				slot.OrderBy(session => session.start).ThenBy(t => t.title)));
 
 				var groupList = grouped.ToList();
 				return groupList;
@@ -136,15 +136,7 @@ namespace TekConf.Core.ViewModels
 					InvokeOnMainThread(
 						() =>
 						{
-							var dtos = new List<SessionDetailDto>();
-							foreach (var session in sessions)
-							{
-								var dto = new SessionDetailDto(session);
-								dtos.Add(dto);
-							}
-							SessionDtos = dtos;
 							Sessions = sessions;
-							RaisePropertyChanged(() => SessionsByTime);
 						});
 
 				}

@@ -71,12 +71,14 @@
     <Compile Include="Repositories\ConferenceSessionListDto.cs" />
     <Compile Include="Repositories\ConferenceSessionsListViewDto.cs" />
     <Compile Include="Repositories\ConferencesListViewDto.cs" />
+    <Compile Include="Repositories\FullSessionGroup.cs" />
     <Compile Include="Repositories\ILocalConferencesRepository.cs" />
     <Compile Include="Repositories\LocalConferencesRepository.cs" />
     <Compile Include="Repositories\LocalNotificationsRepository.cs" />
     <Compile Include="Repositories\LocalSessionRepository.cs" />
     <Compile Include="Repositories\SessionDetailDto.cs" />
     <Compile Include="Repositories\ConferenceSessionGroup.cs" />
+    <Compile Include="Repositories\SessionEntityGroup.cs" />
     <Compile Include="Repositories\SpeakerDetailViewDto.cs" />
     <Compile Include="Services\IAuthentication.cs" />
     <Compile Include="Services\ICacheProvider.cs" />

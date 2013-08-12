@@ -6,6 +6,8 @@ namespace TekConf.Core.Entities
 {
 	public class SessionEntity
 	{
+		private string _room;
+
 		public SessionEntity()
 		{
 
@@ -35,7 +37,22 @@ namespace TekConf.Core.Entities
 		public string Title { get; set; }
 		public DateTime Start { get; set; }
 		public DateTime End { get; set; }
-		public string Room { get; set; }
+
+		public string Room
+		{
+			get
+			{
+				if (!string.IsNullOrWhiteSpace(_room) && _room.Length == 1)
+					_room = "Room " + _room;
+
+				return _room;
+			}
+			set
+			{
+				_room = value;
+			}
+		}
+
 		public string Difficulty { get; set; }
 		public string Description { get; set; }
 		public string TwitterHashTag { get; set; }

@@ -9,20 +9,14 @@
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:views="using:TekConf.UI.WinStore.Views"
 		mc:Ignorable="d">
-	
-	
+
+
 	<Page.Resources>
-		<views:ListGroupStyleSelector x:Key="listGroupStyleSelector"/>
-
-		<!-- Collection of items displayed by this page -->
-		<CollectionViewSource
-						x:Name="sessionsViewSource"
-						Source="{Binding SessionDtos}" />
-
 		<CollectionViewSource
 						x:Name="sessionsByTimeViewSource"
-						Source="{Binding SessionsByTime}" IsSourceGrouped="True" />		
-		
+						Source="{Binding SessionsByTime}" 
+						IsSourceGrouped="True" ItemsPath="Items" />
+
 		<DataTemplate x:Key="ConferenceSession500x130ItemTemplate">
 			<Grid Height="250" Width="480" Margin="10">
 				<Grid.ColumnDefinitions>
@@ -30,10 +24,10 @@
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
 				<StackPanel Grid.Column="1" VerticalAlignment="Top" Margin="0,0,0,0">
-					<TextBlock Text="{Binding Title, Mode=TwoWay}" Style="{StaticResource TitleTextStyle}" Foreground="Black" TextWrapping="Wrap"/>
-					<TextBlock Text="{Binding Room, Mode=TwoWay}" Style="{StaticResource BodyTextStyle}" Foreground="Black" MaxHeight="120" TextWrapping="Wrap"/>
-					<TextBlock Text="{Binding StartDescription, Mode=TwoWay}" Style="{StaticResource BodyTextStyle}" Foreground="Black" MaxHeight="120" TextWrapping="Wrap"/>
-					<TextBlock Text="{Binding Description, Mode=TwoWay}" Style="{StaticResource BodyTextStyle}" Foreground="Black" MaxHeight="120" TextWrapping="Wrap"/>
+					<TextBlock Text="{Binding title, Mode=TwoWay}" Style="{StaticResource TitleTextStyle}" Foreground="Black" TextWrapping="Wrap"/>
+					<TextBlock Text="{Binding room, Mode=TwoWay}" Style="{StaticResource BodyTextStyle}" Foreground="Black" MaxHeight="120" TextWrapping="Wrap"/>
+					<TextBlock Text="{Binding startDescription, Mode=TwoWay}" Style="{StaticResource BodyTextStyle}" Foreground="Black" MaxHeight="120" TextWrapping="Wrap"/>
+					<TextBlock Text="{Binding description, Mode=TwoWay}" Style="{StaticResource BodyTextStyle}" Foreground="Black" MaxHeight="120" TextWrapping="Wrap"/>
 				</StackPanel>
 			</Grid>
 		</DataTemplate>
@@ -51,7 +45,7 @@
 		</DataTemplate>
 
 	</Page.Resources>
-	
+
 	<Page.BottomAppBar>
 		<AppBar x:Name="bottomAppBar" Padding="10,0,10,0" VerticalContentAlignment="Stretch" VerticalAlignment="Bottom" HorizontalContentAlignment="Stretch">
 			<Grid>
@@ -84,7 +78,8 @@
 						AutomationProperties.AutomationId="ItemGridView"
 						AutomationProperties.Name="Items In Group"
 						TabIndex="1"
-						Grid.RowSpan="2"
+						Grid.RowSpan="3"
+						Grid.ColumnSpan="3"
 						Padding="120,126,120,50"
 						ItemsSource="{Binding Source={StaticResource sessionsByTimeViewSource}}"
 						ItemTemplate="{StaticResource ConferenceSession500x130ItemTemplate}"
@@ -104,45 +99,40 @@
 										 Margin="0,0,18,6" LineHeight="24" Style="{StaticResource BodyTextStyle}"/>
 					<TextBlock Text="{Binding Conference.FormattedAddress, Mode=TwoWay}" FontSize="18" Foreground="Black" 
 										 Margin="0,0,18,6" LineHeight="24" Style="{StaticResource BodyTextStyle}"/>
-					
+
 					<TextBlock Text="{Binding Conference.description, Mode=TwoWay}" FontSize="16" Foreground="Black" 
 										 Margin="0,0,18,0" LineHeight="24" Style="{StaticResource BodyTextStyle}"/>
 				</StackPanel>
 			</GridView.Header>
+
 			<GridView.ItemContainerStyle>
-				<Style TargetType="FrameworkElement">
+				<Style TargetType="GridViewItem">
 					<Setter Property="Margin" Value="52,0,0,10"/>
+					<Setter Property="HorizontalContentAlignment" Value="Left" />
+					<Setter Property="Padding" Value="5" />
 				</Style>
 			</GridView.ItemContainerStyle>
 
-			<GridView.GroupStyle>
-				<GroupStyle HidesIfEmpty="True">
+			<ItemsControl.ItemsPanel>
+				<ItemsPanelTemplate>
+					<StackPanel Orientation="Horizontal" />
+				</ItemsPanelTemplate>
+			</ItemsControl.ItemsPanel>
+
+			<ItemsControl.GroupStyle>
+				<GroupStyle>
 					<GroupStyle.HeaderTemplate>
 						<DataTemplate>
-							<Grid Background="LightGray" Margin="0">
-								<TextBlock Text='{Binding Key}' 
-																	 Foreground="Black" Margin="30"
-																	 Style="{StaticResource HeaderTextStyle}"/>
-							</Grid>
+							<TextBlock Text="{Binding Key}" Style="{StaticResource GroupHeaderTextStyle}" Foreground="Black" />
 						</DataTemplate>
 					</GroupStyle.HeaderTemplate>
-
-					<GroupStyle.ContainerStyle>
-						<Style TargetType="GroupItem">
-							<Setter Property="MinWidth" Value="600"/>
-							<Setter Property="BorderBrush" Value="DarkGray"/>
-							<Setter Property="BorderThickness" Value="2"/>
-							<Setter Property="Margin" Value="3,0"/>
-						</Style>
-					</GroupStyle.ContainerStyle>
-
 					<GroupStyle.Panel>
 						<ItemsPanelTemplate>
-							<VariableSizedWrapGrid/>
+							<VariableSizedWrapGrid Orientation="Vertical" ItemWidth="500" />
 						</ItemsPanelTemplate>
 					</GroupStyle.Panel>
 				</GroupStyle>
-			</GridView.GroupStyle>
+			</ItemsControl.GroupStyle>
 		</GridView>
 
 		<!-- Vertical scrolling list only used when snapped -->
@@ -156,7 +146,7 @@
 						Grid.Row="1"
 						Visibility="Collapsed"
 						Padding="10,0,0,60"
-						ItemsSource="{Binding Source={StaticResource sessionsViewSource}}"
+						ItemsSource="{Binding Source={StaticResource sessionsByTimeViewSource}}"
 						ItemTemplate="{StaticResource ConferenceSessions80ItemTemplate}"
 						IsTapEnabled="True"
 						SelectionMode="None"
