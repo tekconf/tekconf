@@ -406,8 +406,6 @@
         Uncomment any style you reference (as not all may be required).
     -->
 
-    <!--
-    
     <Style x:Key="SkipBackAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
         <Setter Property="AutomationProperties.AutomationId" Value="SkipBackAppBarButton"/>
         <Setter Property="AutomationProperties.Name" Value="Skip Back"/>
@@ -518,9 +516,8 @@
         <Setter Property="AutomationProperties.Name" Value="Settings"/>
         <Setter Property="Content" Value="&#xE115;"/>
     </Style>
-    -->
 
-    <!--
+    
     <Style x:Key="VideoAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
         <Setter Property="AutomationProperties.AutomationId" Value="VideoAppBarButton"/>
         <Setter Property="AutomationProperties.Name" Value="Video"/>
@@ -611,9 +608,12 @@
         <Setter Property="AutomationProperties.Name" Value="Open Pane"/>
         <Setter Property="Content" Value="&#xE127;"/>
     </Style>
-    -->
-
-    <!--
+	<Style x:Key="MapPinAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
+		<Setter Property="AutomationProperties.AutomationId" Value="MapPinAppBarButton"/>
+		<Setter Property="AutomationProperties.Name" Value="Map Pin"/>
+		<Setter Property="Content" Value="&#xE139;"/>
+	</Style>
+	<!--
     <Style x:Key="WorldAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
         <Setter Property="AutomationProperties.AutomationId" Value="WorldAppBarButton"/>
         <Setter Property="AutomationProperties.Name" Value="World"/>
@@ -699,11 +699,7 @@
         <Setter Property="AutomationProperties.Name" Value="View All"/>
         <Setter Property="Content" Value="&#xE138;"/>
     </Style>
-    <Style x:Key="MapPinAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
-        <Setter Property="AutomationProperties.AutomationId" Value="MapPinAppBarButton"/>
-        <Setter Property="AutomationProperties.Name" Value="Map Pin"/>
-        <Setter Property="Content" Value="&#xE139;"/>
-    </Style>
+
     <Style x:Key="PhoneAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
         <Setter Property="AutomationProperties.AutomationId" Value="PhoneAppBarButton"/>
         <Setter Property="AutomationProperties.Name" Value="Phone"/>
@@ -831,7 +827,6 @@
     </Style>
     -->
 
-    <!--
     <Style x:Key="PicturesAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
         <Setter Property="AutomationProperties.AutomationId" Value="PicturesAppBarButton"/>
         <Setter Property="AutomationProperties.Name" Value="Pictures"/>
@@ -927,9 +922,13 @@
         <Setter Property="AutomationProperties.Name" Value="Hide Bcc"/>
         <Setter Property="Content" Value="&#xE16A;"/>
     </Style>
-    -->
+	<Style x:Key="DirectionsAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
+		<Setter Property="AutomationProperties.AutomationId" Value="DirectionsAppBarButton"/>
+		<Setter Property="AutomationProperties.Name" Value="Directions"/>
+		<Setter Property="Content" Value="&#xE1D1;"/>
+	</Style>
 
-    <!--
+	<!--
     <Style x:Key="CutAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
         <Setter Property="AutomationProperties.AutomationId" Value="CutAppBarButton"/>
         <Setter Property="AutomationProperties.Name" Value="Cut"/>
@@ -1276,11 +1275,7 @@
         <Setter Property="AutomationProperties.Name" Value="Calculator"/>
         <Setter Property="Content" Value="&#xE1D0;"/>
     </Style>
-    <Style x:Key="DirectionsAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
-        <Setter Property="AutomationProperties.AutomationId" Value="DirectionsAppBarButton"/>
-        <Setter Property="AutomationProperties.Name" Value="Directions"/>
-        <Setter Property="Content" Value="&#xE1D1;"/>
-    </Style>
+
     <Style x:Key="TargetAppBarButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource AppBarButtonStyle}">
         <Setter Property="AutomationProperties.AutomationId" Value="TargetAppBarButton"/>
         <Setter Property="AutomationProperties.Name" Value="Target"/>

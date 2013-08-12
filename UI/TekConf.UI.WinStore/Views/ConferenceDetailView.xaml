@@ -7,16 +7,24 @@
 		xmlns:common="using:TekConf.UI.WinStore.Common"
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:views="using:TekConf.UI.WinStore.Views"
 		mc:Ignorable="d">
-
+	
+	
 	<Page.Resources>
+		<views:ListGroupStyleSelector x:Key="listGroupStyleSelector"/>
+
 		<!-- Collection of items displayed by this page -->
 		<CollectionViewSource
 						x:Name="sessionsViewSource"
-						Source="{Binding SessionsByTime}" />
+						Source="{Binding SessionDtos}" />
 
+		<CollectionViewSource
+						x:Name="sessionsByTimeViewSource"
+						Source="{Binding SessionsByTime}" IsSourceGrouped="True" />		
+		
 		<DataTemplate x:Key="ConferenceSession500x130ItemTemplate">
-			<Grid Height="150" Width="480" Margin="10">
+			<Grid Height="250" Width="480" Margin="10">
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="Auto"/>
 					<ColumnDefinition Width="*"/>
@@ -36,14 +44,28 @@
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
 				<StackPanel Margin="10,0,0,0">
-					<TextBlock Text="{Binding Title}" Foreground="Black" Style="{StaticResource ItemTextStyle}" MaxHeight="40"/>
-					<TextBlock Text="{Binding StartDescription}" Foreground="Black" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap"/>
+					<TextBlock Text="{Binding title}" Foreground="Black" Style="{StaticResource ItemTextStyle}" MaxHeight="40"/>
+					<TextBlock Text="{Binding startDescription}" Foreground="Black" Style="{StaticResource CaptionTextStyle}" TextWrapping="NoWrap"/>
 				</StackPanel>
 			</Grid>
 		</DataTemplate>
 
 	</Page.Resources>
-
+	
+	<Page.BottomAppBar>
+		<AppBar x:Name="bottomAppBar" Padding="10,0,10,0" VerticalContentAlignment="Stretch" VerticalAlignment="Bottom" HorizontalContentAlignment="Stretch">
+			<Grid>
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+					<Button Style="{StaticResource FavoriteAppBarButtonStyle}" Click="AddFavorite_OnClick" />
+					<Button Style="{StaticResource DirectionsAppBarButtonStyle}" AutomationProperties.Name="Location" />
+				</StackPanel>
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+					<Button Style="{StaticResource RefreshAppBarButtonStyle}" Click="Refresh_OnClick" />
+					<Button Style="{StaticResource RepairAppBarButtonStyle}" AutomationProperties.Name="Settings" Click="Settings_OnClick" />
+				</StackPanel>
+			</Grid>
+		</AppBar>
+	</Page.BottomAppBar>
 	<!--
 				This grid acts as a root panel for the page that defines two rows:
 				* Row 0 contains the back button and page title
@@ -64,7 +86,7 @@
 						TabIndex="1"
 						Grid.RowSpan="2"
 						Padding="120,126,120,50"
-						ItemsSource="{Binding Source={StaticResource sessionsViewSource}}"
+						ItemsSource="{Binding Source={StaticResource sessionsByTimeViewSource}}"
 						ItemTemplate="{StaticResource ConferenceSession500x130ItemTemplate}"
 						IsTapEnabled="True"
 						SelectionMode="None"
@@ -92,6 +114,35 @@
 					<Setter Property="Margin" Value="52,0,0,10"/>
 				</Style>
 			</GridView.ItemContainerStyle>
+
+			<GridView.GroupStyle>
+				<GroupStyle HidesIfEmpty="True">
+					<GroupStyle.HeaderTemplate>
+						<DataTemplate>
+							<Grid Background="LightGray" Margin="0">
+								<TextBlock Text='{Binding Key}' 
+																	 Foreground="Black" Margin="30"
+																	 Style="{StaticResource HeaderTextStyle}"/>
+							</Grid>
+						</DataTemplate>
+					</GroupStyle.HeaderTemplate>
+
+					<GroupStyle.ContainerStyle>
+						<Style TargetType="GroupItem">
+							<Setter Property="MinWidth" Value="600"/>
+							<Setter Property="BorderBrush" Value="DarkGray"/>
+							<Setter Property="BorderThickness" Value="2"/>
+							<Setter Property="Margin" Value="3,0"/>
+						</Style>
+					</GroupStyle.ContainerStyle>
+
+					<GroupStyle.Panel>
+						<ItemsPanelTemplate>
+							<VariableSizedWrapGrid/>
+						</ItemsPanelTemplate>
+					</GroupStyle.Panel>
+				</GroupStyle>
+			</GridView.GroupStyle>
 		</GridView>
 
 		<!-- Vertical scrolling list only used when snapped -->

@@ -92,6 +92,9 @@ namespace TekConf.Core.Repositories
 			const string path = "conferencesLastUpdated.json";
 			var data = new DataLastUpdated() { LastUpdated = DateTime.Now };
 			var json = JsonConvert.SerializeObject(data);
+			if (_fileStore.Exists(path))
+				_fileStore.DeleteFile(path);
+
 			_fileStore.WriteFile(path, json);
 		}
 
@@ -100,6 +103,10 @@ namespace TekConf.Core.Repositories
 			const string path = "scheduleLastUpdated.json";
 			var data = new DataLastUpdated() { LastUpdated = DateTime.Now };
 			var json = JsonConvert.SerializeObject(data);
+
+			if (_fileStore.Exists(path))
+				_fileStore.DeleteFile(path);
+
 			_fileStore.WriteFile(path, json);
 		}
 

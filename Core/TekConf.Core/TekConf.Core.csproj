@@ -96,6 +96,7 @@
     <Compile Include="Messages\DownloadConferenceImageMessage.cs" />
     <Compile Include="ViewModels\ConferenceSearchViewModel.cs" />
     <Compile Include="Messages\ExceptionMessage.cs" />
+    <Compile Include="ViewModels\FirstViewModel.cs" />
     <Compile Include="ViewModels\OAuthRegisterViewModel.cs" />
     <Compile Include="ViewModels\SessionDetailViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
@@ -105,17 +106,20 @@
     <Reference Include="Cirrious.CrossCore">
       <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.10\lib\portable-win+net45+MonoAndroid16+MonoTouch40+sl40+wp71\Cirrious.CrossCore.dll</HintPath>
     </Reference>
+    <Reference Include="Cirrious.MvvmCross">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.MvvmCrossLibraries.3.0.10\lib\portable-win+net45+MonoAndroid16+MonoTouch40+sl40+wp71\Cirrious.MvvmCross.dll</HintPath>
+    </Reference>
     <Reference Include="Cirrious.MvvmCross.Localization">
       <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.10\lib\portable-win+net45+MonoAndroid16+MonoTouch40+sl40+wp71\Cirrious.MvvmCross.Localization.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.DownloadCache">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.DownloadCache.3.0.10\lib\portable-win+net45+MonoAndroid16+MonoTouch40+sl40+wp71\Cirrious.MvvmCross.Plugins.DownloadCache.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.File">
       <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.File.3.0.10\lib\portable-win+net45+MonoAndroid16+MonoTouch40+sl40+wp71\Cirrious.MvvmCross.Plugins.File.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.Json">
       <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Json.3.0.10\lib\portable-win+net45+MonoAndroid16+MonoTouch40+sl40+wp71\Cirrious.MvvmCross.Plugins.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="Cirrious.MvvmCross.Plugins.Location">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Location.3.0.10\lib\portable-win+net45+MonoAndroid16+MonoTouch40+sl40+wp71\Cirrious.MvvmCross.Plugins.Location.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.Messenger">
       <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Messenger.3.0.10\lib\portable-win+net45+MonoAndroid16+MonoTouch40+sl40+wp71\Cirrious.MvvmCross.Plugins.Messenger.dll</HintPath>
@@ -125,6 +129,9 @@
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.Sqlite">
       <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Sqlite.3.0.10\lib\portable-win+net45+MonoAndroid16+MonoTouch40+sl40+wp71\Cirrious.MvvmCross.Plugins.Sqlite.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Visibility">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Visibility.3.0.10\lib\portable-win+net45+MonoAndroid16+MonoTouch40+sl40+wp71\Cirrious.MvvmCross.Plugins.Visibility.dll</HintPath>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.WebBrowser">
       <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.WebBrowser.3.0.10\lib\portable-win+net45+MonoAndroid16+MonoTouch40+sl40+wp71\Cirrious.MvvmCross.Plugins.WebBrowser.dll</HintPath>
@@ -154,12 +161,7 @@
     <Content Include="FodyWeavers.xml">
       <SubType>Designer</SubType>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\MvvmCross\Cirrious\Cirrious.MvvmCross\Cirrious.MvvmCross.csproj">
-      <Project>{b6e27475-e7d0-448c-a5cc-5097dca1e2dd}</Project>
-      <Name>Cirrious.MvvmCross</Name>
-    </ProjectReference>
+    <Content Include="ToDo-MvvmCross\_ Core.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

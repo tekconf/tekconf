@@ -8,6 +8,7 @@
 	xmlns:views="using:Cirrious.MvvmCross.WindowsStore.Views"
 	mc:Ignorable="d">
 
+
 	<Page.Resources>
 
 		<!-- Collection of items displayed by this page -->
@@ -33,17 +34,17 @@
 		</DataTemplate>
 
 		<DataTemplate x:Key="Conferences250x250ItemTemplate">
-			<Grid HorizontalAlignment="Left" Width="260" Height="250">
+			<Grid HorizontalAlignment="Left" Width="260" Height="262">
 				<Border Background="White">
 					<Image Source="{Binding imageUrl}" 
 								 Stretch="UniformToFill" 
 								 Width="260" Height="180" VerticalAlignment="Top" AutomationProperties.Name="{Binding name}"/>
 				</Border>
-				<StackPanel VerticalAlignment="Bottom" Background="{StaticResource ListViewItemOverlayBackgroundThemeBrush}">
+				<StackPanel Height="80" VerticalAlignment="Bottom" Background="{StaticResource ListViewItemOverlayBackgroundThemeBrush}">
 					<TextBlock Text="{Binding name}" 
 										 Foreground="{StaticResource 
 											ListViewItemOverlayForegroundThemeBrush}" Style="{StaticResource TitleTextStyle}" 
-											Height="30" 
+											Height="25" 
 											Margin="15,0,15,0"/>
 					<TextBlock Text="{Binding DateRange}" 
 										 Foreground="{StaticResource ListViewItemOverlaySecondaryForegroundThemeBrush}" 
@@ -60,6 +61,19 @@
 		<!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
 		<x:String x:Key="AppName">TekConf</x:String>
 	</Page.Resources>
+
+	<Page.BottomAppBar>
+		<AppBar x:Name="bottomAppBar" Padding="10,0,10,0" VerticalContentAlignment="Stretch" VerticalAlignment="Bottom" HorizontalContentAlignment="Stretch">
+			<Grid>
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+				</StackPanel>
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+					<Button Style="{StaticResource RefreshAppBarButtonStyle}" Click="OnRefresh" />
+					<Button Style="{StaticResource RepairAppBarButtonStyle}" Click="OnSettings" AutomationProperties.Name="Settings" />
+				</StackPanel>
+			</Grid>
+		</AppBar>
+	</Page.BottomAppBar>
 
 	<!--
 				This grid acts as a root panel for the page that defines two rows:
@@ -118,6 +132,9 @@
 			<TextBlock x:Name="pageTitle" Grid.Column="1" Text="{StaticResource AppName}" IsHitTestVisible="false" Style="{StaticResource PageHeaderTextStyle}"/>
 		</Grid>
 
+
+
+
 		<VisualStateManager.VisualStateGroups>
 
 			<!-- Visual states reflect the application's view state -->
@@ -161,4 +178,8 @@
 			</VisualStateGroup>
 		</VisualStateManager.VisualStateGroups>
 	</Grid>
+
+
+
+
 </views:MvxStorePage>

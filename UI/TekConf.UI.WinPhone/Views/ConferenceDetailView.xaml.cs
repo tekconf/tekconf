@@ -32,6 +32,7 @@ namespace TekConf.UI.WinPhone.Views
 				Microsoft.Phone.Maps.MapsSettings.ApplicationContext.ApplicationId = "9078e309-8113-4ea7-9061-75d1a392743c";
 				Microsoft.Phone.Maps.MapsSettings.ApplicationContext.AuthenticationToken = "Th8jcERPJgUlwBJDdtHs6w";
 			};
+
 			var messenger = Mvx.Resolve<IMvxMessenger>();
 
 
@@ -44,8 +45,6 @@ namespace TekConf.UI.WinPhone.Views
 							{
 								const string errorMessage = "Could not connect to remote server. Please check your network connection and try again.";
 								MessageBox.Show(errorMessage);
-								//ConferenceDetailExceptionMessage.Text = "Could not connect to remote server. Please check your network connection and try again.";
-								//ConferenceDetailExceptionMessage.Visibility = Visibility.Visible;
 							}
 						}));
 

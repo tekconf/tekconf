@@ -129,21 +129,6 @@ namespace TekConf.UI.WinStore.Views
 			}
 		}
 
-		private void Settings_OnClick(object sender, EventArgs e)
-		{
-			var vm = DataContext as ConferencesListViewModel;
-			if (vm != null) vm.ShowSettingsCommand.Execute(null);
-		}
-
-		private void Refresh_OnClick(object sender, EventArgs e)
-		{
-			var vm = DataContext as ConferencesListViewModel;
-			if (vm != null)
-			{
-				vm.Refresh();
-			}
-		}
-
 		private void Search_OnClick(object sender, EventArgs e)
 		{
 			var vm = DataContext as ConferencesListViewModel;
@@ -154,6 +139,22 @@ namespace TekConf.UI.WinStore.Views
 		private void GoBack(object sender, RoutedEventArgs e)
 		{
 			//TODO : 
+		}
+
+		private void OnRefresh(object sender, RoutedEventArgs e)
+		{
+			var vm = DataContext as ConferencesListViewModel;
+			if (vm != null)
+			{
+				vm.Refresh();
+			}
+		}
+
+		private void OnSettings(object sender, RoutedEventArgs e)
+		{
+			var vm = DataContext as ConferencesListViewModel;
+			if (vm != null) 
+				vm.ShowSettingsCommand.Execute(null);
 		}
 	}
 }

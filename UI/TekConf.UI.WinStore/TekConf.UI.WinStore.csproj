@@ -140,6 +140,9 @@
     <Compile Include="Views\SessionDetailView.xaml.cs">
       <DependentUpon>SessionDetailView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WinStoreAnalytics.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -184,6 +187,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SessionDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

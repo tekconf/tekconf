@@ -8,6 +8,10 @@ using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.UI.WinStore.Views
 {
+	using Cirrious.CrossCore;
+
+	using TekConf.Core.Services;
+
 	/// <summary>
 	/// A page that displays an overview of a single group, including a preview of the items
 	/// within the group.
@@ -56,6 +60,64 @@ namespace TekConf.UI.WinStore.Views
 					}
 				}
 			}
+		}
+
+		private void AddFavorite_OnClick(object sender, RoutedEventArgs e)
+		{
+			var authentication = Mvx.Resolve<IAuthentication>();
+
+			if (authentication.IsAuthenticated)
+			{
+				var vm = DataContext as ConferenceDetailViewModel;
+
+				if (vm != null)
+					vm.AddFavoriteCommand.Execute(vm.Conference.slug);
+			}
+			else
+			{
+				var messageDialog = new Windows.UI.Popups.MessageDialog("You must be logged in to favorite a conference");
+				messageDialog.ShowAsync();
+			}
+		}
+
+		private void Settings_OnClick(object sender, RoutedEventArgs e)
+		{
+			var vm = DataContext as ConferenceDetailViewModel;
+			if (vm != null) 
+				vm.ShowSettingsCommand.Execute(null);
+		}
+
+		private void Refresh_OnClick(object sender, RoutedEventArgs e)
+		{
+			var vm = DataContext as ConferenceDetailViewModel;
+			if (vm != null && vm.Conference != null)
+				vm.Refresh(vm.Conference.slug);
+		}
+
+		//private void RefreshFavoriteIcon()
+		//{
+		//	var vm = DataContext as ConferenceDetailViewModel;
+		//	if (vm != null)
+		//	{
+		//		string imageUrl = "/img/appbar.heart.png";
+		//		if (vm.Conference != null)
+		//		{
+		//			if (vm.Conference.isAddedToSchedule == true)
+		//			{
+		//				imageUrl = "/img/appbar.heart.cross.png";
+		//			}
+		//		}
+
+		//		((ApplicationBarIconButton)ApplicationBar.Buttons[1]).IconUri = new Uri(imageUrl, UriKind.Relative);
+		//	}
+		//}
+	}
+
+	public class ListGroupStyleSelector : GroupStyleSelector
+	{
+		protected override GroupStyle SelectGroupStyleCore(object group, uint level)
+		{
+			return (GroupStyle)App.Current.Resources["listViewGroupStyle"];
 		}
 	}
 }

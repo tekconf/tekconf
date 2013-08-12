@@ -103,12 +103,16 @@ namespace TekConf.Core.ViewModels
 			return conferenceDto;
 		}
 
-		public IEnumerable<SessionEntity> Sessions;
+		public IEnumerable<SessionEntity> Sessions { get; set; }
+		public IEnumerable<SessionDetailDto> SessionDtos { get; set; }
 
 		public List<SessionEntityGroup> SessionsByTime
 		{
 			get
 			{
+				if (Sessions == null)
+					return new List<SessionEntityGroup>();
+
 				var grouped = Sessions
 												.OrderBy(x => x.Start)
 												.GroupBy(session => session.Start.ToString("ddd, h:mm tt"))
@@ -129,7 +133,19 @@ namespace TekConf.Core.ViewModels
 				IEnumerable<SessionEntity> sessions = conferenceEntity.Sessions(_sqLiteConnection);
 				if (sessions != null)
 				{
-					InvokeOnMainThread(() => Sessions = sessions);
+					InvokeOnMainThread(
+						() =>
+						{
+							var dtos = new List<SessionDetailDto>();
+							foreach (var session in sessions)
+							{
+								var dto = new SessionDetailDto(session);
+								dtos.Add(dto);
+							}
+							SessionDtos = dtos;
+							Sessions = sessions;
+							RaisePropertyChanged(() => SessionsByTime);
+						});
 
 				}
 			}
