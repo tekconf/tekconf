@@ -189,9 +189,9 @@ namespace TekConf.Core.ViewModels
 					if (value != null)
 						PageTitle = value.name;
 
-					RaisePropertyChanged(() => Conference);
-					RaisePropertyChanged(() => ConnectItems);
-					RaisePropertyChanged(() => HasConnectItems);
+					RaisePropertyChanged("Conference");
+					RaisePropertyChanged("ConnectItems");
+					RaisePropertyChanged("HasConnectItems");
 				}
 			}
 		}
@@ -307,28 +307,28 @@ namespace TekConf.Core.ViewModels
 				var addSuccess = new Action<ScheduleDto>(dto =>
 				{
 					Conference.isAddedToSchedule = true;
-					RaisePropertyChanged(() => Conference);
+					RaisePropertyChanged("Conference");
 					_messenger.Publish(new RefreshConferenceFavoriteIconMessage(this));
 				});
 
 				var addError = new Action<Exception>(ex =>
 				{
 					Conference.isAddedToSchedule = false;
-					RaisePropertyChanged(() => Conference);
+					RaisePropertyChanged("Conference");
 					_messenger.Publish(new RefreshConferenceFavoriteIconMessage(this));
 				});
 
 				var removeSuccess = new Action<ScheduleDto>(dto =>
 				{
 					Conference.isAddedToSchedule = false;
-					RaisePropertyChanged(() => Conference);
+					RaisePropertyChanged("Conference");
 					_messenger.Publish(new RefreshConferenceFavoriteIconMessage(this));
 				});
 
 				var removeError = new Action<Exception>(ex =>
 				{
 					Conference.isAddedToSchedule = true;
-					RaisePropertyChanged(() => Conference);
+					RaisePropertyChanged("Conference");
 					_messenger.Publish(new RefreshConferenceFavoriteIconMessage(this));
 				});
 

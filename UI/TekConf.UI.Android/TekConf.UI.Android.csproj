@@ -134,12 +134,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Json.3.0.10\lib\MonoAndroid16\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="PushSharp.Android">
-      <HintPath>..\..\packages\PushSharp.2.0.4.0\lib\net40\PushSharp.Android.dll</HintPath>
-    </Reference>
-    <Reference Include="PushSharp.Core">
-      <HintPath>..\..\packages\PushSharp.2.0.4.0\lib\net40\PushSharp.Core.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net">
@@ -177,7 +171,6 @@
     <Compile Include="Views\ConferenceDetailView.cs" />
     <Compile Include="Views\ConferenceSessionsView.cs" />
     <Compile Include="Views\ConferencesListView.cs" />
-    <Compile Include="Views\FirstView.cs" />
     <Compile Include="Views\SessionDetailView.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -202,7 +195,6 @@
     <AndroidResource Include="Resources\Layout\SessionDetailView.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\Layout\FirstView.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Values\Strings.xml" />
@@ -212,15 +204,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Properties\AndroidManifest.xml" />
-    <AndroidResource Include="Resources\Values\MvxBindingAttributes.xml" />
     <AndroidResource Include="Resources\Drawable\splash.png" />
     <AndroidResource Include="Resources\Values\SplashStyle.xml" />
+    <AndroidResource Include="Resources\Values\MvxBindingAttributes.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <Content Include="ToDo-MvvmCross\_ Droid UI.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\TekConf.Core\TekConf.Core.csproj">
-      <Project>{E740F915-A0FC-4C66-9FD3-1D9A0DDA527A}</Project>
-      <Name>TekConf.Core</Name>
+    <ProjectReference Include="..\..\Core\TekConf.Core.Droid\TekConf.Core.Droid.csproj">
+      <Project>{b954641c-4cb7-4505-bae3-b69a91a0801f}</Project>
+      <Name>TekConf.Core.Droid</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

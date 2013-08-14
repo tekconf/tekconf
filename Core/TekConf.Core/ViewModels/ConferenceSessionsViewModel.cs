@@ -177,7 +177,7 @@ namespace TekConf.Core.ViewModels
 			{
 				_isLoadingConference = value;
 				IsAuthenticated = _authentication.IsAuthenticated;
-				RaisePropertyChanged(() => IsLoadingConference);
+				RaisePropertyChanged("IsLoadingConference");
 			}
 		}
 
@@ -192,8 +192,8 @@ namespace TekConf.Core.ViewModels
 			{
 				_conference = value;
 				PageTitle = _conference.name;
-				RaisePropertyChanged(() => Conference);
-				RaisePropertyChanged(() => HasSessions);
+				RaisePropertyChanged("Conference");
+				RaisePropertyChanged("HasSessions");
 
 				IsLoadingConference = false;
 
@@ -268,7 +268,7 @@ namespace TekConf.Core.ViewModels
 			}
 			set
 			{
-				RaisePropertyChanged(() => HasSessions);
+				RaisePropertyChanged("HasSessions");
 			}
 		}
 
@@ -303,9 +303,9 @@ namespace TekConf.Core.ViewModels
 			set
 			{
 				_schedule = value;
-				RaisePropertyChanged(() => Schedule);
-				RaisePropertyChanged(() => Sessions);
-				RaisePropertyChanged(() => ShouldAddFavorites);
+				RaisePropertyChanged("Schedule");
+				RaisePropertyChanged("Sessions");
+				RaisePropertyChanged("ShouldAddFavorites");
 				IsLoadingSchedule = false;
 			}
 		}

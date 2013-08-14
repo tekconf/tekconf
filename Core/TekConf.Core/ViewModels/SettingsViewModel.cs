@@ -41,9 +41,9 @@ namespace TekConf.Core.ViewModels
 
 		public void Init(string fake)
 		{
-			RaisePropertyChanged(() => IsAuthenticated);
-			RaisePropertyChanged(() => ConferenceUpdated);
-			RaisePropertyChanged(() => SchedulesUpdated);
+			RaisePropertyChanged("IsAuthenticated");
+			RaisePropertyChanged("ConferenceUpdated");
+			RaisePropertyChanged("SchedulesUpdated");
 
 		}
 
@@ -82,7 +82,7 @@ namespace TekConf.Core.ViewModels
 				else
 					_pushSharpClient.Unregister();
 
-				RaisePropertyChanged(() => IsOptedInToNotifications);
+				RaisePropertyChanged("IsOptedInToNotifications");
 			}
 		}
 
@@ -126,8 +126,8 @@ namespace TekConf.Core.ViewModels
 			set
 			{
 				_userName = value;
-				RaisePropertyChanged(() => UserName);
-				RaisePropertyChanged(() => IsAuthenticated);
+				RaisePropertyChanged("UserName");
+				RaisePropertyChanged("IsAuthenticated");
 			}
 		}
 
