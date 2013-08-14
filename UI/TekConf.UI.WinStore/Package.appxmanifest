@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-  <Identity Name="bee3d88e-cc8c-44f1-821f-6bee3d44a535" Publisher="CN=Rob" Version="1.0.0.0" />
+  <Identity Name="bee3d88e-cc8c-44f1-821f-6bee3d44a535" Publisher="CN=Rob" Version="1.0.0.3" />
   <Properties>
     <DisplayName>TekConf.UI.WinStore</DisplayName>
     <PublisherDisplayName>Rob</PublisherDisplayName>
