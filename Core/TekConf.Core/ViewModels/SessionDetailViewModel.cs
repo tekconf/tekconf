@@ -140,21 +140,21 @@ namespace TekConf.Core.ViewModels
 				var addSuccess = new Action<ScheduleDto>(dto =>
 				{
 					Session.isAddedToSchedule = true;
-					RaisePropertyChanged(() => Session);
+					RaisePropertyChanged("Session");
 					_messenger.Publish(new RefreshSessionFavoriteIconMessage(this));
 				});
 
 				var addError = new Action<Exception>(ex =>
 				{
 					Session.isAddedToSchedule = false;
-					RaisePropertyChanged(() => Session);
+					RaisePropertyChanged("Session");
 					_messenger.Publish(new RefreshSessionFavoriteIconMessage(this));
 				});
 
 				var removeSuccess = new Action<ScheduleDto>(dto =>
 				{
 					Session.isAddedToSchedule = false;
-					RaisePropertyChanged(() => Session);
+					RaisePropertyChanged("Session");
 					_messenger.Publish(new RefreshSessionFavoriteIconMessage(this));
 
 				});
@@ -162,7 +162,7 @@ namespace TekConf.Core.ViewModels
 				var removeError = new Action<Exception>(ex =>
 				{
 					Session.isAddedToSchedule = true;
-					RaisePropertyChanged(() => Session);
+					RaisePropertyChanged("Session");
 					_messenger.Publish(new RefreshSessionFavoriteIconMessage(this));
 
 				});
@@ -238,7 +238,7 @@ namespace TekConf.Core.ViewModels
 					PageTitle = _session.title;
 				}
 
-				RaisePropertyChanged(() => Session);
+				RaisePropertyChanged("Session");
 				_messenger.Publish(new RefreshSessionFavoriteIconMessage(this));
 			}
 		}

@@ -6,6 +6,8 @@ namespace TekConf.UI.Android.Views
 {
 	using System.Threading;
 
+	using Cirrious.MvvmCross.Binding.Droid.Views;
+
 	using global::Android.Views;
 
 	[Activity(Label = "Conferences")]
@@ -13,7 +15,6 @@ namespace TekConf.UI.Android.Views
 	{
 		protected override void OnCreate(Bundle bundle)
 		{
-			Thread.Sleep(2000);
 			base.OnCreate(bundle);
 			SetContentView(Resource.Layout.ConferencesListView);
 		}

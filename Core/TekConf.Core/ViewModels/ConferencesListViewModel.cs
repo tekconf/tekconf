@@ -191,7 +191,7 @@ namespace TekConf.Core.ViewModels
 			{
 				_isLoadingConferences = value;
 				IsAuthenticated = _authentication.IsAuthenticated;
-				RaisePropertyChanged(() => IsLoadingConferences);
+				RaisePropertyChanged("IsLoadingConferences");
 			}
 		}
 
@@ -211,9 +211,24 @@ namespace TekConf.Core.ViewModels
 
 		public bool IsLoadingFavorites { get; set; }
 		public bool IsAuthenticated { get; set; }
-		public List<ConferencesListViewDto> Conferences { get; set; }
+
+		public List<ConferencesListViewDto> Conferences
+		{
+			get
+			{
+				return _conferences;
+			}
+			set
+			{
+				_conferences = value;
+				RaisePropertyChanged("Conferences");
+			}
+		}
+
 		public FullConferenceDto SelectedFavorite { get; set; }
 		private List<ConferencesListViewDto> _favorites;
+
+		private List<ConferencesListViewDto> _conferences;
 
 		public List<ConferencesListViewDto> Favorites
 		{
@@ -224,8 +239,8 @@ namespace TekConf.Core.ViewModels
 			set
 			{
 				_favorites = value;
-				RaisePropertyChanged(() => Favorites);
-				RaisePropertyChanged(() => ShouldAddFavorites);
+				RaisePropertyChanged("Favorites");
+				RaisePropertyChanged("ShouldAddFavorites");
 				IsLoadingFavorites = false;
 			}
 		}

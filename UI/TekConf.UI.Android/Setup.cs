@@ -20,6 +20,7 @@ namespace TekConf.UI.Android
 			: base(applicationContext)
 		{
 		}
+		protected override IMvxTrace CreateDebugTrace() { return new MyDebugTrace(); }
 
 		protected override IMvxApplication CreateApp()
 		{
@@ -30,7 +31,7 @@ namespace TekConf.UI.Android
 
 			Mvx.RegisterSingleton(typeof(IAuthentication), new Authentication(connection));
 			Mvx.RegisterSingleton<ISQLiteConnection>(connection);
-			//MvxBindingTrace.TraceBindingLevel = MvxTraceLevel.Diagnostic;
+			MvxBindingTrace.TraceBindingLevel = MvxTraceLevel.Diagnostic;
 			Mvx.RegisterType<IAnalytics, DroidAnalytics>();
 			Mvx.RegisterType<ICacheService, CacheService>();
 			Mvx.RegisterType<ILocalNotificationsRepository, LocalNotificationsRepository>();
@@ -38,7 +39,58 @@ namespace TekConf.UI.Android
 			Mvx.RegisterType<IRestService, RestService>();
 			Mvx.RegisterType<IPushSharpClient, PushSharpClient>();
 
+			Mvx.RegisterType<INetworkConnection, DroidNetworkConnection>();
+			Mvx.RegisterType<IMessageBox, DroidMessageBox>();
+
 			return new TekConf.Core.App();
+		}
+	}
+
+	public class DroidNetworkConnection : INetworkConnection
+	{
+		public bool IsNetworkConnected()
+		{
+			return true; //TODO
+		}
+
+		public string NetworkDownMessage
+		{
+			get
+			{
+				return "Could not connect to remote server. Please check your network connection and try again.";			
+			}
+		}
+	}
+
+	public class DroidMessageBox : IMessageBox
+	{
+		public void Show(string message)
+		{
+			//TODO
+		}
+	}
+	public class MyDebugTrace : IMvxTrace
+	{
+		public void Trace(MvxTraceLevel level, string tag, Func<string> message)
+		{
+			Debug.WriteLine(tag + ":" + level + ":" + message());
+		}
+
+		public void Trace(MvxTraceLevel level, string tag, string message)
+		{
+			Debug.WriteLine(tag + ":" + level + ":" + message);
+		}
+
+		public void Trace(MvxTraceLevel level, string tag, string message, params object[] args)
+		{
+			try
+			{
+				Debug.WriteLine(string.Format(tag + ":" + level + ":" + message, args));
+			}
+			catch (FormatException)
+			{
+				Trace(MvxTraceLevel.Error, tag, "Exception during trace of {0} {1} {2}", level, message);
+			}
 		}
 	}
 }

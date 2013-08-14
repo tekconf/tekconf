@@ -1,0 +1,371 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{B954641C-4CB7-4505-BAE3-B69A91A0801F}</ProjectGuid>
+    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TekConf.Core.Droid</RootNamespace>
+    <AssemblyName>TekConf.Core.Droid</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Cirrious.CrossCore">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.10\lib\MonoAndroid16\Cirrious.CrossCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.CrossCore.Droid">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.10\lib\MonoAndroid16\Cirrious.CrossCore.Droid.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.MvvmCrossLibraries.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Binding">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.Binding.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Binding.Droid">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.Binding.Droid.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Dialog.Droid">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Droid.Dialog.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.Dialog.Droid.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Droid">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.MvvmCrossLibraries.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.Droid.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Droid.Fragging">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Droid.Fragging.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.Droid.Fragging.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Localization">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.Localization.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.DownloadCache">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.DownloadCache.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.DownloadCache.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.DownloadCache.Droid">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.DownloadCache.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.DownloadCache.Droid.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.File">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.File.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.File.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.File.Droid">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.File.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.File.Droid.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Json">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Json.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Messenger">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Messenger.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.Messenger.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Network">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Network.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.Network.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Network.Droid">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Network.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.Network.Droid.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.ResourceLoader">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.ResourceLoader.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.ResourceLoader.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.ResourceLoader.Droid">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.ResourceLoader.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.ResourceLoader.Droid.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Sqlite">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Sqlite.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.Sqlite.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Sqlite.Droid">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Sqlite.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.Sqlite.Droid.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Visibility">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Visibility.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.Visibility.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.Visibility.Droid">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Visibility.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.Visibility.Droid.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.WebBrowser">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.WebBrowser.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.WebBrowser.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Plugins.WebBrowser.Droid">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.WebBrowser.3.0.10\lib\MonoAndroid16\Cirrious.MvvmCross.Plugins.WebBrowser.Droid.dll</HintPath>
+    </Reference>
+    <Reference Include="CrossUI.Core">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Droid.Dialog.3.0.10\lib\MonoAndroid16\CrossUI.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="CrossUI.Droid">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Droid.Dialog.3.0.10\lib\MonoAndroid16\CrossUI.Droid.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Android" />
+    <Reference Include="mscorlib" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Json.3.0.10\lib\MonoAndroid16\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net">
+      <Private>True</Private>
+      <HintPath>..\..\packages\MvvmCross.PortableSupport.3.0.10\lib\MonoAndroid16\System.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows">
+      <Private>True</Private>
+      <HintPath>..\..\packages\MvvmCross.PortableSupport.3.0.10\lib\MonoAndroid16\System.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Serialization">
+      <Private>True</Private>
+      <HintPath>..\..\packages\MvvmCross.PortableSupport.3.0.10\lib\MonoAndroid16\System.Xml.Serialization.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\TekConf.Core\ActionCommand.cs">
+      <Link>ActionCommand.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Annotations.cs">
+      <Link>Annotations.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\App.cs">
+      <Link>App.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\ConnectItem.cs">
+      <Link>ConnectItem.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Dtos\AddressDto.cs">
+      <Link>Dtos\AddressDto.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Dtos\FullConferenceDto.cs">
+      <Link>Dtos\FullConferenceDto.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Dtos\FullSessionDto.cs">
+      <Link>Dtos\FullSessionDto.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Dtos\FullSpeakerDto.cs">
+      <Link>Dtos\FullSpeakerDto.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Dtos\MobileLoginResultDto.cs">
+      <Link>Dtos\MobileLoginResultDto.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Dtos\OAuthUserDto.cs">
+      <Link>Dtos\OAuthUserDto.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Dtos\ScheduleDto.cs">
+      <Link>Dtos\ScheduleDto.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Dtos\SpeakerDto.cs">
+      <Link>Dtos\SpeakerDto.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Entities\ConferenceEntity.cs">
+      <Link>Entities\ConferenceEntity.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Entities\ScheduleEntity.cs">
+      <Link>Entities\ScheduleEntity.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Entities\SessionEntity.cs">
+      <Link>Entities\SessionEntity.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Entities\SpeakerEntity.cs">
+      <Link>Entities\SpeakerEntity.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Entities\UserEntity.cs">
+      <Link>Entities\UserEntity.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Interfaces\IAnalytics.cs">
+      <Link>Interfaces\IAnalytics.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Messages\AuthenticationMessage.cs">
+      <Link>Messages\AuthenticationMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Messages\DownloadConferenceImageMessage.cs">
+      <Link>Messages\DownloadConferenceImageMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Messages\ExceptionMessage.cs">
+      <Link>Messages\ExceptionMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Messages\FavoriteConferencesUpdatedMessage.cs">
+      <Link>Messages\FavoriteConferencesUpdatedMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Messages\FavoriteSessionAddedMessage.cs">
+      <Link>Messages\FavoriteSessionAddedMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Messages\RefreshConferenceFavoriteIconMessage.cs">
+      <Link>Messages\RefreshConferenceFavoriteIconMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Messages\RefreshSessionFavoriteIconMessage.cs">
+      <Link>Messages\RefreshSessionFavoriteIconMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Messages\UserNameChangedMessage.cs">
+      <Link>Messages\UserNameChangedMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Models\Extensions.cs">
+      <Link>Models\Extensions.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Models\ImageService.cs">
+      <Link>Models\ImageService.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Models\IRestService.cs">
+      <Link>Models\IRestService.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Models\PushService.cs">
+      <Link>Models\PushService.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Models\RestService.cs">
+      <Link>Models\RestService.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Models\ScheduleService.cs">
+      <Link>Models\ScheduleService.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Repositories\ConferenceDetailViewDto.cs">
+      <Link>Repositories\ConferenceDetailViewDto.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Repositories\ConferenceFavoriteSessionDto.cs">
+      <Link>Repositories\ConferenceFavoriteSessionDto.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Repositories\ConferenceSessionGroup.cs">
+      <Link>Repositories\ConferenceSessionGroup.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Repositories\ConferenceSessionListDto.cs">
+      <Link>Repositories\ConferenceSessionListDto.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Repositories\ConferenceSessionsListViewDto.cs">
+      <Link>Repositories\ConferenceSessionsListViewDto.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Repositories\ConferencesListViewDto.cs">
+      <Link>Repositories\ConferencesListViewDto.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Repositories\FullSessionGroup.cs">
+      <Link>Repositories\FullSessionGroup.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Repositories\ILocalConferencesRepository.cs">
+      <Link>Repositories\ILocalConferencesRepository.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Repositories\LocalConferencesRepository.cs">
+      <Link>Repositories\LocalConferencesRepository.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Repositories\LocalNotificationsRepository.cs">
+      <Link>Repositories\LocalNotificationsRepository.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Repositories\LocalSessionRepository.cs">
+      <Link>Repositories\LocalSessionRepository.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Repositories\SessionDetailDto.cs">
+      <Link>Repositories\SessionDetailDto.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Repositories\SessionEntityGroup.cs">
+      <Link>Repositories\SessionEntityGroup.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Repositories\SpeakerDetailViewDto.cs">
+      <Link>Repositories\SpeakerDetailViewDto.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Services\IAuthentication.cs">
+      <Link>Services\IAuthentication.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Services\ICacheProvider.cs">
+      <Link>Services\ICacheProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Services\IMessageBox.cs">
+      <Link>Services\IMessageBox.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Services\INetworkConnection.cs">
+      <Link>Services\INetworkConnection.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Services\IPushSharpClient.cs">
+      <Link>Services\IPushSharpClient.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Services\IRemoteDataService.cs">
+      <Link>Services\IRemoteDataService.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\Services\RemoteDataService.cs">
+      <Link>Services\RemoteDataService.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\ValueConverters\InverseBoolValueConverter.cs">
+      <Link>ValueConverters\InverseBoolValueConverter.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\ViewModels\ConferenceDetailViewModel.cs">
+      <Link>ViewModels\ConferenceDetailViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\ViewModels\ConferenceSearchViewModel.cs">
+      <Link>ViewModels\ConferenceSearchViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\ViewModels\ConferenceSessionsViewModel.cs">
+      <Link>ViewModels\ConferenceSessionsViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\ViewModels\ConferencesListViewModel.cs">
+      <Link>ViewModels\ConferencesListViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\ViewModels\ConferencesSearchViewModel.cs">
+      <Link>ViewModels\ConferencesSearchViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\ViewModels\OAuthRegisterViewModel.cs">
+      <Link>ViewModels\OAuthRegisterViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\ViewModels\SessionDetailViewModel.cs">
+      <Link>ViewModels\SessionDetailViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\ViewModels\SettingsViewModel.cs">
+      <Link>ViewModels\SettingsViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\TekConf.Core\ViewModels\TekConfLoginViewModel.cs">
+      <Link>ViewModels\TekConfLoginViewModel.cs</Link>
+    </Compile>
+    <Compile Include="Bootstrap\DownloadCachePluginBootstrap.cs" />
+    <Compile Include="Bootstrap\FilePluginBootstrap.cs" />
+    <Compile Include="Bootstrap\JsonPluginBootstrap.cs" />
+    <Compile Include="Bootstrap\MessengerPluginBootstrap.cs" />
+    <Compile Include="Bootstrap\NetworkPluginBootstrap.cs" />
+    <Compile Include="Bootstrap\ResourceLoaderPluginBootstrap.cs" />
+    <Compile Include="Bootstrap\SqlitePluginBootstrap.cs" />
+    <Compile Include="Bootstrap\VisibilityPluginBootstrap.cs" />
+    <Compile Include="Bootstrap\WebBrowserPluginBootstrap.cs" />
+    <Compile Include="DebugTrace.cs" />
+    <Compile Include="LinkerPleaseInclude.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\TekConf.Core\Fody.targets">
+      <Link>Fody.targets</Link>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\TekConf.Core\FodyWeavers.xml">
+      <Link>FodyWeavers.xml</Link>
+    </Content>
+    <Content Include="ToDo-MvvmCross\_ Droid UI.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties ProjectLinkerExcludeFilter="\\?desktop(\\.*)?$;\\?silverlight(\\.*)?$;\.desktop;\.silverlight;\.xaml;^service references(\\.*)?$;\.clientconfig;^web references(\\.*)?$" ProjectLinkReference="e740f915-a0fc-4c66-9fd3-1d9a0dda527a" />
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
