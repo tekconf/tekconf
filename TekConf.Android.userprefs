@@ -1,0 +1,37 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench>
+    <Files>
+      <File FileName="Core/TekConf.Core/Repositories/ConferenceDetailViewDto.cs" Line="8" Column="2" />
+      <File FileName="UI/TekConf.UI.Android/SplashScreen.cs" Line="11" Column="7" />
+      <File FileName="UI/TekConf.UI.Android/Views/BindableProgress.cs" Line="7" Column="31" />
+      <File FileName="UI/TekConf.UI.Android/Views/ConferencesListView.cs" Line="24" Column="51" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="TekConf.Core.Droid" expanded="True">
+            <Node name="Repositories" expanded="True" />
+            <Node name="ViewModels" expanded="True" />
+          </Node>
+          <Node name="TekConf.UI.Android" expanded="True">
+            <Node name="Views" expanded="True">
+              <Node name="ConferencesListView.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="ClassPad">
+        <State expanded="True" selected="True" />
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.TekConf.UI.Android AndroidDeviceId-Debug="HT24MW311704" MonoForAntroid.PreferredDevice="3.7in WVGA (Nexus One)" />
+</Properties>

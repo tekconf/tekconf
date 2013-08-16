@@ -7,7 +7,7 @@
     <Mvx.MvxListView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        local:MvxBind="ItemsSource Conferences"
+        local:MvxBind="ItemsSource Conferences; ItemClick ShowDetailCommand"
         local:MvxItemTemplate="@layout/item_conference"
         android:background="@android:color/white" />
 </LinearLayout>

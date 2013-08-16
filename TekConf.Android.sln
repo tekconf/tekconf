@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TekConf.Core.Droid", "Core\TekConf.Core.Droid\TekConf.Core.Droid.csproj", "{B954641C-4CB7-4505-BAE3-B69A91A0801F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TekConf.UI.Android", "UI\TekConf.UI.Android\TekConf.UI.Android.csproj", "{7A5BC41C-D08E-473B-880B-060FFE34DDB3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7A5BC41C-D08E-473B-880B-060FFE34DDB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A5BC41C-D08E-473B-880B-060FFE34DDB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A5BC41C-D08E-473B-880B-060FFE34DDB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A5BC41C-D08E-473B-880B-060FFE34DDB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B954641C-4CB7-4505-BAE3-B69A91A0801F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B954641C-4CB7-4505-BAE3-B69A91A0801F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B954641C-4CB7-4505-BAE3-B69A91A0801F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B954641C-4CB7-4505-BAE3-B69A91A0801F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = UI\TekConf.UI.Android\TekConf.UI.Android.csproj
+	EndGlobalSection
+EndGlobal

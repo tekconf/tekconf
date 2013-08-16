@@ -253,8 +253,8 @@ namespace TekConf.Core.ViewModels
 			get
 			{
 				//return new MvxCommand(() => ShowViewModel<ConferenceDetailViewModel>());
-				
-				return new MvxCommand<string>(slug => ShowViewModel<ConferenceDetailViewModel>(new {slug}));
+				return new MvxCommand<ConferencesListViewDto>(conference => ShowViewModel<ConferenceDetailViewModel>(new {slug = conference.slug}));
+				//return new MvxCommand<string>(slug => ShowViewModel<ConferenceDetailViewModel>(new {slug}));
 			}
 		}
 
@@ -263,7 +263,7 @@ namespace TekConf.Core.ViewModels
 			DisplayFavoritesConferences(message.Conferences);
 		}
 
-		private async void OnAuthenticateMessage(AuthenticationMessage message)
+		private void OnAuthenticateMessage(AuthenticationMessage message)
 		{
 			if (message != null && !string.IsNullOrWhiteSpace(message.UserName))
 			{
