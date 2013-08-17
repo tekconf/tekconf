@@ -27,6 +27,5 @@ namespace TekConf.UI.Android.Views
 			set.Bind(_bindableProgress).For(p => p.Visible).To(vm => vm.IsLoadingConferences);
 			set.Apply();
 		}
- 
 	}
 }

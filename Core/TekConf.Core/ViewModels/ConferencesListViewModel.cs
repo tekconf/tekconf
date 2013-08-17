@@ -252,9 +252,7 @@ namespace TekConf.Core.ViewModels
 		{
 			get
 			{
-				//return new MvxCommand(() => ShowViewModel<ConferenceDetailViewModel>());
 				return new MvxCommand<ConferencesListViewDto>(conference => ShowViewModel<ConferenceDetailViewModel>(new {slug = conference.slug}));
-				//return new MvxCommand<string>(slug => ShowViewModel<ConferenceDetailViewModel>(new {slug}));
 			}
 		}
 
@@ -270,11 +268,6 @@ namespace TekConf.Core.ViewModels
 				_authentication.UserName = message.UserName;
 				IsAuthenticated = true;
 				ShowViewModel<ConferencesListViewModel>(new ConferencesListViewModel.Parameters() { IsRefreshing = true } );
-				//var favorites = await StartGetFavorites(true);
-				//InvokeOnMainThread(
-				//	() => 
-				//		DisplayFavoritesConferences(favorites)
-				//);
 			}
 		}
 

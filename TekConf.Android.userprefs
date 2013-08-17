@@ -1,11 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="UI/TekConf.UI.Android/Views/ConferenceDetailView.cs">
     <Files>
-      <File FileName="Core/TekConf.Core/Repositories/ConferenceDetailViewDto.cs" Line="8" Column="2" />
-      <File FileName="UI/TekConf.UI.Android/SplashScreen.cs" Line="11" Column="7" />
-      <File FileName="UI/TekConf.UI.Android/Views/BindableProgress.cs" Line="7" Column="31" />
-      <File FileName="UI/TekConf.UI.Android/Views/ConferencesListView.cs" Line="24" Column="51" />
+      <File FileName="Core/TekConf.Core/Repositories/ConferenceDetailViewDto.cs" Line="18" Column="5" />
+      <File FileName="UI/TekConf.UI.Android/Views/ConferenceDetailView.cs" Line="26" Column="4" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -15,8 +13,11 @@
             <Node name="ViewModels" expanded="True" />
           </Node>
           <Node name="TekConf.UI.Android" expanded="True">
+            <Node name="Resources" expanded="True">
+              <Node name="Layout" expanded="True" />
+            </Node>
             <Node name="Views" expanded="True">
-              <Node name="ConferencesListView.cs" selected="True" />
+              <Node name="ConferenceDetailView.cs" selected="True" />
             </Node>
           </Node>
         </State>
