@@ -330,8 +330,13 @@ namespace TekConf.Core.ViewModels
 		{
 			get
 			{
-				return new MvxCommand<SessionDetailViewModel.Navigation>(navigation =>
-					ShowViewModel<SessionDetailViewModel>(navigation)
+				return new MvxCommand<ConferenceSessionListDto>(dto =>
+				                                                     ShowViewModel<SessionDetailViewModel>(
+																		new SessionDetailViewModel.Navigation() {
+																			ConferenceSlug =  Conference.slug,
+																			SessionSlug = dto.slug
+																		} 
+																     )
 					);
 			}
 		}

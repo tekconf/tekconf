@@ -126,6 +126,10 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Json.3.0.10\lib\MonoAndroid16\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Mono.Android.Support.v4" />
+    <Reference Include="ActionBarSherlock">
+      <HintPath>..\..\Components\XamarinActionBarSherlock-4.4.0\lib\android\ActionBarSherlock.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authentication.cs" />
@@ -149,6 +153,9 @@
     <Compile Include="Views\SessionDetailView.cs" />
     <Compile Include="Views\BindableProgress.cs" />
     <Compile Include="Views\ConferenceDetailView.cs" />
+    <Compile Include="Views\Item_Session.cs" />
+    <Compile Include="Views\MyTextView.cs" />
+    <Compile Include="Views\SettingsView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -173,6 +180,18 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <None Include="font\OpenSans-LightItalic.ttf" />
+    <AndroidResource Include="Resources\Layout\SpinnerItem.axml" />
+    <AndroidResource Include="Resources\Drawable\Refresh.png" />
+    <AndroidResource Include="Resources\Drawable\Gear.png" />
+    <AndroidResource Include="Resources\Drawable\Calendar.png" />
+    <AndroidResource Include="Resources\Drawable\Heart.png" />
+    <AndroidResource Include="Resources\Layout\Item_Session.axml" />
+    <AndroidResource Include="Resources\Menu\ConferenceDetailActionItems.xml" />
+    <AndroidResource Include="Resources\Menu\SessionDetailActionItems.xml" />
+    <AndroidResource Include="Resources\Layout\SettingsView.axml" />
+    <AndroidResource Include="Resources\Menu\ConferencesListActionItems.xml" />
+    <AndroidResource Include="Resources\Drawable\Magnify.png" />
+    <AndroidResource Include="Resources\Drawable\Group.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Values\Strings.xml" />
@@ -206,6 +225,7 @@
   -->
   <ItemGroup>
     <Folder Include="font\" />
+    <Folder Include="Resources\Menu\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidAsset Include="font\OpenSans-Bold.ttf">
@@ -235,5 +255,12 @@
     <AndroidAsset Include="font\OpenSans-SemiboldItalic.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </AndroidAsset>
+  </ItemGroup>
+  <ItemGroup>
+    <XamarinComponentReference Include="XamarinActionBarSherlock">
+      <InstallationInProgress>False</InstallationInProgress>
+      <Version>4.4.0</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
   </ItemGroup>
 </Project>

@@ -13,17 +13,17 @@
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
-        <TextView
+        <MyTextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textSize="20dp"
             local:MvxBind="Text name" />
-        <TextView
+        <MyTextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textSize="14dp"
             local:MvxBind="Text DateRange" />
-        <TextView
+        <MyTextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textSize="14dp"

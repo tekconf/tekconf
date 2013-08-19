@@ -26,7 +26,7 @@ namespace TekConf.UI.Android
 				if (value)
 				{
 					_dialog = new ProgressDialog(_context);
-					_dialog.SetTitle("Working...");
+					_dialog.SetTitle("Loading...");
 					_dialog.Show();
 				}
 				else

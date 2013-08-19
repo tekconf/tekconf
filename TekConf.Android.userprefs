@@ -1,9 +1,10 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="UI/TekConf.UI.Android/Views/ConferenceDetailView.cs">
+  <MonoDevelop.Ide.Workbench>
     <Files>
-      <File FileName="Core/TekConf.Core/Repositories/ConferenceDetailViewDto.cs" Line="18" Column="5" />
-      <File FileName="UI/TekConf.UI.Android/Views/ConferenceDetailView.cs" Line="26" Column="4" />
+      <File FileName="Core/TekConf.Core/ViewModels/ConferenceSessionsViewModel.cs" Line="28" Column="44" />
+      <File FileName="Core/TekConf.Core/ViewModels/ConferencesListViewModel.cs" Line="251" Column="19" />
+      <File FileName="Core/TekConf.Core/Repositories/ConferenceSessionsListViewDto.cs" Line="17" Column="46" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -14,11 +15,13 @@
           </Node>
           <Node name="TekConf.UI.Android" expanded="True">
             <Node name="Resources" expanded="True">
-              <Node name="Layout" expanded="True" />
+              <Node name="Drawable" expanded="True" />
+              <Node name="Layout" expanded="True">
+                <Node name="SessionDetailView.axml" selected="True" />
+              </Node>
+              <Node name="Menu" expanded="True" />
             </Node>
-            <Node name="Views" expanded="True">
-              <Node name="ConferenceDetailView.cs" selected="True" />
-            </Node>
+            <Node name="Views" expanded="True" />
           </Node>
         </State>
       </Pad>
@@ -31,7 +34,9 @@
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/rob/dev/tekconf/UI/TekConf.UI.Android/Views/ConferenceDetailView.cs" line="24" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.ItemProperties.TekConf.UI.Android AndroidDeviceId-Debug="HT24MW311704" MonoForAntroid.PreferredDevice="3.7in WVGA (Nexus One)" />
