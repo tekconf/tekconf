@@ -419,10 +419,10 @@
       </Properties>
     </MonoDevelop>
   </ProjectExtensions>
-  <Import Project="..\..\packages\OctoPack.2.0.20\targets\OctoPack.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.7\tools\Microsoft.Bcl.Build.targets" />
+  <Import Project="$(SolutionDir)\.octopack\OctoPack.targets" />
   <!--<Import Project="..\..\packages\OctoPack.1.0.109\targets\OctoPack.targets" />-->
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
