@@ -1,25 +1,18 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
   <MonoDevelop.Ide.Workbench>
-    <Files>
-      <File FileName="Core/TekConf.Core/ViewModels/ConferenceSessionsViewModel.cs" Line="28" Column="44" />
-      <File FileName="Core/TekConf.Core/ViewModels/ConferencesListViewModel.cs" Line="251" Column="19" />
-      <File FileName="Core/TekConf.Core/Repositories/ConferenceSessionsListViewDto.cs" Line="17" Column="46" />
-    </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="TekConf.Core.Droid" expanded="True">
-            <Node name="Repositories" expanded="True" />
-            <Node name="ViewModels" expanded="True" />
-          </Node>
           <Node name="TekConf.UI.Android" expanded="True">
+            <Node name="Properties" expanded="True" />
             <Node name="Resources" expanded="True">
               <Node name="Drawable" expanded="True" />
               <Node name="Layout" expanded="True">
-                <Node name="SessionDetailView.axml" selected="True" />
+                <Node name="ConferenceDetailView.axml" selected="True" />
               </Node>
               <Node name="Menu" expanded="True" />
+              <Node name="Values" expanded="True" />
             </Node>
             <Node name="Views" expanded="True" />
           </Node>
@@ -34,9 +27,7 @@
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/rob/dev/tekconf/UI/TekConf.UI.Android/Views/ConferenceDetailView.cs" line="24" column="1" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.ItemProperties.TekConf.UI.Android AndroidDeviceId-Debug="HT24MW311704" MonoForAntroid.PreferredDevice="3.7in WVGA (Nexus One)" />

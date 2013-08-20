@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-  <item android:id="@+id/menu_speakers" android:icon="@drawable/Group" android:title="Speakers" android:showAsAction="ifRoom|withText"/>
-  <item android:id="@+id/menu_favorite" android:icon="@drawable/Heart" android:title="Favorite" android:showAsAction="ifRoom|withText"/>
-  <item android:id="@+id/menu_settings" android:icon="@drawable/Refresh" android:title="Refresh" android:showAsAction="ifRoom|withText"/>
-  <item android:id="@+id/menu_refresh" android:icon="@drawable/Gear" android:title="Settings" android:showAsAction="ifRoom|withText"/>
+  <item android:id="@+id/menu_speakers" android:icon="@drawable/users_icon24" android:title="Speakers" android:showAsAction="ifRoom|withText"/>
+  <item android:id="@+id/menu_favorite" android:icon="@drawable/heart_empty_icon24" android:title="Favorite" android:showAsAction="ifRoom|withText"/>
+  <item android:id="@+id/menu_settings" android:icon="@drawable/refresh_icon24" android:title="Refresh" android:showAsAction="ifRoom|withText"/>
+  <item android:id="@+id/menu_refresh" android:icon="@drawable/cog_icon24" android:title="Settings" android:showAsAction="ifRoom|withText"/>
 </menu>

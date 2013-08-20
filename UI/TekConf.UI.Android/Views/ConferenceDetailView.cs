@@ -8,6 +8,7 @@ using Cirrious.MvvmCross.Binding.BindingContext;
 using Cirrious.MvvmCross.Binding.Droid.BindingContext;
 using System.Collections.Generic;
 using System;
+using Android.Graphics.Drawables;
 
 namespace TekConf.UI.Android.Views
 {
@@ -17,7 +18,7 @@ namespace TekConf.UI.Android.Views
 	using global::Android.OS;
 	
 
-	[Activity(Label = "Detail", Icon="@drawable/icon")]
+	[Activity(Label = "Detail")]
 	public class ConferenceDetailView : MvxActivity
 	{
 		protected override void OnCreate(Bundle bundle)
@@ -30,6 +31,9 @@ namespace TekConf.UI.Android.Views
 
 			var set = this.CreateBindingSet<ConferenceDetailView, ConferenceDetailViewModel>();
 			set.Apply();
+
+			ActionBar.SetBackgroundDrawable(new ColorDrawable(new Color(r:129,g:153,b:77)));
+			ActionBar.SetDisplayShowHomeEnabled(false);
 
 		}
 

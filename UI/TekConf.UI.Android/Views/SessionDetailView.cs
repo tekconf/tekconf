@@ -1,6 +1,8 @@
 using Android.Views;
 using Cirrious.MvvmCross.Binding.BindingContext;
 using TekConf.Core.ViewModels;
+using Android.Graphics.Drawables;
+using Android.Graphics;
 
 namespace TekConf.UI.Android.Views
 {
@@ -9,7 +11,7 @@ namespace TekConf.UI.Android.Views
 	using global::Android.App;
 	using global::Android.OS;
 
-	[Activity(Label = "Session Detail", Icon="@drawable/icon")]
+	[Activity(Label = "Session Detail")]
 	public class SessionDetailView : MvxActivity
 	{
 		protected override void OnCreate(Bundle bundle)
@@ -22,6 +24,10 @@ namespace TekConf.UI.Android.Views
 
 			var set = this.CreateBindingSet<SessionDetailView, SessionDetailViewModel>();
 			set.Apply();
+
+			ActionBar.SetBackgroundDrawable(new ColorDrawable(new Color(r:129,g:153,b:77)));
+			ActionBar.SetDisplayShowHomeEnabled(false);
+
 		}
 
 		public override bool OnCreateOptionsMenu(IMenu menu)
@@ -38,19 +44,22 @@ namespace TekConf.UI.Android.Views
 				switch (item.ToString ()) 
 				{
 					case "Favorite":
-					//TODO
-					break;
-				case "Refresh":
-					var navigation = new SessionDetailViewModel.Navigation () 
-					{
-						ConferenceSlug = vm.ConferenceSlug,
-						SessionSlug = vm.Session.slug
-					};
-					vm.Refresh (navigation);
-					break;
+						//TODO
+						break;
+					case "Speakers":
+						break;
+					case "Refresh":
+						var navigation = new SessionDetailViewModel.Navigation () 
+						{
+							ConferenceSlug = vm.ConferenceSlug,
+							SessionSlug = vm.Session.slug
+						};
+						vm.Refresh (navigation);
+						break;
+
 					case "Settings":
-					vm.ShowSettingsCommand.Execute (null);
-					break;
+						vm.ShowSettingsCommand.Execute (null);
+						break;
 				}
 			}
 

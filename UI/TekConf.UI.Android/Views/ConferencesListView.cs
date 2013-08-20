@@ -4,6 +4,8 @@ using Cirrious.MvvmCross.Droid.Views;
 using Cirrious.MvvmCross.Binding.BindingContext;
 using TekConf.Core.ViewModels;
 using System.Threading.Tasks;
+using Android.Graphics.Drawables;
+using Android.Graphics;
 
 namespace TekConf.UI.Android.Views
 {
@@ -13,7 +15,7 @@ namespace TekConf.UI.Android.Views
 
 	using global::Android.Views;
 
-	[Activity(Label = "Conferences", Icon="@drawable/icon")]
+	[Activity(Label = "Conferences")]
 	public class ConferencesListView : MvxActivity
 	{
 		private BindableProgress _bindableProgress;
@@ -30,6 +32,10 @@ namespace TekConf.UI.Android.Views
 			var set = this.CreateBindingSet<ConferencesListView, ConferencesListViewModel>();
 			set.Bind(_bindableProgress).For(p => p.Visible).To(vm => vm.IsLoadingConferences);
 			set.Apply();
+
+			ActionBar.SetBackgroundDrawable(new ColorDrawable(new Color(r:129,g:153,b:77)));
+			ActionBar.SetDisplayShowHomeEnabled(false);
+
 		}
 
 		public override bool OnCreateOptionsMenu(IMenu menu)
