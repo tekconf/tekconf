@@ -42,6 +42,9 @@
     <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ActionBarSherlock">
+      <HintPath>..\..\Components\XamarinActionBarSherlock-4.4.0\lib\android\ActionBarSherlock.dll</HintPath>
+    </Reference>
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
     <Reference Include="System" />
@@ -263,10 +266,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <ItemGroup>
-    <Folder Include="font\" />
-    <Folder Include="Resources\Menu\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <AndroidAsset Include="font\OpenSans-Bold.ttf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -298,7 +298,6 @@
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="XamarinActionBarSherlock">
-      <InstallationInProgress>False</InstallationInProgress>
       <Version>4.4.0</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
