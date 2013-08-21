@@ -94,17 +94,17 @@ namespace TekConf.UI.WinPhone.Views
 
 		private void AddFavorite_OnClick(object sender, EventArgs e)
 		{
-			var authentication = new Authentication(Mvx.Resolve<ISQLiteConnection>());
-			if (authentication.IsAuthenticated)
-			{
+			//var authentication = new Authentication(Mvx.Resolve<ISQLiteConnection>());
+			//if (authentication.IsAuthenticated)
+			//{
 				var vm = this.DataContext as SessionDetailViewModel;
 				if (vm != null)
 					vm.AddFavoriteCommand.Execute(null);
-			}
-			else
-			{
-				MessageBox.Show("You must be logged in to favorite a session");				
-			}
+			//}
+			//else
+			//{
+				//MessageBox.Show("You must be logged in to favorite a session");				
+			//}
 
 		}
 	}

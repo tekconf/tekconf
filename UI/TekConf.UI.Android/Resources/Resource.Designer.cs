@@ -1022,8 +1022,8 @@ namespace TekConf.UI.Android
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f040042
-			public const int DisplayTextLabel = 2130968642;
+			// aapt resource value: 0x7f040046
+			public const int DisplayTextLabel = 2130968646;
 			
 			// aapt resource value: 0x7f040010
 			public const int MvxBindingTagUnique = 2130968592;
@@ -1145,6 +1145,12 @@ namespace TekConf.UI.Android
 			// aapt resource value: 0x7f04000b
 			public const int abs__up = 2130968587;
 			
+			// aapt resource value: 0x7f040044
+			public const int button_one = 2130968644;
+			
+			// aapt resource value: 0x7f040045
+			public const int button_two = 2130968645;
+			
 			// aapt resource value: 0x7f040037
 			public const int dialog_BoolField = 2130968631;
 			
@@ -1202,20 +1208,20 @@ namespace TekConf.UI.Android
 			// aapt resource value: 0x7f040002
 			public const int listMode = 2130968578;
 			
-			// aapt resource value: 0x7f040044
-			public const int menu_favorite = 2130968644;
+			// aapt resource value: 0x7f040048
+			public const int menu_favorite = 2130968648;
 			
-			// aapt resource value: 0x7f040046
-			public const int menu_refresh = 2130968646;
-			
-			// aapt resource value: 0x7f040043
-			public const int menu_sessions = 2130968643;
-			
-			// aapt resource value: 0x7f040045
-			public const int menu_settings = 2130968645;
+			// aapt resource value: 0x7f04004a
+			public const int menu_refresh = 2130968650;
 			
 			// aapt resource value: 0x7f040047
-			public const int menu_speakers = 2130968647;
+			public const int menu_sessions = 2130968647;
+			
+			// aapt resource value: 0x7f040049
+			public const int menu_settings = 2130968649;
+			
+			// aapt resource value: 0x7f04004b
+			public const int menu_speakers = 2130968651;
 			
 			// aapt resource value: 0x7f040001
 			public const int normal = 2130968577;
@@ -1231,6 +1237,12 @@ namespace TekConf.UI.Android
 			
 			// aapt resource value: 0x7f040003
 			public const int tabMode = 2130968579;
+			
+			// aapt resource value: 0x7f040042
+			public const int tableLayout1 = 2130968642;
+			
+			// aapt resource value: 0x7f040043
+			public const int tableRow4 = 2130968643;
 			
 			// aapt resource value: 0x7f040004
 			public const int useLogo = 2130968580;

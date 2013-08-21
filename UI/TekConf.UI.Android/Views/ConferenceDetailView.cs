@@ -35,6 +35,8 @@ namespace TekConf.UI.Android.Views
 			ActionBar.SetBackgroundDrawable(new ColorDrawable(new Color(r:129,g:153,b:77)));
 			ActionBar.SetDisplayShowHomeEnabled(false);
 
+			Setup.CurrentActivityContext = (Context)this;
+
 		}
 
 		public override bool OnCreateOptionsMenu(IMenu menu)
@@ -51,10 +53,10 @@ namespace TekConf.UI.Android.Views
 				switch (item.ToString ()) 
 				{
 					case "Sessions":
-					vm.ShowSessionsCommand.Execute(vm.Conference.slug);
-					break;
-					case "Favorite":
-
+						vm.ShowSessionsCommand.Execute(vm.Conference.slug);
+						break;
+				case "Favorite":
+					vm.AddFavoriteCommand.Execute (null);
 					break;
 				case "Refresh":
 					vm.Refresh (vm.Conference.slug);

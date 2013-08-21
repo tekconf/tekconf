@@ -156,6 +156,9 @@
     <Compile Include="Views\Item_Session.cs" />
     <Compile Include="Views\MyTextView.cs" />
     <Compile Include="Views\SettingsView.cs" />
+    <Compile Include="DroidNetworkConnection.cs" />
+    <Compile Include="DroidMessageBox.cs" />
+    <Compile Include="MyDebugTrace.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

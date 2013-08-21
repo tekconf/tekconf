@@ -122,19 +122,19 @@ namespace TekConf.UI.WinPhone.Views
 
 		private void AddFavorite_OnClick(object sender, EventArgs e)
 		{
-			var authentication = Mvx.Resolve<IAuthentication>();
+			//var authentication = Mvx.Resolve<IAuthentication>();
 
-			if (authentication.IsAuthenticated)
-			{
+			//if (authentication.IsAuthenticated)
+			//{
 				var vm = DataContext as ConferenceDetailViewModel;
 
 				if (vm != null)
 					vm.AddFavoriteCommand.Execute(vm.Conference.slug);
-			}
-			else
-			{
-				MessageBox.Show("You must be logged in to favorite a conference");
-			}
+			//}
+			//else
+			//{
+				//MessageBox.Show("You must be logged in to favorite a conference");
+			//}
 		}
 
 		private void Settings_OnClick(object sender, EventArgs e)

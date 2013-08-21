@@ -3,6 +3,7 @@ using Cirrious.MvvmCross.Binding.BindingContext;
 using TekConf.Core.ViewModels;
 using Android.Graphics.Drawables;
 using Android.Graphics;
+using Android.Content;
 
 namespace TekConf.UI.Android.Views
 {
@@ -28,6 +29,7 @@ namespace TekConf.UI.Android.Views
 			ActionBar.SetBackgroundDrawable(new ColorDrawable(new Color(r:129,g:153,b:77)));
 			ActionBar.SetDisplayShowHomeEnabled(false);
 
+			Setup.CurrentActivityContext = (Context)this;
 		}
 
 		public override bool OnCreateOptionsMenu(IMenu menu)
@@ -44,9 +46,10 @@ namespace TekConf.UI.Android.Views
 				switch (item.ToString ()) 
 				{
 					case "Favorite":
-						//TODO
+						vm.AddFavoriteCommand.Execute(null);
 						break;
 					case "Speakers":
+						//TODO
 						break;
 					case "Refresh":
 						var navigation = new SessionDetailViewModel.Navigation () 

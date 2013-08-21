@@ -1,40 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:local="http://schemas.android.com/apk/res/com.tekconf.android"
-    android:orientation="vertical"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tableLayout1"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@android:color/white">
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+    <TableRow
+        android:id="@+id/tableRow4"
+        android:layout_weight="1"
         android:background="@android:color/white">
-        <Mvx.MvxImageView
-            android:layout_width="256dp"
-            android:layout_height="256dp"
-            android:layout_margin="2dp"
+        <ImageButton
+            android:id="@+id/button_one"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:paddingRight="2dp"
+            android:paddingLeft="2dp"
             android:src="@drawable/TekConf" />
-        <Mvx.MvxImageView
-            android:layout_width="256dp"
-            android:layout_height="256dp"
-            android:layout_margin="2dp"
+        <ImageButton
+            android:id="@+id/button_two"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:paddingRight="2dp"
+            android:paddingLeft="2dp"
             android:src="@drawable/Twitter_001" />
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+    </TableRow>
+    <TableRow
+        android:id="@+id/tableRow4"
+        android:layout_weight="1"
         android:background="@android:color/white">
-        <Mvx.MvxImageView
-            android:layout_width="256dp"
-            android:layout_height="256dp"
-            android:layout_margin="2dp"
+        <ImageButton
+            android:id="@+id/button_one"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:paddingRight="2dp"
+            android:paddingLeft="2dp"
             android:src="@drawable/facebook_001" />
-        <Mvx.MvxImageView
-            android:layout_width="256dp"
-            android:layout_height="256dp"
-            android:layout_margin="2dp"
+        <ImageButton
+            android:id="@+id/button_two"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="@android:color/white"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:paddingRight="2dp"
+            android:paddingLeft="2dp"
             android:src="@drawable/Google_Plus_001" />
-    </LinearLayout>
-</LinearLayout>
+    </TableRow>
+</TableLayout>
