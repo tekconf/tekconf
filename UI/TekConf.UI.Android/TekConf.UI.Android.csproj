@@ -130,6 +130,9 @@
     <Reference Include="ActionBarSherlock">
       <HintPath>..\..\Components\XamarinActionBarSherlock-4.4.0\lib\android\ActionBarSherlock.dll</HintPath>
     </Reference>
+    <Reference Include="Xamarin.Auth.Android">
+      <HintPath>..\..\Components\xamarin.auth-1.2.0\lib\android\Xamarin.Auth.Android.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authentication.cs" />
@@ -297,6 +300,11 @@
     <XamarinComponentReference Include="XamarinActionBarSherlock">
       <InstallationInProgress>False</InstallationInProgress>
       <Version>4.4.0</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="xamarin.auth">
+      <InstallationInProgress>True</InstallationInProgress>
+      <Version>1.2.0</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
   </ItemGroup>
