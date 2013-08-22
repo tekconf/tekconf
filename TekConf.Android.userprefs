@@ -1,23 +1,19 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Components/xamarin.auth-1.2.0/samples/Xamarin.Auth.Sample.Android/MainActivity.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="UI/TekConf.UI.Android/Setup.cs">
     <Files>
-      <File FileName="UI/TekConf.UI.Android/Views/ConferenceDetailView.cs" Line="53" Column="23" />
-      <File FileName="Core/TekConf.Core/ViewModels/ConferenceDetailViewModel.cs" Line="36" Column="30" />
-      <File FileName="UI/TekConf.UI.WinPhone/Views/SessionDetailView.xaml.cs" Line="100" Column="1" />
-      <File FileName="UI/TekConf.UI.Android/Views/SessionDetailView.cs" Line="28" Column="4" />
-      <File FileName="UI/TekConf.UI.Android/Setup.cs" Line="24" Column="1" />
-      <File FileName="UI/TekConf.UI.Android/MyDebugTrace.cs" Line="1" Column="1" />
-      <File FileName="UI/TekConf.UI.Android/DroidAnalytics.cs" Line="12" Column="2" />
-      <File FileName="Components/xamarin.auth-1.2.0/samples/Xamarin.Auth.Sample.Android/MainActivity.cs" Line="20" Column="4" />
+      <File FileName="UI/TekConf.UI.WinPhone/Views/SettingsView.xaml.cs" Line="171" Column="4" />
+      <File FileName="UI/TekConf.UI.Android/Views/SettingsView.cs" Line="49" Column="13" />
+      <File FileName="UI/TekConf.UI.Android/Setup.cs" Line="14" Column="1" />
+      <File FileName="UI/TekConf.UI.WinPhone/App.xaml.cs" Line="67" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="TekConf.Core.Droid" expanded="True">
-            <Node name="ViewModels" expanded="True" />
-          </Node>
           <Node name="TekConf.UI.Android" expanded="True">
+            <Node name="References" expanded="True">
+              <Node name="/Users/rob/dev/tekconf/UI/TekConf.UI.Android/lib/Microsoft.WindowsAzure.MobileServices.Android.dll" selected="True" />
+            </Node>
             <Node name="Properties" expanded="True" />
             <Node name="Views" expanded="True" />
           </Node>

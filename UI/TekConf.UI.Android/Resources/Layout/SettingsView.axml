@@ -5,11 +5,56 @@
     android:layout_height="fill_parent"
     android:background="@android:color/white">
     <TableRow
-        android:id="@+id/tableRow4"
+        android:id="@+id/loggedInState"
+        android:layout_height="300dp"
+        android:layout_weight="1"
+        android:background="@android:color/white">
+        <LinearLayout
+            android:id="@+id/loggedInStateLayout"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@android:color/white">
+            <LinearLayout
+                android:id="@+id/loginNameLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal">
+                <MyTextView
+                    android:id="@+id/loginName"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:textSize="20dp"
+                    android:layout_weight="1"
+                    android:text="Login Name" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/logoutButtonLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal">
+                <Button
+                    android:id="@+id/logoutButton"
+                    android:layout_height="22dp"
+                    android:layout_width="fill_parent"
+                    android:layout_weight="1"
+                    android:paddingRight="2dp"
+                    android:paddingLeft="2dp"
+                    android:text="Logout"
+                    android:width="110dp"
+                    android:height="40dp"
+                    android:background="#ff000000" />
+            </LinearLayout>
+        </LinearLayout>
+    </TableRow>
+    <TableRow
+        android:id="@+id/tekConfTwitterRow"
         android:layout_weight="1"
         android:background="@android:color/white">
         <ImageButton
-            android:id="@+id/button_one"
+            android:id="@+id/tekConfLoginButton"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -20,7 +65,7 @@
             android:paddingLeft="2dp"
             android:src="@drawable/TekConf" />
         <ImageButton
-            android:id="@+id/button_two"
+            android:id="@+id/twitterLoginButton"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -32,11 +77,11 @@
             android:src="@drawable/Twitter_001" />
     </TableRow>
     <TableRow
-        android:id="@+id/tableRow4"
+        android:id="@+id/facebookGoogleRow"
         android:layout_weight="1"
         android:background="@android:color/white">
         <ImageButton
-            android:id="@+id/button_one"
+            android:id="@+id/facebookLoginButton"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"
@@ -47,7 +92,7 @@
             android:paddingLeft="2dp"
             android:src="@drawable/facebook_001" />
         <ImageButton
-            android:id="@+id/button_two"
+            android:id="@+id/googlePlusLoginButton"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight="1"

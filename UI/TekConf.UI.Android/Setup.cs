@@ -11,12 +11,39 @@ using TekConf.Core.Interfaces;
 using TekConf.Core.Models;
 using TekConf.Core.Repositories;
 using TekConf.Core.Services;
+using Microsoft.WindowsAzure.MobileServices;
+using Cirrious.MvvmCross.Plugins.Messenger;
+using TekConf.Core.Messages;
 
 namespace TekConf.UI.Android
 {
 	public class Setup : MvxAndroidSetup
 	{
 		public static Context CurrentActivityContext { get; set; }
+		public static MobileServiceClient MobileService = new MobileServiceClient(
+			"https://tekconfauth.azure-mobile.net/",
+			"NeMPYjchPdsFKlUqDdyAJYZtdrOPiJ11"
+			);
+
+		private static string _userName;
+
+		public static string UserName
+		{
+			get
+			{
+				return _userName;
+			}
+			set
+			{
+				var messenger = Mvx.Resolve<IMvxMessenger>();
+				if (_userName != value && messenger != null)
+				{
+					var obj = new object();
+					messenger.Publish(new UserNameChangedMessage(obj) { UserName = value });
+				}
+				_userName = value;
+			}
+		}
 
 		public Setup(Context applicationContext)
 			: base(applicationContext)
