@@ -3,10 +3,10 @@ using System.Web.Mvc;
 using FakeItEasy;
 using NUnit.Framework;
 using Should;
-using TekConf.UI.Web.Controllers;
-using TekConf.UI.Web.ViewModels;
+using TekConf.Web.Controllers;
+using TekConf.Web.ViewModels;
 
-namespace TekConf.UI.Web.Tests.Unit
+namespace TekConf.Web.Tests.Unit
 {
 	[TestFixture]
 	public class PresentationsControllerTests

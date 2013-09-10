@@ -1,0 +1,150 @@
+﻿@using System.Web.Optimization
+@using TekConf.RemoteData.Dtos.v1
+@model TekConf.Web.ViewModels.ScheduleViewModel
+
+@{
+	Layout = null;
+	var conferences = Model.Conferences ?? new List<FullConferenceDto>();
+	int currentYear = 0;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico">
+	<title>Schedules - tekconf</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
+		<link rel="search" type="application/opensearchdescription+xml" href="http://www.tekconf.com/TekConf.xml" title="TekConf Search" /> 
+	
+	@Styles.Render("~/css/schedule/index")
+
+	<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+	<link href="~/Content/themes/base/jquery.ui.all.css" rel="stylesheet" />
+</head>
+
+<body>
+	@Html.Partial("Header")
+
+	<div id="subheader">
+		<div class="inner">
+			<div class="container">
+				<h1>My Schedule</h1>
+			</div>
+			<!-- /.container -->
+		</div>
+		<!-- /inner -->
+	</div>
+	<!-- /subheader -->
+
+	<div id="subpage">
+		<div class="container">
+			<div class="row">
+				<div class="span12">
+					&nbsp;&nbsp;
+					@foreach (var year in conferences.OrderBy(x => x.start).Select(x => x.start.Year).Distinct())
+		 {
+						if (year == DateTime.Now.Year)
+			{
+<a href="#@year" style="font-size:x-large;">@year</a>
+							<text>&nbsp;&nbsp;|&nbsp;&nbsp;</text>
+
+			}
+			else
+			{
+<a href="#@year">@year</a> <text>&nbsp;&nbsp;|&nbsp;&nbsp;</text>
+							 
+			}
+		 }
+
+					<table class="table">
+						<tbody>
+							@foreach (var conference in conferences)
+			 {
+								<tr>
+									<td width="120">
+										<img src="@conference.imageUrl" style="height:80px;" /><br />
+										<br />
+									</td>
+									<td>
+										@if (currentYear != conference.start.Year)
+					{
+						currentYear = conference.start.Year;
+											<a name="@currentYear"></a>
+					}
+										<h3>@conference.name</h3>
+										Registration : @HtmlHelpers.FormatDateRange(conference.registrationOpens, conference.registrationCloses)<br />
+										Conference : @HtmlHelpers.FormatDateRange(conference.start, conference.end)<br />
+										Location : @HtmlHelpers.FormatAddress(conference.address)<br />
+										<br />
+										@using (Html.BeginForm("Delete", "Schedule", FormMethod.Post, new { enctype = "multipart/form-data", id = "remove" + conference.slug }))
+					{
+											<a href="~/conferences/@conference.slug" class="btn btn-primary">View Conference</a>
+						
+											@Html.Hidden("conferenceSlug", conference.slug)
+											<input type="button" value="Remove Conference" class="btn btn-danger btn-mini" onclick="confirmRemoveConference('@conference.name	', '@("remove" + conference.slug)	');" />
+					}
+									</td>
+								</tr>
+			 }
+						</tbody>
+					</table>
+				</div>
+
+			</div>
+
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /subpage -->
+
+	@Html.Partial("Extra")
+
+	@Html.Partial("Footer")
+
+	@Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/jqueryUI")
+	@Scripts.Render("~/bundles/jqueryMigrate")
+	@Scripts.Render("~/js/common")
+	@Scripts.Render("~/js/commonFaq")
+
+
+	<div id="dialog-confirm" title="Remove conference from schedule?">
+	</div>
+
+	<script>
+
+		function confirmRemoveConference(conferenceSlug, formId) {
+			document.getElementById('dialog-confirm').innerHTML = "Remove " + conferenceSlug +  " from your schedule?";
+			
+			$("#dialog-confirm" ).dialog({
+				resizable: false,
+				height:240,
+				modal: true,
+				autoOpen: true,
+				closeText: "X",
+				buttons: {
+					"Remove": function() {
+						$('#' + formId).submit();
+						$( this ).dialog( "close" );
+					},
+					Cancel: function() {
+						$( this ).dialog( "close" );
+					}
+				}
+			});
+
+			return false;
+		}
+		
+
+	</script>
+</body>
+</html>

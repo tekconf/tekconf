@@ -1,0 +1,53 @@
+﻿@using TekConf.Web
+<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+				<div class="container">
+						<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+						</a>
+
+						<a class="brand" href="~/">tekconf 
+						</a>
+
+						<div class="nav-collapse">
+								<ul class="nav pull-right">
+										<li><a href="~/">Home </a></li>
+										<li><a href="~/Conferences">Conferences </a></li>
+										@if (Request.IsAuthenticated)
+					{
+												<li><a href="~/Schedule">My Schedule </a></li>
+					}
+										<li><a href="~/Api">Api </a></li>
+										<li><a href="~/Apps">Apps </a></li>
+										<li><a href="~/Speakers">For Speakers </a></li>
+										<li><a href="~/Organizers">For Organizers </a></li>
+										@*<li><a href="~/Account/LoginWithProvider">Login</a></li>*@
+
+										@if (Request.IsAuthenticated)
+					{
+							if (Html.IsAdmin())
+							{
+												<li><a href="~/Admin">Admin</a></li>
+							}
+					}
+
+										@if (Request.IsAuthenticated)
+					{
+												<li>@Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })</li>
+												<li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+					}
+					else
+					{
+												<li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink", data_dialog_title = "Identification" })</li>
+					}
+								</ul>
+
+						</div>
+						<!--/.nav-collapse -->
+				</div>
+				<!-- /container -->
+		</div>
+		<!-- /navbar-inner -->
+</div>

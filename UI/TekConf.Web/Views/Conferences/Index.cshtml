@@ -1,0 +1,57 @@
+﻿@using System.Configuration
+@using System.Web.Optimization
+@using TekConf.Web.Controllers
+@model List<TekConf.RemoteData.Dtos.v1.FullConferenceDto>
+    <!--=== Breadcrumbs ===-->
+    <div class="breadcrumbs margin-bottom-50">
+        <div class="container">
+            <h1 class="color-green pull-left">Conferences</h1>
+
+        </div><!--/container-->
+    </div><!--/breadcrumbs-->
+    <!--=== End Breadcrumbs ===-->
+    <!--=== Content Part ===-->
+    <div class="container">
+        <div class="row-fluid gallery">
+            @{
+                var groups = Model.Count / 4;
+                for (int groupCounter = 0; groupCounter < groups; groupCounter++)
+                {
+                    <ul class="thumbnails">
+
+                        @foreach (var conference in Model.Skip(groupCounter * 4).Take(4))
+                        {
+                            <li class="span3">
+                                <a class="thumbnail fancybox-button zoomer" data-rel="fancybox-button" title="@conference.name" href="@conference.imageUrl">
+                                    <div class="overlay-zoom">
+                                        <img src="@conference.imageUrl" alt="" />
+                                        <div class="zoom-icon"></div>
+                                    </div>
+                                </a>
+                                <div class="headline">
+                                    <h4>@conference.name</h4>
+                                    <br />@conference.DateRange
+                                    <br />@conference.FormattedAddress
+                                </div>
+                                
+
+                            </li>
+                        }
+                    </ul><!--/thumbnails-->
+                }
+            }
+
+            <div class="pagination pagination-right">
+                <ul>
+                    <li><a href="#">Prev</a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li class="active"><a>3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">Next</a></li>
+                </ul>
+            </div>
+        </div><!--/row-fluid-->
+    </div><!--/container-->
+    <!--=== End Content Part ===-->
