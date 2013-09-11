@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -23,6 +23,7 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <WebGreaseLibPath>..\..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -127,17 +128,15 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
@@ -174,6 +173,7 @@
       <Private>True</Private>
       <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.0.0-rc1\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
@@ -289,6 +289,8 @@
     <Compile Include="ViewModels\AddPresentationViewModel.cs" />
     <Compile Include="ViewModels\GravatarImage.cs" />
     <Compile Include="ViewModels\HomePageViewModel.cs" />
+    <Compile Include="ViewModels\ScheduleViewModel.cs" />
+    <Compile Include="ViewModels\SessionDetailViewModel.cs" />
     <Compile Include="ViewModels\SpeakerDetailViewModel.cs" />
     <Compile Include="ViewModels\SpeakersViewModel.cs" />
   </ItemGroup>
@@ -611,7 +613,7 @@
     <Content Include="Images\twitter.png" />
     <Content Include="Images\windowsLive.png" />
     <Content Include="img\android-coming-soon.png" />
-    <Content Include="img\android.png" />
+    <Content Include="img\Apps\android.png" />
     <Content Include="img\Apps\Android-coming-soon.png" />
     <Content Include="img\Apps\Android.gif" />
     <Content Include="img\Apps\Apple-coming-soon.png" />
@@ -626,15 +628,16 @@
     <Content Include="img\avatar.png" />
     <Content Include="img\avatar2.png" />
     <Content Include="img\avatar3.png" />
+    <Content Include="img\badge_web20.png" />
     <Content Include="img\conferences\DefaultConference.png" />
     <Content Include="img\feature-check.png" />
     <Content Include="img\glyphicons-halflings-white.png" />
     <Content Include="img\glyphicons-halflings.png" />
     <Content Include="img\grab.png" />
     <Content Include="img\header-bg.jpg" />
-    <Content Include="img\iOS-coming-soon.jpg" />
-    <Content Include="img\iOS.jpg" />
-    <Content Include="img\iPad1.png" />
+    <Content Include="img\Apps\iOS-coming-soon.jpg" />
+    <Content Include="img\Apps\iOS.jpg" />
+    <Content Include="img\Apps\iPad1.png" />
     <Content Include="img\LiveTile.png" />
     <Content Include="img\logo.png" />
     <Content Include="img\magnifier.png" />
@@ -713,8 +716,9 @@
     <Content Include="img\social\youtube-48x48.png" />
     <Content Include="img\social\youtube.png" />
     <Content Include="img\Speakers\default.png" />
-    <Content Include="img\Windows8-coming-soon.png" />
-    <Content Include="img\Windows8.png" />
+    <Content Include="img\Apps\Windows8-coming-soon.png" />
+    <Content Include="img\Apps\Windows8.png" />
+    <Content Include="img\stock.jpg" />
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\faq.js" />
@@ -857,6 +861,8 @@
     <Content Include="Views\Shared-old\_LoginPartial.cshtml" />
     <Content Include="Views\Web-old.config" />
     <Content Include="Views\Conferences\Index - Copy.cshtml" />
+    <Content Include="Views\Conferences\Copy of Detail.cshtml" />
+    <Content Include="Views\Session\Copy of Detail.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

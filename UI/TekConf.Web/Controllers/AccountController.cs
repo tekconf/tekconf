@@ -21,10 +21,10 @@ namespace TekConf.Web.Controllers
             IdentityManager = new AuthenticationIdentityManager(new IdentityStore());
         }
 
-        public AccountController(AuthenticationIdentityManager manager)
-        {
-            IdentityManager = manager;
-        }
+				//public AccountController(AuthenticationIdentityManager manager)
+				//{
+				//		IdentityManager = manager;
+				//}
 
         public AuthenticationIdentityManager IdentityManager { get; private set; }
 

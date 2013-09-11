@@ -85,25 +85,25 @@ namespace TekConf.Web.Controllers
 
 		}
 
-        //[CompressFilter]
-        //public async Task<ActionResult> Detail(string conferenceSlug)
-        //{
-        //    string userName = string.Empty;
-        //    if (Request.IsAuthenticated)
-        //    {
-        //        userName = System.Web.HttpContext.Current.User.Identity.Name;
-        //    }
+		[CompressFilter]
+		public async Task<ActionResult> Detail(string conferenceSlug)
+		{
+			string userName = string.Empty;
+			if (Request.IsAuthenticated)
+			{
+				userName = System.Web.HttpContext.Current.User.Identity.Name;
+			}
 
-        //    var conference = await _remoteDataRepository.GetFullConference(conferenceSlug, userName);
+			var conference = await _remoteDataRepository.GetFullConference(conferenceSlug, userName);
 
-        //    if (conference == null)
-        //    {
-        //        Elmah.ErrorLog.GetDefault(System.Web.HttpContext.Current).Log(new Error(new Exception("Conference " + conferenceSlug + " not found")));
-        //        return RedirectToAction("NotFound", "Error");
-        //    }
+			if (conference == null)
+			{
+				Elmah.ErrorLog.GetDefault(System.Web.HttpContext.Current).Log(new Error(new Exception("Conference " + conferenceSlug + " not found")));
+				return RedirectToAction("NotFound", "Error");
+			}
 
-        //    return View(conference);
-        //}
+			return View(conference);
+		}
 
 
 	}

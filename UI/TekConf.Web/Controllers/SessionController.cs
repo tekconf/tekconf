@@ -6,6 +6,7 @@ using TekConf.Web.App_Start;
 namespace TekConf.Web.Controllers
 {
 	using TekConf.RemoteData.v1;
+	using TekConf.Web.ViewModels;
 
 	public class SessionController : Controller
 	{
@@ -28,13 +29,14 @@ namespace TekConf.Web.Controllers
 		public async Task<ActionResult> Detail(string conferenceSlug, string sessionSlug)
 		{
 			var sessionDto = await _remoteDataRepository.GetSession(conferenceSlug, sessionSlug);
+			var conference = await _remoteDataRepository.GetConference(conferenceSlug);
 
 			if (sessionDto == null)
 			{
 				return RedirectToAction("NotFound", "Error");
 			}
-
-			return View(sessionDto);
+			var viewModel = new SessionDetailViewModel { Session = sessionDto, Conference = conference };
+			return View(viewModel);
 		}
 	}
 }

@@ -17,7 +17,7 @@ else
         <legend>Use another service to log in.</legend>
         <p>
         @foreach (AuthenticationDescription p in Model) {
-            <button type="submit" class="btn" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account">@p.AuthenticationType</button>
+						<button type="submit" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account" style="background: transparent;border:none;"><img src="/img/social/@p.Caption-48x48.png" alt="Login with @p.Caption" /></button>
         }
         </p>
     </fieldset>

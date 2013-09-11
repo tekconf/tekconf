@@ -3,11 +3,6 @@ using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.Web.ViewModels
 {
-	public class ScheduleViewModel
-	{
-		public IEnumerable<FullConferenceDto> Conferences { get; set; }
-	}
-
 	public class SpeakersViewModel
 	{
 		public List<FullConferenceDto> OpenConferences { get; set; }

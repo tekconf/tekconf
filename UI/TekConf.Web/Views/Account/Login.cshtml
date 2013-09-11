@@ -1,60 +1,47 @@
 @model TekConf.Web.Models.LoginViewModel
 
-@{
-    ViewBag.Title = "Log in";
-}
-
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-</hgroup>
-<div class="row-fluid">
-    <div class="span6">
-        <section id="loginForm">
-            @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
-            {
-                @Html.AntiForgeryToken()
-                @Html.ValidationSummary(true)
-                <fieldset class="form-horizontal">
-                    <legend>Use a local account to log in.</legend>
-                    <div class="control-group">
-                        @Html.LabelFor(m => m.UserName, new { @class = "control-label" })
-                        <div class="controls">
-                            @Html.TextBoxFor(m => m.UserName)
-                            @Html.ValidationMessageFor(m => m.UserName, null, new { @class = "help-inline" })
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        @Html.LabelFor(m => m.Password, new { @class = "control-label" })
-                        <div class="controls">
-                            @Html.PasswordFor(m => m.Password)
-                            @Html.ValidationMessageFor(m => m.Password, null, new { @class = "help-inline" })
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <div class="controls">
-                            <label class="checkbox">
-                                @Html.CheckBoxFor(m => m.RememberMe)
-                                @Html.LabelFor(m => m.RememberMe)
-                            </label>
-                        </div>
-                    </div>
-                    <div class="form-actions no-color">
-                        <input type="submit" value="Log in" class="btn" />
-                    </div>
-                </fieldset>
-                <p>
-                    @Html.ActionLink("Register", "Register") if you don't have a local account.
-                </p>
-            }
-        </section>
-    </div>
-    <div class="span6">
-        <section id="socialLoginForm">
-
-            @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
-        </section>
-    </div>
+<!--=== Breadcrumbs ===-->
+<div class="breadcrumbs margin-bottom-40">
+	<div class="container">
+		<h1 class="color-green pull-left">Login</h1>
+	</div>
+	<!--/container-->
 </div>
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+<!--/breadcrumbs-->
+<!--=== End Breadcrumbs ===-->
+
+<!--=== Content Part ===-->
+<div class="container">
+	<div class="row-fluid">
+		<div class="span6">
+			<form class="log-page">
+				<h3>Login to your account</h3>
+				<div class="input-prepend">
+					<span class="add-on"><i class="icon-user"></i></span>
+					<input class="input-xlarge" type="text" placeholder="Username">
+				</div>
+				<div class="input-prepend">
+					<span class="add-on"><i class="icon-lock"></i></span>
+					<input class="input-xlarge" type="text" placeholder="Username">
+				</div>
+				<div class="controls form-inline">
+					<label class="checkbox">
+						<input type="checkbox" />
+						Stay Signed in</label>
+					<button class="btn-u pull-right" type="submit">Login</button>
+				</div>
+				<hr />
+				<h4>Forget your Password ?</h4>
+				<p>no worries, <a class="color-green" href="#">click here</a> to reset your password.</p>
+			</form>
+		</div>
+		<div class="span6">
+			<form class="log-page">
+				@Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+			</form>
+		</div>
+	</div>
+	<!--/row-fluid-->
+</div>
+<!--/container-->
+<!--=== End Content Part ===-->

@@ -11,47 +11,81 @@
     </div><!--/breadcrumbs-->
     <!--=== End Breadcrumbs ===-->
     <!--=== Content Part ===-->
-    <div class="container">
-        <div class="row-fluid gallery">
-            @{
-                var groups = Model.Count / 4;
-                for (int groupCounter = 0; groupCounter < groups; groupCounter++)
-                {
-                    <ul class="thumbnails">
 
-                        @foreach (var conference in Model.Skip(groupCounter * 4).Take(4))
-                        {
-                            <li class="span3">
-                                <a class="thumbnail fancybox-button zoomer" data-rel="fancybox-button" title="@conference.name" href="@conference.imageUrl">
-                                    <div class="overlay-zoom">
-                                        <img src="@conference.imageUrl" alt="" />
-                                        <div class="zoom-icon"></div>
-                                    </div>
-                                </a>
-                                <div class="headline">
-                                    <h4>@conference.name</h4>
-                                    <br />@conference.DateRange
-                                    <br />@conference.FormattedAddress
-                                </div>
+<!--=== Content Part ===-->
+<div class="container">		
+	<div class="row-fluid">
+    	<div class="span3">
+        	<!-- Our Services -->
+            <div class="who margin-bottom-30">
+                <div class="headline"><h3>Search/Filter</h3></div>
+							<p>
+								View As<br/>
+								Sort By<br/>
+								City<br/>
+								State<br/>
+								Country<br/>
+								Distance<br/>
+								Text<br/>
+								Show Past Conferences?<br/>
+								Show Only Open Calls?<br/>
+								Show Only On Sale?<br/>
+							</p>
+            </div>
+
+        </div><!--/span3-->		
+
+		<div class="span9">
+			<div class="row-fluid gallery">
+				@{
+					var groups = Model.Count / 4;
+					for (int groupCounter = 0; groupCounter < groups; groupCounter++)
+					{
+						<ul class="thumbnails">
+
+							@foreach (var conference in Model.Skip(groupCounter * 4).Take(4))
+							{
+								<li class="span3">
+									<a class="thumbnail fancybox-button zoomer" data-rel="fancybox-button" title="@conference.name" href="~/Conferences/@conference.slug">
+										<div class="overlay-zoom">
+											<img src="@conference.imageUrl" alt="" />
+											<div class="zoom-icon"></div>
+										</div>
+									</a>
+									<div class="headline">
+										<h4>@conference.name</h4>
+										<br />@conference.DateRange
+										<br />@conference.FormattedAddress
+									</div>
                                 
 
-                            </li>
-                        }
-                    </ul><!--/thumbnails-->
-                }
-            }
+								</li>
+							}
+						</ul><!--/thumbnails-->
+					}
+				}
 
-            <div class="pagination pagination-right">
-                <ul>
-                    <li><a href="#">Prev</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li class="active"><a>3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">Next</a></li>
-                </ul>
-            </div>
-        </div><!--/row-fluid-->
-    </div><!--/container-->
-    <!--=== End Content Part ===-->
+				<div class="pagination pagination-right">
+					<ul>
+						<li><a href="#">Prev</a></li>
+						<li><a href="#">1</a></li>
+						<li><a href="#">2</a></li>
+						<li class="active"><a>3</a></li>
+						<li><a href="#">4</a></li>
+						<li><a href="#">5</a></li>
+						<li><a href="#">Next</a></li>
+					</ul>
+				</div>
+			</div><!--/row-fluid-->
+
+
+
+
+		</div><!--/span9-->
+
+
+	</div><!--/row-fluid-->        
+
+
+</div><!--/container-->		
+<!--=== End Content Part ===-->
