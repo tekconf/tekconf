@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using TekConf.RemoteData.Dtos.v1
+<!DOCTYPE html>
 <!--[if IE 7]> <html lang="en" class="ie7"> <![endif]-->
 <!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
@@ -15,7 +16,7 @@
 	<meta name="author" content="">
 	<!-- CSS Global Compulsory-->
 	<link rel="stylesheet" href="~/assets/plugins/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet" href="~/assets/css/style.css">
+
 	<link rel="stylesheet" href="~/assets/css/headers/header1.css">
 	<link rel="stylesheet" href="~/assets/plugins/bootstrap/css/bootstrap-responsive.min.css">
 	<link rel="stylesheet" href="~/assets/css/style_responsive.css">
@@ -29,6 +30,7 @@
 	<link rel="stylesheet" href="~/assets/plugins/bxslider/jquery.bxslider.css">
 	<!-- CSS Theme -->
 	<link rel="stylesheet" href="~/assets/css/themes/default.css" id="style_color">
+		<link rel="stylesheet" href="~/assets/css/style.css">
 	<link rel="stylesheet" href="~/assets/css/themes/headers/default.css" id="style_color-header-1">
 	<link rel="search" type="application/opensearchdescription+xml" href="http://www.tekconf.com/TekConf.xml" title="TekConf Search" />
 
@@ -53,8 +55,6 @@
 	<div class="top">
 		<div class="container">
 			<ul class="loginbar pull-right">
-				<li><a href="page_faq.html" class="login-btn">Help</a></li>
-				<li class="devider">&nbsp;</li>
 				<li><a href="~/Account/Login" class="login-btn">Login</a></li>
 			</ul>
 		</div>
@@ -150,27 +150,20 @@
 						<div class="headline">
 							<h3>Newest Conferences</h3>
 						</div>
-						<dl class="dl-horizontal">
-							<dt><a href="#">
-								<img src="~/assets/img/sliders/elastislide/6.jpg" alt="" /></a></dt>
-							<dd>
-								<p><a href="#">Anim moon officia Unify is an incredibly beautiful responsive Bootstrap Template</a></p>
-							</dd>
-						</dl>
-						<dl class="dl-horizontal">
-							<dt><a href="#">
-								<img src="~/assets/img/sliders/elastislide/10.jpg" alt="" /></a></dt>
-							<dd>
-								<p><a href="#">Anim moon officia Unify is an incredibly beautiful responsive Bootstrap Template</a></p>
-							</dd>
-						</dl>
-						<dl class="dl-horizontal">
-							<dt><a href="#">
-								<img src="~/assets/img/sliders/elastislide/11.jpg" alt="" /></a></dt>
-							<dd>
-								<p><a href="#">Anim moon officia Unify is an incredibly beautiful responsive Bootstrap Template</a></p>
-							</dd>
-						</dl>
+						@if (ViewBag.NewestConferences != null)
+						{
+							foreach (var newConference in ViewBag.NewestConferences as IEnumerable<FullConferenceDto>)
+							{
+										<dl class="dl-horizontal">
+											<dt><a href="~/Conferences/@newConference.slug">
+												<img src="@newConference.imageUrl" alt="" /></a></dt>
+											<dd>
+												<p><a href="~/Conferences/@newConference.slug">@newConference.name</a></p>
+											</dd>
+										</dl>
+							}
+						}
+
 					</div>
 				</div>
 				<!--/span4-->

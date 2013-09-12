@@ -14,124 +14,134 @@ using System.Linq;
 
 namespace TekConf.Web.Controllers
 {
-    using TekConf.Common.Entities;
+	using TekConf.Common.Entities;
 
-    public class HomeController : Controller
-    {
-        private readonly IConferenceRepository _conferenceRepository;
-        private readonly IScheduleRepository _scheduleRepository;
-        private readonly IRepository<SubscriptionEntity> _subscriptionRepository;
-        private readonly IRemoteDataRepository _remoteDataRepository;
+	public class HomeController : Controller
+	{
+		private readonly IConferenceRepository _conferenceRepository;
+		private readonly IScheduleRepository _scheduleRepository;
+		private readonly IRepository<SubscriptionEntity> _subscriptionRepository;
+		private readonly IRemoteDataRepository _remoteDataRepository;
 
-        public HomeController(IConferenceRepository conferenceRepository, IScheduleRepository scheduleRepository, IRepository<SubscriptionEntity> subscriptionRepository, IRemoteDataRepository remoteDataRepository)
-        {
-            _conferenceRepository = conferenceRepository;
-            _scheduleRepository = scheduleRepository;
-            _subscriptionRepository = subscriptionRepository;
-            _remoteDataRepository = remoteDataRepository;
-        }
+		public HomeController(IConferenceRepository conferenceRepository, IScheduleRepository scheduleRepository, IRepository<SubscriptionEntity> subscriptionRepository, IRemoteDataRepository remoteDataRepository)
+		{
+			_conferenceRepository = conferenceRepository;
+			_scheduleRepository = scheduleRepository;
+			_subscriptionRepository = subscriptionRepository;
+			_remoteDataRepository = remoteDataRepository;
+		}
 
-        [CompressFilter]
-        public async Task<ActionResult> Index()
-        {
-            try
-            {
-                List<FullSpeakerDto> featuredSpeakers = null;
-                var getFeaturedSpeakersTask = Task.Factory.StartNew(() =>
-                {
-                    var speakers = _conferenceRepository.GetFeaturedSpeakers().ToList();
-                    featuredSpeakers = Mapper.Map<List<FullSpeakerDto>>(speakers);
-                });
+		[CompressFilter]
+		public async Task<ActionResult> Index()
+		{
+			try
+			{
+				List<FullSpeakerDto> featuredSpeakers = null;
+				var getFeaturedSpeakersTask = Task.Factory.StartNew(() =>
+				{
+					var speakers = _conferenceRepository.GetFeaturedSpeakers().ToList();
+					featuredSpeakers = Mapper.Map<List<FullSpeakerDto>>(speakers);
+				});
 
-                IList<FullConferenceDto> featuredConferences = null;
-                var getFeaturedConferencesTask = Task.Factory.StartNew(() =>
-                {
-                    var conferences = _conferenceRepository.GetFeaturedConferences();
+				IList<FullConferenceDto> featuredConferences = null;
+				var getFeaturedConferencesTask = Task.Factory.StartNew(() =>
+				{
+					var conferences = _conferenceRepository.GetFeaturedConferences();
 
-                    featuredConferences = Mapper.Map<List<FullConferenceDto>>(conferences);
-                });
+					featuredConferences = Mapper.Map<List<FullConferenceDto>>(conferences);
+				});
 
-                int totalCount = 0;
-                var getConferencesCountTask = Task.Factory.StartNew(() =>
-                {
-                    totalCount = _conferenceRepository.GetConferenceCount(searchTerm: null, showPastConferences: false);
-                });
+				IList<FullConferenceDto> newestConferences = null;
+				var getNewestConferencesTask = Task.Factory.StartNew(() =>
+				{
+					var conferences = _conferenceRepository.GetNewestConferences();
 
-                IList<FullConferenceDto> scheduledConferences = new List<FullConferenceDto>();
-                IList<FullConferenceDto> allConferences = new List<FullConferenceDto>();
+					newestConferences = Mapper.Map<List<FullConferenceDto>>(conferences);
+				});
 
-                var getScheduledConferencesTask = Task.Factory.StartNew(() =>
-                {
-                    if (Request.IsAuthenticated)
-                    {
-                        var schedules = _scheduleRepository.GetSchedules(User.Identity.Name);
-                        var conferences = new List<ConferenceEntity>();
-                        foreach (var schedule in schedules)
-                        {
-                            var conference = _conferenceRepository
-                                    .AsQueryable()
-                                    .SingleOrDefault(c => c.slug == schedule.ConferenceSlug);
-                            conferences.Add(conference);
-                        }
-                        conferences = conferences.OrderBy(c => c.start).Where(x => x.end >= DateTime.Now).Take(4).ToList();
-                        foreach (var conference in conferences)
-                        {
-                            var conferenceDto = Mapper.Map<ConferenceEntity, FullConferenceDto>(conference);
-                            scheduledConferences.Add(conferenceDto);
-                        }
-                    }
-                });
+				int totalCount = 0;
+				var getConferencesCountTask = Task.Factory.StartNew(() =>
+				{
+					totalCount = _conferenceRepository.GetConferenceCount(searchTerm: null, showPastConferences: false);
+				});
 
-                await Task.WhenAll(getConferencesCountTask, getFeaturedSpeakersTask, getFeaturedConferencesTask, getScheduledConferencesTask);
+				IList<FullConferenceDto> scheduledConferences = new List<FullConferenceDto>();
+				IList<FullConferenceDto> allConferences = new List<FullConferenceDto>();
 
-                if (scheduledConferences.Any())
-                {
-                    if (scheduledConferences.Count < 4)
-                    {
-                        allConferences = scheduledConferences;
-                        allConferences.Add(featuredConferences.Take(1).Single());
-                        allConferences.Add(featuredConferences.Skip(1).Take(1).Single());
+				var getScheduledConferencesTask = Task.Factory.StartNew(() =>
+				{
+					if (Request.IsAuthenticated)
+					{
+						var schedules = _scheduleRepository.GetSchedules(User.Identity.Name);
+						var conferences = new List<ConferenceEntity>();
+						foreach (var schedule in schedules)
+						{
+							var conference = _conferenceRepository
+											.AsQueryable()
+											.SingleOrDefault(c => c.slug == schedule.ConferenceSlug);
+							conferences.Add(conference);
+						}
+						conferences = conferences.OrderBy(c => c.start).Where(x => x.end >= DateTime.Now).Take(4).ToList();
+						foreach (var conference in conferences)
+						{
+							var conferenceDto = Mapper.Map<ConferenceEntity, FullConferenceDto>(conference);
+							scheduledConferences.Add(conferenceDto);
+						}
+					}
+				});
 
-                    }
-                    else
-                    {
-                        allConferences = scheduledConferences;
-                    }
-                }
-                else
-                {
-                    allConferences = featuredConferences.Take(4).ToList();
-                }
+				await Task.WhenAll(getConferencesCountTask, getFeaturedSpeakersTask, getFeaturedConferencesTask, getNewestConferencesTask, getScheduledConferencesTask);
 
-                var vm = new HomePageViewModel()
-                {
-                    FeaturedConferences = allConferences.ToList(),
-                    FeaturedSpeakers = featuredSpeakers ?? new List<FullSpeakerDto>(),
-                    TotalCount = totalCount
-                };
+				if (scheduledConferences.Any())
+				{
+					if (scheduledConferences.Count < 4)
+					{
+						allConferences = scheduledConferences;
+						allConferences.Add(featuredConferences.Take(1).Single());
+						allConferences.Add(featuredConferences.Skip(1).Take(1).Single());
 
-                return View(vm);
-            }
-            catch (Exception ex)
-            {
+					}
+					else
+					{
+						allConferences = scheduledConferences;
+					}
+				}
+				else
+				{
+					allConferences = featuredConferences.Take(4).ToList();
+				}
 
-                return
-                        View(new HomePageViewModel()
-                        {
-                            FeaturedConferences = new List<FullConferenceDto>() { new FullConferenceDto() { name = ex.Message } },
-                            FeaturedSpeakers = new List<FullSpeakerDto>(),
-                            TotalCount = 0
-                        });
-            }
+				ViewBag.NewestConferences = newestConferences;
 
-        }
+				var vm = new HomePageViewModel()
+				{
+					FeaturedConferences = allConferences.ToList(),
+					FeaturedSpeakers = featuredSpeakers ?? new List<FullSpeakerDto>(),
+					TotalCount = totalCount
+				};
 
-        [HttpPost]
-        public async Task<ActionResult> Subscribe(string emailAddress)
-        {
-            var response = await _remoteDataRepository.AddSubscription(emailAddress);
+				return View(vm);
+			}
+			catch (Exception ex)
+			{
 
-            return View();
-        }
-    }
+				return
+								View(new HomePageViewModel()
+								{
+									FeaturedConferences = new List<FullConferenceDto>() { new FullConferenceDto() { name = ex.Message } },
+									FeaturedSpeakers = new List<FullSpeakerDto>(),
+									TotalCount = 0
+								});
+			}
+
+		}
+
+		[HttpPost]
+		public async Task<ActionResult> Subscribe(string emailAddress)
+		{
+			var response = await _remoteDataRepository.AddSubscription(emailAddress);
+
+			return View();
+		}
+	}
 }

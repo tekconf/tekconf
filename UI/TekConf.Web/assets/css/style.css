@@ -665,7 +665,7 @@ blockquote:hover {
 	float:left;
 }
 .posts .dl-horizontal dt img { 
-	width:50px; 
+	width:72px; 
 	height:50px; 
 	border:solid 3px #eee;
 }
@@ -1722,6 +1722,9 @@ a.btn-u-large {
 .social_yahoo {background: url(../img/icons/social/yahoo.png) no-repeat;}
 .social_youtube {background: url(../img/icons/social/youtube.png) no-repeat;}
 
+.filterInput {
+	margin-bottom: 10px;
+}
 /*Glyphicons*/
 .glyphicons-demo {
     text-align: ;
