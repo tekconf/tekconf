@@ -3,123 +3,80 @@
 @model TekConf.Web.ViewModels.ScheduleViewModel
 
 @{
-	Layout = null;
 	var conferences = Model.Conferences ?? new List<FullConferenceDto>();
 	int currentYear = 0;
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico">
-	<title>Schedules - tekconf</title>
-
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-
-	<link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
-		<link rel="search" type="application/opensearchdescription+xml" href="http://www.tekconf.com/TekConf.xml" title="TekConf Search" /> 
-	
-	@Styles.Render("~/css/schedule/index")
-
-	<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-	<!--[if lt IE 9]>
-<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
-	<link href="~/Content/themes/base/jquery.ui.all.css" rel="stylesheet" />
-</head>
-
-<body>
-	@Html.Partial("Header")
-
-	<div id="subheader">
-		<div class="inner">
-			<div class="container">
-				<h1>My Schedule</h1>
-			</div>
-			<!-- /.container -->
-		</div>
-		<!-- /inner -->
+<!--=== Breadcrumbs ===-->
+<div class="breadcrumbs margin-bottom-30">
+	<div class="container">
+		<h1 class="color-green pull-left">My Schedule</h1>
 	</div>
-	<!-- /subheader -->
+	<!--/container-->
+</div>
+<!--/breadcrumbs-->
+<!--=== End Breadcrumbs ===-->
 
-	<div id="subpage">
-		<div class="container">
-			<div class="row">
-				<div class="span12">
-					&nbsp;&nbsp;
-					@foreach (var year in conferences.OrderBy(x => x.start).Select(x => x.start.Year).Distinct())
-		 {
-						if (year == DateTime.Now.Year)
+<!--=== Content Part ===-->
+<div class="container">
+	<div class="row-fluid">
+		<div class="span12">
+
+			@if (Request.IsAuthenticated)
 			{
-<a href="#@year" style="font-size:x-large;">@year</a>
-							<text>&nbsp;&nbsp;|&nbsp;&nbsp;</text>
+		 
+				<!-- Accardion -->
+				<div class="accordion acc-home margin-bottom-40" id="accordion2">
 
-			}
-			else
-			{
-<a href="#@year">@year</a> <text>&nbsp;&nbsp;|&nbsp;&nbsp;</text>
-							 
-			}
-		 }
-
-					<table class="table">
-						<tbody>
-							@foreach (var conference in conferences)
-			 {
-								<tr>
-									<td width="120">
-										<img src="@conference.imageUrl" style="height:80px;" /><br />
-										<br />
-									</td>
-									<td>
-										@if (currentYear != conference.start.Year)
+					@foreach (var conference in conferences)
 					{
-						currentYear = conference.start.Year;
-											<a name="@currentYear"></a>
-					}
-										<h3>@conference.name</h3>
+
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<h4 class="panel-title">
+									<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseMy-@conference.slug">
+										@conference.name
+									</a>
+								</h4>
+							</div>
+							<div id="collapseMy-@conference.slug" class="panel-collapse collapse @(@conference.slug == conferences.First().slug ? "in" : "")">
+								<div class="panel-body">
+									<div class="span4">
+										<img src="@conference.imageUrl" style="height:80px;" />
+									</div>
+									<div class="span8">
 										Registration : @HtmlHelpers.FormatDateRange(conference.registrationOpens, conference.registrationCloses)<br />
 										Conference : @HtmlHelpers.FormatDateRange(conference.start, conference.end)<br />
 										Location : @HtmlHelpers.FormatAddress(conference.address)<br />
-										<br />
 										@using (Html.BeginForm("Delete", "Schedule", FormMethod.Post, new { enctype = "multipart/form-data", id = "remove" + conference.slug }))
-					{
-											<a href="~/conferences/@conference.slug" class="btn btn-primary">View Conference</a>
+										{
+											<a href="~/Conferences/@conference.slug" class="btn-u">View Conference</a>
 						
 											@Html.Hidden("conferenceSlug", conference.slug)
-											<input type="button" value="Remove Conference" class="btn btn-danger btn-mini" onclick="confirmRemoveConference('@conference.name	', '@("remove" + conference.slug)	');" />
+											<input type="button" value="Remove Conference" class="btn-u btn-u-red btn-mini" onclick="confirmRemoveConference('@conference.name', '@("remove" + conference.slug)');" />
+										}
+									</div>
+								</div>
+							</div>
+						</div>			 
+
 					}
-									</td>
-								</tr>
-			 }
-						</tbody>
-					</table>
+					<!--/accordion-group-->
 				</div>
-
-			</div>
-
+				<!--/accardion-->
+			}
 		</div>
-		<!-- /container -->
+		<!--/span8-->
+
+		
 	</div>
-	<!-- /subpage -->
+	<!--/row-fluid-->
+</div>
 
-	@Html.Partial("Extra")
-
-	@Html.Partial("Footer")
-
-	@Scripts.Render("~/bundles/jquery")
-	@Scripts.Render("~/bundles/jqueryUI")
-	@Scripts.Render("~/bundles/jqueryMigrate")
-	@Scripts.Render("~/js/common")
-	@Scripts.Render("~/js/commonFaq")
-
-
-	<div id="dialog-confirm" title="Remove conference from schedule?">
-	</div>
-
-	<script>
+<!--/container-->
+<!--=== End Content Part ===-->
+@section scripts {
+	changeMenuActive('menuSchedule');
 
 		function confirmRemoveConference(conferenceSlug, formId) {
 			document.getElementById('dialog-confirm').innerHTML = "Remove " + conferenceSlug +  " from your schedule?";
@@ -143,8 +100,5 @@
 
 			return false;
 		}
-		
 
-	</script>
-</body>
-</html>
+}	

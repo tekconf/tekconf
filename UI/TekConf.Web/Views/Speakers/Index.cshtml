@@ -14,11 +14,13 @@
 
 <!--=== Content Part ===-->
 <div class="container">
+	
 	<div class="row-fluid">
 		<div class="span12">
-
+			<div id="dialog-confirm" title="Remove conference from schedule?">
+	</div>
 			@if (Request.IsAuthenticated)
-	 {
+			{
 				<div class="headline">
 					<h3>My Presentations</h3>
 				</div>
@@ -28,7 +30,7 @@
 				<div class="accordion acc-home margin-bottom-40" id="accordion2">
 
 					@foreach (var presentation in Model.Presentations ?? new List<PresentationDto>())
-		 {
+					{
 						<div class="accordion-group">
 							<div class="accordion-heading">
 								<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse-@presentation.Slug">@presentation.Title
@@ -40,11 +42,11 @@
 								</div>
 							</div>
 						</div>
-		 }
+					}
 					<!--/accordion-group-->
 				</div>
 				<!--/accardion-->
-	 }
+			}
 
 
 			<!-- General Questions -->
@@ -55,7 +57,7 @@
 			<div class="accordion acc-home" id="accordion3">
 
 				@foreach (var conference in Model.OpenConferences ?? new List<FullConferenceDto>())
-		{
+				{
 					<div class="accordion-group">
 						<div class="accordion-heading">
 							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3" href="#collapseOpen-@conference.slug">@conference.name
@@ -68,13 +70,13 @@
 							</div>
 						</div>
 					</div>
-		}
+				}
 
 				<!--/accordion-group-->
 			</div>
 
 			@if (Request.IsAuthenticated)
-	 {
+			{
 				<div class="headline">
 					<h3>My Conferences</h3>
 				</div>
@@ -106,15 +108,15 @@
 
 				</div>		 
 		 
-	 }
+			}
 
 
 			@if (Request.IsAuthenticated)
-	 {
+			{
 				<div class="headline">
 					<h3>My Profile</h3>
 				</div>
-	 }
+			}
 			<!--/accardion-->
 		</div>
 		<!--/span8-->

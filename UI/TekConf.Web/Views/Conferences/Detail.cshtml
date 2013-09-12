@@ -35,84 +35,91 @@
 			</ul>
 			<p>@Model.description</p>
 			<ul class="unstyled">
-@*				<li><i class="icon-tags color-green"></i> Call for speakers open</li>
+				@*				<li><i class="icon-tags color-green"></i> Call for speakers open</li>
 				<li><i class="icon-tags color-green"></i> Registration open</li>*@
 
 				@if (!string.IsNullOrWhiteSpace(Model.homepageUrl))
-		{
+				{
 					<li>
 						<img src="~/img/social/website-16x16.png" alt="Website" />
 						@HtmlHelpers.SimpleLink(Model.homepageUrl, Model.homepageUrl.Replace("http://", ""))</li>
-		}
+				}
 				@if (!string.IsNullOrWhiteSpace(Model.twitterName))
-		{
+				{
 					<li>
 						<img src="~/img/social/twitter-16x16.png" alt="Twitter Name" />
 						@HtmlHelpers.TwitterUserLink(Model.twitterName)</li>
-		}
+				}
 				@if (!string.IsNullOrWhiteSpace(Model.twitterHashTag))
-		{
+				{
 					<li>
 						<img src="~/img/social/twitter-16x16.png" alt="Twitter Hashtag" />
 						@HtmlHelpers.SimpleLink("https://twitter.com/#!/search/" + Model.twitterHashTag.Replace("#", "%23"), Model.twitterHashTag)</li>
-		}
+				}
 
 				@if (!string.IsNullOrWhiteSpace(Model.facebookUrl))
-		{
+				{
 					<li>
 						<img src="~/img/social/facebook-16x16.png" alt="Facebook" />
 						@HtmlHelpers.SimpleLink(Model.facebookUrl, "Facebook")</li>
-		}
+				}
 
 				@if (!string.IsNullOrWhiteSpace(Model.lanyrdUrl))
-		{
+				{
 					<li>
 						<img src="~/img/social/lanyrd-16x16.png" alt="Lanyrd" />
 						@HtmlHelpers.SimpleLink(Model.lanyrdUrl, "Lanyrd")</li>
-		}
+				}
 
 				@if (!string.IsNullOrWhiteSpace(Model.meetupUrl))
-		{
+				{
 					<li>
 						<img src="~/img/social/meetup-16x16.png" alt="Meetup" />
 						@HtmlHelpers.SimpleLink(Model.meetupUrl, "Meetup")</li>
-		}
+				}
 
 				@if (!string.IsNullOrWhiteSpace(Model.googlePlusUrl))
-		{
+				{
 					<li>
 						<img src="~/img/social/googlePlus-16x16.png" alt="Google Plus" />
 						@HtmlHelpers.SimpleLink(Model.googlePlusUrl, "Google+")</li>
-		}
+				}
 
 				@if (!string.IsNullOrWhiteSpace(Model.vimeoUrl))
-		{
+				{
 					<li>
 						<img src="~/img/social/vimeo-16x16.png" alt="Vimeo" />
 						@HtmlHelpers.SimpleLink(Model.vimeoUrl, "Vimeo")</li>
-		}
+				}
 
 				@if (!string.IsNullOrWhiteSpace(Model.youtubeUrl))
-		{
+				{
 					<li>
 						<img src="~/img/social/youtube-16x16.png" alt="Youtube" />
 						@HtmlHelpers.SimpleLink(Model.youtubeUrl, "YouTube")</li>
-		}
+				}
 
 				@if (!string.IsNullOrWhiteSpace(Model.githubUrl))
-		{
+				{
 					<li>
 						<img src="~/img/social/github-16x16.png" alt="GitHub" />
 						@HtmlHelpers.SimpleLink(Model.googlePlusUrl, "Github")</li>
-		}
+				}
 
 				@if (!string.IsNullOrWhiteSpace(Model.linkedInUrl))
-		{
+				{
 					<li>
 						<img src="~/img/social/linkedin-16x16.png" alt="LinkedIn" />
 						@HtmlHelpers.SimpleLink(Model.linkedInUrl, "LinkedIn")</li>
-		}
+				}
+				
+
 			</ul>
+			@if (Html.IsAdmin())
+      {
+							@Html.RouteLink("Edit Conference", "AdminEditConference", new { conferenceSlug = Model.slug }, new { @class = "btn btn-info" })	
+							@Html.RouteLink("Add Session", "AdminAddSession", new { conferenceSlug = Model.slug }, new { @class = "btn" })	
+      }
 			<p><a class="btn-u btn-u-large" href="#">Add to Schedule</a></p>
 		</div>
 	</div>
