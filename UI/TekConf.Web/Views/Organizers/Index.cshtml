@@ -13,9 +13,9 @@
 	<div class="row-fluid">
 		<div class="span9">
 			<!-- Other Questions -->
-			<div class="headline">
+@*			<div class="headline">
 				<h3>General Questions</h3>
-			</div>
+			</div>*@
 			This will contain instructions for organizers to create, maintain, and administer a conference. It will also explain the benefits of using TekConf to manage their conference.
 						<!-- Accardion -->
 			@*<div class="accordion acc-home margin-bottom-40" id="accordion2">
@@ -83,9 +83,9 @@
 			<!--/accardion-->
 
 			<!-- General Questions -->
-			<div class="headline">
+@*			<div class="headline">
 				<h3>Other Questions</h3>
-			</div>
+			</div>*@
 			<!-- Accardion -->
 			@*<div class="accordion acc-home" id="accordion3">
 				<div class="accordion-group">
@@ -135,12 +135,12 @@
 				<h3>Contact</h3>
 			</div>
 			<ul class="unstyled who margin-bottom-20">
-				<li><a href="#"><i class="icon-envelope-alt"></i>robgibbens@arteksoftware.com</a></li>
-				<li><a href="#"><i class="icon-globe"></i>http://www.arteksoftware.com</a></li>
+				<li><a href="mailto:robgibbens@arteksoftware.com"><i class="icon-envelope-alt"></i>robgibbens@arteksoftware.com</a></li>
+				<li><a href="http://www.arteksoftware.com"><i class="icon-globe"></i>http://www.arteksoftware.com</a></li>
 			</ul>
 
 			<!-- Why we are? -->
-			<div class="headline">
+			@*<div class="headline">
 				<h3>Why we are?</h3>
 			</div>
 			<p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum.</p>
@@ -148,7 +148,7 @@
 				<li><i class="icon-ok color-green"></i>Odio dignissimos ducimus</li>
 				<li><i class="icon-ok color-green"></i>Blanditiis praesentium volup</li>
 				<li><i class="icon-ok color-green"></i>Eos et accusamus</li>
-			</ul>
+			</ul>*@
 		</div>
 		<!--/span4-->
 	</div>
@@ -156,3 +156,6 @@
 </div>
 <!--/container-->
 <!--=== End Content Part ===-->
+@section scripts {
+	changeMenuActive('menuOrganizers');
+}

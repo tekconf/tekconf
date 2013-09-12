@@ -17,6 +17,11 @@ using TinyMessenger;
 
 namespace TekConf.Web
 {
+	using Funq;
+
+	using Microsoft.AspNet.Identity.EntityFramework;
+	using Microsoft.AspNet.Identity.Owin;
+
 	public class AppHost : AppHostBase
 	{
 		public AppHost()
@@ -59,7 +64,8 @@ namespace TekConf.Web
 			container.Register<IRepository<SessionAddedToScheduleMessage>>(new GenericRepository<SessionAddedToScheduleMessage>(entityConfiguration));
 			container.Register<IEmailSender>(new EmailSender(container.Resolve<IEntityConfiguration>()));
 			container.Register<ICacheClient>(new MemoryCacheClient());
-			
+			container.Register<AuthenticationIdentityManager>(c => new AuthenticationIdentityManager(new IdentityStore())).ReusedWithin(ReuseScope.Request);
+				
 			var hub = new TinyMessengerHub();
 			container.Register<ITinyMessengerHub>(hub);
 			container.Register<IConferencesService>(new ConferencesService(container.Resolve<ITinyMessengerHub>(), 

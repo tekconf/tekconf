@@ -1,25 +1,18 @@
 ﻿@using Microsoft.Owin.Security
 @model ICollection<AuthenticationDescription>
 
-@if (Model.Count == 0)
+@if (Model.Count != 0)
 {
-    <div class="message-info">
-        <p>There are no external authentication services configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=313242">this article</a>
-        for details on setting up this ASP.NET application to support logging in via external services.</p>
-    </div>
-}
-else
-{
-    using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = ViewBag.ReturnUrl }))
+    using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post))
     {
-    @Html.AntiForgeryToken()
-    <fieldset id="socialLoginList">
-        <legend>Use another service to log in.</legend>
-        <p>
-        @foreach (AuthenticationDescription p in Model) {
-						<button type="submit" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account" style="background: transparent;border:none;"><img src="/img/social/@p.Caption-48x48.png" alt="Login with @p.Caption" /></button>
-        }
-        </p>
-    </fieldset>
+			@Html.AntiForgeryToken()
+				<fieldset id="socialLoginList">
+					<legend>Use another service to log in.</legend>
+					<p>
+						@foreach (AuthenticationDescription p in Model) {
+							<button type="submit" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account" style="background: transparent;border:none;"><img src="/img/social/@p.Caption-48x48.png" alt="Login with @p.Caption" /></button>
+						}
+					</p>
+			</fieldset>
     }
 }

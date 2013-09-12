@@ -16,7 +16,6 @@
 <div class="container">		
 	<div class="row-fluid">
     	<div class="span3">
-        	<!-- Our Services -->
 		    <div class="who margin-bottom-30">
 									@using (Html.BeginForm("Index", "Conferences", FormMethod.Get))
 									{
@@ -56,41 +55,33 @@
 
 										<div class="headline"><h3>Search/Filter</h3></div>
 
-											<fieldset>
-												<label>View As</label>
-												@Html.DropDownList("viewAs", views, new {@onchange = "this.form.submit();",  style="margin-bottom:5px;"})
+		
+											@Html.TextBox("search", filter.search, new { placeholder = "Search text", style="margin-bottom:20px;" })<br/>
 
-												<label>Sort By</label>
-												@Html.DropDownList("sortBy", sorts, new {@onchange = "this.form.submit();",  style="margin-bottom:5px;"})
+											<label>Sort By</label>
+											@Html.DropDownList("sortBy", sorts, new {@onchange = "this.form.submit();",  style="margin-bottom:5px;"})<br/>
 
-
-												@*<label>City</label>*@
-												@Html.TextBox("city", filter.city, new { placeholder = "City", style="margin-bottom:5px;" })
+											@Html.TextBox("city", filter.city, new { placeholder = "City", style="margin-bottom:5px;" })<br/>
 											
-												@*<label>State</label>*@
-												@Html.TextBox("state", filter.state, new { placeholder = "2 Letter State", style="margin-bottom:5px;" })
+											@Html.TextBox("state", filter.state, new { placeholder = "2 Letter State", style="margin-bottom:5px;" })<br/>
 															
-												@*<label>Country</label>*@
-												@Html.TextBox("country", filter.country, new { placeholder = "Country", style="margin-bottom:5px;" })
+											@Html.TextBox("country", filter.country, new { placeholder = "Country", style="margin-bottom:5px;" })<br/>
 																			     
-												@*<label>Distance</label>*@
-												@Html.TextBox("distance", filter.distance, new { placeholder = "Distance (in miles). Default: 25", style="margin-bottom:5px;" })
+											@Html.TextBox("distance", filter.distance, new { placeholder = "Distance (in miles). Default: 25", style="margin-bottom:5px;" })<br/>
            
-												@*<label>Search Text</label>*@
-												@Html.TextBox("search", filter.search, new { placeholder = "Search text", style="margin-bottom:5px;" })
 												
-												<label class="checkbox">
-													@Html.CheckBox("showPastConferences", filter.showPastConferences, new { @onchange = "this.form.submit();" }) Show Past Conferences?
-												</label>
-												<label class="checkbox">
-													@Html.CheckBox("showOnlyOpenCalls", filter.showOnlyOpenCalls, new { @onchange = "this.form.submit();" }) Show Only Open Calls?
-												</label>
-												<label class="checkbox">
-													@Html.CheckBox("showOnlyOnSale", filter.showOnlyOnSale, new { @onchange = "this.form.submit();" }) Show Only On Sale?
-												</label>
+											<label class="checkbox">
+												@Html.CheckBox("showPastConferences", filter.showPastConferences, new { @onchange = "this.form.submit();" }) Show Past Conferences?
+											</label>
+											<label class="checkbox">
+												@Html.CheckBox("showOnlyOpenCalls", filter.showOnlyOpenCalls, new { @onchange = "this.form.submit();" }) Show Only Open Calls?
+											</label>
+											<label class="checkbox">
+												@Html.CheckBox("showOnlyOnSale", filter.showOnlyOnSale, new { @onchange = "this.form.submit();" }) Show Only On Sale?
+											</label>
 
-												<button type="submit" class="btn-u">Filter</button>
-											</fieldset>						
+
+											<button type="submit" class="btn-u">Filter</button><button type="button" class="btn-u" style="margin-left:100px;" onclick="window.location='Conferences';">Clear</button>
 				
 									}
 					</div>
@@ -108,19 +99,17 @@
 							@foreach (var conference in Model.Skip(groupCounter * 4).Take(4))
 			 {
 								<li class="span3">
-									<a class="thumbnail fancybox-button zoomer" data-rel="fancybox-button" title="@conference.name" href="~/Conferences/@conference.slug">
+									<a class="thumbnail fancybox-button zoomer" data-rel="fancybox-button" href="~/Conferences/@conference.slug">
 										<div class="overlay-zoom">
 											<img src="@conference.imageUrl" alt="" />
 											<div class="zoom-icon"></div>
 										</div>
+										<div class="headline">
+											<h4>@conference.name</h4>
+											<br />@conference.DateRange
+											<br />@conference.FormattedAddress
+										</div>
 									</a>
-									<div class="headline">
-										<h4>@conference.name</h4>
-										<br />@conference.DateRange
-										<br />@conference.FormattedAddress
-									</div>
-                                
-
 								</li>
 			 }
 						</ul><!--/thumbnails-->
@@ -138,5 +127,8 @@
 	</div><!--/row-fluid-->        
 
 
-</div><!--/container-->		
+</div><!--/container-->
+@section scripts {
+	changeMenuActive('menuConferences');
+}
 <!--=== End Content Part ===-->

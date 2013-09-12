@@ -8,11 +8,11 @@
 <!--=== Content Part ===-->
 <div class="container">
     <div class="row-fluid">
-        <div class="span9">
-            TekConf has a full api to its data. Documentation is constantly in progress. Please visit http://api.tekconf.com to explore the api.
+        <div class="span12">
+					TekConf has a full api to its data. Documentation is constantly in progress. Please visit <a href="http://api.tekconf.com" target="_new">http://api.tekconf.com</a> to explore the api.
 					<!-- Other Questions -->
 
-            <div class="headline"><h3>Registering</h3></div>
+            @*<div class="headline"><h3>Registering</h3></div>
             <!-- Accardion -->
             <div class="accordion acc-home margin-bottom-40" id="accordion2">
                 <div class="accordion-group">
@@ -157,11 +157,11 @@
                         </div>
                     </div>
                 </div><!--/accordion-group-->
-						</div><!--/accardion-->					
+						</div><!--/accardion-->			*@		
 
 				</div><!--/span8-->
 
-        <div class="span3">
+@*        <div class="span3">
             <!-- Contacts -->
             <div class="headline"><h3>Contacts</h3></div>
             <ul class="unstyled who margin-bottom-20">
@@ -185,7 +185,10 @@
                 <li><i class="icon-ok color-green"></i> Blanditiis praesentium volup</li>
                 <li><i class="icon-ok color-green"></i> Eos et accusamus</li>
             </ul>
-        </div><!--/span4-->
+        </div><!--/span3-->*@
     </div><!--/row-fluid-->
 </div><!--/container-->
 <!--=== End Content Part ===-->
+@section scripts {
+	changeMenuActive('menuApi');
+}
