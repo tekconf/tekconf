@@ -45,7 +45,16 @@
 					<li><i class="icon-tags color-green"></i> @Model.Session.twitterHashTag</li>
 				}
 			</ul>
-			<p><a class="btn-u btn-u-large" href="#">Add to Schedule</a></p>
+			<p>
+						@if (Html.IsAdmin())
+			{
+
+							@Html.RouteLink("Edit Session", "AdminEditSession", new { conferenceSlug = Model.conferenceSlug, sessionSlug = Model.slug }, new { @class = "btn btn-info" })
+<text>&nbsp;</text>
+							@Html.RouteLink("Add Speaker", "AdminAddSpeaker", new { conferenceSlug = Model.conferenceSlug, sessionSlug = Model.slug }, new { @class = "btn" })
+			}				
+				<a class="btn-u btn-u-large" href="#">Add to Schedule</a>
+			</p>
 		</div>
 	</div>
 	<!--/row-fluid-->
