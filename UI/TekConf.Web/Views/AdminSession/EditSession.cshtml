@@ -1,41 +1,7 @@
 ﻿@using System.Globalization
 @using System.Web.Optimization
 @model TekConf.UI.Api.Services.Requests.v1.AddSession
-@{
-	Layout = null;
-}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico">
-	<title>Edit Session - tekconf</title>
 
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-
-	<link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet" type="text/css">
-	<link rel="search" type="application/opensearchdescription+xml" href="http://www.tekconf.com/TekConf.xml" title="TekConf Search" />
-
-	@Styles.Render("~/css/conferences/detail")
-
-	<!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-	<!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-	@Scripts.Render("~/bundles/jquery")
-	@Scripts.Render("~/bundles/jqueryMigrate")
-	@Scripts.Render("~/bundles/jqueryUI")
-	@Scripts.Render("~/js/common")
-	@Scripts.Render("~/scripts/conferences/detail")
-
-	<link href="~/Scripts/bootstrap-tagmanager.css" rel="stylesheet" type="text/css"></link>
-	<script src="~/Scripts/bootstrap-tagmanager.js"></script>
-</head>
-
-<body>
-
-	@Html.Partial("Header")
 
 	<div id="subheader">
 		<div class="inner">
@@ -169,9 +135,6 @@
 	</div>
 	<!-- /subpage -->
 
-	@Html.Partial("Extra")
-
-	@Html.Partial("Footer")
 
 	<script>
 		$(function () {
@@ -256,5 +219,3 @@
 			});
 		});
 	</script>
-</body>
-</html>
