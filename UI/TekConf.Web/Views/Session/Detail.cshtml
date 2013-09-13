@@ -49,9 +49,9 @@
 						@if (Html.IsAdmin())
 			{
 
-							@Html.RouteLink("Edit Session", "AdminEditSession", new { conferenceSlug = Model.conferenceSlug, sessionSlug = Model.slug }, new { @class = "btn btn-info" })
+							@Html.RouteLink("Edit Session", "AdminEditSession", new { conferenceSlug = Model.Conference.slug, sessionSlug = Model.Session.slug }, new { @class = "btn btn-info" })
 <text>&nbsp;</text>
-							@Html.RouteLink("Add Speaker", "AdminAddSpeaker", new { conferenceSlug = Model.conferenceSlug, sessionSlug = Model.slug }, new { @class = "btn" })
+							@Html.RouteLink("Add Speaker", "AdminAddSpeaker", new { conferenceSlug = Model.Conference.slug, sessionSlug = Model.Session.slug }, new { @class = "btn" })
 			}				
 				<a class="btn-u btn-u-large" href="#">Add to Schedule</a>
 			</p>
