@@ -7,14 +7,13 @@ namespace TekConf.Web
     {
         public RuntimePolicy Execute(IRuntimePolicyContext policyContext)
         {
-
-            var httpContext = policyContext.GetHttpContext();
-            if (httpContext.User == null
-                    || httpContext.User.Identity.Name.ToLower() != "robgibbens"
-                    || httpContext.User.Identity.Name.ToLower() != "qconf")
-            {
-                return RuntimePolicy.Off;
-            }
+						//var httpContext = policyContext.GetHttpContext();
+						//if (httpContext.User == null
+						//				|| httpContext.User.Identity.Name.ToLower() != "robgibbens"
+						//				|| httpContext.User.Identity.Name.ToLower() != "qconf")
+						//{
+						//		return RuntimePolicy.Off;
+						//}
 
             return RuntimePolicy.On;
         }
