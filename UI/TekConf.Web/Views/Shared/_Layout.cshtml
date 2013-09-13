@@ -99,6 +99,10 @@
 							<li id="menuOrganizers">
 								<a href="~/Organizers">For Organizers</a>
 							</li>
+							@if (Html.IsAdmin())
+							 {
+												<li id="menuAdmin"><a href="~/Admin">Admin </a></li>
+							 }	
 							<li><a class="search"><i class="icon-search search-btn"></i></a></li>
 						</ul>
 						<div class="search-open">

@@ -160,81 +160,84 @@
 	</div>
 	<!-- /subpage -->
 
-	<script>
-		var geocoder;
-		var map;
+<script>
+	var geocoder;
+	var map;
 
-		function codeAddress(streetNumber, streetName, city, state, postalArea, country) {
-			//var address = document.getElementById('address').value;
-			var address = "";
-			if (streetNumber.length != 0 && streetName.length != 0 && city.length != 0 && state.length != 0) {
-				address = streetNumber + " " + streetName + ",+" + city + ",+" + state;
-			} else if (city.length != 0 && state.length != 0) {
-				address = city + ",+" + state;
-			} else if (city.length != 0 && country.length != 0) {
-				address = city + ",+" + country;
-			}
-
-			//address = encodeURIComponent(address);
-			//address = address.replace(" ", "+");
-			//alert(address);
-			geocoder.geocode({ 'address': address }, function (results, status) {
-				if (status == google.maps.GeocoderStatus.OK) {
-					$('#latitude').val(results[0].geometry.location.lat());
-					$('#longitude').val(results[0].geometry.location.lng());
-
-				} else {
-					alert('Geocode was not successful for the following reason: ' + status);
-				}
-			});
+	function codeAddress(streetNumber, streetName, city, state, postalArea, country) {
+		//var address = document.getElementById('address').value;
+		var address = "";
+		if (streetNumber.length != 0 && streetName.length != 0 && city.length != 0 && state.length != 0) {
+			address = streetNumber + " " + streetName + ",+" + city + ",+" + state;
+		} else if (city.length != 0 && state.length != 0) {
+			address = city + ",+" + state;
+		} else if (city.length != 0 && country.length != 0) {
+			address = city + ",+" + country;
 		}
 
-		$(function () {
-			geocoder = new google.maps.Geocoder();
+		//address = encodeURIComponent(address);
+		//address = address.replace(" ", "+");
+		//alert(address);
+		geocoder.geocode({ 'address': address }, function (results, status) {
+			if (status == google.maps.GeocoderStatus.OK) {
+				$('#latitude').val(results[0].geometry.location.lat());
+				$('#longitude').val(results[0].geometry.location.lng());
 
-			$('#start').datetimepicker();
-			$('#end').datetimepicker();
-			$('#callForSpeakersOpens').datetimepicker();
-			$('#callForSpeakersCloses').datetimepicker();
-			$('#registrationOpens').datetimepicker();
-			$('#registrationCloses').datetimepicker();
-
-			$(".tagTagManager").tagsManager();
-			$(".subjectTagManager").tagsManager();
-			$(".roomTagManager").tagsManager();
-			$(".sessionTypeTagManager").tagsManager();
-
-			$(document).on("click", "#geolocate", function (e) {
-				e.preventDefault();
-
-				var streetNumber = $('#address_StreetNumber').val();
-				var streetName = $('#address_StreetName').val();
-				var city = $('#address_City').val();
-				var state = $('#address_State').val();
-				var postalArea = $('#address_PostalArea').val();
-				var country = $('#address_Country').val();
-
-				codeAddress(streetNumber, streetName, city, state, postalArea, country);
-			});
-
-						@foreach (var tag in Model.tags)
-			{
-							<text>$(".tagTagManager").tagsManager('pushTag', '@tag');</text>
+			} else {
+				alert('Geocode was not successful for the following reason: ' + status);
 			}
+		});
+	}
+
+	$(function () {
+		geocoder = new google.maps.Geocoder();
+
+		$('#start').datetimepicker();
+		$('#end').datetimepicker();
+		$('#callForSpeakersOpens').datetimepicker();
+		$('#callForSpeakersCloses').datetimepicker();
+		$('#registrationOpens').datetimepicker();
+		$('#registrationCloses').datetimepicker();
+
+		$(".tagTagManager").tagsManager();
+		$(".subjectTagManager").tagsManager();
+		$(".roomTagManager").tagsManager();
+		$(".sessionTypeTagManager").tagsManager();
+
+		$(document).on("click", "#geolocate", function (e) {
+			e.preventDefault();
+
+			var streetNumber = $('#address_StreetNumber').val();
+			var streetName = $('#address_StreetName').val();
+			var city = $('#address_City').val();
+			var state = $('#address_State').val();
+			var postalArea = $('#address_PostalArea').val();
+			var country = $('#address_Country').val();
+
+			codeAddress(streetNumber, streetName, city, state, postalArea, country);
+		});
+
+		@foreach (var tag in Model.tags)
+		{
+			<text>$(".tagTagManager").tagsManager('pushTag', '@tag');</text>
+		}
 					
-						@foreach (var subject in Model.subjects)
-			{
-							<text>$(".subjectTagManager").tagsManager('pushTag', '@subject');</text>
-			}
+		@foreach (var subject in Model.subjects)
+		{
+			<text>$(".subjectTagManager").tagsManager('pushTag', '@subject');</text>
+		}
 					
-						@foreach (var room in Model.rooms)
-			{
-							<text>$(".roomTagManager").tagsManager('pushTag', '@room');</text>
-			}
+		@foreach (var room in Model.rooms)
+		{
+			<text>$(".roomTagManager").tagsManager('pushTag', '@room');</text>
+		}
 					
-						@foreach (var sessionType in Model.sessionTypes)
-			{
-							<text>$(".sessionTypeTagManager").tagsManager('pushTag', '@sessionType');</text>
-			}
-			});
-	</script>
+		@foreach (var sessionType in Model.sessionTypes)
+		{
+			<text>$(".sessionTypeTagManager").tagsManager('pushTag', '@sessionType');</text>
+		}
+	});
+</script>
+@section scripts {
+	changeMenuActive('menuAdmin');
+}

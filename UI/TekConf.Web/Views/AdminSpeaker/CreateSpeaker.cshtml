@@ -109,13 +109,16 @@
     </div>
     <!-- /subpage -->
 
-    <script>
-        $(function () {
-            $('#start').datetimepicker();
-            $('#end').datetimepicker();
-            $('#callForSpeakersOpens').datetimepicker();
-            $('#callForSpeakersCloses').datetimepicker();
-            $('#registrationOpens').datetimepicker();
-            $('#registrationCloses').datetimepicker();
-        });
-    </script>
+<script>
+	$(function () {
+		$('#start').datetimepicker();
+		$('#end').datetimepicker();
+		$('#callForSpeakersOpens').datetimepicker();
+		$('#callForSpeakersCloses').datetimepicker();
+		$('#registrationOpens').datetimepicker();
+		$('#registrationCloses').datetimepicker();
+	});
+</script>
+@section scripts {
+	changeMenuActive('menuAdmin');
+}

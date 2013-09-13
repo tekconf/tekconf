@@ -136,86 +136,89 @@
 	<!-- /subpage -->
 
 
-	<script>
-		$(function () {
-			$('#start').datetimepicker();
-			$('#end').datetimepicker();
-			$(".tagTagManager").tagsManager();
-			$(".subjectTagManager").tagsManager();
+<script>
+	$(function () {
+		$('#start').datetimepicker();
+		$('#end').datetimepicker();
+		$(".tagTagManager").tagsManager();
+		$(".subjectTagManager").tagsManager();
 
-             @foreach (var tag in Model.tags)
-						 {
-	            <text>$(".tagTagManager").tagsManager('pushTag', '@tag');</text>
-						 }
+		@foreach (var tag in Model.tags)
+		{
+			<text>$(".tagTagManager").tagsManager('pushTag', '@tag');</text>
+		}
 	        
-            @foreach (var subject in Model.subjects)
-						{
-	            <text>$(".subjectTagManager").tagsManager('pushTag', '@subject');</text>
-						}
-		});
+		@foreach (var subject in Model.subjects)
+		{
+			<text>$(".subjectTagManager").tagsManager('pushTag', '@subject');</text>
+		}
+	});
 
 
-		$('#start').change(function () {
-			var startDate = new Date($('#start').val());
-			var endDate = addMinutes(startDate, '@Model.defaultTalkLength');
+	$('#start').change(function () {
+		var startDate = new Date($('#start').val());
+		var endDate = addMinutes(startDate, '@Model.defaultTalkLength');
 
-            var endDateMonth = endDate.getMonth() + 1;
-            var endDateDay = endDate.getDate();
-            var endDateYear = endDate.getFullYear();
-            var endDateTime = formatAMPM(endDate);
+		var endDateMonth = endDate.getMonth() + 1;
+		var endDateDay = endDate.getDate();
+		var endDateYear = endDate.getFullYear();
+		var endDateTime = formatAMPM(endDate);
 
-            $('#end').val(endDateMonth + '/' + endDateDay + '/' + endDateYear + ' ' + endDateTime);
-		});
+		$('#end').val(endDateMonth + '/' + endDateDay + '/' + endDateYear + ' ' + endDateTime);
+	});
 		
-		$(document).on("click", ".addPrerequisite", function (e) {
-			e.preventDefault();
+	$(document).on("click", ".addPrerequisite", function (e) {
+		e.preventDefault();
 
-			$(this).closest('tr').after('<tr><td><input type="text" id="prerequisite" /><span></span></td></tr>');
+		$(this).closest('tr').after('<tr><td><input type="text" id="prerequisite" /><span></span></td></tr>');
 
-			$('#prerequisitesTable td').each(function (index, el) {
-				var element = index - 1;
-				$('input', this).attr('id', 'prerequisites[' + element + ']');
-				$('input', this).attr('name', 'prerequisites[' + element + ']');
+		$('#prerequisitesTable td').each(function (index, el) {
+			var element = index - 1;
+			$('input', this).attr('id', 'prerequisites[' + element + ']');
+			$('input', this).attr('name', 'prerequisites[' + element + ']');
 
-			});
 		});
+	});
 
-		$(document).on("click", ".addResource", function (e) {
-			e.preventDefault();
+	$(document).on("click", ".addResource", function (e) {
+		e.preventDefault();
 
-			$(this).closest('tr').after('<tr><td><input type="text" /></td></tr>');
+		$(this).closest('tr').after('<tr><td><input type="text" /></td></tr>');
 
-			$('#resourcesTable td').each(function (index, el) {
-				var element = index - 1;
-				$('input', this).attr('id', 'resources[' + element + ']');
-				$('input', this).attr('name', 'resources[' + element + ']');
+		$('#resourcesTable td').each(function (index, el) {
+			var element = index - 1;
+			$('input', this).attr('id', 'resources[' + element + ']');
+			$('input', this).attr('name', 'resources[' + element + ']');
 
-			});
 		});
+	});
 
-		$(document).on("click", ".addLink", function (e) {
-			e.preventDefault();
+	$(document).on("click", ".addLink", function (e) {
+		e.preventDefault();
 
-			$(this).closest('tr').after('<tr><td><input type="text" /></td></tr>');
+		$(this).closest('tr').after('<tr><td><input type="text" /></td></tr>');
 
-			$('#linksTable td').each(function (index, el) {
-				var element = index - 1;
-				$('input', this).attr('id', 'links[' + element + ']');
-				$('input', this).attr('name', 'links[' + element + ']');
+		$('#linksTable td').each(function (index, el) {
+			var element = index - 1;
+			$('input', this).attr('id', 'links[' + element + ']');
+			$('input', this).attr('name', 'links[' + element + ']');
 
-			});
 		});
+	});
 
-		$(document).on("click", ".addSpeaker", function (e) {
-			e.preventDefault();
+	$(document).on("click", ".addSpeaker", function (e) {
+		e.preventDefault();
 
-			$(this).closest('tr').after('<tr><td><input type="text" /></td></tr>');
+		$(this).closest('tr').after('<tr><td><input type="text" /></td></tr>');
 
-			$('#speakersTable td').each(function (index, el) {
-				var element = index - 1;
-				$('input', this).attr('id', 'speakers[' + element + ']');
-				$('input', this).attr('name', 'speakers[' + element + ']');
+		$('#speakersTable td').each(function (index, el) {
+			var element = index - 1;
+			$('input', this).attr('id', 'speakers[' + element + ']');
+			$('input', this).attr('name', 'speakers[' + element + ']');
 
-			});
 		});
-	</script>
+	});
+</script>
+@section scripts {
+	changeMenuActive('menuAdmin');
+}
