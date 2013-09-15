@@ -13,7 +13,9 @@ namespace TekConf.Core.Repositories
 	public class ConferenceSessionsListViewDto
 	{
 
-		private IEnumerable<ConferenceSessionListDto> _sessions; 
+		private IEnumerable<ConferenceSessionListDto> _sessions;
+		public IEnumerable<ConferenceSessionListDto> SessionsList { get { return _sessions; } }
+
 		public ConferenceSessionsListViewDto(IEnumerable<SessionEntity> sessions)
 		{
 			if (sessions != null)

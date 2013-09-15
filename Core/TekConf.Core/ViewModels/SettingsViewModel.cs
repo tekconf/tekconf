@@ -39,7 +39,7 @@ namespace TekConf.Core.ViewModels
 			_networkConnection = networkConnection;
 		}
 
-		public void Init(string fake)
+		public void Init()
 		{
 			RaisePropertyChanged("IsAuthenticated");
 			RaisePropertyChanged("ConferenceUpdated");

@@ -1,0 +1,250 @@
+﻿@using System.Web.Optimization
+@using TekConf.RemoteData.Dtos.v1
+@using TekConf.Web.Controllers
+@model TekConf.Web.Controllers.HomePageViewModel
+
+@{
+	ViewBag.Title = "Home Page";
+}
+
+<!--=== Slider ===-->
+<div class="slider-inner">
+	<div id="da-slider" class="da-slider">
+		<div class="da-slide">
+			<h2><i>MEET.</i><br /><i>CONNECT.</i><br /><i>LEARN.</i></h2>
+		</div>
+	</div>
+	<!--/da-slider-->
+</div>
+<!--/slider-->
+<!--=== End Slider ===-->
+<!--=== Purchase Block ===-->
+
+<!--/row-fluid-->
+<!-- End Purchase Block -->
+<!--=== Content Part ===-->
+<div class="container">
+	<!-- Service Blocks -->
+@*	<div class="row-fluid">
+		<div class="span4">
+			<div class="service clearfix">
+				<i class="icon-resize-small"></i>
+				<div class="desc">
+					<h4>Fully Responsive</h4>
+					<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus etiam sem...</p>
+				</div>
+			</div>
+		</div>
+		<div class="span4">
+			<div class="service clearfix">
+				<i class="icon-cogs"></i>
+				<div class="desc">
+					<h4>HTML5 + CSS3</h4>
+					<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus etiam sem...</p>
+				</div>
+			</div>
+		</div>
+		<div class="span4">
+			<div class="service clearfix">
+				<i class="icon-plane"></i>
+				<div class="desc">
+					<h4>Launch Ready</h4>
+					<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus etiam sem...</p>
+				</div>
+			</div>
+		</div>
+	</div>*@
+	<!--/row-fluid-->
+	<!-- //End Service Blokcs -->
+	<!-- Recent Works -->
+	<div class="headline">
+		<h3>Upcoming Conferences</h3>
+	</div>
+	<ul class="thumbnails">
+
+		@foreach (var featuredConference in Model.FeaturedConferences ?? new List<FullConferenceDto>())
+	{
+			<li class="span3">
+				<div class="thumbnail-style thumbnail-kenburn">
+					<div class="thumbnail-img">
+						<div class="overflow-hidden">
+							<img src="@featuredConference.imageUrl" alt="" /></div>
+						<a class="btn-more hover-effect" href="~/Conferences/@featuredConference.slug">read more +</a>
+					</div>
+					<h3><a class="hover-effect" href="#">@Html.ActionLink(featuredConference.name, "Detail", "Conferences", new { conferenceSlug = featuredConference.slug }, null)</a></h3>
+					<p>@featuredConference.start.ToString("MMMM dd, yyyy")<br>@featuredConference.description</p>
+				</div>
+			</li>
+	}
+
+
+
+	</ul>
+	<!--/thumbnails-->
+	<!-- //End Recent Works -->
+	<!-- Information Blokcs -->
+	@*<div class="row-fluid margin-bottom-20">
+						<!-- Who We Are -->
+						<div class="span8">
+								<div class="headline"><h3>Welcome To UNIFY Template</h3></div>
+								<p><img class="pull-left lft-img-margin img-width-200" src="~/assets/img/carousel/6.jpg" alt="" />Unify is an incredibly beautiful responsive Bootstrap Template for corporate and creative professionals. It works on all major web browsers, tablets and phone.</p>
+								<ul class="unstyled">
+										<li><i class="icon-ok color-green"></i> Donec id elit non mi porta gravida</li>
+										<li><i class="icon-ok color-green"></i> Corporate and Creative</li>
+										<li><i class="icon-ok color-green"></i> Responsive Bootstrap Template</li>
+										<li><i class="icon-ok color-green"></i> Corporate and Creative</li>
+								</ul><br>
+								<blockquote class="hero-unify">
+										<p>Award winning digital agency. We bring a personal and effective approach to every project we work on, which is why. Unify is an incredibly beautiful responsive Bootstrap Template for corporate professionals.</p>
+										<small>CEO, Jack Bour</small>
+								</blockquote>
+						</div><!--/span8-->
+						<!-- Latest Shots -->
+						<div class="span4">
+								<div class="headline"><h3>Latest Shots</h3></div>
+								<div id="myCarousel" class="carousel slide">
+										<div class="carousel-inner">
+												<div class="item active">
+														<img src="~/assets/img/carousel/5.jpg" alt="">
+														<div class="carousel-caption">
+																<p>Cras justo odio, dapibus ac facilisis in, egestas.</p>
+														</div>
+												</div>
+												<div class="item">
+														<img src="~/assets/img/carousel/4.jpg" alt="">
+														<div class="carousel-caption">
+																<p>Cras justo odio, dapibus ac facilisis in, egestas.</p>
+														</div>
+												</div>
+												<div class="item">
+														<img src="~/assets/img/carousel/3.jpg" alt="">
+														<div class="carousel-caption">
+																<p>Cras justo odio, dapibus ac facilisis in, egestas.</p>
+														</div>
+												</div>
+										</div>
+
+										<div class="carousel-arrow">
+												<a class="left carousel-control" href="#myCarousel" data-slide="prev"><i class="icon-angle-left"></i></a>
+												<a class="right carousel-control" href="#myCarousel" data-slide="next"><i class="icon-angle-right"></i></a>
+										</div>
+								</div>
+						</div><!--/span4-->
+				</div><!--/row-fluid-->*@
+	<!-- //End Information Blokcs -->
+	<!-- Our Clients -->
+	@*<div id="clients-flexslider" class="flexslider home clients">
+				<div class="headline"><h3>Our Clients</h3></div>
+				<ul class="slides">
+						<li>
+								<a href="#">
+										<img src="~/assets/img/clients/hp_grey.png" alt="" />
+										<img src="~/assets/img/clients/hp.png" class="color-img" alt="" />
+								</a>
+						</li>
+						<li>
+								<a href="#">
+										<img src="~/assets/img/clients/igneus_grey.png" alt="" />
+										<img src="~/assets/img/clients/igneus.png" class="color-img" alt="" />
+								</a>
+						</li>
+						<li>
+								<a href="#">
+										<img src="~/assets/img/clients/vadafone_grey.png" alt="" />
+										<img src="~/assets/img/clients/vadafone.png" class="color-img" alt="" />
+								</a>
+						</li>
+						<li>
+								<a href="#">
+										<img src="~/assets/img/clients/walmart_grey.png" alt="" />
+										<img src="~/assets/img/clients/walmart.png" class="color-img" alt="" />
+								</a>
+						</li>
+						<li>
+								<a href="#">
+										<img src="~/assets/img/clients/shell_grey.png" alt="" />
+										<img src="~/assets/img/clients/shell.png" class="color-img" alt="" />
+								</a>
+						</li>
+						<li>
+								<a href="#">
+										<img src="~/assets/img/clients/natural_grey.png" alt="" />
+										<img src="~/assets/img/clients/natural.png" class="color-img" alt="" />
+								</a>
+						</li>
+						<li>
+								<a href="#">
+										<img src="~/assets/img/clients/aztec_grey.png" alt="" />
+										<img src="~/assets/img/clients/aztec.png" class="color-img" alt="" />
+								</a>
+						</li>
+						<li>
+								<a href="#">
+										<img src="~/assets/img/clients/gamescast_grey.png" alt="" />
+										<img src="~/assets/img/clients/gamescast.png" class="color-img" alt="" />
+								</a>
+						</li>
+						<li>
+								<a href="#">
+										<img src="~/assets/img/clients/cisco_grey.png" alt="" />
+										<img src="~/assets/img/clients/cisco.png" class="color-img" alt="" />
+								</a>
+						</li>
+						<li>
+								<a href="#">
+										<img src="~/assets/img/clients/everyday_grey.png" alt="" />
+										<img src="~/assets/img/clients/everyday.png" class="color-img" alt="" />
+								</a>
+						</li>
+						<li>
+								<a href="#">
+										<img src="~/assets/img/clients/cocacola_grey.png" alt="" />
+										<img src="~/assets/img/clients/cocacola.png" class="color-img" alt="" />
+								</a>
+						</li>
+						<li>
+								<a href="#">
+										<img src="~/assets/img/clients/spinworkx_grey.png" alt="" />
+										<img src="~/assets/img/clients/spinworkx.png" class="color-img" alt="" />
+								</a>
+						</li>
+						<li>
+								<a href="#">
+										<img src="~/assets/img/clients/shell_grey.png" alt="" />
+										<img src="~/assets/img/clients/shell.png" class="color-img" alt="" />
+								</a>
+						</li>
+						<li>
+								<a href="#">
+										<img src="~/assets/img/clients/natural_grey.png" alt="" />
+										<img src="~/assets/img/clients/natural.png" class="color-img" alt="" />
+								</a>
+						</li>
+						<li>
+								<a href="#">
+										<img src="~/assets/img/clients/gamescast_grey.png" alt="" />
+										<img src="~/assets/img/clients/gamescast.png" class="color-img" alt="" />
+								</a>
+						</li>
+						<li>
+								<a href="#">
+										<img src="~/assets/img/clients/everyday_grey.png" alt="" />
+										<img src="~/assets/img/clients/everyday.png" class="color-img" alt="" />
+								</a>
+						</li>
+						<li>
+								<a href="#">
+										<img src="~/assets/img/clients/spinworkx_grey.png" alt="" />
+										<img src="~/assets/img/clients/spinworkx.png" class="color-img" alt="" />
+								</a>
+						</li>
+				</ul>
+		</div>*@
+	<!--/flexslider-->
+	<!-- //End Our Clients -->
+</div>
+<!--/container-->
+<!-- End Content Part -->
+@section scripts {
+	changeMenuActive('menuHome');
+}

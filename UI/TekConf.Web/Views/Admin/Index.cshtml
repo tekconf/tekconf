@@ -1,0 +1,69 @@
+﻿@using System.Web.Optimization
+@model dynamic
+
+<div id="subpage">
+	<div class="container">
+		
+		<div class="row">
+			<div class="span12">
+				
+				<div class="pricing-plans plans-2">
+				    <div class="plan-container best-value">
+				        <div class="plan">
+					        <div class="plan-header">
+				                
+					        	<div class="plan-title">
+					        		Conferences	        		
+				        		</div> <!-- /plan-title -->
+								
+					        </div> <!-- /plan-header -->	          
+					        
+                            <div class="plan-actions">
+                                @Html.RouteLink("Create Conference", "AdminCreateConference", null, new { @class = "btn" })		
+                                <br />
+                                @Html.RouteLink("Edit Conference", "AdminEditConferences", null, new { @class = "btn" })			
+                            </div> <!-- /plan-actions -->
+				
+						</div> <!-- /plan -->
+				    </div> <!-- /plan-container -->						
+                    
+
+                    <div class="plan-container">
+				        <div class="plan">
+					        <div class="plan-header">
+				                
+					        	<div class="plan-title">
+					        		Users	        		
+				        		</div> <!-- /plan-title -->
+					        </div> <!-- /plan-header -->	        
+					        
+							<div class="plan-actions">				
+                                <a href="javascript:;" class="btn">Create User</a><br/>
+                                <a href="javascript:;" class="btn">Edit User</a>				
+							</div> <!-- /plan-actions -->
+				
+						</div> <!-- /plan -->
+				    </div> <!-- /plan-container -->
+			
+				</div>
+				
+				
+			</div> <!-- /span12 -->
+			
+		</div> <!-- /row -->
+		
+		
+		<br /><br />
+		
+		
+		
+		
+		
+		
+	</div> <!-- /container -->	
+	
+</div> <!-- /subpage -->       
+    
+@section scripts {
+	changeMenuActive('menuAdmin');
+}

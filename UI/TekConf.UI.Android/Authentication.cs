@@ -21,8 +21,7 @@ namespace TekConf.UI.Android
 		{
 			get
 			{
-				//TODO : return App.MobileService.CurrentUser != null || !string.IsNullOrWhiteSpace(UserName);
-				return false;
+				return Setup.MobileService.CurrentUser != null || !string.IsNullOrWhiteSpace(UserName);
 			}
 		}
 
@@ -30,8 +29,8 @@ namespace TekConf.UI.Android
 		{
 			get
 			{
-				//TODO : if (IsAuthenticated)
-				//return App.MobileService.CurrentUser.UserId.Split(':')[0];
+				if (IsAuthenticated)
+					return Setup.MobileService.CurrentUser.UserId.Split(':')[0];
 
 				return string.Empty;
 			}

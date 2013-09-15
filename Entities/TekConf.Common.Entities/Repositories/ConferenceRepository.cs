@@ -22,7 +22,6 @@ namespace TekConf.Common.Entities
 			CreateIndexes();
 		}
 
-
 		public int GetConferenceCount(string searchTerm, bool? showPastConferences)
 		{
 			var shouldShowPastConferences = GetShowPastConferences(showPastConferences);
@@ -82,6 +81,20 @@ namespace TekConf.Common.Entities
 			return conferences;
 		}
 
+		public IEnumerable<ConferenceEntity> GetNewestConferences()
+		{
+			var conferences = this
+									.AsQueryable()
+									.Where(c => c.end >= DateTime.Now.AddDays(-1))
+									.Where(c => c.isLive)
+									.OrderByDescending(c => c.dateAdded)
+									.ToList()
+									.Where(c => !string.IsNullOrWhiteSpace(c.description))
+									.Take(3)
+									.ToList();
+
+			return conferences;
+		}
 
 		private void CreateIndexes()
 		{

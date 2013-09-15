@@ -11,15 +11,46 @@ using TekConf.Core.Interfaces;
 using TekConf.Core.Models;
 using TekConf.Core.Repositories;
 using TekConf.Core.Services;
+using Microsoft.WindowsAzure.MobileServices;
+using Cirrious.MvvmCross.Plugins.Messenger;
+using TekConf.Core.Messages;
 
 namespace TekConf.UI.Android
 {
 	public class Setup : MvxAndroidSetup
 	{
+		public static Context CurrentActivityContext { get; set; }
+		public static MobileServiceClient MobileService = new MobileServiceClient(
+			"https://tekconfauth.azure-mobile.net/",
+			"NeMPYjchPdsFKlUqDdyAJYZtdrOPiJ11"
+			);
+
+		private static string _userName;
+
+		public static string UserName
+		{
+			get
+			{
+				return _userName;
+			}
+			set
+			{
+				var messenger = Mvx.Resolve<IMvxMessenger>();
+				if (_userName != value && messenger != null)
+				{
+					var obj = new object();
+					messenger.Publish(new UserNameChangedMessage(obj) { UserName = value });
+				}
+				_userName = value;
+			}
+		}
+
 		public Setup(Context applicationContext)
 			: base(applicationContext)
 		{
+			CurrentActivityContext = applicationContext;
 		}
+
 		protected override IMvxTrace CreateDebugTrace() { return new MyDebugTrace(); }
 
 		protected override IMvxApplication CreateApp()
@@ -43,54 +74,6 @@ namespace TekConf.UI.Android
 			Mvx.RegisterType<IMessageBox, DroidMessageBox>();
 
 			return new TekConf.Core.App();
-		}
-	}
-
-	public class DroidNetworkConnection : INetworkConnection
-	{
-		public bool IsNetworkConnected()
-		{
-			return true; //TODO
-		}
-
-		public string NetworkDownMessage
-		{
-			get
-			{
-				return "Could not connect to remote server. Please check your network connection and try again.";			
-			}
-		}
-	}
-
-	public class DroidMessageBox : IMessageBox
-	{
-		public void Show(string message)
-		{
-			//TODO
-		}
-	}
-	public class MyDebugTrace : IMvxTrace
-	{
-		public void Trace(MvxTraceLevel level, string tag, Func<string> message)
-		{
-			Debug.WriteLine(tag + ":" + level + ":" + message());
-		}
-
-		public void Trace(MvxTraceLevel level, string tag, string message)
-		{
-			Debug.WriteLine(tag + ":" + level + ":" + message);
-		}
-
-		public void Trace(MvxTraceLevel level, string tag, string message, params object[] args)
-		{
-			try
-			{
-				Debug.WriteLine(string.Format(tag + ":" + level + ":" + message, args));
-			}
-			catch (FormatException)
-			{
-				Trace(MvxTraceLevel.Error, tag, "Exception during trace of {0} {1} {2}", level, message);
-			}
 		}
 	}
 }

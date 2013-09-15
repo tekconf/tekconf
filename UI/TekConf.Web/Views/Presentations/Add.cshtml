@@ -1,0 +1,132 @@
+﻿@using System.Web.Optimization
+@model TekConf.Web.ViewModels.AddPresentationViewModel
+
+
+	<div id="subheader">
+		<div class="inner">
+			<div class="container">
+				<h1>Add Presentation</h1>
+			</div>
+			<!-- /.container -->
+		</div>
+		<!-- /inner -->
+	</div>
+	<!-- /subheader -->
+
+	<div id="subpage">
+		<div class="container">
+			<div class="row">
+				@if (Request.IsAuthenticated)
+		{
+			using (Html.BeginForm("Add", "Presentations", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal" }))
+			{
+					<div class="row">
+						<div class="span4">
+							<div class="control-group">
+								@Html.LabelFor(m => m.Title, new { @class = "control-label" })
+								<div class="controls">
+									@Html.TextBoxFor(m => m.Title, new { placeholder = "Title" })
+								</div>
+							</div>
+							<div class="control-group">
+								@Html.LabelFor(m => m.Description, new { @class = "control-label" })
+								<div class="controls">
+									@Html.TextAreaFor(m => m.Description, 10, 20, new { placeholder = "Description" })
+								</div>
+							</div>
+
+						</div>
+						<div class="span4">
+							<p>
+								<label>Tags</label>
+								<input type="text" name="tags" placeholder="Add Tag <Enter>" class="tagTagManager" />
+							</p>
+							<p>
+								<label>Subjects</label>
+								<input type="text" name="subjects" placeholder="Add Subject <Enter>" class="subjectTagManager" />
+							</p>
+							<p>
+								<label>Difficulty</label>
+								@Html.DropDownList("Difficulty", ViewBag.DifficultiesList as IEnumerable<SelectListItem>, "")
+							</p>
+							<p>
+								<label>Expected Length</label>
+								@Html.TextBoxFor(m => m.Length)
+							</p>
+							<p>
+								<label>Image</label>
+								<input type="file" name="file" id="file" />
+							</p>
+							<p>
+								<table class="table table-bordered table-condensed table-striped" id="videosTable">
+									<caption style="text-align: left">Videos</caption>
+									<tbody>
+										<tr>
+											<td><a href="#" class="addVideo">Add</a></td>
+										</tr>
+									</tbody>
+								</table>
+							</p>
+							<p>
+								<table class="table table-bordered table-condensed table-striped" id="downloadPathsTable">
+									<caption style="text-align: left">Downloads</caption>
+									<tbody>
+										<tr>
+											<td><a href="#" class="addDownloadPath">Add</a></td>
+										</tr>
+									</tbody>
+								</table>
+							</p>
+						</div>
+
+					</div>
+			
+
+					<div class="form-actions">
+						<input type="submit" class="btn btn-large btn-success" value="Add Presentation" />
+					</div>
+			}
+		}
+			</div>
+		</div>
+
+
+		<!-- /container -->
+	</div>
+	<!-- /subpage -->
+
+	<script>
+		$(function () {
+			$(".tagTagManager").tagsManager();
+			$(".subjectTagManager").tagsManager();
+
+			$(document).on("click", ".addVideo", function (e) {
+				e.preventDefault();
+				//<div class="control-group"><label class="control-label" for="inputEmail">Date</label><div class="controls"><input type="text" id="inputEmail" placeholder="Date"></div></div>
+
+				$(this).closest('tr').after('<tr><td><input type="text" /><span></span></td></tr>');
+
+				$('#videosTable td').each(function (index, el) {
+					var element = index - 1;
+					$('input', this).attr('id', 'videos[' + element + ']');
+					$('input', this).attr('name', 'videos[' + element + ']');
+
+				});
+			});
+
+			$(document).on("click", ".addDownloadPath", function (e) {
+				e.preventDefault();
+				//<div class="control-group"><label class="control-label" for="inputEmail">Date</label><div class="controls"><input type="text" id="inputEmail" placeholder="Date"></div></div>
+
+				$(this).closest('tr').after('<tr><td><input type="text" /><span></span></td></tr>');
+
+				$('#downloadPathsTable td').each(function (index, el) {
+					var element = index - 1;
+					$('input', this).attr('id', 'downloadPaths[' + element + ']');
+					$('input', this).attr('name', 'downloadPaths[' + element + ']');
+
+				});
+			});
+
+		});
+	</script>
