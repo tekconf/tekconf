@@ -881,7 +881,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <Content Include="Web-old.config" />
-    <None Include="Web.Azure.config" />
+    <Content Include="Web.Azure.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
