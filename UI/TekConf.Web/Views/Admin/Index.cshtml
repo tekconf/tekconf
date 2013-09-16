@@ -1,69 +1,40 @@
 ﻿@using System.Web.Optimization
 @model dynamic
 
-<div id="subpage">
+<!--=== Breadcrumbs ===-->
+<div class="breadcrumbs margin-bottom-40">
 	<div class="container">
-		
-		<div class="row">
-			<div class="span12">
-				
-				<div class="pricing-plans plans-2">
-				    <div class="plan-container best-value">
-				        <div class="plan">
-					        <div class="plan-header">
-				                
-					        	<div class="plan-title">
-					        		Conferences	        		
-				        		</div> <!-- /plan-title -->
-								
-					        </div> <!-- /plan-header -->	          
-					        
-                            <div class="plan-actions">
-                                @Html.RouteLink("Create Conference", "AdminCreateConference", null, new { @class = "btn" })		
-                                <br />
-                                @Html.RouteLink("Edit Conference", "AdminEditConferences", null, new { @class = "btn" })			
-                            </div> <!-- /plan-actions -->
-				
-						</div> <!-- /plan -->
-				    </div> <!-- /plan-container -->						
-                    
+		<h1 class="color-green pull-left">Admin</h1>
+	</div>
+	<!--/container-->
+</div>
+<!--/breadcrumbs-->
+<!--=== End Breadcrumbs ===-->
 
-                    <div class="plan-container">
-				        <div class="plan">
-					        <div class="plan-header">
-				                
-					        	<div class="plan-title">
-					        		Users	        		
-				        		</div> <!-- /plan-title -->
-					        </div> <!-- /plan-header -->	        
-					        
-							<div class="plan-actions">				
-                                <a href="javascript:;" class="btn">Create User</a><br/>
-                                <a href="javascript:;" class="btn">Edit User</a>				
-							</div> <!-- /plan-actions -->
-				
-						</div> <!-- /plan -->
-				    </div> <!-- /plan-container -->
-			
+<div class="container portfolio-columns">
+	<div class="row-fluid">
+		<div class="view view-tenth span3">
+		</div>
+
+		<div class="span3">
+			<div class="thumbnail-style thumbnail-kenburn">
+				<div class="thumbnail-img">
+					<div class="overflow-hidden">
+						<img src="~/img/conferences/DefaultConference.png" alt="" />
+					</div>
+					<a class="btn-more hover-effect" href="@Url.RouteUrl("AdminCreateConference")">add conference +</a>
 				</div>
-				
-				
-			</div> <!-- /span12 -->
-			
-		</div> <!-- /row -->
-		
-		
-		<br /><br />
-		
-		
-		
-		
-		
-		
-	</div> <!-- /container -->	
-	
-</div> <!-- /subpage -->       
-    
+			</div>
+		</div>
+		<div class="span3">
+		</div>
+		<div class="span3">
+			<img src="~/img/Speakers/default.png" alt="" />
+		</div>
+	</div>
+</div>
+
+
 @section scripts {
-	changeMenuActive('menuAdmin');
+changeMenuActive('menuAdmin');
 }
