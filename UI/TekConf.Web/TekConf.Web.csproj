@@ -883,6 +883,7 @@
     <Content Include="Web-old.config" />
     <Content Include="Web.Azure.config">
       <DependentUpon>Web.config</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
