@@ -126,7 +126,25 @@ namespace TekConf.UI.Api.Services.Requests.v1
 		{
 			if (this.defaultTalkLength == default(int))
 				defaultTalkLength = 60;
-		}
+
+            if (this.start == default(DateTime))
+                start = DateTime.Now;
+
+            if (this.end == default(DateTime))
+                end = DateTime.Now;
+            
+            if (this.callForSpeakersOpens == default(DateTime))
+                callForSpeakersOpens = DateTime.Now;
+
+            if (this.callForSpeakersCloses == default(DateTime))
+                callForSpeakersCloses = DateTime.Now;
+
+            if (this.registrationOpens == default(DateTime))
+                registrationOpens = DateTime.Now;
+
+            if (this.registrationCloses == default(DateTime))
+                registrationCloses = DateTime.Now;
+        }
 
 		[ApiMember(Name = "slug", Description = "XXXX", ParameterType = "query", DataType = "string", IsRequired = false)]
 		public string slug { get; set; }
