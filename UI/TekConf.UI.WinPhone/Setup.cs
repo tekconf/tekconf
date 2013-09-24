@@ -9,6 +9,8 @@ using TekConf.UI.WinPhone.Bootstrap;
 
 namespace TekConf.UI.WinPhone
 {
+	using Cirrious.CrossCore.Platform;
+	using Cirrious.MvvmCross.Binding;
 	using Cirrious.MvvmCross.Plugins.Sqlite;
 	using TekConf.Core.Models;
 
@@ -38,6 +40,7 @@ namespace TekConf.UI.WinPhone
 
 			return new Core.App();
 		}
+
 	}
 
 }
