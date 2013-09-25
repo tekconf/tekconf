@@ -175,8 +175,8 @@
                                 </dl>
                             }
                         }
-
-                    </div>
+                        <a href="~/Conferences?sortBy=dateAdded">See all new conferences</a>
+</div>
                 </div>
                 <!--/span4-->
                 <div class="span4">
@@ -255,6 +255,16 @@
     </script>
     @RenderSection("scriptLinks", required: false)
 
+    @if (!HttpContext.Current.Request.IsLocal)
+    {
+        <script>
+           var _gaq = _gaq || [];
+           _gaq.push(['_setAccount', 'UA-20184526-4']);
+           _gaq.push(['_trackPageview']);
+        </script>
+        <script src="/ga.ashx" async="async" defer="defer"></script>
+
+    }
 
     <!--[if lt IE 9]>
                 <script src="~/assets/js/respond.js"></script>
