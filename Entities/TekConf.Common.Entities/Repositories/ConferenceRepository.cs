@@ -70,7 +70,7 @@ namespace TekConf.Common.Entities
 		{
 			var conferences = this
 									.AsQueryable()
-									.Where(c => c.end >= DateTime.Now.AddDays(-7))
+									.Where(c => c.end >= DateTime.Now.Date)
 									.Where(c => c.isLive)
 									.OrderBy(c => c.start)
 									.ToList()

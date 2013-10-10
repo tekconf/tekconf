@@ -33,7 +33,7 @@ namespace TekConf.Web.Controllers
 		[CompressFilter]
 		public ActionResult CreateConference()
 		{
-			var conference = new CreateConference();
+		    var conference = new CreateConference();
 			return View(conference);
 		}
 

@@ -3,251 +3,258 @@
 @using System.Web.Optimization
 @model TekConf.UI.Api.Services.Requests.v1.CreateConference
 
+@section head {
+    <link rel="stylesheet" href="~/Scripts/tagmanager.css">
+}
 
-	<div id="subheader">
-		<div class="inner">
-			<div class="container">
-				<h1>Create Conference</h1>
-			</div>
-			<!-- /.container -->
-		</div>
-		<!-- /inner -->
-	</div>
-	<!-- /subheader -->
+<div id="subheader">
+    <div class="inner">
+        <div class="container">
+            <h1>Create Conference</h1>
+        </div>
+        <!-- /.container -->
+    </div>
+    <!-- /inner -->
+</div>
+<!-- /subheader -->
 
-	<div id="subpage">
-		<div class="container">
-			@using (Html.BeginForm("CreateConference", "AdminConference", FormMethod.Post, new { enctype = "multipart/form-data" }))
-	 {
-				<div class="row">
-					<legend>Main Information</legend>
+<div id="subpage">
+    <div class="container">
+        @using (Html.BeginForm("CreateConference", "AdminConference", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="row">
+                <legend>Main Information</legend>
 
-					<div class="span4">
+                <div class="span4">
 
-						<label>Conference Name</label>
-						@Html.TextBoxFor(c => c.name)
+                    <label>Conference Name</label>
+                    @Html.TextBoxFor(c => c.name)
 
-						<label>Start Date/Time</label>
-						@Html.TextBoxFor(c => c.start, new { type = "datetime" })
+                    <label>Start Date/Time</label>
+                    @Html.TextBoxFor(c => c.start, new { type = "datetime" })
 
-						<label>End Date/Time</label>
-						@Html.TextBoxFor(c => c.end, new { type = "datetime" })
+                    <label>End Date/Time</label>
+                    @Html.TextBoxFor(c => c.end, new { type = "datetime" })
 
-						<label>Tagline</label>
-						@Html.TextBoxFor(c => c.tagline)
+                    <label>Tagline</label>
+                    @Html.TextBoxFor(c => c.tagline)
 
-						<label>Default Talk Length</label>
-						@Html.TextBoxFor(c => c.defaultTalkLength)
+                    <label>Default Talk Length</label>
+                    @Html.TextBoxFor(c => c.defaultTalkLength)
 
-						<label>Call for Speakers Opens</label>
-						@Html.TextBoxFor(c => c.callForSpeakersOpens)
+                    <label>Call for Speakers Opens</label>
+                    @Html.TextBoxFor(c => c.callForSpeakersOpens)
 
-						<label>Call for Speakers Closes</label>
-						@Html.TextBoxFor(c => c.callForSpeakersCloses)
+                    <label>Call for Speakers Closes</label>
+                    @Html.TextBoxFor(c => c.callForSpeakersCloses)
 
-						<label>Registration Opens</label>
-						@Html.TextBoxFor(c => c.registrationOpens)
+                    <label>Registration Opens</label>
+                    @Html.TextBoxFor(c => c.registrationOpens)
 
-						<label>Registration Closes</label>
-						@Html.TextBoxFor(c => c.registrationCloses)
+                    <label>Registration Closes</label>
+                    @Html.TextBoxFor(c => c.registrationCloses)
 
-						<label>Image</label>
-						<input type="file" name="file" id="file" />
+                    <label>Image</label>
+                    <input type="file" name="file" id="file" />
 
-						<label>Live on tekconf.com?</label>
-						@Html.CheckBoxFor(c => c.isLive)
-					</div>
-					<div class="span4">
-						<label>Description</label>
-						@Html.TextAreaFor(c => c.description, 30, 150, null)
-					</div>
-					<div class="span4">
-						<label>Location</label>
-						@Html.TextBoxFor(c => c.location)
+                    <label>Live on tekconf.com?</label>
+                    @Html.CheckBoxFor(c => c.isLive)
+                </div>
+                <div class="span4">
+                    <label>Description</label>
+                    @Html.TextAreaFor(c => c.description, 30, 150, null)
+                </div>
+                <div class="span4">
+                    <label>Location</label>
+                    @Html.TextBoxFor(c => c.location)
 
-						<label>Is Online</label>
-						@Html.CheckBoxFor(c => c.isOnline)
+                    <label>Is Online</label>
+                    @Html.CheckBoxFor(c => c.isOnline)
 
-						<label>Address</label>
-						@Html.EditorFor(c => c.address)
-
-
-						<a href="#" id="geolocate">Find Lat/Long</a>
-						<label>Latitude</label>
-						@Html.TextBoxFor(c => c.latitude)
-
-						<label>Longitude</label>
-						@Html.TextBoxFor(c => c.longitude)
-					</div>
-				</div>
-				<div class="row">
-					<legend>Optional Information</legend>
-
-					<div class="span4">
-						<div class="input-prepend">
-							<label>Website</label>
-							<span class="add-on">http://</span>
-							@Html.TextBoxFor(c => c.homepageUrl)
-						</div>
-
-						<div class="input-prepend">
-							<label>Facebook</label>
-							<span class="add-on">http://</span>
-							@Html.TextBoxFor(c => c.facebookUrl)
-						</div>
-
-						<div class="input-prepend">
-							<label>Twitter Name</label>
-							<span class="add-on">@@</span>
-							@Html.TextBoxFor(c => c.twitterName)
-						</div>
-
-						<div class="input-prepend">
-							<label>Twitter Hash Tag</label>
-							<span class="add-on">#</span>
-							@Html.TextBoxFor(c => c.twitterHashTag)
-						</div>
-
-						<div class="input-prepend">
-							<label>Lanyrd</label>
-							<span class="add-on">http://</span>
-							@Html.TextBoxFor(c => c.lanyrdUrl)
-						</div>
-
-					</div>
-					<div class="span4">
-						<div class="input-prepend">
-							<label>Meetup</label>
-							<span class="add-on">http://</span>
-							@Html.TextBoxFor(c => c.meetupUrl)
-						</div>
-						<div class="input-prepend">
-							<label>Google+</label>
-							<span class="add-on">http://</span>
-							@Html.TextBoxFor(c => c.googlePlusUrl)
-						</div>
-
-						<div class="input-prepend">
-							<label>Vimeo</label>
-							<span class="add-on">http://</span>
-							@Html.TextBoxFor(c => c.vimeoUrl)
-						</div>
-						<div class="input-prepend">
-							<label>YouTube</label>
-							<span class="add-on">http://</span>
-							@Html.TextBoxFor(c => c.youtubeUrl)
-						</div>
-						<div class="input-prepend">
-							<label>GitHub</label>
-							<span class="add-on">http://</span>
-							@Html.TextBoxFor(c => c.githubUrl)
-						</div>
-						<div class="input-prepend">
-							<label>LinkedIn</label>
-							<span class="add-on">http://</span>
-							@Html.TextBoxFor(c => c.linkedInUrl)
-						</div>
-					</div>
-
-				</div>
-		 
-				<div class="row">
-					<div class="span4">
-						<label>Session Types</label>
-						<input type="text" name="sessionTypes" placeholder="Add Session Type <Enter>" class="sessionTypeTagManager" />
-					</div>
-				</div>
-				<div class="row">
-					<div class="span4">
-						<label>Rooms</label>
-						<input type="text" name="rooms" placeholder="Add Room <Enter>" class="roomTagManager" />
-					</div>
-				</div>
-				<div class="row">
-					<div class="span4">
-						<label>Tags</label>
-						<input type="text" name="tags" placeholder="Add Tag <Enter>" class="tagTagManager" />
-					</div>
-				</div>
-				<div class="row">
-					<div class="span4">
-						<label>Subjects</label>
-						<input type="text" name="subjects" placeholder="Add Subject <Enter>" class="subjectTagManager" />
-					</div>
-				</div>
-								
-				<div class="row">
-					<input type="submit" class="btn-large btn btn-success" value="Save Conference" />
-				</div>      
-	 }
+                    <label>Address</label>
+                    @Html.EditorFor(c => c.address)
 
 
-		</div>
-		<!-- /container -->
+                    <a href="#" id="geolocate">Find Lat/Long</a>
+                    <label>Latitude</label>
+                    @Html.TextBoxFor(c => c.latitude)
 
-	</div>
-	<!-- /subpage -->
+                    <label>Longitude</label>
+                    @Html.TextBoxFor(c => c.longitude)
+                </div>
+            </div>
+            <div class="row">
+                <legend>Optional Information</legend>
+
+                <div class="span4">
+                    <div class="input-prepend">
+                        <label>Website</label>
+                        <span class="add-on">http://</span>
+                        @Html.TextBoxFor(c => c.homepageUrl)
+                    </div>
+
+                    <div class="input-prepend">
+                        <label>Facebook</label>
+                        <span class="add-on">http://</span>
+                        @Html.TextBoxFor(c => c.facebookUrl)
+                    </div>
+
+                    <div class="input-prepend">
+                        <label>Twitter Name</label>
+                        <span class="add-on">@@</span>
+                        @Html.TextBoxFor(c => c.twitterName)
+                    </div>
+
+                    <div class="input-prepend">
+                        <label>Twitter Hash Tag</label>
+                        <span class="add-on">#</span>
+                        @Html.TextBoxFor(c => c.twitterHashTag)
+                    </div>
+
+                    <div class="input-prepend">
+                        <label>Lanyrd</label>
+                        <span class="add-on">http://</span>
+                        @Html.TextBoxFor(c => c.lanyrdUrl)
+                    </div>
+
+                </div>
+                <div class="span4">
+                    <div class="input-prepend">
+                        <label>Meetup</label>
+                        <span class="add-on">http://</span>
+                        @Html.TextBoxFor(c => c.meetupUrl)
+                    </div>
+                    <div class="input-prepend">
+                        <label>Google+</label>
+                        <span class="add-on">http://</span>
+                        @Html.TextBoxFor(c => c.googlePlusUrl)
+                    </div>
+
+                    <div class="input-prepend">
+                        <label>Vimeo</label>
+                        <span class="add-on">http://</span>
+                        @Html.TextBoxFor(c => c.vimeoUrl)
+                    </div>
+                    <div class="input-prepend">
+                        <label>YouTube</label>
+                        <span class="add-on">http://</span>
+                        @Html.TextBoxFor(c => c.youtubeUrl)
+                    </div>
+                    <div class="input-prepend">
+                        <label>GitHub</label>
+                        <span class="add-on">http://</span>
+                        @Html.TextBoxFor(c => c.githubUrl)
+                    </div>
+                    <div class="input-prepend">
+                        <label>LinkedIn</label>
+                        <span class="add-on">http://</span>
+                        @Html.TextBoxFor(c => c.linkedInUrl)
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="span4">
+                    <label>Session Types</label>
+                    <input type="text" name="sessionTypes" placeholder="Add Session Type <Enter>" class="sessionTypeTagManager" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="span4">
+                    <label>Rooms</label>
+                    <input type="text" name="rooms" placeholder="Add Room <Enter>" class="roomTagManager" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="span4">
+                    <label>Tags</label>
+                    <input type="text" name="tags" placeholder="Add Tag <Enter>" class="tagTagManager" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="span4">
+                    <label>Subjects</label>
+                    <input type="text" name="subjects" placeholder="Add Subject <Enter>" class="subjectTagManager" />
+                </div>
+            </div>
+
+            <div class="row">
+                <input type="submit" class="btn-large btn btn-success" value="Save Conference" />
+            </div>
+        }
 
 
-	<script>
+    </div>
+    <!-- /container -->
 
-		var geocoder;
-		var map;
-
-		function codeAddress(streetNumber, streetName, city, state, postalArea, country) {
-			//var address = document.getElementById('address').value;
-			var address = "";
-			if (streetNumber.length != 0 && streetName.length != 0 && city.length != 0 && state.length != 0) {
-				address = streetNumber + " " + streetName + ",+" + city + ",+" + state;
-			} else if (city.length != 0 && state.length != 0) {
-				address = city + ",+" + state;
-			} else if (city.length != 0 && country.length != 0) {
-				address = city + ",+" + country;
-			}
-
-			geocoder.geocode({ 'address': address }, function (results, status) {
-				if (status == google.maps.GeocoderStatus.OK) {
-					$('#latitude').val(results[0].geometry.location.lat());
-					$('#longitude').val(results[0].geometry.location.lng());
-
-				} else {
-					alert('Geocode was not successful for the following reason: ' + status);
-				}
-			});
-		}
-
-		$(function () {
-			$(".tagTagManager").tagsManager();
-			$(".subjectTagManager").tagsManager();
-			$(".roomTagManager").tagsManager();
-			$(".sessionTypeTagManager").tagsManager();
-
-			geocoder = new google.maps.Geocoder();
-
-			$('#start').datetimepicker();
-			$('#end').datetimepicker();
-			$('#callForSpeakersOpens').datetimepicker();
-			$('#callForSpeakersCloses').datetimepicker();
-			$('#registrationOpens').datetimepicker();
-			$('#registrationCloses').datetimepicker();
-
-			$(document).on("click", "#geolocate", function (e) {
-				e.preventDefault();
-
-
-				var streetNumber = $('#address_StreetNumber').val();
-				var streetName = $('#address_StreetName').val();
-				var city = $('#address_City').val();
-				var state = $('#address_State').val();
-				var postalArea = $('#address_PostalArea').val();
-				var country = $('#address_Country').val();
-
-				codeAddress(streetNumber, streetName, city, state, postalArea, country);
-			});
-
-		});
-	</script>
-
+</div>
+<!-- /subpage -->
 @section scripts {
-	changeMenuActive('menuAdmin');
+    changeMenuActive('menuAdmin');
+}
+
+@section scriptLinks {
+    <script src="~/Scripts/tagmanager.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfKB0w0b8p2f5UHY7k03wOp6BY20nB1VQ&sensor=false"></script>
+
+    <script>
+        var geocoder;
+        var map;
+        $(function () {
+            $(".tagTagManager").tagsManager();
+            $(".subjectTagManager").tagsManager();
+            $(".roomTagManager").tagsManager();
+            $(".sessionTypeTagManager").tagsManager();
+           
+            geocoder = new google.maps.Geocoder();
+
+            $('#start').datetimepicker();
+            $('#end').datetimepicker();
+            $('#callForSpeakersOpens').datetimepicker();
+            $('#callForSpeakersCloses').datetimepicker();
+            $('#registrationOpens').datetimepicker();
+            $('#registrationCloses').datetimepicker();
+
+        });
+
+        function codeAddress(streetNumber, streetName, city, state, postalArea, country) {
+
+            //var address = document.getElementById('address').value;
+            var address = "";
+            if (streetNumber.length != 0 && streetName.length != 0 && city.length != 0 && state.length != 0) {
+                address = streetNumber + " " + streetName + ",+" + city + ",+" + state;
+            } else if (city.length != 0 && state.length != 0) {
+                address = city + ",+" + state;
+            } else if (city.length != 0 && country.length != 0) {
+                address = city + ",+" + country;
+            }
+            
+            geocoder.geocode({ 'address': address }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    $('#latitude').val(results[0].geometry.location.lat());
+                    $('#longitude').val(results[0].geometry.location.lng());
+                } else {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+        }
+
+
+
+        $("#geolocate").click(function () {
+            //e.preventDefault();
+
+            var streetNumber = $('#address_StreetNumber').val();
+            var streetName = $('#address_StreetName').val();
+            var city = $('#address_City').val();
+            var state = $('#address_State').val();
+            var postalArea = $('#address_PostalArea').val();
+            var country = $('#address_Country').val();
+
+            codeAddress(streetNumber, streetName, city, state, postalArea, country);
+
+        });
+
+    </script>
 }

@@ -58,7 +58,7 @@
 	<!-- //End Service Blokcs -->
 	<!-- Recent Works -->
 	<div class="headline">
-		<h3>Upcoming Conferences</h3>
+		<h3>@Model.TotalCount Upcoming Conferences</h3>
 	</div>
 	<ul class="thumbnails">
 
@@ -68,11 +68,15 @@
 				<div class="thumbnail-style thumbnail-kenburn">
 					<div class="thumbnail-img">
 						<div class="overflow-hidden">
-							<img src="@featuredConference.imageUrl" alt="" /></div>
+                            <a href="~/Conferences/@featuredConference.slug"><img src="@featuredConference.imageUrl" alt="@featuredConference.name" /></a></div>
 						<a class="btn-more hover-effect" href="~/Conferences/@featuredConference.slug">read more +</a>
 					</div>
-					<h3><a class="hover-effect" href="#">@Html.ActionLink(featuredConference.name, "Detail", "Conferences", new { conferenceSlug = featuredConference.slug }, null)</a></h3>
-					<p>@featuredConference.start.ToString("MMMM dd, yyyy")<br>@featuredConference.description</p>
+					<h3>@Html.ActionLink(featuredConference.name, "Detail", "Conferences", new { conferenceSlug = featuredConference.slug }, new {@class = "hover-effect"})</h3>
+				    <p>
+				        <a href="~/Conferences/@featuredConference.slug" class="hover-effect">
+				            @featuredConference.start.ToString("MMMM dd, yyyy")<br>@featuredConference.description
+				        </a>
+</p>
 				</div>
 			</li>
 	}

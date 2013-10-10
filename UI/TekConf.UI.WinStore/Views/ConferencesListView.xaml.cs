@@ -97,7 +97,7 @@ namespace TekConf.UI.WinStore.Views
 			var conference = e.ClickedItem as ConferencesListViewDto;
 			if (vm != null && conference != null)
 			{
-				vm.ShowDetailCommand.Execute(conference.slug);
+				vm.ShowDetailCommand.Execute(conference);
 			}
 		}
 
