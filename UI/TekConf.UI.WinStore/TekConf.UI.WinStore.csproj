@@ -200,87 +200,87 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Cirrious.CrossCore">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.12\lib\netcore45\Cirrious.CrossCore.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.13\lib\netcore45\Cirrious.CrossCore.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Cirrious.CrossCore.WindowsStore">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.12\lib\netcore45\Cirrious.CrossCore.WindowsStore.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.13\lib\netcore45\Cirrious.CrossCore.WindowsStore.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Cirrious.MvvmCross">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.MvvmCrossLibraries.3.0.12\lib\netcore45\Cirrious.MvvmCross.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.MvvmCrossLibraries.3.0.13\lib\netcore45\Cirrious.MvvmCross.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Binding">
-      <HintPath>..\..\packages\MvvmCross.BindingEx.3.0.12\lib\netcore45\Cirrious.MvvmCross.Binding.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.BindingEx.3.0.13\lib\netcore45\Cirrious.MvvmCross.Binding.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.BindingEx.WindowsStore">
-      <HintPath>..\..\packages\MvvmCross.BindingEx.3.0.12\lib\netcore45\Cirrious.MvvmCross.BindingEx.WindowsStore.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.BindingEx.3.0.13\lib\netcore45\Cirrious.MvvmCross.BindingEx.WindowsStore.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Localization">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.12\lib\netcore45\Cirrious.MvvmCross.Localization.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.0.13\lib\netcore45\Cirrious.MvvmCross.Localization.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.File">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.File.3.0.12\lib\netcore45\Cirrious.MvvmCross.Plugins.File.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.File.3.0.13\lib\netcore45\Cirrious.MvvmCross.Plugins.File.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.File.WindowsStore">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.File.3.0.12\lib\netcore45\Cirrious.MvvmCross.Plugins.File.WindowsStore.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.File.3.0.13\lib\netcore45\Cirrious.MvvmCross.Plugins.File.WindowsStore.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.Json">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Json.3.0.12\lib\netcore45\Cirrious.MvvmCross.Plugins.Json.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Json.3.0.13\lib\netcore45\Cirrious.MvvmCross.Plugins.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.Location">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Location.3.0.12\lib\netcore45\Cirrious.MvvmCross.Plugins.Location.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Location.3.0.13\lib\netcore45\Cirrious.MvvmCross.Plugins.Location.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.Location.WindowsStore">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Location.3.0.12\lib\netcore45\Cirrious.MvvmCross.Plugins.Location.WindowsStore.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Location.3.0.13\lib\netcore45\Cirrious.MvvmCross.Plugins.Location.WindowsStore.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.Messenger">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Messenger.3.0.12\lib\netcore45\Cirrious.MvvmCross.Plugins.Messenger.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Messenger.3.0.13\lib\netcore45\Cirrious.MvvmCross.Plugins.Messenger.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.Share">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Share.3.0.12\lib\netcore45\Cirrious.MvvmCross.Plugins.Share.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Share.3.0.13\lib\netcore45\Cirrious.MvvmCross.Plugins.Share.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.Share.WindowsStore">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Share.3.0.12\lib\netcore45\Cirrious.MvvmCross.Plugins.Share.WindowsStore.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Share.3.0.13\lib\netcore45\Cirrious.MvvmCross.Plugins.Share.WindowsStore.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.Sqlite">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Sqlite.3.0.12\lib\netcore45\Cirrious.MvvmCross.Plugins.Sqlite.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Sqlite.3.0.13\lib\netcore45\Cirrious.MvvmCross.Plugins.Sqlite.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.Sqlite.WindowsStore">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Sqlite.3.0.12\lib\netcore45\x86\Cirrious.MvvmCross.Plugins.Sqlite.WindowsStore.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Sqlite.3.0.13\lib\netcore45\x86\Cirrious.MvvmCross.Plugins.Sqlite.WindowsStore.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.Visibility">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Visibility.3.0.12\lib\netcore45\Cirrious.MvvmCross.Plugins.Visibility.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Visibility.3.0.13\lib\netcore45\Cirrious.MvvmCross.Plugins.Visibility.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.Visibility.WindowsStore">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Visibility.3.0.12\lib\netcore45\Cirrious.MvvmCross.Plugins.Visibility.WindowsStore.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Visibility.3.0.13\lib\netcore45\Cirrious.MvvmCross.Plugins.Visibility.WindowsStore.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.WebBrowser">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.WebBrowser.3.0.12\lib\netcore45\Cirrious.MvvmCross.Plugins.WebBrowser.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.WebBrowser.3.0.13\lib\netcore45\Cirrious.MvvmCross.Plugins.WebBrowser.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.Plugins.WebBrowser.WindowsStore">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.WebBrowser.3.0.12\lib\netcore45\Cirrious.MvvmCross.Plugins.WebBrowser.WindowsStore.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.WebBrowser.3.0.13\lib\netcore45\Cirrious.MvvmCross.Plugins.WebBrowser.WindowsStore.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Cirrious.MvvmCross.WindowsStore">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.MvvmCrossLibraries.3.0.12\lib\netcore45\Cirrious.MvvmCross.WindowsStore.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.MvvmCrossLibraries.3.0.13\lib\netcore45\Cirrious.MvvmCross.WindowsStore.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="GoogleAnalytics">
@@ -302,7 +302,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Json.3.0.12\lib\netcore45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\MvvmCross.HotTuna.Plugin.Json.3.0.13\lib\netcore45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="PushSharp.Core">
