@@ -88,6 +88,9 @@ namespace TekConf.Web.Controllers
 		[CompressFilter]
 		public async Task<ActionResult> Detail(string conferenceSlug)
 		{
+            if (string.IsNullOrWhiteSpace(conferenceSlug))
+                return RedirectToAction("Index");
+
 			string userName = string.Empty;
 			if (Request.IsAuthenticated)
 			{

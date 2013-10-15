@@ -33,23 +33,23 @@
                 <li style="font-size: x-large;">
 
                     @if (!string.IsNullOrWhiteSpace(Model.location))
-                            {
+                    {
                         @Model.location<br />
-                            }
+                    }
                     @if (Model.address != null)
-                                    {
-                                        if (Model.address.StreetNumber != 0)
-                                        {
-                                            @Model.address.StreetNumber<text> </text>
-                                        }
-                                        if (!string.IsNullOrWhiteSpace(Model.address.StreetName))
-                                        {
-                                            @Model.address.StreetName<br />
-                                        }
+                    {
+                        if (Model.address.StreetNumber != 0)
+                        {
+                            @Model.address.StreetNumber<text> </text>
+                        }
+                        if (!string.IsNullOrWhiteSpace(Model.address.StreetName))
+                        {
+                            @Model.address.StreetName<br />
+                        }
 
-                                        @Model.address.City<text> </text>@Model.address.State<text> </text>@Model.address.Country<br />
-                                        <br />
-                                    }
+                        @Model.address.City<text> </text>@Model.address.State<text> </text>@Model.address.Country<br />
+                        <br />
+                    }
                 </li>
             </ul>
             <p>@Model.description</p>
@@ -58,266 +58,228 @@
                     <li><i class="icon-tags color-green"></i> Registration open</li>*@
 
                 @if (!string.IsNullOrWhiteSpace(Model.homepageUrl))
-				{
+                {
                     <li>
                         <img src="~/img/social/website-16x16.png" alt="Website" />
                         @HtmlHelpers.SimpleLink(Model.homepageUrl, Model.homepageUrl.Replace("http://", ""))
                     </li>
-				}
+                }
                 @if (!string.IsNullOrWhiteSpace(Model.twitterName))
-				{
+                {
                     <li>
                         <img src="~/img/social/twitter-16x16.png" alt="Twitter Name" />
                         @HtmlHelpers.TwitterUserLink(Model.twitterName)
                     </li>
-				}
+                }
                 @if (!string.IsNullOrWhiteSpace(Model.twitterHashTag))
-				{
+                {
                     <li>
                         <img src="~/img/social/twitter-16x16.png" alt="Twitter Hashtag" />
                         @HtmlHelpers.SimpleLink("https://twitter.com/#!/search/" + Model.twitterHashTag.Replace("#", "%23"), Model.twitterHashTag)
                     </li>
-				}
+                }
 
                 @if (!string.IsNullOrWhiteSpace(Model.facebookUrl))
-				{
+                {
                     <li>
                         <img src="~/img/social/facebook-16x16.png" alt="Facebook" />
                         @HtmlHelpers.SimpleLink(Model.facebookUrl, "Facebook")
                     </li>
-				}
+                }
 
                 @if (!string.IsNullOrWhiteSpace(Model.lanyrdUrl))
-				{
+                {
                     <li>
                         <img src="~/img/social/lanyrd-16x16.png" alt="Lanyrd" />
                         @HtmlHelpers.SimpleLink(Model.lanyrdUrl, "Lanyrd")
                     </li>
-				}
+                }
 
                 @if (!string.IsNullOrWhiteSpace(Model.meetupUrl))
-				{
+                {
                     <li>
                         <img src="~/img/social/meetup-16x16.png" alt="Meetup" />
                         @HtmlHelpers.SimpleLink(Model.meetupUrl, "Meetup")
                     </li>
-				}
+                }
 
                 @if (!string.IsNullOrWhiteSpace(Model.googlePlusUrl))
-				{
+                {
                     <li>
                         <img src="~/img/social/googlePlus-16x16.png" alt="Google Plus" />
                         @HtmlHelpers.SimpleLink(Model.googlePlusUrl, "Google+")
                     </li>
-				}
+                }
 
                 @if (!string.IsNullOrWhiteSpace(Model.vimeoUrl))
-				{
+                {
                     <li>
                         <img src="~/img/social/vimeo-16x16.png" alt="Vimeo" />
                         @HtmlHelpers.SimpleLink(Model.vimeoUrl, "Vimeo")
                     </li>
-				}
+                }
 
                 @if (!string.IsNullOrWhiteSpace(Model.youtubeUrl))
-				{
+                {
                     <li>
                         <img src="~/img/social/youtube-16x16.png" alt="Youtube" />
                         @HtmlHelpers.SimpleLink(Model.youtubeUrl, "YouTube")
                     </li>
-				}
+                }
 
                 @if (!string.IsNullOrWhiteSpace(Model.githubUrl))
-				{
+                {
                     <li>
                         <img src="~/img/social/github-16x16.png" alt="GitHub" />
                         @HtmlHelpers.SimpleLink(Model.googlePlusUrl, "Github")
                     </li>
-				}
+                }
 
                 @if (!string.IsNullOrWhiteSpace(Model.linkedInUrl))
-				{
+                {
                     <li>
                         <img src="~/img/social/linkedin-16x16.png" alt="LinkedIn" />
                         @HtmlHelpers.SimpleLink(Model.linkedInUrl, "LinkedIn")
                     </li>
-				}
+                }
 
 
             </ul>
             @if (Html.IsAdmin())
-      {
-                @Html.RouteLink("Edit Conference", "AdminEditConference", new { conferenceSlug = Model.slug }, new { @class = "btn btn-info" })
-                @Html.RouteLink("Add Session", "AdminAddSession", new { conferenceSlug = Model.slug }, new { @class = "btn" })
-      }
+            {
+                @Html.RouteLink("Edit Conference", "AdminEditConference", new { conferenceSlug = Model.slug }, new { @class = "btn-u btn-info", style = "padding-right:5px;margin-right:5px;margin-bottom:5px;" })
+                @Html.RouteLink("Add Session", "AdminAddSession", new { conferenceSlug = Model.slug }, new { @class = "btn-u", style = "margin-bottom:5px;" })
+            }
+
+
             @if (Request.IsAuthenticated)
             {
-                <p><a class="btn-u btn-u-large" href="#">Add to Schedule</a></p>
-            }
-                
-            </div>
-        </div>
-	<!--/row-fluid-->
+                using (Html.BeginForm("Add", "Schedule", FormMethod.Post, new { id = Model.slug + "-form" }))
+                {
+                    Html.AntiForgeryToken();
+                    @Html.Hidden("conferenceSlug", Model.slug)
+                    if (!Model.isAddedToSchedule.HasValue || !Model.isAddedToSchedule.Value)
+                    {
+                        <p><a href="#" id="addToSchedule" class="btn-u btn-u-large btn-u-green" style="width: 100%;">Add to Schedule</a></p>
 
-                <div class="row-fluid margin-bottom-20">
-
-                    @if (Model.sessions == null || !Model.sessions.Any())
-	{
-
-
-
-                        <div class="alert alert-block">
-                            No sessions to display. Either sessions have not been released, or sessions have not been added to TekConf.<br />
-                            Want to help add sessions? Contact <a href="mailto:robgibbens@arteksoftware.com">RobGibbens@arteksoftware.com</a>
-                        </div>
-
-	}
-	else
-	{
-
-                        <div class="alert alert-block">
-                            Note : TekConf is not the definitive list of sessions for this conference. Session details may not be up to date. Please
-                            check the <a href="@Model.homepageUrl">@Model.name site</a> for up to date information.
-
-                        </div>
-	}
-
-                    @{
-			var sessionGroup = Model.sessions
-															.GroupBy(s => new { s.start.Year, s.start.Month, s.start.Day })
-															.Select(s => new { DateKey = s.Key, Sessions = s })
-															.ToList();
                     }
-                    @if (Request.IsAuthenticated)
-	{
+                }
+            }
 
-                        <div class="well"><a href="#" id="showHideMySessions">Show/Hide unscheduled sessions</a></div>
-	}
+        </div>
+    </div>
+    <!--/row-fluid-->
 
-                    @foreach (var dayGroup in sessionGroup.OrderBy(s => s.DateKey.Year).ThenBy(s => s.DateKey.Month).ThenBy(s => s.DateKey.Day))
-	{
-		var date = DateTime.Parse(dayGroup.DateKey.Month + "/" + dayGroup.DateKey.Day + "/" + dayGroup.DateKey.Year);
-		var tabName = date.ToString("dddd, MMMM d", CultureInfo.CreateSpecificCulture("en-US")).Replace(" ", "").Replace(",", "");
-		var dateString = date.ToString("dddd, MMMM d", CultureInfo.CreateSpecificCulture("en-US"));
+    <div class="row-fluid margin-bottom-20">
 
-                        <div class="row">
-                            <div class="span12">
-                                <h3>
-                                    @dateString
-                                </h3>
-                            </div>
+        @if (Model.sessions == null || !Model.sessions.Any())
+        {
+            <div class="alert alert-block">
+                No sessions to display. Either sessions have not been released, or sessions have not been added to TekConf.<br />
+                Want to help add sessions? Contact <a href="mailto:robgibbens@arteksoftware.com">RobGibbens@arteksoftware.com</a>
+            </div>
+        }
+        else
+        {
 
-                            <!-- /span12 -->
-                            <table class="table table-striped">
-                                <tbody>
-                                    @{
-		var sessionTimes = dayGroup.Sessions
-.GroupBy(s => new { s.start })
-.Select(s => new { DateKey = s.Key, Sessions = s })
-.OrderBy(s => s.DateKey.start)
-.ToList();
-                                    }
-                                    @foreach (var sessionTime in sessionTimes)
-			{
-                                        <tr>
-                                            <td colspan="3">
-                                                <h4>@sessionTime.DateKey.start.ToShortTimeString()</h4>
-                                            </td>
-                                        </tr>
-				foreach (var session in sessionTime.Sessions.OrderBy(s => s.start.TimeOfDay))
-				{
+            <div class="alert alert-block">
+                Note : TekConf is not the definitive list of sessions for this conference. Session details may not be up to date. Please
+                check the <a href="@Model.homepageUrl">@Model.name site</a> for up to date information.
 
-                    <tr>
-                        @if (Request.IsAuthenticated)
-				{
-					if (session.isAddedToSchedule.HasValue && session.isAddedToSchedule.Value)
-					{
-                        <td class="scheduled" style="width: 20px;">
-                            <i class="icon-star icon-2x icon-selected" id="remove-@session.slug" onclick="javascript:toggleSessionOnSchedule('@Model.slug', '@session.slug', '#remove-@session.slug')"></i>
-                        </td>
-					}
-					else
-					{
-                        <td class="unscheduled" style="width: 20px;">
-                            <i class="icon-star-empty icon-2x" id="add-@session.slug" onclick="javascript:toggleSessionOnSchedule('@Model.slug', '@session.slug', '#add-@session.slug')"></i>
-                        </td>
-					}
-				}
+            </div>
+        }
 
-                        <td>
-                            <h5>@Html.RouteLink(session.title, "SessionDetail", new { conferenceSlug = Model.slug, sessionSlug = session.slug }, null)</h5>
-                            @session.room
-                        </td>
-                        <td>
-                            @foreach (var speaker in session.speakers)
-				 {
-                                @Html.RouteLink(speaker.fullName, "SessionSpeakerDetail", new { conferenceSlug = Model.slug, speakerSlug = speaker.slug }, null)<br />
-				 }
-                        </td>
-                    </tr>
-				}
-			}
-                                </tbody>
-                            </table>
-                        </div>
+        @{
+            var sessionGroup = Model.sessions
+                                                            .GroupBy(s => new { s.start.Year, s.start.Month, s.start.Day })
+                                                            .Select(s => new { DateKey = s.Key, Sessions = s })
+                                                            .ToList();
+        }
+        @if (Request.IsAuthenticated)
+        {
 
-	}
+            <div class="well"><a href="#" id="showHideMySessions">Show/Hide unscheduled sessions</a></div>
+        }
+
+        @foreach (var dayGroup in sessionGroup.OrderBy(s => s.DateKey.Year).ThenBy(s => s.DateKey.Month).ThenBy(s => s.DateKey.Day))
+        {
+            var date = DateTime.Parse(dayGroup.DateKey.Month + "/" + dayGroup.DateKey.Day + "/" + dayGroup.DateKey.Year);
+            var tabName = date.ToString("dddd, MMMM d", CultureInfo.CreateSpecificCulture("en-US")).Replace(" ", "").Replace(",", "");
+            var dateString = date.ToString("dddd, MMMM d", CultureInfo.CreateSpecificCulture("en-US"));
+
+            <div class="row">
+                <div class="span12">
+                    <h3>
+                        @dateString
+                    </h3>
                 </div>
 
+                <!-- /span12 -->
+                <table class="table table-striped">
+                    <tbody>
+                        @{
+            var sessionTimes = dayGroup.Sessions
+                .GroupBy(s => new { s.start })
+                .Select(s => new { DateKey = s.Key, Sessions = s })
+                .OrderBy(s => s.DateKey.start)
+                .ToList();
+                        }
+                        @foreach (var sessionTime in sessionTimes)
+                        {
+                            <tr>
+                                <td colspan="3">
+                                    <h4>@sessionTime.DateKey.start.ToShortTimeString()</h4>
+                                </td>
+                            </tr>
+                            foreach (var session in sessionTime.Sessions.OrderBy(s => s.start.TimeOfDay))
+                            {
 
-	<!-- Recent Works -->
-                @*	<div class="headline">
-                        <h3>Similar Conferences</h3>
-                    </div>
-                    <div class="row-fluid margin-bottom-40">
-                        <ul id="list" class="bxslider recent-work">
-                            <li>
-                                <a href="#">
-                                    <em class="overflow-hidden">
-                                        <img src="~/assets/img/carousel/2.jpg" alt="" /></em>
-                                    <span>
-                                        <strong>Happy New Year</strong>
-                                        <i>Anim pariatur cliche reprehenderit</i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <em class="overflow-hidden">
-                                        <img src="~/assets/img/carousel/9.jpg" alt="" /></em>
-                                    <span>
-                                        <strong>Award Winning Agency</strong>
-                                        <i>Responsive Bootstrap Template</i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <em class="overflow-hidden">
-                                        <img src="~/assets/img/carousel/4.jpg" alt="" /></em>
-                                    <span>
-                                        <strong>Wolf Moon Officia</strong>
-                                        <i>Pariatur prehe cliche reprehrit</i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <em class="overflow-hidden">
-                                        <img src="~/assets/img/carousel/5.jpg" alt="" /></em>
-                                    <span>
-                                        <strong>Food Truck Quinoa Nesciunt</strong>
-                                        <i>Craft labore wes anderson cred</i>
-                                    </span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>*@
-	<!--/row-->
-	<!-- //End Recent Works -->
+                                <tr>
+                                    @if (Request.IsAuthenticated)
+                                    {
+                                        if (session.isAddedToSchedule.HasValue && session.isAddedToSchedule.Value)
+                                        {
+                                            <td class="scheduled" style="width: 20px;">
+                                                <i class="icon-star icon-2x icon-selected" id="remove-@session.slug" onclick="javascript:toggleSessionOnSchedule('@Model.slug', '@session.slug', '#remove-@session.slug')"></i>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td class="unscheduled" style="width: 20px;">
+                                                <i class="icon-star-empty icon-2x" id="add-@session.slug" onclick="javascript:toggleSessionOnSchedule('@Model.slug', '@session.slug', '#add-@session.slug')"></i>
+                                            </td>
+                                        }
+                                    }
+
+                                    <td>
+                                        <h5>@Html.RouteLink(session.title, "SessionDetail", new { conferenceSlug = Model.slug, sessionSlug = session.slug }, null)</h5>
+                                        @session.room
+                                    </td>
+                                    <td>
+                                        @foreach (var speaker in session.speakers)
+                                        {
+                                            @Html.RouteLink(speaker.fullName, "SessionSpeakerDetail", new { conferenceSlug = Model.slug, speakerSlug = speaker.slug }, null)<br />
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
             </div>
-            <!--/container-->
-            <!--=== End Content Part ===-->
-            @section scripts {
-                changeMenuActive('menuConferences');
-            }
+
+        }
+    </div>
+
+</div>
+<!--/container-->
+<!--=== End Content Part ===-->
+@section scripts {
+    changeMenuActive('menuConferences');
+
+    $(function () {
+    $("#addToSchedule").on("click", function() {
+    $('#addToScheduleForm').submit();
+    });
+    });
+}

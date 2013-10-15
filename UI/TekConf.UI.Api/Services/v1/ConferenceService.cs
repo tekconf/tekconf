@@ -31,7 +31,7 @@ namespace TekConf.UI.Api.Services.v1
 
 		public object Get(Conference request)
 		{
-			var cacheKey = "GetFullSingleConference-" + request.conferenceSlug;
+			var cacheKey = "GetFullSingleConference-" + request.conferenceSlug + "-" + request.userName;
 			var expireInTimespan = new TimeSpan(0, 0, this._entityConfiguration.cacheTimeout);
 
 			return base.RequestContext.ToOptimizedResultUsingCache(this.CacheClient, cacheKey, expireInTimespan, () =>
@@ -57,14 +57,18 @@ namespace TekConf.UI.Api.Services.v1
 											.FirstOrDefault(x => x.UserName == request.userName);
 					if (schedule.IsNotNull())
 					{
-						foreach (var sessionSlug in schedule.SessionSlugs)
-						{
-							var session = conferenceDto.sessions.FirstOrDefault(x => x.slug == sessionSlug);
-							if (session.IsNotNull())
-							{
-								session.isAddedToSchedule = true;
-							}
-						}
+					    conferenceDto.isAddedToSchedule = true;
+					    if (schedule != null)
+					    {
+					        foreach (var sessionSlug in schedule.SessionSlugs)
+					        {
+					            var session = conferenceDto.sessions.FirstOrDefault(x => x.slug == sessionSlug);
+					            if (session.IsNotNull())
+					            {
+					                session.isAddedToSchedule = true;
+					            }
+					        }
+					    }
 					}
 				}
 				return conferenceDto;
