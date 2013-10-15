@@ -120,6 +120,7 @@ namespace TekConf.UI.Android
 			TekConf.Core.Droid.Resource.Layout.dialog_textarea = TekConf.UI.Android.Resource.Layout.dialog_textarea;
 			TekConf.Core.Droid.Resource.Layout.dialog_textfieldbelow = TekConf.UI.Android.Resource.Layout.dialog_textfieldbelow;
 			TekConf.Core.Droid.Resource.Layout.dialog_textfieldright = TekConf.UI.Android.Resource.Layout.dialog_textfieldright;
+			TekConf.Core.Droid.Resource.Layout.FirstView = TekConf.UI.Android.Resource.Layout.FirstView;
 			TekConf.Core.Droid.Resource.Layout.SplashScreen = TekConf.UI.Android.Resource.Layout.SplashScreen;
 			TekConf.Core.Droid.Resource.String.ApplicationName = TekConf.UI.Android.Resource.String.ApplicationName;
 			TekConf.Core.Droid.Resource.String.Hello = TekConf.UI.Android.Resource.String.Hello;
@@ -518,22 +519,25 @@ namespace TekConf.UI.Android
 			public const int dialog_textfieldright = 2130903064;
 			
 			// aapt resource value: 0x7f030019
-			public const int Item_Conference = 2130903065;
+			public const int FirstView = 2130903065;
 			
 			// aapt resource value: 0x7f03001a
-			public const int Item_Session = 2130903066;
+			public const int Item_Conference = 2130903066;
 			
 			// aapt resource value: 0x7f03001b
-			public const int SessionDetailView = 2130903067;
+			public const int Item_Session = 2130903067;
 			
 			// aapt resource value: 0x7f03001c
-			public const int SettingsView = 2130903068;
+			public const int SessionDetailView = 2130903068;
 			
 			// aapt resource value: 0x7f03001d
-			public const int SpinnerItem = 2130903069;
+			public const int SettingsView = 2130903069;
 			
 			// aapt resource value: 0x7f03001e
-			public const int SplashScreen = 2130903070;
+			public const int SpinnerItem = 2130903070;
+			
+			// aapt resource value: 0x7f03001f
+			public const int SplashScreen = 2130903071;
 			
 			static Layout()
 			{

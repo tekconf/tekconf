@@ -217,7 +217,10 @@ namespace TekConf.Core.Droid
 			public static int dialog_textfieldright = 2130903061;
 			
 			// aapt resource value: 0x7f030016
-			public static int SplashScreen = 2130903062;
+			public static int FirstView = 2130903062;
+			
+			// aapt resource value: 0x7f030017
+			public static int SplashScreen = 2130903063;
 			
 			static Layout()
 			{
