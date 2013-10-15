@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="Importers\AlohaRubyConfImporter.cs" />
     <Compile Include="Importers\CodeMash2013Importer.cs" />
+    <Compile Include="Importers\CodeMash2014Importer.cs" />
     <Compile Include="Importers\OneDevDayDetroitImporter.cs" />
     <Compile Include="Importers\CodeStockImporter.cs" />
     <Compile Include="Helpers.cs" />

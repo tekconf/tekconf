@@ -28,6 +28,10 @@ namespace TekConf.Common.Entities
 		private readonly List<SessionStartDateChangedMessage> _sessionStartDateChangedMessages;
 		private readonly List<SessionEndDateChangedMessage> _sessionEndDateChangedMessages;
 
+		public ConferenceEntity() : this(new TinyMessengerHub(), new ConferenceRepository(new EntityConfiguration()))
+		{
+			
+		}
 		public ConferenceEntity(ITinyMessengerHub hub, IConferenceRepository repository)
 		{
 			_hub = hub;
