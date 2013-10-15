@@ -282,4 +282,49 @@
     $('#addToScheduleForm').submit();
     });
     });
+    
+$(function () {
+			$(document).on("click", "#showHideMySessions", function (e) {
+				e.preventDefault();
+
+				$('td.unscheduled').parent().toggle();
+			});
+		});
+
+		function toggleSessionOnSchedule(conferenceSlug, sessionSlug, element) {
+			if ($(element).hasClass("icon-star")) {
+				removeSessionFromSchedule(conferenceSlug, sessionSlug, element);
+			} else if ($(element).hasClass("icon-star-empty")) {
+				addSessionToSchedule(conferenceSlug, sessionSlug, element);
+			}
+		}
+
+		function removeSessionFromSchedule(conferenceSlug, sessionSlug, element) {
+			$(element).removeClass("icon-star").removeClass("icon-selected").addClass("icon-exchange");
+			$(element).parent().removeClass("scheduled").addClass("unscheduled");
+
+			var jqxhr = $.post("@Url.Action("Delete", "Schedule")", { conferenceSlug: conferenceSlug, sessionSlug: sessionSlug }, function () {
+			})
+				.done(function () {
+					$(element).removeClass("icon-star").removeClass("icon-selected").removeClass("icon-exchange").addClass("icon-star-empty");
+				})
+				.fail(function () { alert("error"); })
+				.always(function () {
+					$(element).removeClass("icon-exchange");
+				});
+		}
+
+		function addSessionToSchedule(conferenceSlug, sessionSlug, element) {
+			$(element).removeClass("icon-star-empty").addClass("icon-exchange");
+			$(element).parent().removeClass("unscheduled").addClass("scheduled");
+			var jqxhr = $.post("@Url.Action("Add", "Schedule")", { conferenceSlug: conferenceSlug, sessionSlug: sessionSlug }, function () {
+			})
+				.done(function () {
+					$(element).removeClass("icon-star-empty").removeClass("icon-exchange").addClass("icon-star").addClass("icon-selected");
+				})
+				.fail(function () { alert("error"); })
+				.always(function () {
+					$(element).removeClass("icon-exchange");
+				});
+		}
 }
