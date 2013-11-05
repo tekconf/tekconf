@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Common.Logging.Log4Net</id>
     <version>2.0.1</version>
@@ -16,8 +16,5 @@
       <dependency id="Common.Logging" version="2.0.0" />
       <dependency id="log4net" version="[1.2.10]" />
     </dependencies>
-    <references>
-      <reference file="Common.Logging.Log4Net.dll" />
-    </references>
   </metadata>
 </package>

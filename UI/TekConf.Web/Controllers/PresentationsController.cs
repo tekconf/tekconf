@@ -86,10 +86,10 @@ namespace TekConf.Web.Controllers
 				presentation.imageUrl = imageSaver.SaveImage(presentation.Slug + Path.GetExtension(file.FileName), file);
 			}
 
-			if (Request.Form["hidden-tags"] != null)
-				presentation.Tags = Request.Form["hidden-tags"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
-			if (Request.Form["hidden-subjects"] != null)
-				presentation.Subjects = Request.Form["hidden-subjects"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+			if (Request.Form["tags"] != null)
+				presentation.Tags = Request.Form["tags"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+			if (Request.Form["subjects"] != null)
+				presentation.Subjects = Request.Form["subjects"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
 
 
 			var response = await _remoteDataRepository.CreatePresentation(presentation, presentation.UserName, "password");

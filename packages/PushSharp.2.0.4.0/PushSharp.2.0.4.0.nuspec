@@ -35,7 +35,7 @@ This release will have breaking changes, please see the project site's README fo
  - Various other bugfixes</releaseNotes>
     <copyright>2012 Redth</copyright>
     <language>en-US</language>
-    <tags>APN, APNS, GCM, C2DM, PAP, iOS, Android, iPad, iPhone, Push, Push Notifications, Google Cloud, Cloud Messaging, OSX, Mac, Windows 8, Windows, Desktop, WP8, WP7, WindowsPhone, Phone, Phone 7, Mango, PassKit</tags>
+    <tags>APN APNS GCM C2DM PAP iOS Android iPad iPhone Push Push Notifications Google Cloud Cloud Messaging OSX Mac Windows 8 Windows Desktop WP8 WP7 WindowsPhone Phone Phone 7 Mango PassKit</tags>
     <dependencies>
       <dependency id="Newtonsoft.Json" version="4.5.10" />
     </dependencies>

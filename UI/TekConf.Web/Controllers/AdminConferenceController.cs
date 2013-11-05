@@ -40,17 +40,17 @@ namespace TekConf.Web.Controllers
 		[HttpPost]
 		public async Task<ActionResult> CreateConference(CreateConference conference, HttpPostedFileBase file)
 		{
-			if (Request.Form["hidden-tags"] != null)
-				conference.tags = Request.Form["hidden-tags"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+			if (Request.Form["tags"] != null)
+				conference.tags = Request.Form["tags"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
 
-			if (Request.Form["hidden-sessionTypes"] != null)
-				conference.sessionTypes = Request.Form["hidden-sessionTypes"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+			if (Request.Form["sessionTypes"] != null)
+				conference.sessionTypes = Request.Form["sessionTypes"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
 
-			if (Request.Form["hidden-subjects"] != null)
-				conference.subjects = Request.Form["hidden-subjects"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+			if (Request.Form["subjects"] != null)
+				conference.subjects = Request.Form["subjects"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
 
-			if (Request.Form["hidden-rooms"] != null)
-				conference.rooms = Request.Form["hidden-rooms"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+			if (Request.Form["rooms"] != null)
+				conference.rooms = Request.Form["rooms"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
 
 			string url = string.Empty;
 
@@ -98,15 +98,15 @@ namespace TekConf.Web.Controllers
 		[HttpPost]
 		public async Task<ActionResult> EditConf(CreateConference conference, HttpPostedFileBase file)
 		{
-			if (Request.Form["hidden-tags"] != null)
-				conference.tags = Request.Form["hidden-tags"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
-			if (Request.Form["hidden-subjects"] != null)
-				conference.subjects = Request.Form["hidden-subjects"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
-			if (Request.Form["hidden-sessionTypes"] != null)
-				conference.sessionTypes = Request.Form["hidden-sessionTypes"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+			if (Request.Form["tags"] != null)
+				conference.tags = Request.Form["tags"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+			if (Request.Form["subjects"] != null)
+				conference.subjects = Request.Form["subjects"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+			if (Request.Form["sessionTypes"] != null)
+				conference.sessionTypes = Request.Form["sessionTypes"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
 
-			if (Request.Form["hidden-rooms"] != null)
-				conference.rooms = Request.Form["hidden-rooms"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+			if (Request.Form["rooms"] != null)
+				conference.rooms = Request.Form["rooms"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
 
 			if (file != null)
 			{

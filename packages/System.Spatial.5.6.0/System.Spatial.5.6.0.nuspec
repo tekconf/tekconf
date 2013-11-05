@@ -52,6 +52,8 @@ Bug Fixes
 Known Issues
 
 The NuGet runtime in Visual Studio needs to be 2.0+ for Add Service Reference to work properly. If you are having issues with Add Service Reference in Visual Studio 2012, please ensure that NuGet is up-to-date.</releaseNotes>
+    <copyright />
+    <language />
     <tags>wcf data services odata odatalib edmlib spatial ado.net ef entity framework open protocol wcfds wcfdataservices dataservices</tags>
   </metadata>
 </package>

@@ -2,6 +2,10 @@
 @using System.Web.Optimization
 @model TekConf.UI.Api.Services.Requests.v1.CreateConference
 
+@section head {
+	<link rel="stylesheet" href="~/Scripts/tagmanager.css">
+}
+
 
 	<div id="subheader">
 		<div class="inner">
@@ -165,7 +169,8 @@
 }
 
 @section scriptLinks {
-    <script src="~/Scripts/tagmanager.js"></script>
+	<script src="~/Scripts/tagmanager.js"></script>
+
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfKB0w0b8p2f5UHY7k03wOp6BY20nB1VQ&sensor=false"></script>
 
     <script>
@@ -176,6 +181,23 @@
             $(".subjectTagManager").tagsManager();
             $(".roomTagManager").tagsManager();
             $(".sessionTypeTagManager").tagsManager();
+
+						@foreach (var tagList in Model.tags)
+            {
+	            foreach (var tag in tagList)
+	            {
+		            <text>$(".tagTagManager").tagsManager('pushTag', '@tag');</text>
+	            }
+            }
+
+						@foreach (var subjectList in Model.subjects)
+						{
+							foreach (var subject in subjectList.Split(','))
+							{
+								<text>$(".subjectTagManager").tagsManager('pushTag', '@subject');</text>
+							}
+						}
+            
 
             geocoder = new google.maps.Geocoder();
 

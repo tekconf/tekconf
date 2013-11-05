@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Argotic.Core</id>
     <version>2008.0.2.0</version>
@@ -15,8 +15,5 @@
       <dependency id="Argotic.Common" version="2008.0.2.0" />
       <dependency id="Argotic.Extensions" version="2008.0.2.0" />
     </dependencies>
-    <references>
-      <reference file="Argotic.Core.dll" />
-    </references>
   </metadata>
 </package>

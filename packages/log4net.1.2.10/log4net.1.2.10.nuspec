@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>log4net</id>
     <version>1.2.10</version>
@@ -9,8 +9,5 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>log4net is a tool to help the programmer output log statements to a variety of output targets. log4net is a port of the excellent log4j framework to the .NET runtime</description>
     <summary>log4net is a tool to help the programmer output log statements to a variety of output targets. log4net is a port of the excellent log4j framework to the .NET runtime</summary>
-    <references>
-      <reference file="log4net.dll" />
-    </references>
   </metadata>
 </package>

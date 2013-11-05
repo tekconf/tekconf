@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>AutoFixture.AutoFakeItEasy</id>
     <version>3.0.8</version>
@@ -12,15 +12,10 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>This extension turns AutoFixture into an Auto-Mocking Container. The mock instances are created by FakeItEasy. To use it, add the AutoFakeItEasyCustomization to your Fixture instance. Read more at http://autofixture.codeplex.com/</description>
     <summary>Turns AutoFixture into an Auto-Mocking Container based on FakeItEasy.</summary>
-    <releaseNotes />
-    <copyright />
     <language>en-US</language>
     <dependencies>
       <dependency id="autofixture" version="3.0.8" />
       <dependency id="FakeItEasy" version="1.7" />
     </dependencies>
-    <references>
-      <reference file="Ploeh.AutoFixture.AutoFakeItEasy.dll" />
-    </references>
   </metadata>
 </package>

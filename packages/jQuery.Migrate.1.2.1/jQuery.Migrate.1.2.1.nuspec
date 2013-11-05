@@ -11,6 +11,8 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Migrate older jQuery code to jQuery 1.9+
         NOTE: This package is maintained on behalf of the library owners by the NuGet Community Packages project at http://nugetpackages.codeplex.com/</description>
+    <releaseNotes />
+    <copyright />
     <language>en-US</language>
     <tags>jQuery</tags>
     <dependencies>

@@ -58,11 +58,11 @@ namespace TekConf.Web.Controllers
 		[HttpPost]
 		public async Task<ActionResult> AddSessionToConferenceAsync(AddSession session)
 		{
-			if (Request.Form["hidden-tags"] != null)
-				session.tags = Request.Form["hidden-tags"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+			if (Request.Form["tags"] != null)
+				session.tags = Request.Form["tags"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
 
-			if (Request.Form["hidden-subjects"] != null)
-				session.subjects = Request.Form["hidden-subjects"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+			if (Request.Form["subjects"] != null)
+				session.subjects = Request.Form["subjects"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
 			
 			var response = await _remoteDataRepository.AddSessionToConference(session, "user", "password");
 			return RedirectToRoute("AdminAddSpeaker", new { conferenceSlug = session.conferenceSlug, sessionSlug = session.slug });
@@ -105,8 +105,8 @@ namespace TekConf.Web.Controllers
 		[HttpPost]
 		public async Task<ActionResult> EditSessionInConference(AddSession request)
 		{
-			if (Request.Form["hidden-tags"] != null)
-				request.tags = Request.Form["hidden-tags"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+			if (Request.Form["tags"] != null)
+				request.tags = Request.Form["tags"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
 			if (Request.Form["hidden-subjects"] != null)
 				request.subjects = Request.Form["hidden-subjects"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
 
