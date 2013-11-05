@@ -64,7 +64,7 @@ namespace TekConf.Web
 			container.Register<IRepository<SessionAddedToScheduleMessage>>(new GenericRepository<SessionAddedToScheduleMessage>(entityConfiguration));
 			container.Register<IEmailSender>(new EmailSender(container.Resolve<IEntityConfiguration>()));
 			container.Register<ICacheClient>(new MemoryCacheClient());
-			container.Register<AuthenticationIdentityManager>(c => new AuthenticationIdentityManager(new IdentityStore())).ReusedWithin(ReuseScope.Request);
+			//container.Register<AuthenticationIdentityManager>(c => new AuthenticationIdentityManager(new IdentityStore())).ReusedWithin(ReuseScope.Request);
 				
 			var hub = new TinyMessengerHub();
 			container.Register<ITinyMessengerHub>(hub);

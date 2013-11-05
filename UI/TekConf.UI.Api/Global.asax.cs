@@ -9,7 +9,7 @@ namespace TekConf.UI.Api
 	{
 		void Application_Start(object sender, EventArgs e)
 		{
-			RouteTable.Routes.MapHubs();
+			//RouteTable.Routes.MapHubs();
 			new AppHost().Init();
 		}
 

@@ -19,7 +19,7 @@ namespace TekConf.Web
 
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new RazorViewEngine());
-            RouteTable.Routes.MapHubs();
+            //RouteTable.Routes.MapHubs();
 
             //AreaRegistration.RegisterAllAreas();
 
