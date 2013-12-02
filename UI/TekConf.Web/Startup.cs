@@ -1,7 +1,8 @@
-﻿using Microsoft.Owin;
+﻿
+using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(TekConf.Web.Startup))]
+[assembly: OwinStartup("WebStartup", typeof(TekConf.Web.Startup))]
 namespace TekConf.Web
 {
     public partial class Startup 
@@ -9,6 +10,7 @@ namespace TekConf.Web
         public void Configuration(IAppBuilder app) 
         {
             //ConfigureAuth(app);
+            app.MapSignalR();
         }
     }
 }

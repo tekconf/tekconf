@@ -18,6 +18,7 @@ namespace TekConf.UI.Api
 
 	using TekConf.Common.Entities.Repositories;
 
+
 	public class CustomUserSession : AuthUserSession
 	{
 		public string CustomProperty { get; set; }
