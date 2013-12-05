@@ -123,7 +123,6 @@ namespace TekConf.UI.Api.Services.v1
 
 				entity.TrimAllProperties();
 				conference.AddSpeakerToSession(session.slug, entity);
-
 				conference.Save();
 				this.CacheClient.FlushAll();
 
@@ -163,7 +162,6 @@ namespace TekConf.UI.Api.Services.v1
 					Mapper.Map<CreateSpeaker, SpeakerEntity>(request, speakerEntity);
 					lastSpeakerEntity = speakerEntity;
 				}
-
 
 				conference.Save();
 				var speakerDto = Mapper.Map<SpeakerEntity, FullSpeakerDto>(lastSpeakerEntity);

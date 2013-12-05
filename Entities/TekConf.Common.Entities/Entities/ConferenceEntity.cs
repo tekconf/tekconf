@@ -102,6 +102,8 @@ namespace TekConf.Common.Entities
 		public DateTime registrationOpens { get; set; }
 		public DateTime registrationCloses { get; set; }
 		public DateTime dateAdded { get; set; }
+        public DateTime lastUpdated { get; set; }
+
 		private string _location;
 		public string location
 		{
@@ -311,6 +313,8 @@ namespace TekConf.Common.Entities
 				dateAdded = DateTime.Now;
 				isSaved = true;
 			}
+            lastUpdated = DateTime.Now;
+
 			slug = name.GenerateSlug();
 			_repository.Save(this);
 

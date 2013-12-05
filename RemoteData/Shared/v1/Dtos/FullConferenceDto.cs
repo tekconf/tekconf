@@ -16,6 +16,7 @@ namespace TekConf.RemoteData.Dtos.v1
 		public DateTime callForSpeakersCloses { get; set; }
 		public DateTime registrationOpens { get; set; }
 		public DateTime registrationCloses { get; set; }
+        public DateTime lastUpdated { get; set; }
 		public string description { get; set; }
 		public string location { get; set; }
 		public AddressDto address { get; set; }
