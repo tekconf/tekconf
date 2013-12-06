@@ -17,11 +17,6 @@ using TinyMessenger;
 
 namespace TekConf.Web
 {
-	using Funq;
-
-	using Microsoft.AspNet.Identity.EntityFramework;
-	using Microsoft.AspNet.Identity.Owin;
-
 	public class AppHost : AppHostBase
 	{
 		public AppHost()
