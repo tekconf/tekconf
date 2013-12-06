@@ -80,9 +80,7 @@ namespace TekConf.Web.Controllers
 			}
 
 			
-
 			return View(conferencesDtos);
-
 		}
 
 		[CompressFilter]

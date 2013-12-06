@@ -11,7 +11,7 @@ using TekConf.UI.Api.Services.Requests.v1;
 
 namespace TekConf.Web.Controllers
 {
-	[Authorize]
+	//[Authorize]
 	public class AdminSessionController : AsyncController
 	{
 		private readonly IRemoteDataRepository _remoteDataRepository;

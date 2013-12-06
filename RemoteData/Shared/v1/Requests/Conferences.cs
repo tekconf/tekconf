@@ -244,6 +244,5 @@ namespace TekConf.UI.Api.Services.Requests.v1
 
 		[ApiMember(Name = "sessionTypes", Description = "XXXX", ParameterType = "query", DataType = "string", IsRequired = false)]
 		public List<string> sessionTypes { get; set; }
-
 	}
 }

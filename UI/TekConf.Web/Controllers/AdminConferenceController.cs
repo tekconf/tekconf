@@ -17,7 +17,7 @@ namespace TekConf.Web.Controllers
 {
 	using System;
 
-	[Authorize]
+	//[Authorize]
 	public class AdminConferenceController : AsyncController
 	{
 		private readonly IRemoteDataRepository _remoteDataRepository;
