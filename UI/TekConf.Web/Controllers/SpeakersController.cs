@@ -11,17 +11,21 @@ using TekConf.Web.ViewModels;
 
 namespace TekConf.Web.Controllers
 {
+    using AutoMapper;
     using System.Text.RegularExpressions;
-
+    using TekConf.Common.Entities;
     using TekConf.RemoteData.v1;
 
 	public class SpeakersController : Controller
 	{
 		private readonly IRemoteDataRepository _remoteDataRepository;
+        private readonly IConferenceRepository _conferenceRepository;
 
-		public SpeakersController(IRemoteDataRepository remoteDataRepository)
+		public SpeakersController(IRemoteDataRepository remoteDataRepository,
+            IConferenceRepository conferenceRepository)
 		{
 			_remoteDataRepository = remoteDataRepository;
+            _conferenceRepository = conferenceRepository;
 		}
 
 		[CompressFilter]
@@ -53,7 +57,17 @@ namespace TekConf.Web.Controllers
 			
 
 			var openCallConferences = openCallsConferencesTask.Result == null ? new List<FullConferenceDto>() : openCallsConferencesTask.Result.ToList();
-		
+
+            IList<FullConferenceDto> newestConferences = null;
+            var getNewestConferencesTask = Task.Factory.StartNew(() =>
+            {
+                var nconferences = _conferenceRepository.GetNewestConferences();
+
+                newestConferences = Mapper.Map<List<FullConferenceDto>>(nconferences);
+            });
+            await getNewestConferencesTask;
+            ViewBag.NewestConferences = newestConferences;
+
 			var vm = new SpeakersViewModel()
 			{
 				OpenConferences = openCallConferences.OrderBy(x => x.callForSpeakersCloses).ToList(),
