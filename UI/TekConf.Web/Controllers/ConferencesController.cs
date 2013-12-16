@@ -68,6 +68,16 @@ namespace TekConf.Web.Controllers
 
 			var conferencesDtos = Mapper.Map<List<FullConferenceDto>>(conferences);
 
+            IList<FullConferenceDto> newestConferences = null;
+            var getNewestConferencesTask = Task.Factory.StartNew(() =>
+            {
+                var nconferences = _conferenceRepository.GetNewestConferences();
+
+                newestConferences = Mapper.Map<List<FullConferenceDto>>(nconferences);            
+            });
+            await getNewestConferencesTask;
+            ViewBag.NewestConferences = newestConferences;
+
 			string userName = string.Empty;
 			if (Request.IsAuthenticated)
 			{
