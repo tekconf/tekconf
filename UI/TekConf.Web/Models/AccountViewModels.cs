@@ -2,11 +2,23 @@
 
 namespace TekConf.Web.Models 
 {
+
+
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
         [Display(Name = "User name")]
         public string UserName { get; set; }
+    }
+
+    public class ExternalLoginViewModel
+    {
+        [Display(Name = "ReturnUrl")]
+        public string ReturnUrl { get; set; }
+
+        [Required]
+        [Display(Name = "Action")]
+        public string Action { get; set; }
     }
 
     public class ManageUserViewModel

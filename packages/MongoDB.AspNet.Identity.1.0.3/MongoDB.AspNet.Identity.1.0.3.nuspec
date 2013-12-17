@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>MongoDB.AspNet.Identity</id>
+    <version>1.0.3</version>
+    <title>MongoDB.AspNet.Identity</title>
+    <authors>Jonathan Sheely</authors>
+    <owners>Jonathan Sheely</owners>
+    <licenseUrl>https://raw.github.com/InspectorIT/MongoDB.AspNet.Identity/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/InspectorIT/MongoDB.AspNet.Identity</projectUrl>
+    <iconUrl>https://1.gravatar.com/avatar/c57d7335319e90f0af4e1b4921474134?d=https:%2F%2Fidenticons.github.com%2F3c8206f87dafd32ec6dd9a6a9355e614.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>ASP.NET MVC 5 shipped with a new Identity system (in the Microsoft.AspNet.Identity.Core package) in order to support both local login and remote logins via OpenID/OAuth, but only ships with an Entity Framework provider (Microsoft.AspNet.Identity.EntityFramework). 
+
+MongoDB.AspNet.Identity is a MongoDB backend provider that is a nearly in place replacement for the EF version.</description>
+    <summary>ASP.NET Identity provider that users MongoDB for storage</summary>
+    <releaseNotes>Version 1.0.3
+- Removed the need for a separate AspNetUserLogins. Logins are now sub documents of AspNetUsers
+
+Version 1.0.2
+- Fixed missing implemention on UpdateAsync</releaseNotes>
+    <copyright>2013</copyright>
+    <language>en-US</language>
+    <tags>mongodb identity mvc5</tags>
+    <dependencies>
+      <group targetFramework=".NETFramework4.5">
+        <dependency id="Microsoft.AspNet.Identity.Core" version="1.0.0" />
+        <dependency id="mongocsharpdriver" version="1.8.3" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>
