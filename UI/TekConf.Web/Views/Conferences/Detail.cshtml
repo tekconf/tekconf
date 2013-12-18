@@ -285,11 +285,13 @@
 	changeMenuActive('menuConferences');
 
 	$(function () {
-	$("#addToSchedule").on("click", function() {
-	$('#addToScheduleForm').submit();
-	});
-	});
-
+	    $("#addToSchedule").on("click", function() {
+            var jqxhr = $.post("@Url.Action("Add", "Schedule")", { conferenceSlug: '@Model.slug', sessionSlug: null }, 
+                function () {
+                 $('#addToSchedule').hide();
+                }).fail(function () { alert("error"); })
+	    });
+    });
 	$(function () {
 	$(document).on("click", "#showHideMySessions", function (e) {
 	e.preventDefault();
