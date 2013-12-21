@@ -14,6 +14,7 @@
 <!--=== Content Part ===-->
 <div class="container portfolio-item">
 	<div class="row-fluid margin-bottom-20">
+
 		<!-- Carousel -->
 		<div class="span7">
 			<div id="myCarousel" class="carousel slide">
@@ -161,12 +162,20 @@
 					if (!Model.isAddedToSchedule.HasValue || !Model.isAddedToSchedule.Value)
 					{
 						<p><a href="#" id="addToSchedule" class="btn-u btn-u-large btn-u-green" style="width: 100%;">Add to Schedule</a></p>
-
+                        <p><a href="#" id="removeFromSchedule" class="btn-u btn-u-large btn-u-green" style="width: 100%;display:none">Remove From Schedule</a></p>
 					}
+                    else
+                    {
+						<p><a href="#" id="addToSchedule" class="btn-u btn-u-large btn-u-green" style="width: 100%; display: none">Add to Schedule</a></p>
+                        <p><a href="#" id="removeFromSchedule" class="btn-u btn-u-large btn-u-green" style="width: 100%;">Remove From Schedule</a></p>                        
+                    }
 				}
 			}
 
 		</div>
+        <div id="dialog-confirm" title="Remove conference from schedule?">
+        </div>
+
 	</div>
 	<!--/row-fluid-->
 
@@ -289,9 +298,38 @@
             var jqxhr = $.post("@Url.Action("Add", "Schedule")", { conferenceSlug: '@Model.slug', sessionSlug: null }, 
                 function () {
                  $('#addToSchedule').hide();
+                 $('#removeFromSchedule').show();
                 }).fail(function () { alert("error"); })
 	    });
+
+    $("#removeFromSchedule").on("click", function() {
+        document.getElementById('dialog-confirm').innerHTML = "Remove @Model.slug from your schedule?";
+        $("#dialog-confirm").dialog({
+        resizable: false,
+        height: 240,
+        modal: true,
+        autoOpen: true,
+        closeText: "X",
+        buttons: {
+        "Remove": function () {
+        $(this).dialog("close");
+        var jqxhr = $.post("@Url.Action("Delete", "Schedule")", { conferenceSlug: '@Model.slug', sessionSlug: null },
+        function () {
+         $('#removeFromSchedule').hide();    
+         $('#addToSchedule').show();
+        
+        }).fail(function () { alert("error"); })
+        },
+        Cancel: function () {
+        $(this).dialog("close");
+        }
+        }
+        });
+        });
+
+
     });
+
 	$(function () {
 	$(document).on("click", "#showHideMySessions", function (e) {
 	e.preventDefault();
