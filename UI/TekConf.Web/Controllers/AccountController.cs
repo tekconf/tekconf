@@ -301,6 +301,7 @@ namespace TekConf.Web.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut();
+						Session["admin"] = null;
             return RedirectToAction("Index", "Home");
         }
 
