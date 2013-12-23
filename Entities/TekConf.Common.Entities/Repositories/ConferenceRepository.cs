@@ -105,6 +105,7 @@ namespace TekConf.Common.Entities
 
 		public void Save(ConferenceEntity entity)
 		{
+			entity.lastUpdated = DateTime.Now;
 			var collection = MongoCollection();
 			collection.Save(entity);
 		}
