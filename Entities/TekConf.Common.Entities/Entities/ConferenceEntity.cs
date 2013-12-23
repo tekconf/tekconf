@@ -147,6 +147,7 @@ namespace TekConf.Common.Entities
 			set { _homepageUrl = value.IsNullOrWhiteSpace() ? value : value.Trim(); }
 		}
 
+		public DateTime lastUpdated { get; set; }
 		public string lanyrdUrl
 		{
 			get { return _lanyrdUrl; }
@@ -410,6 +411,7 @@ namespace TekConf.Common.Entities
 		public void Publish()
 		{
 			this.datePublished = DateTime.Now;
+			this.lastUpdated = DateTime.Now;
 			this.isLive = true;
 
 			_conferencePublishedMessages.Add(new ConferencePublishedMessage() { ConferenceName = this.name, ConferenceSlug = this.slug });
