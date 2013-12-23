@@ -1,4 +1,6 @@
-﻿namespace TekConf.Web.Controllers
+﻿using System;
+
+namespace TekConf.Web.Controllers
 {
 	public class ConferencesFilter
 	{
@@ -8,13 +10,14 @@
 		public bool showOnlyOnSale { get; set; }
 		public string viewAs { get; set; }
 		public string search { get; set; }
-
 		public string city { get; set; }
 		public string state { get; set; }
 		public string country { get; set; }
 		public double? latitude { get; set; }
 		public double? longitude { get; set; }
 		public double? distance { get; set; }
+		public DateTime? start { get; set; }
+		public DateTime? end { get; set; }
 
 	}
 }

@@ -108,6 +108,12 @@ namespace TekConf.UI.Api.Services.Requests.v1
 
 		[ApiMember(Name = "country", Description = "Search for conferences near a city/state/country. Defaults distance to 100 miles.", ParameterType = "query", DataType = "string", IsRequired = false)]
 		public string country { get; set; }
+
+		[ApiMember(Name = "start", Description = "Search for conferences which start after a given date", ParameterType = "query", DataType = "DateTime", IsRequired = false)]
+		public DateTime? start { get; set; }
+
+		[ApiMember(Name = "end", Description = "Search for conferences which end before a given date", ParameterType = "query", DataType = "DateTime", IsRequired = false)]
+		public DateTime? end { get; set; }
 	}
 
 	[Route("/v1/conferences/{conferenceSlug}", "GET")]

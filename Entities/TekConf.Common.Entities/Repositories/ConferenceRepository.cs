@@ -156,12 +156,12 @@ namespace TekConf.Common.Entities
 			var hs = new HashSet<ConferenceEntity>(onlineConferences, new ConferenceComparer());
 			if (conferences != null)
 				hs.UnionWith(conferences);
-			
+
 			var merged = hs.ToList();
 			return merged;
 		}
 
-		public IEnumerable<ConferenceEntity> GetConferences(string search, string sortBy, bool? showPastConferences, bool? showOnlyWithOpenCalls, bool? showOnlyOnSale, bool showOnlyFeatured, double? longitude, double? latitude, double? distance, string city, string state, string country)
+		public IEnumerable<ConferenceEntity> GetConferences(string search, string sortBy, bool? showPastConferences, bool? showOnlyWithOpenCalls, bool? showOnlyOnSale, bool showOnlyFeatured, double? longitude, double? latitude, double? distance, string city, string state, string country, DateTime? start, DateTime? end)
 		{
 			IEnumerable<ConferenceEntity> conferenceEntities = null;
 
@@ -176,7 +176,7 @@ namespace TekConf.Common.Entities
 																														longitude.Value,
 																														distance.Value);
 				var searchExpression = GetSearchTermSearchForInMemory(search);
-				conferenceEntities = BuildConferencesSearch(conferences.AsQueryable(), searchExpression, sortBy, search, showPastConferences, showOnlyWithOpenCalls, showOnlyOnSale);
+				conferenceEntities = BuildConferencesSearch(conferences.AsQueryable(), searchExpression, sortBy, search, showPastConferences, showOnlyWithOpenCalls, showOnlyOnSale, start, end);
 			}
 			else if (!string.IsNullOrWhiteSpace(city) && !string.IsNullOrWhiteSpace(state))
 			{
@@ -201,7 +201,7 @@ namespace TekConf.Common.Entities
 																											distance.Value);
 					var searchExpression = GetSearchTermSearchForInMemory(search);
 
-					conferenceEntities = BuildConferencesSearch(conferences.AsQueryable(), searchExpression, sortBy, search, showPastConferences, showOnlyWithOpenCalls, showOnlyOnSale);
+					conferenceEntities = BuildConferencesSearch(conferences.AsQueryable(), searchExpression, sortBy, search, showPastConferences, showOnlyWithOpenCalls, showOnlyOnSale, start, end);
 				}
 
 			}
@@ -209,7 +209,7 @@ namespace TekConf.Common.Entities
 			{
 				var searchExpression = GetSearchTermSearchForMongo(search);
 
-				conferenceEntities = BuildConferencesSearch(this.AsQueryable(), searchExpression, sortBy, search, showPastConferences, showOnlyWithOpenCalls, showOnlyOnSale);
+				conferenceEntities = BuildConferencesSearch(this.AsQueryable(), searchExpression, sortBy, search, showPastConferences, showOnlyWithOpenCalls, showOnlyOnSale, start, end);
 			}
 
 			return conferenceEntities;
@@ -305,12 +305,14 @@ namespace TekConf.Common.Entities
 			return searchBy;
 		}
 
-		private IEnumerable<ConferenceEntity> BuildConferencesSearch(IQueryable<ConferenceEntity> query, Expression<Func<ConferenceEntity, bool>> searchExpression, string sortBy, string searchTerm, bool? showPastConferences, bool? showOnlyWithOpenCalls, bool? showOnlyOnSale)
+		private IEnumerable<ConferenceEntity> BuildConferencesSearch(IQueryable<ConferenceEntity> query, Expression<Func<ConferenceEntity, bool>> searchExpression, string sortBy, string searchTerm, bool? showPastConferences, bool? showOnlyWithOpenCalls, bool? showOnlyOnSale, DateTime? start, DateTime? end)
 		{
 			var orderByFunc = GetOrderByFunc(sortBy);
 			var showPastConferencesExpression = GetShowPastConferences(showPastConferences);
 			var showOnlyOpenCallsExpression = GetShowOnlyOpenCalls(showOnlyWithOpenCalls);
 			var showOnlyOnSaleExpression = GetShowOnlyOnSale(showOnlyOnSale);
+			var startDateExpression = GetStartDate(start);
+			var endDateExpression = GetEndDate(end);
 
 			//var query = _conferenceRepository
 			//	.AsQueryable();
@@ -333,6 +335,16 @@ namespace TekConf.Common.Entities
 			if (showOnlyOnSaleExpression.IsNotNull())
 			{
 				query = query.Where(showOnlyOnSaleExpression);
+			}
+
+			if (start.HasValue)
+			{
+				query = query.Where(startDateExpression);
+			}
+
+			if (end.HasValue)
+			{
+				query = query.Where(endDateExpression);
 			}
 
 			query = query.Where(c => c.isLive);
@@ -396,6 +408,30 @@ namespace TekConf.Common.Entities
 			if (showOnlyOpenCalls.HasValue && showOnlyOpenCalls.Value)
 			{
 				searchBy = c => c.callForSpeakersOpens <= DateTime.Now.AddMonths(1) && c.callForSpeakersCloses >= DateTime.Now;
+			}
+
+			return searchBy;
+		}
+
+		private Expression<Func<ConferenceEntity, bool>> GetStartDate(DateTime? start)
+		{
+			Expression<Func<ConferenceEntity, bool>> searchBy = null;
+
+			if (start.HasValue)
+			{
+				searchBy = c => c.start >= start;
+			}
+
+			return searchBy;
+		}
+
+		private Expression<Func<ConferenceEntity, bool>> GetEndDate(DateTime? end)
+		{
+			Expression<Func<ConferenceEntity, bool>> searchBy = null;
+
+			if (end.HasValue)
+			{
+				searchBy = c => c.start <= end;
 			}
 
 			return searchBy;

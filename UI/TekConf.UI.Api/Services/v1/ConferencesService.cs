@@ -188,7 +188,9 @@ namespace TekConf.UI.Api.Services.v1
 																																																		request.distance,
 																																																		request.city,
 																																																		request.state,
-																																																		request.country);
+																																																		request.country,
+																																																		request.start,
+																																																		request.end);
 
 						var conferencesDtos = Mapper.Map<List<FullConferenceDto>>(conferenceEntities);
 						var schedules = _scheduleRepository.AsQueryable().Where(x => x.UserName == request.userName).ToList();

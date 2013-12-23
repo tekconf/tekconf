@@ -1,23 +1,23 @@
 ﻿@using System.Configuration
 @using System.Web.Optimization
 @using TekConf.Web.Controllers
-@model List<TekConf.RemoteData.Dtos.v1.FullConferenceDto>
-    <!--=== Breadcrumbs ===-->
-    <div class="breadcrumbs margin-bottom-50">
-        <div class="container">
-            <h1 class="color-green pull-left">@Model.Count.ToString() Conferences</h1>
+@using TekConf.RemoteData.Dtos.v1;
+@model List<FullConferenceDto>
+	<!--=== Breadcrumbs ===-->
+	<div class="breadcrumbs margin-bottom-50">
+		<div class="container">
+			<h1 class="color-green pull-left">@Model.Count.ToString() Conferences</h1>
 
-        </div><!--/container-->
-    </div><!--/breadcrumbs-->
-    <!--=== End Breadcrumbs ===-->
-    <!--=== Content Part ===-->
-
-<!--=== Content Part ===-->
-<div class="container">		
-	<div class="row-fluid">
-    	<div class="span3">
-		    <div class="who margin-bottom-30">
-									@using (Html.BeginForm("Index", "Conferences", FormMethod.Get))
+		</div><!--/container-->
+	</div><!--/breadcrumbs-->
+	<!--=== End Breadcrumbs ===-->
+	<!--=== Content Part ===-->
+	<!--=== Content Part ===-->
+	<div class="container">
+		<div class="row-fluid">
+			<div class="span3">
+				<div class="who margin-bottom-30">
+					@using (Html.BeginForm("Index", "Conferences", FormMethod.Get))
 									{
 										var views = new List<SelectListItem>()
 										{
@@ -53,44 +53,48 @@
 											viewAs.Selected = true;
 										}
 
-										<div class="headline"><h3>Search/Filter</h3></div>
-
-		
-											@Html.TextBox("search", filter.search, new { placeholder = "Search text", style="margin-bottom:20px;" })<br/>
-
-											<label>Sort By</label>
-											@Html.DropDownList("sortBy", sorts, new {@onchange = "this.form.submit();",  style="margin-bottom:5px;"})<br/>
-
-											@Html.TextBox("city", filter.city, new { placeholder = "City", style="margin-bottom:5px;" })<br/>
-											
-											@Html.TextBox("state", filter.state, new { placeholder = "2 Letter State", style="margin-bottom:5px;" })<br/>
-															
-											@Html.TextBox("country", filter.country, new { placeholder = "Country", style="margin-bottom:5px;" })<br/>
-																			     
-											@Html.TextBox("distance", filter.distance, new { placeholder = "Distance (in miles). Default: 25", style="margin-bottom:5px;" })<br/>
-           
-												
-											<label class="checkbox">
-												@Html.CheckBox("showPastConferences", filter.showPastConferences, new { @onchange = "this.form.submit();" }) Show Past Conferences?
-											</label>
-											<label class="checkbox">
-												@Html.CheckBox("showOnlyOpenCalls", filter.showOnlyOpenCalls, new { @onchange = "this.form.submit();" }) Show Only Open Calls?
-											</label>
-											<label class="checkbox">
-												@Html.CheckBox("showOnlyOnSale", filter.showOnlyOnSale, new { @onchange = "this.form.submit();" }) Show Only On Sale?
-											</label>
+						<div class="headline"><h3>Search/Filter</h3></div>
 
 
-											<button type="submit" class="btn-u">Filter</button><button type="button" class="btn-u btn-u-default" style="margin-left:100px;" onclick="window.location='Conferences';">Clear</button>
+						@Html.TextBox("search", filter.search, new { placeholder = "Search text", style="margin-bottom:5px;" })<br />
+
+						@Html.TextBox("start", filter.start, new { placeholder = "Start date", style="margin-bottom:5px;", type = "datetime" })<br />
+
+						@Html.TextBox("end", filter.end, new { placeholder = "End date", style="margin-bottom:5px;", type = "datetime" })<br />
+
+
+						@Html.TextBox("city", filter.city, new { placeholder = "City", style="margin-bottom:5px;" })<br />
+
+						@Html.TextBox("state", filter.state, new { placeholder = "2 Letter State", style="margin-bottom:5px;" })<br />
+
+						@Html.TextBox("country", filter.country, new { placeholder = "Country", style="margin-bottom:5px;" })<br />
+
+						@Html.TextBox("distance", filter.distance, new { placeholder = "Distance (in miles). Default: 25", style="margin-bottom:20px;" })<br />
+
+						<label>Sort By</label>
+						@Html.DropDownList("sortBy", sorts, new {@onchange = "this.form.submit();",  style="margin-bottom:5px;"})<br />
+
+						<label class="checkbox">
+							@Html.CheckBox("showPastConferences", filter.showPastConferences, new { @onchange = "this.form.submit();" }) Show Past Conferences?
+						</label>
+						<label class="checkbox">
+							@Html.CheckBox("showOnlyOpenCalls", filter.showOnlyOpenCalls, new { @onchange = "this.form.submit();" }) Show Only Open Calls?
+						</label>
+						<label class="checkbox">
+							@Html.CheckBox("showOnlyOnSale", filter.showOnlyOnSale, new { @onchange = "this.form.submit();" }) Show Only On Sale?
+						</label>
+
+
+						<button type="submit" class="btn-u">Filter</button><button type="button" class="btn-u btn-u-default" style="margin-left:100px;" onclick="window.location='Conferences';">Clear</button>
 
 									}
-					</div>
+				</div>
 
-        </div><!--/span3-->		
+			</div><!--/span3-->
 
-		<div class="span9">
-			<div class="row-fluid gallery">
-				@{
+			<div class="span9">
+				<div class="row-fluid gallery">
+					@{
 					var groups = Model.Count / 4;
 					for (int groupCounter = 0; groupCounter <= groups; groupCounter++)
 					{
@@ -114,21 +118,30 @@
 			 }
 						</ul><!--/thumbnails-->
 					}
-				}
+					}
 
-			</div><!--/row-fluid-->
-
-
+				</div><!--/row-fluid-->
 
 
-		</div><!--/span9-->
 
 
-	</div><!--/row-fluid-->        
+			</div><!--/span9-->
 
 
-</div><!--/container-->
-@section scripts {
-	changeMenuActive('menuConferences');
+		</div><!--/row-fluid-->
+
+
+	</div><!--/container-->
+	@section scripts {
+		changeMenuActive('menuConferences');
+	}
+@section scriptLinks {
+	<script>
+
+		$(function() {
+			$('#start').datepicker();
+			$('#end').datepicker();
+		});
+	</script>
 }
-<!--=== End Content Part ===-->
+	<!--=== End Content Part ===-->
