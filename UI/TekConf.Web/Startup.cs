@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
+using Owin.Security.Providers.Yahoo;
 
 [assembly: OwinStartup("WebStartup", typeof(TekConf.Web.Startup))]
 namespace TekConf.Web
@@ -34,6 +35,11 @@ namespace TekConf.Web
             app.UseFacebookAuthentication(
                     appId: "417883241605228",
                     appSecret: "c2df6f0a2ed2a01f6f0553b3e58ad715");
+
+	        app.UseYahooAuthentication(
+		        consumerKey:
+			        "dj0yJmk9QXpLck5Vc2ZQdnRUJmQ9WVdrOWRVNVRRVVpvTkhFbWNHbzlNVEEzT1RRMk5UTTJNZy0tJnM9Y29uc3VtZXJzZWNyZXQmeD1jMQ--",
+						consumerSecret: "224c0e0e5c3129e43b5c87273aa925a1ba089195");
 
             app.UseGoogleAuthentication();
         }
