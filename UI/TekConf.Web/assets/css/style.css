@@ -665,9 +665,9 @@ blockquote:hover {
 	float:left;
 }
 .posts .dl-horizontal dt img { 
-	width:72px; 
+	/*width:72px; 
 	height:50px; 
-	border:solid 3px #eee;
+	border:solid 3px #eee;*/
 }
 .posts .dl-horizontal dd { 
 	margin-left:66px;
