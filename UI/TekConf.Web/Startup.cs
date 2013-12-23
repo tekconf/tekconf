@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
+using Owin.Security.Providers.GitHub;
 using Owin.Security.Providers.LinkedIn;
 using Owin.Security.Providers.Yahoo;
 
@@ -43,6 +44,8 @@ namespace TekConf.Web
 				consumerSecret: "224c0e0e5c3129e43b5c87273aa925a1ba089195");
 
 			app.UseLinkedInAuthentication(clientId: "777d7tm6j83h3g", clientSecret: "qA05N3l3VldticeX");
+
+			app.UseGitHubAuthentication(clientId: "5173718457d21c487d19", clientSecret: "df237e7acbf23a144c88ab697450350d7dae9f08");
 
 			app.UseGoogleAuthentication();
 		}
