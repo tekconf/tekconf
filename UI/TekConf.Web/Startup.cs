@@ -23,9 +23,9 @@ namespace TekConf.Web
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
 
             // Uncomment the following lines to enable logging in with third party login providers
-            //app.UseMicrosoftAccountAuthentication(
-            //    clientId: "",
-            //    clientSecret: "");
+						app.UseMicrosoftAccountAuthentication(
+								clientId: "0000000040112827",
+								clientSecret: "dOusz11kRzfBWUShkNpbf465EPEbhRE5");
 
             app.UseTwitterAuthentication(
                     consumerKey: "3mYNb4Jt33Ttdgw4Q4Ppjw",
