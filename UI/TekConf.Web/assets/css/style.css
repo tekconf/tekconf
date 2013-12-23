@@ -1651,7 +1651,9 @@ a.btn-u-large {
 .btn-u-sea:hover {
 	background: #16a085 !important;
 }
-
+.btn-u-default {
+background: #95a5a6 !important;
+}
 .btn-u-green {
 	background: #2ecc71 !important;
 }

@@ -1238,8 +1238,6 @@
     <Content Include="Views\Shared-old\_Layout.cshtml" />
     <Content Include="Views\Shared-old\_LoginPartial.cshtml" />
     <Content Include="Views\Web-old.config" />
-    <Content Include="Views\Conferences\Index - Copy.cshtml" />
-    <Content Include="Views\Conferences\Copy of Detail.cshtml" />
     <Content Include="Views\Session\Copy of Detail.cshtml" />
     <None Include="Views\Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
