@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using ServiceStack.ServiceClient.Web;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.UI.Api.Services.Requests.v1;
-using ServiceStack.Common.ServiceClient.Web;
 
 namespace TekConf.RemoteData.v1
 {
 	using System.Threading.Tasks;
-
-	using ServiceStack.ServiceHost;
 
 	public class RemoteDataRepository : IRemoteDataRepository
 	{

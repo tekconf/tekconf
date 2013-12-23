@@ -1,9 +1,10 @@
+using ServiceStack.Service;
+using ServiceStack.ServiceHost;
+
 namespace TekConf.RemoteData.v1
 {
 	using System.Threading.Tasks;
-
-	using ServiceStack.Service;
-	using ServiceStack.ServiceHost;
+	using ServiceStack;
 
 	public static class JsonServiceClientExtensions
 	{

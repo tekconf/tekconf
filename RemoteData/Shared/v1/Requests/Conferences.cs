@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using ServiceStack;
 using ServiceStack.ServiceHost;
 using TekConf.RemoteData.Dtos.v1;
 
@@ -28,7 +29,7 @@ public bool IsRequired {get;set;}
 
 namespace TekConf.UI.Api.Services.Requests.v1
 {
-	[ServiceStack.ServiceHost.Api("Conferences Service Description")]
+	[Api("Conferences Service Description")]
 	[Route("/v1/conferences/count", "GET", Summary = "Gets the total count of conferences returned.")]
 	public class ConferencesCount : IReturn<int>
 	{

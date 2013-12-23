@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using ServiceStack.CacheAccess;
+using ServiceStack;
 using ServiceStack.ServiceHost;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.RemoteData.Shared.v1.Requests;

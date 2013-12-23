@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using ServiceStack;
 using ServiceStack.ServiceHost;
 using TekConf.RemoteData.Dtos.v1;
 

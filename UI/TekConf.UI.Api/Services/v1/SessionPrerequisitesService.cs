@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Net;
+using ServiceStack.ServiceHost;
 using TekConf.Common.Entities;
 using TekConf.UI.Api.Services.Requests.v1;
 
 using ServiceStack.CacheAccess;
 using ServiceStack.Common.Web;
-using ServiceStack.ServiceHost;
+using ServiceStack;
 
 namespace TekConf.UI.Api.Services.v1
 {

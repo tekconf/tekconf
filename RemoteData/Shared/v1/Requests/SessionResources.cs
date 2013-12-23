@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using ServiceStack;
 using ServiceStack.ServiceHost;
 
 namespace TekConf.UI.Api.Services.Requests.v1

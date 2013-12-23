@@ -9,13 +9,14 @@ using AutoMapper;
 using MongoDB.Driver;
 using ServiceStack.Messaging;
 using ServiceStack.Redis;
+using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
 using ServiceStack.WebHost.Endpoints;
 using TekConf.Common.Entities;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.UI.Api.Services.Requests.v1;
 using ServiceStack.CacheAccess;
-using ServiceStack.ServiceHost;
+using ServiceStack;
 using TinyMessenger;
 
 namespace TekConf.UI.Api.Services.v1

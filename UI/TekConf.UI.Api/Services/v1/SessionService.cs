@@ -6,11 +6,12 @@ using System.Net;
 using AutoMapper;
 using ServiceStack.CacheAccess;
 using ServiceStack.Common.Web;
+using ServiceStack.ServiceHost;
 using TekConf.Common.Entities;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.UI.Api.Services.Requests.v1;
 using TekConf.UI.Api.UrlResolvers.v1;
-using ServiceStack.ServiceHost;
+using ServiceStack;
 using TinyMessenger;
 
 namespace TekConf.UI.Api.Services.v1

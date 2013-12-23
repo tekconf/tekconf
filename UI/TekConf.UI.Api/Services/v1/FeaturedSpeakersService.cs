@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
+using ServiceStack.ServiceHost;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.UI.Api.Services.Requests.v1;
 
 using ServiceStack.CacheAccess;
-using ServiceStack.ServiceHost;
+using ServiceStack;
 
 namespace TekConf.UI.Api.Services.v1
 {
