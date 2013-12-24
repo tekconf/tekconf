@@ -34,6 +34,7 @@ namespace TekConf.Web
 			container.Register<IRemoteDataRepository>(c => new RemoteDataRepository(baseUrl));
 
 			container.Register<IConferenceRepository>(new ConferenceRepository(entityConfiguration));
+			container.Register<IAspNetUsersRepository>(new AspNetUsersRepository(entityConfiguration));
 			container.Register<IScheduleRepository>(new ScheduleRepository(entityConfiguration));
 			container.Register<IRepository<ScheduleEntity>>(new ScheduleRepository(entityConfiguration));
 			container.Register<IRepository<UserEntity>>(new UserRepository(entityConfiguration));
