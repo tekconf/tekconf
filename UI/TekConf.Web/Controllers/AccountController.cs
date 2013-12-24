@@ -321,6 +321,15 @@ namespace TekConf.Web.Controllers
             return (ActionResult)PartialView("_RemoveAccountPartial", linkedAccounts);
         }
 
+				[AllowAnonymous]
+				[HttpGet]
+				public async Task<JsonResult> IsOAuthUserRegistered(string providerName, string userId)
+				{
+					//_log.InfoFormat("IsOAuthUserRegistered - providerName:{0}  userId:{1}", providerName, userId);
+					ApplicationUser user = await UserManager.FindByIdAsync(userId);
+					return Json(new { username = user.UserName }, JsonRequestBehavior.AllowGet);
+				}
+
         protected override void Dispose(bool disposing)
         {
             if (disposing && UserManager != null)
