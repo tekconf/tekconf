@@ -1,4 +1,5 @@
-﻿using UberImporter.Importers.MonkeySpace2012;
+﻿using UberImporter.Importers.CodeMash2014EventBoard;
+using UberImporter.Importers.MonkeySpace2012;
 
 namespace UberImporter
 {
@@ -27,9 +28,7 @@ namespace UberImporter
 			//    collection.Remove(query2);
 			//}
 
-
-
-			var codeMash2014 = new CodeMash2014Importer();
+			var codeMash2014 = new CodeMash2014EventBoardImporter();
 			//var monkeySpace = new MonkeySpaceImporter();
 
 			//var railsConf = new RailsConfImporter();

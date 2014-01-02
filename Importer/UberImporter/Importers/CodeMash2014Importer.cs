@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -16,9 +17,13 @@ namespace UberImporter.Importers.CodeMash2014
 	{
 		public void Import()
 		{
-			var sessionsJsonUrl = "http://rest.codemash.org/api/sessions.jsonp";
-			var sessionsRequest = new WebClient();
-			var sessionsJson = sessionsRequest.DownloadString(sessionsJsonUrl);
+
+			var localSessionsPath = @"C:\Users\rgibbens\Dropbox\Development\codemashSessions.json";
+			var sessionsJson = File.ReadAllText(localSessionsPath);
+
+			//var sessionsJsonUrl = "http://rest.codemash.org/api/sessions.jsonp";
+			//var sessionsRequest = new WebClient();
+			//var sessionsJson = sessionsRequest.DownloadString(sessionsJsonUrl);
 			var sessionsRoot = sessionsJson.FromJson<List<session>>();
 
 
@@ -78,7 +83,7 @@ namespace UberImporter.Importers.CodeMash2014
 						isNew = true;
 						sessionEntity = new SessionEntity() { _id = Guid.NewGuid(), slug = slug };
 					}
-					
+
 					sessionEntity.description = session.Abstract;
 					sessionEntity.start = session.Start == default(DateTime) ? conference.start.Value : session.Start.AddHours(-5);
 					sessionEntity.end = session.End == default(DateTime) ? session.Start.AddHours(1) : session.End.AddHours(-5);
@@ -127,7 +132,7 @@ namespace UberImporter.Importers.CodeMash2014
 						speakerEntity.blogUrl = speaker.BlogURL; //speaker.Website;
 
 						//sessionEntity.speakers = new List<SpeakerEntity>() { speakerEntity };
-						
+
 						conference.AddSpeakerToSession(sessionEntity.slug, speakerEntity);
 					}
 
