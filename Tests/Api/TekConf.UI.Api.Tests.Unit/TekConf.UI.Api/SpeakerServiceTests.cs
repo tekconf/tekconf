@@ -1,14 +1,8 @@
-﻿using FakeItEasy;
-using Should;
-using TekConf.RemoteData.Dtos.v1;
-using TekConf.UI.Api.Services.Requests.v1;
-using TekConf.UI.Api.Services.v1;
+﻿using Should;
 using NUnit.Framework;
 
 namespace TekConf.UI.Api.Tests.Unit
 {
-	using global::TekConf.Common.Entities;
-
 	public class SpeakerServiceTests
 	{
 		public SpeakerServiceTests()

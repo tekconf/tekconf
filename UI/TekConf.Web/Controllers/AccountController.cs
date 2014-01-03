@@ -1,7 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System.Security.Claims;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Web.WebPages.OAuth;
 using MongoDB.AspNet.Identity;
@@ -18,14 +20,7 @@ namespace TekConf.Web.Controllers
 		public AccountController(IAspNetUsersRepository aspNetUsersRepository)
 		{
 			_aspNetUsersRepository = aspNetUsersRepository;
-			//var userStore = new UserStore<ApplicationUser>("DefaultConnection");
-			//this.UserManager = new UserManager<ApplicationUser>(userStore);
 		}
-
-		//public AccountController(UserManager<ApplicationUser> userManager)
-		//{
-		//    UserManager = userManager;
-		//}
 
 		private UserManager<ApplicationUser> _userManager;
 		public UserManager<ApplicationUser> UserManager
@@ -206,12 +201,35 @@ namespace TekConf.Web.Controllers
 			return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
 		}
 
+
+		private async Task<ExternalLoginInfo> AuthenticationManager_GetExternalLoginInfoAsync_Workaround()
+		{
+			ExternalLoginInfo loginInfo = null;
+
+			var result = await AuthenticationManager.AuthenticateAsync(DefaultAuthenticationTypes.ExternalCookie);
+
+			if (result != null && result.Identity != null)
+			{
+					var idClaim = result.Identity.FindFirst(ClaimTypes.NameIdentifier);
+					if (idClaim != null)
+					{
+							loginInfo = new ExternalLoginInfo()
+							{
+									DefaultUserName = result.Identity.Name == null ? "" : result.Identity.Name.Replace(" ", ""),
+									Login = new UserLoginInfo(idClaim.Issuer, idClaim.Value)
+							};
+					}
+			}
+			return loginInfo;
+	}
+
 		//
 		// GET: /Account/ExternalLoginCallback
 		[AllowAnonymous]
 		public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
 		{
-			var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
+			//var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
+			var loginInfo = await AuthenticationManager_GetExternalLoginInfoAsync_Workaround();
 			if (loginInfo == null)
 			{
 				return RedirectToAction("Login");
@@ -288,6 +306,7 @@ namespace TekConf.Web.Controllers
 					if (result.Succeeded)
 					{
 						await SignInAsync(user, isPersistent: false);
+						ViewBag.Message = "Failed2";
 						return RedirectToLocal(returnUrl);
 					}
 				}
@@ -295,6 +314,7 @@ namespace TekConf.Web.Controllers
 			}
 
 			ViewBag.ReturnUrl = returnUrl;
+			ViewBag.Message = "Failed3";
 			return View(model);
 		}
 
@@ -314,6 +334,7 @@ namespace TekConf.Web.Controllers
 		[AllowAnonymous]
 		public ActionResult ExternalLoginFailure()
 		{
+			ViewBag.Message = "Failed";
 			return View();
 		}
 
@@ -330,8 +351,8 @@ namespace TekConf.Web.Controllers
 		public async Task<JsonResult> IsOAuthUserRegistered(string providerName, string userId)
 		{
 			//_log.InfoFormat("IsOAuthUserRegistered - providerName:{0}  userId:{1}", providerName, userId);
-			string userName =_aspNetUsersRepository.GetUserName(providerName, userId);
-			
+			string userName = _aspNetUsersRepository.GetUserName(providerName, userId);
+
 			return Json(new { username = userName }, JsonRequestBehavior.AllowGet);
 		}
 

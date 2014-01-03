@@ -17,7 +17,12 @@
 <div class="container">
     <div class="row-fluid">
         <div class="span6">
-
+					@{
+						if (ViewBag.Message != null)
+						{
+							@ViewBag.Message
+						}
+					}
             <section id="loginForm">
                 @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {

@@ -250,8 +250,8 @@
 						@foreach (var sessionTime in sessionTimes)
 						{
 							<tr>
-								<td colspan="3">
-									<h4>@sessionTime.DateKey.start.ToShortTimeString()</h4>
+								<td colspan="3" style="background-color:cadetblue;">
+									<h4 style="color: white;">@sessionTime.DateKey.start.ToShortTimeString()</h4>
 								</td>
 							</tr>
 							foreach (var session in sessionTime.Sessions.OrderBy(s => s.start.TimeOfDay))

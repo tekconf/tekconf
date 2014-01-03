@@ -51,6 +51,7 @@ namespace TekConf.Web.Controllers
 
 			var conferenceDto = new FullConferenceDto()
 			{
+				slug = conference.slug,
 				description = conference.description,
 				end = conference.end,
 				imageUrl = conference.imageUrl,
