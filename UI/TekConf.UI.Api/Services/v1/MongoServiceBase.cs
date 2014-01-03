@@ -36,7 +36,7 @@ namespace TekConf.UI.Api.Services
 			{
 				if (_localServer.IsNull())
 				{
-					var mongoServer = ConfigurationManager.ConnectionStrings["MongoServer"].ConnectionString;
+					var mongoServer = ConfigurationManager.AppSettings["MongoServer"];
 					_localServer = MongoServer.Create(mongoServer);
 				}
 

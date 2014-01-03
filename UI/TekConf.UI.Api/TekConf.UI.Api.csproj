@@ -295,8 +295,7 @@
     <Content Include="App_Readme\Elmah.txt" />
     <Content Include="clientaccesspolicy.xml" />
     <Content Include="Global.asax" />
-    <None Include="Properties\PublishProfiles\tekconf-api - FTP.pubxml" />
-    <None Include="Properties\PublishProfiles\tekconf-api - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\tekconf-api.pubxml" />
     <None Include="Scripts\jquery-2.0.2.intellisense.js" />
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\jquery-2.0.3.js" />
@@ -412,7 +411,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Deploy.ps1" />
-    <None Include="Properties\PublishProfiles\conferencesio - Web Deploy.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Entities\TekConf.Common.Entities\TekConf.Common.Entities.csproj">

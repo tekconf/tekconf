@@ -26,7 +26,7 @@ namespace TekConf.Common.Entities
 		public string MongoServer { 
 			get
 			{
-				return ConfigurationManager.ConnectionStrings["MongoServer"].ConnectionString;
+				return ConfigurationManager.AppSettings["MongoServer"];
 			}
 		}
 

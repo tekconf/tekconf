@@ -892,6 +892,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="Properties\PublishProfiles\Azure.pubxml" />
+    <None Include="Properties\PublishProfiles\tekconf-web.pubxml" />
     <None Include="Scripts-old\jquery-1.9.1.intellisense.js" />
     <Content Include="Scripts-old\jquery-1.9.1.js" />
     <Content Include="Scripts-old\jquery-1.9.1.min.js" />
@@ -1231,6 +1232,7 @@
     </Content>
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
