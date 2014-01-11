@@ -7,7 +7,7 @@ using TekConf.RemoteData.Dtos.v1;
 
 namespace TekConf.Web.Controllers
 {
-	[Authorize]
+	//[Authorize]
 	public class AdminController : Controller
 	{
         private readonly IConferenceRepository _conferenceRepository;

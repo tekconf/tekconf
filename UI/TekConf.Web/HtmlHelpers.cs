@@ -5,6 +5,17 @@ namespace TekConf.Web
 {
 	public static class HtmlHelpers
 	{
+		public static string SocialIcon(this HtmlHelper helper, string provider)
+		{
+			if (provider == "google")
+				return "google-plus";
+
+			if (provider == "microsoft")
+				return "windows";
+
+			return provider;
+		}
+
 		public static bool IsAdmin(this HtmlHelper helper)
 		{
 			if (HttpContext.Current.Request.IsLocal 

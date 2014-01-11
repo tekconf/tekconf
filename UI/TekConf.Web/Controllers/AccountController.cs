@@ -197,6 +197,9 @@ namespace TekConf.Web.Controllers
 		[ValidateAntiForgeryToken]
 		public ActionResult ExternalLogin(string provider, string returnUrl)
 		{
+			if (ControllerContext.HttpContext.Session != null) 
+				ControllerContext.HttpContext.Session.RemoveAll();
+
 			// Request a redirect to the external login provider
 			return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
 		}
@@ -228,8 +231,8 @@ namespace TekConf.Web.Controllers
 		[AllowAnonymous]
 		public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
 		{
-			//var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
-			var loginInfo = await AuthenticationManager_GetExternalLoginInfoAsync_Workaround();
+			var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
+			//var loginInfo = await AuthenticationManager_GetExternalLoginInfoAsync_Workaround();
 			if (loginInfo == null)
 			{
 				return RedirectToAction("Login");

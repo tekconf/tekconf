@@ -28,6 +28,9 @@ input[type="checkbox"].input-validation-error {
     display: none;
 }
 
+.tekconf-icon {
+	color: #72c02c;
+}
 /* styles for removing the background from form */
 .no-color {
   background-color: white;

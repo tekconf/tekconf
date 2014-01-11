@@ -50,10 +50,10 @@
 										Location : @HtmlHelpers.FormatAddress(conference.address)<br />
 										@using (Html.BeginForm("Delete", "Schedule", FormMethod.Post, new { enctype = "multipart/form-data", id = "remove" + conference.slug }))
 										{
-											<a href="~/Conferences/@conference.slug" class="btn-u">View Conference</a>
+											<a href="~/Conferences/@conference.slug" class="btn btn-u">View Conference</a>
 						
 											@Html.Hidden("conferenceSlug", conference.slug)
-											<input type="button" value="Remove Conference" class="btn-u btn-u-red btn-mini" onclick="confirmRemoveConference('@conference.name', '@("remove" + conference.slug)');" />
+											<input type="button" value="Remove Conference" class="btn btn-u btn-u-red btn-mini" onclick="confirmRemoveConference('@conference.name', '@("remove" + conference.slug)');" />
 										}
 									</div>
 								</div>

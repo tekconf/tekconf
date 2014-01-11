@@ -16,21 +16,15 @@
 	<div class="row-fluid margin-bottom-20">
 
 		<!-- Carousel -->
-		<div class="span7">
-			<div id="myCarousel" class="carousel slide">
-				<div class="carousel-inner">
-					<div class="item active">
-						<img src="@Model.imageUrl" alt="" style="width:670px;">
-					</div>
-				</div>
-			</div>
+		<div class="span3">
+			<img src="@Model.imageUrl" alt="" style="width:260px;">
 		</div>
 		<!--/span7-->
 		<!-- //End Tabs and Carousel -->
 
-		<div class="span5">
+		<div class="span9">
 			<ul class="unstyled">
-				<li style="font-size: x-large;"><i class="icon-calendar color-green"></i> @Model.DateRange</li>
+				<li style="font-size: x-large;"><i class="fa fa-calendar tekconf-icon"></i> @Model.DateRange</li>
 				<li style="font-size: x-large;">
 
 					@if (!string.IsNullOrWhiteSpace(Model.location))
@@ -55,8 +49,6 @@
 			</ul>
 			<p>@Model.description</p>
 			<ul class="unstyled">
-				@*				<li><i class="icon-tags color-green"></i> Call for speakers open</li>
-					<li><i class="icon-tags color-green"></i> Registration open</li>*@
 
 				@if (!string.IsNullOrWhiteSpace(Model.homepageUrl))
 				{
@@ -168,13 +160,13 @@
 					@Html.Hidden("conferenceSlug", Model.slug)
 					if (!Model.isAddedToSchedule.HasValue || !Model.isAddedToSchedule.Value)
 					{
-						<p><a href="#" id="addToSchedule" class="btn-u btn-u-large btn-u-green" style="width: 100%;">Add to Schedule</a></p>
-						<p><a href="#" id="removeFromSchedule" class="btn-u btn-u-large btn-u-green" style="width: 100%;display:none">Remove From Schedule</a></p>
+						<p><a href="#" id="addToSchedule" class="btn btn-u btn-u-large btn-u-green" style="width: 100%;">Add to Schedule</a></p>
+						<p><a href="#" id="removeFromSchedule" class="btn btn-u btn-u-large btn-u-green" style="width: 100%;display:none">Remove From Schedule</a></p>
 					}
 					else
 					{
-						<p><a href="#" id="addToSchedule" class="btn-u btn-u-large btn-u-green" style="width: 100%; display: none">Add to Schedule</a></p>
-						<p><a href="#" id="removeFromSchedule" class="btn-u btn-u-large btn-u-green" style="width: 100%;">Remove From Schedule</a></p>
+						<p><a href="#" id="addToSchedule" class="btn btn-u btn-u-large btn-u-green" style="width: 100%; display: none">Add to Schedule</a></p>
+						<p><a href="#" id="removeFromSchedule" class="btn btn-u btn-u-large btn-u-green" style="width: 100%;">Remove From Schedule</a></p>
 					}
 				}
 			}
@@ -218,12 +210,12 @@
 		}
 
 		@foreach (var subjectList in Model.subjects)
-		{
-			foreach (var subject in subjectList.Split(',').OrderBy(x => x))
-			{
-				<button type="button" class="btn-u btn-u-blue" style="margin:5px;">@subject</button>
-			}
-		}
+{
+	foreach (var subject in subjectList.Split(',').OrderBy(x => x))
+	{
+		<button type="button" class="btn btn-u btn-u-blue" style="margin:5px;">@subject</button>
+	}
+}
 		@foreach (var dayGroup in sessionGroup.OrderBy(s => s.DateKey.Year).ThenBy(s => s.DateKey.Month).ThenBy(s => s.DateKey.Day))
 		{
 			var date = DateTime.Parse(dayGroup.DateKey.Month + "/" + dayGroup.DateKey.Day + "/" + dayGroup.DateKey.Year);
@@ -263,13 +255,13 @@
 										if (session.isAddedToSchedule.HasValue && session.isAddedToSchedule.Value)
 										{
 											<td class="scheduled" style="width: 20px;">
-												<i class="icon-star icon-2x icon-selected" id="remove-@session.slug" onclick="javascript:toggleSessionOnSchedule('@Model.slug', '@session.slug', '#remove-@session.slug')"></i>
+												<i class="fa-star fa-2x" id="remove-@session.slug" onclick="javascript:toggleSessionOnSchedule('@Model.slug', '@session.slug', '#remove-@session.slug')"></i>
 											</td>
 										}
 										else
 										{
 											<td class="unscheduled" style="width: 20px;">
-												<i class="icon-star-empty icon-2x" id="add-@session.slug" onclick="javascript:toggleSessionOnSchedule('@Model.slug', '@session.slug', '#add-@session.slug')"></i>
+												<i class="fa-star-o fa-2x" id="add-@session.slug" onclick="javascript:toggleSessionOnSchedule('@Model.slug', '@session.slug', '#add-@session.slug')"></i>
 											</td>
 										}
 									}

@@ -54,7 +54,7 @@ namespace TekConf.Common.Entities
 
 		[BsonId(IdGenerator = typeof(CombGuidGenerator))]
 		public Guid _id { get; set; }
-		public bool isLive { get; private set; }
+		public bool isLive { get; set; }
 		public double[] position { get; set; }
 		public string slug { get; set; }
 		public DateTime datePublished { get; private set; }
