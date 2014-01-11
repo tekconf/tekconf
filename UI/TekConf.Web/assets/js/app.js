@@ -42,14 +42,14 @@ var App = function () {
 
     function handleSearch() {    
         jQuery('.search').click(function () {
-            if(jQuery('.search-btn').hasClass('icon-search')){
+            if(jQuery('.search-btn').hasClass('fa-search')){
                 jQuery('.search-open').fadeIn(500);
-                jQuery('.search-btn').removeClass('icon-search');
-                jQuery('.search-btn').addClass('icon-remove');
+                jQuery('.search-btn').removeClass('fa-search');
+                jQuery('.search-btn').addClass('fa-remove');
             } else {
                 jQuery('.search-open').fadeOut(500);
-                jQuery('.search-btn').addClass('icon-search');
-                jQuery('.search-btn').removeClass('icon-remove');
+                jQuery('.search-btn').addClass('fa-search');
+                jQuery('.search-btn').removeClass('fa-remove');
             }   
         }); 
     }

@@ -24,7 +24,7 @@
 
 		<div class="span9">
 			<ul class="unstyled">
-				<li style="font-size: x-large;"><i class="fa fa-calendar tekconf-icon"></i> @Model.DateRange</li>
+				<li style="font-size: x-large;"><i class="fa fa-calendar tekconf-icon"></i>&nbsp; @Model.DateRange</li>
 				<li style="font-size: x-large;">
 
 					@if (!string.IsNullOrWhiteSpace(Model.location))
@@ -255,13 +255,13 @@
 										if (session.isAddedToSchedule.HasValue && session.isAddedToSchedule.Value)
 										{
 											<td class="scheduled" style="width: 20px;">
-												<i class="fa-star fa-2x" id="remove-@session.slug" onclick="javascript:toggleSessionOnSchedule('@Model.slug', '@session.slug', '#remove-@session.slug')"></i>
+												<i class="fa fa-star fa-2x" id="remove-@session.slug" onclick="javascript:toggleSessionOnSchedule('@Model.slug', '@session.slug', '#remove-@session.slug')"></i>
 											</td>
 										}
 										else
 										{
 											<td class="unscheduled" style="width: 20px;">
-												<i class="fa-star-o fa-2x" id="add-@session.slug" onclick="javascript:toggleSessionOnSchedule('@Model.slug', '@session.slug', '#add-@session.slug')"></i>
+												<i class="fa fa-star-o fa-2x" id="add-@session.slug" onclick="javascript:toggleSessionOnSchedule('@Model.slug', '@session.slug', '#add-@session.slug')"></i>
 											</td>
 										}
 									}
@@ -338,39 +338,39 @@
 	});
 
 	function toggleSessionOnSchedule(conferenceSlug, sessionSlug, element) {
-	if ($(element).hasClass("icon-star")) {
+	if ($(element).hasClass("fa-star")) {
 	removeSessionFromSchedule(conferenceSlug, sessionSlug, element);
-	} else if ($(element).hasClass("icon-star-empty")) {
+	} else if ($(element).hasClass("fa-star-o")) {
 	addSessionToSchedule(conferenceSlug, sessionSlug, element);
 	}
 	}
 
 	function removeSessionFromSchedule(conferenceSlug, sessionSlug, element) {
-	$(element).removeClass("icon-star").removeClass("icon-selected").addClass("icon-exchange");
+	$(element).removeClass("fa-star").removeClass("fa-check").addClass("fa-exchange");
 	$(element).parent().removeClass("scheduled").addClass("unscheduled");
 
 	var jqxhr = $.post("@Url.Action("Delete", "Schedule")", { conferenceSlug: conferenceSlug, sessionSlug: sessionSlug }, function () {
 	})
 	.done(function () {
-	$(element).removeClass("icon-star").removeClass("icon-selected").removeClass("icon-exchange").addClass("icon-star-empty");
+	$(element).removeClass("fa-star").removeClass("fa-check").removeClass("fa-exchange").addClass("fa-star-o");
 	})
 	.fail(function () { alert("error"); })
 	.always(function () {
-	$(element).removeClass("icon-exchange");
+	$(element).removeClass("fa-exchange");
 	});
 	}
 
 	function addSessionToSchedule(conferenceSlug, sessionSlug, element) {
-	$(element).removeClass("icon-star-empty").addClass("icon-exchange");
+	$(element).removeClass("fa-star-empty").addClass("fa-exchange");
 	$(element).parent().removeClass("unscheduled").addClass("scheduled");
 	var jqxhr = $.post("@Url.Action("Add", "Schedule")", { conferenceSlug: conferenceSlug, sessionSlug: sessionSlug }, function () {
 	})
 	.done(function () {
-	$(element).removeClass("icon-star-empty").removeClass("icon-exchange").addClass("icon-star").addClass("icon-selected");
+	$(element).removeClass("fa-star-empty").removeClass("fa-exchange").addClass("fa-star").addClass("fa-check");
 	})
 	.fail(function () { alert("error"); })
 	.always(function () {
-	$(element).removeClass("icon-exchange");
+	$(element).removeClass("fa-exchange");
 	});
 	}
 }
