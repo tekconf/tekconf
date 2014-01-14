@@ -5,7 +5,7 @@
 <hr />
 @{
     var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
-    if (loginProviders.Count() == 0)
+    if (!loginProviders.Any())
     {
         <div>
             <p>
@@ -25,7 +25,7 @@
                 <p>
                     @foreach (AuthenticationDescription p in loginProviders)
                     {
-                        <button type="submit" class="btn btn-u btn-info" style="margin-top:5px;" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account"><i class="fa fa-@Html.SocialIcon(p.Caption.ToLower()) fa-lg"></i> @p.Caption</button>
+                        <button type="submit" class="btn btn-u btn-info" style="margin-top:5px;" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account"><i class="fa @Html.SocialIcon(p.Caption.ToLower()) fa-lg"></i>&nbsp; @p.Caption</button>
                     }
                 </p>
             </div>

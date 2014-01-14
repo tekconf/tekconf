@@ -515,6 +515,7 @@
     <Content Include="assets\img\work\work3.jpg" />
     <Content Include="assets\img\work\work4.jpg" />
     <Content Include="assets\js\app.js" />
+    <Content Include="assets\js\font-awesome-more.js" />
     <Content Include="assets\js\jquery-1.8.2.min.js" />
     <Content Include="assets\js\modernizr.custom.js" />
     <Content Include="assets\js\pages\contact.js" />
@@ -539,16 +540,37 @@
     <Content Include="assets\plugins\fancybox\source\jquery.fancybox.pack.js" />
     <Content Include="assets\plugins\flexslider\flexslider.css" />
     <Content Include="assets\plugins\flexslider\jquery.flexslider-min.js" />
+    <Content Include="assets\plugins\font-awesome\css\admin\editor_styles.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\plugins\font-awesome\css\font-awesome-corp.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\plugins\font-awesome\css\font-awesome-ext.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\plugins\font-awesome\css\font-awesome-more-ie7.min.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\plugins\font-awesome\css\font-awesome-social.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="assets\plugins\font-awesome\css\font-awesome.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\plugins\font-awesome\css\font-awesome.min.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="assets\plugins\font-awesome\fonts\corp\fontawesome-corp-webfont.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\plugins\font-awesome\fonts\ext\fontawesome-ext-webfont.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="assets\plugins\font-awesome\fonts\fontawesome-webfont.svg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="assets\plugins\font-awesome\font\fontawesome-webfont.svg">
+    <Content Include="assets\plugins\font-awesome\fonts\social\fontawesome-social-webfont.svg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\plugins\glyphicons\css\glyphicons.css" />
@@ -831,24 +853,12 @@
     <Content Include="css\font\fontawesome-webfont.svgz" />
     <Content Include="css\font\fontawesome-webfont.ttf" />
     <Content Include="css\font\fontawesome-webfont.woff" />
-    <Content Include="assets\plugins\font-awesome\font\fontawesome-webfont.woff">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="newrelic\newrelic.config" />
     <Content Include="newrelic\extensions\extension.xsd">
       <SubType>Designer</SubType>
-    </Content>
-    <Content Include="assets\plugins\font-awesome\font\fontawesome-webfont.eot">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="assets\plugins\font-awesome\font\fontawesome-webfont.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="assets\plugins\font-awesome\font\FontAwesome.otf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\plugins\font-awesome\fonts\fontawesome-webfont.eot">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -860,6 +870,33 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="assets\plugins\font-awesome\fonts\FontAwesome.otf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\plugins\font-awesome\fonts\corp\fontawesome-corp-webfont.eot">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\plugins\font-awesome\fonts\corp\fontawesome-corp-webfont.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\plugins\font-awesome\fonts\corp\fontawesome-corp-webfont.woff">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\plugins\font-awesome\fonts\ext\fontawesome-ext-webfont.eot">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\plugins\font-awesome\fonts\ext\fontawesome-ext-webfont.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\plugins\font-awesome\fonts\ext\fontawesome-ext-webfont.woff">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\plugins\font-awesome\fonts\social\fontawesome-social-webfont.eot">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\plugins\font-awesome\fonts\social\fontawesome-social-webfont.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="assets\plugins\font-awesome\fonts\social\fontawesome-social-webfont.woff">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Properties\PublishProfiles\Azure.pubxml" />

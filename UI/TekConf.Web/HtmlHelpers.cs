@@ -8,12 +8,15 @@ namespace TekConf.Web
 		public static string SocialIcon(this HtmlHelper helper, string provider)
 		{
 			if (provider == "google")
-				return "google-plus";
+				return "fa-google-plus";
 
 			if (provider == "microsoft")
-				return "windows";
+				return "fa-windows";
 
-			return provider;
+			if (provider == "yahoo")
+				return "icon-yahoo";
+
+			return "fa-" + provider;
 		}
 
 		public static bool IsAdmin(this HtmlHelper helper)
