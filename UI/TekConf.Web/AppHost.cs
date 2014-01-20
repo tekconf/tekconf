@@ -1,6 +1,8 @@
 using System.Configuration;
 using System.Web.Mvc;
 using Common.Logging;
+using Microsoft.AspNet.Identity;
+using MongoDB.AspNet.Identity;
 using ServiceStack.CacheAccess;
 using ServiceStack.CacheAccess.Providers;
 using ServiceStack.Mvc;
@@ -13,6 +15,7 @@ using TekConf.RemoteData.v1;
 using TekConf.UI.Api;
 using TekConf.UI.Api.Services.v1;
 using TekConf.Web.Controllers;
+using TekConf.Web.Models;
 using TinyMessenger;
 
 namespace TekConf.Web
@@ -98,6 +101,11 @@ namespace TekConf.Web
 				new SessionFactory(c.Resolve<ICacheClient>()));
 
 			container.Register(LogManager.GetLogger(typeof(AppHost)));
+
+            var userStore = new UserStore<ApplicationUser>("DefaultConnection");
+            var userManager = new UserManager<ApplicationUser>(userStore);
+
+            container.Register(userManager);
 
 			var bootstrapper = new Bootstrapper(container);
 			bootstrapper.BootstrapAutomapper();

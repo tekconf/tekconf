@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper;
+using Microsoft.AspNet.Identity;
 using TekConf.Azure;
 using TekConf.RemoteData.Dtos.v1;
 using TekConf.RemoteData.v1;
 using TekConf.UI.Api.Services.Requests.v1;
 using TekConf.Web.App_Start;
+using TekConf.Web.Models;
 
 namespace TekConf.Web.Controllers
 {
@@ -21,13 +23,15 @@ namespace TekConf.Web.Controllers
 	public class AdminConferenceController : AsyncController
 	{
 		private readonly IRemoteDataRepository _remoteDataRepository;
+	    private readonly UserManager<ApplicationUser> _userManager;
 
-		public AdminConferenceController(IRemoteDataRepository remoteDataRepository)
+	    public AdminConferenceController(IRemoteDataRepository remoteDataRepository, UserManager<ApplicationUser> userManager)
 		{
-			_remoteDataRepository = remoteDataRepository;
+		    _remoteDataRepository = remoteDataRepository;
+		    _userManager = userManager;
 		}
 
-		#region Add Conference
+	    #region Add Conference
 
 		[HttpGet]
 		[CompressFilter]
@@ -71,6 +75,8 @@ namespace TekConf.Web.Controllers
 			}
 
 			var fullConferenceDto = await _remoteDataRepository.CreateConference(conference, "user", "password");
+		    var userId = User.Identity.GetUserId();
+		    await _userManager.AddToRoleAsync(userId, "ConferenceCreator");
 
 			return RedirectToAction("Detail", "Conferences", new { conferenceSlug = fullConferenceDto.slug });
 

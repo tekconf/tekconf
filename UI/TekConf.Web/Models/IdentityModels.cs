@@ -6,4 +6,6 @@ namespace TekConf.Web.Models
     public class ApplicationUser : IdentityUser
     {
     }
+
+
 }
