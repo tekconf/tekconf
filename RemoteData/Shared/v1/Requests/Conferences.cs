@@ -194,7 +194,10 @@ namespace TekConf.UI.Api.Services.Requests.v1
 		
 		[ApiMember(Name = "imageUrl", Description = "XXXX", ParameterType = "query", DataType = "string", IsRequired = false)]
 		public string imageUrl { get; set; }
-		
+
+        [ApiMember(Name = "imageUrlSquare", Description = "XXXX", ParameterType = "query", DataType = "string", IsRequired = false)]
+        public string imageUrlSquare { get; set; }		
+
 		[ApiMember(Name = "isLive", Description = "XXXX", ParameterType = "query", DataType = "bool", IsRequired = false)]
 		public bool isLive { get; set; }
 		

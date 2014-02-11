@@ -31,6 +31,7 @@ namespace TekConf.UI.Api
 			Mapper.CreateMap<ConferenceEntity, ConferenceEntity>()
 							.ForMember(c => c._id, opt => opt.Ignore())
 							.ForMember(dest => dest.imageUrl, opt => opt.ResolveUsing<ImageResolver>())
+                            .ForMember(dest => dest.imageUrlSquare, opt => opt.ResolveUsing<ImageResolverSquare>())
 							.ConstructUsing((Func<ResolutionContext, ConferenceEntity>)(r => new ConferenceEntity(container.Resolve<ITinyMessengerHub>(), container.Resolve<IConferenceRepository>())));
 
 			Mapper.CreateMap<ConferenceEntity, FullConferenceDto>()
@@ -246,6 +247,27 @@ namespace TekConf.UI.Api
 			}
 		}
 	}
+
+    public class ImageResolverSquare : ValueResolver<ConferenceEntity, string>
+    {
+        protected override string ResolveCore(ConferenceEntity source)
+        {
+            var webUrl = ConfigurationManager.AppSettings["webUrl"];
+
+            if (string.IsNullOrWhiteSpace(source.imageUrlSquare))
+            {
+                return webUrl + "/img/conferences/DefaultConferenceSquare.png";
+            }
+            else if (!source.imageUrlSquare.StartsWith("http"))
+            {
+                return webUrl + source.imageUrlSquare;
+            }
+            else
+            {
+                return source.imageUrlSquare;
+            }
+        }
+    }
 	public class TrimmingFormatter : BaseFormatter<string>
 	{
 		protected override string FormatValueCore(string value)

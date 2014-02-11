@@ -42,7 +42,7 @@ namespace TekConf.Web.Controllers
 		}
 
 		[HttpPost]
-		public async Task<ActionResult> CreateConference(CreateConference conference, HttpPostedFileBase file)
+        public async Task<ActionResult> CreateConference(CreateConference conference, HttpPostedFileBase rectangularImage, HttpPostedFileBase squareImage)
 		{
 			if (Request.Form["tags"] != null)
 				conference.tags = Request.Form["tags"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
@@ -58,7 +58,7 @@ namespace TekConf.Web.Controllers
 
 			string url = string.Empty;
 
-			if (file != null)
+			if (rectangularImage != null)
 			{
 				IImageSaver imageSaver = null;
 
@@ -70,9 +70,25 @@ namespace TekConf.Web.Controllers
 				imageSaver = new AzureImageSaver(configuration);
 #endif
 
-				url = imageSaver.SaveImage(conference.name.GenerateSlug() + Path.GetExtension(file.FileName), file);
+				url = imageSaver.SaveImage(conference.name.GenerateSlug() + Path.GetExtension(rectangularImage.FileName), rectangularImage);
 				conference.imageUrl = url;
 			}
+
+            if (squareImage != null)
+            {
+                IImageSaver imageSaver = null;
+
+#if DEBUG
+                //TODO, Move this to configuration
+                imageSaver = new FileSystemImageSaver();
+#else
+				IImageSaverConfiguration configuration = new ImageSaverConfiguration();
+				imageSaver = new AzureImageSaver(configuration);
+#endif
+
+                url = imageSaver.SaveImage(conference.name.GenerateSlug() + "-square" + Path.GetExtension(squareImage.FileName), squareImage);
+                conference.imageUrlSquare = url;
+            }
 
 			var fullConferenceDto = await _remoteDataRepository.CreateConference(conference, "user", "password");
 		    var userId = User.Identity.GetUserId();
@@ -102,7 +118,7 @@ namespace TekConf.Web.Controllers
 		}
 
 		[HttpPost]
-		public async Task<ActionResult> EditConf(CreateConference conference, HttpPostedFileBase file)
+        public async Task<ActionResult> EditConf(CreateConference conference, HttpPostedFileBase rectangularImage, HttpPostedFileBase squareImage)
 		{
 			if (Request.Form["tags"] != null)
 				conference.tags = Request.Form["tags"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
@@ -114,25 +130,40 @@ namespace TekConf.Web.Controllers
 			if (Request.Form["rooms"] != null)
 				conference.rooms = Request.Form["rooms"].Trim().Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
 
-			if (file != null)
+			if (rectangularImage != null)
 			{
 				AsyncManager.OutstandingOperations.Increment(1);
 			}
 
-			if (file != null)
+			if (rectangularImage != null)
 			{
 				//TODO : Make async
 				IImageSaverConfiguration configuration = new ImageSaverConfiguration();
-				var imageName = conference.name.GenerateSlug() + Path.GetExtension(file.FileName);
+				var imageName = conference.name.GenerateSlug() + Path.GetExtension(rectangularImage.FileName);
 				conference.imageUrl = configuration.ImageUrl + imageName;
 
 				ThreadPool.QueueUserWorkItem(o =>
 								{
 									IImageSaver imageSaver = new AzureImageSaver(configuration);
-									imageSaver.SaveImage(imageName, file);
+									imageSaver.SaveImage(imageName, rectangularImage);
 									AsyncManager.OutstandingOperations.Decrement();
 								}, null);
 			}
+
+            if (squareImage != null)
+            {
+                //TODO : Make async
+                IImageSaverConfiguration configuration = new ImageSaverConfiguration();
+                var imageName = conference.name.GenerateSlug() + "-square" + Path.GetExtension(squareImage.FileName);
+                conference.imageUrlSquare = configuration.ImageUrl + imageName;
+
+                ThreadPool.QueueUserWorkItem(o =>
+                {
+                    IImageSaver imageSaver = new AzureImageSaver(configuration);
+                    imageSaver.SaveImage(imageName, squareImage);
+                    AsyncManager.OutstandingOperations.Decrement();
+                }, null);
+            }
 
 			var c = await _remoteDataRepository.EditConference(conference, "user", "password");
 			return RedirectToAction("Detail", "Conferences", new { conferenceSlug = c.slug });

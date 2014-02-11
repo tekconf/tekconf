@@ -128,7 +128,11 @@ namespace TekConf.Common.Entities
 			get { return _imageUrl; }
 			set { _imageUrl = value.IsNullOrWhiteSpace() ? value : value.Trim(); }
 		}
-
+        public string imageUrlSquare
+        {
+            get { return _imageUrlSquare; }
+            set { _imageUrlSquare = value.IsNullOrWhiteSpace() ? value : value.Trim(); }
+        }
 		public string tagLine
 		{
 			get { return _tagLine; }
@@ -255,6 +259,7 @@ namespace TekConf.Common.Entities
 		private string _name;
 		private string _description;
 		private string _imageUrl;
+        private string _imageUrlSquare;
 		private string _tagLine;
 		private string _facebookUrl;
 		private string _homepageUrl;

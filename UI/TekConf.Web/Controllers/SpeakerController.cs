@@ -55,6 +55,7 @@ namespace TekConf.Web.Controllers
 				description = conference.description,
 				end = conference.end,
 				imageUrl = conference.imageUrl,
+                imageUrlSquare = conference.imageUrlSquare,
 				location = conference.location,
 				name = conference.name,
 				start = conference.start

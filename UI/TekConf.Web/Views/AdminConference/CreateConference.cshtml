@@ -54,10 +54,13 @@
 					<label>Registration Closes</label>
 					@Html.TextBoxFor(c => c.registrationCloses)
 
-					<label>Image</label>
-					<input type="file" name="file" id="file" />
+					<label>Rectangular Image</label>
+                    <input type="file" name="rectangularImage" id="rectangularImage" />
+                    
+                    <label>Square Image</label>
+                    <input type="file" name="squareImage" id="squareImage" />
 
-					<label>Live on tekconf.com?</label>
+				    <label>Live on tekconf.com?</label>
 					@Html.CheckBoxFor(c => c.isLive)
 				</div>
 				<div class="span4">

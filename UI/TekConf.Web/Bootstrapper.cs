@@ -60,6 +60,7 @@ namespace TekConf.Web
 			Mapper.CreateMap<AddressEntity, AddressDto>();
 			Mapper.CreateMap<ConferenceEntity, FullConferenceDto>()
 											.ForMember(dest => dest.imageUrl, opt => opt.ResolveUsing<ImageResolver>())
+                                            .ForMember(dest => dest.imageUrlSquare, opt => opt.ResolveUsing<ImageResolverSquare>())
 											.ForMember(dest => dest.numberOfSessions, opt => opt.ResolveUsing<SessionsCounterResolver>());
 
 			Mapper.CreateMap<CreateConference, ConferenceEntity>()
@@ -149,6 +150,27 @@ namespace TekConf.Web
 				}
 			}
 		}
+
+        public class ImageResolverSquare : ValueResolver<ConferenceEntity, string>
+        {
+            protected override string ResolveCore(ConferenceEntity source)
+            {
+                var webUrl = ConfigurationManager.AppSettings["webUrl"];
+
+                if (string.IsNullOrWhiteSpace(source.imageUrlSquare))
+                {
+                    return webUrl + "/img/conferences/DefaultConferenceSquare.png";
+                }
+                else if (!source.imageUrlSquare.StartsWith("http"))
+                {
+                    return webUrl + source.imageUrlSquare;
+                }
+                else
+                {
+                    return source.imageUrlSquare;
+                }
+            }
+        }
 
 		public class LatitudeResolver : ValueResolver<FullConferenceDto, double>
 		{
