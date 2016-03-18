@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-  <item android:id="@+id/menu_sessions" android:icon="@drawable/zoom_icon24" android:title="Search" android:showAsAction="ifRoom|withText"/>
-  <item android:id="@+id/menu_settings" android:icon="@drawable/refresh_icon24" android:title="Refresh" android:showAsAction="ifRoom|withText"/>
-  <item android:id="@+id/menu_refresh" android:icon="@drawable/cog_icon24" android:title="Settings" android:showAsAction="ifRoom|withText"/>
-</menu>
