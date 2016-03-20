@@ -1,4 +1,5 @@
 using MvvmCross.Platform.IoC;
+using TekConf.Mobile.Core.ViewModels;
 
 namespace TekConf.Mobile.Core
 {
@@ -11,7 +12,7 @@ namespace TekConf.Mobile.Core
                 .AsInterfaces()
                 .RegisterAsLazySingleton();
 
-            RegisterAppStart<ViewModels.ConferencesViewModel>();
+            RegisterAppStart<ConferencesViewModel>();
         }
     }
 }
