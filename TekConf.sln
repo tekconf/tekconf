@@ -9,7 +9,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{F7EF4439
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreTests", "mobile\TekConf.Mobile.Core.Tests.Unit\CoreTests.csproj", "{2754250C-7066-432C-ABCB-3ADAAB2A8710}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TekConf.Mobile.iOS", "mobile\TekConf.Mobile.iOS\TekConf.Mobile.iOS.csproj", "{758BE11F-BBD1-4C0B-8211-5494A5F10B15}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TekConf.iOS", "mobile\TekConf.Mobile.iOS\TekConf.iOS.csproj", "{758BE11F-BBD1-4C0B-8211-5494A5F10B15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "today", "mobile\today\today.csproj", "{A11001C7-B0E4-4AFF-B8A1-F698FC32E117}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,10 +59,23 @@ Global
 		{758BE11F-BBD1-4C0B-8211-5494A5F10B15}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 		{758BE11F-BBD1-4C0B-8211-5494A5F10B15}.Debug|iPhone.ActiveCfg = Debug|iPhone
 		{758BE11F-BBD1-4C0B-8211-5494A5F10B15}.Debug|iPhone.Build.0 = Debug|iPhone
+		{A11001C7-B0E4-4AFF-B8A1-F698FC32E117}.Debug|Any CPU.ActiveCfg = Debug|iPhoneSimulator
+		{A11001C7-B0E4-4AFF-B8A1-F698FC32E117}.Debug|Any CPU.Build.0 = Debug|iPhoneSimulator
+		{A11001C7-B0E4-4AFF-B8A1-F698FC32E117}.Release|Any CPU.ActiveCfg = Release|iPhone
+		{A11001C7-B0E4-4AFF-B8A1-F698FC32E117}.Release|Any CPU.Build.0 = Release|iPhone
+		{A11001C7-B0E4-4AFF-B8A1-F698FC32E117}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{A11001C7-B0E4-4AFF-B8A1-F698FC32E117}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{A11001C7-B0E4-4AFF-B8A1-F698FC32E117}.Release|iPhone.ActiveCfg = Release|iPhone
+		{A11001C7-B0E4-4AFF-B8A1-F698FC32E117}.Release|iPhone.Build.0 = Release|iPhone
+		{A11001C7-B0E4-4AFF-B8A1-F698FC32E117}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{A11001C7-B0E4-4AFF-B8A1-F698FC32E117}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{A11001C7-B0E4-4AFF-B8A1-F698FC32E117}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{A11001C7-B0E4-4AFF-B8A1-F698FC32E117}.Debug|iPhone.Build.0 = Debug|iPhone
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{970DC845-4FF3-4933-A42C-715E1A6067E5} = {8FAEF17C-A56F-47AE-94CD-D0B9E04ACF6A}
 		{2754250C-7066-432C-ABCB-3ADAAB2A8710} = {F7EF4439-EC0B-4087-8437-2A10EF0EA7B4}
 		{758BE11F-BBD1-4C0B-8211-5494A5F10B15} = {8FAEF17C-A56F-47AE-94CD-D0B9E04ACF6A}
+		{A11001C7-B0E4-4AFF-B8A1-F698FC32E117} = {8FAEF17C-A56F-47AE-94CD-D0B9E04ACF6A}
 	EndGlobalSection
 EndGlobal

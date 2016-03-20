@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
+    <ProjectGuid>{758BE11F-BBD1-4C0B-8211-5494A5F10B15}</ProjectGuid>
+    <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>TekConf.Mobile.iOS</RootNamespace>
+    <AssemblyName>TekConf.Mobile.iOS</AssemblyName>
+    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Debug</OutputPath>
+    <DefineConstants>DEBUG;ENABLE_TEST_CLOUD;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <MtouchDebug>true</MtouchDebug>
+    <MtouchFastDev>true</MtouchFastDev>
+    <MtouchProfiling>true</MtouchProfiling>
+    <MtouchUseSGen>true</MtouchUseSGen>
+    <MtouchUseRefCounting>true</MtouchUseRefCounting>
+    <MtouchLink>None</MtouchLink>
+    <MtouchArch>i386</MtouchArch>
+    <DeviceSpecificBuild>false</DeviceSpecificBuild>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhone\Release</OutputPath>
+    <DefineConstants></DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <MtouchUseSGen>true</MtouchUseSGen>
+    <MtouchUseRefCounting>true</MtouchUseRefCounting>
+    <MtouchFloat32>true</MtouchFloat32>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <MtouchArch>ARMv7, ARM64</MtouchArch>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Release</OutputPath>
+    <DefineConstants></DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <MtouchUseSGen>true</MtouchUseSGen>
+    <MtouchUseRefCounting>true</MtouchUseRefCounting>
+    <MtouchLink>None</MtouchLink>
+    <MtouchArch>i386</MtouchArch>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhone\Debug</OutputPath>
+    <DefineConstants>DEBUG;ENABLE_TEST_CLOUD;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <DeviceSpecificBuild>true</DeviceSpecificBuild>
+    <MtouchDebug>true</MtouchDebug>
+    <MtouchFastDev>true</MtouchFastDev>
+    <MtouchProfiling>true</MtouchProfiling>
+    <MtouchUseSGen>true</MtouchUseSGen>
+    <MtouchUseRefCounting>true</MtouchUseRefCounting>
+    <MtouchFloat32>true</MtouchFloat32>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <MtouchLink>None</MtouchLink>
+    <MtouchArch>ARMv7, ARM64</MtouchArch>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="Xamarin.iOS" />
+    <Reference Include="MvvmCross.Platform.iOS">
+      <HintPath>..\..\packages\MvvmCross.Platform.4.0.0\lib\Xamarin.iOS10\MvvmCross.Platform.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="MvvmCross.Platform">
+      <HintPath>..\..\packages\MvvmCross.Platform.4.0.0\lib\Xamarin.iOS10\MvvmCross.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="MvvmCross.iOS">
+      <HintPath>..\..\packages\MvvmCross.Core.4.0.0\lib\Xamarin.iOS10\MvvmCross.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="MvvmCross.Core">
+      <HintPath>..\..\packages\MvvmCross.Core.4.0.0\lib\Xamarin.iOS10\MvvmCross.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="MvvmCross.Binding.iOS">
+      <HintPath>..\..\packages\MvvmCross.Binding.4.0.0\lib\Xamarin.iOS10\MvvmCross.Binding.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="MvvmCross.Binding">
+      <HintPath>..\..\packages\MvvmCross.Binding.4.0.0\lib\Xamarin.iOS10\MvvmCross.Binding.dll</HintPath>
+    </Reference>
+    <Reference Include="MvvmCross.Localization">
+      <HintPath>..\..\packages\MvvmCross.Binding.4.0.0\lib\Xamarin.iOS10\MvvmCross.Localization.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\Contents.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterfaceDefinition Include="LaunchScreen.storyboard" />
+    <InterfaceDefinition Include="Main.storyboard" />
+    <InterfaceDefinition Include="Views\ConferencesView.xib" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Info.plist" />
+    <None Include="Entitlements.plist" />
+    <None Include="packages.config" />
+    <None Include="ToDo-MvvmCross\_ iOS UI.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Main.cs" />
+    <Compile Include="AppDelegate.cs" />
+    <Compile Include="ViewController.cs" />
+    <Compile Include="ViewController.designer.cs">
+      <DependentUpon>ViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Setup.cs" />
+    <Compile Include="DebugTrace.cs" />
+    <Compile Include="LinkerPleaseInclude.cs" />
+    <Compile Include="Views\ConferencesView.cs" />
+    <Compile Include="Views\ConferencesView.designer.cs">
+      <DependentUpon>ConferencesView.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TekConf.Mobile.Core\TekConf.Mobile.Core.csproj">
+      <Project>{970DC845-4FF3-4933-A42C-715E1A6067E5}</Project>
+      <Name>TekConf.Mobile.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\today\today.csproj">
+      <IsAppExtension>true</IsAppExtension>
+      <Project>{A11001C7-B0E4-4AFF-B8A1-F698FC32E117}</Project>
+      <Name>today</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
+</Project>

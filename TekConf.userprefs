@@ -1,4 +1,5 @@
-﻿<Properties StartupItem="mobile/TekConf.Mobile.iOS/TekConf.Mobile.iOS.csproj">
+﻿<Properties StartupItem="mobile/TekConf.Mobile.iOS/TekConf.iOS.csproj">
+  <MonoDevelop.Ide.ItemProperties.mobile.TekConf.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.3548CC85-6439-4429-886F-EF86BA4F26BB" />
   <MonoDevelop.Ide.Workbench ActiveDocument="mobile/TekConf.Mobile.Core.Tests.Unit/Test_ConferencesViewModel.cs">
     <Files>
       <File FileName="mobile/TekConf.Mobile.Core.Tests.Unit/Test_ConferencesViewModel.cs" Line="9" Column="19" />
@@ -26,5 +27,4 @@
   <MonoDevelop.Ide.DebuggingService.Breakpoints />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.ItemProperties.tests.CoreTests PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.ItemProperties.mobile.TekConf.Mobile.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.3548CC85-6439-4429-886F-EF86BA4F26BB" />
 </Properties>

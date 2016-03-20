@@ -8,11 +8,15 @@ namespace TekConf.Mobile.Core
 	{
 		Task<IList<ConferenceModel>> Load();
 	}
-	//public class ConferencesService : IConferencesService
-	//{
-	//	public ConferencesService()
-	//	{
-	//	}
-	//}
+
+	public class ConferencesService : IConferencesService
+	{
+		public async Task<IList<ConferenceModel>> Load()
+		{
+			return await Task.Run(() => {
+				return new List<ConferenceModel>();
+			});
+		}
+	}
 }
 
