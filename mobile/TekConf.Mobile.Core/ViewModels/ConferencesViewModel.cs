@@ -16,7 +16,6 @@ namespace TekConf.Mobile.Core.ViewModels
 
 		public ObservableCollection<ConferenceListViewModel> Conferences { get; set; } = new ObservableCollection<ConferenceListViewModel>();
 
-
 		public bool IsLoading { get; set; }
 
 		public ConferencesViewModel(IConferencesService conferencesService, IMapper mapper)
@@ -32,6 +31,36 @@ namespace TekConf.Mobile.Core.ViewModels
 			{
 				_loadCommand = _loadCommand ?? new MvxAsyncCommand(Load, CanLoad);
 				return _loadCommand;
+			}
+		}
+
+		private ICommand _showSettingsCommand;
+		public ICommand ShowSettingsCommand
+		{
+			get
+			{
+				_showSettingsCommand = _showSettingsCommand ?? new MvxCommand(() => ShowViewModel<SettingsViewModel>());
+				return _showSettingsCommand;
+			}
+		}
+
+		private ICommand _showFilterCommand;
+		public ICommand ShowFilterCommand
+		{
+			get
+			{
+				_showFilterCommand = _showFilterCommand ?? new MvxCommand(() => ShowViewModel<FilterViewModel>());
+				return _showFilterCommand;
+			}
+		}
+
+		private ICommand _closeCommand;
+		public ICommand CloseCommand
+		{
+			get
+			{
+				_closeCommand = _closeCommand ?? new MvxCommand(() => Close(this));
+				return _closeCommand;
 			}
 		}
 

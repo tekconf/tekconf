@@ -1,10 +1,26 @@
 ﻿<Properties StartupItem="mobile/TekConf.Mobile.Core.Tests.Unit/CoreTests.csproj">
   <MonoDevelop.Ide.Workbench ActiveDocument="mobile/TekConf.Mobile.Core.Tests.Unit/Test_ConferencesViewModel.cs">
     <Files>
-      <File FileName="mobile/TekConf.Mobile.Core.Tests.Unit/Test_ConferencesViewModel.cs" Line="114" Column="1" />
+      <File FileName="mobile/TekConf.Mobile.Core.Tests.Unit/Test_ConferencesViewModel.cs" Line="9" Column="19" />
       <File FileName="mobile/TekConf.Mobile.Core/App.cs" Line="1" Column="1" />
       <File FileName="mobile/TekConf.Mobile.Core/ViewModels/ConferencesViewModel.cs" Line="25" Column="43" />
     </Files>
+    <Pads>
+      <Pad Id="MonoDevelop.UnitTesting.TestPad">
+        <State name="__root__">
+          <Node name="TekConf" expanded="True">
+            <Node name="tests" expanded="True">
+              <Node name="CoreTests" expanded="True">
+                <Node name="Test_ConferencesService" expanded="True" />
+                <Node name="Test_ConferencesViewModel" expanded="True">
+                  <Node name="should_load_conferences_list" selected="True" />
+                </Node>
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

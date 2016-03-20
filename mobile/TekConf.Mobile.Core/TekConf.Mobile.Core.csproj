@@ -37,6 +37,8 @@
     <Compile Include="ViewModels\ConferenceListViewModel.cs" />
     <Compile Include="Services\ConferencesService.cs" />
     <Compile Include="Models\ConferenceModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\FilterViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MvvmCross.Platform">

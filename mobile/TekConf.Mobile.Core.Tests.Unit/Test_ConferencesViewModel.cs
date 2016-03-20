@@ -30,10 +30,10 @@ public class Test_ConferencesViewModel : MvxIoCSupportingTest
 		//var secondService = new MockSecondService ();
 		//Ioc.RegisterSingleton<ISecondService> (secondService);
 
-		_fixture = new Fixture ();
+		//_fixture = new Fixture ();
 
-		var config = new MapperConfiguration (cfg => cfg.CreateMap<ConferenceModel, ConferenceListViewModel> ());
-		_mapper = config.CreateMapper ();
+		//var config = new MapperConfiguration (cfg => cfg.CreateMap<ConferenceModel, ConferenceListViewModel> ());
+		//_mapper = config.CreateMapper ();
 
 		MockDispatcher = new MockDispatcher ();
 		Ioc.RegisterSingleton<IMvxViewDispatcher> (MockDispatcher);
@@ -42,16 +42,16 @@ public class Test_ConferencesViewModel : MvxIoCSupportingTest
 		Ioc.RegisterSingleton<IMvxStringToTypeParser> (new MvxStringToTypeParser ());
 	}
 
-	//[SetUp]
-	//public void SetupTest()
-	//{
-	//	_fixture = new Fixture();
+	[SetUp]
+	public void SetupTest()
+	{
+		_fixture = new Fixture();
 
-	//	var config = new MapperConfiguration(cfg => cfg.CreateMap<ConferenceModel, ConferenceListViewModel>());
-	//	_mapper = config.CreateMapper();
+		var config = new MapperConfiguration(cfg => cfg.CreateMap<ConferenceModel, ConferenceListViewModel>());
+		_mapper = config.CreateMapper();
 
-	//	base.Setup();
-	//}
+		base.Setup();
+	}
 
 	[Test]
 	public void should_initialize()
@@ -86,6 +86,30 @@ public class Test_ConferencesViewModel : MvxIoCSupportingTest
 	}
 
 	[Test]
+	public void should_map_properties()
+	{
+		true.ShouldBeFalse();
+	}
+
+	[Test]
+	public void should_be_able_to_load()
+	{
+		true.ShouldBeFalse();
+	}
+
+	[Test]
+	public void should_not_be_able_to_load()
+	{
+		true.ShouldBeFalse();
+	}
+
+	[Test]
+	public void should_handle_no_conferences()
+	{
+		true.ShouldBeFalse();
+	}
+
+	[Test]
 	public void should_set_isLoading()
 	{
 		var conferencesService = new Mock<IConferencesService>();
@@ -107,6 +131,18 @@ public class Test_ConferencesViewModel : MvxIoCSupportingTest
 
 	[Test]
 	public void should_refresh()
+	{
+		true.ShouldBeFalse();
+	}
+
+	[Test]
+	public void should_show_settings()
+	{
+		true.ShouldBeFalse();
+	}
+
+	[Test]
+	public void should_show_filter()
 	{
 		true.ShouldBeFalse();
 	}
