@@ -22,19 +22,6 @@ public class Test_ConferencesViewModel : MvxIoCSupportingTest
 	protected MockDispatcher MockDispatcher { get; private set; }
 	protected override void AdditionalSetup ()
 	{
-		//// an automatically Mocked service:
-		//var firstService = new Mock<IFirstService> ();
-		//Ioc.RegisterSingleton<IFirstService> (firstService.Object);
-
-		//// a manually Mocked service:
-		//var secondService = new MockSecondService ();
-		//Ioc.RegisterSingleton<ISecondService> (secondService);
-
-		//_fixture = new Fixture ();
-
-		//var config = new MapperConfiguration (cfg => cfg.CreateMap<ConferenceModel, ConferenceListViewModel> ());
-		//_mapper = config.CreateMapper ();
-
 		MockDispatcher = new MockDispatcher ();
 		Ioc.RegisterSingleton<IMvxViewDispatcher> (MockDispatcher);
 		Ioc.RegisterSingleton<IMvxMainThreadDispatcher> (MockDispatcher);
@@ -67,10 +54,6 @@ public class Test_ConferencesViewModel : MvxIoCSupportingTest
 		vm.IsLoading.ShouldBeFalse();
 	}
 
-	/// <summary>
-	/// Shoulds the load conferences list.
-	/// </summary>
-	/// <returns>The load conferences list.</returns>
 	[Test]
 	public void should_load_conferences_list()
 	{

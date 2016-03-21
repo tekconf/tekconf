@@ -115,6 +115,9 @@
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
     <InterfaceDefinition Include="Main.storyboard" />
     <InterfaceDefinition Include="Views\ConferencesView.xib" />
+    <InterfaceDefinition Include="Views\SettingsView.xib" />
+    <InterfaceDefinition Include="Views\FilterView.xib" />
+    <InterfaceDefinition Include="Views\ConferenceCell.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -135,6 +138,19 @@
     <Compile Include="Views\ConferencesView.cs" />
     <Compile Include="Views\ConferencesView.designer.cs">
       <DependentUpon>ConferencesView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsView.cs" />
+    <Compile Include="Views\SettingsView.designer.cs">
+      <DependentUpon>SettingsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\FilterView.cs" />
+    <Compile Include="Views\FilterView.designer.cs">
+      <DependentUpon>FilterView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ConferencesTableSource.cs" />
+    <Compile Include="Views\ConferenceCell.cs" />
+    <Compile Include="Views\ConferenceCell.designer.cs">
+      <DependentUpon>ConferenceCell.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

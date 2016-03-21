@@ -13,8 +13,22 @@ namespace TekConf.Mobile.Core.ViewModels
 	{
 		readonly IConferencesService _conferencesService;
 		readonly IMapper _mapper;
+		ObservableCollection<ConferenceListViewModel> conferences;
 
-		public ObservableCollection<ConferenceListViewModel> Conferences { get; set; } = new ObservableCollection<ConferenceListViewModel>();
+		//public ObservableCollection<ConferenceListViewModel> Conferences { get; set; } = new ObservableCollection<ConferenceListViewModel>();
+		public ObservableCollection<ConferenceListViewModel> Conferences
+		{
+			get
+			{
+				return conferences;
+			}
+
+			set
+			{
+				//conferences = value;
+				SetProperty(ref conferences, value);
+			}
+		}
 
 		public bool IsLoading { get; set; }
 
@@ -22,6 +36,7 @@ namespace TekConf.Mobile.Core.ViewModels
 		{
 			_mapper = mapper;
 			_conferencesService = conferencesService;
+			Conferences = new ObservableCollection<ConferenceListViewModel>();
 		}
 
 		private ICommand _loadCommand;

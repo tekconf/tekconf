@@ -14,7 +14,11 @@ namespace TekConf.Mobile.Core
 		public async Task<IList<ConferenceModel>> Load()
 		{
 			return await Task.Run(() => {
-				return new List<ConferenceModel>();
+				return new List<ConferenceModel> { 
+					new ConferenceModel {
+						Name = "Test Conference"
+					}
+				};
 			});
 		}
 	}

@@ -1,30 +1,27 @@
 ﻿<Properties StartupItem="mobile/TekConf.Mobile.iOS/TekConf.iOS.csproj">
   <MonoDevelop.Ide.ItemProperties.mobile.TekConf.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.3548CC85-6439-4429-886F-EF86BA4F26BB" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="mobile/TekConf.Mobile.Core.Tests.Unit/Test_ConferencesViewModel.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="mobile/TekConf.Mobile.iOS/Views/ConferenceCell.cs">
     <Files>
-      <File FileName="mobile/TekConf.Mobile.Core.Tests.Unit/Test_ConferencesViewModel.cs" Line="9" Column="19" />
-      <File FileName="mobile/TekConf.Mobile.Core/App.cs" Line="1" Column="1" />
-      <File FileName="mobile/TekConf.Mobile.Core/ViewModels/ConferencesViewModel.cs" Line="25" Column="43" />
+      <File FileName="mobile/TekConf.Mobile.Core/ViewModels/ConferenceListViewModel.cs" Line="21" Column="4" />
+      <File FileName="mobile/TekConf.Mobile.Core/ViewModels/ConferencesViewModel.cs" Line="29" Column="1" />
+      <File FileName="mobile/TekConf.Mobile.iOS/Views/ConferenceCell.cs" Line="27" Column="15" />
+      <File FileName="mobile/TekConf.Mobile.iOS/Views/ConferencesTableSource.cs" Line="26" Column="1" />
+      <File FileName="mobile/TekConf.Mobile.iOS/Views/ConferencesView.cs" Line="9" Column="2" />
+      <File FileName="mobile/TekConf.Mobile.iOS/LinkerPleaseInclude.cs" Line="11" Column="34" />
     </Files>
-    <Pads>
-      <Pad Id="MonoDevelop.UnitTesting.TestPad">
-        <State name="__root__">
-          <Node name="TekConf" expanded="True">
-            <Node name="tests" expanded="True">
-              <Node name="CoreTests" expanded="True">
-                <Node name="Test_ConferencesService" expanded="True" />
-                <Node name="Test_ConferencesViewModel" expanded="True">
-                  <Node name="should_load_conferences_list" selected="True" />
-                </Node>
-              </Node>
-            </Node>
-          </Node>
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="/Users/rob/dev/tekconf/mobile/TekConf.Mobile.iOS/Views/ConferenceCell.cs" line="29" column="1" />
+      <Breakpoint file="/Users/rob/dev/tekconf/mobile/TekConf.Mobile.iOS/Views/ConferenceCell.cs" line="30" column="1" />
+      <Breakpoint file="/Users/rob/dev/tekconf/mobile/TekConf.Mobile.iOS/Views/ConferenceCell.cs" line="39" column="1" />
+      <Breakpoint file="/Users/rob/dev/tekconf/mobile/TekConf.Mobile.iOS/Views/ConferencesTableSource.cs" line="26" column="1" />
+      <Breakpoint file="/Users/rob/dev/tekconf/mobile/TekConf.Mobile.iOS/Views/ConferencesTableSource.cs" line="16" column="1" />
+      <Breakpoint file="/Users/rob/dev/tekconf/mobile/TekConf.Mobile.Core/ViewModels/ConferencesViewModel.cs" line="29" column="1" />
+      <Breakpoint file="/Users/rob/dev/tekconf/mobile/TekConf.Mobile.iOS/LinkerPleaseInclude.cs" line="40" column="1" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.ItemProperties.tests.CoreTests PreferredExecutionTarget="MonoDevelop.Default" />
 </Properties>
