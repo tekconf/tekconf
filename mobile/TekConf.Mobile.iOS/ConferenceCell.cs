@@ -1,25 +1,18 @@
-﻿using System;
 using Foundation;
-using MvvmCross.Binding.BindingContext;
-using MvvmCross.Binding.iOS.Views;
-using TekConf.Mobile.Core.ViewModels;
+using System;
 using UIKit;
+using MvvmCross.Binding.iOS.Views;
+using MvvmCross.Binding.BindingContext;
+using TekConf.Mobile.Core.ViewModels;
 
 namespace TekConf.Mobile.iOS
 {
 	public partial class ConferenceCell : MvxTableViewCell
-	{
+    {
 		public static readonly NSString Key = new NSString("ConferenceCell");
-		public static readonly UINib Nib;
 
-		static ConferenceCell()
-		{
-			Nib = UINib.FromName("ConferenceCell", NSBundle.MainBundle);
-		}
-
-		protected ConferenceCell(IntPtr handle) : base(handle)
-		{
-			// Note: this .ctor should not contain any initialization logic.
+        public ConferenceCell (IntPtr handle) : base (handle)
+        {
 			this.DelayBind(() =>
 			{
 				//_imageViewLoader = new MvxImageViewLoader(() => this.image);
@@ -36,6 +29,6 @@ namespace TekConf.Mobile.iOS
 
 				set.Apply();
 			});
-		}
-	}
+        }
+    }
 }

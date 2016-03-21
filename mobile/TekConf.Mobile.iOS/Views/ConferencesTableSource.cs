@@ -8,12 +8,11 @@ using UIKit;
 
 namespace TekConf.Mobile.iOS
 {
-
 	public class ConferencesTableSource : MvxTableViewSource
 	{
 		public ConferencesTableSource(UITableView tableView) : base(tableView)
 		{
-			tableView.RegisterClassForCellReuse(typeof(ConferenceCell), new NSString(ConferenceCell.Key));
+			//tableView.RegisterClassForCellReuse(typeof(ConferenceCell), new NSString(ConferenceCell.Key));
 		}
 
 		public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)

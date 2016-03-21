@@ -25,7 +25,6 @@ namespace TekConf.Mobile.Core.ViewModels
 
 			set
 			{
-				//conferences = value;
 				SetProperty(ref conferences, value);
 			}
 		}

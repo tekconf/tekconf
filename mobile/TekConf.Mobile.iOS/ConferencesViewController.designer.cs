@@ -11,8 +11,8 @@ using UIKit;
 
 namespace TekConf.Mobile.iOS
 {
-    [Register ("ConferencesView")]
-    partial class ConferencesView
+    [Register ("ConferencesViewController")]
+    partial class ConferencesViewController
     {
         void ReleaseDesignerOutlets ()
         {
