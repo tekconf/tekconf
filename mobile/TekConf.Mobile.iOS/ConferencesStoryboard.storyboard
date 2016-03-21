@@ -49,5 +49,22 @@
             </objects>
             <point key="canvasLocation" x="75" y="107"/>
         </scene>
+        <scene sceneID="31">
+            <objects>
+                <viewController id="32" sceneMemberID="viewController" customClass="ConferenceDetailViewController" storyboardIdentifier="ConferenceDetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="29"/>
+                        <viewControllerLayoutGuide type="bottom" id="30"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="33">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="34" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1002" y="98"/>
+        </scene>
     </scenes>
 </document>

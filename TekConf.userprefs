@@ -1,25 +1,21 @@
 ﻿<Properties StartupItem="mobile/TekConf.Mobile.iOS/TekConf.iOS.csproj">
   <MonoDevelop.Ide.ItemProperties.mobile.TekConf.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.3548CC85-6439-4429-886F-EF86BA4F26BB" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="mobile/TekConf.Mobile.iOS/Views/ConferenceCell.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="mobile/TekConf.Mobile.iOS/ConferencesViewController.cs">
     <Files>
-      <File FileName="mobile/TekConf.Mobile.Core/ViewModels/ConferenceListViewModel.cs" Line="21" Column="4" />
-      <File FileName="mobile/TekConf.Mobile.Core/ViewModels/ConferencesViewModel.cs" Line="29" Column="1" />
-      <File FileName="mobile/TekConf.Mobile.iOS/Views/ConferenceCell.cs" Line="27" Column="15" />
-      <File FileName="mobile/TekConf.Mobile.iOS/Views/ConferencesTableSource.cs" Line="26" Column="1" />
-      <File FileName="mobile/TekConf.Mobile.iOS/Views/ConferencesView.cs" Line="9" Column="2" />
-      <File FileName="mobile/TekConf.Mobile.iOS/LinkerPleaseInclude.cs" Line="11" Column="34" />
+      <File FileName="mobile/TekConf.Mobile.Core/ViewModels/ConferencesViewModel.cs" Line="84" Column="1" />
+      <File FileName="mobile/TekConf.Mobile.iOS/Views/ConferencesTableSource.cs" Line="25" Column="1" />
+      <File FileName="mobile/TekConf.Mobile.iOS/ConferencesViewController.cs" Line="28" Column="30" />
+      <File FileName="mobile/TekConf.Mobile.iOS/ConferenceCell.cs" Line="17" Column="5" />
+      <File FileName="mobile/TekConf.Mobile.iOS/AppDelegate.cs" Line="28" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/Users/rob/dev/tekconf/mobile/TekConf.Mobile.iOS/Views/ConferenceCell.cs" line="29" column="1" />
-      <Breakpoint file="/Users/rob/dev/tekconf/mobile/TekConf.Mobile.iOS/Views/ConferenceCell.cs" line="30" column="1" />
-      <Breakpoint file="/Users/rob/dev/tekconf/mobile/TekConf.Mobile.iOS/Views/ConferenceCell.cs" line="39" column="1" />
-      <Breakpoint file="/Users/rob/dev/tekconf/mobile/TekConf.Mobile.iOS/Views/ConferencesTableSource.cs" line="26" column="1" />
-      <Breakpoint file="/Users/rob/dev/tekconf/mobile/TekConf.Mobile.iOS/Views/ConferencesTableSource.cs" line="16" column="1" />
-      <Breakpoint file="/Users/rob/dev/tekconf/mobile/TekConf.Mobile.Core/ViewModels/ConferencesViewModel.cs" line="29" column="1" />
-      <Breakpoint file="/Users/rob/dev/tekconf/mobile/TekConf.Mobile.iOS/LinkerPleaseInclude.cs" line="40" column="1" />
+      <Breakpoint file="/Users/rob/dev/tekconf/mobile/TekConf.Mobile.iOS/Views/ConferenceCell.cs" line="37" column="1" />
+      <Breakpoint file="/Users/rob/dev/tekconf/mobile/TekConf.Mobile.Core/ViewModels/ConferencesViewModel.cs" line="84" column="1" />
+      <Breakpoint file="/Users/rob/dev/tekconf/mobile/TekConf.Mobile.iOS/Views/ConferencesTableSource.cs" line="25" column="1" />
+      <Breakpoint file="/Users/rob/dev/tekconf/mobile/TekConf.Mobile.iOS/ConferenceCell.cs" line="20" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

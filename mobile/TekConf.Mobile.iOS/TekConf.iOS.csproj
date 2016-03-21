@@ -151,6 +151,10 @@
     <Compile Include="ConferenceCell.designer.cs">
       <DependentUpon>ConferenceCell.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConferenceDetailViewController.cs" />
+    <Compile Include="ConferenceDetailViewController.designer.cs">
+      <DependentUpon>ConferenceDetailViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TekConf.Mobile.Core\TekConf.Mobile.Core.csproj">

@@ -26,7 +26,7 @@ namespace TekConf.Mobile.iOS
 
 			var set = this.CreateBindingSet<ConferencesViewController, ConferencesViewModel>();
 			set.Bind(source).To(vm => vm.Conferences);
-			//set.Bind(source).For(s => s.SelectionChangedCommand).To(vm => vm.ShowConference);
+			set.Bind(source).For(s => s.SelectionChangedCommand).To(vm => vm.ShowDetailCommand);
 			set.Apply();
 
 			TableView.Source = source;

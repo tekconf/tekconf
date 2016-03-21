@@ -68,6 +68,16 @@ namespace TekConf.Mobile.Core.ViewModels
 			}
 		}
 
+		private ICommand _showDetailCommand;
+		public ICommand ShowDetailCommand
+		{
+			get
+			{
+				_showDetailCommand = _showDetailCommand ?? new MvxCommand(() => ShowViewModel<ConferenceDetailViewModel>());
+				return _showDetailCommand;
+			}
+		}
+
 		private ICommand _closeCommand;
 		public ICommand CloseCommand
 		{
