@@ -115,6 +115,12 @@
     <Reference Include="MvvmCross.Plugins.File.iOS">
       <HintPath>..\..\packages\MvvmCross.Plugin.File.4.0.0\lib\Xamarin.iOS10\MvvmCross.Plugins.File.iOS.dll</HintPath>
     </Reference>
+    <Reference Include="MvvmCross.Plugins.Color">
+      <HintPath>..\..\packages\MvvmCross.Plugin.Color.4.0.0\lib\Xamarin.iOS10\MvvmCross.Plugins.Color.dll</HintPath>
+    </Reference>
+    <Reference Include="MvvmCross.Plugins.Color.iOS">
+      <HintPath>..\..\packages\MvvmCross.Plugin.Color.4.0.0\lib\Xamarin.iOS10\MvvmCross.Plugins.Color.iOS.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Contents.json" />
@@ -168,6 +174,7 @@
     </Compile>
     <Compile Include="Bootstrap\DownloadCachePluginBootstrap.cs" />
     <Compile Include="Bootstrap\FilePluginBootstrap.cs" />
+    <Compile Include="Bootstrap\ColorPluginBootstrap.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TekConf.Mobile.Core\TekConf.Mobile.Core.csproj">

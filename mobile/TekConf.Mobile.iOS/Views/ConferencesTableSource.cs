@@ -25,7 +25,12 @@ namespace TekConf.Mobile.iOS
 	
 			var cell = tableView.DequeueReusableCell(ConferenceCell.Key, indexPath);
 			cell.ContentView.Frame = cell.Bounds;
-			cell.ContentView.AutoresizingMask = UIViewAutoresizing.FlexibleLeftMargin | UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleRightMargin | UIViewAutoresizing.FlexibleTopMargin | UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleBottomMargin;
+			cell.ContentView.AutoresizingMask = UIViewAutoresizing.FlexibleLeftMargin 
+												| UIViewAutoresizing.FlexibleWidth 
+												| UIViewAutoresizing.FlexibleRightMargin 
+												| UIViewAutoresizing.FlexibleTopMargin 
+												| UIViewAutoresizing.FlexibleHeight 
+												| UIViewAutoresizing.FlexibleBottomMargin;
 			return cell;
 		}
 	}

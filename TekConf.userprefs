@@ -1,10 +1,11 @@
 ﻿<Properties StartupItem="mobile/TekConf.Mobile.iOS/TekConf.iOS.csproj">
-  <MonoDevelop.Ide.ItemProperties.mobile.TekConf.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.3548CC85-6439-4429-886F-EF86BA4F26BB" />
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.mobile.TekConf.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.F933103A-13D2-4B8B-B314-597F273EF3BB" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="mobile/TekConf.Mobile.iOS/ConferenceCell.cs">
     <Files>
-      <File FileName="mobile/TekConf.Mobile.Core/Services/ConferencesService.cs" Line="15" Column="4" />
-      <File FileName="mobile/TekConf.Mobile.iOS/ConferencesViewController.cs" Line="10" Column="2" />
-      <File FileName="mobile/TekConf.Mobile.iOS/ConferenceCell.cs" Line="30" Column="17" />
+      <File FileName="mobile/TekConf.Mobile.Core/Services/ConferencesService.cs" Line="6" Column="2" />
+      <File FileName="mobile/TekConf.Mobile.iOS/ConferencesViewController.cs" Line="42" Column="27" />
+      <File FileName="mobile/TekConf.Mobile.iOS/ConferenceCell.cs" Line="28" Column="8" />
+      <File FileName="mobile/TekConf.Mobile.iOS/Views/ConferencesTableSource.cs" Line="32" Column="7" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

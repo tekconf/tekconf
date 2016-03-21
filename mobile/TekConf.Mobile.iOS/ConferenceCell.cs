@@ -15,15 +15,18 @@ namespace TekConf.Mobile.iOS
         {
 			this.DelayBind(() =>
 			{
+				contentView.Layer.BorderColor = UIColor.LightGray.CGColor;
+				contentView.Layer.BorderWidth = 0.5f;
+
 				_imageViewLoader = new MvxImageViewLoader(() => this.image);
 
 				var set = this.CreateBindingSet<ConferenceCell, ConferenceListViewModel>();
 				set.Bind(name).To(vm => vm.Name);
-				//set.Bind(description).To(vm => vm.Description);
+				set.Bind(description).To(vm => vm.Description);
 				//set.Bind(scheduleStatus).To(vm => vm.IsAddedToSchedule).WithConversion("AddedToSchedule");
-				//set.Bind(date).To(vm => vm.ShortDate);
-				//set.Bind(location).To(vm => vm.Location);
-				//set.Bind(highlightColor).For(v => v.BackgroundColor).To(vm => vm.HighlightColor).WithConversion("RGBA");
+				set.Bind(date).To(vm => vm.StartDate);
+				set.Bind(location).To(vm => vm.City);
+				set.Bind(highlightColor).For(v => v.BackgroundColor).To(vm => vm.HighlightColor).WithConversion("RGBA");
 				//set.Bind(scheduleStatusView).For(v => v.BackgroundColor).To(vm => vm.HighlightColor).WithConversion("RGBA");
 				set.Bind(_imageViewLoader).To(item => item.ImageUrl);
 

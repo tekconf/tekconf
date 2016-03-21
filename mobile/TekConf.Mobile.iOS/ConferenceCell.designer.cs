@@ -20,11 +20,23 @@ namespace TekConf.Mobile.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel date { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel description { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIView highlightColor { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UIImageView image { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UILabel location { get; set; }
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
@@ -37,6 +49,16 @@ namespace TekConf.Mobile.iOS
                 contentView = null;
             }
 
+            if (date != null) {
+                date.Dispose ();
+                date = null;
+            }
+
+            if (description != null) {
+                description.Dispose ();
+                description = null;
+            }
+
             if (highlightColor != null) {
                 highlightColor.Dispose ();
                 highlightColor = null;
@@ -45,6 +67,11 @@ namespace TekConf.Mobile.iOS
             if (image != null) {
                 image.Dispose ();
                 image = null;
+            }
+
+            if (location != null) {
+                location.Dispose ();
+                location = null;
             }
 
             if (name != null) {

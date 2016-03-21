@@ -85,6 +85,9 @@
     <Reference Include="MvvmCross.Plugins.DownloadCache">
       <HintPath>..\..\packages\MvvmCross.Plugin.DownloadCache.4.0.0\lib\portable-net45+win+wpa81+wp80\MvvmCross.Plugins.DownloadCache.dll</HintPath>
     </Reference>
+    <Reference Include="MvvmCross.Plugins.Color">
+      <HintPath>..\..\packages\MvvmCross.Plugin.Color.4.0.0\lib\portable-net45+win+wpa81+wp80\MvvmCross.Plugins.Color.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

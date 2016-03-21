@@ -8,7 +8,7 @@
         <scene sceneID="2">
             <objects>
                 <tableViewController storyboardIdentifier="ConferencesViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="3" customClass="ConferencesViewController" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="4">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="4">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -17,7 +17,7 @@
                                 <rect key="frame" x="0.0" y="22" width="600" height="221"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="17" id="18">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="220.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="221"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="58">
@@ -47,6 +47,65 @@
                                                         <constraint id="103" firstItem="99" firstAttribute="height" constant="21" relation="greaterThanOrEqual"/>
                                                     </constraints>
                                                 </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="wordWrap" id="120" translatesAutoresizingMaskIntoConstraints="NO" adjustsFontSizeToFit="NO" numberOfLines="0">
+                                                    <rect key="frame" x="17" y="37" width="452" height="21"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <constraints>
+                                                        <constraint id="124" firstItem="120" firstAttribute="height" constant="21" relation="greaterThanOrEqual"/>
+                                                    </constraints>
+                                                </label>
+                                                <view contentMode="scaleToFill" id="130" translatesAutoresizingMaskIntoConstraints="NO">
+                                                    <rect key="frame" x="7" y="176" width="262.5" height="30"/>
+                                                    <color key="backgroundColor" colorSpace="calibratedRGB" red="0.6" green="0.4" blue="0.2" alpha="1"/>
+                                                    <subviews>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" minimumFontSize="10" id="155" translatesAutoresizingMaskIntoConstraints="NO">
+                                                            <rect key="frame" x="4" y="4" width="254.5" height="22"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint id="138" firstItem="130" firstAttribute="height" constant="30"/>
+                                                        <constraint id="157" firstItem="155" firstAttribute="leading" secondItem="130" secondAttribute="leading" constant="4"/>
+                                                        <constraint id="158" firstItem="155" firstAttribute="top" secondItem="130" secondAttribute="top" constant="4"/>
+                                                        <constraint id="159" firstItem="130" firstAttribute="bottom" secondItem="155" secondAttribute="bottom" constant="4"/>
+                                                        <constraint id="160" firstItem="130" firstAttribute="trailing" secondItem="155" secondAttribute="trailing" constant="4"/>
+                                                    </constraints>
+                                                </view>
+                                                <view contentMode="scaleToFill" id="131" translatesAutoresizingMaskIntoConstraints="NO">
+                                                    <rect key="frame" x="269.5" y="176" width="262" height="30"/>
+                                                    <color key="backgroundColor" colorSpace="calibratedRGB" red="1" green="0" blue="1" alpha="1"/>
+                                                    <subviews>
+                                                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" minimumFontSize="10" id="161" translatesAutoresizingMaskIntoConstraints="NO">
+                                                            <rect key="frame" x="4" y="4" width="254" height="22"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                            <constraints>
+                                                                <constraint id="169" firstItem="161" firstAttribute="height" constant="22"/>
+                                                            </constraints>
+                                                        </label>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint id="142" firstItem="131" firstAttribute="height" constant="30"/>
+                                                        <constraint id="166" firstItem="161" firstAttribute="centerY" secondItem="131" secondAttribute="centerY"/>
+                                                        <constraint id="167" firstItem="161" firstAttribute="leading" secondItem="131" secondAttribute="leading" constant="4"/>
+                                                        <constraint id="168" firstItem="131" firstAttribute="trailing" secondItem="161" secondAttribute="trailing" constant="4"/>
+                                                    </constraints>
+                                                </view>
+                                                <view contentMode="scaleToFill" id="132" translatesAutoresizingMaskIntoConstraints="NO">
+                                                    <rect key="frame" x="531.5" y="176" width="52.5" height="30"/>
+                                                    <color key="backgroundColor" colorSpace="calibratedRGB" red="1" green="0" blue="0" alpha="1"/>
+                                                    <constraints>
+                                                        <constraint id="146" firstItem="132" firstAttribute="height" constant="30"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
@@ -58,10 +117,24 @@
                                                 <constraint id="100" firstItem="99" firstAttribute="leading" secondItem="63" secondAttribute="trailing" constant="8"/>
                                                 <constraint id="101" firstItem="99" firstAttribute="top" secondItem="58" secondAttribute="top" constant="8"/>
                                                 <constraint id="102" firstItem="69" firstAttribute="leading" secondItem="99" secondAttribute="trailing" constant="8"/>
+                                                <constraint id="121" firstItem="120" firstAttribute="leading" secondItem="99" secondAttribute="leading"/>
+                                                <constraint id="122" firstItem="120" firstAttribute="top" secondItem="99" secondAttribute="bottom" constant="8"/>
+                                                <constraint id="123" firstItem="120" firstAttribute="trailing" secondItem="99" secondAttribute="trailing"/>
+                                                <constraint id="133" firstItem="131" firstAttribute="top" secondItem="120" secondAttribute="bottom" constant="8" relation="greaterThanOrEqual"/>
+                                                <constraint id="134" firstItem="131" firstAttribute="width" secondItem="130" secondAttribute="width"/>
+                                                <constraint id="135" firstItem="132" firstAttribute="width" secondItem="130" secondAttribute="width" multiplier="0.2"/>
+                                                <constraint id="136" firstItem="63" firstAttribute="trailing" secondItem="130" secondAttribute="leading" constant="1"/>
+                                                <constraint id="137" firstItem="130" firstAttribute="bottom" secondItem="58" secondAttribute="bottom"/>
+                                                <constraint id="139" firstItem="130" firstAttribute="trailing" secondItem="131" secondAttribute="leading"/>
+                                                <constraint id="140" firstItem="131" firstAttribute="leading" secondItem="130" secondAttribute="trailing"/>
+                                                <constraint id="141" firstItem="131" firstAttribute="bottom" secondItem="58" secondAttribute="bottom"/>
+                                                <constraint id="143" firstItem="132" firstAttribute="leading" secondItem="131" secondAttribute="trailing"/>
+                                                <constraint id="144" firstItem="132" firstAttribute="bottom" secondItem="58" secondAttribute="bottom"/>
+                                                <constraint id="145" firstItem="132" firstAttribute="trailing" secondItem="58" secondAttribute="trailing"/>
                                             </constraints>
                                         </view>
                                     </subviews>
-                                    <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="backgroundColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
                                     <constraints>
                                         <constraint id="75" firstItem="18" firstAttribute="trailing" secondItem="58" secondAttribute="trailing" constant="8"/>
                                         <constraint id="76" firstItem="18" firstAttribute="bottom" secondItem="58" secondAttribute="bottom" constant="7"/>
@@ -74,7 +147,11 @@
                                     <outlet property="highlightColor" destination="63" id="name-outlet-63"/>
                                     <outlet property="name" destination="99" id="name-outlet-99"/>
                                     <outlet property="image" destination="69" id="name-outlet-69"/>
+                                    <outlet property="description" destination="120" id="name-outlet-120"/>
+                                    <outlet property="date" destination="155" id="name-outlet-155"/>
+                                    <outlet property="location" destination="161" id="name-outlet-161"/>
                                 </connections>
+                                <color key="backgroundColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
