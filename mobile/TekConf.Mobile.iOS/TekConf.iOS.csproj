@@ -114,7 +114,6 @@
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
     <InterfaceDefinition Include="Main.storyboard" />
-    <InterfaceDefinition Include="Views\SettingsView.xib" />
     <InterfaceDefinition Include="Views\FilterView.xib" />
     <InterfaceDefinition Include="ConferencesStoryboard.storyboard" />
   </ItemGroup>
@@ -134,10 +133,6 @@
     <Compile Include="Setup.cs" />
     <Compile Include="DebugTrace.cs" />
     <Compile Include="LinkerPleaseInclude.cs" />
-    <Compile Include="Views\SettingsView.cs" />
-    <Compile Include="Views\SettingsView.designer.cs">
-      <DependentUpon>SettingsView.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\FilterView.cs" />
     <Compile Include="Views\FilterView.designer.cs">
       <DependentUpon>FilterView.cs</DependentUpon>
@@ -154,6 +149,10 @@
     <Compile Include="ConferenceDetailViewController.cs" />
     <Compile Include="ConferenceDetailViewController.designer.cs">
       <DependentUpon>ConferenceDetailViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SettingsViewController.cs" />
+    <Compile Include="SettingsViewController.designer.cs">
+      <DependentUpon>SettingsViewController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

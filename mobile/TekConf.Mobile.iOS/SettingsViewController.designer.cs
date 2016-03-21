@@ -11,8 +11,8 @@ using UIKit;
 
 namespace TekConf.Mobile.iOS
 {
-    [Register ("SettingsView")]
-    partial class SettingsView
+    [Register ("SettingsViewController")]
+    partial class SettingsViewController
     {
         void ReleaseDesignerOutlets ()
         {

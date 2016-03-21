@@ -3,6 +3,7 @@ using MvvmCross.Core.ViewModels;
 using MvvmCross.iOS.Platform;
 using MvvmCross.Platform;
 using UIKit;
+using MvvmCross.iOS.Views.Presenters;
 
 namespace TekConf.Mobile.iOS
 {
@@ -21,7 +22,9 @@ namespace TekConf.Mobile.iOS
 		{
 			Window = new UIWindow(UIScreen.MainScreen.Bounds);
 
-			var setup = new Setup(this, Window);
+			var presenter = new MvxModalSupportIosViewPresenter(this, Window);
+
+			var setup = new Setup(this, presenter);
 			setup.Initialize();
 
 			var startup = Mvx.Resolve<IMvxAppStart>();
