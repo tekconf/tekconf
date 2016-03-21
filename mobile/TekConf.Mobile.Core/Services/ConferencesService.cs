@@ -16,7 +16,14 @@ namespace TekConf.Mobile.Core
 			return await Task.Run(() => {
 				return new List<ConferenceModel> { 
 					new ConferenceModel {
-						Name = "Test Conference with somet asd asklnasdl kllsad lkjhf"
+						Name = "Test Conference with somet asd asklnasdl kllsad lkjhf",
+						Description = "Test description lkjsdf lk sjdkl l kljs dlj fsd l kdsjfs dlj lkjds fkjdfs ls lkjsd klj sdlkjdsljk ljksdflkj ljk slkjs dlkjds ljl lkj slkj slkjd lkjs djls l lkj jll lkllsdfjjkjkjdff  jlkjsdflkj lk klj kljkl jkljdfkljskdl jlkj dsl",
+						City = "Farmington",
+						EndDate = DateTime.Now.AddDays(7),
+						HighlightColor = "",
+						StartDate = DateTime.Now,
+						State = "MI",
+						ImageUrl = "http://tekauth.azurewebsites.net/images/conferences/codemash-2016.png"
 					}
 				};
 			});

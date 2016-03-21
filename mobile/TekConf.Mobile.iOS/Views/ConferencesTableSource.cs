@@ -22,7 +22,11 @@ namespace TekConf.Mobile.iOS
 
 		protected override UITableViewCell GetOrCreateCellFor(UITableView tableView, NSIndexPath indexPath, object item)
 		{
-			return tableView.DequeueReusableCell(ConferenceCell.Key, indexPath);
+	
+			var cell = tableView.DequeueReusableCell(ConferenceCell.Key, indexPath);
+			cell.ContentView.Frame = cell.Bounds;
+			cell.ContentView.AutoresizingMask = UIViewAutoresizing.FlexibleLeftMargin | UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleRightMargin | UIViewAutoresizing.FlexibleTopMargin | UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleBottomMargin;
+			return cell;
 		}
 	}
 }

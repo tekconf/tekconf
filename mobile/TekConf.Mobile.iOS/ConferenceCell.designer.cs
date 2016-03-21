@@ -24,6 +24,10 @@ namespace TekConf.Mobile.iOS
 
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIImageView image { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UILabel name { get; set; }
 
         void ReleaseDesignerOutlets ()
@@ -36,6 +40,11 @@ namespace TekConf.Mobile.iOS
             if (highlightColor != null) {
                 highlightColor.Dispose ();
                 highlightColor = null;
+            }
+
+            if (image != null) {
+                image.Dispose ();
+                image = null;
             }
 
             if (name != null) {

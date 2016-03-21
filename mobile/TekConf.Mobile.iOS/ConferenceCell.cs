@@ -10,12 +10,12 @@ namespace TekConf.Mobile.iOS
 	public partial class ConferenceCell : MvxTableViewCell
     {
 		public static readonly NSString Key = new NSString("ConferenceCell");
-
+		private MvxImageViewLoader _imageViewLoader;
         public ConferenceCell (IntPtr handle) : base (handle)
         {
 			this.DelayBind(() =>
 			{
-				//_imageViewLoader = new MvxImageViewLoader(() => this.image);
+				_imageViewLoader = new MvxImageViewLoader(() => this.image);
 
 				var set = this.CreateBindingSet<ConferenceCell, ConferenceListViewModel>();
 				set.Bind(name).To(vm => vm.Name);
@@ -25,7 +25,7 @@ namespace TekConf.Mobile.iOS
 				//set.Bind(location).To(vm => vm.Location);
 				//set.Bind(highlightColor).For(v => v.BackgroundColor).To(vm => vm.HighlightColor).WithConversion("RGBA");
 				//set.Bind(scheduleStatusView).For(v => v.BackgroundColor).To(vm => vm.HighlightColor).WithConversion("RGBA");
-				//set.Bind(_imageViewLoader).To(item => item.ImageUrl);
+				set.Bind(_imageViewLoader).To(item => item.ImageUrl);
 
 				set.Apply();
 			});
