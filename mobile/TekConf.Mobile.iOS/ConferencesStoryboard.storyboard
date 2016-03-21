@@ -22,6 +22,43 @@
                                         <view contentMode="scaleToFill" id="58" translatesAutoresizingMaskIntoConstraints="NO">
                                             <rect key="frame" x="8" y="8" width="584" height="204.5"/>
                                             <color key="backgroundColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" id="63" translatesAutoresizingMaskIntoConstraints="NO">
+                                                    <rect key="frame" x="1" y="0.0" width="8" height="204"/>
+                                                    <color key="backgroundColor" colorSpace="calibratedRGB" red="1" green="0.49803921568627452" blue="0" alpha="1"/>
+                                                    <constraints>
+                                                        <constraint id="66" firstItem="63" firstAttribute="width" constant="8"/>
+                                                    </constraints>
+                                                </view>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Test Conference with somet asd asklnasdl kllsad lkjhf" lineBreakMode="wordWrap" id="68" translatesAutoresizingMaskIntoConstraints="NO" numberOfLines="0" adjustsFontSizeToFit="NO">
+                                                    <rect key="frame" x="15" y="8" width="453" height="21"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <constraints>
+                                                        <constraint id="77" firstItem="68" firstAttribute="height" constant="21" relation="greaterThanOrEqual"/>
+                                                        <constraint id="80" firstItem="68" firstAttribute="width" constant="75" relation="greaterThanOrEqual" priority="750"/>
+                                                    </constraints>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="69" translatesAutoresizingMaskIntoConstraints="NO">
+                                                    <rect key="frame" x="477" y="8" width="100" height="100"/>
+                                                    <constraints>
+                                                        <constraint id="72" firstItem="69" firstAttribute="width" constant="100"/>
+                                                        <constraint id="73" firstItem="69" firstAttribute="height" constant="100"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint id="64" firstItem="63" firstAttribute="top" secondItem="58" secondAttribute="top"/>
+                                                <constraint id="65" firstItem="63" firstAttribute="bottom" secondItem="58" secondAttribute="bottom"/>
+                                                <constraint id="67" firstItem="63" firstAttribute="leading" secondItem="58" secondAttribute="leading"/>
+                                                <constraint id="70" firstItem="69" firstAttribute="top" secondItem="58" secondAttribute="top" constant="8"/>
+                                                <constraint id="71" firstItem="58" firstAttribute="trailing" secondItem="69" secondAttribute="trailing" constant="8"/>
+                                                <constraint id="74" firstItem="68" firstAttribute="leading" secondItem="63" secondAttribute="trailing" constant="8"/>
+                                                <constraint id="75" firstItem="68" firstAttribute="top" secondItem="58" secondAttribute="top" constant="8"/>
+                                                <constraint id="76" firstItem="69" firstAttribute="leading" secondItem="68" secondAttribute="trailing" constant="8"/>
+                                            </constraints>
                                         </view>
                                     </subviews>
                                     <color key="backgroundColor" colorSpace="calibratedRGB" red="0" green="1" blue="0" alpha="1"/>
@@ -32,7 +69,11 @@
                                         <constraint id="62" firstItem="18" firstAttribute="trailing" secondItem="58" secondAttribute="trailing" constant="8"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <connections/>
+                                <connections>
+                                    <outlet property="highlightColor" destination="63" id="name-outlet-63"/>
+                                    <outlet property="contentView" destination="58" id="name-outlet-58"/>
+                                    <outlet property="name" destination="68" id="name-outlet-68"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>

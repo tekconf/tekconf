@@ -42,36 +42,36 @@ namespace TekConf.Mobile.iOS
 
 			TableView.ReloadData();
 		}
-		UIBarButtonItem menuItem;
-		private void AddSettingsButton()
-		{
-			//var settingsAttributes = new UIStringAttributes()
-			//{
-			//	ForegroundColor = UIColor.White,
-			//	Font = UIFont.FromName("FontAwesome", 16f)
-			//};
+		//UIBarButtonItem menuItem;
+		//private void AddSettingsButton()
+		//{
+		//	//var settingsAttributes = new UIStringAttributes()
+		//	//{
+		//	//	ForegroundColor = UIColor.White,
+		//	//	Font = UIFont.FromName("FontAwesome", 16f)
+		//	//};
 
-			//UIButton menuButton = new UIButton(UIButtonType.Custom);
-			//var prettyString = new NSMutableAttributedString("\xf013");
-			//prettyString.SetAttributes(settingsAttributes.Dictionary, new NSRange(0, 1));
-			//menuButton.SetAttributedTitle(prettyString, UIControlState.Normal);
-			//menuButton.Frame = new CGRect(0, 0, 24, 24);
+		//	//UIButton menuButton = new UIButton(UIButtonType.Custom);
+		//	//var prettyString = new NSMutableAttributedString("\xf013");
+		//	//prettyString.SetAttributes(settingsAttributes.Dictionary, new NSRange(0, 1));
+		//	//menuButton.SetAttributedTitle(prettyString, UIControlState.Normal);
+		//	//menuButton.Frame = new CGRect(0, 0, 24, 24);
 
-			UIButton menuButton = new UIButton(UIButtonType.ContactAdd);
+		//	UIButton menuButton = new UIButton(UIButtonType.ContactAdd);
 
-			menuItem = new UIBarButtonItem(menuButton);
+		//	menuItem = new UIBarButtonItem(menuButton);
 
-			//menuButton.TouchUpInside += (sender, e) =>
-			//{
-			//	var storyboard = UIStoryboard.FromName("Main", null);
-			//	var settingsController = storyboard.InstantiateViewController("SettingsNavigationController") as SettingsNavigationController;
+		//	//menuButton.TouchUpInside += (sender, e) =>
+		//	//{
+		//	//	var storyboard = UIStoryboard.FromName("Main", null);
+		//	//	var settingsController = storyboard.InstantiateViewController("SettingsNavigationController") as SettingsNavigationController;
 
-			//	this.NavigationController.PresentModalViewController(settingsController, animated: true);
+		//	//	this.NavigationController.PresentModalViewController(settingsController, animated: true);
 
-			//};
+		//	//};
 
-			this.NavigationItem.SetRightBarButtonItem(menuItem, true);
+		//	this.NavigationItem.SetRightBarButtonItem(menuItem, true);
 
-		}
+		//}
     }
 }

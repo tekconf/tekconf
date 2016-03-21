@@ -16,7 +16,7 @@ namespace TekConf.Mobile.Core
 			return await Task.Run(() => {
 				return new List<ConferenceModel> { 
 					new ConferenceModel {
-						Name = "Test Conference"
+						Name = "Test Conference with somet asd asklnasdl kllsad lkjhf"
 					}
 				};
 			});
