@@ -30,9 +30,31 @@ namespace TekConf.Mobile.iOS
 			var startup = Mvx.Resolve<IMvxAppStart>();
 			startup.Start();
 
+			AdjustDefaultUI ();
+
 			Window.MakeKeyAndVisible();
 
 			return true;
+		}
+
+		private void AdjustDefaultUI ()
+		{
+
+			//UINavigationBar.Appearance.BarTintColor = UIColor.FromRGB(red: 34, green: 91, blue: 149);
+			UINavigationBar.Appearance.BarTintColor = UIColor.FromRGB (red: 128, green: 153, blue: 77);
+			UIBarButtonItem.Appearance.TintColor = UIColor.White;
+
+			UINavigationBar.Appearance.TintColor = UIColor.White;
+			var navStyle = new UITextAttributes () {
+				TextColor = UIColor.White,
+				TextShadowColor = UIColor.Clear,
+
+				Font = UIFont.FromName ("OpenSans-Light", 16f)
+			};
+
+			UINavigationBar.Appearance.SetTitleTextAttributes (navStyle);
+			UIImageView.AppearanceWhenContainedIn (typeof (UINavigationBar)).TintColor = UIColor.White;
+			UIBarButtonItem.Appearance.SetTitleTextAttributes (navStyle, UIControlState.Normal);
 		}
 	}
 }

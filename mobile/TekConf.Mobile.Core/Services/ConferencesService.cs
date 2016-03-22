@@ -16,14 +16,14 @@ namespace TekConf.Mobile.Core
 			return await Task.Run(() => {
 				return new List<ConferenceModel> { 
 					new ConferenceModel {
-						Name = "Test Conference with somet asd asklnasdl kllsad lkjhf",
-						Description = "Test description akshf jlka skljsa lkh aslhjk hkhas jh skjhsd akhsdf khs hlk hkj hlkhs  lkjsdf lk sjdkl l kljs dlj fsd l kdsjfs dlj lkjds fkjdfs ls lkjsd klj sdlkjdsljk ljksdflkj ljk slkjs dlkjds ljl lkj slkj slkjd lkjs djls l lkj jll lkllsdfjjkjkjdff  jlkjsdflkj lk klj kljkl jkljdfkljskdl jlkj dsl",
-						City = "Farmington",
-						EndDate = DateTime.Now.AddDays(7),
-						HighlightColor = "24aad6",
-						StartDate = DateTime.Now,
-						State = "MI",
-						ImageUrl = "http://tekauth.azurewebsites.net/images/conferences/codemash-2016.png"
+						Name = "Xamarin Evolve",
+						Description = "Xamarin Evolve is the largest cross-platform mobile event in the world, where over 1,500 developers, industry leaders, and Xamarin experts converge to advance the state of the art, discuss mobile strategy, and define the future of apps.",
+						City = "Orlando",
+						EndDate = new DateTime(2016, 04, 29),
+						HighlightColor = "ad51ab",
+						StartDate = new DateTime(2016, 04, 24),
+						State = "FL",
+						ImageUrl = "http://tekauth.azurewebsites.net/images/conferences/evolve-2016.png"
 					}
 				};
 			});

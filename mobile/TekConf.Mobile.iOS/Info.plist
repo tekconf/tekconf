@@ -35,5 +35,26 @@
 	</array>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcons.appiconset</string>
+	<key>UIAppFonts</key> 
+  	<array> 
+	    <string>Fonts/OpenSans-Light.ttf</string> 
+	    <string>Fonts/SF-UI-Display-Bold.otf</string> 
+	    <string>Fonts/SF-UI-Display-Light.otf</string> 
+	    <string>Fonts/SF-UI-Display-Regular.otf</string> 
+	    <string>Fonts/SF-UI-Display-Thin.otf</string> 
+	    <string>Fonts/SF-UI-Display-Ultralight.otf</string> 
+	    <string>Fonts/OpenSans-Regular.ttf</string> 
+	    <string>Fonts/OpenSans-Bold.ttf</string> 
+	    <string>Fonts/OpenSans-ExtraBold.ttf</string> 
+	    <string>Fonts/OpenSans-SemiBold.ttf</string> 
+	    <string>Fonts/fontawesome.ttf</string> 
+  	</array> 
+  <key>NSLocationWhenInUseUsageDescription</key> 
+  <string>Show your location on map</string> 
+  <key>UIBackgroundModes</key> 
+  <array> 
+    <string>remote-notification</string> 
+
+  </array> 
 </dict>
 </plist>
