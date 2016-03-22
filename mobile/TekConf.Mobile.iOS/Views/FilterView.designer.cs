@@ -11,11 +11,11 @@ using UIKit;
 
 namespace TekConf.Mobile.iOS
 {
-    [Register ("FilterView")]
-    partial class FilterView
-    {
-        void ReleaseDesignerOutlets ()
-        {
-        }
-    }
+	[Register ("FilterView")]
+	partial class FilterView
+	{
+		void ReleaseDesignerOutlets ()
+		{
+		}
+	}
 }
