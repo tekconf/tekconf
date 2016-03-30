@@ -36,7 +36,7 @@ namespace today
 			// If an error is encoutered, use NCUpdateResultFailed
 			// If there's no update required, use NCUpdateResultNoData
 			// If there's an update, use NCUpdateResultNewData
-
+			this.status.Text = "Hey there! You have a new conference to attend today. Get to it!";
 			completionHandler(NCUpdateResult.NewData);
 		}
 	}
