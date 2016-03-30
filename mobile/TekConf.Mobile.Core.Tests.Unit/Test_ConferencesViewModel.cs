@@ -12,6 +12,7 @@ using System;
 using MvvmCross.Platform.Core;
 using MvvmCross.Core.Views;
 using MvvmCross.Core.Platform;
+using TekConf.Mobile.Core.Services;
 
 [TestFixture]
 public class Test_ConferencesViewModel : MvxIoCSupportingTest
@@ -45,7 +46,7 @@ public class Test_ConferencesViewModel : MvxIoCSupportingTest
 	{
 		var conferencesService = new Mock<IConferencesService>();
 		var models = _fixture.CreateMany<ConferenceModel>().ToList();
-		conferencesService.Setup(x => x.Load()).ReturnsAsync(models);
+		conferencesService.Setup(x => x.GetConferences()).ReturnsAsync(models);
 
 		var vm = new ConferencesViewModel(conferencesService.Object, _mapper);
 
@@ -59,7 +60,7 @@ public class Test_ConferencesViewModel : MvxIoCSupportingTest
 	{
 		var conferencesService = new Mock<IConferencesService>();
 		var models = _fixture.CreateMany<ConferenceModel>().ToList();
-		conferencesService.Setup(x => x.Load()).ReturnsAsync(models);
+		conferencesService.Setup(x => x.GetConferences()).ReturnsAsync(models);
 
 		var vm = new ConferencesViewModel(conferencesService.Object, _mapper);
 
@@ -97,7 +98,7 @@ public class Test_ConferencesViewModel : MvxIoCSupportingTest
 	{
 		var conferencesService = new Mock<IConferencesService>();
 		var models = _fixture.CreateMany<ConferenceModel>().ToList();
-		conferencesService.Setup(x => x.Load()).Callback(async () => await Task.Delay(1000)).ReturnsAsync(models);
+		conferencesService.Setup(x => x.GetConferences()).Callback(async () => await Task.Delay(1000)).ReturnsAsync(models);
 
 		var vm = new ConferencesViewModel(conferencesService.Object, _mapper);
 

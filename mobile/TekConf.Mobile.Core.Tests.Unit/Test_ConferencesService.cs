@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using MvvmCross.Core.Views;
 using MvvmCross.Platform.Core;
 using MvvmCross.Core.Platform;
+using TekConf.Mobile.Core.Services;
 
 [TestFixture]
 public class Test_ConferencesService : MvxIoCSupportingTest
@@ -54,6 +55,8 @@ public class Test_ConferencesService : MvxIoCSupportingTest
 	[Test]
 	public void should_load_from_remote_service()
 	{
-		true.ShouldBeFalse();
+		var remote = new Mock<IRemoteConferencesService>();
+		var conferencesService = new ConferencesService();
+
 	}
 }

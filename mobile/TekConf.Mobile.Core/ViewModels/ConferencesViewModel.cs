@@ -5,6 +5,7 @@ using System.Windows.Input;
 using AutoMapper;
 using System.Threading.Tasks;
 using PropertyChanged;
+using TekConf.Mobile.Core.Services;
 
 namespace TekConf.Mobile.Core.ViewModels
 {
@@ -90,11 +91,11 @@ namespace TekConf.Mobile.Core.ViewModels
 
 		private async Task Load()
 		{
-			IsLoading = true;
-			var conferenceModels = await _conferencesService.Load();
-			var conferenceViewModels = _mapper.Map<IList<ConferenceListViewModel>>(conferenceModels);
-			this.Conferences = new ObservableCollection<ConferenceListViewModel>(conferenceViewModels);
-			IsLoading = false;
+			//IsLoading = true;
+			//var conferenceModels = await _conferencesService.Load();
+			//var conferenceViewModels = _mapper.Map<IList<ConferenceListViewModel>>(conferenceModels);
+			//this.Conferences = new ObservableCollection<ConferenceListViewModel>(conferenceViewModels);
+			//IsLoading = false;
 		}
 
 		bool CanLoad()

@@ -18,6 +18,12 @@ namespace TekConf.Mobile.iOS
         {
         }
 
+		protected override void InitializeLastChance()
+		{
+			base.InitializeLastChance();
+
+			MvvmCross.Plugins.Messenger.PluginLoader.Instance.EnsureLoaded();
+		}
         protected override IMvxApplication CreateApp()
         {
             return new Core.App();
