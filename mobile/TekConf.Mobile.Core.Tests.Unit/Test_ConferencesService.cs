@@ -13,6 +13,9 @@ using MvvmCross.Core.Views;
 using MvvmCross.Platform.Core;
 using MvvmCross.Core.Platform;
 using TekConf.Mobile.Core.Services;
+using MvvmCross.Platform;
+using MvvmCross.Plugins.Messenger;
+using Fusillade;
 
 [TestFixture]
 public class Test_ConferencesService : MvxIoCSupportingTest
@@ -53,10 +56,16 @@ public class Test_ConferencesService : MvxIoCSupportingTest
 	}
 
 	[Test]
-	public void should_load_from_remote_service()
+	public async Task should_load_from_remote_service()
 	{
-		var remote = new Mock<IRemoteConferencesService>();
-		var conferencesService = new ConferencesService();
+		var messenger = new MvxMessengerHub();
+		var settingsService = new SettingsService();
+		//var messenger = Mvx.Resolve<IMvxMessenger>();
+		var apiService = new ApiService(settingsService, messenger);
+		var remoteService = new RemoteConferencesService(apiService);
+		var conferences = await remoteService.GetConferences(Priority.Explicit);
+		//var remote = new Mock<IRemoteConferencesService>();
+		//var conferencesService = new ConferencesService();
 
 	}
 }

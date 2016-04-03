@@ -7,5 +7,7 @@ namespace TekConf.Mobile.Core
 		{
 		}
 	}
+
+	
 }
 

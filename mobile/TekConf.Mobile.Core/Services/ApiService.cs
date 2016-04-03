@@ -36,7 +36,7 @@ namespace TekConf.Mobile.Core.Services
 	    {
             Func<HttpMessageHandler, ITekConfApi> createClient = messageHandler =>
             {
-                var client = new HttpClient(messageHandler)
+                var client = new HttpClient(new AuthenticatedHttpClientHandler(_settingsService.UserIdToken))
                 {
                     BaseAddress = new Uri(ApiBaseAddress)
                 };

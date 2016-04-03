@@ -1,6 +1,7 @@
 using AutoMapper;
 using MvvmCross.Platform;
 using MvvmCross.Platform.IoC;
+using Tekconf.DTO;
 using TekConf.Mobile.Core.ViewModels;
 
 namespace TekConf.Mobile.Core
@@ -17,7 +18,13 @@ namespace TekConf.Mobile.Core
 
             RegisterAppStart<ConferencesViewModel>();
 
-			var config = new MapperConfiguration(cfg => cfg.CreateMap<ConferenceModel, ConferenceListViewModel>());
+			var config = new MapperConfiguration(cfg =>
+			{
+				cfg.CreateMap<ConferenceModel, ConferenceListViewModel>();
+				cfg.CreateMap<Conference, ConferenceModel>();
+			}
+			                                   
+			                                    );
 			_mapper = config.CreateMapper();
 
 			Mvx.RegisterSingleton<IMapper>(_mapper);

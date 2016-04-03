@@ -1,10 +1,12 @@
-﻿using System.Threading.Tasks;
+using System;
 using System.Net.Http;
-using System.Threading;
 using System.Net.Http.Headers;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace TekConf.Mobile.Core
 {
+
 	public class AuthenticatedHttpClientHandler : HttpClientHandler
 	{
 		private readonly string _token;

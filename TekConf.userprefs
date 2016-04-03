@@ -1,22 +1,25 @@
 ﻿<Properties StartupItem="mobile/TekConf.Mobile.iOS/TekConf.iOS.csproj">
-  <MonoDevelop.Ide.ItemProperties.mobile.TekConf.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.00D9DF0E-612B-4A45-B44B-55421C574458" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="mobile/TekConf.Mobile.Core.Tests.Unit/Test_ConferencesService.cs">
+  <MonoDevelop.Ide.ItemProperties.mobile.TekConf.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.3548CC85-6439-4429-886F-EF86BA4F26BB" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="mobile/TekConf.Mobile.iOS/Main.cs">
     <Files>
-      <File FileName="mobile/TekConf.Mobile.Core.Tests.Unit/Test_ConferencesService.cs" Line="58" Column="25" />
-      <File FileName="mobile/TekConf.Mobile.Core/Services/ConferencesService.cs" Line="26" Column="3" />
-      <File FileName="mobile/TekConf.Mobile.Core/Services/ApiService.cs" Line="60" Column="14" />
-      <File FileName="mobile/TekConf.Mobile.Core/Services/SchedulesService.cs" Line="198" Column="14" />
-      <File FileName="mobile/TekConf.Mobile.Core/Messages/AuthenticationInitializedMessage.cs" Line="10" Column="4" />
-      <File FileName="mobile/TekConf.Mobile.Core/App.cs" Line="1" Column="1" />
-      <File FileName="mobile/TekConf.Mobile.Core/ViewModels/ConferencesViewModel.cs" Line="89" Column="5" />
-      <File FileName="mobile/TekConf.Mobile.Core.Tests.Unit/Test_ConferencesViewModel.cs" Line="100" Column="37" />
-      <File FileName="mobile/TekConf.Mobile.Core/Services/IConferencesService.cs" Line="14" Column="28" />
+      <File FileName="mobile/TekConf.Mobile.Core/Services/ConferencesService.cs" Line="38" Column="1" />
+      <File FileName="mobile/TekConf.Mobile.Core/Services/RemoteConferencesService.cs" Line="53" Column="4" />
+      <File FileName="mobile/TekConf.Mobile.Core/Services/ApiService.cs" Line="48" Column="17" />
+      <File FileName="mobile/TekConf.Mobile.Core/ViewModels/ConferencesViewModel.cs" Line="95" Column="1" />
+      <File FileName="mobile/TekConf.Mobile.Core/Services/ITekConfApi.cs" Line="9" Column="19" />
+      <File FileName="mobile/TekConf.Mobile.iOS/Main.cs" Line="12" Column="1" />
+      <File FileName="mobile/TekConf.Mobile.iOS/Info.plist" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="/Users/rob/dev/tekconf/mobile/TekConf.Mobile.iOS/Views/ConferenceCell.cs" line="37" column="1" />
+      <Breakpoint file="/Users/rob/dev/tekconf/mobile/TekConf.Mobile.Core/Services/RemoteConferencesService.cs" line="83" column="1" />
+      <Breakpoint file="/Users/rob/dev/tekconf/mobile/TekConf.Mobile.Core/ViewModels/ConferencesViewModel.cs" line="95" column="1" />
+      <Breakpoint file="/Users/rob/dev/tekconf/mobile/TekConf.Mobile.Core/Services/ConferencesService.cs" line="38" column="1" />
+      <Breakpoint file="/Users/rob/dev/tekconf/mobile/TekConf.Mobile.Core/Services/ConferencesService.cs" line="40" column="1" />
+      <Breakpoint file="/Users/rob/dev/tekconf/mobile/TekConf.Mobile.Core/Services/ApiService.cs" line="50" column="1" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
