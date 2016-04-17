@@ -21,7 +21,9 @@ namespace TekConf.Mobile.Core
 			var config = new MapperConfiguration(cfg =>
 			{
 				cfg.CreateMap<ConferenceModel, ConferenceListViewModel>();
+
 				cfg.CreateMap<Conference, ConferenceModel>();
+				cfg.CreateMap<Session, SessionModel>();
 			}
 			                                   
 			                                    );

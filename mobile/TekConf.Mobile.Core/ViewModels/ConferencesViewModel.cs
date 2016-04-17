@@ -93,9 +93,9 @@ namespace TekConf.Mobile.Core.ViewModels
 		{
 			IsLoading = true;
 			var conferenceModels = await _conferencesService.GetConferences();
-			//var conferenceViewModels = _mapper.Map<IList<ConferenceListViewModel>>(conferenceModels);
-			//this.Conferences = new ObservableCollection<ConferenceListViewModel>(conferenceViewModels);
-			//IsLoading = false;
+			var conferenceViewModels = _mapper.Map<IList<ConferenceListViewModel>>(conferenceModels);
+			this.Conferences = new ObservableCollection<ConferenceListViewModel>(conferenceViewModels);
+			IsLoading = false;
 		}
 
 		bool CanLoad()

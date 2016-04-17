@@ -1,10 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
+using SQLite;
+using SQLite.Net.Attributes;
+using SQLiteNetExtensions.Attributes;
+
 namespace TekConf.Mobile.Core
 {
+	[Table("Conferences")]
 	public class ConferenceModel
 	{
-		public bool IsAddedToSchedule { get; set; }
+		[PrimaryKey, AutoIncrement, Column("_id")]
+		public int Id { get; set; }
+
+		[Unique, Indexed]
 		public string Slug { get; set; }
+		[Indexed]
 		public string Name { get; set; }
 		public string Description { get; set; }
 
@@ -13,6 +23,7 @@ namespace TekConf.Mobile.Core
 		public DateTime? EndDate { get; set; }
 
 		public bool IsLive { get; set; }
+		public bool IsAddedToSchedule { get; set; }
 
 		public DateTime DatePublished { get; set; }
 
@@ -48,7 +59,12 @@ namespace TekConf.Mobile.Core
 		public string LinkedInUrl { get; set; }
 		public string HighlightColor { get; set; }
 		//public Address Address { get; set; } = new Address();
-		//public List<Session> Sessions { get; set; }
+
+		[OneToMany(CascadeOperations = CascadeOperation.All)]
+		public List<SessionModel> Sessions { get; set; }
+
 	}
+
+	
 }
 

@@ -49,7 +49,6 @@
     <Compile Include="Services\ITekConfApi.cs" />
     <Compile Include="Services\SchedulesService.cs" />
     <Compile Include="Services\SettingsService.cs" />
-    <Compile Include="AkavacheSqliteLinkerOverride.cs" />
     <Compile Include="Messages\AuthenticationInitializedMessage.cs" />
     <Compile Include="Messages\ConferenceAddedMessage.cs" />
     <Compile Include="Messages\ConferenceAddedToScheduleMessage.cs" />
@@ -58,6 +57,10 @@
     <Compile Include="Services\RemoteConferencesService.cs" />
     <Compile Include="Services\IRemoteConferencesService.cs" />
     <Compile Include="Infrastructure\AuthenticatedHttpClientHandler.cs" />
+    <Compile Include="Services\ILocalConferencesService.cs" />
+    <Compile Include="Services\LocalConferencesService.cs" />
+    <Compile Include="swp8\Bootstrap\CommunitySqlitePluginBootstrap.cs" />
+    <Compile Include="Models\SessionModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="AutoMapper">
@@ -108,12 +111,6 @@
     <Reference Include="System.Reactive.PlatformServices">
       <HintPath>..\..\packages\Rx-PlatformServices.2.2.5\lib\portable-windows8+net45+wp8\System.Reactive.PlatformServices.dll</HintPath>
     </Reference>
-    <Reference Include="Akavache">
-      <HintPath>..\..\packages\akavache.core.4.1.2\lib\Portable-Net45+Win8+WP8+Wpa81\Akavache.dll</HintPath>
-    </Reference>
-    <Reference Include="Akavache.Sqlite3">
-      <HintPath>..\..\packages\akavache.sqlite3.4.1.2\lib\Portable-Net45+Win8+WP8+Wpa81\Akavache.Sqlite3.dll</HintPath>
-    </Reference>
     <Reference Include="Fusillade">
       <HintPath>..\..\packages\fusillade.0.6.0\lib\Portable-net45+win+wpa81+wp80\Fusillade.dll</HintPath>
     </Reference>
@@ -144,9 +141,6 @@
     <Reference Include="MvvmCross.Plugins.DownloadCache">
       <HintPath>..\..\packages\MvvmCross.Plugin.DownloadCache.4.1.0\lib\portable-net45+win+wpa81+wp80\MvvmCross.Plugins.DownloadCache.dll</HintPath>
     </Reference>
-    <Reference Include="MvvmCross.Plugins.Color">
-      <HintPath>..\..\packages\MvvmCross.Plugin.Color.4.1.0\lib\portable-net45+win+wpa81+wp80\MvvmCross.Plugins.Color.dll</HintPath>
-    </Reference>
     <Reference Include="Punchclock">
       <HintPath>..\..\packages\Punchclock.1.2.0\lib\Portable-net45+win+wpa81+wp80\Punchclock.dll</HintPath>
     </Reference>
@@ -156,11 +150,26 @@
     <Reference Include="Splat">
       <HintPath>..\..\packages\Splat.1.6.2\lib\Portable-net45+win+wpa81+wp80\Splat.dll</HintPath>
     </Reference>
-    <Reference Include="SQLitePCL.raw">
-      <HintPath>..\..\packages\SQLitePCL.raw.0.8.6\lib\portable-net45+netcore45+wp8+MonoAndroid10+MonoTouch10+Xamarin.iOS10\SQLitePCL.raw.dll</HintPath>
+    <Reference Include="SQLite.Net.Async">
+      <HintPath>..\..\packages\SQLite.Net.Async-PCL.3.1.1\lib\portable-win8+net45+wp8+wpa81+MonoAndroid1+MonoTouch1\SQLite.Net.Async.dll</HintPath>
     </Reference>
-    <Reference Include="SQLite-net">
-      <HintPath>..\..\packages\sqlite-net-pcl.1.1.1\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10\SQLite-net.dll</HintPath>
+    <Reference Include="SQLite.Net">
+      <HintPath>..\..\packages\SQLite.Net-PCL.3.1.1\lib\portable-win8+net45+wp8+wpa81+MonoAndroid1+MonoTouch1\SQLite.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="MvvmCross.Plugins.Sqlite">
+      <HintPath>..\..\packages\MvvmCross.Plugin.SQLitePCL.4.1.0\lib\portable-win+net45+wp8+win8+wpa81+win81+dotnet\MvvmCross.Plugins.Sqlite.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.CrossCore">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.1.1\lib\portable-win+net45+sl50+wp8+MonoAndroid+MonoTouch\Cirrious.CrossCore.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Localization">
+      <HintPath>..\..\packages\MvvmCross.HotTuna.CrossCore.3.1.1\lib\portable-win+net45+sl50+wp8+MonoAndroid+MonoTouch\Cirrious.MvvmCross.Localization.dll</HintPath>
+    </Reference>
+    <Reference Include="Cirrious.MvvmCross.Community.Plugins.Sqlite">
+      <HintPath>..\..\packages\MvvmCross.Community.Plugin.Sqlite.3.1.1\lib\portable-win+net45+MonoAndroid+MonoTouch+sl5+wp8\Cirrious.MvvmCross.Community.Plugins.Sqlite.dll</HintPath>
+    </Reference>
+    <Reference Include="SQLiteNetExtensions-MvvmCross">
+      <HintPath>..\..\packages\SQLiteNetExtensions-MvvmCross.1.2.5\lib\portable-net45+netcore45+wpa81+wp8+MonoAndroid1+MonoTouch1\SQLiteNetExtensions-MvvmCross.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

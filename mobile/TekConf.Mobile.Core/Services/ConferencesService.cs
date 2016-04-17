@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Net;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
-using Akavache;
 using Fusillade;
 using Polly;
 using Tekconf.DTO;
@@ -15,8 +14,9 @@ namespace TekConf.Mobile.Core.Services
 {
 	public class ConferencesService : IConferencesService
 	{
-		readonly IRemoteConferencesService _remoteConferencesService;
-		readonly IMapper _mapper;
+		private readonly ILocalConferencesService _localConferencesService;
+		private readonly IRemoteConferencesService _remoteConferencesService;
+		private readonly IMapper _mapper;
 
 		//private readonly IApiService _apiService;
 		//   private readonly ISchedulesService _schedulesService;
@@ -27,19 +27,23 @@ namespace TekConf.Mobile.Core.Services
 		//    _schedulesService = schedulesService;
 		//}
 
-		public ConferencesService(IRemoteConferencesService remoteConferencesService, IMapper mapper)
+		public ConferencesService(IRemoteConferencesService remoteConferencesService, ILocalConferencesService localConferencesService, IMapper mapper)
 		{
+			_localConferencesService = localConferencesService;
 			_remoteConferencesService = remoteConferencesService;
 			_mapper = mapper;
 		}
 
 		public async Task<List<ConferenceModel>> GetConferences()
 		{
+			await _localConferencesService.Init();
 			var remoteConferences = await _remoteConferencesService.GetConferences(Priority.Explicit);
 
 			var models = _mapper.Map<List<ConferenceModel>>(remoteConferences);
 
-			return models;
+			await _localConferencesService.Save(models);
+			var savedModels = await _localConferencesService.GetConferences();
+			return savedModels;
 
 			//throw new NotImplementedException();
 			//var cache = BlobCache.LocalMachine;

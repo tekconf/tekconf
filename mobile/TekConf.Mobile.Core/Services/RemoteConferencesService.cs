@@ -6,6 +6,7 @@ using Fusillade;
 using Polly;
 using Tekconf.DTO;
 using Plugin.Connectivity;
+using MvvmCross.Plugins.Sqlite;
 
 namespace TekConf.Mobile.Core.Services
 {

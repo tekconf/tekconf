@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net;
 using System.Reactive.Linq;
 using System.Threading.Tasks;
-using Akavache;
 
 using Fusillade;
 using Polly;
@@ -31,43 +30,45 @@ namespace TekConf.Mobile.Core.Services
 
 	    public async Task<List<Schedule>> GetSchedules(Priority priority)
 		{
-			var cache = BlobCache.LocalMachine;
-			if (priority == Priority.UserInitiated) {
-				BlobCache.LocalMachine.InvalidateAll ().Subscribe ();
-			}
+			throw new NotImplementedException();
+			//var cache = BlobCache.LocalMachine;
+			//if (priority == Priority.UserInitiated) {
+			//	BlobCache.LocalMachine.InvalidateAll ().Subscribe ();
+			//}
 
-	        if (string.IsNullOrWhiteSpace(_settingsService.UserIdToken))
-	        {
-	            return Enumerable.Empty<Schedule>().ToList();
-	        }
+	  //      if (string.IsNullOrWhiteSpace(_settingsService.UserIdToken))
+	  //      {
+	  //          return Enumerable.Empty<Schedule>().ToList();
+	  //      }
 
-			var cachedSchedules = cache.GetAndFetchLatest("schedules", () => GetRemoteSchedulesAsync(priority),
-				offset =>
-				{
-					TimeSpan elapsed = DateTimeOffset.Now - offset;
-					return elapsed > new TimeSpan(hours: 24, minutes: 0, seconds: 0);
-				});
+			//var cachedSchedules = cache.GetAndFetchLatest("schedules", () => GetRemoteSchedulesAsync(priority),
+			//	offset =>
+			//	{
+			//		TimeSpan elapsed = DateTimeOffset.Now - offset;
+			//		return elapsed > new TimeSpan(hours: 24, minutes: 0, seconds: 0);
+			//	});
 
-			var schedules = await cachedSchedules.FirstOrDefaultAsync();
+			//var schedules = await cachedSchedules.FirstOrDefaultAsync();
 
-			return schedules;
+			//return schedules;
 		}
 
 		public async Task<Schedule> GetSchedule(Priority priority, string slug)
 		{
-            if (string.IsNullOrWhiteSpace(_settingsService.UserIdToken))
-            {
-                return null;
-            }
-            var cachedSchedule = BlobCache.LocalMachine.GetAndFetchLatest($"schedule-{slug}", () => GetRemoteSchedule(priority, slug), offset =>
-				{
-					TimeSpan elapsed = DateTimeOffset.Now - offset;
-					return elapsed > new TimeSpan(hours: 0, minutes: 30, seconds: 0);
-				});
+			throw new NotImplementedException();
+   //         if (string.IsNullOrWhiteSpace(_settingsService.UserIdToken))
+   //         {
+   //             return null;
+   //         }
+   //         var cachedSchedule = BlobCache.LocalMachine.GetAndFetchLatest($"schedule-{slug}", () => GetRemoteSchedule(priority, slug), offset =>
+			//	{
+			//		TimeSpan elapsed = DateTimeOffset.Now - offset;
+			//		return elapsed > new TimeSpan(hours: 0, minutes: 30, seconds: 0);
+			//	});
 
-			var conference = await cachedSchedule.FirstOrDefaultAsync();
+			//var conference = await cachedSchedule.FirstOrDefaultAsync();
 
-			return conference;
+			//return conference;
 		}
 
 		private async Task<List<Schedule>> GetRemoteSchedulesAsync(Priority priority)
