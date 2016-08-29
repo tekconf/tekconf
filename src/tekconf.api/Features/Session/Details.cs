@@ -1,5 +1,5 @@
-﻿using System;
-using Humanizer;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using TekConf.Api.Data;
 
 namespace TekConf.Api.Features.Session
@@ -14,22 +14,32 @@ namespace TekConf.Api.Features.Session
     {
         public class Query : IAsyncRequest<Session>
         {
-            public string Slug { get; set; }
+            public string Conference { get; set; }
+            public string Session { get; set; }
         }
 
         public class Validator : AbstractValidator<Query>
         {
             public Validator()
             {
-                RuleFor(m => m.Slug).NotNull();
+                RuleFor(m => m.Session).NotNull();
             }
         }
 
         public class Session
         {
-            public string Slug { get; set; }
-            public string Name { get; set; }
+            public string Url { get; set; }
+            public string Title { get; set; }
+            public string Description { get; set; }
+            public List<Speaker> Speakers {get;set;}
+        }
 
+        public class Speaker
+        {
+            public string Url { get; set; }
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+            public string ProfileImageUrl { get; set; }
         }
 
         public class Handler : IAsyncRequestHandler<Query, Session>
@@ -45,10 +55,17 @@ namespace TekConf.Api.Features.Session
 
             public async Task<Session> Handle(Query message)
             {
-                return await _db
-                        .Conferences
-                        .Where(x => x.Slug == message.Slug)
-                        .ProjectToSingleOrDefaultAsync<Session>(_config);
+                var session =  await _db
+                        .Sessions
+                        .Include(x => x.ConferenceInstance)
+                        .Where(x => x.ConferenceInstance.Slug == message.Conference)
+                        .Where(x => x.Slug == message.Session)
+                        .SingleOrDefaultAsync();
+
+                var mapper = _config.CreateMapper();
+                var dto = mapper.Map<Session>(session);
+
+                return dto;
             }
         }
     }

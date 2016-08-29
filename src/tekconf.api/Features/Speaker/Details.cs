@@ -1,6 +1,5 @@
-﻿using System;
-using Humanizer;
-using TekConf.Api.Data;
+﻿using TekConf.Api.Data;
+using System.Data.Entity;
 
 namespace TekConf.Api.Features.Speaker
 {
@@ -14,21 +13,47 @@ namespace TekConf.Api.Features.Speaker
     {
         public class Query : IAsyncRequest<Speaker>
         {
-            public string Slug { get; set; }
+            public string Conference { get; set; }
+            public string Speaker { get; set; }
         }
 
         public class Validator : AbstractValidator<Query>
         {
             public Validator()
             {
-                RuleFor(m => m.Slug).NotNull();
+                RuleFor(m => m.Speaker).NotNull();
             }
         }
 
         public class Speaker
         {
-            public string Slug { get; set; }
-            public string Name { get; set; }
+            public string Url { get; set; }
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+            public string Bio { get; set; }
+            public string Title { get; set; }
+
+            public string Company { get; set; }
+            public string BlogUrl { get; set; }
+            public string EmailAddress { get; set; }
+            public string PhoneNumber { get; set; }
+            public string ProfileImageUrl { get; set; }
+
+            #region Social
+            public string TwitterName { get; set; }
+            public string FacebookUrl { get; set; }
+            public string LinkedInUrl { get; set; }
+            public string GooglePlusUrl { get; set; }
+            public string VimeoUrl { get; set; }
+            public string YoutubeUrl { get; set; }
+            public string GithubUrl { get; set; }
+            public string CoderWallUrl { get; set; }
+            public string StackoverflowUrl { get; set; }
+            public string BitbucketUrl { get; set; }
+            public string CodeplexUrl { get; set; }
+            public string InstagramUrl { get; set; }
+            public string SnapchatUrl { get; set; }
+            #endregion
 
         }
 
@@ -45,10 +70,17 @@ namespace TekConf.Api.Features.Speaker
 
             public async Task<Speaker> Handle(Query message)
             {
-                return await _db
-                        .Conferences
-                        .Where(x => x.Slug == message.Slug)
-                        .ProjectToSingleOrDefaultAsync<Speaker>(_config);
+                var speaker = await _db
+                        .Speakers
+                        .Include(s => s.Sessions)
+                        .Where(x => x.Slug == message.Speaker)
+                        .Where(x => x.Sessions.Any(s => s.ConferenceInstance.Slug == message.Conference))
+                        .SingleOrDefaultAsync();
+
+                var mapper = _config.CreateMapper();
+                var dto = mapper.Map<Speaker>(speaker);
+
+                return dto;
             }
         }
     }

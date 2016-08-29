@@ -1,7 +1,5 @@
-﻿using System;
+﻿using System.Linq;
 using AutoMapper;
-using Humanizer;
-using TekConf.Api.Data.Models;
 
 namespace TekConf.Api.Features.Session
 {
@@ -9,9 +7,39 @@ namespace TekConf.Api.Features.Session
     {
         protected override void Configure()
         {
-            //CreateMap<Data.Models.Session, Index.Result.Session>();
+            CreateMap<Data.Models.Session, Index.Result.Session>()
+                .ForMember(dest => dest.Url, opt => opt.ResolveUsing<IndexSessionUrlResolver>());
 
-            //CreateMap<Data.Models.Session, Details.Session>();
+            CreateMap<Data.Models.Session, Details.Session>()
+                .ForMember(dest => dest.Url, opt => opt.ResolveUsing<DetailSessionUrlResolver>());
+
+            CreateMap<Data.Models.Speaker, Details.Speaker>()
+                .ForMember(dest => dest.Url, opt => opt.ResolveUsing<DetailSpeakerUrlResolver>());
+        }
+    }
+
+    public class DetailSpeakerUrlResolver : IValueResolver<Data.Models.Speaker, Details.Speaker, string>
+    {
+        public string Resolve(Data.Models.Speaker source, Details.Speaker destination, string destMember, ResolutionContext context)
+        {
+            var conferenceSlug = source.Sessions?.FirstOrDefault()?.ConferenceInstance.Slug;
+
+            return $"http://localhost:2901/{conferenceSlug}/speakers/{source.Slug}";
+        }
+    }
+
+    public class IndexSessionUrlResolver : IValueResolver<Data.Models.Session, Index.Result.Session, string>
+    {
+        public string Resolve(Data.Models.Session source, Index.Result.Session destination, string destMember, ResolutionContext context)
+        {
+            return $"http://localhost:2901/{source?.ConferenceInstance?.Slug}/sessions/{source?.Slug}";
+        }
+    }
+    public class DetailSessionUrlResolver : IValueResolver<Data.Models.Session, Details.Session, string>
+    {
+        public string Resolve(Data.Models.Session source, Details.Session destination, string destMember, ResolutionContext context)
+        {
+            return $"http://localhost:2901/{source?.ConferenceInstance?.Slug}/sessions/{source?.Slug}";
         }
     }
 }

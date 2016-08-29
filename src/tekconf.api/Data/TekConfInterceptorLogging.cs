@@ -29,7 +29,7 @@ namespace TekConf.Api.Data
             }
             else
             {
-                _logger.TraceApi("SQL Database", "SchoolInterceptor.ScalarExecuted", _stopwatch.Elapsed, "Command: {0}: ", command.CommandText);
+                _logger.TraceApi("SQL Database", "TekConfInterceptor.ScalarExecuted", _stopwatch.Elapsed, "Command: {0}: ", command.CommandText);
             }
             base.ScalarExecuted(command, interceptionContext);
         }
@@ -49,7 +49,7 @@ namespace TekConf.Api.Data
             }
             else
             {
-                _logger.TraceApi("SQL Database", "SchoolInterceptor.NonQueryExecuted", _stopwatch.Elapsed, "Command: {0}: ", command.CommandText);
+                _logger.TraceApi("SQL Database", "TekConfInterceptor.NonQueryExecuted", _stopwatch.Elapsed, "Command: {0}: ", command.CommandText);
             }
             base.NonQueryExecuted(command, interceptionContext);
         }
@@ -68,7 +68,7 @@ namespace TekConf.Api.Data
             }
             else
             {
-                _logger.TraceApi("SQL Database", "SchoolInterceptor.ReaderExecuted", _stopwatch.Elapsed, "Command: {0}: ", command.CommandText);
+                _logger.TraceApi("SQL Database", "TekConfInterceptor.ReaderExecuted", _stopwatch.Elapsed, "Command: {0}: ", command.CommandText);
             }
             base.ReaderExecuted(command, interceptionContext);
         }

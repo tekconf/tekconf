@@ -81,6 +81,18 @@
       <HintPath>..\packages\FluentValidation.6.2.1.0\lib\Net45\FluentValidation.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Glimpse.AspNet, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Glimpse.AspNet.1.8.0\lib\net45\Glimpse.AspNet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Glimpse.Core, Version=1.8.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Glimpse.1.8.6\lib\net45\Glimpse.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Glimpse.Mvc5, Version=1.5.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Glimpse.Mvc5.1.5.3\lib\net45\Glimpse.Mvc5.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Humanizer, Version=2.1.0.0, Culture=neutral, PublicKeyToken=979442b78dfc278e, processorArchitecture=MSIL">
       <HintPath>..\packages\Humanizer.Core.2.1.0\lib\netstandard1.0\Humanizer.dll</HintPath>
       <Private>True</Private>
@@ -251,6 +263,7 @@
     <Compile Include="Features\Conference\Index.cs" />
     <Compile Include="Features\Conference\MappingProfile.cs" />
     <Compile Include="Features\Conference\UiController.cs" />
+    <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -271,6 +284,10 @@
     <Compile Include="Migrations\201608262104552_ShortDescriptionConference.cs" />
     <Compile Include="Migrations\201608262104552_ShortDescriptionConference.Designer.cs">
       <DependentUpon>201608262104552_ShortDescriptionConference.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201608272131316_SpeakerDetails.cs" />
+    <Compile Include="Migrations\201608272131316_SpeakerDetails.Designer.cs">
+      <DependentUpon>201608272131316_SpeakerDetails.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -306,6 +323,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608262104552_ShortDescriptionConference.resx">
       <DependentUpon>201608262104552_ShortDescriptionConference.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201608272131316_SpeakerDetails.resx">
+      <DependentUpon>201608272131316_SpeakerDetails.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
