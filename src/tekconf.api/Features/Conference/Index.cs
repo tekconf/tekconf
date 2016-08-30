@@ -70,7 +70,38 @@ namespace TekConf.Api.Features.Conference
 
             private async Task Insert()
             {
-                var evolve = await _db.ConferenceInstances.FindAsync(1);
+                var robGibbens = new User()
+                {
+                    Bio = "He rocks so much that he has to be 20 chars",
+                    FirstName = "Rob",
+                    LastName = "Gibbens",
+                    Slug = "rob-gibbens",
+
+                };
+                var xamarinEvolve = new Data.Models.Conference()
+                {
+                    CreatedAt = DateTime.Now,
+                    Description = "Xamarin Evolve - Mobile apps",
+                    Name = "Xamarin Evolve",
+                    Owner = robGibbens,
+                    Slug = "xamarin-evolve"
+                };
+
+                robGibbens.OwnedConferences.Add(xamarinEvolve);
+
+                var xamarinEvolve2017 = new ConferenceInstance()
+                {
+                    Conference = xamarinEvolve,
+                    Name = "Xamarin Evolve 2017",
+                    Slug = "2017",
+                    Description = "Mobile apps are the best thing ever",
+                    IsOnline = false,
+                    IsLive = true
+                };
+
+                xamarinEvolve.Instances.Add(xamarinEvolve2017);
+
+                
                 var james = new User()
                 {
                     Slug = "james-montemagno",
@@ -142,7 +173,7 @@ namespace TekConf.Api.Features.Conference
                 var materialDesign = new Data.Models.Session
                 {
                     Title = "Everyone Can Create Beautiful Apps with Material Design",
-                    ConferenceInstance = evolve,
+                    ConferenceInstance = xamarinEvolve2017,
                     Description = "Building beautiful Android apps doesn\'t have to be hard. Since its original induction, Material Design (MD) has taken the Android world by storm, generating rapid adoption throughout the dev community. A lot has changed from the original material design specification, with the updates to the Android Support v7 AppCompat library and intro of the Support Design library, MD themes, controls, and features now available on all devices running Android. This session will show you how to transform your app into a stunning work of Material art, and even how to utilize MD in your Xamarin.Forms apps.",
                     Slug = "beautiful-apps-with-material-design",
                     Presentation = materialPresentation,
@@ -155,49 +186,7 @@ namespace TekConf.Api.Features.Conference
 
                 _db.Sessions.Add(materialDesign);
                 await _db.SaveChangesAsync();
-                //var robGibbens = new User()
-                //{
-                //    Bio = "He rocks so much that he has to be 20 chars",
-                //    FirstName = "Rob",
-                //    LastName = "Gibbens",
-                //    Slug = "rob-gibbens",
 
-                //};
-                //var xamarinEvolve = new Data.Models.Conference()
-                //{
-                //    CreatedAt = DateTime.Now,
-                //    Description = "Xamarin Evolve - Mobile apps",
-                //    Name = "Xamarin Evolve",
-                //    Owner = robGibbens,
-                //    Slug = "xamarin-evolve"
-                //};
-
-                //robGibbens.OwnedConferences.Add(xamarinEvolve);
-
-                //var xamarinEvolve2017 = new ConferenceInstance()
-                //{
-                //    Conference = xamarinEvolve,
-                //    Name = "Xamarin Evolve 2017",
-                //    Slug = "2017",
-                //    Description = "Mobile apps are the best thing ever",
-                //    IsOnline = false,
-                //    IsLive = true
-                //};
-
-                //xamarinEvolve.Instances.Add(xamarinEvolve2017);
-
-                //try
-                //{
-                //    _db.Conferences.Add(xamarinEvolve);
-                //    await _db.SaveChangesAsync();
-
-                //}
-                //catch (DbEntityValidationException ex)
-                //{
-
-                //    var me = ex.Message;
-                //    throw;
-                //}
             }
         }
 

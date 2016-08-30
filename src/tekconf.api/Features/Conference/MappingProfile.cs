@@ -9,7 +9,7 @@ namespace TekConf.Api.Features.Conference
         protected override void Configure()
         {
             CreateMap<ConferenceInstance, Index.Result.Conference>()
-                .ForMember(d => d.Url, opt => opt.MapFrom(c => Statics.CurrentUrl + "/ " + c.Slug));
+                .ForMember(d => d.Url, opt => opt.MapFrom(c => Statics.CurrentUrl + "/" + c.Slug));
 
             CreateMap<ConferenceInstance, Details.Conference>()
                 .ForMember(dest => dest.Url, opt => opt.ResolveUsing<DetailConferenceUrlResolver>())
