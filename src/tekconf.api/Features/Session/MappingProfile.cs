@@ -22,9 +22,9 @@ namespace TekConf.Api.Features.Session
     {
         public string Resolve(Data.Models.Speaker source, Details.Speaker destination, string destMember, ResolutionContext context)
         {
-            var conferenceSlug = source.Sessions?.FirstOrDefault()?.ConferenceInstance.Slug;
+            var conferenceSlug = source.Sessions?.FirstOrDefault()?.ConferenceInstance?.Slug;
 
-            return $"http://localhost:2901/{conferenceSlug}/speakers/{source.Slug}";
+            return $"{Statics.CurrentUrl}/{conferenceSlug}/speakers/{source.Slug}";
         }
     }
 
@@ -32,14 +32,14 @@ namespace TekConf.Api.Features.Session
     {
         public string Resolve(Data.Models.Session source, Index.Result.Session destination, string destMember, ResolutionContext context)
         {
-            return $"http://localhost:2901/{source?.ConferenceInstance?.Slug}/sessions/{source?.Slug}";
+            return $"{Statics.CurrentUrl}/{source?.ConferenceInstance?.Slug}/sessions/{source?.Slug}";
         }
     }
     public class DetailSessionUrlResolver : IValueResolver<Data.Models.Session, Details.Session, string>
     {
         public string Resolve(Data.Models.Session source, Details.Session destination, string destMember, ResolutionContext context)
         {
-            return $"http://localhost:2901/{source?.ConferenceInstance?.Slug}/sessions/{source?.Slug}";
+            return $"{Statics.CurrentUrl}/{source?.ConferenceInstance?.Slug}/sessions/{source?.Slug}";
         }
     }
 }

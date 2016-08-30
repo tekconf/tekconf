@@ -23,7 +23,7 @@ namespace TekConf.Api.Features.Speaker
         {
             var conferenceSlug = source.Sessions?.FirstOrDefault()?.ConferenceInstance.Slug;
 
-            return $"http://localhost:2901/{conferenceSlug}/speakers/{source.Slug}";
+            return $"{Statics.CurrentUrl}/{conferenceSlug}/speakers/{source.Slug}";
         }
     }
 }
