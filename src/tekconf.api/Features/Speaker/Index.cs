@@ -1,5 +1,4 @@
-﻿using System;
-using Humanizer;
+﻿using System.Data.Entity;
 using TekConf.Api.Data;
 
 namespace TekConf.Api.Features.Speaker
@@ -14,7 +13,7 @@ namespace TekConf.Api.Features.Speaker
     {
         public class Query : IAsyncRequest<Result>
         {
-            public string Slug { get; set; }
+            public string Conference { get; set; }
         }
 
         public class Result
@@ -23,7 +22,11 @@ namespace TekConf.Api.Features.Speaker
 
             public class Speaker
             {
-                public string Slug { get; set; }
+                public string Url { get; set; }
+                public string FirstName { get; set; }
+                public string LastName { get; set; }
+                public string Title { get; set; }
+                public string Company { get; set; }
             }
         }
         
@@ -42,14 +45,19 @@ namespace TekConf.Api.Features.Speaker
             public async Task<Result> Handle(Query message)
             {
                 var speakers = await _db
-                    .Conferences
-                    .Where(x => x.Slug == message.Slug)
-                    .OrderBy(x => x.Name)
-                    .ProjectToListAsync<Result.Speaker>(_config);
+                    .Speakers
+                    .Include(x => x.Sessions)
+                    .Include(s => s.Sessions.Select(c => c.ConferenceInstance))
+                    .Where(x => x.Sessions.Any(c => c.ConferenceInstance.Slug == message.Conference))
+                    .OrderBy(x => x.LastName)
+                    .ToListAsync();
+
+                var mapper = _config.CreateMapper();
+                var dtos = mapper.Map<List<Result.Speaker>>(speakers);
 
                 return new Result
                 {
-                    Speakers = speakers,
+                    Speakers = dtos,
                 };
             }
         }

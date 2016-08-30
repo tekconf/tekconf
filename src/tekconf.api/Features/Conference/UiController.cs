@@ -25,8 +25,6 @@
             var model = await _mediator.SendAsync(query);
 
             return Json(model, JsonRequestBehavior.AllowGet);
-
         }
-
     }
 }

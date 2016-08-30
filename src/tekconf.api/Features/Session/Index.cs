@@ -56,7 +56,5 @@ namespace TekConf.Api.Features.Session
                 };
             }
         }
-
-
     }
 }

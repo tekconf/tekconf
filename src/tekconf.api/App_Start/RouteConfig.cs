@@ -22,6 +22,12 @@ namespace TekConf.Api
             );
 
             routes.MapRoute(
+                "ConferenceSpeakers",
+                "{conference}/speakers",
+                new { controller = "Speaker", action = "Index", Conference = "{conference}" }
+            );
+
+            routes.MapRoute(
                 "ConferenceSpeaker",
                 "{conference}/speakers/{speaker}",
                 new { controller = "Speaker", action = "Details", Conference = "{conference}", Speaker = "{speaker}" }
@@ -38,6 +44,8 @@ namespace TekConf.Api
                 "{conference}/sessions/{session}",
                 new { controller = "Session", action = "Details", Conference = "{conference}", Session = "{session}" }
             );
+
+
 
             routes.MapRoute(
                 name: "Default",
