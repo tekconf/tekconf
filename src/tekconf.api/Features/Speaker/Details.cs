@@ -73,6 +73,7 @@ namespace TekConf.Api.Features.Speaker
                 var speaker = await _db
                         .Speakers
                         .Include(s => s.Sessions)
+                        .Include(s => s.Sessions.Select(c => c.ConferenceInstance))
                         .Where(x => x.Slug == message.Speaker)
                         .Where(x => x.Sessions.Any(s => s.ConferenceInstance.Slug == message.Conference))
                         .SingleOrDefaultAsync();
