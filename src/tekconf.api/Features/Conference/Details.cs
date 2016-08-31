@@ -30,11 +30,8 @@ namespace TekConf.Api.Features.Conference
             public string Url { get; set; }
             public string Name { get; set; }
             public string Description { get; set; }
-
             public string ShortDescription { get; set; }
-
             public string Tagline { get; set; }
-
             public string ImageUrl { get; set; }
 
             #region Dates
@@ -54,11 +51,16 @@ namespace TekConf.Api.Features.Conference
 
             public List<Session> Sessions { get; set; }
             public Social Social { get; set; }
-
+            public List<Tag> Tags { get; set; }
             public Address Address { get; set; } = new Address();
 
         }
 
+        public class Tag
+        {
+            public string Url { get; set; }
+            public string Name { get; set; }
+        }
         public class Session
         {
             public string Url { get; set; }
@@ -132,6 +134,7 @@ namespace TekConf.Api.Features.Conference
                         .ConferenceInstances
                         .Include(x => x.Conference)
                         .Include(x => x.Sessions)
+                        .Include(x => x.Tags)
                         .Include(x => x.Sessions.Select(s => s.Speakers))
                         .Where(x => x.Slug == message.Slug)
                         .SingleOrDefaultAsync();

@@ -9,18 +9,21 @@ namespace TekConf.Api.Features.Conference
         protected override void Configure()
         {
             CreateMap<ConferenceInstance, Index.Result.Conference>()
-                .ForMember(d => d.Url, opt => opt.MapFrom(c => Statics.CurrentUrl + "/" + c.Slug));
+                .ForMember(d => d.Url, opt => opt.MapFrom(conferenceInstance => Statics.CurrentUrl + "/" + conferenceInstance.Slug));
 
             CreateMap<ConferenceInstance, Details.Conference>()
-                .ForMember(dest => dest.Url, opt => opt.MapFrom(c => $"{Statics.CurrentUrl}/{c.Slug}"))
+                .ForMember(dest => dest.Url, opt => opt.MapFrom(conferenceInstance => $"{Statics.CurrentUrl}/{conferenceInstance.Slug}"))
                 .ForMember(dest => dest.Address, opt => opt.ResolveUsing<DetailAddressResolver>())
                 .ForMember(dest => dest.Social, opt => opt.ResolveUsing<DetailSocialResolver>());
 
             CreateMap<Data.Models.Session, Details.Session>()
-                .ForMember(dest => dest.Url, opt => opt.MapFrom(c => $"{Statics.CurrentUrl}/{c.ConferenceInstance.Slug}/sessions/{c.Slug}"));
+                .ForMember(dest => dest.Url, opt => opt.MapFrom(session => $"{Statics.CurrentUrl}/{session.ConferenceInstance.Slug}/sessions/{session.Slug}"));
 
             CreateMap<Data.Models.Speaker, Details.Speaker>()
-                .ForMember(dest => dest.Url, opt => opt.MapFrom(c => $"{Statics.CurrentUrl}/{c.Sessions.First().ConferenceInstance.Slug}/speakers/{c.Slug}"));
+                .ForMember(dest => dest.Url, opt => opt.MapFrom(speaker => $"{Statics.CurrentUrl}/{speaker.Sessions.First().ConferenceInstance.Slug}/speakers/{speaker.Slug}"));
+
+            CreateMap<Data.Models.Tag, Details.Tag>()
+                .ForMember(dest => dest.Url, opt => opt.MapFrom(tag => Statics.CurrentUrl + "/" + tag.ConferenceInstance.Slug + "/tags/" + tag.Slug));
 
         }
 
@@ -28,6 +31,7 @@ namespace TekConf.Api.Features.Conference
         {
             public Details.Social Resolve(ConferenceInstance source, Details.Conference destination, Details.Social destMember, ResolutionContext context)
             {
+                //TODO : Implement
                 return new Details.Social();
             }
         }

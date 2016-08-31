@@ -30,6 +30,8 @@ namespace TekConf.Api.Data
         public DbSet<Session> Sessions { get; set; }
         public DbSet<Presentation> Presentations { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
@@ -40,6 +42,7 @@ namespace TekConf.Api.Data
             modelBuilder.Entity<Session>().HasRequired(p => p.Presentation);
             modelBuilder.Entity<Speaker>().HasRequired(p => p.User);
             modelBuilder.Entity<Conference>().HasRequired(p => p.Owner);
+            modelBuilder.Entity<Tag>().HasRequired(p => p.ConferenceInstance);
 
             modelBuilder.Entity<Session>()
                 .HasMany(p => p.Speakers)
@@ -50,6 +53,17 @@ namespace TekConf.Api.Data
                     mc.MapLeftKey("SessionId");
                     mc.MapRightKey("SpeakerId");
                     
+                });
+
+            modelBuilder.Entity<Session>()
+                .HasMany(p => p.Tags)
+                .WithMany(t => t.Sessions)
+                .Map(mc =>
+                {
+                    mc.ToTable("SessionTags");
+                    mc.MapLeftKey("SessionId");
+                    mc.MapRightKey("TagId");
+
                 });
 
             modelBuilder.Entity<User>()

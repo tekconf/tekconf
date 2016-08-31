@@ -28,6 +28,18 @@ namespace TekConf.Api
             );
 
             routes.MapRoute(
+                "ConferenceTags",
+                "{conference}/tags",
+                new { controller = "Tag", action = "Index", Conference = "{conference}" }
+            );
+
+            routes.MapRoute(
+                "ConferenceTag",
+                "{conference}/tags/{slug}",
+                new { controller = "Tag", action = "Details", Conference = "{conference}", Slug = "{slug}" }
+            );
+
+            routes.MapRoute(
                 "ConferenceSpeaker",
                 "{conference}/speakers/{speaker}",
                 new { controller = "Speaker", action = "Details", Conference = "{conference}", Speaker = "{speaker}" }

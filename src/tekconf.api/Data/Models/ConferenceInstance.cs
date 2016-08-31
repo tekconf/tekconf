@@ -136,6 +136,7 @@ namespace TekConf.Api.Data.Models
         #region Relationships
         public virtual Conference Conference { get; set; }
         public virtual ICollection<Session> Sessions { get; set; } = new List<Session>();
+        public virtual ICollection<Tag> Tags { get; set; } = new List<Tag>();
 
         #endregion
 

@@ -15,6 +15,9 @@ namespace TekConf.Api.Features.Session
 
             CreateMap<Data.Models.Speaker, Details.Speaker>()
                 .ForMember(dest => dest.Url, opt => opt.MapFrom(c => $"{Statics.CurrentUrl}/{c.Sessions.First().ConferenceInstance.Slug}/speakers/{c.Slug}"));
+
+            CreateMap<Data.Models.Tag, Details.Tag>()
+                .ForMember(dest => dest.Url, opt => opt.MapFrom(tag => $"{Statics.CurrentUrl}/{tag.ConferenceInstance.Slug}/tags/{tag.Slug}"));
         }
     }
 }

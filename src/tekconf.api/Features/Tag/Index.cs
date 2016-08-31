@@ -1,14 +1,14 @@
-﻿using System.Data.Entity;
+﻿using System;
 using TekConf.Api.Data;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Threading.Tasks;
+using AutoMapper;
+using MediatR;
 
-namespace TekConf.Api.Features.Session
+namespace TekConf.Api.Features.Tag
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
-    using AutoMapper;
-    using MediatR;
-
     public class Index
     {
         public class Query : IAsyncRequest<Result>
@@ -18,13 +18,12 @@ namespace TekConf.Api.Features.Session
 
         public class Result
         {
-            public List<Session> Sessions { get; set; }
+            public List<Tag> Tags { get; set; }
 
-            public class Session
+            public class Tag
             {
                 public string Url { get; set; }
-                public string Title { get; set; }
-                public string Description { get; set; }
+                public string Name { get; set; }
             }
         }
 
@@ -41,19 +40,20 @@ namespace TekConf.Api.Features.Session
 
             public async Task<Result> Handle(Query message)
             {
-                var sessions = await _db
-                    .Sessions
-                    .Include(x => x.Speakers)
+                var tags = await _db
+                    .Tags
+                    .Include(x => x.Sessions)
                     .Include(x => x.ConferenceInstance)
                     .Where(x => x.ConferenceInstance.Slug == message.Conference)
+                    .OrderBy(x => x.Name)
                     .ToListAsync();
 
                 var mapper = _config.CreateMapper();
-                var dtos = mapper.Map<List<Result.Session>>(sessions);
+                var dtos = mapper.Map<List<Result.Tag>>(tags);
 
                 return new Result
                 {
-                    Sessions = dtos,
+                    Tags = dtos,
                 };
             }
         }

@@ -32,6 +32,13 @@ namespace TekConf.Api.Features.Session
             public string Title { get; set; }
             public string Description { get; set; }
             public List<Speaker> Speakers {get;set;}
+            public List<Tag> Tags { get; set; }
+        }
+
+        public class Tag
+        {
+            public string Url { get; set; }
+            public string Name { get; set; }
         }
 
         public class Speaker
@@ -58,6 +65,7 @@ namespace TekConf.Api.Features.Session
                 var session =  await _db
                         .Sessions
                         .Include(x => x.ConferenceInstance)
+                        .Include(x => x.Tags)
                         .Where(x => x.ConferenceInstance.Slug == message.Conference)
                         .Where(x => x.Slug == message.Session)
                         .SingleOrDefaultAsync();
