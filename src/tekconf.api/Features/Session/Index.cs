@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using TekConf.Api.Data;
 
 namespace TekConf.Api.Features.Session
@@ -25,6 +26,8 @@ namespace TekConf.Api.Features.Session
                 public string Url { get; set; }
                 public string Title { get; set; }
                 public string Description { get; set; }
+                public DateTime Start { get; set; }
+                public DateTime End { get; set; }
             }
         }
 

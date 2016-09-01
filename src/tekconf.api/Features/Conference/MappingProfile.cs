@@ -25,6 +25,7 @@ namespace TekConf.Api.Features.Conference
             CreateMap<Data.Models.Tag, Details.Tag>()
                 .ForMember(dest => dest.Url, opt => opt.MapFrom(tag => Statics.CurrentUrl + "/" + tag.ConferenceInstance.Slug + "/tags/" + tag.Slug));
 
+            CreateMap<Data.Models.Difficulty, Details.Difficulty>();
         }
 
         public class DetailSocialResolver : IValueResolver<ConferenceInstance, Details.Conference, Details.Social>

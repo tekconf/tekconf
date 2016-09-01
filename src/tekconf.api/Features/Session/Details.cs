@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using TekConf.Api.Data;
 
@@ -31,6 +32,13 @@ namespace TekConf.Api.Features.Session
             public string Url { get; set; }
             public string Title { get; set; }
             public string Description { get; set; }
+            public DateTime Start { get; set; }
+            public DateTime End { get; set; }
+            public string Difficulty { get; set; }
+
+            public string Building { get; set; }
+            public string Room { get; set; }
+            public string TwitterHashTag { get; set; }
             public List<Speaker> Speakers {get;set;}
             public List<Tag> Tags { get; set; }
         }
@@ -66,6 +74,7 @@ namespace TekConf.Api.Features.Session
                         .Sessions
                         .Include(x => x.ConferenceInstance)
                         .Include(x => x.Tags)
+                        .Include(x => x.Difficulty)
                         .Where(x => x.ConferenceInstance.Slug == message.Conference)
                         .Where(x => x.Slug == message.Session)
                         .SingleOrDefaultAsync();

@@ -52,8 +52,15 @@ namespace TekConf.Api.Features.Conference
             public List<Session> Sessions { get; set; }
             public Social Social { get; set; }
             public List<Tag> Tags { get; set; }
+            public List<Difficulty> Difficulties { get; set; }
             public Address Address { get; set; } = new Address();
 
+        }
+
+        public class Difficulty
+        {
+            public string Description { get; set; }
+            public int Order { get; set; }
         }
 
         public class Tag
@@ -61,10 +68,13 @@ namespace TekConf.Api.Features.Conference
             public string Url { get; set; }
             public string Name { get; set; }
         }
+
         public class Session
         {
             public string Url { get; set; }
             public string Title { get; set; }
+            public DateTime Start { get; set; }
+            public DateTime End { get; set; }
             public List<Speaker> Speakers { get; set; }
 
 

@@ -28,8 +28,8 @@ namespace TekConf.Api.Data.Models
         //public string LiveStreamUrl { get; set; }
 
         //TODO : Add Room, Dates, etc
-        public DateTime? Start { get; set; }
-        public DateTime? End { get; set; }
+        public DateTime Start { get; set; }
+        public DateTime End { get; set; }
         public string Building { get; set; }
         public string Room { get; set; }
 
@@ -38,7 +38,6 @@ namespace TekConf.Api.Data.Models
         //public string SessionType { get; set; }
         //public bool IsAddedToSchedule { get; set; }
         //public List<string> Links { get; set; }
-        //public List<string> Tags { get; set; }
         //public List<string> Subjects { get; set; }
         //public List<string> Resources { get; set; }
         //public List<string> Prerequisites { get; set; }
@@ -48,6 +47,7 @@ namespace TekConf.Api.Data.Models
 
         #region Relationships
         public ConferenceInstance ConferenceInstance { get; set; }
+        public Difficulty Difficulty { get; set; }
         public Presentation Presentation { get; set; }
         public virtual ICollection<Speaker> Speakers { get; set; } = new List<Speaker>();
         public virtual ICollection<Tag> Tags { get; set; } = new List<Tag>();

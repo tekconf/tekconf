@@ -234,6 +234,7 @@
     <Compile Include="App_Start\StructuremapWebApi.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Data\Models\Conference.cs" />
+    <Compile Include="Data\Models\Difficulty.cs" />
     <Compile Include="Data\Models\Presentation.cs" />
     <Compile Include="Data\Models\Session.cs" />
     <Compile Include="Data\Models\Speaker.cs" />
@@ -302,6 +303,18 @@
     <Compile Include="Migrations\201608311438322_AddTags.Designer.cs">
       <DependentUpon>201608311438322_AddTags.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609010240413_NonNullableSessionDates.cs" />
+    <Compile Include="Migrations\201609010240413_NonNullableSessionDates.Designer.cs">
+      <DependentUpon>201609010240413_NonNullableSessionDates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609010300015_Difficulties.cs" />
+    <Compile Include="Migrations\201609010300015_Difficulties.Designer.cs">
+      <DependentUpon>201609010300015_Difficulties.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609010315463_RemoveDifficultySlug.cs" />
+    <Compile Include="Migrations\201609010315463_RemoveDifficultySlug.Designer.cs">
+      <DependentUpon>201609010315463_RemoveDifficultySlug.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -347,6 +360,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201608311438322_AddTags.resx">
       <DependentUpon>201608311438322_AddTags.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609010240413_NonNullableSessionDates.resx">
+      <DependentUpon>201609010240413_NonNullableSessionDates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609010300015_Difficulties.resx">
+      <DependentUpon>201609010300015_Difficulties.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609010315463_RemoveDifficultySlug.resx">
+      <DependentUpon>201609010315463_RemoveDifficultySlug.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
