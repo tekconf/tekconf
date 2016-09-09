@@ -4,7 +4,7 @@
     using System.Web.Mvc;
     using MediatR;
 
-    public class UiController : Controller
+    public class UiController : BaseController
     {
         private readonly IMediator _mediator;
 
@@ -17,7 +17,8 @@
         {
             var model = await _mediator.SendAsync(query);
 
-            return Json(model, JsonRequestBehavior.AllowGet);
+            return Result(model);
+            //return Json(model, JsonRequestBehavior.AllowGet);
         }
 
         public async Task<ActionResult> Details(Details.Query query)
