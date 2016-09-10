@@ -35,12 +35,18 @@ namespace TekConf.Api.Features.Conference
 
             if (string.IsNullOrEmpty(type))
             {
-                if (Request.IsAjaxRequest())
-                    type = Request.Headers["Accept"].Contains("application/json")
-                        ? "json"
-                        : "xml";
-                else
+
+                if (Request.Headers["Accept"].Contains("text/html"))
+                {
                     type = "html";
+                } else if (Request.Headers["Accept"].Contains("application/json"))
+                {
+                    type = "json";
+                } else if (Request.Headers["Accept"].Contains("application/xml"))
+                {
+                    type = "xml";
+                }
+                
             }
 
             return type;
