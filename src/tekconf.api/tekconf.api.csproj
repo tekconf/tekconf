@@ -127,6 +127,10 @@
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Web.Mvc, Version=5.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.Futures.5.0.0\lib\net40\Microsoft.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Mono.Reflection, Version=1.1.0.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
       <HintPath>..\packages\Mono.Reflection.1.1.0.0\lib\Mono.Reflection.dll</HintPath>
       <Private>True</Private>
@@ -155,7 +159,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
-    <Reference Include="System.Web.Optimization">
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
       <Private>True</Private>
     </Reference>
@@ -208,8 +212,8 @@
       <HintPath>..\packages\WebActivatorEx.2.1.0\lib\net40\WebActivatorEx.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -240,6 +244,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Helpers\DashRouteHandler.cs" />
+    <Compile Include="App_Helpers\HtmlHelperExtensions.cs" />
+    <Compile Include="App_Helpers\Settings.cs" />
+    <Compile Include="App_Helpers\StringExtensions.cs" />
+    <Compile Include="App_Helpers\UserManager.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
@@ -288,6 +298,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\ControllerExtensions.cs" />
+    <Compile Include="Infrastructure\UrlHelperExtensions.cs" />
+    <Compile Include="Infrastructure\LinkBuilder.cs" />
     <Compile Include="Infrastructure\FeatureViewLocationRazorViewEngine.cs" />
     <Compile Include="Infrastructure\XmlResult.cs" />
     <Compile Include="Infrastructure\CommandProcessing\CommandProcessingRegistry.cs" />
@@ -341,8 +354,127 @@
     <Content Include="App_Data\TekConf_log.ldf">
       <DependentUpon>TekConf.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\ajax\dashboard.html" />
+    <Content Include="Content\css\bootstrap.min.css" />
+    <Content Include="Content\css\font-awesome.min.css" />
+    <Content Include="Content\css\lockscreen.min.css" />
+    <Content Include="Content\css\smartadmin-production.min.css" />
+    <Content Include="Content\css\smartadmin-rtl.min.css" />
+    <Content Include="Content\css\smartadmin-skins.min.css" />
+    <Content Include="Content\css\your_style.css" />
+    <Content Include="Content\css\your_style.min.css" />
+    <Content Include="Content\fonts\fontawesome-webfont.svg" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Content\img\ajax-loader.gif" />
+    <Content Include="Content\img\alpha.png" />
+    <Content Include="Content\img\avatars\1.png" />
+    <Content Include="Content\img\avatars\2.png" />
+    <Content Include="Content\img\avatars\3.png" />
+    <Content Include="Content\img\avatars\4.png" />
+    <Content Include="Content\img\avatars\5.png" />
+    <Content Include="Content\img\avatars\copyright.txt" />
+    <Content Include="Content\img\avatars\female.png" />
+    <Content Include="Content\img\avatars\male.png" />
+    <Content Include="Content\img\avatars\sunny-big.png" />
+    <Content Include="Content\img\avatars\sunny.png" />
+    <Content Include="Content\img\blank.gif" />
+    <Content Include="Content\img\clear.png" />
+    <Content Include="Content\img\colorblind-friendly\pt1.png" />
+    <Content Include="Content\img\colorblind-friendly\pt2.png" />
+    <Content Include="Content\img\colorblind-friendly\pt3.png" />
+    <Content Include="Content\img\demo\64x64.png" />
+    <Content Include="Content\img\demo\basic.png" />
+    <Content Include="Content\img\demo\chat.png" />
+    <Content Include="Content\img\demo\copyright.txt" />
+    <Content Include="Content\img\demo\demo-smartbig-alert.png" />
+    <Content Include="Content\img\demo\demo-smartmedium-alert.png" />
+    <Content Include="Content\img\demo\demo-smartsmall-alert.png" />
+    <Content Include="Content\img\demo\hero.png" />
+    <Content Include="Content\img\demo\image-placeholder-64x64.png" />
+    <Content Include="Content\img\demo\iphoneview.png" />
+    <Content Include="Content\img\demo\m1.jpg" />
+    <Content Include="Content\img\demo\m2.jpg" />
+    <Content Include="Content\img\demo\m3.jpg" />
+    <Content Include="Content\img\demo\newsletter.png" />
+    <Content Include="Content\img\demo\responseimg.png" />
+    <Content Include="Content\img\demo\s1.jpg" />
+    <Content Include="Content\img\demo\s2.jpg" />
+    <Content Include="Content\img\demo\s3.jpg" />
+    <Content Include="Content\img\demo\sa-demo.png" />
+    <Content Include="Content\img\demo\sample.jpg" />
+    <Content Include="Content\img\demo\sidebar.png" />
+    <Content Include="Content\img\demo\sidebarhero.png" />
+    <Content Include="Content\img\demo\site-1.jpg" />
+    <Content Include="Content\img\demo\site-2.jpg" />
+    <Content Include="Content\img\demo\video.png" />
+    <Content Include="Content\img\demo\widget-colorpicker.png" />
+    <Content Include="Content\img\favicon\favicon.ico" />
+    <Content Include="Content\img\favicon\favicon.png" />
+    <Content Include="Content\img\flags\flags.png" />
+    <Content Include="Content\img\glass-image-copyright.txt" />
+    <Content Include="Content\img\glass.jpg" />
+    <Content Include="Content\img\gradient\login.png" />
+    <Content Include="Content\img\hue.png" />
+    <Content Include="Content\img\invoice\americanexpress.png" />
+    <Content Include="Content\img\invoice\license.txt" />
+    <Content Include="Content\img\invoice\mastercard.png" />
+    <Content Include="Content\img\invoice\paypal.png" />
+    <Content Include="Content\img\invoice\visa.png" />
+    <Content Include="Content\img\jcrop\Jcrop.gif" />
+    <Content Include="Content\img\loading.gif" />
+    <Content Include="Content\img\logo-blacknwhite.png" />
+    <Content Include="Content\img\logo-blue.png" />
+    <Content Include="Content\img\logo-o.png" />
+    <Content Include="Content\img\logo-pale.png" />
+    <Content Include="Content\img\logo-white.png" />
+    <Content Include="Content\img\logo.png" />
+    <Content Include="Content\img\mappin-default.png" />
+    <Content Include="Content\img\minus.png" />
+    <Content Include="Content\img\mybg.png" />
+    <Content Include="Content\img\pattern\divider.jpg" />
+    <Content Include="Content\img\pattern\graphy-xs.png" />
+    <Content Include="Content\img\pattern\graphy.png" />
+    <Content Include="Content\img\pattern\license-info.txt" />
+    <Content Include="Content\img\pattern\lightpaperfibers.png" />
+    <Content Include="Content\img\pattern\movable.png" />
+    <Content Include="Content\img\pattern\nistri-xs.png" />
+    <Content Include="Content\img\pattern\nistri.png" />
+    <Content Include="Content\img\pattern\overlay-pattern.png" />
+    <Content Include="Content\img\pattern\paper-xs.png" />
+    <Content Include="Content\img\pattern\paper.png" />
+    <Content Include="Content\img\pattern\pattern.png" />
+    <Content Include="Content\img\pattern\sneaker_mesh_fabric-xs.png" />
+    <Content Include="Content\img\pattern\sneaker_mesh_fabric.png" />
+    <Content Include="Content\img\pattern\tileable_wood_texture-xs.png" />
+    <Content Include="Content\img\pattern\tileable_wood_texture.png" />
+    <Content Include="Content\img\plus.png" />
+    <Content Include="Content\img\ribbon.png" />
+    <Content Include="Content\img\sa-dark.png" />
+    <Content Include="Content\img\sa-default.png" />
+    <Content Include="Content\img\saturation.png" />
+    <Content Include="Content\img\select2-spinner.gif" />
+    <Content Include="Content\img\sort_asc.png" />
+    <Content Include="Content\img\sort_asc_disabled.png" />
+    <Content Include="Content\img\sort_both.png" />
+    <Content Include="Content\img\sort_desc.png" />
+    <Content Include="Content\img\sort_desc_disabled.png" />
+    <Content Include="Content\img\splash\ipad-landscape.png" />
+    <Content Include="Content\img\splash\ipad-portrait.png" />
+    <Content Include="Content\img\splash\iphone.png" />
+    <Content Include="Content\img\splash\sptouch-icon-iphone.png" />
+    <Content Include="Content\img\splash\touch-icon-ipad-retina.png" />
+    <Content Include="Content\img\splash\touch-icon-ipad.png" />
+    <Content Include="Content\img\splash\touch-icon-iphone-retina.png" />
+    <Content Include="Content\img\vt-menu.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\app.config.seed.js" />
+    <Content Include="Scripts\app.config.seed.min.js" />
+    <Content Include="Scripts\app.seed.js" />
+    <Content Include="Scripts\app.seed.min.js" />
+    <Content Include="Scripts\bootstrap\bootstrap.min.js" />
+    <Content Include="Scripts\libs\jquery-2.1.1.min.js" />
+    <Content Include="Scripts\libs\jquery-ui-1.10.3.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -355,12 +487,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Xamarin.Web.University.Core\Xamarin.Web.University.Core.csproj">
-      <Project>{7f24fd2c-2553-4829-b233-9b1f684d804f}</Project>
-      <Name>Xamarin.Web.University.Core</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201608261916184_Initial.resx">
@@ -390,8 +516,32 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Features\Conference\Index.cshtml" />
-    <Content Include="Features\Web.config" />
+    <Content Include="Features\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\FontAwesome.otf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
     <None Include="Properties\PublishProfiles\tekconfapi - Web Deploy.pubxml" />
+    <Content Include="Scripts\app.config.seed.min.js.map" />
+    <Content Include="Scripts\app.seed.min.js.map" />
+    <Content Include="Scripts\libs\jquery-2.1.1.min.map" />
+    <Content Include="Features\_ViewStart.cshtml" />
+    <Content Include="Features\Shared\_Aside.cshtml" />
+    <Content Include="Features\Shared\_CurrentUser.cshtml" />
+    <Content Include="Features\Shared\_Footer.cshtml" />
+    <Content Include="Features\Shared\_Header.cshtml" />
+    <Content Include="Features\Shared\_Layout.cshtml" />
+    <Content Include="Features\Shared\_Ribbon.cshtml" />
+    <Content Include="Features\Shared\_Scripts.cshtml" />
+    <Content Include="Features\Shared\_TermsAndConditions.cshtml" />
+    <Content Include="Features\Shared\_Tiles.cshtml" />
+    <Content Include="Features\Shared\_TopRight.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
