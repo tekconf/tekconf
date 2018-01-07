@@ -9,7 +9,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+    <PackageReference Include="NWebsec.AspNetCore.Middleware" Version="1.1.0" />
   </ItemGroup>
 
   <ItemGroup>
