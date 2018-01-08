@@ -56,3 +56,6 @@ DesignTimeResolveAssemblyReferencesInput.cache
 !/packages/*
 !/.nuget/
 !/.nuget/*
+*.pubxml
+*.ide
+*.lock
