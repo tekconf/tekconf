@@ -1,11 +1,5 @@
 ﻿<Properties StartupConfiguration="{152D1186-9FA2-4341-A192-428142098185}|Default" NuGet.AddPackagesDialog.IncludePrerelease="True">
-  <MonoDevelop.Ide.Workbench ActiveDocument="tekconf.api/tekconf.api/Startup.cs">
-    <Files>
-      <File FileName="tekconf.api/tekconf.api/Controllers/ValuesController.cs" Line="17" Column="10" />
-      <File FileName="tekconf.api/tekconf.api/Startup.cs" Line="33" Column="21" />
-      <File FileName="tekconf.web/Startup.cs" Line="45" Column="18" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
@@ -13,5 +7,6 @@
   <MonoDevelop.Ide.ItemProperties.tekconf.web PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.Server.tekconf.api PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.ItemProperties.tekconf.api PreferredExecutionTarget="MonoDevelop.Default" />
 </Properties>
