@@ -23,6 +23,13 @@ namespace tekconf.api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(_hostingEnvironment.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{_hostingEnvironment.EnvironmentName}.json", optional: true, reloadOnChange: true);
+            builder.AddEnvironmentVariables();
+            var configuration = builder.Build();
+            var identityUrl = configuration["identityUrl"];
             services.AddMvcCore()
                 .AddAuthorization()
                 .AddJsonFormatters();
@@ -30,8 +37,7 @@ namespace tekconf.api
             services.AddAuthentication("Bearer")
                 .AddIdentityServerAuthentication(options =>
                 {
-                    //options.Authority = "http://localhost:5001";
-                    options.Authority = "https://tekconfidentity.azurewebsites.net";
+                    options.Authority = identityUrl;
                     options.RequireHttpsMetadata = false;
 
                     options.ApiName = "confArchApi";
@@ -50,6 +56,9 @@ namespace tekconf.api
                     o => o.Filters.Add(new RequireHttpsAttribute())
                 );
             }
+
+
+
             services.AddMvc();
         }
 

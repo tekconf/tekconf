@@ -28,6 +28,16 @@ namespace tekconf.web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(_hostingEnvironment.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{_hostingEnvironment.EnvironmentName}.json", optional: true, reloadOnChange: true);
+            builder.AddEnvironmentVariables();
+            var configuration = builder.Build();
+            var apiUrl = configuration["apiUrl"];
+            var identityUrl = configuration["identityUrl"];
+
             if (!_hostingEnvironment.IsDevelopment())
             {
                 services.Configure<MvcOptions>(
@@ -45,8 +55,7 @@ namespace tekconf.web
             .AddOpenIdConnect("oidc", b =>
             {
                 b.SignInScheme = "Cookies";
-                //b.Authority = "http://localhost:5001";
-                b.Authority = "https://tekconfidentity.azurewebsites.net";
+                b.Authority = identityUrl;
                 b.RequireHttpsMetadata = false;
 
                 b.ClientId = "confarchweb";
@@ -80,8 +89,7 @@ namespace tekconf.web
             services.AddTransient<AttendeeApiService>();
             services.AddSingleton(x => new HttpClient
             {
-                //BaseAddress = new Uri("http://localhost:54439")
-                BaseAddress = new Uri("http://tekconfapi.azurewebsites.net")
+                BaseAddress = new Uri(apiUrl)
             });
         }
 

@@ -36,7 +36,7 @@ namespace TekConf.Identity
         }
 
         // clients want to access resources (aka scopes)
-        public static IEnumerable<Client> GetClients()
+        public static IEnumerable<Client> GetClients(string webUrl)
         {
             // client credentials client
             return new List<Client>
@@ -63,11 +63,8 @@ namespace TekConf.Identity
                         new Secret("secret".Sha256())
                     },
 
-                    //RedirectUris = {"http://localhost:51706/signin-oidc"},
-                    RedirectUris = {"https://tekconfweb.azurewebsites.net/signin-oidc"},
-
-                    PostLogoutRedirectUris = {"https://tekconfweb.azurewebsites.net"},
-                    //PostLogoutRedirectUris = {"http://localhost:51706"},
+                    RedirectUris = {$"{webUrl}/signin-oidc"},
+                    PostLogoutRedirectUris = {webUrl},
 
                     AllowedScopes =
                     {

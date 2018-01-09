@@ -17,13 +17,26 @@ namespace tekconf.api
             BuildWebHost(args).Run();
         }
 
-        public static IWebHost BuildWebHost(string[] args) => WebHost.CreateDefaultBuilder(args)
-                            .UseKestrel()
-                            .UseContentRoot(Directory.GetCurrentDirectory())
-                            .UseIISIntegration()
-                            //.UseUrls("http://localhost:54439")
-                            .UseUrls("http://tekconfapi.azurewebsites.net")
-                            .UseStartup<Startup>()
-                            .Build();
+        public static IWebHost BuildWebHost(string[] args)
+        {
+            var host = new WebHostBuilder();
+            var env = host.GetSetting("environment");
+
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env}.json", optional: true, reloadOnChange: true);
+            builder.AddEnvironmentVariables();
+            var configuration = builder.Build();
+            var apiUrl = configuration["apiUrl"];
+
+            return WebHost.CreateDefaultBuilder(args)
+                .UseKestrel()
+                .UseContentRoot(Directory.GetCurrentDirectory())
+                .UseIISIntegration()
+                .UseUrls(apiUrl)
+                .UseStartup<Startup>()
+                .Build();
+        }
     }
 }
