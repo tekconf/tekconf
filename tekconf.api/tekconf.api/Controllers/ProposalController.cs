@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using tekconf.api.Models;
+using tekconf.shared.Models;
 using tekconf.api.Repositories;
 
 namespace tekconf.api.Controllers

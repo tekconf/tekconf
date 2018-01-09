@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using tekconf.api.Models;
+using tekconf.shared.Models;
 
 namespace tekconf.api.Repositories
 {

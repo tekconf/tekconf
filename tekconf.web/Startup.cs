@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,6 +19,7 @@ namespace tekconf.web
         {
             Configuration = configuration;
             _hostingEnvironment = hostingEnvironment;
+
         }
 
         public IConfiguration Configuration { get; }
@@ -41,11 +42,6 @@ namespace tekconf.web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
-                {
-                    HotModuleReplacement = true,
-                    ReactHotModuleReplacement = true
-                });
             }
             else
             {
@@ -53,7 +49,6 @@ namespace tekconf.web
             }
 
             app.UseStaticFiles();
-
             if (!_hostingEnvironment.IsDevelopment())
             {
                 app.UseHsts(h => h.MaxAge(days: 365));
@@ -67,10 +62,6 @@ namespace tekconf.web
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
-
-                routes.MapSpaFallbackRoute(
-                    name: "spa-fallback",
-                    defaults: new { controller = "Home", action = "Index" });
             });
         }
     }

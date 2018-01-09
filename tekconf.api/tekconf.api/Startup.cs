@@ -30,7 +30,8 @@ namespace tekconf.api
             services.AddAuthentication("Bearer")
                 .AddIdentityServerAuthentication(options =>
                 {
-                    options.Authority = "http://localhost:5001";
+                    //options.Authority = "http://localhost:5001";
+                    options.Authority = "https://tekconfidentity.azurewebsites.net";
                     options.RequireHttpsMetadata = false;
 
                     options.ApiName = "confArchApi";
