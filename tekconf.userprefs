@@ -1,5 +1,10 @@
 ﻿<Properties StartupConfiguration="{152D1186-9FA2-4341-A192-428142098185}|Default" NuGet.AddPackagesDialog.IncludePrerelease="True">
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="tekconf.identity/Config.cs">
+    <Files>
+      <File FileName="tekconf.web/Startup.cs" Line="115" Column="10" />
+      <File FileName="tekconf.identity/Config.cs" Line="66" Column="32" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>

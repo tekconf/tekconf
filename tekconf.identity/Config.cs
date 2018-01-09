@@ -63,8 +63,11 @@ namespace TekConf.Identity
                         new Secret("secret".Sha256())
                     },
 
+                    //RedirectUris = {"http://localhost:51706/signin-oidc"},
                     RedirectUris = {"http://localhost:51706/signin-oidc"},
+
                     PostLogoutRedirectUris = {"http://localhost:51706"},
+                    //PostLogoutRedirectUris = {"http://localhost:51706"},
 
                     AllowedScopes =
                     {
