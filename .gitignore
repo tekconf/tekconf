@@ -59,3 +59,5 @@ DesignTimeResolveAssemblyReferencesInput.cache
 *.pubxml
 *.ide
 *.lock
+*.ide-wal
+*.ide-shm

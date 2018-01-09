@@ -64,9 +64,9 @@ namespace TekConf.Identity
                     },
 
                     //RedirectUris = {"http://localhost:51706/signin-oidc"},
-                    RedirectUris = {"http://localhost:51706/signin-oidc"},
+                    RedirectUris = {"https://tekconfweb.azurewebsites.net/signin-oidc"},
 
-                    PostLogoutRedirectUris = {"http://localhost:51706"},
+                    PostLogoutRedirectUris = {"https://tekconfweb.azurewebsites.net"},
                     //PostLogoutRedirectUris = {"http://localhost:51706"},
 
                     AllowedScopes =

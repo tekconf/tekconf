@@ -96,7 +96,7 @@ namespace tekconf.web
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-
+            app.UseAuthentication();
             app.UseStaticFiles();
             if (!_hostingEnvironment.IsDevelopment())
             {

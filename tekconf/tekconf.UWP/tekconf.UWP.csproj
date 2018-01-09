@@ -151,12 +151,6 @@
     <PackageReference Include="Xamarin.Forms" Version="2.5.0.121934" />
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.0.1" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\tekconf\tekconf.csproj">
-      <Project>{FA486097-ADE6-49BB-8672-FEC57DC7FC30}</Project>
-      <Name>tekconf</Name>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
