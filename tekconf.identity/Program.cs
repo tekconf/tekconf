@@ -18,7 +18,8 @@ namespace TekConf.Identity
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseUrls("http://*:5001")
+                //.UseUrls("http://*:5001")
+                .UseUrls("https://tekconfidentity.azurewebsites.net")
                 .UseStartup<Startup>()
                 .Build();
     }

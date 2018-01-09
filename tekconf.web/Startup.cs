@@ -1,13 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System.Net.Http;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using tekconf.web.Authorization;
+using tekconf.web.Api;
 
 namespace tekconf.web
 {
@@ -34,6 +35,54 @@ namespace tekconf.web
                 );
             }
             services.AddMvc();
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = "Cookies";
+                options.DefaultChallengeScheme = "oidc";
+            })
+            .AddCookie("Cookies")
+            .AddOpenIdConnect("oidc", b =>
+            {
+                b.SignInScheme = "Cookies";
+                //b.Authority = "http://localhost:5001";
+                b.Authority = "https://tekconfidentity.azurewebsites.net";
+                b.RequireHttpsMetadata = false;
+
+                b.ClientId = "confarchweb";
+                b.ClientSecret = "secret";
+
+                b.ResponseType = "code id_token";
+                b.Scope.Add("confArchApi");
+                b.Scope.Add("roles");
+                b.Scope.Add("experience");
+                b.SaveTokens = true;
+            });
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("OrganizerAccessPolicy", policy => policy.RequireRole("organizer"));
+
+                options.AddPolicy("SpeakerAccessPolicy",
+                    policy => policy.RequireAssertion(context => context.User.IsInRole("speaker")));
+
+                options.AddPolicy("YearsOfExperiencePolicy",
+                    policy => policy.AddRequirements(new YearsOfExperienceRequirement(6)));
+
+                options.AddPolicy("ProposalEditPolicy",
+                    policy => policy.AddRequirements(new ProposalRequirement(false)));
+
+            });
+
+            services.AddSingleton<IAuthorizationHandler, YearsOfExperienceAuthorizationHandler>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddTransient<ConferenceApiService>();
+            services.AddTransient<ProposalApiService>();
+            services.AddTransient<AttendeeApiService>();
+            services.AddSingleton(x => new HttpClient
+            {
+                //BaseAddress = new Uri("http://localhost:54439")
+                BaseAddress = new Uri("http://tekconfapi.azurewebsites.net")
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

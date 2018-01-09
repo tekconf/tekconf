@@ -21,7 +21,8 @@ namespace tekconf.api
                             .UseKestrel()
                             .UseContentRoot(Directory.GetCurrentDirectory())
                             .UseIISIntegration()
-                            .UseUrls("http://localhost:54439")
+                            //.UseUrls("http://localhost:54439")
+                            .UseUrls("http://tekconfapi.azurewebsites.net")
                             .UseStartup<Startup>()
                             .Build();
     }

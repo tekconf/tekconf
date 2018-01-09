@@ -38,7 +38,9 @@ namespace tekconf.cli
             var client = new HttpClient();
             client.SetBearerToken(tokenResponse.AccessToken);
 
-            var response = await client.PostAsync("http://localhost:54439/Attendee/Post/1/Roland", null);
+            
+            var response = await client.PostAsync("https://tekconfapi.azurewebsites.net/Attendee/Post/1/Roland", null);
+            //var response = await client.PostAsync("http://localhost:54439/Attendee/Post/1/Roland", null);
             if (!response.IsSuccessStatusCode)
             {
                 Console.WriteLine(response.StatusCode);
