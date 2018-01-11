@@ -19,8 +19,8 @@ namespace TekConf.Identity
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile(),
                 new IdentityResources.Email(),
-                new IdentityResource("roles", new[] {"role"}),
-                new IdentityResource("experience", new[] {"yearsofexperience"})
+                //new IdentityResource("roles", new[] {"role"}),
+                //new IdentityResource("experience", new[] {"yearsofexperience"})
             };
         }
 
@@ -31,7 +31,7 @@ namespace TekConf.Identity
 
             return new List<ApiResource>
             {
-                api
+                //api
             };
         }
 
@@ -91,10 +91,10 @@ namespace TekConf.Identity
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         IdentityServerConstants.StandardScopes.Email,
-                        IdentityServerConstants.StandardScopes.OfflineAccess,
-                        "tekconfApi",
-                        "roles",
-                        "experience"
+                        //IdentityServerConstants.StandardScopes.OfflineAccess,
+                        //"tekconfApi",
+                        //"roles",
+                        //"experience"
                     },
                     AllowedGrantTypes = GrantTypes.Hybrid,
                     AlwaysIncludeUserClaimsInIdToken = true

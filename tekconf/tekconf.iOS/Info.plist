@@ -52,5 +52,33 @@
 	<string>tekconf</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>tekconfmobile</string>
+			</array>
+		</dict>
+	</array>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+	  <key>NSExceptionDomains</key>
+	  <dict>
+		<key>192.168.110.227</key>
+		<dict>
+		  <!--Include to allow subdomains-->
+		  <key>NSIncludesSubdomains</key>
+		  <true/>
+		  <!--Include to allow HTTP requests-->
+		  <key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+		  <true/>
+		  <!--Include to specify minimum TLS version-->
+		  <key>NSTemporaryExceptionMinimumTLSVersion</key>
+		  <string>TLSv1.1</string>
+		</dict>
+	  </dict>
+	</dict>	
+	
 </dict>
 </plist>

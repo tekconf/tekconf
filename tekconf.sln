@@ -3,21 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.10
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tekconf.api", "tekconf.api\tekconf.api\tekconf.api.csproj", "{152D1186-9FA2-4341-A192-428142098185}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tekconf.api", "tekconf.api\tekconf.api\tekconf.api.csproj", "{152D1186-9FA2-4341-A192-428142098185}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{1A08B74D-AD94-4A11-B5AD-C9FB2E3A9180}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{8B038F2C-C14D-4EB3-9F01-36394A75A62C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tekconf.identity", "tekconf.identity\tekconf.identity.csproj", "{DFEA3490-8A41-4748-AC59-07E147D07EFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tekconf.identity", "tekconf.identity\tekconf.identity.csproj", "{DFEA3490-8A41-4748-AC59-07E147D07EFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tekconf.web", "tekconf.web\tekconf.web.csproj", "{0BF2204A-35F9-46A2-A23C-5B5598C18569}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tekconf.web", "tekconf.web\tekconf.web.csproj", "{0BF2204A-35F9-46A2-A23C-5B5598C18569}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tekconf.shared", "tekconf.shared\tekconf.shared.csproj", "{DA73EF5D-B830-421A-86B7-57C5FC68FA84}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tekconf.shared", "tekconf.shared\tekconf.shared.csproj", "{DA73EF5D-B830-421A-86B7-57C5FC68FA84}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tekconf.cli", "tekconf.cli\tekconf.cli.csproj", "{E0FFF7F6-49C6-4C0C-80A1-8C785B137AA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tekconf.cli", "tekconf.cli\tekconf.cli.csproj", "{E0FFF7F6-49C6-4C0C-80A1-8C785B137AA8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tekconf", "tekconf\tekconf\tekconf.csproj", "{93890DD7-CBAF-4DCE-828D-DC8B9FC1CC8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tekconf", "tekconf\tekconf\tekconf.csproj", "{93890DD7-CBAF-4DCE-828D-DC8B9FC1CC8C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tekconf.iOS", "tekconf\tekconf.iOS\tekconf.iOS.csproj", "{F483F72D-857A-4E12-AC33-403CE0D9C8A5}"
 EndProject

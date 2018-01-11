@@ -13,10 +13,12 @@ namespace tekconf
 {
 	public partial class MainPage : ContentPage
 	{
-        OidcClient _client;
-        LoginResult _result;
+	    private readonly OidcClient _client;
+	    private LoginResult _result;
 
-        Lazy<HttpClient> _apiClient = new Lazy<HttpClient>(() => new HttpClient());
+	    private readonly Lazy<HttpClient> _apiClient = new Lazy<HttpClient>(() => new HttpClient());
+	    private readonly string _tekconfApiUrl = "https://tekconfapi.azurewebsites.net/";
+	    private readonly string _tekconfIdentityUrl = "https://tekconfidentity.azurewebsites.net";
 
         public MainPage()
         {
@@ -29,11 +31,14 @@ namespace tekconf
 
             var options = new OidcClientOptions
             {
-                Authority = "https://tekconfidentity.azurewebsites.net",
+                Authority = _tekconfIdentityUrl,
                 ClientId = "com.arteksoftware.tekconf",
-                Scope = "openid profile email tekconfApi roles experience offline_access",
+                //Scope = "openid profile email tekconfApi roles experience offline_access",
+                //Scope = "openid profile email tekconfApi roles experience",
+                Scope = "openid profile email",
                 RedirectUri = "tekconfmobile://callback",
                 Browser = browser,
+                //Flow = OidcClientOptions.AuthenticationFlow.Hybrid,
 
                 ResponseMode = OidcClientOptions.AuthorizeResponseMode.Redirect
             };
@@ -63,7 +68,7 @@ namespace tekconf
             OutputText.Text = sb.ToString();
 
             _apiClient.Value.SetBearerToken(_result?.AccessToken ?? "");
-            _apiClient.Value.BaseAddress = new Uri("https://tekconfapi.azurewebsites.net/");
+            _apiClient.Value.BaseAddress = new Uri(_tekconfApiUrl);
 
         }
 
