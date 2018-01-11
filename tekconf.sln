@@ -3,23 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.10
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tekconf.api", "tekconf.api\tekconf.api\tekconf.api.csproj", "{152D1186-9FA2-4341-A192-428142098185}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tekconf.api", "tekconf.api\tekconf.api\tekconf.api.csproj", "{152D1186-9FA2-4341-A192-428142098185}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{1A08B74D-AD94-4A11-B5AD-C9FB2E3A9180}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{8B038F2C-C14D-4EB3-9F01-36394A75A62C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tekconf.identity", "tekconf.identity\tekconf.identity.csproj", "{DFEA3490-8A41-4748-AC59-07E147D07EFE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tekconf.identity", "tekconf.identity\tekconf.identity.csproj", "{DFEA3490-8A41-4748-AC59-07E147D07EFE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tekconf.web", "tekconf.web\tekconf.web.csproj", "{0BF2204A-35F9-46A2-A23C-5B5598C18569}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tekconf.web", "tekconf.web\tekconf.web.csproj", "{0BF2204A-35F9-46A2-A23C-5B5598C18569}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tekconf.shared", "tekconf.shared\tekconf.shared.csproj", "{DA73EF5D-B830-421A-86B7-57C5FC68FA84}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tekconf.shared", "tekconf.shared\tekconf.shared.csproj", "{DA73EF5D-B830-421A-86B7-57C5FC68FA84}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tekconf.cli", "tekconf.cli\tekconf.cli.csproj", "{E0FFF7F6-49C6-4C0C-80A1-8C785B137AA8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tekconf.cli", "tekconf.cli\tekconf.cli.csproj", "{E0FFF7F6-49C6-4C0C-80A1-8C785B137AA8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "tekconf", "tekconf\tekconf\tekconf.csproj", "{93890DD7-CBAF-4DCE-828D-DC8B9FC1CC8C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tekconf", "tekconf\tekconf\tekconf.csproj", "{93890DD7-CBAF-4DCE-828D-DC8B9FC1CC8C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tekconf.iOS", "tekconf\tekconf.iOS\tekconf.iOS.csproj", "{F483F72D-857A-4E12-AC33-403CE0D9C8A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tekconf.droid", "tekconf\tekconf.droid\tekconf.droid.csproj", "{C866031E-E421-4CAC-A1ED-D5B589BBD350}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -385,6 +387,54 @@ Global
 		{F483F72D-857A-4E12-AC33-403CE0D9C8A5}.Release|x64.Build.0 = Release|iPhoneSimulator
 		{F483F72D-857A-4E12-AC33-403CE0D9C8A5}.Release|x86.ActiveCfg = Release|iPhoneSimulator
 		{F483F72D-857A-4E12-AC33-403CE0D9C8A5}.Release|x86.Build.0 = Release|iPhoneSimulator
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.Ad-Hoc|Any CPU.ActiveCfg = Release|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.Ad-Hoc|Any CPU.Build.0 = Release|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.Ad-Hoc|ARM.ActiveCfg = Release|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.Ad-Hoc|ARM.Build.0 = Release|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.Ad-Hoc|iPhone.Build.0 = Release|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.Ad-Hoc|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.Ad-Hoc|x64.ActiveCfg = Release|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.Ad-Hoc|x64.Build.0 = Release|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.Ad-Hoc|x86.ActiveCfg = Release|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.Ad-Hoc|x86.Build.0 = Release|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.AppStore|Any CPU.ActiveCfg = Release|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.AppStore|Any CPU.Build.0 = Release|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.AppStore|ARM.ActiveCfg = Release|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.AppStore|ARM.Build.0 = Release|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.AppStore|iPhone.ActiveCfg = Release|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.AppStore|iPhone.Build.0 = Release|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.AppStore|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.AppStore|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.AppStore|x64.ActiveCfg = Release|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.AppStore|x64.Build.0 = Release|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.AppStore|x86.ActiveCfg = Release|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.AppStore|x86.Build.0 = Release|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.Debug|ARM.Build.0 = Debug|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.Debug|x64.Build.0 = Debug|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.Debug|x86.Build.0 = Debug|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.Release|ARM.ActiveCfg = Release|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.Release|ARM.Build.0 = Release|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.Release|iPhone.Build.0 = Release|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.Release|x64.ActiveCfg = Release|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.Release|x64.Build.0 = Release|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.Release|x86.ActiveCfg = Release|Any CPU
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -396,6 +446,7 @@ Global
 		{DA73EF5D-B830-421A-86B7-57C5FC68FA84} = {1A08B74D-AD94-4A11-B5AD-C9FB2E3A9180}
 		{93890DD7-CBAF-4DCE-828D-DC8B9FC1CC8C} = {8B038F2C-C14D-4EB3-9F01-36394A75A62C}
 		{F483F72D-857A-4E12-AC33-403CE0D9C8A5} = {8B038F2C-C14D-4EB3-9F01-36394A75A62C}
+		{C866031E-E421-4CAC-A1ED-D5B589BBD350} = {8B038F2C-C14D-4EB3-9F01-36394A75A62C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F6D05029-56B8-4E45-AF2D-0E76295DDBA2}

@@ -61,3 +61,6 @@ DesignTimeResolveAssemblyReferencesInput.cache
 *.lock
 *.ide-wal
 *.ide-shm
+.vs/tekconf/xs/UserPrefs.xml
+*.db
+*.db
