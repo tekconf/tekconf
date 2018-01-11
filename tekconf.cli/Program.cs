@@ -22,7 +22,7 @@ namespace tekconf.cli
 
             // request token
             var tokenResponse =
-                await tokenClient.RequestClientCredentialsAsync("confArchApi confArchApiPostAttendee");
+                await tokenClient.RequestClientCredentialsAsync("tekconfApi tekconfApiPostAttendee");
 
             if (tokenResponse.IsError)
             {

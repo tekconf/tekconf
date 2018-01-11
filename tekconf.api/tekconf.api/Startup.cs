@@ -40,7 +40,7 @@ namespace tekconf.api
                     options.Authority = identityUrl;
                     options.RequireHttpsMetadata = false;
 
-                    options.ApiName = "confArchApi";
+                    options.ApiName = "tekconfApi";
                 });
 
             services.AddSingleton<AttendeeRepo>();
@@ -48,7 +48,7 @@ namespace tekconf.api
             services.AddSingleton<ProposalRepo>();
 
             services.AddAuthorization(o => o.AddPolicy("PostAttendee",
-                p => p.RequireClaim("scope", "confArchApiPostAttendee")));
+            p => p.RequireClaim("scope", "tekconfApiPostAttendee")));
 
             if (!_hostingEnvironment.IsDevelopment())
             {

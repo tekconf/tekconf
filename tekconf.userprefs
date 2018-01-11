@@ -1,8 +1,11 @@
-﻿<Properties StartupConfiguration="{152D1186-9FA2-4341-A192-428142098185}|Default" NuGet.AddPackagesDialog.IncludePrerelease="True">
-  <MonoDevelop.Ide.Workbench ActiveDocument="tekconf.identity/Config.cs">
+﻿<Properties StartupConfiguration="{F483F72D-857A-4E12-AC33-403CE0D9C8A5}|Default" NuGet.AddPackagesDialog.IncludePrerelease="True">
+  <MonoDevelop.Ide.Workbench ActiveDocument="tekconf/tekconf/MainPage.xaml.cs">
     <Files>
-      <File FileName="tekconf.web/Startup.cs" Line="115" Column="10" />
-      <File FileName="tekconf.identity/Config.cs" Line="66" Column="32" />
+      <File FileName="tekconf.identity/Config.cs" Line="29" Column="61" />
+      <File FileName="tekconf/tekconf/MainPage.xaml.cs" Line="32" Column="19" />
+      <File FileName="tekconf.cli/Program.cs" Line="25" Column="78" />
+      <File FileName="tekconf.api/tekconf.api/Startup.cs" Line="51" Column="13" />
+      <File FileName="tekconf.web/Startup.cs" Line="47" Column="31" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
@@ -16,6 +19,7 @@
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.ItemProperties.tekconf.web PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.Clients.tekconf.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.BA1A6CD5-E7B2-4FB4-AA63-0FDA9323E1CA" automaticSigning="False" />
   <MonoDevelop.Ide.ItemProperties.Server.tekconf.web PreferredExecutionTarget="MonoDevelop.Default" />
   <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.ItemProperties.Server.tekconf.api PreferredExecutionTarget="MonoDevelop.Default" />

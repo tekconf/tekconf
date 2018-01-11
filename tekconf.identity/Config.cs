@@ -26,8 +26,8 @@ namespace TekConf.Identity
 
         public static IEnumerable<ApiResource> GetApiResources()
         {
-            var api = new ApiResource("confArchApi", "ConfArch API");
-            api.Scopes.Add(new Scope("confArchApiPostAttendee"));
+            var api = new ApiResource("tekconfApi", "TekConf API");
+            api.Scopes.Add(new Scope("tekconfApiPostAttendee"));
 
             return new List<ApiResource>
             {
@@ -49,14 +49,14 @@ namespace TekConf.Identity
                     {
                         new Secret("secret".Sha256())
                     },
-                    AllowedScopes = {"confArchApi", "confArchApiPostAttendee"},
+                    AllowedScopes = {"tekconfApi", "tekconfApiPostAttendee"},
                     AllowedGrantTypes = GrantTypes.ClientCredentials
                 },
 
                 new Client
                 {
-                    ClientId = "confarchweb",
-                    ClientName = "ConfArch MVC Client",
+                    ClientId = "tekconfweb",
+                    ClientName = "TekConf MVC Client",
 
                     ClientSecrets =
                     {
@@ -70,7 +70,29 @@ namespace TekConf.Identity
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
-                        "confArchApi",
+                        "tekconfApi",
+                        "roles",
+                        "experience"
+                    },
+                    AllowedGrantTypes = GrantTypes.Hybrid,
+                    AlwaysIncludeUserClaimsInIdToken = true
+                },
+
+                new Client
+                {
+                    ClientId = "com.arteksoftware.tekconf",
+                    ClientName = "TekConf Mobile App",
+
+                    RedirectUris = {"tekconfmobile://callback"},
+                    PostLogoutRedirectUris = {"tekconfmobile://callback"},
+
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.Email,
+                        IdentityServerConstants.StandardScopes.OfflineAccess,
+                        "tekconfApi",
                         "roles",
                         "experience"
                     },

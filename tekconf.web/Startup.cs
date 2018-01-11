@@ -58,11 +58,11 @@ namespace tekconf.web
                 b.Authority = identityUrl;
                 b.RequireHttpsMetadata = false;
 
-                b.ClientId = "confarchweb";
+                b.ClientId = "tekconfweb";
                 b.ClientSecret = "secret";
 
                 b.ResponseType = "code id_token";
-                b.Scope.Add("confArchApi");
+                b.Scope.Add("tekconfApi");
                 b.Scope.Add("roles");
                 b.Scope.Add("experience");
                 b.SaveTokens = true;
